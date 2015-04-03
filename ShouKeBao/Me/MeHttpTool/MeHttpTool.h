@@ -50,4 +50,9 @@
  */
 + (void)setPasswordWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
+/**
+ *  取消收藏
+ */
++ (void)cancelFavouriteWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
 @end

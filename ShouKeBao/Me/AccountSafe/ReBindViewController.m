@@ -8,8 +8,13 @@
 
 #import "ReBindViewController.h"
 #import "ResultViewController.h"
+#import "UserInfo.h"
+#import "LoginTool.h"
 
 @interface ReBindViewController ()
+
+@property (weak, nonatomic) IBOutlet UITextField *setPhone;
+
 
 @end
 
@@ -42,19 +47,29 @@
 - (void)next:(UIButton *)btn
 {
     
+
 }
 
 // 获取验证码
 - (IBAction)getValidateCode:(UIButton *)sender
 {
+    NSDictionary *param = @{@"Mobile" :self.setPhone.text};
     
+    [LoginTool getCodeWithParam:param success:^(id json) {
+        NSLog(@"---%@",json);
+    } failure:^(NSError *error) {
+        
+    }];
 }
-
 
 // 头部文字
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    return @"hello";
+    if ([[UserInfo shareUser].loginType integerValue] == 1) {
+        return @"当前未绑定手机\n绑定手机后,下次登录可以使用新手机号码登录";
+    }else{
+        return @"当前绑定手机为18767155187\n更改手机后,下次登录可以使用新手机号码登录";
+    }
 }
 
 @end

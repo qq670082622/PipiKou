@@ -11,34 +11,10 @@
 
 @interface ProductCell()
 
-@property (weak, nonatomic) UILabel *title;
-@property (weak, nonatomic) UIImageView *icon;
-@property (weak, nonatomic) UILabel *productNum;
-@property (weak, nonatomic) UILabel *normalPrice;
-@property (weak, nonatomic) UILabel *cheapPrice;
-@property (weak, nonatomic) UILabel *profits;
-
-@property (weak, nonatomic) UIButton *jiafanBtn;
-@property (weak, nonatomic) UIButton *quanBtn;
-@property (weak, nonatomic) UIButton *ShanDianBtn;
-
-@property (nonatomic,weak) UIImageView *flash;
-
-@property (nonatomic,assign) BOOL isFlash;
-
 @end
 
 @implementation ProductCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
-}
 + (instancetype)cellWithTableView:(UITableView *)tableView
 { static NSString *cellID = @"productCell";
     ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];

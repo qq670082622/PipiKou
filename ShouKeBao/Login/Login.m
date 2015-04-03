@@ -42,10 +42,10 @@
     // 设置底部按钮
     [self setupFooter];
     
-    self.accountField.text = @"lxstest";
-    self.passwordField.text = @"123456";
-//    self.accountField.text = @"18767155187";
-//    self.passwordField.text = @"222222";
+//    self.accountField.text = @"lxstest";
+//    self.passwordField.text = @"123456";
+    self.accountField.text = @"18767155187";
+    self.passwordField.text = @"222222";
 }
 
 - (void)viewWillAppear:(BOOL)animated

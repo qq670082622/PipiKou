@@ -12,6 +12,12 @@
 
 @interface ModifyPwdViewController ()
 
+@property (weak, nonatomic) IBOutlet UITextField *oldPassword;
+
+@property (weak, nonatomic) IBOutlet UITextField *setPassword;
+
+@property (weak, nonatomic) IBOutlet UITextField *comfirmPassword;
+
 @end
 
 @implementation ModifyPwdViewController
@@ -40,7 +46,8 @@
 
 - (void)next:(UIButton *)sender
 {
-    NSDictionary *param = @{};
+    NSDictionary *param = @{@"OldPassword":self.oldPassword.text,
+                            @"NewPassword":self.comfirmPassword.text};
     [MeHttpTool setPasswordWithParam:param success:^(id json) {
         if (json) {
             NSLog(@"------%@",json);

@@ -15,10 +15,24 @@
 @class ProductModal;
 @interface ProductCell : MGSwipeTableCell
 
+@property (weak, nonatomic) UILabel *title;
+@property (weak, nonatomic) UIImageView *icon;
+@property (weak, nonatomic) UILabel *productNum;
+@property (weak, nonatomic) UILabel *normalPrice;
+@property (weak, nonatomic) UILabel *cheapPrice;
+@property (weak, nonatomic) UILabel *profits;
 
+@property (weak, nonatomic) UIButton *jiafanBtn;
+@property (weak, nonatomic) UIButton *quanBtn;
+@property (weak, nonatomic) UIButton *ShanDianBtn;
+
+@property (nonatomic,weak) UIImageView *flash;
+
+@property (nonatomic,assign) BOOL isFlash;
 
 
 @property (strong, nonatomic) ProductModal *modal;
+
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 

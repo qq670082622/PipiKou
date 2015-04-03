@@ -10,10 +10,18 @@
 #import "ProductCell.h"
 #import "MGSwipeButton.h"
 #import "MeHttpTool.h"
+#import "MJRefresh.h"
+#import "ProductModal.h"
+#import "ProductHistoryCell.h"
+#import "MBProgressHUD+MJ.h"
+
+#define pageSize 10
 
 @interface MyListViewController ()<MGSwipeTableCellDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
+
+@property (nonatomic,assign) NSInteger pageIndex;
 
 @end
 
@@ -22,23 +30,41 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [self loadDataSource];
+    self.tableView.rowHeight = 160;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.tableFooterView = [[UIView alloc] init];
+    [self iniHeader];
+    
+    [self.tableView headerBeginRefreshing];
 }
 
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {
-    NSDictionary *param = @{};
+    NSDictionary *param = @{@"PageSize":[NSString stringWithFormat:@"%d",pageSize],
+                            @"PageIndex":[NSString stringWithFormat:@"%d",self.pageIndex]};
     if (self.listType == collectionType) {
         [MeHttpTool getFavoritesProductListWithParam:param success:^(id json) {
+            [self.tableView headerEndRefreshing];
+            [self.tableView footerEndRefreshing];
             if (json) {
                 NSLog(@"-----%@",json);
+                if (self.pageIndex == 1) {
+                    [self.dataSource removeAllObjects];
+                }
+                for (NSDictionary *dic in json[@"ProductList"]) {
+                    ProductModal *model = [ProductModal modalWithDict:dic];
+                    [self.dataSource addObject:model];
+                }
+                [self.tableView reloadData];
             }
         } failure:^(NSError *error) {
             
         }];
     }else{
         [MeHttpTool getHistoryProductListWithParam:param success:^(id json) {
+            [self.tableView headerEndRefreshing];
+            [self.tableView footerEndRefreshing];
             if (json) {
                 NSLog(@"-----%@",json);
             }
@@ -58,6 +84,31 @@
 }
 
 #pragma mark - private
+-(void)iniHeader
+{    //下啦刷新
+    [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
+    
+    //上啦刷新
+    [self.tableView addFooterWithTarget:self action:@selector(footRefresh)];
+    //设置文字
+    self.tableView.headerPullToRefreshText = @"下拉刷新";
+    self.tableView.headerRefreshingText = @"正在刷新中";
+    
+    self.tableView.footerPullToRefreshText = @"上拉刷新";
+    self.tableView.footerRefreshingText = @"正在刷新";
+}
+
+-(void)headRefresh
+{
+    self.pageIndex = 1;
+    [self loadDataSource];
+}
+-(void)footRefresh
+{
+    self.pageIndex ++;
+    [self loadDataSource];
+}
+
 // 右边滑动的按钮
 - (NSArray *)createRightButtons:(ProductModal *)model
 {
@@ -103,44 +154,68 @@
 // 收藏按钮点击
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
-//    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-//    NSLog(@"------%@",indexPath);
-//    
-//    ProductModal *model = self.dataSource[indexPath.row];
-//    NSString *result = [model.IsFavorites isEqualToString:@"0"]?@"1":@"0";
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:model.ID forKey:@"ProductID"];
-//    [dic setObject:result forKey:@"IsFavorites"];///Product/ SetProductFavorites
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+
+    ProductModal *model = self.dataSource[indexPath.row];
+    NSDictionary *param = @{@"ProductID":model.ID,
+                            @"IsFavorites":@"0"};
+    [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
+    [MeHttpTool cancelFavouriteWithParam:param success:^(id json) {
+        NSLog(@"-----%@",json);
+        [MBProgressHUD hideAllHUDsForView:self.view.window animated:YES];
+        if ([json[@"IsSuccess"] integerValue] == 1) {
+            [self.dataSource removeObjectAtIndex:indexPath.row];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
     
     return YES;
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return 1;
-}
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ProductCell *cell = [ProductCell cellWithTableView:tableView];
-    cell.delegate = self;
     
-    cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-    
-//    cell.rightButtons = [self createRightButtons:model];
-    
-    return cell;
+    if (self.listType == collectionType) {
+        ProductCell *cell = [ProductCell cellWithTableView:tableView];
+        cell.delegate = self;
+        
+        ProductModal *model = self.dataSource[indexPath.section];
+        cell.modal = model;
+        
+        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+        cell.rightButtons = [self createRightButtons:model];
+        
+        return cell;
+        
+    }else{
+        ProductHistoryCell *cell = [ProductHistoryCell cellWithTableView:tableView];
+        cell.delegate = self;
+        
+        ProductModal *model = self.dataSource[indexPath.row];
+        cell.modal = model;
+        
+        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+        cell.rightButtons = [self createRightButtons:model];
+        
+        return cell;
+    }
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return [[UIView alloc] init];
+    if (self.listType == collectionType) {
+        return 140;
+    }else{
+        return 170;
+    }
 }
 
 @end

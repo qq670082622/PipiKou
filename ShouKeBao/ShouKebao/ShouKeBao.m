@@ -126,8 +126,11 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-        ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
-    
+    static NSString *cellID = @"table";
+    UITableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:cellID];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+    }
     return cell;
    }
 

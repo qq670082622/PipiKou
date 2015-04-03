@@ -44,6 +44,9 @@
         [tmp setObject:[UserInfo shareUser].BusinessID forKey:@"BusinessID"];
         [tmp setObject:[UserInfo shareUser].DistributionID forKey:@"DistributionID"];
     }
+    if ([UserInfo shareUser].loginType) {
+        [tmp setObject:[UserInfo shareUser].loginType forKey:@"LoginType"];
+    }
     [tmp addEntriesFromDictionary:params];
    
     NSLog(@"-------url:%@",overStr);

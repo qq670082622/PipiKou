@@ -66,8 +66,8 @@
     self.headIcon.frame = CGRectMake(headX, 30, headW, headW);
     
     CGFloat nameY = CGRectGetMaxY(self.headIcon.frame) + 8;
-    self.nickName.frame = CGRectMake(headX, nameY, headW, 20);
-    
+    self.nickName.frame = CGRectMake(0, nameY, self.frame.size.width, 20);
+
     CGFloat typeY = CGRectGetMaxY(self.nickName.frame) + 8;
     self.personType.frame = CGRectMake(headX, typeY, headW, 20);
     

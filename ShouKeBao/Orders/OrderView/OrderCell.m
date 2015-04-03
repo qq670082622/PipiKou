@@ -221,7 +221,7 @@
     self.price.frame = CGRectMake(statusIconX, priceY, 100, 20);
     
     // 成人个数
-    CGFloat adultX = screenW * 0.5;
+    CGFloat adultX = screenW * 0.4;
     CGFloat adultW = [model.IsCruiseShip integerValue] == 1 ? 0 : 40;
     self.adultCount.frame = CGRectMake(adultX, priceY, adultW, 20);
     
@@ -276,7 +276,7 @@
     [self.price setAttributedText:attrStr];
     
     if ([model.IsCruiseShip integerValue] == 1) {
-        NSString *count = [NSString stringWithFormat:@"%ld",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
+        NSString *count = [NSString stringWithFormat:@"%d",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
         self.childCount.text = [NSString stringWithFormat:@"人数%@",count];
     }else{
         // 成人个数
