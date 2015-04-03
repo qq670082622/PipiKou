@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Customers">
+            <connections>
+                <outlet property="cancelSearchOutlet" destination="Ag8-T2-2ax" id="s33-S9-mM3"/>
+                <outlet property="orderNumBtn" destination="drW-DZ-1Mr" id="RCg-6K-FyZ"/>
+                <outlet property="searchTextField" destination="Cmx-lG-vdB" id="BoE-3e-PK2"/>
+                <outlet property="subView" destination="frt-01-EIa" id="dlI-DF-O1s"/>
+                <outlet property="table" destination="vxd-KI-xbc" id="1rP-KW-2GF"/>
+                <outlet property="timeBtn" destination="Rlf-f3-vtv" id="Gcc-D1-Ogz"/>
+                <outlet property="view" destination="iN0-l3-epB" id="yW7-Fa-MhO"/>
+                <outlet property="wordBtn" destination="ACz-8w-02j" id="TQH-UP-2fs"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="MwM-Ev-SlL">
+                    <rect key="frame" x="8" y="0.0" width="304" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <state key="normal" title="客户搜索🔍">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="customSearch:" destination="-1" eventType="touchUpInside" id="Sd9-Dc-d95"/>
+                    </connections>
+                </button>
+                <view contentMode="scaleToFill" id="JzP-XY-h4A">
+                    <rect key="frame" x="0.0" y="33" width="320" height="36"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" id="nIi-7T-O1x" userLabel="line1">
+                            <rect key="frame" x="107" y="5" width="1" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="Bte-4w-hIj" userLabel="line2">
+                            <rect key="frame" x="214" y="5" width="1" height="20"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Rlf-f3-vtv">
+                            <rect key="frame" x="15" y="2" width="80" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="时间排序 ↓">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" title="时间排序↑"/>
+                            <connections>
+                                <action selector="timeOrderAction:" destination="-1" eventType="touchUpInside" id="Eyb-mq-NL1"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="drW-DZ-1Mr">
+                            <rect key="frame" x="120" y="2" width="80" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="订单数排序 ↓">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" title="订单数排序↓"/>
+                            <connections>
+                                <action selector="orderNumAction:" destination="-1" eventType="touchUpInside" id="RSS-Pj-3tF"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ACz-8w-02j">
+                            <rect key="frame" x="232" y="2" width="80" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                            <state key="normal" title="字母排序 ↓">
+                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <state key="highlighted" title="字母排序↑"/>
+                            <connections>
+                                <action selector="wordOrderAction:" destination="-1" eventType="touchUpInside" id="BBF-Sb-aJh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vxd-KI-xbc">
+                    <rect key="frame" x="0.0" y="72" width="320" height="418"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="BXe-S3-G9f"/>
+                        <outlet property="delegate" destination="-1" id="U5o-zI-vcw"/>
+                    </connections>
+                </tableView>
+                <view hidden="YES" contentMode="scaleToFill" id="frt-01-EIa">
+                    <rect key="frame" x="185" y="0.0" width="130" height="90"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tianjiayonghu" id="7N4-2R-Rpx">
+                            <rect key="frame" x="0.0" y="0.0" width="130" height="90"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                        </imageView>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dHi-5W-Zvu" userLabel="addNewUser">
+                            <rect key="frame" x="0.0" y="12" width="130" height="33"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxY="YES"/>
+                            <state key="normal">
+                                <color key="titleColor" red="0.16078431904315948" green="0.94117653369903564" blue="0.18039216101169586" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="addNewUser:" destination="-1" eventType="touchUpInside" id="sAw-F6-hbk"/>
+                            </connections>
+                        </button>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nhR-tZ-9Ut" userLabel="importUser">
+                            <rect key="frame" x="0.0" y="46" width="130" height="37"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
+                            <state key="normal">
+                                <color key="titleColor" red="0.16078431900000001" green="0.94117653369999998" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="importUser:" destination="-1" eventType="touchUpInside" id="U93-LS-caj"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                </view>
+                <textField hidden="YES" opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入客户姓名／电话" minimumFontSize="17" id="Cmx-lG-vdB">
+                    <rect key="frame" x="8" y="1" width="264" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="2bK-8c-nEy"/>
+                    </connections>
+                </textField>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ag8-T2-2ax">
+                    <rect key="frame" x="265" y="1" width="44" height="30"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <state key="normal" title="取消">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancelSearch:" destination="-1" eventType="touchUpInside" id="RPs-Qj-xGI"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="0.92684659090909094" alpha="1" colorSpace="calibratedWhite"/>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+            <point key="canvasLocation" x="139" y="258"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="tianjiayonghu" width="258" height="179"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

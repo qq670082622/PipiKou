@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D7625953-A4FE-49D9-950A-2D3EF1276C6B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>ShouKeBao</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3CAAFCBD015942A7BF1D163751BBA9F40A846D1B</key>
+		<string>https://github.com/qq670082622/lvYouQuan.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ShouKeBao /ShouKeBao.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3CAAFCBD015942A7BF1D163751BBA9F40A846D1B</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/qq670082622/lvYouQuan.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3CAAFCBD015942A7BF1D163751BBA9F40A846D1B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3CAAFCBD015942A7BF1D163751BBA9F40A846D1B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>SouKeBao</string>
+		</dict>
+	</array>
+</dict>
+</plist>

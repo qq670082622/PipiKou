@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="78" id="KGk-i7-Jjw" customClass="remondTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="78"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIx-h0-RWI" userLabel="descript">
+                        <rect key="frame" x="8" y="0.0" width="304" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="0Wp-F9-mcB"/>
+                        </constraints>
+                        <string key="text">1（UITableViewCellEditingStyle）tableView:indexPath 中返回returnITableViewCellEditingStyleInsert; 即可在Eidt模式下最左边显示圆圈多选栏。
+</string>
+                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提醒时间：2015.4.1日 星期四 16:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSw-gT-xsl" userLabel="time">
+                        <rect key="frame" x="8" y="52" width="304" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="21" id="DmQ-j7-Gv1"/>
+                            <constraint firstAttribute="height" constant="21" id="d5a-DQ-bK6"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="hSw-gT-xsl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="2cZ-0e-Qle"/>
+                    <constraint firstItem="hSw-gT-xsl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="2fa-3y-OrP"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="BQE-K7-eCo"/>
+                    <constraint firstAttribute="trailing" secondItem="hSw-gT-xsl" secondAttribute="trailing" constant="8" id="Bdy-rW-cXi"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="hSw-gT-xsl" secondAttribute="bottom" constant="-3.5" id="Sec-XP-1dP"/>
+                    <constraint firstAttribute="trailing" secondItem="UIx-h0-RWI" secondAttribute="trailing" constant="8" id="Vop-89-HML"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Wgz-Gf-b2i"/>
+                    <constraint firstItem="hSw-gT-xsl" firstAttribute="width" secondItem="UIx-h0-RWI" secondAttribute="width" id="YKN-4d-wDD"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="a8z-jN-tzX"/>
+                    <constraint firstItem="hSw-gT-xsl" firstAttribute="top" secondItem="UIx-h0-RWI" secondAttribute="bottom" constant="8" id="bFK-VB-VWS"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="leading" secondItem="hSw-gT-xsl" secondAttribute="leading" id="p6P-7A-i6D"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="trailing" secondItem="hSw-gT-xsl" secondAttribute="trailing" id="tr8-SL-M3j"/>
+                    <constraint firstItem="hSw-gT-xsl" firstAttribute="top" secondItem="UIx-h0-RWI" secondAttribute="bottom" constant="8" symbolic="YES" id="wRD-Vl-mfY"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="desLabel" destination="UIx-h0-RWI" id="rMG-r6-F9j"/>
+                <outlet property="time" destination="hSw-gT-xsl" id="b2y-rP-Jbj"/>
+            </connections>
+            <point key="canvasLocation" x="233" y="341"/>
+        </tableViewCell>
+    </objects>
+</document>

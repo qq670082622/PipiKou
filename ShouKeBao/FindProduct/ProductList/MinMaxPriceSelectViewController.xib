@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="MinMaxPriceSelectViewController">
+            <connections>
+                <outlet property="cancleBtn" destination="UFi-UH-YmH" id="Kfo-sA-qAw"/>
+                <outlet property="maxPrice" destination="b7C-bC-dWy" id="cnw-4M-ObR"/>
+                <outlet property="minPrice" destination="YJG-yQ-ebn" id="TO1-Kq-85w"/>
+                <outlet property="saveBtn" destination="zWV-NZ-LHf" id="rzu-Ep-9ab"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入最小价格" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YJG-yQ-ebn">
+                    <rect key="frame" x="0.0" y="64" width="320" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="QFx-Ga-sFZ"/>
+                    </connections>
+                </textField>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入最大价格" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="b7C-bC-dWy">
+                    <rect key="frame" x="0.0" y="133" width="320" height="30"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="h9w-Ic-2ZV"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zWV-NZ-LHf">
+                    <rect key="frame" x="0.0" y="292" width="320" height="30"/>
+                    <state key="normal" title="确认">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="save:" destination="-1" eventType="touchUpInside" id="gnU-O9-Gg1"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UFi-UH-YmH">
+                    <rect key="frame" x="0.0" y="225" width="320" height="30"/>
+                    <state key="normal" title="取消">
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="cancle:" destination="-1" eventType="touchUpInside" id="3k0-ic-Mrg"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="UFi-UH-YmH" firstAttribute="leading" secondItem="zWV-NZ-LHf" secondAttribute="leading" id="4ZA-Jj-nGA"/>
+                <constraint firstItem="YJG-yQ-ebn" firstAttribute="trailing" secondItem="b7C-bC-dWy" secondAttribute="trailing" id="Gxf-ui-X6N"/>
+                <constraint firstItem="YJG-yQ-ebn" firstAttribute="leading" secondItem="b7C-bC-dWy" secondAttribute="leading" id="Ja1-RY-dxN"/>
+                <constraint firstItem="zWV-NZ-LHf" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="M6c-3r-aGA"/>
+                <constraint firstItem="b7C-bC-dWy" firstAttribute="top" secondItem="YJG-yQ-ebn" secondAttribute="bottom" constant="39" id="NVc-Bb-ktP"/>
+                <constraint firstItem="UFi-UH-YmH" firstAttribute="trailing" secondItem="zWV-NZ-LHf" secondAttribute="trailing" id="Y3T-Kl-iah"/>
+                <constraint firstItem="UFi-UH-YmH" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="atY-Pj-G7p"/>
+                <constraint firstItem="zWV-NZ-LHf" firstAttribute="top" secondItem="UFi-UH-YmH" secondAttribute="bottom" constant="37" id="hgY-1n-J9y"/>
+                <constraint firstItem="UFi-UH-YmH" firstAttribute="top" secondItem="b7C-bC-dWy" secondAttribute="bottom" constant="62" id="qW0-HZ-BKx"/>
+                <constraint firstItem="UFi-UH-YmH" firstAttribute="trailing" secondItem="b7C-bC-dWy" secondAttribute="trailing" id="snw-wb-hRL"/>
+                <constraint firstItem="b7C-bC-dWy" firstAttribute="leading" secondItem="UFi-UH-YmH" secondAttribute="leading" id="xod-il-f99"/>
+                <constraint firstAttribute="trailing" secondItem="YJG-yQ-ebn" secondAttribute="trailing" id="yhb-Yi-g6N"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>

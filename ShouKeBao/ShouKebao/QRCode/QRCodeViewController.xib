@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="QRCodeViewController">
+            <connections>
+                <outlet property="lblStatus" destination="cXD-hH-aOS" id="E1T-vi-Rm3"/>
+                <outlet property="startBtn" destination="E8e-Nl-zfi" id="cK8-9r-7A3"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+                <outlet property="viewPreview" destination="kwN-DN-j6e" id="1T1-gZ-tlP"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kwN-DN-j6e">
+                    <rect key="frame" x="0.0" y="26" width="320" height="192"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cXD-hH-aOS" userLabel="url">
+                            <rect key="frame" x="0.0" y="165" width="320" height="30"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xeI-CJ-QBJ" userLabel="openurl">
+                            <rect key="frame" x="0.0" y="165" width="320" height="30"/>
+                            <state key="normal">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="openUrl:" destination="-1" eventType="touchUpInside" id="dYn-hz-ehx"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstAttribute="bottom" secondItem="cXD-hH-aOS" secondAttribute="bottom" constant="-3" id="B4W-Hd-Jrj"/>
+                        <constraint firstItem="cXD-hH-aOS" firstAttribute="trailing" secondItem="xeI-CJ-QBJ" secondAttribute="trailing" id="CVe-u9-5fn"/>
+                        <constraint firstItem="xeI-CJ-QBJ" firstAttribute="leading" secondItem="cXD-hH-aOS" secondAttribute="leading" id="RLA-rI-re0"/>
+                        <constraint firstItem="cXD-hH-aOS" firstAttribute="top" secondItem="xeI-CJ-QBJ" secondAttribute="top" id="TOC-Mg-Qoi"/>
+                        <constraint firstItem="xeI-CJ-QBJ" firstAttribute="bottom" secondItem="cXD-hH-aOS" secondAttribute="bottom" id="ccQ-v9-x9n"/>
+                        <constraint firstAttribute="trailing" secondItem="xeI-CJ-QBJ" secondAttribute="trailing" id="jkc-VC-jgr"/>
+                        <constraint firstItem="xeI-CJ-QBJ" firstAttribute="leading" secondItem="kwN-DN-j6e" secondAttribute="leading" id="jxV-ob-OJ9"/>
+                    </constraints>
+                </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="E8e-Nl-zfi" userLabel="start">
+                    <rect key="frame" x="0.0" y="231" width="320" height="30"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                    <state key="normal">
+                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="startStopReading:" destination="-1" eventType="touchUpInside" id="u2J-do-cM7"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="E8e-Nl-zfi" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="231" id="6xM-KF-5JX"/>
+                <constraint firstItem="E8e-Nl-zfi" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="Dsp-r7-sti"/>
+                <constraint firstItem="E8e-Nl-zfi" firstAttribute="top" secondItem="kwN-DN-j6e" secondAttribute="bottom" constant="13" id="PBJ-44-ahk"/>
+                <constraint firstItem="kwN-DN-j6e" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="26" id="Prs-kW-xsf"/>
+                <constraint firstItem="E8e-Nl-zfi" firstAttribute="trailing" secondItem="kwN-DN-j6e" secondAttribute="trailing" id="Sj2-SS-fYq"/>
+                <constraint firstAttribute="trailing" secondItem="E8e-Nl-zfi" secondAttribute="trailing" id="VCv-qS-MaL"/>
+                <constraint firstItem="kwN-DN-j6e" firstAttribute="leading" secondItem="E8e-Nl-zfi" secondAttribute="leading" id="dPc-WS-y8v"/>
+            </constraints>
+            <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+        </view>
+    </objects>
+</document>
