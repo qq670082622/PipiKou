@@ -322,7 +322,7 @@
 - (DOPDropDownMenu *)menu
 {
     if (!_menu) {
-        _menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 64) andHeight:40];
+        _menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 40) andHeight:40];
         _menu.dataSource = self;
         _menu.delegate = self;
     }
@@ -341,8 +341,8 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 40) style:UITableViewStyleGrouped];
-//        _tableView.contentInset = UIEdgeInsetsMake(40, 0, 0, 0);
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height - 144) style:UITableViewStyleGrouped];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;

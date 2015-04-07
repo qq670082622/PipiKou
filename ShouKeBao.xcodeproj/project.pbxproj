@@ -39,8 +39,6 @@
 		5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E7D1ACD89DA0077611C /* WMAnimations.m */; };
 		5A076EA31ACD8B270077611C /* ShouKeBao.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E971ACD8B270077611C /* ShouKeBao.m */; };
 		5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A076E981ACD8B270077611C /* ShouKeBao.xib */; };
-		5A076EA51ACD8B270077611C /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E9A1ACD8B270077611C /* ShouKeBaoCell.m */; };
-		5A076EA61ACD8B270077611C /* ShouKeBaoCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A076E9B1ACD8B270077611C /* ShouKeBaoCell.xib */; };
 		5A076EA71ACD8B270077611C /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E9E1ACD8B270077611C /* StoreViewController.m */; };
 		5A076EA81ACD8B270077611C /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A076E9F1ACD8B270077611C /* StoreViewController.xib */; };
 		5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB6B1ACEBF220076DAE6 /* NSMutableDictionary+QD.m */; };
@@ -134,6 +132,11 @@
 		5A52FC901ACEBF220076DAE6 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC171ACEBF220076DAE6 /* OrderCell.m */; };
 		5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC1A1ACEBF220076DAE6 /* SKSearchBar.m */; };
 		5A52FC921ACEBF220076DAE6 /* SKSearckDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */; };
+		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
+		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
+		5A62B4991AD3E38A00DFF567 /* Travel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4981AD3E38A00DFF567 /* Travel.m */; };
+		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
+		5A82161C1AD3843B009388DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeModel.m */; };
 		5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */; };
 		5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9901ACBFA9300217CAC /* TKProgressCircleView.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
@@ -306,9 +309,6 @@
 		5A076E961ACD8B270077611C /* ShouKeBao.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBao.h; sourceTree = "<group>"; };
 		5A076E971ACD8B270077611C /* ShouKeBao.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBao.m; sourceTree = "<group>"; };
 		5A076E981ACD8B270077611C /* ShouKeBao.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShouKeBao.xib; sourceTree = "<group>"; };
-		5A076E991ACD8B270077611C /* ShouKeBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBaoCell.h; sourceTree = "<group>"; };
-		5A076E9A1ACD8B270077611C /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
-		5A076E9B1ACD8B270077611C /* ShouKeBaoCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShouKeBaoCell.xib; sourceTree = "<group>"; };
 		5A076E9D1ACD8B270077611C /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
 		5A076E9E1ACD8B270077611C /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		5A076E9F1ACD8B270077611C /* StoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewController.xib; sourceTree = "<group>"; };
@@ -469,6 +469,16 @@
 		5A52FC1A1ACEBF220076DAE6 /* SKSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSearchBar.m; sourceTree = "<group>"; };
 		5A52FC1B1ACEBF220076DAE6 /* SKSearckDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSearckDisplayController.h; sourceTree = "<group>"; };
 		5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSearckDisplayController.m; sourceTree = "<group>"; };
+		5A62B4911AD3DD7500DFF567 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
+		5A62B4921AD3DD7500DFF567 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
+		5A62B4941AD3DEE800DFF567 /* TravelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelButton.h; sourceTree = "<group>"; };
+		5A62B4951AD3DEE800DFF567 /* TravelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelButton.m; sourceTree = "<group>"; };
+		5A62B4971AD3E38A00DFF567 /* Travel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Travel.h; sourceTree = "<group>"; };
+		5A62B4981AD3E38A00DFF567 /* Travel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Travel.m; sourceTree = "<group>"; };
+		5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBaoCell.h; sourceTree = "<group>"; };
+		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
+		5A82161A1AD3843B009388DA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
+		5A82161B1AD3843B009388DA /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
 		5AB7C9821ACBC9EA00217CAC /* QDActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDActionSheet.h; sourceTree = "<group>"; };
 		5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActionSheet.m; sourceTree = "<group>"; };
 		5AB7C98F1ACBFA9300217CAC /* TKProgressCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKProgressCircleView.h; sourceTree = "<group>"; };
@@ -816,14 +826,14 @@
 		5A076E951ACD8B270077611C /* ShouKebao */ = {
 			isa = PBXGroup;
 			children = (
+				5A8216141AD36AD7009388DA /* HomeHttpTool */,
+				5A8216121AD36AB9009388DA /* HomeModel */,
+				5A8216131AD36AB9009388DA /* HomeView */,
 				63B8C6F51ACE8EA200328C8C /* messageCenter */,
 				63B8C6A71ACE671D00328C8C /* QRCode */,
 				5A076E961ACD8B270077611C /* ShouKeBao.h */,
 				5A076E971ACD8B270077611C /* ShouKeBao.m */,
 				5A076E981ACD8B270077611C /* ShouKeBao.xib */,
-				5A076E991ACD8B270077611C /* ShouKeBaoCell.h */,
-				5A076E9A1ACD8B270077611C /* ShouKeBaoCell.m */,
-				5A076E9B1ACD8B270077611C /* ShouKeBaoCell.xib */,
 				5A076E9C1ACD8B270077611C /* Store */,
 			);
 			path = ShouKebao;
@@ -983,15 +993,16 @@
 		5A52FBB21ACEBF220076DAE6 /* Login */ = {
 			isa = PBXGroup;
 			children = (
+				5A52FBB81ACEBF220076DAE6 /* HttpTool */,
+				5A52FBBD1ACEBF220076DAE6 /* Model */,
+				5A62B4901AD3DD5E00DFF567 /* AuthView */,
 				5A52FBB31ACEBF220076DAE6 /* Auth.storyboard */,
 				5A52FBB41ACEBF220076DAE6 /* BindPhoneViewController.h */,
 				5A52FBB51ACEBF220076DAE6 /* BindPhoneViewController.m */,
 				5A52FBB61ACEBF220076DAE6 /* ChildAccountViewController.h */,
 				5A52FBB71ACEBF220076DAE6 /* ChildAccountViewController.m */,
-				5A52FBB81ACEBF220076DAE6 /* HttpTool */,
 				5A52FBBB1ACEBF220076DAE6 /* Login.h */,
 				5A52FBBC1ACEBF220076DAE6 /* Login.m */,
-				5A52FBBD1ACEBF220076DAE6 /* Model */,
 				5A52FBC21ACEBF220076DAE6 /* Register.h */,
 				5A52FBC31ACEBF220076DAE6 /* Register.m */,
 				5A52FBC41ACEBF220076DAE6 /* Register.xib */,
@@ -1017,6 +1028,8 @@
 				5A52FBBF1ACEBF220076DAE6 /* Distribution.m */,
 				5A52FBC01ACEBF220076DAE6 /* UserInfo.h */,
 				5A52FBC11ACEBF220076DAE6 /* UserInfo.m */,
+				5A62B4971AD3E38A00DFF567 /* Travel.h */,
+				5A62B4981AD3E38A00DFF567 /* Travel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1024,13 +1037,13 @@
 		5A52FBC71ACEBF220076DAE6 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				5A52FBD31ACEBF220076DAE6 /* MeHttpTool */,
+				5A52FBD61ACEBF220076DAE6 /* MeModel */,
+				5A52FBDD1ACEBF220076DAE6 /* MeView */,
 				5A52FBC81ACEBF220076DAE6 /* AccountSafe */,
 				5A52FBD01ACEBF220076DAE6 /* Me.h */,
 				5A52FBD11ACEBF220076DAE6 /* Me.m */,
 				5A52FBD21ACEBF220076DAE6 /* Me.storyboard */,
-				5A52FBD31ACEBF220076DAE6 /* MeHttpTool */,
-				5A52FBD61ACEBF220076DAE6 /* MeModel */,
-				5A52FBDD1ACEBF220076DAE6 /* MeView */,
 				5A52FBE81ACEBF220076DAE6 /* MyListViewController.h */,
 				5A52FBE91ACEBF220076DAE6 /* MyListViewController.m */,
 				5A52FBEA1ACEBF220076DAE6 /* MyOrgViewController.h */,
@@ -1103,6 +1116,10 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				5A52FC041ACEBF220076DAE6 /* OrderTool */,
+				5A52FC071ACEBF220076DAE6 /* OrderView */,
+				5A52FC181ACEBF220076DAE6 /* SearchBar */,
+				5A52FBFD1ACEBF220076DAE6 /* OrderModel */,
 				5A52FBF51ACEBF220076DAE6 /* AreaViewController.h */,
 				5A52FBF61ACEBF220076DAE6 /* AreaViewController.m */,
 				5A52FBF71ACEBF220076DAE6 /* ButtonDetailViewController.h */,
@@ -1111,12 +1128,8 @@
 				5A52FBFA1ACEBF220076DAE6 /* CalendarViewController.m */,
 				5A52FBFB1ACEBF220076DAE6 /* OrderDetailViewController.h */,
 				5A52FBFC1ACEBF220076DAE6 /* OrderDetailViewController.m */,
-				5A52FBFD1ACEBF220076DAE6 /* OrderModel */,
 				5A52FC021ACEBF220076DAE6 /* Orders.h */,
 				5A52FC031ACEBF220076DAE6 /* Orders.m */,
-				5A52FC041ACEBF220076DAE6 /* OrderTool */,
-				5A52FC071ACEBF220076DAE6 /* OrderView */,
-				5A52FC181ACEBF220076DAE6 /* SearchBar */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -1173,6 +1186,42 @@
 				5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */,
 			);
 			path = SearchBar;
+			sourceTree = "<group>";
+		};
+		5A62B4901AD3DD5E00DFF567 /* AuthView */ = {
+			isa = PBXGroup;
+			children = (
+				5A62B4911AD3DD7500DFF567 /* TravelCell.h */,
+				5A62B4921AD3DD7500DFF567 /* TravelCell.m */,
+				5A62B4941AD3DEE800DFF567 /* TravelButton.h */,
+				5A62B4951AD3DEE800DFF567 /* TravelButton.m */,
+			);
+			path = AuthView;
+			sourceTree = "<group>";
+		};
+		5A8216121AD36AB9009388DA /* HomeModel */ = {
+			isa = PBXGroup;
+			children = (
+				5A82161A1AD3843B009388DA /* HomeModel.h */,
+				5A82161B1AD3843B009388DA /* HomeModel.m */,
+			);
+			path = HomeModel;
+			sourceTree = "<group>";
+		};
+		5A8216131AD36AB9009388DA /* HomeView */ = {
+			isa = PBXGroup;
+			children = (
+				5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */,
+				5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */,
+			);
+			path = HomeView;
+			sourceTree = "<group>";
+		};
+		5A8216141AD36AD7009388DA /* HomeHttpTool */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = HomeHttpTool;
 			sourceTree = "<group>";
 		};
 		5AB7C9811ACBC9C700217CAC /* CustomView */ = {
@@ -1743,7 +1792,6 @@
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
-				5A076EA61ACD8B270077611C /* ShouKeBaoCell.xib in Resources */,
 				5A52FC761ACEBF220076DAE6 /* MeHeader.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
 				5A00589C1ACEBD1E007AF362 /* addRemondViewController.xib in Resources */,
@@ -1864,6 +1912,7 @@
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
 				845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */,
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,
+				5A82161C1AD3843B009388DA /* HomeModel.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
@@ -1874,6 +1923,7 @@
 				632BFFC31AB91FB1003B15AD /* StrToDic.m in Sources */,
 				632BFFF51AB92A3A003B15AD /* SDImageCache.m in Sources */,
 				845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */,
+				5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */,
 				5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */,
 				5A52FC481ACEBF220076DAE6 /* MinMaxPriceSelectViewController.m in Sources */,
 				5A52FC741ACEBF220076DAE6 /* MeButtonView.m in Sources */,
@@ -1887,12 +1937,12 @@
 				5A52FC8F1ACEBF220076DAE6 /* LinkButton.m in Sources */,
 				5A52FC561ACEBF220076DAE6 /* HeaderView.m in Sources */,
 				5A52FC791ACEBF220076DAE6 /* MyListViewController.m in Sources */,
-				5A076EA51ACD8B270077611C /* ShouKeBaoCell.m in Sources */,
 				633263D71AB851590021553B /* AFURLConnectionOperation.m in Sources */,
 				8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */,
 				63D31E911AB16EC30043B3CA /* WMNavigationController.m in Sources */,
 				6326131E1AB1C175003AC2DA /* MJRefreshHeaderView.m in Sources */,
 				5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */,
+				5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */,
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
 				5A0058891ACEBD1E007AF362 /* addCustomerViewController.m in Sources */,
@@ -1919,12 +1969,14 @@
 				5A52FC7A1ACEBF220076DAE6 /* MyOrgViewController.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
+				5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */,
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
 				5A52FC601ACEBF220076DAE6 /* BindPhoneViewController.m in Sources */,
 				5A00589B1ACEBD1E007AF362 /* addRemondViewController.m in Sources */,
 				63B8C6FE1ACE906B00328C8C /* messageCell.m in Sources */,
 				5A52FC461ACEBF220076DAE6 /* FootView.m in Sources */,
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
+				5A62B4991AD3E38A00DFF567 /* Travel.m in Sources */,
 				5A52FC7D1ACEBF220076DAE6 /* SosViewController.m in Sources */,
 				5A52FC4E1ACEBF220076DAE6 /* ProductModal.m in Sources */,
 				5A52FC711ACEBF220076DAE6 /* Server.m in Sources */,

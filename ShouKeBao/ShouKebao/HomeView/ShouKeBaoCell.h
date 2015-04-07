@@ -8,8 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@class HomeModel;
+
 @interface ShouKeBaoCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *icon;
-@property (weak, nonatomic) IBOutlet UILabel *oderForDo;
+
+@property (nonatomic,strong) HomeModel *model;
+
 +(instancetype)cellWithTableView:(UITableView *)tableView;
+
 @end

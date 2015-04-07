@@ -18,6 +18,8 @@
 #import "ResizeImage.h"
 #import "BBBadgeBarButtonItem.h"
 #import "messageCenterViewController.h"
+
+
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
@@ -26,7 +28,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *yesterdayVisitors;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
-@property (weak, nonatomic) IBOutlet UITableView *Table;
+
+@property (strong, nonatomic) UITableView *tableView;
+@property (nonatomic,strong) NSMutableArray *dataSource;
 
 @property (weak, nonatomic) IBOutlet UIView *upView;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
@@ -40,18 +44,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    [self.view addSubview:self.tableView];
+    
+    
     [self customLeftBarItem];
     [self customRightBarItem];
     self.searchBtn.layer.cornerRadius = 4;
     self.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
     self.searchBtn.layer.borderWidth = 0.5f;
     self.searchBtn.layer.masksToBounds = YES;
-   self.Table.rowHeight = 40;
    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
-    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -66,13 +73,63 @@
     }
     
 }
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+}
+
+#pragma mark - getter
+- (UITableView *)tableView
+{
+    if (!_tableView) {
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 180)];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
+        _tableView.rowHeight = 120;
+        _tableView.dataSource = self;
+        _tableView.delegate = self;
+    }
+    return _tableView;
+}
+
+- (NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
+
+#pragma mark - private
 -(void)pushToStore
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = @"http://skb.lvyouquan.cn/mc/kaifaceshi/";
     [self.navigationController pushViewController:store animated:YES];
-
 }
+
+- (IBAction)changeStation:(id)sender {
+    
+    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
+}
+
+- (IBAction)phoneToService:(id)sender {
+    
+}
+
+- (IBAction)search:(id)sender {
+    
+    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
+    
+    [self.navigationController pushViewController:searchVC animated:YES];
+    
+}
+
+- (IBAction)add:(id)sender {
+    
+}
+
 
 -(void)customLeftBarItem
 {
@@ -118,54 +175,18 @@
 }
 
 
-
+#pragma mark - UITableViewDataSource,UITableViewDelegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 10;
+    return self.dataSource.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *cellID = @"table";
-    UITableViewCell *cell  = [tableView dequeueReusableCellWithIdentifier:cellID];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-    }
+    ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
+    
     return cell;
-   }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
 
-- (IBAction)changeStation:(id)sender {
-    
-    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
-}
-
-- (IBAction)phoneToService:(id)sender {
-
-}
-
-- (IBAction)search:(id)sender {
-    
-    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
-   
-    [self.navigationController pushViewController:searchVC animated:YES];
-
-}
-
-- (IBAction)add:(id)sender {
-    
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    
-}
 @end

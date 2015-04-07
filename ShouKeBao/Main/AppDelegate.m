@@ -40,11 +40,11 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
     // 如果自动登录了 就切到主界面
-    if (self.isAutoLogin) {
-        [self setTabbarRoot];
-    }else{
+//    if (self.isAutoLogin) {
+//        [self setTabbarRoot];
+//    }else{
         [self setLoginRoot];
-    }
+//    }
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
     //QQ空间
@@ -159,8 +159,8 @@
 -(void)setLoginRoot
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
-    Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
-    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:lg];
+    Login *lg = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:lg];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }

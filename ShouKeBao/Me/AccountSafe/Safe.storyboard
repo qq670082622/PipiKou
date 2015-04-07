@@ -97,48 +97,6 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="55" id="yy7-Oo-7ay">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="yy7-Oo-7ay" id="k75-T7-dc9">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bangdingshouji" translatesAutoresizingMaskIntoConstraints="NO" id="7yf-F9-bZF">
-                                                    <rect key="frame" x="15" y="18" width="20" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="EYb-LU-T0s"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码强度" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4u2-aC-z2R">
-                                                    <rect key="frame" x="60" y="17" width="201" height="21"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ibp-k8-cbT">
-                                                    <rect key="frame" x="269" y="18" width="38" height="20"/>
-                                                    <state key="normal" backgroundImage="xiugai">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="modifyBindPhone:" destination="IWD-1I-3Ii" eventType="touchUpInside" id="w76-r3-I0c"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="4u2-aC-z2R" firstAttribute="centerY" secondItem="k75-T7-dc9" secondAttribute="centerY" id="2Ti-Uu-B7n"/>
-                                                <constraint firstItem="ibp-k8-cbT" firstAttribute="bottom" secondItem="4u2-aC-z2R" secondAttribute="bottom" id="BIk-yQ-r8a"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="ibp-k8-cbT" secondAttribute="trailing" constant="5" id="CMR-Wx-Gkr"/>
-                                                <constraint firstItem="4u2-aC-z2R" firstAttribute="centerX" secondItem="k75-T7-dc9" secondAttribute="centerX" id="DyC-or-hDh"/>
-                                                <constraint firstItem="ibp-k8-cbT" firstAttribute="leading" secondItem="4u2-aC-z2R" secondAttribute="trailing" constant="8" symbolic="YES" id="Hpx-cb-dKZ"/>
-                                                <constraint firstItem="4u2-aC-z2R" firstAttribute="top" secondItem="k75-T7-dc9" secondAttribute="topMargin" constant="9" id="SCV-mV-wz3"/>
-                                                <constraint firstItem="4u2-aC-z2R" firstAttribute="leading" secondItem="7yf-F9-bZF" secondAttribute="trailing" constant="25" id="bYy-KG-ZR5"/>
-                                                <constraint firstItem="7yf-F9-bZF" firstAttribute="bottom" secondItem="4u2-aC-z2R" secondAttribute="bottom" id="fO9-UE-xn0"/>
-                                                <constraint firstItem="7yf-F9-bZF" firstAttribute="top" secondItem="k75-T7-dc9" secondAttribute="topMargin" constant="10" id="iVg-AV-Apc"/>
-                                                <constraint firstItem="ibp-k8-cbT" firstAttribute="top" secondItem="7yf-F9-bZF" secondAttribute="top" id="igN-fT-l7z"/>
-                                                <constraint firstItem="7yf-F9-bZF" firstAttribute="leading" secondItem="k75-T7-dc9" secondAttribute="leadingMargin" constant="7" id="rxc-Qq-ZJm"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -150,8 +108,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="accountLab" destination="4eX-7o-H0J" id="IxI-xf-aAD"/>
-                        <outlet property="bindPhone" destination="4u2-aC-z2R" id="DBr-aT-tPM"/>
-                        <outlet property="phoneStatus" destination="7yf-F9-bZF" id="AkJ-6F-Tm0"/>
                         <outlet property="pwdLevel" destination="rOb-zx-iKU" id="kzA-dO-KUO"/>
                         <outlet property="pwdStatus" destination="bBr-OV-qgW" id="umW-Gk-Ro8"/>
                     </connections>
@@ -405,7 +361,6 @@
     </scenes>
     <resources>
         <image name="anquanqiangdu" width="16" height="16"/>
-        <image name="bangdingshouji" width="16" height="16"/>
         <image name="huoquyanzhengma" width="88" height="37"/>
         <image name="xiugai" width="47" height="22"/>
     </resources>

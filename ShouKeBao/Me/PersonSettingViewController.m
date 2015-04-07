@@ -62,8 +62,9 @@
 - (void)loadDataSource
 {
     [MeHttpTool getDistributionWithsuccess:^(id json) {
-        if (json) {
-            NSLog(@"-----%@",json);
+        NSLog(@"-----%@",json);
+        if (![json[@"Distribution"] isKindOfClass:[NSNull class]]) {
+            
             self.trader = [Trader traderWithDict:json[@"Distribution"]];
             self.nickName.text = self.trader.Name;
             self.address.text = self.trader.Address;

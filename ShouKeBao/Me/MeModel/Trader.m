@@ -19,7 +19,14 @@
 {
     self = [super init];
     if (self) {
-        [self setValuesForKeysWithDictionary:dict];
+        NSMutableDictionary *muta = dict.mutableCopy;
+        NSArray *array = [dict allKeys];
+        for (NSString *key in array) {
+            if ([[muta objectForKey:key] isKindOfClass:[NSNull class]]) {
+                [muta setValue:@"" forKey:key];
+            }
+        }
+        [self setValuesForKeysWithDictionary:muta];
     }
     return self;
 }

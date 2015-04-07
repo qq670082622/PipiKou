@@ -23,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tabBar.translucent = NO;
    
    
     ShouKeBao *skb = [[ShouKeBao alloc] init];

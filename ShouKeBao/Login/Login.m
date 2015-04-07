@@ -42,10 +42,10 @@
     // 设置底部按钮
     [self setupFooter];
     
-//    self.accountField.text = @"lxstest";
-//    self.passwordField.text = @"123456";
-    self.accountField.text = @"18767155187";
-    self.passwordField.text = @"222222";
+    self.accountField.text = @"lxstest";
+    self.passwordField.text = @"123456";
+//    self.accountField.text = @"18767155187";
+//    self.passwordField.text = @"222222";
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -84,10 +84,12 @@
 - (void)setupHeader
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 220)];
+    cover.backgroundColor = [UIColor clearColor];
     
     CGFloat iconX = (self.view.frame.size.width - 150) * 0.5;
     CGFloat iconY = (cover.frame.size.height - 150) * 0.5 + 20;
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, iconY, 150, 150)];
+    iconView.backgroundColor = [UIColor clearColor];
     iconView.image = [UIImage imageNamed:@"bigIcon"];
     [cover addSubview:iconView];
     
@@ -96,15 +98,7 @@
 
 - (void)setupFooter
 {
-    CGFloat forgetY = self.view.frame.size.height - 30 - 20;
-    UIButton *forget = [[UIButton alloc] initWithFrame:CGRectMake(20, forgetY, 60, 30)];
-    forget.backgroundColor = [UIColor yellowColor];
-    [self.view addSubview:forget];
     
-    CGFloat newX = self.view.frame.size.width - 60 - 20;
-    UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, forgetY, 60, 30)];
-    new.backgroundColor = [UIColor yellowColor];
-    [self.view addSubview:new];
 }
 
 /**

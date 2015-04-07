@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKViewController.h"
 
-@interface ShouKeBao : UIViewController
+@interface ShouKeBao : SKViewController
 
 @end

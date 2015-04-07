@@ -25,14 +25,12 @@
         self.headIcon = headIcon;
         
         UILabel *nickName = [[UILabel alloc] init];
-        nickName.text = @"hehehe";
         nickName.textAlignment = NSTextAlignmentCenter;
         nickName.font = [UIFont boldSystemFontOfSize:17];
         [self addSubview:nickName];
         self.nickName = nickName;
         
         UILabel *personType = [[UILabel alloc] init];
-        personType.text = @"lalala";
         personType.textColor = [UIColor whiteColor];
         personType.textAlignment = NSTextAlignmentCenter;
         personType.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];

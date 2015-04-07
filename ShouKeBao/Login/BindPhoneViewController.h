@@ -8,7 +8,7 @@
 
 #import "SKTableViewController.h"
 
-@interface BindPhoneViewController : SKTableViewController
+@interface BindPhoneViewController : UITableViewController
 
 @property (nonatomic,copy) NSString *distributionId;
 

@@ -18,9 +18,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *pwdLevel; // 密码安全等级描述
 
-@property (weak, nonatomic) IBOutlet UIImageView *phoneStatus; // 手机是否绑定状态图标
-
-@property (weak, nonatomic) IBOutlet UILabel *bindPhone; // 当前绑定的手机
+//@property (weak, nonatomic) IBOutlet UIImageView *phoneStatus; // 手机是否绑定状态图标
+//
+//@property (weak, nonatomic) IBOutlet UILabel *bindPhone; // 当前绑定的手机
 @end
 
 @implementation SafeSettingViewController
@@ -34,11 +34,11 @@
 }
 
 // 修改绑定的手机
-- (IBAction)modifyBindPhone:(id)sender
-{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
-    ReBindViewController *reBind = [sb instantiateViewControllerWithIdentifier:@"ReBind"];
-    [self.navigationController pushViewController:reBind animated:YES];
-}
+//- (IBAction)modifyBindPhone:(id)sender
+//{
+//    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
+//    ReBindViewController *reBind = [sb instantiateViewControllerWithIdentifier:@"ReBind"];
+//    [self.navigationController pushViewController:reBind animated:YES];
+//}
 
 @end
