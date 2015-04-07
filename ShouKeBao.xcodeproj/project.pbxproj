@@ -150,6 +150,8 @@
 		632613271AB2AF04003AC2DA /* PGCategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 632613241AB2AF04003AC2DA /* PGCategoryView.m */; };
 		632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 632613251AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png */; };
 		632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 632613261AB2AF04003AC2DA /* re_product_pan_b@2x.png */; };
+		632AF23B1AD3E523004916C0 /* SearchFootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 632AF23A1AD3E523004916C0 /* SearchFootView.m */; };
+		632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 632AF23C1AD3E536004916C0 /* SearchFootView.xib */; };
 		632B00001AB92A3A003B15AD /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BFFEE1AB92A3A003B15AD /* UIImageView+HighlightedWebCache.m */; };
 		632B00011AB92A3A003B15AD /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BFFF01AB92A3A003B15AD /* UIImageView+WebCache.m */; };
 		632B00021AB92A3A003B15AD /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 632BFFF21AB92A3A003B15AD /* UIView+WebCacheOperation.m */; };
@@ -503,6 +505,9 @@
 		632613241AB2AF04003AC2DA /* PGCategoryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PGCategoryView.m; sourceTree = "<group>"; };
 		632613251AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "re_prduct_pan_toggle@2x.png"; sourceTree = "<group>"; };
 		632613261AB2AF04003AC2DA /* re_product_pan_b@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "re_product_pan_b@2x.png"; sourceTree = "<group>"; };
+		632AF2391AD3E523004916C0 /* SearchFootView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchFootView.h; sourceTree = "<group>"; };
+		632AF23A1AD3E523004916C0 /* SearchFootView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchFootView.m; sourceTree = "<group>"; };
+		632AF23C1AD3E536004916C0 /* SearchFootView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchFootView.xib; sourceTree = "<group>"; };
 		632BFFC11AB91FB1003B15AD /* StrToDic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StrToDic.h; sourceTree = "<group>"; };
 		632BFFC21AB91FB1003B15AD /* StrToDic.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StrToDic.m; sourceTree = "<group>"; };
 		632BFFC51AB91FBF003B15AD /* jsMethod.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = jsMethod.h; sourceTree = "<group>"; };
@@ -976,6 +981,9 @@
 				5A52FBAB1ACEBF220076DAE6 /* SearchProductViewController.h */,
 				5A52FBAC1ACEBF220076DAE6 /* SearchProductViewController.m */,
 				5A52FBAD1ACEBF220076DAE6 /* SearchProductViewController.xib */,
+				632AF2391AD3E523004916C0 /* SearchFootView.h */,
+				632AF23A1AD3E523004916C0 /* SearchFootView.m */,
+				632AF23C1AD3E536004916C0 /* SearchFootView.xib */,
 			);
 			path = SearchProduct;
 			sourceTree = "<group>";
@@ -1797,6 +1805,7 @@
 				5A00589C1ACEBD1E007AF362 /* addRemondViewController.xib in Resources */,
 				5A52FC491ACEBF220076DAE6 /* MinMaxPriceSelectViewController.xib in Resources */,
 				5A52FC4B1ACEBF220076DAE6 /* ProductCell.xib in Resources */,
+				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
 				5A00588A1ACEBD1E007AF362 /* addCustomerViewController.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
 				5A52FC6B1ACEBF220076DAE6 /* Safe.storyboard in Resources */,
@@ -1857,6 +1866,7 @@
 			files = (
 				633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */,
 				633263D51AB851590021553B /* AFNetworkReachabilityManager.m in Sources */,
+				632AF23B1AD3E523004916C0 /* SearchFootView.m in Sources */,
 				5A52FC4F1ACEBF220076DAE6 /* Person.m in Sources */,
 				5A52FC871ACEBF220076DAE6 /* CantactView.m in Sources */,
 				633263D41AB851590021553B /* AFHTTPSessionManager.m in Sources */,

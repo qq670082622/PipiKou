@@ -20,7 +20,7 @@
     // Configure the view for the selected state
 }
 +(instancetype)cellWithTableView:(UITableView *)tableView
-{ static NSString *cellID = @"cell1";
+{ static NSString *cellID = @"cellaaaa";
     leftCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"leftCell" owner:nil options:nil] lastObject];
@@ -33,5 +33,6 @@
 {
     _modal = modal;
     self.name.text = modal.Name;
+    
 }
 @end

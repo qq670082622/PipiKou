@@ -120,7 +120,7 @@
      */
     CGFloat pX = CGRectGetMaxX(self.icon.frame) + gap;
     CGFloat pW = (screenW - 120 - gap * 3.5) / 2;
-    self.productNum.frame = CGRectMake(pX, iconY, pW, 20);
+    self.productNum.frame = CGRectMake(pX, iconY, pW+40, 20);
     
     CGFloat nX = CGRectGetMaxX(self.productNum.frame) + gap * 0.5;
     self.normalPrice.frame = CGRectMake(nX, iconY, pW, 20);

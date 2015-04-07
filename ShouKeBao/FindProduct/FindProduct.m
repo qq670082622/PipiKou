@@ -24,6 +24,7 @@
 #import "SearchProductViewController.h"
 #import "WMAnimations.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
+@property (weak, nonatomic) IBOutlet UIView *blackView;
 
 @property (weak, nonatomic) IBOutlet UIView *line;
 - (IBAction)stationSelect:(id)sender;
@@ -55,7 +56,7 @@
 - (IBAction)hotBtnClick:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *hotIcon;
 @property (weak, nonatomic) IBOutlet UIButton *hotBtn;
-@property (weak, nonatomic) IBOutlet UIView *hotSubView;
+
 
 
 
@@ -64,6 +65,7 @@
 @property (strong, nonatomic) NSMutableArray *hotSectionArr;
 
 @property (strong, nonatomic) NSMutableArray *hotNumberOfSectionArr;//section内有多少个row
+@property (weak, nonatomic) IBOutlet UIButton *hotBtnIconOutlet;
 
 @end
 
@@ -96,10 +98,10 @@
     self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPdaxiang",@"APPstatue",@"APPfeiji",@"APPyoulun",@"APPshanzi",@"APPconglinhaidao",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
     self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPdaxiang2",@"APPstatue2",@"APPfeiji2.png",@"APPyoulun2.png",@"APPshanzi2",@"APPconglinhaidao2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
   
-   self.row = [NSMutableString stringWithFormat:@"0"];
+ //  self.row = [NSMutableString stringWithFormat:@"0"];
    
     [self.hotIcon setSelected:YES];
-   self.hotSubView.backgroundColor = [UIColor colorWithRed:217/255.f green:217/255.f blue:217/255.f alpha:1];
+
     
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.rightTable2.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -116,6 +118,21 @@
 
 }
 
+-(NSMutableString *)row
+{
+    if (_row == nil) {
+        self.row = [NSMutableString string];
+    }
+    return _row;
+}
+
+-(NSMutableString *)table2Row
+{
+    if (_table2Row == nil) {
+        self.table2Row = [NSMutableString string];
+    }
+    return _table2Row;
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -338,12 +355,15 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
 }
 - (IBAction)hotBtnClick:(id)sender {
+    self.row = nil;
+    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    [self.leftTable reloadData];
     [UIView animateWithDuration:0.7 animations:^{
         self.rightTable.alpha = 0;
         self.rightTable2.alpha = 0;
         self.hotTable.alpha = 1;
         self.hotIcon.selected = YES;
-        self.hotSubView.backgroundColor = [UIColor colorWithRed:217/255.f green:217/255.f blue:217/255.f alpha:1];
+
 
     }];
     
@@ -389,6 +409,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     [UIView animateWithDuration:0.5 animations:^{
         self.rightTable2.alpha = 0;
         self.rightTable.alpha = 1;
+        self.blackView.alpha = 0;
+
     }];
     
     
@@ -398,7 +420,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 3 ) {
-        return 35;
+        return 60;
     }
     
     if (tableView.tag == 4 ) {
@@ -411,7 +433,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 {
     if (tableView.tag == 3) {
         HeaderView *header = [HeaderView headerView];
-        header.frame = CGRectMake(0, 0, 200, 35);
+        header.frame = CGRectMake(0, 0, 200, 60);
         header.delegate = self;
         return header;
     }
@@ -468,9 +490,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 {
     if (tableView.tag == 1) {
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
-       
+        NSLog(@"self.row is %@",_row);
+        [self.leftTable reloadData];
             [self loadDataSourceRight];
-        
+        [self.hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [UIView animateWithDuration:0.5 animations:^{
             self.rightTable2.alpha = 0;
             self.hotTable.alpha = 0;
@@ -480,7 +503,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             self.rightTable.frame = CGRectMake(101, self.subHotView.frame.origin.y, self.view.frame.size.width-self.leftTable.frame.size.width-1, self.leftTable.frame.size.height);
         }];
         
-        self.hotSubView.backgroundColor = [UIColor whiteColor];
+
     }
     
     if (tableView.tag == 2) {
@@ -489,6 +512,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         [UIView animateWithDuration:0.5 animations:^{
             self.rightTable2.alpha = 1;
             self.rightTable.alpha = 0;
+            self.blackView.alpha = 0.5;
             self.rightTable2.frame = CGRectMake(101, self.subHotView.frame.origin.y, self.view.frame.size.width-self.leftTable.frame.size.width-1, self.leftTable.frame.size.height);
        
         }];
@@ -523,10 +547,15 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (tableView.tag == 1 && ([_row intValue] == 0)) {
+    UITableViewCell *cell = [[UITableViewCell alloc] init];
+    if (tableView.tag == 1 ) {//&& ([_row intValue] == 0)
         leftCell *cell = [leftCell cellWithTableView:tableView];
-        cell.modal  = [self.leftTableArr objectAtIndex:indexPath.row];
+        cell.modal = [self.leftTableArr objectAtIndex:indexPath.row];
         cell.icon.image = [UIImage imageNamed:[self.leftNormoalIconArr objectAtIndex:indexPath.row]];
+        if (indexPath.row == [self.row intValue] && self.hotBtnIconOutlet.selected == NO) {
+            cell.name.textColor = [UIColor orangeColor];
+            cell.icon.image = [UIImage imageNamed:[self.leftSelectIconArr objectAtIndex:indexPath.row]];
+        }
         return cell;
     }else if(tableView.tag == 2) {//if (tableView.tag == 2 && ([_row intValue] != 0)){
         
@@ -548,7 +577,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         cell.modal = model;
         return cell;
     }
-    return 0;
+    return cell;
 }
 
 @end

@@ -46,6 +46,6 @@
 }
 - (IBAction)cancle:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
-
+    [self.delegate passTheMinPrice:@"0" AndMaxPrice:@"0"];
 }
 @end

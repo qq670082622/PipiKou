@@ -21,6 +21,10 @@
 
 + (NSArray *)readData:(NSString *)name;
 
++ (NSMutableArray *)WMsaveData:(NSMutableArray *)array name:(NSString *)name;
+
++ (NSMutableArray *)WMreadData:(NSString *)name;
+
 // 保存图片
 + (BOOL)saveImageToCacheDir:(NSString *)directoryPath image:(UIImage *)image imageName:(NSString *)imageName imageType:(NSString *)imageType;
 

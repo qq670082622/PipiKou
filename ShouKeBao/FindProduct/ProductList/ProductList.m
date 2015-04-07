@@ -5,7 +5,7 @@
 //  Created by David on 15/3/17.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
-
+#define titleWid 15/32
 #import "ProductList.h"
 #import "ProductCell.h"
 #import "ProductModal.h"
@@ -23,6 +23,7 @@
 #import "SearchProductViewController.h"
 #import "StationSelect.h"
 #import "MinMaxPriceSelectViewController.h"
+#import "WMAnimations.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,footViewDelegate,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -41,6 +42,8 @@
 @property (weak, nonatomic) IBOutlet UISwitch *jishiSwitch;
 - (IBAction)jishiSwitchAction:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UIButton *priceBtnOutlet;
+@property (weak, nonatomic) IBOutlet UIView *blackView;
 
 //@property (copy , nonatomic) NSMutableString *ProductSortingType;//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
 //同行价（从低往高）:”3,同行价（从高往低）:"4"
@@ -67,7 +70,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.title = self.title;
+   // self.navigationController.title = self.title;
     [self customRightBarItem];
     self.table.delegate = self;
     self.table.dataSource = self;
@@ -98,11 +101,15 @@
     
 
 
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*titleWid, 28)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = CGRectMake(0, 0, 150, 28);
-    [btn setBackgroundImage:[UIImage imageNamed:@"shousuochanpin"] forState:UIControlStateNormal];
-    [btn addTarget:self action:@selector(clickPush) forControlEvents:UIControlEventTouchUpInside];
+    [btn setTitle:[NSString stringWithFormat:@"🔍 %@",_pushedSearchK] forState:UIControlStateNormal];
+    btn.backgroundColor = [UIColor whiteColor];
+    btn.titleLabel.font = [UIFont systemFontOfSize:11];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:btn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
+ [btn addTarget:self action:@selector(clickPush) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:btn];
     self.navigationItem.titleView = titleView;
     
@@ -123,7 +130,7 @@
 #pragma  mark 没有产品时嵌图
 -(void)addANewFootViewWhenHaveNoProduct
 {
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 400)];
+    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, self.view.frame.size.width-200,200)];
     imgv.image = [UIImage imageNamed:@"meiyouchanpin"];
     [self.view addSubview:imgv];
 }
@@ -194,8 +201,15 @@
 #pragma  mark -priceDelegate
 -(void)passTheMinPrice:(NSString *)min AndMaxPrice:(NSString *)max
 {
-    [self.conditionDic setObject:min forKey:@"MinPrice"];
-    [self.conditionDic setObject:max forKey:@"MaxPrice"];
+    if (![min  isEqual: @"0"] && ![max  isEqual: @"0"]) {
+        [self.conditionDic setObject:min forKey:@"MinPrice"];
+        [self.conditionDic setObject:max forKey:@"MaxPrice"];
+        [self.priceBtnOutlet setTitle:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max] forState:UIControlStateNormal];
+
+    }else if ([min isEqualToString:@"0"] && [max isEqualToString:@"0"]){
+        [self.priceBtnOutlet setTitle:@"价格区间         >" forState:UIControlStateNormal];
+    }
+    
 }
 
 #pragma footView - delegate
@@ -234,6 +248,7 @@
         NSArray *arr = json[@"ProductList"];
         if (arr.count == 0) {
             self.table.tableFooterView.hidden = YES;
+            
         }else if (10>arr.count>0){
           self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
@@ -244,7 +259,7 @@
             [self.table reloadData];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
-        }else if (arr.count>=10){
+        }else if (arr.count == 10){
             self.table.tableFooterView.hidden = NO;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
@@ -301,14 +316,23 @@
         if (arr.count==0) {
             [self addANewFootViewWhenHaveNoProduct];
             self.table.tableFooterView.hidden = YES;
-        }else if (arr.count>0){
-         self.table.tableFooterView.hidden = NO;
+        }else if (10>arr.count>0){
+         self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
             }
 
-        }        NSMutableArray *conArr = [NSMutableArray array];
+        }else if (arr.count == 10){
+            self.table.tableFooterView.hidden = NO;
+            for (NSDictionary *dic in json[@"ProductList"]) {
+                ProductModal *modal = [ProductModal modalWithDict:dic];
+                [self.dataArr addObject:modal];
+            }
+
+        }
+        
+        NSMutableArray *conArr = [NSMutableArray array];
         
         for(NSDictionary *dic in json[@"ProductConditionList"] ){
             [conArr addObject:dic];
@@ -341,8 +365,21 @@
 -(void)setUp
 {
    if (self.subView.hidden == YES) {
-        self.subView.hidden = NO;
-        }
+       [UIView animateWithDuration:0.5 animations:^{
+           self.subView.alpha = 1;
+           self.subView.hidden = NO;
+           self.blackView.alpha = 0.5;
+       }];
+      
+   }else if (self.subView.hidden == NO){
+   [UIView animateWithDuration:0.5 animations:^{
+       self.subView.alpha = 0;
+       self.blackView.alpha = 0;
+       self.subView.hidden = YES;
+       
+   }];
+   
+   }
 }
 
 
@@ -876,8 +913,12 @@
 }
 
 - (IBAction)sunCancel:(id)sender {
-    self.subView.hidden = YES;
-}
+   [UIView animateWithDuration:0.5 animations:^{
+       self.blackView.alpha = 0;
+       self.subView.alpha = 0;
+       self.subView.hidden = YES;
+   }];
+   }
 
 - (IBAction)subReset:(id)sender {
     self.conditionDic = nil;

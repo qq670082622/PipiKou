@@ -7,10 +7,12 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductList">
             <connections>
+                <outlet property="blackView" destination="NSH-sl-xR4" id="4Qa-au-gqO"/>
                 <outlet property="cheapOutlet" destination="kib-3W-YwQ" id="Y4A-0l-eup"/>
                 <outlet property="commondOutlet" destination="HuI-cE-kBC" id="LYf-ib-EdL"/>
                 <outlet property="jiafanSwitch" destination="Ifm-XW-AOn" id="mGa-bY-9ml"/>
                 <outlet property="jishiSwitch" destination="bbC-q6-hgA" id="1So-PK-F33"/>
+                <outlet property="priceBtnOutlet" destination="khc-Qx-xwZ" id="6ok-uu-934"/>
                 <outlet property="profitOutlet" destination="RGF-At-XCR" id="2p7-Bp-gpi"/>
                 <outlet property="subTable" destination="Z2O-XY-6US" id="HZE-bt-JqR"/>
                 <outlet property="subView" destination="Pnl-8d-Oiq" id="dSi-ay-w9i"/>
@@ -85,13 +87,18 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                     <color key="backgroundColor" red="0.32956518309999999" green="0.32956518309999999" blue="0.32956518309999999" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <view contentMode="scaleToFill" id="Pnl-8d-Oiq" userLabel="subView">
+                <view alpha="0.0" contentMode="scaleToFill" id="NSH-sl-xR4" userLabel="blackView">
+                    <rect key="frame" x="0.0" y="38" width="69" height="450"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view hidden="YES" alpha="0.0" contentMode="scaleToFill" id="Pnl-8d-Oiq" userLabel="subView">
                     <rect key="frame" x="70" y="38" width="250" height="450"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="0PL-Zd-9ZA" userLabel="line2">
-                            <rect key="frame" x="0.0" y="35" width="250" height="10"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <rect key="frame" x="0.0" y="30" width="250" height="8"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.85829782196969695" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="Z2O-XY-6US" userLabel="setUpTable">
@@ -104,12 +111,12 @@
                             </connections>
                         </tableView>
                         <view contentMode="scaleToFill" id="njL-NC-EBv" userLabel="line3">
-                            <rect key="frame" x="0.0" y="76" width="250" height="1"/>
+                            <rect key="frame" x="0.0" y="71" width="250" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.85607244318181819" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="bB9-Yt-AHX" userLabel="line4">
-                            <rect key="frame" x="0.0" y="110" width="250" height="1"/>
+                            <rect key="frame" x="0.0" y="105" width="250" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.8637902462121213" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
@@ -150,21 +157,21 @@
                             </connections>
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="加返" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="RSh-xf-lsm">
-                            <rect key="frame" x="8" y="48" width="42" height="21"/>
+                            <rect key="frame" x="8" y="45" width="42" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="及时确认" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="B6j-Fc-7YI">
-                            <rect key="frame" x="8" y="82" width="90" height="21"/>
+                            <rect key="frame" x="8" y="80" width="90" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="khc-Qx-xwZ">
-                            <rect key="frame" x="8" y="112" width="234" height="30"/>
+                            <rect key="frame" x="8" y="111" width="234" height="25"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <state key="normal" title="价格区间                           &gt;">
@@ -176,20 +183,20 @@
                             </connections>
                         </button>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="Ifm-XW-AOn">
-                            <rect key="frame" x="195" y="45" width="51" height="31"/>
+                            <rect key="frame" x="195" y="39" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <connections>
                                 <action selector="jiafanSwitchAction:" destination="-1" eventType="valueChanged" id="M9S-68-6dt"/>
                             </connections>
                         </switch>
                         <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" id="bbC-q6-hgA">
-                            <rect key="frame" x="196" y="78" width="51" height="31"/>
+                            <rect key="frame" x="195" y="73" width="51" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <connections>
                                 <action selector="jishiSwitchAction:" destination="-1" eventType="valueChanged" id="eJa-2U-eVu"/>
                             </connections>
                         </switch>
-                        <view contentMode="scaleToFill" id="XIz-vT-unq" userLabel="leftLine">
+                        <view hidden="YES" contentMode="scaleToFill" id="XIz-vT-unq" userLabel="leftLine">
                             <rect key="frame" x="0.0" y="0.0" width="1" height="450"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

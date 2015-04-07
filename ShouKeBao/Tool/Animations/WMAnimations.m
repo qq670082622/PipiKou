@@ -75,8 +75,20 @@ theAnimation.fromValue=[NSValue valueWithCGPoint:*fromPoint];
 
     }
     
-    
-    
-   
+    }
+
++ (void)WMAnimationMakeBoarderNoCornerRadiosWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(int)borderWid andNeedShadow:(BOOL)needShow//给view增加边框
+{
+    layer.borderColor = color.CGColor;
+    layer.borderWidth = borderWid;
+   layer.masksToBounds = YES;
+    if (needShow) {
+        layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        layer.shadowOpacity = 0.5;
+        layer.shadowOffset = CGSizeMake(2, 2);
+        
+    }
+
+
 }
 @end
