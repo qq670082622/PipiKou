@@ -41,9 +41,9 @@
 
     // 如果自动登录了 就切到主界面
 //    if (self.isAutoLogin) {
-//        [self setTabbarRoot];
+        [self setTabbarRoot];
 //    }else{
-        [self setLoginRoot];
+//        [self setLoginRoot];
 //    }
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey

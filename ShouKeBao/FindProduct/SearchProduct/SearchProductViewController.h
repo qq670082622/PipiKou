@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKViewController.h"
+
 @protocol passSearchKey<NSObject>
 -(void)passSearchKeyFromSearchVC:(NSString *)searchKey;
 @end
 
-@interface SearchProductViewController : UIViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface SearchProductViewController : SKViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
 - (IBAction)search:(id)sender;
 - (IBAction)clearinPutView:(id)sender;
