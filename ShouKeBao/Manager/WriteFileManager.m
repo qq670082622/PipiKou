@@ -32,6 +32,32 @@
     NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
     return data;
 }
+//-----wm
++ (NSMutableArray *)WMsaveData:(NSMutableArray *)array name:(NSString *)name{
+  
+    NSString *docPath =  NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    NSLog(@"%@",docPath);
+    
+    // 拼接文件路径
+    NSString *filePath = [docPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",name]];
+    
+    [array writeToFile:filePath atomically:YES];
+    return array;
+
+}
+
++ (NSMutableArray *)WMreadData:(NSString *)name{
+    NSString *docPath =  NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
+    
+    // 拼接文件路径
+    NSString *filePath = [docPath stringByAppendingPathComponent:[NSString stringWithFormat:@"%@.plist",name]];
+    
+    NSMutableArray *data = [NSMutableArray arrayWithContentsOfFile:filePath];
+    return data;
+
+}
+
+//-------wm
 
 // 模型存储
 + (NSArray *)saveData:(NSArray *)array name:(NSString *)name

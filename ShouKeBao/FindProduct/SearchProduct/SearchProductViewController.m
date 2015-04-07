@@ -10,7 +10,9 @@
 #import "IWHttpTool.h"
 #import "WMAnimations.h"
 #import "ProductList.h"
-@interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+#import "WriteFileManager.h"
+#import "SearchFootView.h"
+@interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,searchFootViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
 @property (weak, nonatomic) IBOutlet UIButton *btn1;
@@ -35,12 +37,17 @@
     
     self.table.delegate = self;
     self.table.dataSource = self;
+    SearchFootView *foot = [SearchFootView footView];
+    foot.delegate = self;
+    self.table.tableFooterView = foot;
+    self.table.tableFooterView.hidden = YES;
     
-    self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
    // [self setBtnText];
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.subView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.table.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
+    [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
+//    [WMAnimations WMAnimationMakeBoarderWithLayer:self.table.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
 }
+
+
 -(void)hideKeyBoard
 {
     [self.inputView resignFirstResponder];
@@ -67,6 +74,8 @@
     }];
 
 }
+
+
 
 -(void)setBtnText
 {
@@ -99,6 +108,9 @@
 }
 -(void)loadHistoryDataSource
 {
+    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"searchHistory"];
+    self.tableDataArr = searchArr;
+   
 
 }
 
@@ -110,12 +122,27 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:str];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    if (_tableDataArr) {
+    cell.textLabel.text = _tableDataArr[indexPath.row ];
+    }
     
     return cell;
 }
+#pragma -mark footViewDelegate
+-(void)searchFootViewDidClickedLoadBtn:(SearchFootView *)footView
+{
+    [self.tableDataArr removeAllObjects];
+    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+    [self.table reloadData];
+     self.table.tableFooterView.hidden = YES;
+}
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.tableDataArr.count;
+    if (_tableDataArr) {
+        return self.tableDataArr.count;
+    }
+    return 0;
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -125,14 +152,23 @@
     
 }
 - (IBAction)search:(id)sender {
+    
+    [self.tableDataArr addObject:self.inputView.text];
+    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+    
+    
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
+    self.table.tableFooterView.hidden = NO;
+    
     [self.navigationController pushViewController:list animated:YES];
 }
 
 - (IBAction)clearinPutView:(id)sender {
     self.inputView.text = @"";
     [self.inputView resignFirstResponder];
+    
+   
 }
 
 -(IBAction)hotWordSearch:(id)sender
