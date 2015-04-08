@@ -30,8 +30,8 @@
     rightCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"rightCell" owner:nil options:nil] lastObject];
-        
-//        [cell.contentView addSubview:self.btn1];
+        cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+       
         
     }
     return cell;

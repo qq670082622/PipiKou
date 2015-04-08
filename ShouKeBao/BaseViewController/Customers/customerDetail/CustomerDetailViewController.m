@@ -14,6 +14,7 @@
 #import "MBProgressHUD+MJ.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
+@property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
 
 @end
 
@@ -35,6 +36,8 @@
     [titleView addSubview:segment];
     self.segmentControl = segment;
     self.navigationItem.titleView = titleView;
+    
+    [self.SetRemindBtnOutlet setHighlighted:NO];
     
     [self setSubViews];
     if (self.note.text == nil) {
@@ -75,7 +78,7 @@
     UISegmentedControl *control = (UISegmentedControl *)sender;
     if (control.selectedSegmentIndex == 1) {
         CustomerOrdersUIViewController *orders = [[CustomerOrdersUIViewController alloc] init];
-        [self.navigationController pushViewController:orders animated:YES];
+        [self.navigationController pushViewController:orders animated:NO];
     }
 }
 -(void)customerRightBarItem
@@ -94,6 +97,10 @@
 {
     EditCustomerDetailViewController *edit = [[EditCustomerDetailViewController alloc] init];
     edit.ID = self.ID;
+    edit.QQStr = self.QQStr;
+    edit.wechatStr = self.weChatStr;
+    edit.noteStr = self.noteStr;
+    edit.teleStr = self.teleStr;
     [self.navigationController pushViewController:edit animated:YES];
 }
 

@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface RemindDetailViewController : UIViewController
+#import "SKViewController.h"
+@interface RemindDetailViewController : SKViewController
 @property (nonatomic,copy)NSString *note;
 @property (nonatomic,copy)NSString *time;
 @end

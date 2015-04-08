@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 #import "ProduceDetailViewController.h"
-
-@interface ProductList : UIViewController//<passValue>
+#import "SKViewController.h"
+@interface ProductList : SKViewController//<passValue>
 @property (nonatomic,copy) NSString *pushedSearchK;
 @property (nonatomic,copy) NSString *title;
 @end

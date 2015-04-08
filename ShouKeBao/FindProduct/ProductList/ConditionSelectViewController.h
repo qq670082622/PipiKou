@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKViewController.h"
 @protocol passValue <NSObject>
 -(void)passKey:(NSString *)key andValue:(NSString *)value andSelectIndexPath:(NSArray *)selectIndexPath andSelectValue:(NSString *)selectValue;
 @end
-@interface ConditionSelectViewController : UIViewController<UITableViewDataSource,UITableViewDelegate>
+@interface ConditionSelectViewController : SKViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(copy , nonatomic) NSString *title;
 @property (strong , nonatomic) NSArray *dataArr1;

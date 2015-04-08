@@ -152,11 +152,10 @@
 -(void)customRightBarItem
 {
     
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-    [btn setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateNormal];
-    btn.frame = CGRectMake(0, 0, 30, 30);
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];;
     [btn addTarget:self action:@selector(codeAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
+    [btn setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateNormal];
+   UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     
 }

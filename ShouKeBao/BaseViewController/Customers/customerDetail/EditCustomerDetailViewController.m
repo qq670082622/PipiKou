@@ -28,6 +28,11 @@
     self.saveOutlet.layer.borderWidth = 1;
     self.saveOutlet.layer.cornerRadius = 4;
     self.saveOutlet.layer.masksToBounds = YES;
+    self.name.text = self.nameStr;
+    self.tele.text = self.teleStr;
+    self.wechat.text = self.wechatStr;
+    self.QQ.text = self.QQStr;
+    self.note.text = self.noteStr;
 }
 
 - (void)didReceiveMemoryWarning {

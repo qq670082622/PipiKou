@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "remondModel.h"
 #import "remondTableViewCell.h"
-@interface remondViewController : UIViewController
+#import "SKViewController.h"
+#import "MBProgressHUD+MJ.h"
+@interface remondViewController : SKViewController
 @property (nonatomic,copy) NSString *ID;
 @end

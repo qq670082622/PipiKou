@@ -9,6 +9,7 @@
 #import "QRCodeViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "URLOpenFromQRCodeViewController.h"
+#import "WMAnimations.h"
 @interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
@@ -38,6 +39,7 @@
    self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.startBtn.layer andBorderColor:[UIColor blackColor] andBorderWidth:1 andNeedShadow:YES];
 }
 
 //实现startReading方法（这可就是重点咯）

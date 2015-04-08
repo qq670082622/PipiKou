@@ -26,9 +26,13 @@
     
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"rightCell2" owner:nil options:nil] lastObject];
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;    
+   // cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+   cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+       
+
     }
     [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
+    
     return cell;
 }
 

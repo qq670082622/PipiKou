@@ -24,7 +24,8 @@
     leftCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"leftCell" owner:nil options:nil] lastObject];
-        
+        cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+       
     }
     return cell;
 }

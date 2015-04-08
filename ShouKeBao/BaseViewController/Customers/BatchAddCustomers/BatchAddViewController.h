@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface BatchAddViewController : UIViewController
+#import "SKViewController.h"
+@interface BatchAddViewController : SKViewController
 
 @end
