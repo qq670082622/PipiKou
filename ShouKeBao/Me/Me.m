@@ -34,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"我";
     
     self.tableView.contentInset = UIEdgeInsetsMake(200, 0, 0, 0);
     self.tableView.tableHeaderView = self.buttonView;
@@ -46,7 +47,7 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSData *head = [def objectForKey:@"userhead"];
     if (head) {
-        [self.meheader.headIcon setImage:[UIImage imageWithData:head] forState:UIControlStateNormal];
+        [self.meheader.headIcon setBackgroundImage:[UIImage imageWithData:head] forState:UIControlStateNormal];
     }
 }
 
@@ -69,8 +70,6 @@
 #pragma mark - private
 - (void)setNav
 {
-    self.title = nil;
-  
     [self.navigationController.view addSubview:self.meheader];
 }
 
@@ -113,7 +112,7 @@
 - (void)didClickHeadIcon
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
-    [sheet showInView:self.view];
+    [sheet showInView:self.view.window];
 }
 
 #pragma mark - MeButtonViewDelegate
@@ -283,8 +282,8 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     NSLog(@"----%@",info);
-    UIImage *image = info[@"UIImagePickerControllerOriginalImage"];
-    [self.meheader.headIcon setImage:image forState:UIControlStateNormal];
+    UIImage *image = info[@"UIImagePickerControllerEditedImage"];
+    [self.meheader.headIcon setBackgroundImage:image forState:UIControlStateNormal];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];

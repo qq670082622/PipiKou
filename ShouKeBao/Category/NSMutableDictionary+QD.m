@@ -10,15 +10,16 @@
 
 @implementation NSMutableDictionary (QD)
 
-- (NSMutableDictionary *)cleanNullResult
++ (NSMutableDictionary *)cleanNullResult:(NSDictionary *)dict
 {
-    NSArray *array = [self allKeys];
+    NSMutableDictionary *muta = dict.mutableCopy;
+    NSArray *array = [dict allKeys];
     for (NSString *key in array) {
-        if ([[self objectForKey:key] isKindOfClass:[NSNull class]]) {
-            [self setValue:@"" forKey:key];
+        if ([[muta objectForKey:key] isKindOfClass:[NSNull class]]) {
+            [muta setValue:@"" forKey:key];
         }
     }
-    return self;
+    return muta;
 }
 
 @end

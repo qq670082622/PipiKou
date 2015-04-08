@@ -59,6 +59,8 @@
 
 @property (nonatomic,weak) HistoryView *historyView;
 
+@property (nonatomic,assign) BOOL isHeadRefresh;
+
 @end
 
 @implementation Orders
@@ -157,11 +159,15 @@
                             @"IsRefund":[NSString stringWithFormat:@"%d",self.dressView.IsRefund.on]};
     [OrderTool getOrderListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
         if (json) {
             NSLog(@"------%@",json);
             dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
-                [self.dataArr removeAllObjects];
+                if (self.isHeadRefresh) {
+                    [self.dataArr removeAllObjects];
+                }
+                
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.dataArr addObject:order];
@@ -230,15 +236,15 @@
 
 -(void)headRefresh
 {
+    self.pageIndex = 1;
+    self.isHeadRefresh = YES;
     [self loadDataSuorceByCondition];
 }
 -(void)footRefresh
 {
     self.pageIndex ++;
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [self.tableView footerEndRefreshing];
-    });
-    
+    self.isHeadRefresh = NO;
+    [self loadDataSuorceByCondition];
 }
 
 // 右边滑动的按钮
@@ -322,7 +328,7 @@
 - (DOPDropDownMenu *)menu
 {
     if (!_menu) {
-        _menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 40) andHeight:40];
+        _menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 44) andHeight:40];
         _menu.dataSource = self;
         _menu.delegate = self;
     }
@@ -341,7 +347,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 80, self.view.frame.size.width, self.view.frame.size.height - 144) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84, self.view.frame.size.width, self.view.frame.size.height - 148) style:UITableViewStyleGrouped];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -358,7 +364,7 @@
         _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
         _searchBar.delegate = self;
         _searchBar.placeholder = @"搜索";
-        _searchBar.backgroundColor = [UIColor colorWithRed:0.747 green:0.756 blue:0.751 alpha:1.000];
+        _searchBar.backgroundColor = [UIColor clearColor];
         
     }
     
@@ -666,13 +672,13 @@
 #pragma mark - UISearchDisplayDelegate
 -(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
-        [UIView animateWithDuration:0.25 animations:^{
-            for (UIView *subview in self.view.subviews)
-                subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height);
-        }];
-    }
+//    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+//        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
+//        [UIView animateWithDuration:0.25 animations:^{
+//            for (UIView *subview in self.view.subviews)
+//                subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height);
+//        }];
+//    }
     HistoryView *historyView = [[HistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     historyView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
     [self.view.window addSubview:historyView];
@@ -689,6 +695,5 @@
         }];
     }
 }
-
 
 @end

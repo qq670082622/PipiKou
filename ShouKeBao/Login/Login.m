@@ -15,6 +15,8 @@
 #import "WriteFileManager.h"
 #import "LoginTool.h"
 #import "UserInfo.h"
+#import "Business.h"
+#import "UIImageView+WebCache.h"
 
 @interface Login () <UIScrollViewDelegate>
 
@@ -23,6 +25,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *accountField;
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
+
+@property (nonatomic,weak) UIButton *nameBtn;
 
 @end
 
@@ -39,20 +43,29 @@
     // 设置头部图标
     [self setupHeader];
     
-    // 设置底部按钮
-    [self setupFooter];
-    
     self.accountField.text = @"lxstest";
     self.passwordField.text = @"123456";
 //    self.accountField.text = @"18767155187";
 //    self.passwordField.text = @"222222";
+    
+    [self setWithName:[[NSUserDefaults standardUserDefaults] objectForKey:@"showname"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    self.navigationController.navigationBar.hidden = YES;
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 44, 44);
+    backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
+    
+    [backBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(doBack:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = backItem;
+    
+    self.navigationController.navigationBar.hidden = NO;
 }
 
 #pragma mark - private
@@ -63,7 +76,7 @@
     self.view.backgroundColor = [UIColor clearColor];
     self.tableView.backgroundColor = [UIColor clearColor];
     UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    bg.image = [UIImage imageNamed:@"navBarBack"];
+    bg.image = [UIImage imageNamed:@"beijing"];
     self.tableView.backgroundView = bg;
     self.tableView.backgroundColor = [UIColor clearColor];
     
@@ -76,29 +89,57 @@
     [self.view addGestureRecognizer:tap];
 }
 
+// 返回
+- (void)doBack:(UIBarButtonItem *)baritem
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+// 退出编辑
 - (void)tanHandle:(UITapGestureRecognizer *)ges
 {
     [self.view endEditing:YES];
 }
 
+// 设置头部
 - (void)setupHeader
 {
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 220)];
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 205)];
     cover.backgroundColor = [UIColor clearColor];
     
-    CGFloat iconX = (self.view.frame.size.width - 150) * 0.5;
-    CGFloat iconY = (cover.frame.size.height - 150) * 0.5 + 20;
-    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, iconY, 150, 150)];
+    CGFloat iconX = (self.view.frame.size.width - 100) * 0.5;
+    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 64, 100, 100)];
+    iconView.backgroundColor = [UIColor orangeColor];
+    iconView.contentMode = UIViewContentModeScaleAspectFill;
     iconView.backgroundColor = [UIColor clearColor];
-    iconView.image = [UIImage imageNamed:@"bigIcon"];
+    [iconView sd_setImageWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"loginavatar"]] placeholderImage:nil];
+    iconView.layer.shadowColor = [UIColor blackColor].CGColor;
+    iconView.layer.shadowOpacity = 0.3;
+    iconView.layer.shadowOffset = CGSizeMake(5, 5);
     [cover addSubview:iconView];
     
+    CGFloat nameY = CGRectGetMaxY(iconView.frame) + 10;
+    UIButton *nameBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 100, 20)];
+    [nameBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [nameBtn setBackgroundColor:[UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.3]];
+    nameBtn.layer.cornerRadius = 5;
+    nameBtn.layer.masksToBounds = YES;
+    nameBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [cover addSubview:nameBtn];
+    nameBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20);
+    self.nameBtn = nameBtn;
+
     self.tableView.tableHeaderView = cover;
 }
 
-- (void)setupFooter
+// 设置用户名称
+- (void)setWithName:(NSString *)name
 {
-    
+    [self.nameBtn setTitle:name forState:UIControlStateNormal];
+    [self.nameBtn sizeToFit];
+    CGRect rect = self.nameBtn.frame;
+    rect.origin.x = (self.view.frame.size.width - rect.size.width) * 0.5;
+    self.nameBtn.frame = rect;
 }
 
 /**
@@ -113,24 +154,47 @@
         NSLog(@"----%@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
+//            [UserInfo shareUser].BusinessID = json[@"BusinessID"];
             [UserInfo userInfoWithDict:json];
-            if ([json[@"LoginType"] integerValue] == 1) {
-                ChildAccountViewController *child = [[ChildAccountViewController alloc] init];
-                [self.navigationController pushViewController:child animated:YES];
-            }else{
-                AppDelegate *app = [UIApplication sharedApplication].delegate;
-                [app setTabbarRoot];
-            }
+            
+            // 保存账号密码
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            [def setObject:self.accountField.text forKey:@"account"];
+            [def setObject:self.passwordField.text forKey:@"password"];
+            [def synchronize];
+            
+            // 跳转主界面
+            AppDelegate *app = [UIApplication sharedApplication].delegate;
+            [app setTabbarRoot];
         }
     } failure:^(NSError *error) {
         
     }];
 }
 
-#pragma mark - UIScrollViewDelegate
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+#pragma mark - uitableviewdelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-//    [self.view endEditing:YES];
+    return 20;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, self.view.frame.size.width - 50, 20)];
+    title.text = @"输入旅行社账号密码";
+    title.font = [UIFont systemFontOfSize:13];
+    title.textColor = [UIColor whiteColor];
+    [cover addSubview:title];
+    
+    return cover;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 
 @end

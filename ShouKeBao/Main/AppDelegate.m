@@ -12,6 +12,7 @@
 #import "WMNavigationController.h"
 #import "LoginTool.h"
 #import "UserInfo.h"
+#import "BindPhoneViewController.h"
 
 @interface AppDelegate ()
 
@@ -26,10 +27,10 @@
     self.isAutoLogin = NO;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *phone = [def objectForKey:@"phonenumber"];
+    NSString *account = [def objectForKey:@"account"];
     NSString *password = [def objectForKey:@"password"];
-    if (phone.length && password.length) {
-        [self autoLoginWithPhone:phone passWord:password];
+    if (account.length && password.length) {
+        [self autoLoginWithAccount:account passWord:password];
     }else{
         self.isAutoLogin = NO;
     }
@@ -39,12 +40,22 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 
-    // 如果自动登录了 就切到主界面
-//    if (self.isAutoLogin) {
-        [self setTabbarRoot];
-//    }else{
-//        [self setLoginRoot];
-//    }
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *phone = [def objectForKey:@"phonenumber"];
+    
+    // 是否绑定
+    if (phone) {
+        // 如果自动登录了 就切到主界面
+        if (self.isAutoLogin) {
+            [self setTabbarRoot];
+        }else{
+            [self setLoginRoot];
+        }
+    }else{
+        // 如果未绑定手机号 去绑定手机
+        [self setBindRoot];
+    }
+    
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
     //QQ空间
@@ -156,20 +167,29 @@
     [self.window makeKeyAndVisible];
 }
 
+- (void)setBindRoot
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+    BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bind];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+
+}
+
 -(void)setLoginRoot
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
-    Login *lg = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:lg];
-    self.window.rootViewController = nav;
+    Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
+    self.window.rootViewController = lg;
     [self.window makeKeyAndVisible];
 }
 
 #pragma mark - private
 // 请求同步登录
-- (void)autoLoginWithPhone:(NSString *)phone passWord:(NSString *)passWord
+- (void)autoLoginWithAccount:(NSString *)account passWord:(NSString *)passWord
 {
-    NSDictionary *param = @{@"LoginName":phone,
+    NSDictionary *param = @{@"LoginName":account,
                             @"LoginPassword":passWord};
     [LoginTool syncLoginWithParam:param success:^(id json) {
         NSLog(@"----%@",json);

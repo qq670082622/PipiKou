@@ -10,4 +10,6 @@
 
 @interface ChildAccountViewController : UIViewController
 
+@property (nonatomic,strong) NSMutableArray *dataSource;
+
 @end

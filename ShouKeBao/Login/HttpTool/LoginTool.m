@@ -122,6 +122,27 @@
 }
 
 /**
+ *  检查验证码 以及旅行社列表
+ */
++ (void)checkCodeWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    
+    [IWHttpTool postWithURL:@"Business/CheckMobileVerificationCode" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
  *  绑定手机
  */
 + (void)bindPhoneWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure

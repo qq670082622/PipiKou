@@ -8,6 +8,6 @@
 
 #import "SKTableViewController.h"
 
-@interface SosViewController : SKTableViewController
+@interface SosViewController : UITableViewController
 
 @end

@@ -17,7 +17,6 @@
         UIButton *headIcon = [[UIButton alloc] init];
         headIcon.layer.cornerRadius = 45;
         headIcon.layer.masksToBounds = YES;
-//        [headIcon setBackgroundImage:[UIImage imageNamed:@"touxiang"] forState:UIControlStateNormal];
         [headIcon addTarget:self action:@selector(clickHead:) forControlEvents:UIControlEventTouchUpInside];
         headIcon.layer.borderWidth = 3;
         headIcon.layer.borderColor = [UIColor whiteColor].CGColor;

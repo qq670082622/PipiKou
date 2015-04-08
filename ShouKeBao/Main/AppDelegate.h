@@ -20,6 +20,8 @@
 
 - (void)setTabbarRoot;
 
+- (void)setBindRoot;
+
 - (void)setLoginRoot;
 
 @end

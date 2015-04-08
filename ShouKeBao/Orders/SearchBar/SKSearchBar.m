@@ -14,6 +14,8 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        self.placeholder = @"aaa";
+        
         for (UIView *searchbuttons in self.subviews)
         {
             if ([searchbuttons isKindOfClass:[UIButton class]])

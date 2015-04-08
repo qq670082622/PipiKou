@@ -8,7 +8,7 @@
 
 #import "TravelCell.h"
 #import "TravelButton.h"
-#import "Travel.h"
+#import "Business.h"
 
 @interface TravelCell()
 
@@ -63,18 +63,20 @@
     self.travelBtn.frame = CGRectMake(20, 10, screenW - 40, 60);
 }
 
-- (void)setModel:(Travel *)model
+- (void)setModel:(Business *)model
 {
     _model = model;
     
     [self.travelBtn setImage:[UIImage imageNamed:model.icon] forState:UIControlStateNormal];
     
-    [self.travelBtn setTitle:model.title forState:UIControlStateNormal];
+    [self.travelBtn setTitle:model.name forState:UIControlStateNormal];
 }
 
 - (void)selectedTravel:(TravelButton *)btn
 {
-    NSLog(@"00000----%d",self.indexPath.row);
+    if (_delegate && [_delegate respondsToSelector:@selector(didSelectedTravelWithIndextPath:)]) {
+        [_delegate didSelectedTravelWithIndextPath:self.indexPath];
+    }
 }
 
 @end

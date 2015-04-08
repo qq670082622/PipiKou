@@ -22,6 +22,8 @@
 
 @property (nonatomic,copy) NSString *account;// 账号
 
+@property (nonatomic,copy) NSString *LoginAvatar;// 登录界面的头像
+
 + (instancetype)userInfoWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

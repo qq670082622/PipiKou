@@ -8,14 +8,22 @@
 
 #import <UIKit/UIKit.h>
 
-@class Travel;
+@class Business;
+
+@protocol TravelCellDelegate <NSObject>
+
+- (void)didSelectedTravelWithIndextPath:(NSIndexPath *)indexPath;
+
+@end
 
 @interface TravelCell : UITableViewCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 
-@property (nonatomic,strong) Travel *model;
+@property (nonatomic,strong) Business *model;
 
 @property (nonatomic,strong) NSIndexPath *indexPath;
+
+@property (nonatomic,weak) id<TravelCellDelegate> delegate;
 
 @end

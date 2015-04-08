@@ -12,15 +12,14 @@
 #import "UserInfo.h"
 #import "Distribution.h"
 #import "AppDelegate.h"
-#import "Travel.h"
+#import "Business.h"
 #import "TravelCell.h"
 #import "Login.h"
+#import "UIImageView+WebCache.h"
 
-@interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate,TravelCellDelegate>
 
-@property (nonatomic,strong) NSMutableArray *dataSource;
-
-@property (nonatomic,weak) UILabel *nameLab;
+@property (nonatomic,weak) UIButton *nameBtn;
 
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -39,18 +38,26 @@
     self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
     [self.view addSubview:self.tableView];
     
-    self.nameLab.text = @"hehehehe";
-    [self.nameLab sizeToFit];
-    
     // 设置头部图标
     [self setupHeader];
-
-    [self loadDataSource];
+    
+    // 设置用户名称
+    [self setWithName:[UserInfo shareUser].userName];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    backBtn.frame = CGRectMake(0, 0, 44, 44);
+    backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
+    
+    [backBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [backBtn addTarget:self action:@selector(doBack:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
+    self.navigationItem.leftBarButtonItem = backItem;
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"clearNavi"] forBarMetrics:UIBarMetricsDefault];
@@ -61,7 +68,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 190, self.view.frame.size.width, self.view.frame.size.height - 190) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 215, self.view.frame.size.width, self.view.frame.size.height - 215) style:UITableViewStylePlain];
         _tableView.rowHeight = 80;
         _tableView.tableFooterView = [[UIView alloc] init];
         _tableView.tableHeaderView = nil;
@@ -75,78 +82,57 @@
 }
 
 #pragma mark - private
-- (void)loadDataSource
-{
-//    [self.dataSource removeAllObjects];
-//    [LoginTool getDistributionListWithSuccess:^(id json) {
-//        NSLog(@"--------%@",json);
-//        if ([json[@"IsSuccess"] integerValue] == 1) {
-//            
-//            dispatch_queue_t q = dispatch_queue_create("distribution_q", DISPATCH_QUEUE_SERIAL);
-//            dispatch_async(q, ^{
-//                
-//                [self.dataSource addObject:json[@"BusinessInfo"][@"Text"]];
-//                for (NSDictionary *dic in json[@"DistributionList"]) {
-//                    Distribution *dis = [Distribution distributionWithDict:dic];
-//                    [self.dataSource addObject:dis];
-//                }
-//                
-//                dispatch_async(dispatch_get_main_queue(), ^{
-//                    [self.tableView reloadData];
-//                });
-//            });
-//        }
-//    } failure:^(NSError *error){
-//        
-//    }];
-    Travel *model = [[Travel alloc] init];
-    model.icon = @"aa";
-    model.title = @"浙江光大国际旅游有限公司";
-    for (int i = 0; i < 10; i ++) {
-        [self.dataSource addObject:model];
-    }
-    
-    [self.tableView reloadData];
-}
 
 /**
  *  设置头部图标
  */
 - (void)setupHeader
 {
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 190)];
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 215)];
     cover.backgroundColor = [UIColor clearColor];
     
-    CGFloat iconX = (self.view.frame.size.width - 150) * 0.5;
-    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 0, 150, 150)];
+    CGFloat iconX = (self.view.frame.size.width - 100) * 0.5;
+    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 64, 100, 100)];
     iconView.backgroundColor = [UIColor orangeColor];
     iconView.contentMode = UIViewContentModeScaleAspectFill;
     iconView.backgroundColor = [UIColor clearColor];
-    iconView.image = [UIImage imageNamed:@"bigIcon"];
+    [iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
+    iconView.layer.shadowColor = [UIColor blackColor].CGColor;
+    iconView.layer.shadowOpacity = 0.3;
+    iconView.layer.shadowOffset = CGSizeMake(5, 5);
     [cover addSubview:iconView];
     
-    CGFloat nameY = CGRectGetMaxY(iconView.frame);
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 150, 20)];
-    nameLab.textColor = [UIColor whiteColor];
-    nameLab.textAlignment = NSTextAlignmentCenter;
-    nameLab.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-    nameLab.layer.cornerRadius = 5;
-    nameLab.layer.masksToBounds = YES;
-    nameLab.font = [UIFont systemFontOfSize:13];
-    [cover addSubview:nameLab];
-    self.nameLab = nameLab;
+    CGFloat nameY = CGRectGetMaxY(iconView.frame) + 10;
+    UIButton *nameBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 100, 20)];
+    [nameBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [nameBtn setBackgroundColor:[UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.3]];
+    nameBtn.layer.cornerRadius = 5;
+    nameBtn.layer.masksToBounds = YES;
+    nameBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [cover addSubview:nameBtn];
+    nameBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20);
+    self.nameBtn = nameBtn;
     
     [self.view addSubview:cover];
 }
 
-#pragma mark - getter
-- (NSMutableArray *)dataSource
+// 设置用户名称
+- (void)setWithName:(NSString *)name
 {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
+    [self.nameBtn setTitle:name forState:UIControlStateNormal];
+    [self.nameBtn sizeToFit];
+    CGRect rect = self.nameBtn.frame;
+    rect.origin.x = (self.view.frame.size.width - rect.size.width) * 0.5;
+    self.nameBtn.frame = rect;
 }
+
+- (void)doBack:(UIBarButtonItem *)baritem
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - getter
+
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -156,47 +142,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    static NSString *ID = @"childaccountcell";
-//    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//    if (!cell) {
-//        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-//    }
-//    
-//    if (indexPath.row == 0) {
-//        cell.imageView.image = [UIImage imageNamed:@"iconfont-dianpu"];
-//        cell.textLabel.text = self.dataSource[indexPath.row];
-//    }else{
-//        cell.imageView.image = [UIImage imageNamed:@"iconfont-wo"];
-//        Distribution *dis = self.dataSource[indexPath.row];
-//        cell.textLabel.text = dis.name;
-//    }
     TravelCell *cell = [TravelCell cellWithTableView:tableView];
+    cell.delegate = self;
     cell.indexPath = indexPath;
     
     cell.model = self.dataSource[indexPath.row];
     
     return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    if (!indexPath.row == 0) {
-//        Distribution *dis = self.dataSource[indexPath.row];
-//        
-//        // 去绑定手机
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
-//        BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
-//        bind.distributionId = dis.distributionId;
-//        [self.navigationController pushViewController:bind animated:YES];
-//    }else{
-//        AppDelegate *app = [UIApplication sharedApplication].delegate;
-//        [app setTabbarRoot];
-//    }
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
-    Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
-    [self.navigationController pushViewController:lg animated:YES];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -215,6 +167,17 @@
     [cover addSubview:title];
     
     return cover;
+}
+
+#pragma mark - TravelCellDelegate
+- (void)didSelectedTravelWithIndextPath:(NSIndexPath *)indexPath
+{
+    Business *travel = self.dataSource[indexPath.row];
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+    Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
+    lg.aa = [NSString stringWithFormat:@"%@  %d",travel.name,indexPath.row];
+    [self.navigationController pushViewController:lg animated:YES];
 }
 
 @end

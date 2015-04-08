@@ -10,6 +10,6 @@
 
 @interface NSMutableDictionary (QD)
 
-- (NSMutableDictionary *)cleanNullResult;
++ (NSMutableDictionary *)cleanNullResult:(NSDictionary *)dict;
 
 @end

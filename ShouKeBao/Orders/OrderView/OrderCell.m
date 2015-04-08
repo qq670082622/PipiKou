@@ -195,7 +195,8 @@
     
     // 订单号
     CGFloat codeX = CGRectGetMaxX(self.statusIcon.frame) + gap;
-    self.tourCode.frame = CGRectMake(codeX, statusIconY, 200, 20);
+    CGFloat codeW = (screenW - statusW - gap * 5) * 0.5 + 10;
+    self.tourCode.frame = CGRectMake(codeX, statusIconY, codeW, 20);
     
     // 创建时间
     CGFloat creatTimeW = 100;

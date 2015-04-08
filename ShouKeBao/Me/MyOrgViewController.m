@@ -41,7 +41,7 @@
 - (void)loadDataSource
 {
     [MeHttpTool getBusinessWithsuccess:^(id json) {
-        if (json) {
+        if (![json[@"Busienss"] isKindOfClass:[NSNull class]]) {
             NSLog(@"-----%@",json);
             NSDictionary *dic = json[@"Busienss"];
             NSMutableDictionary *muta = dic.mutableCopy;

@@ -7,8 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SKTableViewController.h"
 
-@interface Login : SKTableViewController
+@class Business;
+
+@interface Login : UITableViewController
+
+@property (nonatomic,copy) NSString *aa;
+
+@property (nonatomic,strong) Business *business;
 
 @end

@@ -48,7 +48,7 @@
 - (void)loadDataSource
 {
     [MeHttpTool getBusinessWithsuccess:^(id json) {
-        if (json) {
+        if (![json[@"Busienss"] isKindOfClass:[NSNull class]]) {
             NSLog(@"-----%@",json);
             self.org = [Organization organizationWithDict:json[@"Busienss"]];
             self.comanyName.text = self.org.Name;

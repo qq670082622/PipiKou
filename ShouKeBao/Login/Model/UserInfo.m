@@ -7,6 +7,7 @@
 //
 
 #import "UserInfo.h"
+#import "NSMutableDictionary+QD.h"
 
 static UserInfo *user;
 
@@ -41,11 +42,14 @@ static UserInfo *user;
 {
     self = [super init];
     if (self) {
-        self.BusinessID = dict[@"BusinessID"];
-        self.DistributionID = dict[@"DistributionID"];
-        self.loginType = dict[@"LoginType"];
-        self.userName = dict[@"ShowName"];
-        self.account = dict[@"LoginName"];
+        NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:dict];
+        
+        self.BusinessID = muta[@"BusinessID"];
+        self.DistributionID = muta[@"DistributionID"];
+        self.loginType = muta[@"LoginType"];
+        self.userName = muta[@"ShowName"];
+        self.account = muta[@"LoginName"];
+        self.LoginAvatar = muta[@"LoginAvatar"];
     }
     return self;
 }

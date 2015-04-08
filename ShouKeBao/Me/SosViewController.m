@@ -30,6 +30,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"搬救兵";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
@@ -43,15 +44,24 @@
 {
     [super viewWillAppear:animated];
     
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"plusdaohang1"] forBarPosition:UIBarPositionTopAttached barMetrics:UIBarMetricsDefault];
-//    [self.navigationController.navigationBar setShadowImage:[[UIImage alloc] init]];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"clearNavi"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"clearNavi"]];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBack"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)loadDataSource
 {
     [MeHttpTool getReinforcementsWithsuccess:^(id json) {
-        if (json) {
-            NSLog(@"---------%@",json);
+        NSLog(@"---------%@",json);
+        if (![json[@"Reinforcements"] isKindOfClass:[NSNull class]]) {
+            
             NSDictionary *dic = json[@"Reinforcements"];
             self.server = [Server serverWithDict:dic];
             
@@ -69,11 +79,11 @@
 {
     CGFloat gap = self.view.frame.size.width * 0.0625;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 180)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 230)];
     view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plusbanjiubingbg"]];
     
     // 头像
-    UIImageView *headIcon = [[UIImageView alloc] initWithFrame:CGRectMake(gap, gap, 100, 150)];
+    UIImageView *headIcon = [[UIImageView alloc] initWithFrame:CGRectMake(gap, 64, 100, 150)];
     headIcon.image = [UIImage imageNamed:@"morentouxiang"];
     [view addSubview:headIcon];
     
