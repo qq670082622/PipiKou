@@ -136,6 +136,8 @@
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeModel.m */; };
+		5AB725781AD611E80044B318 /* QDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725771AD611E80044B318 /* QDMenu.m */; };
+		5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257A1AD61A4C0044B318 /* MenuButton.m */; };
 		5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */; };
 		5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9901ACBFA9300217CAC /* TKProgressCircleView.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
@@ -479,6 +481,10 @@
 		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
 		5A82161A1AD3843B009388DA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
 		5A82161B1AD3843B009388DA /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
+		5AB725761AD611E80044B318 /* QDMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMenu.h; sourceTree = "<group>"; };
+		5AB725771AD611E80044B318 /* QDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMenu.m; sourceTree = "<group>"; };
+		5AB725791AD61A4C0044B318 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
+		5AB7257A1AD61A4C0044B318 /* MenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButton.m; sourceTree = "<group>"; };
 		5AB7C9821ACBC9EA00217CAC /* QDActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDActionSheet.h; sourceTree = "<group>"; };
 		5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActionSheet.m; sourceTree = "<group>"; };
 		5AB7C98F1ACBFA9300217CAC /* TKProgressCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKProgressCircleView.h; sourceTree = "<group>"; };
@@ -1178,6 +1184,10 @@
 				5A52FC151ACEBF220076DAE6 /* LinkButton.m */,
 				5A52FC161ACEBF220076DAE6 /* OrderCell.h */,
 				5A52FC171ACEBF220076DAE6 /* OrderCell.m */,
+				5AB725761AD611E80044B318 /* QDMenu.h */,
+				5AB725771AD611E80044B318 /* QDMenu.m */,
+				5AB725791AD61A4C0044B318 /* MenuButton.h */,
+				5AB7257A1AD61A4C0044B318 /* MenuButton.m */,
 			);
 			path = OrderView;
 			sourceTree = "<group>";
@@ -1921,6 +1931,7 @@
 				5A82161C1AD3843B009388DA /* HomeModel.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
+				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
 				5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */,
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
@@ -1987,6 +1998,7 @@
 				5A52FC4E1ACEBF220076DAE6 /* ProductModal.m in Sources */,
 				5A52FC711ACEBF220076DAE6 /* Server.m in Sources */,
 				6326131D1AB1C175003AC2DA /* MJRefreshFooterView.m in Sources */,
+				5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */,
 				5A52FC551ACEBF220076DAE6 /* rightModal2.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,
 				8461F3611AC3D79100B8D41A /* DOPDropDownMenu.m in Sources */,

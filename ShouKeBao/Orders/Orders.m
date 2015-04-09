@@ -363,9 +363,9 @@
     if (_searchBar == nil) {
         _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
         _searchBar.delegate = self;
-        _searchBar.placeholder = @"搜索";
+        _searchBar.placeholder = @"订单号/产品名称/供应商名称";
         _searchBar.backgroundColor = [UIColor clearColor];
-        
+        _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
     }
     
     return _searchBar;
@@ -484,7 +484,6 @@
     // 取出模型
     OrderModel *order = self.dataArr[index];
     self.detailView.data = order.SKBOrder;
-    
 }
 
 #pragma mark - MGSwipeTableCellDelegate
