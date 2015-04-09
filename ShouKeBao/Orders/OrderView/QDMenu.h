@@ -20,6 +20,12 @@
 
 @property (nonatomic,weak) id<QDMenuDelegate> delegate;
 
+@property (nonatomic,assign) NSInteger currentIndex;
+
 @property (nonatomic,strong) NSMutableArray *dataSource;
+
+@property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,assign) NSInteger direct;// 0左边 1右边
 
 @end

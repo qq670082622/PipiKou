@@ -135,9 +135,11 @@
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
-		5A82161C1AD3843B009388DA /* HomeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeModel.m */; };
+		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
 		5AB725781AD611E80044B318 /* QDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725771AD611E80044B318 /* QDMenu.m */; };
 		5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257A1AD61A4C0044B318 /* MenuButton.m */; };
+		5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257D1AD664610044B318 /* HomeHttpTool.m */; };
+		5AB725811AD68C5B0044B318 /* Recommend.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725801AD68C5B0044B318 /* Recommend.m */; };
 		5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */; };
 		5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9901ACBFA9300217CAC /* TKProgressCircleView.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
@@ -245,10 +247,6 @@
 		845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514E81ABFFAD900D588A7 /* SKTableViewController.m */; };
 		845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514EB1ABFFAFB00D588A7 /* SKViewController.m */; };
 		845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514FA1AC032C000D588A7 /* WriteFileManager.m */; };
-		8461F3611AC3D79100B8D41A /* DOPDropDownMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 8461F35D1AC3D79100B8D41A /* DOPDropDownMenu.m */; };
-		8461F3621AC3D79100B8D41A /* icon_chose_arrow_nor@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8461F35E1AC3D79100B8D41A /* icon_chose_arrow_nor@2x.png */; };
-		8461F3631AC3D79100B8D41A /* icon_chose_arrow_sel@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8461F35F1AC3D79100B8D41A /* icon_chose_arrow_sel@2x.png */; };
-		8461F3641AC3D79100B8D41A /* icon_chose_bottom@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8461F3601AC3D79100B8D41A /* icon_chose_bottom@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -479,12 +477,16 @@
 		5A62B4951AD3DEE800DFF567 /* TravelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelButton.m; sourceTree = "<group>"; };
 		5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBaoCell.h; sourceTree = "<group>"; };
 		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
-		5A82161A1AD3843B009388DA /* HomeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeModel.h; sourceTree = "<group>"; };
-		5A82161B1AD3843B009388DA /* HomeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeModel.m; sourceTree = "<group>"; };
+		5A82161A1AD3843B009388DA /* HomeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeList.h; sourceTree = "<group>"; };
+		5A82161B1AD3843B009388DA /* HomeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
 		5AB725761AD611E80044B318 /* QDMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMenu.h; sourceTree = "<group>"; };
 		5AB725771AD611E80044B318 /* QDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMenu.m; sourceTree = "<group>"; };
 		5AB725791AD61A4C0044B318 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
 		5AB7257A1AD61A4C0044B318 /* MenuButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MenuButton.m; sourceTree = "<group>"; };
+		5AB7257C1AD664610044B318 /* HomeHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeHttpTool.h; sourceTree = "<group>"; };
+		5AB7257D1AD664610044B318 /* HomeHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeHttpTool.m; sourceTree = "<group>"; };
+		5AB7257F1AD68C5B0044B318 /* Recommend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Recommend.h; sourceTree = "<group>"; };
+		5AB725801AD68C5B0044B318 /* Recommend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Recommend.m; sourceTree = "<group>"; };
 		5AB7C9821ACBC9EA00217CAC /* QDActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDActionSheet.h; sourceTree = "<group>"; };
 		5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActionSheet.m; sourceTree = "<group>"; };
 		5AB7C98F1ACBFA9300217CAC /* TKProgressCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKProgressCircleView.h; sourceTree = "<group>"; };
@@ -663,11 +665,6 @@
 		845514EB1ABFFAFB00D588A7 /* SKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKViewController.m; sourceTree = "<group>"; };
 		845514F91AC032C000D588A7 /* WriteFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteFileManager.h; sourceTree = "<group>"; };
 		845514FA1AC032C000D588A7 /* WriteFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteFileManager.m; sourceTree = "<group>"; };
-		8461F35C1AC3D79100B8D41A /* DOPDropDownMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DOPDropDownMenu.h; sourceTree = "<group>"; };
-		8461F35D1AC3D79100B8D41A /* DOPDropDownMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DOPDropDownMenu.m; sourceTree = "<group>"; };
-		8461F35E1AC3D79100B8D41A /* icon_chose_arrow_nor@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_nor@2x.png"; sourceTree = "<group>"; };
-		8461F35F1AC3D79100B8D41A /* icon_chose_arrow_sel@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_arrow_sel@2x.png"; sourceTree = "<group>"; };
-		8461F3601AC3D79100B8D41A /* icon_chose_bottom@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon_chose_bottom@2x.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1217,8 +1214,10 @@
 		5A8216121AD36AB9009388DA /* HomeModel */ = {
 			isa = PBXGroup;
 			children = (
-				5A82161A1AD3843B009388DA /* HomeModel.h */,
-				5A82161B1AD3843B009388DA /* HomeModel.m */,
+				5A82161A1AD3843B009388DA /* HomeList.h */,
+				5A82161B1AD3843B009388DA /* HomeList.m */,
+				5AB7257F1AD68C5B0044B318 /* Recommend.h */,
+				5AB725801AD68C5B0044B318 /* Recommend.m */,
 			);
 			path = HomeModel;
 			sourceTree = "<group>";
@@ -1235,6 +1234,8 @@
 		5A8216141AD36AD7009388DA /* HomeHttpTool */ = {
 			isa = PBXGroup;
 			children = (
+				5AB7257C1AD664610044B318 /* HomeHttpTool.h */,
+				5AB7257D1AD664610044B318 /* HomeHttpTool.m */,
 			);
 			path = HomeHttpTool;
 			sourceTree = "<group>";
@@ -1255,7 +1256,6 @@
 			children = (
 				63B8C6F11ACE8D7200328C8C /* NavigationItemBadgeValue */,
 				5A076E7B1ACD89DA0077611C /* Animations */,
-				8461F35B1AC3D79100B8D41A /* DOPDropDownMenu */,
 				636C8B8E1AC2E6860097CAE9 /* MBProgressHUD */,
 				8448BC5C1AC2567E00F28E1A /* MGSwipeCell */,
 				632BFFD11AB92A3A003B15AD /* SDWebImage */,
@@ -1694,18 +1694,6 @@
 			path = Manager;
 			sourceTree = "<group>";
 		};
-		8461F35B1AC3D79100B8D41A /* DOPDropDownMenu */ = {
-			isa = PBXGroup;
-			children = (
-				8461F35C1AC3D79100B8D41A /* DOPDropDownMenu.h */,
-				8461F35D1AC3D79100B8D41A /* DOPDropDownMenu.m */,
-				8461F35E1AC3D79100B8D41A /* icon_chose_arrow_nor@2x.png */,
-				8461F35F1AC3D79100B8D41A /* icon_chose_arrow_sel@2x.png */,
-				8461F3601AC3D79100B8D41A /* icon_chose_bottom@2x.png */,
-			);
-			path = DOPDropDownMenu;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1798,7 +1786,6 @@
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
 				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
 				5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */,
-				8461F3631AC3D79100B8D41A /* icon_chose_arrow_sel@2x.png in Resources */,
 				5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
@@ -1815,13 +1802,11 @@
 				5A00588A1ACEBD1E007AF362 /* addCustomerViewController.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
 				5A52FC6B1ACEBF220076DAE6 /* Safe.storyboard in Resources */,
-				8461F3621AC3D79100B8D41A /* icon_chose_arrow_nor@2x.png in Resources */,
 				63B8C6FA1ACE8EB000328C8C /* messageCenterViewController.xib in Resources */,
 				5A52FC531ACEBF220076DAE6 /* rightCell2.xib in Resources */,
 				5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */,
 				63D31E4F1AB143D00043B3CA /* Images.xcassets in Resources */,
 				5A52FC5F1ACEBF220076DAE6 /* Auth.storyboard in Resources */,
-				8461F3641AC3D79100B8D41A /* icon_chose_bottom@2x.png in Resources */,
 				5A52FC5C1ACEBF220076DAE6 /* SearchProductViewController.xib in Resources */,
 				5A52FC6E1ACEBF220076DAE6 /* Me.storyboard in Resources */,
 				5A52FC5E1ACEBF220076DAE6 /* StationSelect.xib in Resources */,
@@ -1893,6 +1878,7 @@
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
 				5A52FC5B1ACEBF220076DAE6 /* SearchProductViewController.m in Sources */,
 				63D31E441AB143D00043B3CA /* main.m in Sources */,
+				5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */,
 				633263D91AB851590021553B /* AFURLResponseSerialization.m in Sources */,
 				5A52FC661ACEBF220076DAE6 /* Register.m in Sources */,
 				5A52FC441ACEBF220076DAE6 /* ConditionSelectViewController.m in Sources */,
@@ -1928,7 +1914,7 @@
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
 				845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */,
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,
-				5A82161C1AD3843B009388DA /* HomeModel.m in Sources */,
+				5A82161C1AD3843B009388DA /* HomeList.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
@@ -1985,6 +1971,7 @@
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
 				5A52FC7A1ACEBF220076DAE6 /* MyOrgViewController.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
+				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
 				5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */,
@@ -2001,7 +1988,6 @@
 				5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */,
 				5A52FC551ACEBF220076DAE6 /* rightModal2.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,
-				8461F3611AC3D79100B8D41A /* DOPDropDownMenu.m in Sources */,
 				633263D31AB851590021553B /* AFHTTPRequestOperationManager.m in Sources */,
 				633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */,
 				5A52FC4A1ACEBF220076DAE6 /* ProductCell.m in Sources */,

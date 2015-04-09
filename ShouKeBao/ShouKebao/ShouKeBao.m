@@ -18,6 +18,9 @@
 #import "ResizeImage.h"
 #import "BBBadgeBarButtonItem.h"
 #import "messageCenterViewController.h"
+#import "SosViewController.h"
+#import "HomeHttpTool.h"
+#import "HomeList.h"
 
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate>
@@ -30,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 
 @property (strong, nonatomic) UITableView *tableView;
-@property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *dataSource;// 列表内容的数组
 
 @property (weak, nonatomic) IBOutlet UIView *upView;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
@@ -59,6 +62,9 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
+    
+    // 加载主列表数据
+    [self loadContentDataSource];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -84,11 +90,12 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 116, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 180)];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
-        _tableView.rowHeight = 120;
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 126, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 180)];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 65, 0);
+        _tableView.rowHeight = 105;
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:237/255.0 alpha:1];
     }
     return _tableView;
 }
@@ -99,6 +106,35 @@
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+
+#pragma mark - loadDataSource
+- (void)loadContentDataSource
+{
+    NSDictionary *param = @{};// 基本参数即可
+    
+    [HomeHttpTool getIndexContentWithParam:param success:^(id json) {
+        NSLog(@"----%@",json);
+        
+        if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
+            [self.dataSource removeAllObjects];
+            
+            dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
+            dispatch_async(q, ^{
+                for (NSDictionary *dic in json[@"OrderList"]) {
+                    
+                    HomeList *list = [HomeList homeListWithDict:dic];
+                    
+                    [self.dataSource addObject:list];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.tableView reloadData];
+                });
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - private
@@ -114,8 +150,11 @@
     [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
 }
 
-- (IBAction)phoneToService:(id)sender {
-    
+- (IBAction)phoneToService:(id)sender
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
+    SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
+    [self.navigationController pushViewController:sos animated:YES];
 }
 
 - (IBAction)search:(id)sender {
@@ -170,11 +209,10 @@
 -(void)codeAction
 {
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
-    
 }
 
 
-#pragma mark - UITableViewDataSource,UITableViewDelegate
+#pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
@@ -184,8 +222,22 @@
 {
     ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
     
+    cell.model = self.dataSource[indexPath.row];
+    
     return cell;
 }
 
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 5.0;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    UIView *view = [[UIView alloc] init];
+    view.backgroundColor = [UIColor clearColor];
+    return view;
+}
 
 @end

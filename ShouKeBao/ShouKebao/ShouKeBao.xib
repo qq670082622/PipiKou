@@ -33,7 +33,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="25d-1C-lO3">
-                    <rect key="frame" x="20" y="5" width="40" height="30"/>
+                    <rect key="frame" x="18" y="5" width="40" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="上海">
@@ -44,7 +44,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y8O-Mt-FKQ">
-                    <rect key="frame" x="74.999999898545326" y="5" width="235" height="30"/>
+                    <rect key="frame" x="74.999999793817835" y="5" width="235" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="shousuochanpin" image="shousuochanpin">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -140,7 +140,7 @@
         <image name="fenxianglan" width="18" height="18"/>
         <image name="fenzhan" width="117" height="67"/>
         <image name="shousuochanpin" width="595" height="64"/>
-        <image name="xixixi" width="56" height="56"/>
+        <image name="xixixi" width="28" height="28"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

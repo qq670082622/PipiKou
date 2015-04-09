@@ -8,6 +8,20 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MenuButton : UIButton
+@protocol MenuButtonDelegate <NSObject>
+
+- (void)menuDidSelectLeftBtn:(UIButton *)leftBtn;
+
+- (void)menuDidSelectRightBtn:(UIButton *)RightBtn;
+
+@end
+
+@interface MenuButton : UIView
+
+@property (nonatomic,weak) UIButton *leftBtn;
+
+@property (nonatomic,weak) UIButton *rightBtn;
+
+@property (nonatomic,weak) id<MenuButtonDelegate> delegate;
 
 @end
