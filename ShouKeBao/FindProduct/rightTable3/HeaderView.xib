@@ -8,13 +8,12 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="HeaderView">
-            <rect key="frame" x="0.0" y="0.0" width="221" height="60"/>
+            <rect key="frame" x="0.0" y="0.0" width="221" height="54"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZj-ke-mXj">
-                    <rect key="frame" x="5" y="5" width="210" height="50"/>
-                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                    <state key="normal" title="&lt;             返回">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZj-ke-mXj">
+                    <rect key="frame" x="20" y="5" width="180" height="44"/>
+                    <state key="normal" image="fanghui">
                         <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -22,20 +21,27 @@
                         <action selector="btn:" destination="iN0-l3-epB" eventType="touchUpInside" id="9VG-gq-N91"/>
                     </connections>
                 </button>
+                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Vl-6w-Op2">
+                    <rect key="frame" x="0.0" y="53" width="221" height="0.5"/>
+                    <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="Ekb-Js-Q23"/>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="O3t-GL-Edj"/>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="XqB-m9-QPb"/>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="y5G-dZ-FBH"/>
+                <constraint firstItem="AZj-ke-mXj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LjZ-Xu-feM"/>
+                <constraint firstItem="AZj-ke-mXj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gFW-mb-6JP"/>
+                <constraint firstItem="AZj-ke-mXj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="hiy-eb-vcu"/>
+                <constraint firstItem="AZj-ke-mXj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="kel-jT-Bpr"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
                 <outlet property="btn" destination="AZj-ke-mXj" id="dpk-ww-WA5"/>
             </connections>
-            <point key="canvasLocation" x="268.5" y="198.5"/>
+            <point key="canvasLocation" x="268.5" y="198"/>
         </view>
     </objects>
+    <resources>
+        <image name="fanghui" width="231" height="54"/>
+    </resources>
 </document>

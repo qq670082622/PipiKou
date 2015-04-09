@@ -18,7 +18,7 @@
 #import "ResizeImage.h"
 #import "BBBadgeBarButtonItem.h"
 #import "messageCenterViewController.h"
-
+#import "IWHttpTool.h"
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -59,6 +59,7 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
+    [self loadUserInformation];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -73,6 +74,26 @@
     }
     
 }
+
+#pragma -mark 获取首页登录用户的相关汇总信息
+-(void)loadUserInformation
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+[IWHttpTool WMpostWithURL:@"/Home/GetIndexHead" params:dic success:^(id json) {
+    NSLog(@"首页用户相关汇总信息为%@",json);
+} failure:^(NSError *error) {
+    NSLog(@"首页用户相关汇总信息请求失败%@",error);
+}];
+    
+    [IWHttpTool WMpostWithURL:@"/Home/GetActivitiesNoticeList" params:dic success:^(id json) {
+        NSLog(@"首页活动公告信息为%@",json);
+    } failure:^(NSError *error) {
+        NSLog(@"首页活动公告信息请求失败%@",error);
+    }];
+ 
+    
+}
+///Home/GetActivitiesNoticeList
 
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -133,7 +154,7 @@
 
 -(void)customLeftBarItem
 {
-    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     [customButton addTarget:self action:@selector(ringAction) forControlEvents:UIControlEventTouchUpInside];
     [customButton setImage:[UIImage imageNamed:@"lingdang1"] forState:UIControlStateNormal];
     
@@ -152,7 +173,7 @@
 -(void)customRightBarItem
 {
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];;
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];;
     [btn addTarget:self action:@selector(codeAction) forControlEvents:UIControlEventTouchUpInside];
     [btn setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateNormal];
    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];

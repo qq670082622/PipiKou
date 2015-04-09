@@ -13,7 +13,7 @@
 + (void)WMAnimationToMoveWithTableLayer:(CALayer *)layer andFromPiont:(CGPoint *)fromPoint ToPoint:(CGPoint *)toPoint;//移动
 + (void)WMAnimationToShakeWithView:(UIView *)layer andDuration:(CGFloat )duration;//震动
 + (void)WMAnimationToScaleWithLayer:(CALayer *)layer andFromValue:(CGFloat)fromValue andToValue:(CGFloat)toValue;//放大
-+ (void)WMAnimationMakeBoarderWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(int)borderWid andNeedShadow:(BOOL)needShow;//给view增加边框
++ (void)WMAnimationMakeBoarderWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(float)borderWid andNeedShadow:(BOOL)needShow;//给view增加边框
 
 + (void)WMAnimationMakeBoarderNoCornerRadiosWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(int)borderWid andNeedShadow:(BOOL)needShow;//给view增加边框
 @end

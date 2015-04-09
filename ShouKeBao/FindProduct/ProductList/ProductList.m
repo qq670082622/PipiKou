@@ -101,23 +101,47 @@
     
 
 
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*titleWid, 28)];
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = CGRectMake(0, 0, 150, 28);
-    [btn setTitle:[NSString stringWithFormat:@"🔍 %@",_pushedSearchK] forState:UIControlStateNormal];
-    btn.backgroundColor = [UIColor whiteColor];
-    btn.titleLabel.font = [UIFont systemFontOfSize:11];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [WMAnimations WMAnimationMakeBoarderWithLayer:btn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*titleWid, 34)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];//215 237 244
+    btn.frame = CGRectMake(0, 0, self.view.frame.size.width*titleWid, 34);
+    [btn setBackgroundImage:[UIImage imageNamed:@"sousuoBackView"] forState:UIControlStateNormal];
+    UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
+    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 14, 14)];
+    imgv.image = [UIImage imageNamed:@"fdjBtn"];
+    btn2.frame = CGRectMake(28, 0, 100, 34);
+    [btn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 0)];
+    [btn2 setTitle:[NSString stringWithFormat:@"%@",_pushedSearchK] forState:UIControlStateNormal];
+    btn2.titleLabel.font = [UIFont systemFontOfSize:15];
+    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    
  [btn addTarget:self action:@selector(clickPush) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:btn];
+    [btn2 addTarget:self action:@selector(clickPush) forControlEvents:UIControlEventTouchUpInside];
+    [titleView addSubview:btn];
+    [titleView addSubview:btn2];
+    [titleView addSubview:imgv];
     self.navigationItem.titleView = titleView;
     
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     searchVC.delegate = self;
     
-        
+   
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+   
     }
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma - stationSelect delegate
 -(void)passStation:(NSString *)stationName andStationNum:(NSNumber *)stationNum
 {
@@ -282,7 +306,7 @@
 #pragma mark - private
 -(void)customRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
     

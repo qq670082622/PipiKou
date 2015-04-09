@@ -27,36 +27,43 @@
    
    
     ShouKeBao *skb = [[ShouKeBao alloc] init];
-    [self addChildVc:skb title:@"收客宝" image:@"APPshoukebao2" selectedImage:@"APPshoukebao"];
+    [self addChildVc:skb title:@"收客宝" image:@"skb2" selectedImage:@"skb"];
     
     FindProduct *fdp = [[FindProduct alloc] init];
-    [self addChildVc:fdp title:@"找产品" image:@"APPgengduo" selectedImage:@"APPfenlei"];
+    [self addChildVc:fdp title:@"找产品" image:@"fenlei" selectedImage:@"fenlei2"];
     
     Orders *ods = [[Orders alloc] init];
-    [self addChildVc:ods title:@"理订单" image:@"APPdingdan" selectedImage:@"APPlidingdan"];
+    [self addChildVc:ods title:@"理订单" image:@"lidingdan" selectedImage:@"lidingdan2"];
     
     Customers *cstm = [[Customers alloc] init];
-    [self addChildVc:cstm title:@"管客户" image:@"APPkehuguanli2" selectedImage:@"APPkehuguanli"];
+    [self addChildVc:cstm title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
     
     Me *me = [[Me alloc] initWithStyle:UITableViewStyleGrouped];
-    [self addChildVc:me title:@"我" image:@"APPyonghuming" selectedImage:@"APPyonghuicon"];
+    [self addChildVc:me title:@"我" image:@"wo2" selectedImage:@"wo"];
     
 }
 
 - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage
 {
+    
+//    childVc.tabBarItem.image = [ResizeImage OriginImage:[UIImage imageNamed:image] scaleToSize:CGSizeMake(25, 25)]; ;
+//        childVc.tabBarItem.selectedImage = [ResizeImage OriginImage:[UIImage imageNamed:selectedImage] scaleToSize:CGSizeMake(25, 25)];
+    
+//    [childVc.tabBarItem setTitleTextAttributes:[NSDictionary dictionaryWithObjectsAndKeys:
+//                                                [UIFont fontWithName:@"Helvetica" size:11.0], UITextAttributeFont, nil]
+//                                      forState:UIControlStateNormal];
+    
     // 设置子控制器的文字
     childVc.title = title; // 同时设置tabbar和navigationBar的文字
     //    childVc.tabBarItem.title = title; // 设置tabbar的文字
     //    childVc.navigationItem.title = title; // 设置navigationBar的文字
     
     // 设置子控制器的图片
-   // childVc.tabBarItem.image = [UIImage imageNamed:image];
-   childVc.tabBarItem.image = [ResizeImage reSizeImage:[UIImage imageNamed:image] toSize:CGSizeMake(28, 28)];
-    childVc.tabBarItem.selectedImage = [ResizeImage reSizeImage:[UIImage imageNamed:selectedImage] toSize:CGSizeMake(28, 28)];
+    childVc.tabBarItem.image = [UIImage imageNamed:image];
+
     
-    //childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    
+    childVc.tabBarItem.selectedImage = [[UIImage imageNamed:selectedImage]imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//
     // 先给外面传进来的小控制器 包装 一个导航控制器
     WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:childVc];
         

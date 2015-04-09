@@ -26,16 +26,24 @@
                             <constraint firstAttribute="width" constant="23" id="ecn-BV-bEL"/>
                         </constraints>
                     </imageView>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAd-kZ-4FC" userLabel="line">
+                        <rect key="frame" x="0.0" y="51" width="125" height="1"/>
+                        <color key="backgroundColor" white="0.75459280303030318" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                 </subviews>
                 <color key="backgroundColor" red="0.83921568627450982" green="0.87058823529411766" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
                     <constraint firstAttribute="trailingMargin" secondItem="OEs-hV-xbW" secondAttribute="trailing" constant="-1" id="8gD-pe-D9B"/>
+                    <constraint firstAttribute="trailing" secondItem="eAd-kZ-4FC" secondAttribute="trailing" id="9Wh-AH-bA3"/>
                     <constraint firstItem="OEs-hV-xbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GW6-4n-Sks"/>
+                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="top" secondItem="JQg-HP-Np5" secondAttribute="bottom" constant="15" id="ISZ-hZ-vvG"/>
+                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="bottom" secondItem="OEs-hV-xbW" secondAttribute="bottom" id="Rdg-Qg-HgM"/>
                     <constraint firstAttribute="bottomMargin" secondItem="OEs-hV-xbW" secondAttribute="bottom" constant="-8.5" id="WOr-qM-IUi"/>
                     <constraint firstItem="JQg-HP-Np5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="c2l-iM-NXB"/>
                     <constraint firstItem="OEs-hV-xbW" firstAttribute="leading" secondItem="JQg-HP-Np5" secondAttribute="trailing" constant="6" id="g0m-xE-xrG"/>
                     <constraint firstAttribute="bottomMargin" secondItem="JQg-HP-Np5" secondAttribute="bottom" constant="7.5" id="lMd-n6-MII"/>
                     <constraint firstItem="JQg-HP-Np5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-2" id="tfa-jD-5Bv"/>
+                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uTF-ql-Ipl"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

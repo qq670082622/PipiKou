@@ -31,7 +31,7 @@
        
 
     }
-    [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES];
     
     return cell;
 }

@@ -30,7 +30,7 @@
 - (IBAction)stationSelect:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
 
-@property (weak, nonatomic) IBOutlet UIView *subHotView;
+
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 
@@ -53,32 +53,30 @@
 @property(copy,nonatomic) NSMutableString *table2Row;
 
 @property (weak, nonatomic) IBOutlet UITableView *hotTable;
-- (IBAction)hotBtnClick:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *hotIcon;
-@property (weak, nonatomic) IBOutlet UIButton *hotBtn;
-
-
-
 
 @property (strong, nonatomic) NSMutableArray *hotArr;
 @property (strong , nonatomic) NSMutableDictionary *hotArrDic;
 @property (strong, nonatomic) NSMutableArray *hotSectionArr;
 
 @property (strong, nonatomic) NSMutableArray *hotNumberOfSectionArr;//section内有多少个row
-@property (weak, nonatomic) IBOutlet UIButton *hotBtnIconOutlet;
 
+
+@property (weak,nonatomic) UIView *subHotView;
+@property (weak, nonatomic)  UIImageView *hotIcon;
+@property (weak, nonatomic)  UIButton *hotBtn;
+@property (assign,nonatomic) BOOL isHot;
 @end
 
 @implementation FindProduct
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
    
-    self.searchBtn.layer.cornerRadius = 4;
-    self.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.searchBtn.layer.borderWidth = 0.5f;
-    self.searchBtn.layer.masksToBounds = YES;
+//    self.searchBtn.layer.cornerRadius = 4;
+//    self.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    self.searchBtn.layer.borderWidth = 0.5f;
+//    self.searchBtn.layer.masksToBounds = YES;
 
     
 //    self.rightTable.rowHeight = 103;
@@ -94,20 +92,13 @@
     self.hotTable.delegate = self;
     self.hotTable.dataSource = self;
     
-    //self.leftTableArr = [NSArray arrayWithObjects:@"热门旅游",@"出境游",@"东南亚游",@"日韩",@"欧美澳新中东非",@"邮轮游",@"海岛",@"港澳台",@"国内游",@"周边游", nil];
+   
     self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPdaxiang",@"APPstatue",@"APPfeiji",@"APPyoulun",@"APPshanzi",@"APPconglinhaidao",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
     self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPdaxiang2",@"APPstatue2",@"APPfeiji2.png",@"APPyoulun2.png",@"APPshanzi2",@"APPconglinhaidao2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
-  
- //  self.row = [NSMutableString stringWithFormat:@"0"];
-   
-    [self.hotIcon setSelected:YES];
-
-    
+  self.isHot = YES;
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-  //  self.rightTable2.separatorStyle = UITableViewCellSeparatorStyleNone;
-  
-    
-    [self loadDataSourceLeft];
+ 
+[self loadDataSourceLeft];
     [self loadHotData];
 }
 #pragma  mark - stationSelect delegate
@@ -354,16 +345,21 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
 }
-- (IBAction)hotBtnClick:(id)sender {
+
+-(void)setLeftTableHeader{
+
+}
+- (void)hotBtnClick:(id)sender {
     self.row = nil;
-    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    self.subHotView.backgroundColor = [UIColor whiteColor];
+//    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+//    self.leftTable.tableHeaderView.backgroundColor = [UIColor whiteColor];
     [self.leftTable reloadData];
+    self.isHot = YES;
     [UIView animateWithDuration:0.7 animations:^{
         self.rightTable.alpha = 0;
         self.rightTable2.alpha = 0;
         self.hotTable.alpha = 1;
-        self.hotIcon.selected = YES;
+        self.hotIcon.image = [UIImage imageNamed:@"APPhot2"];
 
 
     }];
@@ -420,25 +416,72 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 #pragma mark - tableviewdatasource&& tableviewdelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (tableView.tag == 1) {
+        return 52;
+    }
     if (tableView.tag == 3 ) {
-        return 60;
+        return 54;
     }
     
     if (tableView.tag == 4 ) {
-        return 25;
+        return 13;
     }
     return 0;
 }
 
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
+    if(tableView.tag == 1){
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 52)];
+        view.backgroundColor = [UIColor colorWithRed:204/255.f green:214/255.f blue:226/255.f alpha:1];
+        
+        UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
+       img.frame = CGRectMake(6, 13, 23, 23);
+        UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotBtnClick:)];
+        [img addGestureRecognizer:tap];
+        self.hotIcon = img;
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        btn.frame = CGRectMake(26, 9, 60, 30);
+[btn setTitle:@"热门推荐" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:11];
+        [btn addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        self.hotBtn = btn;
+        
+        if (7>=[self.row intValue]>=0) {
+            img.image = [UIImage imageNamed:@"APPhot"];
+            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        }
+        if (_isHot == YES) {
+            img.image = [UIImage imageNamed:@"APPhot2"];
+            [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+            view.backgroundColor = [UIColor whiteColor];
+        }
+        [view addSubview:img];
+        [view addSubview:btn];
+        self.subHotView = view;
+        return view;
+    }
     if (tableView.tag == 3) {
         HeaderView *header = [HeaderView headerView];
-        header.frame = CGRectMake(0, 0, 200, 60);
+        header.frame = CGRectMake(0, 0, 200, 54);
         header.delegate = self;
         return header;
-    }
+    }if (tableView.tag == 4) {
+                UIView *v_headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 13)];
+      
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(20, -5, 180, 13)];
+                lab.text = self.hotSectionArr[section];
+                lab.font = [UIFont systemFontOfSize:11];
+        [v_headerView addSubview:lab];
+        lab.backgroundColor = [UIColor colorWithRed:242/255.f green:242/255.f blue:242/255.f alpha:1];//设置v_headerLab的背景颜色
+        lab.textColor = [UIColor grayColor];//设置v_headerLab的字体颜色
+        lab.font = [UIFont fontWithName:@"Arial" size:11];//设置v_headerLab的字体样式和大小
+        return v_headerView;
+        
   
+    }
     return 0;
 }
 
@@ -490,6 +533,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
+        self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
         [self.leftTable reloadData];
@@ -499,7 +543,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         [UIView animateWithDuration:0.5 animations:^{
             self.rightTable2.alpha = 0;
             self.hotTable.alpha = 0;
-            [self.hotIcon setSelected:NO];
+           // self.hotIcon.image = [UIImage imageNamed:@"APPhot"];
             self.rightTable.alpha = 1;
             self.rightTable.frame = self.hotTable.frame;
 
@@ -565,7 +609,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         leftCell *cell = [leftCell cellWithTableView:tableView];
         cell.modal = [self.leftTableArr objectAtIndex:indexPath.row];
         cell.icon.image = [UIImage imageNamed:[self.leftNormoalIconArr objectAtIndex:indexPath.row]];
-        if (indexPath.row == [self.row intValue] && self.hotBtnIconOutlet.selected == NO) {
+        if (indexPath.row == [self.row intValue] && self.isHot == NO){//&& self.hotIcon.image == [UIImage imageNamed:@"APPhot"]) {
             cell.name.textColor = [UIColor orangeColor];
             cell.icon.image = [UIImage imageNamed:[self.leftSelectIconArr objectAtIndex:indexPath.row]];
             cell.contentView.backgroundColor = [UIColor whiteColor];

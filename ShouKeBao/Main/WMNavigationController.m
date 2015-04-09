@@ -36,10 +36,10 @@
     UINavigationBar *bar = [UINavigationBar appearance];
     NSMutableDictionary *textAttrs2 = [NSMutableDictionary dictionary];
     textAttrs2[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    textAttrs2[NSFontAttributeName] = [UIFont systemFontOfSize:18];
+    textAttrs2[NSFontAttributeName] = [UIFont systemFontOfSize:24];
     [bar setTitleTextAttributes:textAttrs2 ];
     
-    [ bar setBackgroundImage:[UIImage imageNamed:@"navBarBack"] forBarMetrics:UIBarMetricsDefault];
+    [ bar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];
 
     //  每一个像素都有自己的颜色，每一种颜色都可以由RGB3色组成
     //  12bit颜色: #f00  #0f0 #00f #ff0
