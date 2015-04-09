@@ -9,9 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface messageDetailViewController : UIViewController
-@property (nonatomic,copy) NSString *titleStr;
-@property (nonatomic,copy) NSString *timeStr;
-@property (nonatomic,copy) NSString *contentStr;
-@property (nonatomic,copy) NSString *imgUrlStr;
-@property (nonatomic,copy) NSString *needBtnStr;
+
+@property (nonatomic,copy) NSString *ID;
+
 @end

@@ -41,6 +41,8 @@
 - (IBAction)search:(id)sender;
 
 - (IBAction)add:(id)sender;
+
+@property(strong,nonatomic)NSMutableDictionary *messageDic;
 @end
 
 @implementation ShouKeBao
@@ -65,7 +67,48 @@
     
     // 加载主列表数据
     [self loadContentDataSource];
+    
+    [self  getUserInformation];
+    
+    [self getNotifiList];
 }
+
+-(NSMutableDictionary *)messageDic
+{
+    if (_messageDic == nil) {
+        self.messageDic = [NSMutableDictionary dictionary];
+    }
+    return _messageDic;
+}
+
+-(void)getUserInformation
+{
+    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
+    [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
+        NSLog(@"首页个人消息汇总%@",json);
+    } failure:^(NSError *error) {
+        NSLog(@"首页个人消息汇总失败%@",error);
+    }];
+
+}
+
+-(void)getNotifiList
+{NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
+    [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
+        NSLog(@"首页公告消息列表%@",json);
+        NSMutableArray *arr = json[@"ActivitiesNoticeList"];
+            BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+            barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
+        self.messageDic = json;
+        
+    } failure:^(NSError *error) {
+        NSLog(@"首页公告消息列表失败%@",error);
+    }];
+
+}
+
+
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -172,26 +215,23 @@
 
 -(void)customLeftBarItem
 {
-    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     [customButton addTarget:self action:@selector(ringAction) forControlEvents:UIControlEventTouchUpInside];
     [customButton setImage:[UIImage imageNamed:@"lingdang1"] forState:UIControlStateNormal];
     
     BBBadgeBarButtonItem *barButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     
-    barButton.badgeValue = @"12";
-    barButton.shouldHideBadgeAtZero = YES;
+   barButton.shouldHideBadgeAtZero = YES;
     
     self.navigationItem.leftBarButtonItem = barButton;
     
-    //改变badgeValue的值
-    //    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-    //    barButton.badgeValue = [NSString stringWithFormat:@"%d", [barButton.badgeValue intValue] + 1];
+   
 }
 
 -(void)customRightBarItem
 {
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];;
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];;
     [btn addTarget:self action:@selector(codeAction) forControlEvents:UIControlEventTouchUpInside];
     [btn setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateNormal];
    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
@@ -203,6 +243,8 @@
 {
 
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
+    
+    messgeCenter.dataDic = self.messageDic;
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }

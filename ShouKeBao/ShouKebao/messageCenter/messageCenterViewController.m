@@ -10,6 +10,7 @@
 #import "messageCell.h"
 #import "messageModel.h"
 #import "messageDetailViewController.h"
+#import "HomeHttpTool.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
@@ -50,17 +51,26 @@
 
 -(void)loadDataSource
 {
-
+    for(NSDictionary *dic in self.dataDic[@"ActivitiesNoticeList"]){
+        messageModel *model = [messageModel modalWithDict:dic];
+        [self.dataArr addObject:model];
+    }
+    [self.table reloadData];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    messageDetailViewController *messageDetail = [[messageDetailViewController alloc] init];
-    [self.navigationController pushViewController:messageDetail animated:YES];
+  messageDetailViewController *messageDetail = [[messageDetailViewController alloc] init];
+    messageModel *model = _dataArr[indexPath.row];
+    messageDetail.ID = model.ID;
+    
+[self.navigationController pushViewController:messageDetail animated:YES];
     
 }
 

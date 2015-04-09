@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface messageCenterViewController : UIViewController
-
+@property (nonatomic,strong) NSMutableDictionary *dataDic;
 @end
