@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class HomeModel;
+@class HomeList;
 
 @interface ShouKeBaoCell : UITableViewCell
 
-@property (nonatomic,strong) HomeModel *model;
+@property (nonatomic,strong) HomeList *model;
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 

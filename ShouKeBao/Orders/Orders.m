@@ -10,7 +10,6 @@
 #import "MJRefresh.h"
 #import "OrderCell.h"
 #import "OrderModel.h"
-#import "DOPDropDownMenu.h"
 #import "OrderTool.h"
 #import "DressView.h"
 #import "AreaViewController.h"
@@ -26,15 +25,21 @@
 #import "CantactView.h"
 #import "WriteFileManager.h"
 #import "HistoryView.h"
+#import "MenuButton.h"
+#import "QDMenu.h"
 
 #define pageSize 10
 
-@interface Orders () <DOPDropDownMenuDataSource,DOPDropDownMenuDelegate,UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate>
+@interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,assign) int pageIndex;// 当前页
 
-@property (nonatomic,strong) DOPDropDownMenu *menu;
+@property (nonatomic,strong) MenuButton *menuButton;
+@property (nonatomic,strong) QDMenu *qdmenu;
+@property (nonatomic,assign) NSInteger LselectedIndex;
+@property (nonatomic,assign) NSInteger RselectedIndex;
+@property (nonatomic,strong) UIView *coverView;
 @property (nonatomic,strong) NSMutableArray *chooseTime;// 所有时间
 @property (nonatomic,strong) NSMutableArray *chooseStatus;// 所有状态
 
@@ -85,7 +90,8 @@
     [self iniHeader];
 
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.menu];
+//    [self.view addSubview:self.menu];
+    [self.view addSubview:self.menuButton];
     [self searchDisplay];
     [self.view addSubview:self.searchBar];
     
@@ -201,7 +207,7 @@
 // 点击筛选
 - (void)selectAction
 {
-    UIView *cover = [[UIView alloc] initWithFrame:self.view.bounds];
+    UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dressTapHandle:)];
     tap.delegate = self;
@@ -211,13 +217,21 @@
     // 筛选视图
     [cover addSubview:self.dressView];
     [self.view.window addSubview:cover];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
+    }];
 }
 
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {
-    [ges.view removeFromSuperview];
-    [_dressView removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.dressView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        [ges.view removeFromSuperview];
+        [_dressView removeFromSuperview];
+    }];
 }
 
 -(void)iniHeader
@@ -273,16 +287,74 @@
     return result;
 }
 
+/**
+ *  创建菜单
+ */
+- (void)createMenuWithSelectedIndex:(NSInteger)SelectedIndex frame:(CGRect)frame dataSource:(NSMutableArray *)dataSource direct:(NSInteger)direct
+{
+    self.qdmenu = [[QDMenu alloc] init];
+    self.qdmenu.direct = direct;
+    self.qdmenu.currentIndex = SelectedIndex;
+    self.qdmenu.delegate = self;
+    self.qdmenu.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+    self.qdmenu.frame = frame;
+    self.qdmenu.dataSource = dataSource;
+    [self.coverView addSubview:self.qdmenu];
+    
+    [self.view.window addSubview:self.coverView];
+}
+
+/**
+ *  删除出现的列表
+ */
+- (void)removeMenu:(UITapGestureRecognizer *)ges
+{
+    [self removeMenuFunc];
+}
+
+- (void)removeMenuFunc
+{
+    [_qdmenu removeFromSuperview];
+    self.qdmenu = nil;
+    self.qdmenu.delegate = nil;
+    
+    // 等待渐变动画执行完
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [_coverView removeFromSuperview];
+    });
+}
+
 #pragma mark - UIGestureRecognizerDelegate
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if (touch.view == self.cover) {
+    if (touch.view == self.cover || touch.view == self.coverView) {
         return YES;
     }
     return NO;
 }
 
 #pragma mark - getter
+- (MenuButton *)menuButton
+{
+    if (!_menuButton) {
+        _menuButton = [[MenuButton alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 40)];
+        _menuButton.delegate = self;
+    }
+    return _menuButton;
+}
+
+- (UIView *)coverView
+{
+    if (!_coverView) {
+        _coverView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _coverView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeMenu:)];
+        tap.delegate = self;
+        [_coverView addGestureRecognizer:tap];
+    }
+    return _coverView;
+}
+
 - (DetailView *)detailView
 {
     if (!_detailView) {
@@ -325,20 +397,11 @@
     return _firstAreaData;
 }
 
-- (DOPDropDownMenu *)menu
-{
-    if (!_menu) {
-        _menu = [[DOPDropDownMenu alloc] initWithOrigin:CGPointMake(0, 44) andHeight:40];
-        _menu.dataSource = self;
-        _menu.delegate = self;
-    }
-    return _menu;
-}
-
 - (DressView *)dressView
 {
     if (!_dressView) {
-        _dressView = [[DressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width - 300, 0, 300, self.view.window.bounds.size.height)];
+        CGFloat W = self.view.frame.size.width * 0.8;
+        _dressView = [[DressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height)];
         _dressView.delegate = self;
     }
     return _dressView;
@@ -347,8 +410,8 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84, self.view.frame.size.width, self.view.frame.size.height - 148) style:UITableViewStyleGrouped];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 49, 0);
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84, self.view.frame.size.width, self.view.frame.size.height - 197) style:UITableViewStyleGrouped];
+        _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -366,6 +429,7 @@
         _searchBar.placeholder = @"订单号/产品名称/供应商名称";
         _searchBar.backgroundColor = [UIColor clearColor];
         _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
+        _searchBar.tintColor = [UIColor blackColor];
     }
     
     return _searchBar;
@@ -381,43 +445,42 @@
     return _searchDisplay;
 }
 
-#pragma mark - DOPDropDownMenuDataSource,DOPDropDownMenuDelegate
-- (NSInteger)numberOfColumnsInMenu:(DOPDropDownMenu *)menu {
-    return 2;
-}
-
-- (NSInteger)menu:(DOPDropDownMenu *)menu numberOfRowsInColumn:(NSInteger)column {
-    if (column == 0) {
-        return self.chooseTime.count;
-    }else{
-        return self.chooseStatus.count;
-    }
-}
-
-- (NSString *)menu:(DOPDropDownMenu *)menu titleForRowAtIndexPath:(DOPIndexPath *)indexPath {
-    
-    if (self.chooseTime.count || self.chooseStatus.count) {
-        if (indexPath.column == 0) {
-            return self.chooseTime[indexPath.row][@"Text"];
-        }else{
-            return self.chooseStatus[indexPath.row][@"Text"];
-        }
-    }else{
-        if (indexPath.column == 0) {
-            return @"时间";
-        }else{
-            return @"状态";
-        }
-    }
-}
-
-- (void)menu:(DOPDropDownMenu *)menu didSelectRowAtIndexPath:(DOPIndexPath *)indexPath
+#pragma mark - MenuButtonDelegate
+/**
+ *  点击选择左菜单
+ */
+- (void)menuDidSelectLeftBtn:(UIButton *)leftBtn
 {
-    if (indexPath.column == 0) {
-        self.choosedTime = self.chooseTime[indexPath.row][@"Value"];
+    CGFloat menuX = self.view.frame.size.width * 0.25 - 40;
+    CGRect frame = CGRectMake(menuX, 148, 135, 40 * self.chooseTime.count);
+    [self createMenuWithSelectedIndex:self.LselectedIndex frame:frame dataSource:self.chooseTime direct:0];
+}
+
+/**
+ *  点击选择右菜单
+ */
+- (void)menuDidSelectRightBtn:(UIButton *)RightBtn
+{
+    CGFloat menuX = self.view.frame.size.width * 0.75 - 40;
+    CGRect frame = CGRectMake(menuX, 148, 100, 40 * self.chooseStatus.count);
+    [self createMenuWithSelectedIndex:self.RselectedIndex frame:frame dataSource:self.chooseStatus direct:1];
+}
+
+#pragma mark - QDMenuDelegate
+- (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (menu.direct == 0) {
+        [self.menuButton.leftBtn setTitle:menu.dataSource[indexPath.row][@"Text"] forState:UIControlStateNormal];
+        self.choosedTime = menu.dataSource[indexPath.row][@"Value"];
+        [self removeMenuFunc];
+        self.LselectedIndex = indexPath.row;
     }else{
-        self.choosedStatus = self.chooseStatus[indexPath.row][@"Value"];
+        [self.menuButton.rightBtn setTitle:menu.dataSource[indexPath.row][@"Text"] forState:UIControlStateNormal];
+        self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
+        [self removeMenuFunc];
+        self.RselectedIndex = indexPath.row;
     }
+    
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
@@ -568,7 +631,13 @@
 #pragma mark - Notification
 - (void)clickBack:(NSNotification *)noty
 {
-    [self.cover removeFromSuperview];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.dressView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        [_dressView removeFromSuperview];
+        [self.cover removeFromSuperview];
+    }];
+    
 }
 
 - (void)clickReset:(NSNotification *)noty
@@ -587,8 +656,13 @@
 
 - (void)clickConfirm:(NSNotification *)noty
 {
-    [self.cover removeFromSuperview];
-    [self.tableView headerBeginRefreshing];
+    [UIView animateWithDuration:0.3 animations:^{
+        self.dressView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        [_dressView removeFromSuperview];
+        [self.cover removeFromSuperview];
+        [self.tableView headerBeginRefreshing];
+    }];
 }
 
 - (void)orderCellDidClickButton:(NSNotification *)noty

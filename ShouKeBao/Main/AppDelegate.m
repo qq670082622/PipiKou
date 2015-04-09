@@ -24,6 +24,8 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    application.statusBarStyle = UIStatusBarStyleLightContent;
+    
     self.isAutoLogin = NO;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -39,6 +41,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
 
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *phone = [def objectForKey:@"phonenumber"];
@@ -201,7 +204,7 @@
         }
 
     } failure:^(NSError *error) {
-        
+        self.isAutoLogin = NO;
     }];
 }
 

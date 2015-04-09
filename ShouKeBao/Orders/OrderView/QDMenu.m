@@ -10,10 +10,6 @@
 
 @interface QDMenu() <UITableViewDataSource,UITableViewDelegate>
 
-@property (nonatomic,strong) UITableView *tableView;
-
-@property (nonatomic,strong) NSIndexPath *currentIndexPath;
-
 @end
 
 @implementation QDMenu
@@ -22,7 +18,14 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
+        [self addSubview:self.tableView];
         
+        self.userInteractionEnabled = YES;
+        self.image = [UIImage imageNamed:@"qipao"];
+        self.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        self.layer.shadowOpacity = 1;
+        self.layer.shadowOffset = CGSizeMake(1, 1);
+        self.layer.anchorPoint = CGPointMake(0, 0);
     }
     return self;
 }
@@ -31,19 +34,42 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.bounds];
+        _tableView = [[UITableView alloc] init];
+        _tableView.separatorInset = UIEdgeInsetsMake(0, -67, 0, 0);
+        _tableView.rowHeight = 40;
         _tableView.dataSource = self;
         _tableView.delegate = self;
     }
     return _tableView;
 }
 
-- (NSMutableArray *)dataSource
+#pragma mark - private
+- (void)layoutSubviews
 {
-    if (!_dataSource) {
-        _dataSource = [NSMutableArray array];
-    }
-    return _dataSource;
+    [super layoutSubviews];
+    
+    self.tableView.frame = CGRectMake(0, 5, self.frame.size.width, self.frame.size.height - 5);
+}
+
+- (void)willMoveToSuperview:(UIView *)newSuperview
+{
+    [super willMoveToSuperview:newSuperview];
+    
+    CAKeyframeAnimation* animation1 = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    animation1.duration = 0.3;
+    
+    animation1.values = @[@(0.1),@(1.05),@(1.0)];
+
+    [self.layer addAnimation:animation1 forKey:nil];
+}
+
+- (void)removeFromSuperview
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        self.alpha = 0;
+    } completion:^(BOOL finished) {
+        [super removeFromSuperview];
+    }];
 }
 
 #pragma mark - UITableViewDataSource
@@ -58,8 +84,17 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell.textLabel.font = [UIFont systemFontOfSize:13];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.tintColor = [UIColor colorWithRed:249/255.0 green:132/255.0 blue:12/255.0 alpha:1];
     }
-    cell.textLabel.text = self.dataSource[indexPath.row];
+    cell.textLabel.text = self.dataSource[indexPath.row][@"Text"];
+    
+    if (_currentIndex == indexPath.row) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    } else {
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     
     return cell;
 }
@@ -67,26 +102,23 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // 当前行取消选中
-    [tableView deselectRowAtIndexPath:self.currentIndexPath animated:YES];
+    // 取消前一个选中的，就是单选啦
+    NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:_currentIndex inSection:0];
+    UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:lastIndex];
+    lastCell.accessoryType = UITableViewCellAccessoryNone;
     
-    // 选中
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    // 选中操作
+    UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
-    // 重新设置当前行
-    self.currentIndexPath = indexPath;
+    // 保存选中的
+    _currentIndex = indexPath.row;
+   
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (_delegate && [_delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {
         [_delegate menu:self didSelectRowAtIndexPath:indexPath];
     }
-}
-
-- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // 取消选中的时候去掉勾
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:self.currentIndexPath];
-    cell.accessoryType = UITableViewCellAccessoryNone;
 }
 
 @end

@@ -10,7 +10,7 @@
 #import "MeHttpTool.h"
 #import "Server.h"
 
-@interface SosViewController ()
+@interface SosViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) Server *server;
 
@@ -53,7 +53,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"navBarBack"] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];
 }
 
 - (void)loadDataSource
@@ -133,6 +133,15 @@
         return YES;
     }
     else return NO;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    // 避免漏出背景
+    if (scrollView.contentOffset.y < 0) {
+        [scrollView setContentOffset:CGPointMake(0, 0)];
+    }
 }
 
 @end
