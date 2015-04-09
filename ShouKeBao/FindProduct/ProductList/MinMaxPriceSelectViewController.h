@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKViewController.h"
 @protocol passThePrice<NSObject>
 -(void)passTheMinPrice:(NSString *)min AndMaxPrice:(NSString *)max;
 @end
-@interface MinMaxPriceSelectViewController : UIViewController
+@interface MinMaxPriceSelectViewController : SKViewController
 @property(nonatomic,weak) id<passThePrice>delegate;
 @end

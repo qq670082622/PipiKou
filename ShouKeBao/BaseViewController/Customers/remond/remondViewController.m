@@ -10,7 +10,7 @@
 #import "addRemondViewController.h"
 #import "IWHttpTool.h"
 #import "RemindDetailViewController.h"
-@interface remondViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface remondViewController ()<UITableViewDataSource,UITableViewDelegate,ringToRefreshTheRemind>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
 - (IBAction)addRemond:(id)sender;
@@ -27,7 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+   [self loadData];
     [self setUpRightButton];
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -36,7 +36,7 @@
     [super viewWillAppear:animated];
     self.table.rowHeight = 78;
 
-     [self loadData];
+    
     
 }
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -80,7 +80,7 @@
     [dic setObject:self.ID forKey:@"CustomerID"];
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerRemindList" params:dic success:^(id json) {
         NSLog(@"提醒列表json is %@",json);
-       // [self.dataArr removeAllObjects];
+        [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerRemindList"]){
             remondModel *model = [remondModel modalWithDict:dic];
             [self.dataArr addObject:model];
@@ -161,8 +161,21 @@ return     self.dataArr.count;
     
     addRemondViewController *add = [[addRemondViewController alloc] init];
     add.ID = self.ID;
+    add.delegate = self;
     [self.navigationController pushViewController:add animated:YES];
     
+}
+#pragma -mark addRemindDelegate
+-(void)ringToRefreshRemind
+{
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"更新中...";
+    [hudView show:YES];
+    [self loadData];
+    hudView.labelText = @"更新成功";
+    [hudView hide:YES afterDelay:1];
+    [self.table reloadData];
+   
 }
 - (IBAction)deletAction:(id)sender {
     NSLog(@"_editArr is %@",_editArr);

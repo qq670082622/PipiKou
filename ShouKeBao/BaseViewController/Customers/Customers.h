@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface Customers : UIViewController
+#import "SKViewController.h"
+@interface Customers : SKViewController
 @property (weak, nonatomic) IBOutlet UITableView *table;
 
 - (IBAction)timeOrderAction:(id)sender;

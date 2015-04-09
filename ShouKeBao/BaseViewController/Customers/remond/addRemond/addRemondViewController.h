@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface addRemondViewController : UIViewController
-@property (nonatomic,copy) NSMutableString *ID;
+#import "SKViewController.h"
+@protocol ringToRefreshTheRemind<NSObject>
+-(void)ringToRefreshRemind;
+@end
+@interface addRemondViewController : SKViewController
+@property (nonatomic,copy) NSString *ID;
+@property (nonatomic,weak) id<ringToRefreshTheRemind>delegate;
 @end

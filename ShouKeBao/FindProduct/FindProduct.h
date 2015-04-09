@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface FindProduct : UIViewController
+#import "SKViewController.h"
+@interface FindProduct : SKViewController
 
 @end

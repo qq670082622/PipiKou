@@ -359,9 +359,9 @@
 		5A52FB961ACEBF220076DAE6 /* rightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rightCell.h; sourceTree = "<group>"; };
 		5A52FB971ACEBF220076DAE6 /* rightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rightCell.m; sourceTree = "<group>"; };
 		5A52FB981ACEBF220076DAE6 /* rightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = rightCell.xib; sourceTree = "<group>"; };
-		5A52FB991ACEBF220076DAE6 /* rightCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rightCell2.h; sourceTree = "<group>"; };
-		5A52FB9A1ACEBF220076DAE6 /* rightCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rightCell2.m; sourceTree = "<group>"; };
-		5A52FB9B1ACEBF220076DAE6 /* rightCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = rightCell2.xib; sourceTree = "<group>"; };
+		5A52FB991ACEBF220076DAE6 /* rightCell2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = rightCell2.h; path = ../rightTable/rightCell2.h; sourceTree = "<group>"; };
+		5A52FB9A1ACEBF220076DAE6 /* rightCell2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = rightCell2.m; path = ../rightTable/rightCell2.m; sourceTree = "<group>"; };
+		5A52FB9B1ACEBF220076DAE6 /* rightCell2.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = rightCell2.xib; path = ../rightTable/rightCell2.xib; sourceTree = "<group>"; };
 		5A52FB9C1ACEBF220076DAE6 /* rightModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rightModal.h; sourceTree = "<group>"; };
 		5A52FB9D1ACEBF220076DAE6 /* rightModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rightModal.m; sourceTree = "<group>"; };
 		5A52FB9F1ACEBF220076DAE6 /* rightModal2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rightModal2.h; sourceTree = "<group>"; };
@@ -722,14 +722,14 @@
 			children = (
 				5A0058581ACEBD1E007AF362 /* addCustomer */,
 				5A00585C1ACEBD1E007AF362 /* BatchAddCustomers */,
-				5A0058651ACEBD1E007AF362 /* CustomCell.h */,
-				5A0058661ACEBD1E007AF362 /* CustomCell.m */,
-				5A0058671ACEBD1E007AF362 /* CustomCell.xib */,
 				5A0058681ACEBD1E007AF362 /* customerDetail */,
 				5A00586F1ACEBD1E007AF362 /* customerOrders */,
 				5A0058731ACEBD1E007AF362 /* Customers.h */,
 				5A0058741ACEBD1E007AF362 /* Customers.m */,
 				5A0058751ACEBD1E007AF362 /* Customers.xib */,
+				5A0058651ACEBD1E007AF362 /* CustomCell.h */,
+				5A0058661ACEBD1E007AF362 /* CustomCell.m */,
+				5A0058671ACEBD1E007AF362 /* CustomCell.xib */,
 				5A0058761ACEBD1E007AF362 /* CustomModel.h */,
 				5A0058771ACEBD1E007AF362 /* CustomModel.m */,
 				5A0058781ACEBD1E007AF362 /* remond */,
@@ -946,9 +946,6 @@
 				5A52FB961ACEBF220076DAE6 /* rightCell.h */,
 				5A52FB971ACEBF220076DAE6 /* rightCell.m */,
 				5A52FB981ACEBF220076DAE6 /* rightCell.xib */,
-				5A52FB991ACEBF220076DAE6 /* rightCell2.h */,
-				5A52FB9A1ACEBF220076DAE6 /* rightCell2.m */,
-				5A52FB9B1ACEBF220076DAE6 /* rightCell2.xib */,
 				5A52FB9C1ACEBF220076DAE6 /* rightModal.h */,
 				5A52FB9D1ACEBF220076DAE6 /* rightModal.m */,
 			);
@@ -958,6 +955,9 @@
 		5A52FB9E1ACEBF220076DAE6 /* rightTable2 */ = {
 			isa = PBXGroup;
 			children = (
+				5A52FB991ACEBF220076DAE6 /* rightCell2.h */,
+				5A52FB9A1ACEBF220076DAE6 /* rightCell2.m */,
+				5A52FB9B1ACEBF220076DAE6 /* rightCell2.xib */,
 				5A52FB9F1ACEBF220076DAE6 /* rightModal2.h */,
 				5A52FBA01ACEBF220076DAE6 /* rightModal2.m */,
 			);

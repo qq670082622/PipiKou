@@ -30,29 +30,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
-    [self.view addGestureRecognizer:tap];
+
     [self loadHotWordDataSource];
     [self loadHistoryDataSource];
     
-    self.table.delegate = self;
-    self.table.dataSource = self;
+  
     SearchFootView *foot = [SearchFootView footView];
     foot.delegate = self;
     self.table.tableFooterView = foot;
     self.table.tableFooterView.hidden = YES;
     
-   // [self setBtnText];
-    [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
-//    [WMAnimations WMAnimationMakeBoarderWithLayer:self.table.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
-}
+   }
 
 
--(void)hideKeyBoard
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.inputView resignFirstResponder];
+    return YES;
 }
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -106,15 +101,48 @@
     }
     return _tableDataArr;
 }
--(void)loadHistoryDataSource
+
+- (void)loadHistoryDataSource
 {
     NSMutableArray *searchArr = [WriteFileManager WMreadData:@"searchHistory"];
     self.tableDataArr = searchArr;
-   
-
+    
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma -mark footViewDelegate
+-(void)searchFootViewDidClickedLoadBtn:(SearchFootView *)footView
+{
+    [self.tableDataArr removeAllObjects];
+    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+    [self.table reloadData];
+    self.table.tableFooterView.hidden = YES;
+    [self.inputView setText:@""];
+}
+
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (_tableDataArr) {
+        return self.tableDataArr.count;
+    }
+    return 0;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+           NSLog(@"table 被点击");
+      
+    NSMutableString *selectHistoryKey = _tableDataArr[indexPath.row];
+    if (selectHistoryKey) {
+        self.inputView.text = selectHistoryKey;
+        ProductList *list = [[ProductList alloc] init];
+        list.pushedSearchK = self.inputView.text;
+         self.table.tableFooterView.hidden = NO;
+        [self.navigationController pushViewController:list animated:YES];
+    }
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *str = @"historyCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:str];
@@ -128,22 +156,7 @@
     
     return cell;
 }
-#pragma -mark footViewDelegate
--(void)searchFootViewDidClickedLoadBtn:(SearchFootView *)footView
-{
-    [self.tableDataArr removeAllObjects];
-    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
-    [self.table reloadData];
-     self.table.tableFooterView.hidden = YES;
-}
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    if (_tableDataArr) {
-        return self.tableDataArr.count;
-    }
-    return 0;
-}
 
 -(void)viewWillDisappear:(BOOL)animated
 {

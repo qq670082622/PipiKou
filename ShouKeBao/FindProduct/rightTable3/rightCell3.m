@@ -18,9 +18,10 @@
     rightCell3 *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"rightCell3" owner:nil options:nil] lastObject];
-       // cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.name.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
-        //        [cell.contentView addSubview:self.btn1];
+     cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+
+//        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.name.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
         
     }
     return cell;

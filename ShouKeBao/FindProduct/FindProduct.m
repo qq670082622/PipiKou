@@ -104,7 +104,7 @@
 
     
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.rightTable2.separatorStyle = UITableViewCellSeparatorStyleNone;
+  //  self.rightTable2.separatorStyle = UITableViewCellSeparatorStyleNone;
   
     
     [self loadDataSourceLeft];
@@ -357,6 +357,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (IBAction)hotBtnClick:(id)sender {
     self.row = nil;
     [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
+    self.subHotView.backgroundColor = [UIColor whiteColor];
     [self.leftTable reloadData];
     [UIView animateWithDuration:0.7 animations:^{
         self.rightTable.alpha = 0;
@@ -444,7 +445,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
-        return 40;
+        return 52;
     }else if (tableView.tag == 2){
         return  104;
     }else if (tableView.tag == 3){
@@ -494,13 +495,14 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         [self.leftTable reloadData];
             [self loadDataSourceRight];
         [self.hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+         self.subHotView.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];
         [UIView animateWithDuration:0.5 animations:^{
             self.rightTable2.alpha = 0;
             self.hotTable.alpha = 0;
             [self.hotIcon setSelected:NO];
             self.rightTable.alpha = 1;
+            self.rightTable.frame = self.hotTable.frame;
 
-            self.rightTable.frame = CGRectMake(101, self.subHotView.frame.origin.y, self.view.frame.size.width-self.leftTable.frame.size.width-1, self.leftTable.frame.size.height);
         }];
         
 
@@ -513,7 +515,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             self.rightTable2.alpha = 1;
             self.rightTable.alpha = 0;
             self.blackView.alpha = 0.5;
-            self.rightTable2.frame = CGRectMake(101, self.subHotView.frame.origin.y, self.view.frame.size.width-self.leftTable.frame.size.width-1, self.leftTable.frame.size.height);
+            self.rightTable2.frame = self.hotTable.frame;
        
         }];
        
@@ -541,10 +543,21 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         
         [self.navigationController pushViewController:detail animated:YES];
     }
+
+ [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
 }
 
 
+- (void)deselect
 
+{
+    
+   // [self.leftTable deselectRowAtIndexPath:[self.leftTable indexPathForSelectedRow] animated:YES];
+     [self.rightTable deselectRowAtIndexPath:[self.rightTable indexPathForSelectedRow] animated:YES];
+     [self.rightTable2 deselectRowAtIndexPath:[self.rightTable2 indexPathForSelectedRow] animated:YES];
+     [self.hotTable deselectRowAtIndexPath:[self.hotTable indexPathForSelectedRow] animated:YES];
+    
+}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -555,6 +568,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         if (indexPath.row == [self.row intValue] && self.hotBtnIconOutlet.selected == NO) {
             cell.name.textColor = [UIColor orangeColor];
             cell.icon.image = [UIImage imageNamed:[self.leftSelectIconArr objectAtIndex:indexPath.row]];
+            cell.contentView.backgroundColor = [UIColor whiteColor];
         }
         return cell;
     }else if(tableView.tag == 2) {//if (tableView.tag == 2 && ([_row intValue] != 0)){

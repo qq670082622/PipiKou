@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface ProduceDetailViewController : UIViewController
+#import "SKViewController.h"
+@interface ProduceDetailViewController : SKViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;

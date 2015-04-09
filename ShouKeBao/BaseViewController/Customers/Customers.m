@@ -52,6 +52,7 @@
     [hudView show:YES];
     
     [self loadDataSource];
+    [self.table reloadData];
 }
 -(void)customerRightBarItem
 {

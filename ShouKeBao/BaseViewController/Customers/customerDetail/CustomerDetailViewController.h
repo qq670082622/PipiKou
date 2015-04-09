@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "CustomModel.h"
+#import "SKViewController.h"
 @class CustomModel;
-@interface CustomerDetailViewController : UIViewController
+@interface CustomerDetailViewController : SKViewController
 @property (weak, nonatomic) IBOutlet UITextField *weChat;
 @property (weak, nonatomic) IBOutlet UITextField *QQ;
 @property (weak, nonatomic) IBOutlet UITextView *note;

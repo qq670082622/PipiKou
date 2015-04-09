@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKViewController.h"
 @protocol notifi<NSObject>
 -(void)notifiToReloadData;
 @end
-@interface StationSelect : UIViewController
+@interface StationSelect : SKViewController
 @property (weak,nonatomic) id<notifi>delegate;
 @end
