@@ -23,7 +23,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="O64-S5-SJA">
-                    <rect key="frame" x="8" y="5" width="60" height="30"/>
+                    <rect key="frame" x="20" y="5" width="60" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <state key="normal" image="fenzhan">
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -33,7 +33,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="25d-1C-lO3">
-                    <rect key="frame" x="18" y="5" width="40" height="30"/>
+                    <rect key="frame" x="31" y="5" width="40" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="上海">
@@ -44,7 +44,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Y8O-Mt-FKQ">
-                    <rect key="frame" x="74.999999793817835" y="5" width="235" height="30"/>
+                    <rect key="frame" x="84.000000274286805" y="5" width="226" height="30"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                     <state key="normal" title="shousuochanpin" image="shousuochanpin">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,27 +54,27 @@
                     </connections>
                 </button>
                 <view contentMode="scaleToFill" id="Bc7-6G-aOu" userLabel="ViewUp">
-                    <rect key="frame" x="0.0" y="40" width="320" height="86"/>
+                    <rect key="frame" x="0.0" y="40" width="320" height="91"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xixixi" id="Amj-G2-utC">
-                            <rect key="frame" x="13" y="15" width="30" height="30"/>
+                            <rect key="frame" x="15" y="11" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         </imageView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="David" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j7n-9y-VPr">
-                            <rect key="frame" x="55" y="20" width="85" height="21"/>
+                            <rect key="frame" x="58" y="21.5" width="85" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" id="CHz-5X-KP8" userLabel="line">
-                            <rect key="frame" x="50" y="45" width="180" height="1"/>
+                            <rect key="frame" x="58" y="45" width="160" height="1"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="QKg-lN-DWr" userLabel="share">
-                            <rect key="frame" x="13" y="53" width="30" height="30"/>
+                            <rect key="frame" x="13" y="58" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                             <state key="normal" image="fenxianglan">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -91,26 +91,26 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12次" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yBe-tc-N3B">
-                            <rect key="frame" x="55" y="60" width="50" height="21"/>
+                            <rect key="frame" x="55" y="65" width="50" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kOB-7g-6eG">
-                            <rect key="frame" x="150" y="60" width="50" height="21"/>
+                            <rect key="frame" x="150" y="65" width="50" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <view contentMode="scaleToFill" id="sUz-15-yGa" userLabel="line2">
-                            <rect key="frame" x="240" y="10" width="1" height="64"/>
+                            <rect key="frame" x="230" y="0.0" width="1" height="91"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="oE9-3F-kUd">
-                            <rect key="frame" x="247" y="12" width="65" height="65"/>
+                            <rect key="frame" x="243" y="12" width="65" height="65"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                             <state key="normal" image="banjiubing">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -136,10 +136,10 @@
         </view>
     </objects>
     <resources>
-        <image name="banjiubing" width="99" height="99"/>
+        <image name="banjiubing" width="50" height="50"/>
         <image name="fenxianglan" width="18" height="18"/>
         <image name="fenzhan" width="117" height="67"/>
-        <image name="shousuochanpin" width="595" height="64"/>
+        <image name="shousuochanpin" width="297" height="32"/>
         <image name="xixixi" width="28" height="28"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

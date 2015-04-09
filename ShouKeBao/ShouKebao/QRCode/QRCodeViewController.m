@@ -40,7 +40,23 @@
     _captureSession = nil;
     _isReading = NO;
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.startBtn.layer andBorderColor:[UIColor blackColor] andBorderWidth:1 andNeedShadow:YES];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+    
 }
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 //实现startReading方法（这可就是重点咯）
 - (BOOL)startReading {

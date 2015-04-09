@@ -62,7 +62,7 @@ theAnimation.fromValue=[NSValue valueWithCGPoint:*fromPoint];
 
 }
 
-+ (void)WMAnimationMakeBoarderWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(int)borderWid andNeedShadow:(BOOL)needShow
++ (void)WMAnimationMakeBoarderWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(float)borderWid andNeedShadow:(BOOL)needShow
 {
     layer.borderColor = color.CGColor;
     layer.borderWidth = borderWid;

@@ -33,4 +33,11 @@ heith = normal.size.height * 0.5;
 UIImage *new = [normal resizableImageWithCapInsets:UIEdgeInsetsMake(heith, wid, heith, wid)];
     return new;
 }
++ (UIImage*) OriginImage:(UIImage *)image scaleToSize:(CGSize)size{
+    UIGraphicsBeginImageContext(size);
+    [image drawInRect:CGRectMake(0, 0, size.width, size.height)];
+    UIImage* scaledImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return scaledImage;
+}
 @end

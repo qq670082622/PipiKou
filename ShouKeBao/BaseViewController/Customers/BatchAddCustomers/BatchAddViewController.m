@@ -29,9 +29,25 @@
     [self loadData];
     [self.table setEditing:YES animated:YES];
     [self setUpRightButton];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+    
 }
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)setUpRightButton{
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     [button setBackgroundImage:[UIImage imageNamed:@"gou"] forState:UIControlStateNormal];
     
     [button addTarget:self action:@selector(EditCustomerDetail)forControlEvents:UIControlEventTouchUpInside];

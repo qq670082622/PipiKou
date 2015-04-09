@@ -10,5 +10,6 @@
 
 @interface ResizeImage : UIImage
 + (UIImage *)reSizeImage:(UIImage *)image toSize:(CGSize)reSize;
++ (UIImage*) OriginImage:(UIImage *)image scaleToSize:(CGSize)size;
 +(UIImage *)reSizeBadgeValueWithImageNmae:(NSString *)name BeWid:(CGFloat)wid andHeith:(CGFloat)heith;
 @end
