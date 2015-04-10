@@ -403,7 +403,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 #pragma mark - rightTable2的代理方法
 -(void)headerViewDidClickedLoadBtn:(HeaderView *)headerView//rightTable2的代理方法
 {
-    [UIView animateWithDuration:0.5 animations:^{
+    [UIView animateWithDuration:0.3 animations:^{
         self.rightTable2.alpha = 0;
         self.rightTable.alpha = 1;
         self.blackView.alpha = 0;
@@ -433,7 +433,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 {
     if(tableView.tag == 1){
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 52)];
-        view.backgroundColor = [UIColor colorWithRed:204/255.f green:214/255.f blue:226/255.f alpha:1];
+        view.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];
         
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
        img.frame = CGRectMake(6, 13, 23, 23);
@@ -540,7 +540,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             [self loadDataSourceRight];
         [self.hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
          self.subHotView.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             self.rightTable2.alpha = 0;
             self.hotTable.alpha = 0;
            // self.hotIcon.image = [UIImage imageNamed:@"APPhot"];
@@ -555,7 +555,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     if (tableView.tag == 2) {
     self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"-----------tableSelectRow is %@--------",_table2Row);
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.3 animations:^{
             self.rightTable2.alpha = 1;
             self.rightTable.alpha = 0;
             self.blackView.alpha = 0.5;

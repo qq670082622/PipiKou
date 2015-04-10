@@ -7,9 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol notifiToReferesh<NSObject>
+-(void)toReferesh;
+@end
 @interface messageDetailViewController : UIViewController
-
+@property(nonatomic,weak) id<notifiToReferesh>delegate;
 @property (nonatomic,copy) NSString *ID;
 
 @end

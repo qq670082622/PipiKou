@@ -71,7 +71,6 @@
 }
 
 
-
 -(void)setBtnText
 {
     
@@ -140,6 +139,7 @@
          self.table.tableFooterView.hidden = NO;
         [self.navigationController pushViewController:list animated:YES];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -188,9 +188,12 @@
 {
     UIButton *btn = (UIButton *)sender;
     self.inputView.text = btn.currentTitle;
+   
+    [self.tableDataArr addObject:btn.currentTitle];
+    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
-   
+    self.table.tableFooterView.hidden = NO;
     [self.navigationController pushViewController:list animated:YES];
    
 }

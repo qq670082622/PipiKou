@@ -21,10 +21,10 @@
 }
 -(void)awakeFromNib
 {
-    self.btn.layer.cornerRadius = 5;
-    self.btn.layer.borderColor = [UIColor orangeColor].CGColor;
-    self.btn.layer.borderWidth = 1;
-    self.btn.layer.masksToBounds = YES;
+//    self.btn.layer.cornerRadius = 5;
+//    self.btn.layer.borderColor = [UIColor orangeColor].CGColor;
+//    self.btn.layer.borderWidth = 1;
+//    self.btn.layer.masksToBounds = YES;
 }
 
 @end

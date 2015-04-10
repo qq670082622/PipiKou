@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
@@ -11,8 +11,9 @@
             <rect key="frame" x="0.0" y="0.0" width="221" height="54"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AZj-ke-mXj">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AZj-ke-mXj">
                     <rect key="frame" x="20" y="5" width="180" height="44"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                     <state key="normal" image="fanghui">
                         <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -21,18 +22,13 @@
                         <action selector="btn:" destination="iN0-l3-epB" eventType="touchUpInside" id="9VG-gq-N91"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Vl-6w-Op2">
+                <view contentMode="scaleToFill" id="2Vl-6w-Op2">
                     <rect key="frame" x="0.0" y="53" width="221" height="0.5"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-            <constraints>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="LjZ-Xu-feM"/>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="gFW-mb-6JP"/>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="20" id="hiy-eb-vcu"/>
-                <constraint firstItem="AZj-ke-mXj" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="kel-jT-Bpr"/>
-            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
@@ -44,4 +40,9 @@
     <resources>
         <image name="fanghui" width="231" height="54"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
 </document>

@@ -16,12 +16,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ddk-We-v7e">
-                        <rect key="frame" x="20" y="5" width="195" height="68"/>
+                        <rect key="frame" x="15" y="5" width="190" height="68"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="新马泰" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LHJ-AR-Tcs">
                                 <rect key="frame" x="15" y="15" width="180" height="16"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="16" id="OMh-X1-NJo"/>
+                                    <constraint firstAttribute="height" constant="16" id="hdR-Tz-BC2"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" weight="black" pointSize="18"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -36,21 +36,21 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="leading" secondItem="xhd-Tv-Brs" secondAttribute="leading" id="7SJ-0p-YjO"/>
-                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="leading" secondItem="Ddk-We-v7e" secondAttribute="leading" constant="15" id="LeP-5V-mLd"/>
-                            <constraint firstItem="xhd-Tv-Brs" firstAttribute="top" secondItem="LHJ-AR-Tcs" secondAttribute="bottom" constant="3" id="Tjs-Un-9DC"/>
-                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="trailing" secondItem="xhd-Tv-Brs" secondAttribute="trailing" id="aYB-dF-hab"/>
-                            <constraint firstAttribute="bottom" secondItem="xhd-Tv-Brs" secondAttribute="bottom" id="cfF-tY-zy3"/>
-                            <constraint firstAttribute="trailing" secondItem="LHJ-AR-Tcs" secondAttribute="trailing" id="sLL-xv-avk"/>
-                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="top" secondItem="Ddk-We-v7e" secondAttribute="top" constant="15" id="zoc-3S-ao9"/>
+                            <constraint firstAttribute="bottom" secondItem="xhd-Tv-Brs" secondAttribute="bottom" id="60K-ZC-CC8"/>
+                            <constraint firstAttribute="trailing" secondItem="LHJ-AR-Tcs" secondAttribute="trailing" constant="-5" id="Kka-Pb-jfw"/>
+                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="top" secondItem="Ddk-We-v7e" secondAttribute="top" constant="15" id="YlC-vN-a9d"/>
+                            <constraint firstItem="xhd-Tv-Brs" firstAttribute="top" secondItem="LHJ-AR-Tcs" secondAttribute="bottom" constant="3" id="e0q-nS-FGV"/>
+                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="leading" secondItem="Ddk-We-v7e" secondAttribute="leading" constant="15" id="zAH-8v-otZ"/>
+                            <constraint firstItem="xhd-Tv-Brs" firstAttribute="trailing" secondItem="LHJ-AR-Tcs" secondAttribute="trailing" id="zhF-Nn-gxt"/>
+                            <constraint firstItem="LHJ-AR-Tcs" firstAttribute="leading" secondItem="xhd-Tv-Brs" secondAttribute="leading" id="ztV-gw-qt4"/>
                         </constraints>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="Ddk-We-v7e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="1Ad-Dp-bzZ"/>
-                    <constraint firstItem="Ddk-We-v7e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="12" id="Xqy-cm-XLl"/>
-                    <constraint firstItem="Ddk-We-v7e" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="ieU-N9-oMK"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Ddk-We-v7e" secondAttribute="trailing" constant="-2" id="lTt-Zk-EhR"/>
+                    <constraint firstItem="Ddk-We-v7e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="3iM-97-v7Z"/>
+                    <constraint firstItem="Ddk-We-v7e" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="7LH-kB-igQ"/>
+                    <constraint firstItem="Ddk-We-v7e" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-3" id="QEv-pC-tCW"/>
+                    <constraint firstItem="Ddk-We-v7e" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="RQT-gx-qLe"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

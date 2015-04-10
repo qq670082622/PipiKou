@@ -21,9 +21,9 @@
 #import "SosViewController.h"
 #import "HomeHttpTool.h"
 #import "HomeList.h"
+#import "WriteFileManager.h"
 
-
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate>
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
@@ -37,7 +37,7 @@
 
 @property (weak, nonatomic) IBOutlet UIView *upView;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
-
+@property (nonatomic,copy) NSMutableString *messageCount;
 - (IBAction)search:(id)sender;
 
 - (IBAction)add:(id)sender;
@@ -73,6 +73,22 @@
     [self getNotifiList];
 }
 
+-(NSMutableString *)messageCount
+{
+    if (_messageCount == nil) {
+        self.messageCount = [NSMutableString string];
+    }
+    return _messageCount;
+}
+
+#pragma -mark massegeCenterDelegate
+-(void)refreshSKBMessgaeCount:(int)count
+{
+    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+    barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
+}
+
+
 -(NSMutableDictionary *)messageDic
 {
     if (_messageDic == nil) {
@@ -99,6 +115,7 @@
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
             BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
             barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
+        
         self.messageDic = json;
         
     } failure:^(NSError *error) {
@@ -151,6 +168,7 @@
     return _dataSource;
 }
 
+
 #pragma mark - loadDataSource
 - (void)loadContentDataSource
 {
@@ -179,6 +197,7 @@
         
     }];
 }
+
 
 #pragma mark - private
 -(void)pushToStore
@@ -245,6 +264,7 @@
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
     
     messgeCenter.dataDic = self.messageDic;
+    messgeCenter.delegate = self;
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }

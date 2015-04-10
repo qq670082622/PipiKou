@@ -26,6 +26,12 @@
     [self loadData];
 }
 
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:YES];
+    [self.delegate toReferesh];
+    
+}
 
 
 
