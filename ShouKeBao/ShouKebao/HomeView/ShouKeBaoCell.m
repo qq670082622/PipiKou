@@ -8,22 +8,13 @@
 
 #import "ShouKeBaoCell.h"
 #import "HomeList.h"
+#import "Recommend.h"
+#import "HomeBase.h"
+#import "NSDate+Category.h"
 
 #define gap 10
 
 @interface ShouKeBaoCell()
-// 图标
-@property (nonatomic,weak) UIImageView *iconView;
-// 标题
-@property (nonatomic,weak) UILabel *titleLab;
-// 时间
-@property (nonatomic,weak) UILabel *timeLab;
-// 左边待定内容
-@property (nonatomic,weak) UILabel *leftLab;
-// 右边待定内容
-@property (nonatomic,weak) UILabel *rightLab;
-// 详情
-@property (nonatomic,weak) UILabel *detailLab;
 
 @end
 
@@ -134,7 +125,7 @@
 - (void)setModel:(HomeList *)model
 {
     _model = model;
-    
+        
     // 图标
     if ([model.IsSKBOrder integerValue] == 0) {
         self.iconView.image = [UIImage imageNamed:@"zhike"];
@@ -150,7 +141,8 @@
     self.titleLab.text = model.ShowType;
     
     // 时间
-    self.timeLab.text = model.CreatedDate;
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
+    self.timeLab.text = [createDate formattedTime];
     
     // 左边待定内容
     self.leftLab.text = model.Price;

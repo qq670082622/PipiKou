@@ -114,9 +114,9 @@ typedef enum MGSwipeDirection {
 @property (nonatomic, assign) CGFloat swipeOffset;
 
 /** Utility methods to show or hide swipe buttons programmatically */
--(void) hideSwipeAnimated: (BOOL) animated;
--(void) showSwipe: (MGSwipeDirection) direction animated: (BOOL) animated;
--(void) setSwipeOffset:(CGFloat)offset animated: (BOOL) animated completion:(void(^)()) completion;
+-(void)hideSwipeAnimated: (BOOL) animated;
+-(void)showSwipe: (MGSwipeDirection) direction animated: (BOOL) animated;
+-(void)setSwipeOffset:(CGFloat)offset animated: (BOOL) animated completion:(void(^)()) completion;
 
 @end
 

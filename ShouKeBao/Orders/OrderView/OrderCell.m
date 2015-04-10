@@ -365,12 +365,4 @@
     }
 }
 
-
-//- (void)setModel:(OrderModel *)model
-//{
-//    _model = model;
-//    
-//    self.orderTmpView.model = model;
-//}
-
 @end

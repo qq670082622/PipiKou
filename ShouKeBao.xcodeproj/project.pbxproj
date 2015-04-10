@@ -142,6 +142,12 @@
 		5AB725811AD68C5B0044B318 /* Recommend.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725801AD68C5B0044B318 /* Recommend.m */; };
 		5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */; };
 		5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7C9901ACBFA9300217CAC /* TKProgressCircleView.m */; };
+		5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F5A1AD7A908004AA8F6 /* RecommendViewController.m */; };
+		5ABA4F601AD7B26E004AA8F6 /* NSDate+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F5D1AD7B26E004AA8F6 /* NSDate+Category.m */; };
+		5ABA4F611AD7B26E004AA8F6 /* NSDateFormatter+Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F5F1AD7B26E004AA8F6 /* NSDateFormatter+Category.m */; };
+		5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */; };
+		5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */; };
+		5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
 		6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130D1AB1C175003AC2DA /* MJRefreshBaseView.m */; };
 		6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130F1AB1C175003AC2DA /* MJRefreshConst.m */; };
@@ -491,6 +497,17 @@
 		5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDActionSheet.m; sourceTree = "<group>"; };
 		5AB7C98F1ACBFA9300217CAC /* TKProgressCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TKProgressCircleView.h; sourceTree = "<group>"; };
 		5AB7C9901ACBFA9300217CAC /* TKProgressCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TKProgressCircleView.m; sourceTree = "<group>"; };
+		5ABA4F591AD7A908004AA8F6 /* RecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendViewController.h; sourceTree = "<group>"; };
+		5ABA4F5A1AD7A908004AA8F6 /* RecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendViewController.m; sourceTree = "<group>"; };
+		5ABA4F5C1AD7B26E004AA8F6 /* NSDate+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Category.h"; sourceTree = "<group>"; };
+		5ABA4F5D1AD7B26E004AA8F6 /* NSDate+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Category.m"; sourceTree = "<group>"; };
+		5ABA4F5E1AD7B26E004AA8F6 /* NSDateFormatter+Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDateFormatter+Category.h"; sourceTree = "<group>"; };
+		5ABA4F5F1AD7B26E004AA8F6 /* NSDateFormatter+Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDateFormatter+Category.m"; sourceTree = "<group>"; };
+		5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		5ABA4F641AD7C2E7004AA8F6 /* HomeBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeBase.h; sourceTree = "<group>"; };
+		5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeBase.m; sourceTree = "<group>"; };
+		5ABA4F671AD7E5CD004AA8F6 /* RecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCell.h; sourceTree = "<group>"; };
+		5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
 		6326130A1AB1C175003AC2DA /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		6326130B1AB1C175003AC2DA /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		6326130C1AB1C175003AC2DA /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -837,10 +854,12 @@
 				5A8216131AD36AB9009388DA /* HomeView */,
 				63B8C6F51ACE8EA200328C8C /* messageCenter */,
 				63B8C6A71ACE671D00328C8C /* QRCode */,
+				5A076E9C1ACD8B270077611C /* Store */,
 				5A076E961ACD8B270077611C /* ShouKeBao.h */,
 				5A076E971ACD8B270077611C /* ShouKeBao.m */,
 				5A076E981ACD8B270077611C /* ShouKeBao.xib */,
-				5A076E9C1ACD8B270077611C /* Store */,
+				5ABA4F591AD7A908004AA8F6 /* RecommendViewController.h */,
+				5ABA4F5A1AD7A908004AA8F6 /* RecommendViewController.m */,
 			);
 			path = ShouKebao;
 			sourceTree = "<group>";
@@ -864,6 +883,10 @@
 				5A52FB6D1ACEBF220076DAE6 /* NSString+QD.m */,
 				5A52FB6E1ACEBF220076DAE6 /* UIColor+SK.h */,
 				5A52FB6F1ACEBF220076DAE6 /* UIColor+SK.m */,
+				5ABA4F5C1AD7B26E004AA8F6 /* NSDate+Category.h */,
+				5ABA4F5D1AD7B26E004AA8F6 /* NSDate+Category.m */,
+				5ABA4F5E1AD7B26E004AA8F6 /* NSDateFormatter+Category.h */,
+				5ABA4F5F1AD7B26E004AA8F6 /* NSDateFormatter+Category.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1214,6 +1237,8 @@
 		5A8216121AD36AB9009388DA /* HomeModel */ = {
 			isa = PBXGroup;
 			children = (
+				5ABA4F641AD7C2E7004AA8F6 /* HomeBase.h */,
+				5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */,
 				5A82161A1AD3843B009388DA /* HomeList.h */,
 				5A82161B1AD3843B009388DA /* HomeList.m */,
 				5AB7257F1AD68C5B0044B318 /* Recommend.h */,
@@ -1227,6 +1252,8 @@
 			children = (
 				5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */,
 				5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */,
+				5ABA4F671AD7E5CD004AA8F6 /* RecommendCell.h */,
+				5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -1623,6 +1650,7 @@
 		63D31E411AB143D00043B3CA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */,
 				5A076C9A1ACD1C0F0077611C /* area.plist */,
 				63D31E421AB143D00043B3CA /* Info.plist */,
 				63D31E431AB143D00043B3CA /* main.m */,
@@ -1798,6 +1826,7 @@
 				5A00589C1ACEBD1E007AF362 /* addRemondViewController.xib in Resources */,
 				5A52FC491ACEBF220076DAE6 /* MinMaxPriceSelectViewController.xib in Resources */,
 				5A52FC4B1ACEBF220076DAE6 /* ProductCell.xib in Resources */,
+				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
 				5A00588A1ACEBD1E007AF362 /* addCustomerViewController.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
@@ -1881,6 +1910,7 @@
 				5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */,
 				633263D91AB851590021553B /* AFURLResponseSerialization.m in Sources */,
 				5A52FC661ACEBF220076DAE6 /* Register.m in Sources */,
+				5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */,
 				5A52FC441ACEBF220076DAE6 /* ConditionSelectViewController.m in Sources */,
 				6326131F1AB1C175003AC2DA /* UIScrollView+MJExtension.m in Sources */,
 				5A52FC631ACEBF220076DAE6 /* Login.m in Sources */,
@@ -1894,11 +1924,13 @@
 				5A00589F1ACEBD1E007AF362 /* remondModel.m in Sources */,
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				5A52FC7E1ACEBF220076DAE6 /* SuggestViewController.m in Sources */,
+				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				63B8C6F91ACE8EB000328C8C /* messageCenterViewController.m in Sources */,
 				5A52FC901ACEBF220076DAE6 /* OrderCell.m in Sources */,
 				5A0058A21ACEBD1E007AF362 /* remondViewController.m in Sources */,
+				5ABA4F601AD7B26E004AA8F6 /* NSDate+Category.m in Sources */,
 				5A00589D1ACEBD1E007AF362 /* RemindDetailViewController.m in Sources */,
 				5A00588F1ACEBD1E007AF362 /* batchModel.m in Sources */,
 				5A52FC851ACEBF220076DAE6 /* Orders.m in Sources */,
@@ -1914,6 +1946,7 @@
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
 				845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */,
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,
+				5ABA4F611AD7B26E004AA8F6 /* NSDateFormatter+Category.m in Sources */,
 				5A82161C1AD3843B009388DA /* HomeList.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
@@ -1981,6 +2014,7 @@
 				63B8C6FE1ACE906B00328C8C /* messageCell.m in Sources */,
 				5A52FC461ACEBF220076DAE6 /* FootView.m in Sources */,
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
+				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
 				5A52FC7D1ACEBF220076DAE6 /* SosViewController.m in Sources */,
 				5A52FC4E1ACEBF220076DAE6 /* ProductModal.m in Sources */,
 				5A52FC711ACEBF220076DAE6 /* Server.m in Sources */,

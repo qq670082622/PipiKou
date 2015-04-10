@@ -56,6 +56,10 @@
 @property (nonatomic,strong) DressView *dressView;
 @property (nonatomic,weak) UIView *cover;
 
+
+@property (nonatomic,weak) UIView *sep1;// 开始搜索的边界线
+@property (nonatomic,weak) UIView *sep2;
+
 @property (nonatomic,strong) SKSearchBar *searchBar;
 @property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
 @property (nonatomic,copy) NSString *searchKeyWord;
@@ -104,6 +108,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(orderCellDidClickButton:) name:@"orderCellDidClickButton" object:nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"historysearch" object:nil];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
 }
 
 - (void)dealloc
@@ -273,7 +282,7 @@
         return YES;
     }];
     CGRect frame = button.frame;
-    frame.size.width = 200;
+    frame.size.width = 230;
     button.frame = frame;
     [result addObject:button];
     button.enabled = YES;
@@ -426,10 +435,11 @@
     if (_searchBar == nil) {
         _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 45)];
         _searchBar.delegate = self;
+        _searchBar.barStyle = UISearchBarStyleDefault;
+        _searchBar.translucent = NO;
         _searchBar.placeholder = @"订单号/产品名称/供应商名称";
-        _searchBar.backgroundColor = [UIColor clearColor];
         _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-        _searchBar.tintColor = [UIColor blackColor];
+        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
     
     return _searchBar;
@@ -552,7 +562,10 @@
 #pragma mark - MGSwipeTableCellDelegate
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
 {
-    return YES;
+    if (direction == MGSwipeDirectionRightToLeft) {
+        return YES;
+    }
+    return NO;
 }
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
@@ -707,6 +720,37 @@
     return YES;
 }
 
+// 这个方法里面纯粹调样式
+- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
+{
+    UITextField *field;
+    for (UIView *searchbuttons in [[searchBar.subviews objectAtIndex:0] subviews])
+    {
+        if ([searchbuttons isKindOfClass:[UIButton class]])
+        {
+            UIButton *cancelButton = (UIButton *)searchbuttons;
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"取消"];
+            NSMutableDictionary *muta = [NSMutableDictionary dictionary];
+            [muta setObject:[UIColor colorWithRed:68/255.0 green:122/255.0 blue:208/255.0 alpha:1] forKey:NSForegroundColorAttributeName];
+            [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
+            [attr addAttributes:muta range:NSMakeRange(0, 2)];
+            [cancelButton setAttributedTitle:attr forState:UIControlStateNormal];
+            break;
+        }else{
+            if ([searchbuttons isKindOfClass:[UITextField class]]) {
+                field = (UITextField *)searchbuttons;
+            }
+        }
+    }
+    
+    CGFloat sepX = CGRectGetMaxX(field.frame);
+    UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 1, 34)];
+    sep2.backgroundColor = [UIColor lightGrayColor];
+    sep2.alpha = 0.3;
+    [self.view.window addSubview:sep2];
+    self.sep2 = sep2;
+}
+
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     self.searchKeyWord = searchText;
@@ -743,7 +787,8 @@
 }
 
 #pragma mark - UISearchDisplayDelegate
--(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller {
+-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
+{
     
 //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
 //        CGRect statusBarFrame = [[UIApplication sharedApplication] statusBarFrame];
@@ -752,21 +797,41 @@
 //                subview.transform = CGAffineTransformMakeTranslation(0, statusBarFrame.size.height);
 //        }];
 //    }
+    
+    // 纯粹调节样式
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+     self.searchBar.barTintColor = [UIColor whiteColor];
+    
+    // 边界线
+    UIView *sep1 = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 1)];
+    sep1.backgroundColor = [UIColor lightGrayColor];
+    sep1.alpha = 0.3;
+    [self.view.window addSubview:sep1];
+    self.sep1 = sep1;
+    
+    // 历史记录的界面
     HistoryView *historyView = [[HistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
     historyView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
     [self.view.window addSubview:historyView];
     self.historyView = historyView;
 }
 
--(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller {
+-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
+{
+    //    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
+    //        [UIView animateWithDuration:0.25 animations:^{
+    //            for (UIView *subview in self.view.subviews)
+    //                subview.transform = CGAffineTransformIdentity;
+    //        }];
+    //    }
+    
+    [self.sep1 removeFromSuperview];
+    [self.sep2 removeFromSuperview];
+    
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    self.searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
     
     [self.historyView removeFromSuperview];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0) {
-        [UIView animateWithDuration:0.25 animations:^{
-            for (UIView *subview in self.view.subviews)
-                subview.transform = CGAffineTransformIdentity;
-        }];
-    }
 }
 
 @end

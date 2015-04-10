@@ -30,6 +30,17 @@
     return self;
 }
 
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    
+    self.mobile.layer.cornerRadius = 5;
+    self.mobile.layer.masksToBounds = YES;
+    
+    self.qqNum.layer.cornerRadius = 5;
+    self.qqNum.layer.masksToBounds = YES;
+}
+
 - (void)setModel:(OrderModel *)model
 {
     _model = model;

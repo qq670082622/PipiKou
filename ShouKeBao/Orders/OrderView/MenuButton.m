@@ -10,7 +10,9 @@
 
 @interface MenuButton()
 
-@property (nonatomic,weak) UIView *sep;
+@property (nonatomic,weak) UIView *sep;// 中间的线
+
+@property (nonatomic,weak) UIView *sep2;// 下边的线
 
 @end
 
@@ -40,6 +42,11 @@
         [rightBtn addTarget:self action:@selector(right:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:rightBtn];
         self.rightBtn = rightBtn;
+        
+        UIView *sep2 = [[UIView alloc] init];
+        sep2.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+        [self addSubview:sep2];
+        self.sep2 = sep2;
     }
     return self;
 }
@@ -57,6 +64,8 @@
     
     CGFloat rightX = CGRectGetMaxX(self.sep.frame);
     self.rightBtn.frame = CGRectMake(rightX, 0, screenW * 0.5 - 0.5, self.frame.size.height);
+    
+    self.sep2.frame = CGRectMake(0, self.frame.size.height - 1, screenW, 1);
 }
 
 - (void)left:(UIButton *)left

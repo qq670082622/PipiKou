@@ -7,10 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGSwipeTableCell.h"
 
 @class HomeList;
 
-@interface ShouKeBaoCell : UITableViewCell
+@interface ShouKeBaoCell : MGSwipeTableCell
+
+// 图标
+@property (nonatomic,weak) UIImageView *iconView;
+// 标题
+@property (nonatomic,weak) UILabel *titleLab;
+// 时间
+@property (nonatomic,weak) UILabel *timeLab;
+// 左边待定内容
+@property (nonatomic,weak) UILabel *leftLab;
+// 右边待定内容
+@property (nonatomic,weak) UILabel *rightLab;
+// 详情
+@property (nonatomic,weak) UILabel *detailLab;
 
 @property (nonatomic,strong) HomeList *model;
 

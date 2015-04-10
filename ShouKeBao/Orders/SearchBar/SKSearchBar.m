@@ -14,18 +14,7 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.placeholder = @"aaa";
         
-        for (UIView *searchbuttons in self.subviews)
-        {
-            if ([searchbuttons isKindOfClass:[UIButton class]])
-            {
-                UIButton *cancelButton = (UIButton*)searchbuttons;
-                [cancelButton setTitle:@"搜索" forState:UIControlStateNormal];
-                [cancelButton setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-                break;
-            }
-        }
     }
     return self;
 }

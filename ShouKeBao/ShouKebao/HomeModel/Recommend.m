@@ -7,6 +7,7 @@
 //
 
 #import "Recommend.h"
+#import "NSMutableDictionary+QD.h"
 
 @implementation Recommend
 
@@ -19,9 +20,18 @@
 {
     self = [super init];
     if (self) {
+        NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:dict];
         
+        self.Count = muta[@"Count"];
+        self.CreatedDate = muta[@"CreatedDate"];
+        self.Price = muta[@"Price"];
     }
     return self;
+}
+
+- (NSString *)Price
+{
+    return [NSString stringWithFormat:@"￥%@",_Price];
 }
 
 @end

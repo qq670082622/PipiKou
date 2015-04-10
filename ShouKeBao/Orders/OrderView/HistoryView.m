@@ -30,6 +30,7 @@
         UIButton *clear = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _TableView.frame.size.width, 44)];
         clear.backgroundColor = [UIColor whiteColor];
         clear.hidden = YES;
+        clear.titleLabel.font = [UIFont systemFontOfSize:15];
         [clear setTitle:@"清除历史记录" forState:UIControlStateNormal];
         [clear setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [clear addTarget:self action:@selector(clearHistory:) forControlEvents:UIControlEventTouchUpInside];
@@ -43,7 +44,7 @@
 - (UITableView *)TableView
 {
     if (!_TableView) {
-        _TableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 10, self.frame.size.width - 20, self.frame.size.height - 10) style:UITableViewStyleGrouped];
+        _TableView = [[UITableView alloc] initWithFrame:CGRectMake(15, 0, self.frame.size.width - 30, self.frame.size.height - 10) style:UITableViewStyleGrouped];
         _TableView.dataSource = self;
         _TableView.delegate = self;
         _TableView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
@@ -77,6 +78,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell.textLabel.font = [UIFont systemFontOfSize:15];
     }
     
     cell.textLabel.text = self.dataSource[indexPath.row];
@@ -89,9 +91,22 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:@"historysearch" object:nil userInfo:@{@"historykey":cell.textLabel.text}];
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    return @"历史搜索";
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
+    
+    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, tableView.frame.size.width, 20)];
+    title.text = @"历史搜索";
+    title.textColor = [UIColor lightGrayColor];
+    title.font = [UIFont systemFontOfSize:15];
+    [cover addSubview:title];
+    
+    return cover;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 30.0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section

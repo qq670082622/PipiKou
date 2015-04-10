@@ -21,9 +21,14 @@
 #import "SosViewController.h"
 #import "HomeHttpTool.h"
 #import "HomeList.h"
+#import "MGSwipeTableCell.h"
+#import "MGSwipeButton.h"
+#import "Recommend.h"
+#import "HomeBase.h"
+#import "RecommendCell.h"
 
 
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate>
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
@@ -51,7 +56,6 @@
     
     [self.view addSubview:self.tableView];
     
-    
     [self customLeftBarItem];
     [self customRightBarItem];
     self.searchBtn.layer.cornerRadius = 4;
@@ -59,7 +63,6 @@
     self.searchBtn.layer.borderWidth = 0.5f;
     self.searchBtn.layer.masksToBounds = YES;
    
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
     
@@ -70,6 +73,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
@@ -117,16 +121,31 @@
         NSLog(@"----%@",json);
         
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
-            [self.dataSource removeAllObjects];
             
             dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
+                NSLog(@"-----count %d",[json[@"OrderList"] count]);
+                [self.dataSource removeAllObjects];
+                
+                // 添加精品推荐
+                Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
+                HomeBase *base = [[HomeBase alloc] init];
+                base.time = recommend.CreatedDate;
+                base.model = recommend;
+                [self.dataSource addObject:base];
+                
+                // 添加订单
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     
                     HomeList *list = [HomeList homeListWithDict:dic];
                     
-                    [self.dataSource addObject:list];
+                    HomeBase *base = [[HomeBase alloc] init];
+                    base.time = list.CreatedDate;
+                    base.model = list;
+                    
+                    [self.dataSource addObject:base];
                 }
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
@@ -191,7 +210,7 @@
 -(void)customRightBarItem
 {
     
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];;
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];;
     [btn addTarget:self action:@selector(codeAction) forControlEvents:UIControlEventTouchUpInside];
     [btn setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateNormal];
    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
@@ -211,20 +230,46 @@
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
 }
 
+// 右边滑动的按钮
+- (NSArray *)createRightButtons
+{
+    NSMutableArray * result = [NSMutableArray array];
+    UIColor * color = [UIColor blueColor];
+    
+    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"滑动隐藏<<" backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
+        NSLog(@"Convenience callback received (right).");
+        return YES;
+    }];
+    CGRect frame = button.frame;
+    frame.size.width = 250;
+    button.frame = frame;
+    
+    button.enabled = NO;
+    [result addObject:button];
+    
+    return result;
+}
 
 #pragma mark - UITableViewDataSource
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
 }
 
--(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
+    HomeBase *model = self.dataSource[indexPath.row];
     
-    cell.model = self.dataSource[indexPath.row];
-    
-    return cell;
+    if ([model.model isKindOfClass:[HomeList class]]) {
+        ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
+        cell.model = model.model;
+        cell.delegate = self;// 滑动的代理
+        return cell;
+    }else{
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        cell.recommend = model.model;
+        return cell;
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -238,6 +283,33 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+#pragma mark - MGSwipeTableCellDelegate
+- (NSArray*)swipeTableCell:(MGSwipeTableCell*)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
+{
+    // 左滑隐藏
+    if (direction == MGSwipeDirectionRightToLeft){
+        expansionSettings.buttonIndex = 0;
+        expansionSettings.fillOnTrigger = YES;
+        return [self createRightButtons];
+    }else {
+        return [NSArray array];
+    }
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
+{
+    return YES;
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    [self.dataSource removeObjectAtIndex:path.row];
+    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationTop];
+    
+    return YES;
 }
 
 @end
