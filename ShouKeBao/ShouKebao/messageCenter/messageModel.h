@@ -10,9 +10,9 @@
 
 @interface messageModel : NSObject
 @property (nonatomic,copy) NSString *title;
-@property (nonatomic,copy) NSString *time;
+@property (nonatomic,copy) NSString *CreatedDate;
 @property (nonatomic,copy) NSString *ID;
-@property (nonatomic,assign) BOOL *isRead;
+@property (nonatomic,copy) NSString  *Content;
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end

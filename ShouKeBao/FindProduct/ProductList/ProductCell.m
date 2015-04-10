@@ -38,7 +38,7 @@
 {
     UILabel *title = [[UILabel alloc] init];
     title.numberOfLines = 0;
-    title.font = [UIFont systemFontOfSize:13];
+    title.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:title];
     self.title = title;
     
@@ -50,24 +50,24 @@
        四个label
      */
     UILabel *productNum = [[UILabel alloc] init];
-    productNum.font = [UIFont boldSystemFontOfSize:10];
+    productNum.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:productNum];
     self.productNum = productNum;
     
     UILabel *normalPrice = [[UILabel alloc] init];
-    normalPrice.font = [UIFont systemFontOfSize:10];
+    normalPrice.font = [UIFont systemFontOfSize:12];
 //    normalPrice.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:normalPrice];
     self.normalPrice = normalPrice;
     
     UILabel *cheapPrice = [[UILabel alloc] init];
-    cheapPrice.font = [UIFont systemFontOfSize:10];
+    cheapPrice.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:cheapPrice];
     self.cheapPrice = cheapPrice;
     
     UILabel *profits = [[UILabel alloc] init];
 //    profits.textAlignment = NSTextAlignmentRight;
-    profits.font = [UIFont systemFontOfSize:10];
+    profits.font = [UIFont systemFontOfSize:12];
     [self.contentView addSubview:profits];
     self.profits = profits;
     
@@ -110,9 +110,9 @@
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
     CGFloat titleW = screenW - gap * 2;
-    self.title.frame = CGRectMake(gap, gap, titleW, 35);
+    self.title.frame = CGRectMake(gap, gap, titleW, 35);//产品名称
     
-    CGFloat iconY = CGRectGetMaxY(self.title.frame) + gap;
+    CGFloat iconY = CGRectGetMaxY(self.title.frame) + gap;//图片
     self.icon.frame = CGRectMake(gap, iconY, 70, 70);
     
     /**
@@ -120,24 +120,24 @@
      */
     CGFloat pX = CGRectGetMaxX(self.icon.frame) + gap;
     CGFloat pW = (screenW - 120 - gap * 3.5) / 2;
-    self.productNum.frame = CGRectMake(pX, iconY, pW+40, 20);
+    self.productNum.frame = CGRectMake(pX, iconY, pW+40, 20);//产品编号
     
-    CGFloat nX = CGRectGetMaxX(self.productNum.frame) + gap * 0.5;
+    CGFloat nX = CGRectGetMaxX(self.productNum.frame) + gap * 0.5;//门市价
     self.normalPrice.frame = CGRectMake(nX, iconY, pW, 20);
     
-    CGFloat cY = CGRectGetMaxY(self.normalPrice.frame) + gap * 0.5;
+    CGFloat cY = CGRectGetMaxY(self.normalPrice.frame) + gap * 0.5;//同行价
     self.cheapPrice.frame = CGRectMake(pX, cY, pW, 20);
     
-    self.profits.frame = CGRectMake(nX, cY, pW, 20);
+    self.profits.frame = CGRectMake(nX, cY, pW, 20);//利润
     
     /**
      底下的三个按钮
      */
     CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + gap * 0.5;
-    self.jiafanBtn.frame = CGRectMake(pX, jY, 70, 20);
+    self.jiafanBtn.frame = CGRectMake(pX, jY, 70, 20);//加返按钮
     
     CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame);
-    self.quanBtn.frame = CGRectMake(qX, jY, 70, 20);
+    self.quanBtn.frame = CGRectMake(qX, jY, 70, 20);//券
     
                     // 闪电
                     CGFloat fX = CGRectGetMaxX(self.quanBtn.frame);
@@ -170,8 +170,12 @@
     /**
      *  四个label
      */
-    self.productNum.text = [NSString stringWithFormat:@"产品编号: %@",modal.Code];
+    //self.productNum.text = [NSString stringWithFormat:@"产品编号: %@",modal.Code];
     self.normalPrice.text = [NSString stringWithFormat:@"门市价: ￥%@",modal.PersonPrice];
+    
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"产品编号: %@",modal.Code]];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(5, modal.Code.length + 1)];
+    self.productNum.attributedText = str;
     
     NSMutableAttributedString *str1 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"同行价: ￥%@",modal.PersonPeerPrice]];
     [str1 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, modal.PersonPeerPrice.length + 1)];
@@ -184,8 +188,8 @@
     /**
      *  底部按钮
      */
-    [self.jiafanBtn setTitle:[NSString stringWithFormat:@"          %@",modal.PersonBackPrice] forState:UIControlStateNormal];
-    [self.quanBtn setTitle:[NSString stringWithFormat:@"          %@",modal.PersonCashCoupon] forState:UIControlStateNormal];
+    [self.jiafanBtn setTitle:[NSString stringWithFormat:@"         ￥%@",modal.PersonBackPrice] forState:UIControlStateNormal];
+    [self.quanBtn setTitle:[NSString stringWithFormat:@"         ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
     [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"  %@",modal.StartCityName] forState:UIControlStateNormal];
     
     self.isFlash = [modal.IsComfirmStockNow integerValue];

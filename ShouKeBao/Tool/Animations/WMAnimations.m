@@ -66,7 +66,7 @@ theAnimation.fromValue=[NSValue valueWithCGPoint:*fromPoint];
 {
     layer.borderColor = color.CGColor;
     layer.borderWidth = borderWid;
-    layer.cornerRadius = 8;
+    layer.cornerRadius = 4;
     layer.masksToBounds = YES;
     if (needShow) {
         layer.shadowColor = [UIColor lightGrayColor].CGColor;

@@ -108,8 +108,8 @@ static int const BBoriginY = -9;
         self.badge.layer.cornerRadius   = (minHeight + BBBadgeMargin) / 2;
         self.badge.layer.masksToBounds = YES;
     }];
-    
-    self.badge.frame = CGRectMake(BBoriginX, BBoriginY, minWidth + BBBadgeMargin, minHeight + BBBadgeMargin);
+    //此处修改圆点位置
+    self.badge.frame = CGRectMake(BBoriginX/2, BBoriginY/2, minWidth + BBBadgeMargin-3, minHeight + BBBadgeMargin-3);
     self.badge.layer.cornerRadius   = (minHeight + BBBadgeMargin) / 2;
     self.badge.layer.masksToBounds = YES;
   

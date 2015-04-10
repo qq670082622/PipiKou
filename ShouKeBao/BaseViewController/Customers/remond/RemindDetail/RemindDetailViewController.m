@@ -10,7 +10,7 @@
 
 @interface RemindDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *noteLebel;
+@property (weak, nonatomic) IBOutlet UITextView *noteLebel;
 
 @end
 
@@ -21,15 +21,15 @@
     self.noteLebel.text = [NSString stringWithFormat:@"⏰提醒内容:%@",self.note];
     self.timeLabel.text = [NSString stringWithFormat:@"⌚️提醒时间:%@",self.time];
     
-    self.noteLebel.layer.cornerRadius = 4;
-    self.noteLebel.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.noteLebel.layer.borderWidth = 0.5;
-    self.noteLebel.layer.masksToBounds = YES;
+//    self.noteLebel.layer.cornerRadius = 4;
+//    self.noteLebel.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    self.noteLebel.layer.borderWidth = 0.5;
+//    self.noteLebel.layer.masksToBounds = YES;
     
-    self.timeLabel.layer.cornerRadius = 4;
-    self.timeLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.timeLabel.layer.borderWidth = 0.5;
-    self.timeLabel.layer.masksToBounds = YES;
+//    self.timeLabel.layer.cornerRadius = 4;
+//    self.timeLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    self.timeLabel.layer.borderWidth = 0.5;
+//    self.timeLabel.layer.masksToBounds = YES;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];

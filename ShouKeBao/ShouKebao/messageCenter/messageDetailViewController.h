@@ -7,11 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol notifiToReferesh<NSObject>
+-(void)toReferesh;
+@end
 @interface messageDetailViewController : UIViewController
-@property (nonatomic,copy) NSString *titleStr;
-@property (nonatomic,copy) NSString *timeStr;
-@property (nonatomic,copy) NSString *contentStr;
-@property (nonatomic,copy) NSString *imgUrlStr;
-@property (nonatomic,copy) NSString *needBtnStr;
+@property(nonatomic,weak) id<notifiToReferesh>delegate;
+@property (nonatomic,copy) NSString *ID;
+
 @end

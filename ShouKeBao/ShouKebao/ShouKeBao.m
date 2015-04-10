@@ -21,14 +21,9 @@
 #import "SosViewController.h"
 #import "HomeHttpTool.h"
 #import "HomeList.h"
-#import "MGSwipeTableCell.h"
-#import "MGSwipeButton.h"
-#import "Recommend.h"
-#import "HomeBase.h"
-#import "RecommendCell.h"
+#import "WriteFileManager.h"
 
-
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
@@ -42,10 +37,12 @@
 
 @property (weak, nonatomic) IBOutlet UIView *upView;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
-
+@property (nonatomic,copy) NSMutableString *messageCount;
 - (IBAction)search:(id)sender;
 
 - (IBAction)add:(id)sender;
+
+@property(strong,nonatomic)NSMutableDictionary *messageDic;
 @end
 
 @implementation ShouKeBao
@@ -56,6 +53,7 @@
     
     [self.view addSubview:self.tableView];
     
+    
     [self customLeftBarItem];
     [self customRightBarItem];
     self.searchBtn.layer.cornerRadius = 4;
@@ -63,17 +61,75 @@
     self.searchBtn.layer.borderWidth = 0.5f;
     self.searchBtn.layer.masksToBounds = YES;
    
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
     
     // 加载主列表数据
     [self loadContentDataSource];
+    
+    [self  getUserInformation];
+    
+    [self getNotifiList];
 }
+
+-(NSMutableString *)messageCount
+{
+    if (_messageCount == nil) {
+        self.messageCount = [NSMutableString string];
+    }
+    return _messageCount;
+}
+
+#pragma -mark massegeCenterDelegate
+-(void)refreshSKBMessgaeCount:(int)count
+{
+    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+    barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
+}
+
+
+-(NSMutableDictionary *)messageDic
+{
+    if (_messageDic == nil) {
+        self.messageDic = [NSMutableDictionary dictionary];
+    }
+    return _messageDic;
+}
+
+-(void)getUserInformation
+{
+    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
+    [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
+        NSLog(@"首页个人消息汇总%@",json);
+    } failure:^(NSError *error) {
+        NSLog(@"首页个人消息汇总失败%@",error);
+    }];
+
+}
+
+-(void)getNotifiList
+{NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
+    [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
+        NSLog(@"首页公告消息列表%@",json);
+        NSMutableArray *arr = json[@"ActivitiesNoticeList"];
+            BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+            barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
+        
+        self.messageDic = json;
+        
+    } failure:^(NSError *error) {
+        NSLog(@"首页公告消息列表失败%@",error);
+    }];
+
+}
+
+
+
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
@@ -112,6 +168,7 @@
     return _dataSource;
 }
 
+
 #pragma mark - loadDataSource
 - (void)loadContentDataSource
 {
@@ -121,31 +178,16 @@
         NSLog(@"----%@",json);
         
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
+            [self.dataSource removeAllObjects];
             
             dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
-                NSLog(@"-----count %d",[json[@"OrderList"] count]);
-                [self.dataSource removeAllObjects];
-                
-                // 添加精品推荐
-                Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
-                HomeBase *base = [[HomeBase alloc] init];
-                base.time = recommend.CreatedDate;
-                base.model = recommend;
-                [self.dataSource addObject:base];
-                
-                // 添加订单
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     
                     HomeList *list = [HomeList homeListWithDict:dic];
                     
-                    HomeBase *base = [[HomeBase alloc] init];
-                    base.time = list.CreatedDate;
-                    base.model = list;
-                    
-                    [self.dataSource addObject:base];
+                    [self.dataSource addObject:list];
                 }
-                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
@@ -155,6 +197,7 @@
         
     }];
 }
+
 
 #pragma mark - private
 -(void)pushToStore
@@ -191,20 +234,17 @@
 
 -(void)customLeftBarItem
 {
-    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    UIButton *customButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];
     [customButton addTarget:self action:@selector(ringAction) forControlEvents:UIControlEventTouchUpInside];
     [customButton setImage:[UIImage imageNamed:@"lingdang1"] forState:UIControlStateNormal];
     
     BBBadgeBarButtonItem *barButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     
-    barButton.badgeValue = @"12";
-    barButton.shouldHideBadgeAtZero = YES;
+   barButton.shouldHideBadgeAtZero = YES;
     
     self.navigationItem.leftBarButtonItem = barButton;
     
-    //改变badgeValue的值
-    //    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-    //    barButton.badgeValue = [NSString stringWithFormat:@"%d", [barButton.badgeValue intValue] + 1];
+   
 }
 
 -(void)customRightBarItem
@@ -222,6 +262,9 @@
 {
 
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
+    
+    messgeCenter.dataDic = self.messageDic;
+    messgeCenter.delegate = self;
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }
@@ -230,46 +273,20 @@
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
 }
 
-// 右边滑动的按钮
-- (NSArray *)createRightButtons
-{
-    NSMutableArray * result = [NSMutableArray array];
-    UIColor * color = [UIColor blueColor];
-    
-    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"滑动隐藏<<" backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
-        NSLog(@"Convenience callback received (right).");
-        return YES;
-    }];
-    CGRect frame = button.frame;
-    frame.size.width = 250;
-    button.frame = frame;
-    
-    button.enabled = NO;
-    [result addObject:button];
-    
-    return result;
-}
 
 #pragma mark - UITableViewDataSource
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeBase *model = self.dataSource[indexPath.row];
+    ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
     
-    if ([model.model isKindOfClass:[HomeList class]]) {
-        ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
-        cell.model = model.model;
-        cell.delegate = self;// 滑动的代理
-        return cell;
-    }else{
-        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
-        cell.recommend = model.model;
-        return cell;
-    }
+    cell.model = self.dataSource[indexPath.row];
+    
+    return cell;
 }
 
 #pragma mark - UITableViewDelegate
@@ -283,33 +300,6 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
-}
-
-#pragma mark - MGSwipeTableCellDelegate
-- (NSArray*)swipeTableCell:(MGSwipeTableCell*)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
-{
-    // 左滑隐藏
-    if (direction == MGSwipeDirectionRightToLeft){
-        expansionSettings.buttonIndex = 0;
-        expansionSettings.fillOnTrigger = YES;
-        return [self createRightButtons];
-    }else {
-        return [NSArray array];
-    }
-}
-
-- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
-{
-    return YES;
-}
-
-- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
-{
-    NSIndexPath *path = [self.tableView indexPathForCell:cell];
-    [self.dataSource removeObjectAtIndex:path.row];
-    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationTop];
-    
-    return YES;
 }
 
 @end

@@ -33,9 +33,7 @@
 {
     _model = model;
     self.title.text = model.title;
-    self.time.text = model.time;
-    if (!model.isRead) {
-        self.hongdian.hidden = YES;
-    }
+    self.time.text = model.CreatedDate;
+    
 }
 @end

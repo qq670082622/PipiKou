@@ -13,6 +13,7 @@
 #import "addCustomerViewController.h"
 #import "BatchAddViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import "WMAnimations.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -23,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *orderNumBtn;
 @property (weak, nonatomic) IBOutlet UIButton *wordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *cancelSearchOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *searchCustomerBtnOutlet;
 
 - (IBAction)cancelSearch:(id)sender;
 
@@ -33,6 +35,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+[self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+
+    [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+ [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    
+    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
    self.title = @"管客户";
     self.table.delegate = self;
     self.table.dataSource = self;
@@ -41,6 +54,7 @@
     [self customerRightBarItem];
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -200,6 +214,7 @@
     [self.orderNumBtn setSelected:NO];
     [self.wordBtn setSelected:NO];
     
+    
     if (self.timeBtn.selected == NO) {
         [self.timeBtn setSelected:YES];
          NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
@@ -304,12 +319,13 @@
 - (IBAction)customSearch:(id)sender {
     self.searchTextField.hidden = NO;
     self.cancelSearchOutlet.hidden = NO;
+    self.searchCustomerBtnOutlet.hidden = YES;
     [self.searchTextField becomeFirstResponder];
 }
 - (IBAction)cancelSearch:(id)sender {
     self.cancelSearchOutlet.hidden = YES;
     self.searchTextField.hidden = YES;
-    
+    self.searchCustomerBtnOutlet.hidden = NO;
     [self.searchTextField resignFirstResponder];
 }
 @end

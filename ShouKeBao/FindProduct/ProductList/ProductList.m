@@ -70,7 +70,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   // self.navigationController.title = self.title;
+    [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    [self.commondOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    
+    [self.profitOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.profitOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    [self.profitOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    
+    [self.cheapOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.cheapOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    [self.cheapOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+   
+    // self.navigationController.title = self.title;
     [self customRightBarItem];
     self.table.delegate = self;
     self.table.dataSource = self;
@@ -90,7 +102,7 @@
     [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal ];
     
    
-  //  self.dataArr = [NSMutableArray arrayWithObject:@" "];
+    self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.subDataArr1 = [NSArray arrayWithObjects:@"游览线路      ",@"出发日期      ",@"出发城市      ",@"主题推荐      ",@"供应商      ", nil];//5
     self.subDataArr2 = [NSArray arrayWithObjects:@"酒店类型      ",@"出行方式      ",@"油轮公司      ",@"线路等级      ", nil];//4
@@ -157,6 +169,7 @@
     UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, self.view.frame.size.width-200,200)];
     imgv.image = [UIImage imageNamed:@"meiyouchanpin"];
     [self.view addSubview:imgv];
+    self.navigationItem.rightBarButtonItem = nil;
 }
 
 -(void)clickPush
@@ -310,7 +323,7 @@
     
     [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
     
-    [button addTarget:self action:@selector(setUp)forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(setSubViewHideNo)forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
@@ -386,17 +399,17 @@
 }
 
 #pragma 筛选navitem
--(void)setUp
+-(void)setSubViewHideNo
 {
    if (self.subView.hidden == YES) {
-       [UIView animateWithDuration:0.5 animations:^{
+       [UIView animateWithDuration:0.3 animations:^{
            self.subView.alpha = 1;
            self.subView.hidden = NO;
            self.blackView.alpha = 0.5;
        }];
       
    }else if (self.subView.hidden == NO){
-   [UIView animateWithDuration:0.5 animations:^{
+   [UIView animateWithDuration:0.3 animations:^{
        self.subView.alpha = 0;
        self.blackView.alpha = 0;
        self.subView.hidden = YES;
@@ -514,28 +527,42 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {  if(tableView.tag == 2){
     if(section == 1 && [_turn isEqualToString:@"Off"]){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, self.view.frame.size.height)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 35)];
         view.userInteractionEnabled = YES;
+    
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [view addSubview:line];
         
-        view.backgroundColor = [UIColor lightGrayColor];
+        view.backgroundColor = [UIColor whiteColor];
+        
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
-        [btn setTitle:@"更多           >" forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:13];
+        btn.frame = CGRectMake(0, 0, view.frame.size.width, 35);
+        [btn setTitle:@"展开更多▼" forState:UIControlStateNormal];
        [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
         self.subTableSectionBtn = btn;
         [view addSubview:btn];
+        
         return view;
     }else if (section == 1 && [_turn isEqualToString:@"On"]){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.view.frame.size.width, self.view.frame.size.height)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 35)];
         view.userInteractionEnabled = YES;
         
-        view.backgroundColor = [UIColor lightGrayColor];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [view addSubview:line];
+
+        view.backgroundColor = [UIColor whiteColor];
+       
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(0, 0, self.view.frame.size.width, 35);
-        [btn setTitle:@"收起        >" forState:UIControlStateNormal];
+        btn.titleLabel.font = [UIFont systemFontOfSize:13];
+        btn.frame = CGRectMake(0, 0,view.frame.size.width, 35);
+        [btn setTitle:@"收起▲" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
         self.subTableSectionBtn = btn;
         [view addSubview:btn];
+        
         return view;
     }
 }
@@ -630,7 +657,9 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 29, self.subTable.frame.size.width, 1)];
+            line.backgroundColor = [UIColor lightGrayColor];
+            [cell addSubview:line];
         }
        
        if (indexPath.section == 0) {
@@ -937,7 +966,7 @@
 }
 
 - (IBAction)sunCancel:(id)sender {
-   [UIView animateWithDuration:0.5 animations:^{
+   [UIView animateWithDuration:0.3 animations:^{
        self.blackView.alpha = 0;
        self.subView.alpha = 0;
        self.subView.hidden = YES;
@@ -957,6 +986,7 @@
 
 - (IBAction)subDone:(id)sender {
     self.subView.hidden = YES;
+    self.blackView.hidden = YES;
     [self recommond:sender];
     [self.commondOutlet setSelected:YES];
     self.profitOutlet.selected = NO;
