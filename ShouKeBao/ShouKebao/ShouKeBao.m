@@ -22,8 +22,13 @@
 #import "HomeHttpTool.h"
 #import "HomeList.h"
 #import "WriteFileManager.h"
+#import "MGSwipeTableCell.h"
+#import "MGSwipeButton.h"
+#import "Recommend.h"
+#import "HomeBase.h"
+#import "RecommendCell.h"
 
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh>
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
@@ -178,21 +183,37 @@
         NSLog(@"----%@",json);
         
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
-            [self.dataSource removeAllObjects];
             
             dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
+                NSLog(@"-----count %lu",(unsigned long)[json[@"OrderList"] count]);
+                [self.dataSource removeAllObjects];
+                
+                // 添加精品推荐
+                Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
+                HomeBase *base = [[HomeBase alloc] init];
+                base.time = recommend.CreatedDate;
+                base.model = recommend;
+                [self.dataSource addObject:base];
+                
+                // 添加订单
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     
                     HomeList *list = [HomeList homeListWithDict:dic];
                     
-                    [self.dataSource addObject:list];
+                    HomeBase *base = [[HomeBase alloc] init];
+                    base.time = list.CreatedDate;
+                    base.model = list;
+                    
+                    [self.dataSource addObject:base];
                 }
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
             });
         }
+
     } failure:^(NSError *error) {
         
     }];
@@ -273,6 +294,25 @@
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
 }
 
+// 右边滑动的按钮
+- (NSArray *)createRightButtons
+{
+    NSMutableArray * result = [NSMutableArray array];
+    UIColor * color = [UIColor blueColor];
+    
+    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"滑动隐藏<<" backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
+        NSLog(@"Convenience callback received (right).");
+        return YES;
+    }];
+    CGRect frame = button.frame;
+    frame.size.width = 250;
+    button.frame = frame;
+    
+    button.enabled = NO;
+    [result addObject:button];
+    
+    return result;
+}
 
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -282,11 +322,18 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
+    HomeBase *model = self.dataSource[indexPath.row];
     
-    cell.model = self.dataSource[indexPath.row];
-    
-    return cell;
+    if ([model.model isKindOfClass:[HomeList class]]) {
+        ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
+        cell.model = model.model;
+        cell.delegate = self;// 滑动的代理
+        return cell;
+    }else{
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        cell.recommend = model.model;
+        return cell;
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -300,6 +347,33 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+#pragma mark - MGSwipeTableCellDelegate
+- (NSArray*)swipeTableCell:(MGSwipeTableCell*)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
+{
+    // 左滑隐藏
+    if (direction == MGSwipeDirectionRightToLeft){
+        expansionSettings.buttonIndex = 0;
+        expansionSettings.fillOnTrigger = YES;
+        return [self createRightButtons];
+    }else {
+        return [NSArray array];
+    }
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
+{
+    return YES;
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    [self.dataSource removeObjectAtIndex:path.row];
+    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationTop];
+    
+    return YES;
 }
 
 @end
