@@ -118,10 +118,13 @@
     btn.frame = CGRectMake(0, 0, self.view.frame.size.width*titleWid, 34);
     [btn setBackgroundImage:[UIImage imageNamed:@"sousuoBackView"] forState:UIControlStateNormal];
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 14, 14)];
-    imgv.image = [UIImage imageNamed:@"fdjBtn"];
-    btn2.frame = CGRectMake(28, 0, 100, 34);
-    [btn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, -50, 0, 0)];
+    [btn2 setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
+
+    // UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 14, 14)];
+    //imgv.image = [UIImage imageNamed:@"fdjBtn"];
+    btn2.frame = CGRectMake(28, 0, self.view.frame.size.width*titleWid-28, 34);
+    [btn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, self.view.frame.size.width*titleWid/4)];
+    [btn2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0,self.view.frame.size.width*titleWid/2)];
     [btn2 setTitle:[NSString stringWithFormat:@"%@",_pushedSearchK] forState:UIControlStateNormal];
     btn2.titleLabel.font = [UIFont systemFontOfSize:15];
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -131,7 +134,7 @@
     [btn2 addTarget:self action:@selector(clickPush) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:btn];
     [titleView addSubview:btn2];
-    [titleView addSubview:imgv];
+   // [titleView addSubview:imgv];
     self.navigationItem.titleView = titleView;
     
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
