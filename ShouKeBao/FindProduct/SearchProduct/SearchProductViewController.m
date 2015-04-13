@@ -195,6 +195,7 @@
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
     self.table.tableFooterView.hidden = NO;
+    [self.table reloadData];
     [self.navigationController pushViewController:list animated:YES];
    
 }
