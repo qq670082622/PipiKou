@@ -613,25 +613,25 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
-//    if (tableView.tag == 2 &&section == 1) {
-//        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 160)];
-//       
-//        UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 20)];
-//        subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
-//      
-//        UIView *sublineSub = [[UIView alloc] initWithFrame:CGRectMake(0,19.5, subLine.frame.size.width,0.5)];
-//        sublineSub.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
-//        [subLine addSubview:sublineSub];
-//       
-//        [footView addSubview:subLine];
-//        
-//        self.subSubView.frame = CGRectMake(0, 20, self.subTable.frame.size.width, 113);
-//        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
-//        [footView addSubview:self.subSubView];
-//       
-//        
-//        return footView;
-//    }
+    if (tableView.tag == 2 &&section == 1) {
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 160)];
+       
+        UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 20)];
+        subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
+      
+        UIView *sublineSub = [[UIView alloc] initWithFrame:CGRectMake(0,19.5, subLine.frame.size.width,0.5)];
+        sublineSub.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+        [subLine addSubview:sublineSub];
+       
+        [footView addSubview:subLine];
+        
+        self.subSubView.frame = CGRectMake(0, 20, self.subTable.frame.size.width, 113);
+        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
+        [footView addSubview:self.subSubView];
+       
+        
+        return footView;
+    }
     return 0;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
