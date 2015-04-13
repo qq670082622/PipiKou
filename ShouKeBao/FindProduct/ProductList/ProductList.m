@@ -24,6 +24,7 @@
 #import "StationSelect.h"
 #import "MinMaxPriceSelectViewController.h"
 #import "WMAnimations.h"
+#import "MJRefresh.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,footViewDelegate,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -63,6 +64,7 @@
 @property (weak , nonatomic) UIButton *subTableSectionBtn;
 @property (copy,nonatomic) NSMutableString *jiafan;
 @property (copy,nonatomic) NSMutableString *jishi;
+@property (weak, nonatomic) IBOutlet UIView *subSubView;
 
 @end
 
@@ -70,6 +72,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self iniFooterPull];
+    
     [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
     [self.commondOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
@@ -93,7 +97,7 @@
     
     FootView *foot = [FootView footView];
     foot.delegate = self;
-    self.table.tableFooterView = foot;
+    //self.table.tableFooterView = foot;
     [self.commondOutlet setSelected:YES];
     
     [self loadDataSource];
@@ -150,6 +154,8 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+    
+  
    
     }
 
@@ -252,6 +258,20 @@
     
 }
 
+
+
+
+-(void)iniFooterPull
+{
+    //上啦刷新
+    [self.table addFooterWithTarget:self action:@selector(footViewDidClickedLoadBtn:)];
+    //设置文字
+   self.table.footerPullToRefreshText = @"上拉刷新";
+    self.table.footerRefreshingText = @"正在刷新";
+   
+}
+
+
 #pragma footView - delegate
 -(void)footViewDidClickedLoadBtn:(FootView *)footView
 {//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
@@ -311,7 +331,8 @@
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
 
         }
-        
+       
+        [self.table footerEndRefreshing];
             
     } failure:^(NSError *error) {
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
@@ -529,12 +550,12 @@
 }
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {  if(tableView.tag == 2){
-    if(section == 1 && [_turn isEqualToString:@"Off"]){
+  if(section == 1 && [_turn isEqualToString:@"Off"]){
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 35)];
         view.userInteractionEnabled = YES;
     
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1)];
-        line.backgroundColor = [UIColor lightGrayColor];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
+        line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
         [view addSubview:line];
         
         view.backgroundColor = [UIColor whiteColor];
@@ -585,8 +606,38 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (tableView.tag == 2) {
+    if (tableView.tag == 2 && section == 1) {
         return 35;
+    }
+    return 0;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+//    if (tableView.tag == 2 &&section == 1) {
+//        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 160)];
+//       
+//        UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 20)];
+//        subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
+//      
+//        UIView *sublineSub = [[UIView alloc] initWithFrame:CGRectMake(0,19.5, subLine.frame.size.width,0.5)];
+//        sublineSub.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+//        [subLine addSubview:sublineSub];
+//       
+//        [footView addSubview:subLine];
+//        
+//        self.subSubView.frame = CGRectMake(0, 20, self.subTable.frame.size.width, 113);
+//        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
+//        [footView addSubview:self.subSubView];
+//       
+//        
+//        return footView;
+//    }
+    return 0;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (tableView.tag == 2 &&section == 1) {
+        return 133;
     }
     return 0;
 }
@@ -660,8 +711,8 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 29, self.subTable.frame.size.width, 1)];
-            line.backgroundColor = [UIColor lightGrayColor];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, self.subTable.frame.size.width, 0.5)];
+            line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
             [cell addSubview:line];
         }
        
