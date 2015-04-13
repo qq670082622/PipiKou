@@ -11,7 +11,17 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 
-@interface StoreViewController ()
+@interface StoreViewController ()<UIWebViewDelegate>
+@property (nonatomic,copy) NSMutableString *shareUrl;
+@property (weak, nonatomic) IBOutlet UIButton *checkCheapBtnOutlet;
+- (IBAction)checkCheapPrice:(id)sender;
+@property (weak, nonatomic) IBOutlet UILabel *cheapPrice;
+@property (weak, nonatomic) IBOutlet UILabel *profit;
+@property (weak, nonatomic) IBOutlet UIButton *jiafan;
+@property (weak, nonatomic) IBOutlet UIButton *quan;
+@property (weak, nonatomic) IBOutlet UIView *subView;
+@property (nonatomic,strong) NSMutableDictionary *shareDic;
+@property (weak, nonatomic) IBOutlet UIView *btnLine;
 
 @end
 
@@ -35,29 +45,57 @@
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
     self.navigationItem.rightBarButtonItem= barItem;
+    
+
+    
+}
+-(NSMutableDictionary *)shareDic
+{
+    if (_shareDic == nil) {
+        self.shareDic = [NSMutableDictionary dictionary];
+    }
+    return _shareDic;
+}
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *rightStr = request.URL.absoluteString;
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:rightStr forKey:@"PageUrl"];
+    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+        NSLog(@"-----分享返回数据json is %@------",json);
+        if ([json[@"PageType"] isEqualToString:@"0"]) {
+           
+            self.shareDic = json[@"ShareInfo"];
+        }
+        else if ([json[@"PageType"] isEqualToString:@"2" ]){
+            self.checkCheapBtnOutlet.hidden = NO;
+            self.btnLine.hidden = NO;
+            NSMutableString *productID = [NSMutableString string];
+            productID = json[@"ProductID"];
+            NSMutableDictionary *dic =[NSMutableDictionary dictionary];
+            [dic setObject:productID forKey:@"ProductID"];
+            [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
+                NSLog(@"产品详情json is %@",json);
+            } failure:^(NSError *error) {
+                NSLog(@"同行价网络请求失败,%@",error);
+            }];
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"分享请求数据失败，原因：%@",error);
+    }];
+    
+    return YES;
 }
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
-    
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:self.produceUrl forKey:@"PageUrl"];
-//    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-//        // NSLog(@"-----分享返回数据json is %@------",json);
-//        self.shareStr =  [NSMutableString stringWithFormat:@"%@",json[@"ShareUrl"]];
-//    } failure:^(NSError *error) {
-//        NSLog(@"分享请求数据失败，原因：%@",error);
-//    }];
-    
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"lvyouquanIcon" ofType:@"png"];
-    
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:@"产品名称"//self.productName
-                                       defaultContent:@"旅游圈，匹匹扣"
-                                                image:[ShareSDK imageWithPath:imagePath]
-                                                title:@"旅游圈，匹匹扣"
-                                                  url:@"产品链接"//self.shareStr
-                                          description:@"旅游圈，匹匹扣"
+    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Title"]
+                                       defaultContent:self.shareDic[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
+                                                title:self.shareDic[@"Title"]
+                                                  url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -103,14 +141,16 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+- (IBAction)checkCheapPrice:(id)sender {
+    if (self.checkCheapBtnOutlet.selected == NO) {
+        [self.checkCheapBtnOutlet setSelected:YES];
+        self.subView.hidden = NO;
+    }else if (self.checkCheapBtnOutlet.selected == YES){
+        [self.checkCheapBtnOutlet setSelected:NO];
+        self.subView.hidden = YES;
+    }
+    
 }
-*/
-
 @end

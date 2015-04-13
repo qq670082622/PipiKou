@@ -636,7 +636,8 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (tableView.tag == 2 &&section == 1) {
+    if (tableView.tag == 2 && section == 1) {
+        
         return 133;
     }
     return 0;
@@ -721,13 +722,15 @@
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr1[indexPath.row]];
            cell.detailTextLabel.font = [UIFont systemFontOfSize:11.0];
            cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+           cell.detailTextLabel.textColor = [UIColor orangeColor];
        }else {
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
            cell.textLabel.font = [UIFont systemFontOfSize:13];
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
            cell.detailTextLabel.font = [UIFont systemFontOfSize:11.0];
            cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
-           
+           cell.detailTextLabel.textColor = [UIColor orangeColor];
+
        }
        return cell;
     }

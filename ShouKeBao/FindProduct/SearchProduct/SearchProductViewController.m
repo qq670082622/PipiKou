@@ -12,7 +12,7 @@
 #import "ProductList.h"
 #import "WriteFileManager.h"
 #import "SearchFootView.h"
-@interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,searchFootViewDelegate>
+@interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
 @property (weak, nonatomic) IBOutlet UIButton *btn1;
@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn6;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *subView;
+@property (weak,nonatomic) UIView *footView;
 
 @end
 
@@ -34,13 +35,11 @@
     [self loadHotWordDataSource];
     [self loadHistoryDataSource];
     
-  
-    SearchFootView *foot = [SearchFootView footView];
-    foot.delegate = self;
-    self.table.tableFooterView = foot;
-    self.table.tableFooterView.hidden = YES;
     
-   }
+  
+  
+    
+}
 
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -114,11 +113,27 @@
     [self.tableDataArr removeAllObjects];
     [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
     [self.table reloadData];
-    self.table.tableFooterView.hidden = YES;
+    //self.footView.hidden = YES;
     [self.inputView setText:@""];
 }
 
-
+-(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 37;
+}
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 37)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+    btn.frame = foot.frame;
+    [btn setTitle:@"清除历史纪录" forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn addTarget:self action:@selector(searchFootViewDidClickedLoadBtn:) forControlEvents:UIControlEventTouchUpInside];
+    [foot addSubview:btn];
+    self.footView = foot;
+    _footView.hidden = YES;
+    return self.footView;
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_tableDataArr) {
@@ -136,7 +151,7 @@
         self.inputView.text = selectHistoryKey;
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
-         self.table.tableFooterView.hidden = NO;
+         self.footView.hidden = NO;
         [self.navigationController pushViewController:list animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -152,6 +167,9 @@
     }
     if (_tableDataArr) {
     cell.textLabel.text = _tableDataArr[indexPath.row ];
+        self.footView.hidden = NO;
+    }else if (!_tableDataArr){
+        self.footView.hidden = YES;
     }
     
     return cell;
@@ -173,7 +191,7 @@
     
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
-    self.table.tableFooterView.hidden = NO;
+  //  self.footView.hidden = NO;
     
     [self.navigationController pushViewController:list animated:YES];
 }
@@ -187,16 +205,16 @@
 
 -(IBAction)hotWordSearch:(id)sender
 {
+   
     UIButton *btn = (UIButton *)sender;
     self.inputView.text = btn.currentTitle;
-   
-    [self.tableDataArr addObject:btn.currentTitle];
+   [self.tableDataArr addObject:btn.currentTitle];
     [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
-    self.table.tableFooterView.hidden = NO;
     [self.table reloadData];
-    [self.navigationController pushViewController:list animated:YES];
-   
+    
+   [self.navigationController pushViewController:list animated:YES];
+ 
 }
 @end

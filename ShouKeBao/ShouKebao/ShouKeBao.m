@@ -31,7 +31,10 @@
 #import "WriteFileManager.h"
 #import "remondModel.h"
 #import "ShowRemindCell.h"
-
+#import <ShareSDK/ShareSDK.h>
+#import "IWHttpTool.h"
+#import "MBProgressHUD+MJ.h"
+#import "UIImageView+WebCache.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
@@ -49,9 +52,11 @@
 @property (nonatomic,copy) NSMutableString *messageCount;
 - (IBAction)search:(id)sender;
 
-- (IBAction)add:(id)sender;
+- (IBAction)add:(id)sender;//现改为share!!
 
 @property(strong,nonatomic)NSMutableDictionary *messageDic;
+@property (nonatomic,copy) NSMutableString *shareLink;
+@property (nonatomic,strong) NSMutableDictionary *shareDic;
 @end
 
 @implementation ShouKeBao
@@ -92,7 +97,20 @@
     }
     return _messageCount;
 }
-
+-(NSMutableString *)shareLink
+ {
+     if (_shareLink == nil) {
+         self.shareLink = [NSMutableString string];
+     }
+     return _shareLink;
+ }
+-(NSMutableDictionary *)shareDic
+{
+    if (_shareDic == nil) {
+        self.shareDic = [NSMutableDictionary dictionary];
+    }
+    return _shareDic;
+}
 #pragma -mark massegeCenterDelegate
 -(void)refreshSKBMessgaeCount:(int)count
 {
@@ -114,6 +132,12 @@
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
         NSLog(@"首页个人消息汇总%@",json);
+        self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",json[@"OrderCount"]];
+        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",json[@"VisitorCount"]];
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:json[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
+        self.userName.text = json[@"ShowName"];
+        self.shareLink = json[@"ShareLinkUrl"];
+        self.shareDic = json[@"ShareInfo"];
     } failure:^(NSError *error) {
         NSLog(@"首页个人消息汇总失败%@",error);
     }];
@@ -234,7 +258,7 @@
 // 显示提醒
 - (void)showRemind:(NSTimer *)timer
 {
-    NSLog(@"-----remind-");
+//    NSLog(@"-----remind-");
     NSArray *remindArr = [WriteFileManager readData:@"remindData"];
     for (remondModel *remind in remindArr) {
         NSDate *now = [NSDate date];
@@ -299,7 +323,43 @@
 
 - (IBAction)add:(id)sender
 {
+//构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Title"]
+                                       defaultContent:self.shareDic[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
+                                                title:self.shareDic[@"Title"]
+                                                  url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
+                                            mediaType:SSPublishContentMediaTypeNews];
+    //创建弹出菜单容器
+    id<ISSContainer> container = [ShareSDK container];
+    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
     
+    //弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:nil
+                      shareOptions:nil
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    
+                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                        [MBProgressHUD hideHUD];
+                                    });
+                                    
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }
+                            }];
+    
+    
+
 }
 
 

@@ -18,7 +18,7 @@
 
 }
 
-+(instancetype)footView
++ (instancetype)footView
 {
     return [[[NSBundle mainBundle] loadNibNamed:@"SearchFootView" owner:nil options:nil] lastObject];
 }

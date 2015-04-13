@@ -8,7 +8,7 @@
 
 #import "ProductCell.h"
 #import "UIImageView+WebCache.h"
-
+#import "textStyle.h"
 @interface ProductCell()
 
 @end
@@ -41,6 +41,7 @@
     title.font = [UIFont systemFontOfSize:14];
     [self.contentView addSubview:title];
     self.title = title;
+    self.title.numberOfLines = 0;
     
     UIImageView *icon = [[UIImageView alloc] init];
     [self.contentView addSubview:icon];
@@ -50,24 +51,24 @@
        四个label
      */
     UILabel *productNum = [[UILabel alloc] init];
-    productNum.font = [UIFont systemFontOfSize:12];
+    productNum.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:productNum];
     self.productNum = productNum;
     
     UILabel *normalPrice = [[UILabel alloc] init];
-    normalPrice.font = [UIFont systemFontOfSize:12];
+    normalPrice.font = [UIFont systemFontOfSize:11];
 //    normalPrice.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:normalPrice];
     self.normalPrice = normalPrice;
     
     UILabel *cheapPrice = [[UILabel alloc] init];
-    cheapPrice.font = [UIFont systemFontOfSize:12];
+    cheapPrice.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:cheapPrice];
     self.cheapPrice = cheapPrice;
     
     UILabel *profits = [[UILabel alloc] init];
 //    profits.textAlignment = NSTextAlignmentRight;
-    profits.font = [UIFont systemFontOfSize:12];
+    profits.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:profits];
     self.profits = profits;
     
@@ -106,6 +107,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    CGFloat iconWid = [UIScreen mainScreen].applicationFrame.size.width*7/32;
     
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
@@ -113,7 +115,7 @@
     self.title.frame = CGRectMake(gap, gap, titleW, 35);//产品名称
     
     CGFloat iconY = CGRectGetMaxY(self.title.frame) + gap;//图片
-    self.icon.frame = CGRectMake(gap, iconY, 70, 70);
+    self.icon.frame = CGRectMake(gap, iconY, iconWid, 70);
     
     /**
      四个label
@@ -126,7 +128,7 @@
     self.normalPrice.frame = CGRectMake(nX, iconY, pW, 20);
     
     CGFloat cY = CGRectGetMaxY(self.normalPrice.frame) + gap * 0.5;//同行价
-    self.cheapPrice.frame = CGRectMake(pX, cY, pW, 20);
+    self.cheapPrice.frame = CGRectMake(pX, cY, pW+20, 20);
     
     self.profits.frame = CGRectMake(nX, cY, pW, 20);//利润
     
@@ -134,15 +136,15 @@
      底下的三个按钮
      */
     CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + gap * 0.5;
-    self.jiafanBtn.frame = CGRectMake(pX, jY, 70, 20);//加返按钮
+    self.jiafanBtn.frame = CGRectMake(pX, jY+2, 70, 15);//加返按钮
     
     CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame);
-    self.quanBtn.frame = CGRectMake(qX, jY, 70, 20);//券
+    self.quanBtn.frame = CGRectMake(qX+3, jY+2, 70, 15);//券
     
                     // 闪电
                     CGFloat fX = CGRectGetMaxX(self.quanBtn.frame);
                     CGFloat fW = self.isFlash ? 20 : 0;
-                    self.flash.frame = CGRectMake(fX, jY, fW, 20);
+                    self.flash.frame = CGRectMake(fX+3, jY, fW+1, 20);
     
     CGFloat sX = CGRectGetMaxX(self.flash.frame) + gap * 0.5;
     self.ShanDianBtn.frame = CGRectMake(sX, jY, 60, 20);
@@ -175,11 +177,14 @@
     
     NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"产品编号: %@",modal.Code]];
     [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(5, modal.Code.length + 1)];
-    self.productNum.attributedText = str;
+   self.productNum.attributedText = str;
+    [textStyle textStyleLabel:self.productNum FontNumber:13 AndRange:NSMakeRange(5, modal.Code.length+1) AndColor:[UIColor blackColor]];
     
     NSMutableAttributedString *str1 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"同行价: ￥%@",modal.PersonPeerPrice]];
     [str1 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, modal.PersonPeerPrice.length + 1)];
+    
     self.cheapPrice.attributedText = str1;
+   [textStyle textStyleLabel:self.cheapPrice FontNumber:16 AndRange:NSMakeRange(5, modal.PersonPeerPrice.length+1) AndColor:[UIColor redColor]];
     
     NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"利润: ￥%@",modal.PersonProfit]];
     [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, modal.PersonProfit.length + 1)];

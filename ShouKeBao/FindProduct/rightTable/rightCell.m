@@ -44,7 +44,8 @@
     _modal = modal;
     [self.rightIcon sd_setImageWithURL:[NSURL URLWithString:modal.rightIcon]];
     self.rightDescrip.text = modal.rightDescrip;
-   self.rightPrice.text = [NSString stringWithFormat:@"%@",modal.rightPrice];
+    
+   self.rightPrice.text = [NSString stringWithFormat:@"￥%@",modal.rightPrice];
     
     
 }
