@@ -494,7 +494,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }else if (tableView.tag == 3){
         return 59;
     }else if (tableView.tag == 4){
-        return 83;
+        return 78;
     }
     return 0;
 }
