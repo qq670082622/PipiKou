@@ -10,6 +10,9 @@
 #import "addRemondViewController.h"
 #import "IWHttpTool.h"
 #import "RemindDetailViewController.h"
+#import "WriteFileManager.h"
+#import "CustomModel.h"
+
 @interface remondViewController ()<UITableViewDataSource,UITableViewDelegate,ringToRefreshTheRemind>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
@@ -99,9 +102,16 @@
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerRemindList"]){
             remondModel *model = [remondModel modalWithDict:dic];
+            model.name = self.customModel.Name;
+            model.phone = self.customModel.Mobile;
+            model.RemindTime = @"1428903951";
             [self.dataArr addObject:model];
         }
         [self.table reloadData];
+        
+        // 保存添加的提醒
+        [WriteFileManager saveData:self.dataArr name:@"remindData"];
+        
     } failure:^(NSError *error) {
         NSLog(@"客户提醒列表请求错误 %@",error);
     }];
@@ -213,6 +223,7 @@ return     self.dataArr.count;
             [self.dataArr removeAllObjects];
             for(NSDictionary *dic in  json[@"CustomerRemindList"]){
                 remondModel  *model = [remondModel modalWithDict:dic];
+                
                 [self.dataArr addObject:model];
             }
             [self.table reloadData];

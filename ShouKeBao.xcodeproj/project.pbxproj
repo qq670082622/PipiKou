@@ -148,6 +148,10 @@
 		5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */; };
 		5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */; };
 		5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */; };
+		5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */; };
+		5AED0A131ADB5C5400B0E0E5 /* DayDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AED0A111ADB5C5400B0E0E5 /* DayDetailCell.xib */; };
+		5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A151ADB604C00B0E0E5 /* DayDetail.m */; };
+		5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
 		6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130D1AB1C175003AC2DA /* MJRefreshBaseView.m */; };
 		6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130F1AB1C175003AC2DA /* MJRefreshConst.m */; };
@@ -508,6 +512,13 @@
 		5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeBase.m; sourceTree = "<group>"; };
 		5ABA4F671AD7E5CD004AA8F6 /* RecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCell.h; sourceTree = "<group>"; };
 		5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
+		5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailCell.h; sourceTree = "<group>"; };
+		5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetailCell.m; sourceTree = "<group>"; };
+		5AED0A111ADB5C5400B0E0E5 /* DayDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayDetailCell.xib; sourceTree = "<group>"; };
+		5AED0A141ADB604C00B0E0E5 /* DayDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetail.h; sourceTree = "<group>"; };
+		5AED0A151ADB604C00B0E0E5 /* DayDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetail.m; sourceTree = "<group>"; };
+		5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRemindCell.h; sourceTree = "<group>"; };
+		5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRemindCell.m; sourceTree = "<group>"; };
 		6326130A1AB1C175003AC2DA /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		6326130B1AB1C175003AC2DA /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		6326130C1AB1C175003AC2DA /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -1243,6 +1254,8 @@
 				5A82161B1AD3843B009388DA /* HomeList.m */,
 				5AB7257F1AD68C5B0044B318 /* Recommend.h */,
 				5AB725801AD68C5B0044B318 /* Recommend.m */,
+				5AED0A141ADB604C00B0E0E5 /* DayDetail.h */,
+				5AED0A151ADB604C00B0E0E5 /* DayDetail.m */,
 			);
 			path = HomeModel;
 			sourceTree = "<group>";
@@ -1254,6 +1267,11 @@
 				5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */,
 				5ABA4F671AD7E5CD004AA8F6 /* RecommendCell.h */,
 				5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */,
+				5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */,
+				5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */,
+				5AED0A111ADB5C5400B0E0E5 /* DayDetailCell.xib */,
+				5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */,
+				5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -1811,6 +1829,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */,
+				5AED0A131ADB5C5400B0E0E5 /* DayDetailCell.xib in Resources */,
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
 				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
 				5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */,
@@ -1967,6 +1986,7 @@
 				5A0058A01ACEBD1E007AF362 /* remondTableViewCell.m in Sources */,
 				5A52FC771ACEBF220076DAE6 /* ProductHistoryCell.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
+				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
 				845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */,
 				5A52FC751ACEBF220076DAE6 /* MeHeader.m in Sources */,
 				5A52FC501ACEBF220076DAE6 /* rightCell.m in Sources */,
@@ -2007,6 +2027,7 @@
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
+				5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */,
 				5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */,
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
 				5A52FC601ACEBF220076DAE6 /* BindPhoneViewController.m in Sources */,
@@ -2015,6 +2036,7 @@
 				5A52FC461ACEBF220076DAE6 /* FootView.m in Sources */,
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
+				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
 				5A52FC7D1ACEBF220076DAE6 /* SosViewController.m in Sources */,
 				5A52FC4E1ACEBF220076DAE6 /* ProductModal.m in Sources */,
 				5A52FC711ACEBF220076DAE6 /* Server.m in Sources */,

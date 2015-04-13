@@ -12,8 +12,6 @@
 #import "HomeBase.h"
 #import "NSDate+Category.h"
 
-#define gap 10
-
 @interface ShouKeBaoCell()
 
 @end

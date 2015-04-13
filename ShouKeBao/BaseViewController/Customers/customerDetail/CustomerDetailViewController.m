@@ -12,6 +12,8 @@
 #import "remondViewController.h"
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "CustomModel.h"
+
 @interface CustomerDetailViewController ()<UITextFieldDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
@@ -130,6 +132,7 @@
     
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
+    remond.customModel = self.customMoel;
     [self.navigationController pushViewController:remond animated:YES];
 }
 

@@ -10,6 +10,7 @@
 #import "CustomModel.h"
 #import "SKViewController.h"
 @class CustomModel;
+
 @interface CustomerDetailViewController : SKViewController
 @property (weak, nonatomic) IBOutlet UITextField *weChat;
 @property (weak, nonatomic) IBOutlet UITextField *QQ;
@@ -20,6 +21,9 @@
 @property (nonatomic,copy) NSString *QQStr;
 @property (nonatomic,copy) NSString *noteStr;
 @property (nonatomic,copy) NSString *teleStr;
+
+@property (nonatomic,strong) CustomModel *customMoel;
+
 - (IBAction)remond:(id)sender;
 - (IBAction)deleteCustomer:(id)sender;
 

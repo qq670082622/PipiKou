@@ -42,6 +42,10 @@
     CGRect rect = self.leftLab.frame;
     rect.size.width = screenW - 35 - 30;
     self.leftLab.frame = rect;
+    
+    CGFloat detailY = CGRectGetMaxY(self.leftLab.frame) + gap;
+    CGFloat detailW = screenW - gap * 3 - self.iconView.frame.size.width;
+    self.detailLab.frame = CGRectMake(self.leftLab.frame.origin.x, detailY, detailW, 20);
 }
 
 - (void)setRecommend:(Recommend *)recommend

@@ -160,11 +160,12 @@
 
 -(void)viewWillDisappear:(BOOL)animated
 {
-[super viewWillDisappear:animated];
+    [super viewWillDisappear:animated];
     [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
     
 }
-- (IBAction)search:(id)sender {
+- (IBAction)search:(id)sender
+{
     
     [self.tableDataArr addObject:self.inputView.text];
     [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
@@ -177,11 +178,11 @@
     [self.navigationController pushViewController:list animated:YES];
 }
 
-- (IBAction)clearinPutView:(id)sender {
+- (IBAction)clearinPutView:(id)sender
+{
     self.inputView.text = @"";
     [self.inputView resignFirstResponder];
     
-   
 }
 
 -(IBAction)hotWordSearch:(id)sender

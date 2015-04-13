@@ -27,6 +27,10 @@
 #import "Recommend.h"
 #import "HomeBase.h"
 #import "RecommendCell.h"
+#import "RecommendViewController.h"
+#import "WriteFileManager.h"
+#import "remondModel.h"
+#import "ShowRemindCell.h"
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -76,6 +80,9 @@
     [self  getUserInformation];
     
     [self getNotifiList];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
+    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
 }
 
 -(NSMutableString *)messageCount
@@ -208,6 +215,9 @@
                     [self.dataSource addObject:base];
                 }
                 
+                // 排序
+                [self sortDataSource];
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
@@ -221,6 +231,46 @@
 
 
 #pragma mark - private
+// 显示提醒
+- (void)showRemind:(NSTimer *)timer
+{
+    NSLog(@"-----remind-");
+    NSArray *remindArr = [WriteFileManager readData:@"remindData"];
+    for (remondModel *remind in remindArr) {
+        NSDate *now = [NSDate date];
+        NSTimeInterval time = [now timeIntervalSince1970];
+        if ([remind.RemindTime integerValue] == (NSInteger)time) {
+            
+            HomeBase *base = [[HomeBase alloc] init];
+            base.time = remind.RemindTime;
+            base.model = remind;
+            [self.dataSource addObject:base];
+        }
+    }
+    
+    [self sortDataSource];
+    [self.tableView reloadData];
+}
+
+// 根据时间排序
+- (void)sortDataSource
+{
+    // 排序
+    NSArray *tmp = [self.dataSource sortedArrayUsingComparator:^NSComparisonResult(HomeBase *obj1, HomeBase *obj2) {
+        if ([obj1.time integerValue] > [obj2.time integerValue]) {
+            return NSOrderedAscending;
+        }
+        if ([obj1.time integerValue] < [obj2.time integerValue]) {
+            return NSOrderedDescending;
+        }
+        return NSOrderedSame;
+    }];
+    
+    // 排序好的数组替换数据源数组
+    [self.dataSource removeAllObjects];
+    [self.dataSource addObjectsFromArray:tmp];
+}
+
 -(void)pushToStore
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
@@ -240,15 +290,15 @@
     [self.navigationController pushViewController:sos animated:YES];
 }
 
-- (IBAction)search:(id)sender {
-    
+- (IBAction)search:(id)sender
+{
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     
     [self.navigationController pushViewController:searchVC animated:YES];
-    
 }
 
-- (IBAction)add:(id)sender {
+- (IBAction)add:(id)sender
+{
     
 }
 
@@ -329,14 +379,31 @@
         cell.model = model.model;
         cell.delegate = self;// 滑动的代理
         return cell;
-    }else{
+    }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         cell.recommend = model.model;
+        return cell;
+    }else{
+        ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
+        cell.remind = model.model;
         return cell;
     }
 }
 
 #pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HomeBase *model = self.dataSource[indexPath.row];
+    
+//    if ([model.model isKindOfClass:[HomeList class]]) {
+//        
+//    }else{
+        RecommendViewController *rec = [[RecommendViewController alloc] init];
+        
+        [self.navigationController pushViewController:rec animated:YES];
+//    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 5.0;
@@ -347,6 +414,17 @@
     UIView *view = [[UIView alloc] init];
     view.backgroundColor = [UIColor clearColor];
     return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    HomeBase *model = self.dataSource[indexPath.row];
+    
+    if ([model.model isKindOfClass:[Recommend class]]) {
+        return 90;
+    }else{
+        return 105;
+    }
 }
 
 #pragma mark - MGSwipeTableCellDelegate

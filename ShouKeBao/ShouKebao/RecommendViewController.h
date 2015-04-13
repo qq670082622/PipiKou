@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
-#import "SKTableViewController.h"
+#import "SKViewController.h"
 
-@interface RecommendViewController : SKTableViewController
+@interface RecommendViewController : SKViewController
 
 @end

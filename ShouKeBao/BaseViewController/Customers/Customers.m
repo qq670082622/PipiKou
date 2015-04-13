@@ -169,6 +169,8 @@
     detail.teleStr = model.Mobile;
     detail.noteStr = model.Remark;
     
+    detail.customMoel = model;
+    
        [self.navigationController pushViewController:detail animated:YES];
 }
 

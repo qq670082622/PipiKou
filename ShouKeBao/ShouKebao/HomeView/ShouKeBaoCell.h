@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "MGSwipeTableCell.h"
 
+#define gap 10
+
 @class HomeList;
 
 @interface ShouKeBaoCell : MGSwipeTableCell
