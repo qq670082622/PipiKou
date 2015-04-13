@@ -655,7 +655,7 @@
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
     if (tableView.tag == 2) {
-    
+        
         NSInteger a = (5*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
     
         //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);

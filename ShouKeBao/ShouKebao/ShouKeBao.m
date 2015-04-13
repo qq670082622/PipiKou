@@ -35,7 +35,12 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "UIImageView+WebCache.h"
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate>
+#import "RemindDetailViewController.h"
+
+#define FiveDay 432000
+
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate,remindDetailDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
@@ -67,6 +72,19 @@
     
     [self.view addSubview:self.tableView];
     
+    // 取出隐藏的数据 看下有没有过期的 有就去掉
+    NSDate *now = [NSDate date];
+    NSInteger timeLong = [now timeIntervalSince1970];
+    NSArray *tmp = [WriteFileManager readData:@"hideData"];
+    NSMutableArray *muta = [NSMutableArray arrayWithArray:tmp];
+    if (tmp) {
+        for (HomeBase *home in tmp) {
+            if ([home.time integerValue] < (timeLong - FiveDay)) {
+                [muta removeObject:home];
+            }
+        }
+        [WriteFileManager saveData:muta name:@"hideData"];
+    }
     
     [self customLeftBarItem];
     [self customRightBarItem];
@@ -145,7 +163,8 @@
 }
 
 -(void)getNotifiList
-{NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
+{
+    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
     [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
         NSLog(@"首页公告消息列表%@",json);
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
@@ -159,9 +178,6 @@
     }];
 
 }
-
-
-
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -186,8 +202,8 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 126, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 180)];
-        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 65, 0);
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 130, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 194)];
+        _tableView.contentInset = UIEdgeInsetsMake(0, 0, 54, 0);
         _tableView.rowHeight = 105;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -220,12 +236,15 @@
                 NSLog(@"-----count %lu",(unsigned long)[json[@"OrderList"] count]);
                 [self.dataSource removeAllObjects];
                 
-                // 添加精品推荐
-                Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
-                HomeBase *base = [[HomeBase alloc] init];
-                base.time = recommend.CreatedDate;
-                base.model = recommend;
-                [self.dataSource addObject:base];
+                // 添加精品推荐 如果有推荐的话
+                if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
+                    Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
+                    HomeBase *base = [[HomeBase alloc] init];
+                    base.time = recommend.CreatedDate;
+                    base.model = recommend;
+                    base.idStr = @"recommend";
+                    [self.dataSource addObject:base];
+                }
                 
                 // 添加订单
                 for (NSDictionary *dic in json[@"OrderList"]) {
@@ -235,12 +254,18 @@
                     HomeBase *base = [[HomeBase alloc] init];
                     base.time = list.CreatedDate;
                     base.model = list;
+                    base.idStr = list.ID;
                     
                     [self.dataSource addObject:base];
                 }
+                // 加载未查看的提醒
+                [self showOldRemind];
                 
                 // 排序
                 [self sortDataSource];
+                
+                // 清理数据 看有没有隐藏的 有就不要显示
+                [self cleanDataSource];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
@@ -268,12 +293,50 @@
             HomeBase *base = [[HomeBase alloc] init];
             base.time = remind.RemindTime;
             base.model = remind;
+            base.idStr = remind.ID;
+            [self.dataSource addObject:base];
+            
+            [self sortDataSource];
+            [self.tableView reloadData];
+        }
+    }
+}
+
+// 显示过去 没有消失的提醒 避免一直刷新列表的解决办法
+- (void)showOldRemind
+{
+    NSArray *remindArr = [WriteFileManager readData:@"remindData"];
+    for (remondModel *remind in remindArr) {
+        NSDate *now = [NSDate date];
+        NSInteger time = [now timeIntervalSince1970];
+        if ([remind.RemindTime integerValue] <= time) {
+            
+            HomeBase *base = [[HomeBase alloc] init];
+            base.time = remind.RemindTime;
+            base.model = remind;
+            base.idStr = remind.ID;
             [self.dataSource addObject:base];
         }
     }
-    
-    [self sortDataSource];
-    [self.tableView reloadData];
+}
+
+- (void)cleanDataSource
+{
+    // 去掉隐藏的数据
+    NSArray *hideData = [WriteFileManager readData:@"hideData"];
+    for (int i = 0; i < self.dataSource.count; i ++) {
+        HomeBase *new = self.dataSource[i];
+        
+        // 精品推荐隐藏更假 所以不做去除
+        if (![new.model isKindOfClass:[Recommend class]]) {
+            for (int j = 0; j < hideData.count; j ++) {
+                HomeBase *hide = hideData[j];
+                if ([new.idStr isEqualToString:hide.idStr]) {
+                    [self.dataSource removeObjectAtIndex:i];
+                }
+            }
+        }
+    }
 }
 
 // 根据时间排序
@@ -414,6 +477,7 @@
         NSLog(@"Convenience callback received (right).");
         return YES;
     }];
+    
     CGRect frame = button.frame;
     frame.size.width = 250;
     button.frame = frame;
@@ -438,14 +502,19 @@
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
         cell.delegate = self;// 滑动的代理
+        
         return cell;
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         cell.recommend = model.model;
+        
+        cell.delegate = self;// 滑动的代理
         return cell;
     }else{
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;
+        
+        cell.delegate = self;// 滑动的代理
         return cell;
     }
 }
@@ -455,13 +524,22 @@
 {
     HomeBase *model = self.dataSource[indexPath.row];
     
-//    if ([model.model isKindOfClass:[HomeList class]]) {
-//        
-//    }else{
+    if ([model.model isKindOfClass:[HomeList class]]) {
+        
+    }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendViewController *rec = [[RecommendViewController alloc] init];
         
         [self.navigationController pushViewController:rec animated:YES];
-//    }
+    }else{
+        remondModel *r = model.model;
+        RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
+        remondDetail.time = r.RemindTime;
+        remondDetail.note = r.Content;
+        remondDetail.remindId = r.ID;
+        remondDetail.delegate = self;
+        [self.navigationController pushViewController:remondDetail animated:YES];
+    }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -490,6 +568,8 @@
 #pragma mark - MGSwipeTableCellDelegate
 - (NSArray*)swipeTableCell:(MGSwipeTableCell*)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
 {
+    swipeSettings.transition = MGSwipeTransitionStatic;
+    
     // 左滑隐藏
     if (direction == MGSwipeDirectionRightToLeft){
         expansionSettings.buttonIndex = 0;
@@ -508,10 +588,34 @@
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
     NSIndexPath *path = [self.tableView indexPathForCell:cell];
+    
+    // 保存隐藏的模型
+    HomeBase *base = self.dataSource[path.row];
+    NSArray *tmp = [WriteFileManager readData:@"hideData"];
+    NSMutableArray *muta = [NSMutableArray arrayWithArray:tmp];
+    [muta addObject:base];
+    [WriteFileManager saveData:muta name:@"hideData"];
+    
+    // 删除这行
     [self.dataSource removeObjectAtIndex:path.row];
     [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationTop];
     
     return YES;
+}
+
+#pragma mark - remindDetailDelegate
+- (void)didLookUpRemind
+{
+    // 去除所有的提醒 重新添加 目前不能一个个加
+    for (HomeBase *base in self.dataSource){
+        if ([base.model isKindOfClass:[remondModel class]]) {
+            [self.dataSource removeObject:base];
+            break;
+        }
+    }
+    
+    [self showOldRemind];
+    [self.tableView reloadData];
 }
 
 @end

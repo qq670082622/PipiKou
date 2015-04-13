@@ -11,6 +11,25 @@
 
 @implementation Recommend
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    
+    [aCoder encodeObject:self.Count forKey:@"Count"];
+    [aCoder encodeObject:self.CreatedDate forKey:@"CreatedDate"];
+    [aCoder encodeObject:self.Price forKey:@"Price"];
+}
+
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    
+    if (self == [super init]) {
+        self.Count =  [aDecoder decodeObjectForKey:@"Count"];
+        self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
+        self.Price = [aDecoder decodeObjectForKey:@"Price"];
+    }
+    
+    return self;
+}
+
 + (instancetype)recommendWithDict:(NSDictionary *)dict
 {
     return [[self alloc] initWithDict:dict];

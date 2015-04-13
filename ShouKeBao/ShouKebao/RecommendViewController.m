@@ -43,7 +43,8 @@
 #pragma mark - private
 - (void)loadDataSource
 {
-    NSDictionary *param = @{};
+    NSDictionary *param = @{@"PageSize":@"1",
+                            @"PageIndex":@"5"};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
         if (json) {
             NSLog(@"aaaaaaaa  %@",json);

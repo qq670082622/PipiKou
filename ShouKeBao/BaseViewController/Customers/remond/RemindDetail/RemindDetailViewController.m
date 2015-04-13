@@ -7,6 +7,8 @@
 //
 
 #import "RemindDetailViewController.h"
+#import "WriteFileManager.h"
+#import "remondModel.h"
 
 @interface RemindDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -18,6 +20,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    // 查看过的提醒从本地去除
+    NSArray *remindArr = [WriteFileManager readData:@"remindData"];
+    NSMutableArray *muta = [NSMutableArray arrayWithArray:remindArr];
+    for (remondModel *remind in remindArr) {
+        if ([remind.ID isEqualToString:self.remindId]) {
+            [muta removeObject:remind];
+        }
+    }
+    [WriteFileManager saveData:muta name:@"remindData"];
+    
     self.noteLebel.text = [NSString stringWithFormat:@"⏰提醒内容:%@",self.note];
     self.timeLabel.text = [NSString stringWithFormat:@"⌚️提醒时间:%@",self.time];
     
@@ -40,6 +53,15 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didLookUpRemind)]) {
+        [self.delegate didLookUpRemind];
+    }
 }
 
 -(void)back

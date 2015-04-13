@@ -126,6 +126,11 @@
                             <color key="textColor" red="0.40744473071808507" green="0.40744473071808507" blue="0.40744473071808507" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <view alpha="0.20000000000000001" contentMode="scaleToFill" id="kxz-cm-29M" userLabel="sep">
+                            <rect key="frame" x="0.0" y="89" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>

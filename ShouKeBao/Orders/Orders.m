@@ -273,11 +273,10 @@
 // 右边滑动的按钮
 - (NSArray *)createRightButtons:(OrderModel *)model
 {
-    NSString *tmp = [NSString stringWithFormat:@"平台联系人 %@",model.FollowPerson[@"Name"]];
     NSMutableArray * result = [NSMutableArray array];
     UIColor * color = [UIColor whiteColor];
     
-    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:tmp icon:nil backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
+    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:nil icon:nil backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
         NSLog(@"Convenience callback received (right).");
         return YES;
     }];

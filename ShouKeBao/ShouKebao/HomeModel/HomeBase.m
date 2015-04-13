@@ -10,4 +10,24 @@
 
 @implementation HomeBase
 
+-(void)encodeWithCoder:(NSCoder *)aCoder{
+    
+    [aCoder encodeObject:self.time forKey:@"time"];
+    [aCoder encodeObject:self.idStr forKey:@"idStr"];
+    [aCoder encodeObject:self.model forKey:@"model"];
+    
+}
+
+
+-(id)initWithCoder:(NSCoder *)aDecoder{
+    
+    if (self == [super init]) {
+        self.time =  [aDecoder decodeObjectForKey:@"time"];
+        self.idStr =  [aDecoder decodeObjectForKey:@"idStr"];
+        self.model =  [aDecoder decodeObjectForKey:@"model"];
+    }
+    
+    return self;
+}
+
 @end
