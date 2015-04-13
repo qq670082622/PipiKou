@@ -76,6 +76,17 @@
             [dic setObject:productID forKey:@"ProductID"];
             [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
                 NSLog(@"产品详情json is %@",json);
+                NSString *testStr = json[@"Product"][@"PersonPeerPrice"];
+                if (testStr!=nil || testStr != NULL ) {
+                    self.cheapPrice.text = json[@"Product"][@"PersonPeerPrice"];
+                    self.profit.text = json[@"Product"][@"PersonProfit"];
+                    [self.jiafan setTitle:json[@"Product"][@"PersonBackPrice"] forState:UIControlStateNormal];
+                    [self.quan setTitle:json[@"Product"][@"PersonCashCoupon"] forState:UIControlStateNormal];
+                }
+                else if (testStr == nil && testStr == NULL)
+                {
+                    self.checkCheapBtnOutlet.hidden  = YES;
+                }
             } failure:^(NSError *error) {
                 NSLog(@"同行价网络请求失败,%@",error);
             }];
