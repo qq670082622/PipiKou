@@ -7,6 +7,7 @@
 //
 
 #import "remondTableViewCell.h"
+#import "NSDate+Category.h"
 
 @implementation remondTableViewCell
 
@@ -28,7 +29,9 @@
 {
     _model = model;
     self.desLabel.text = model.Content;
-    self.time.text = model.RemindTime;
+    
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.RemindTime doubleValue]];
+    self.time.text = [createDate formattedTime];
    }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

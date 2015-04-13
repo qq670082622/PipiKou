@@ -104,7 +104,6 @@
             remondModel *model = [remondModel modalWithDict:dic];
             model.name = self.customModel.Name;
             model.phone = self.customModel.Mobile;
-            model.RemindTime = @"1428903951";
             [self.dataArr addObject:model];
         }
         [self.table reloadData];

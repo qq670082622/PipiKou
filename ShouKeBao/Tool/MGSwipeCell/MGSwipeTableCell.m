@@ -199,22 +199,39 @@
 
 - (void)transitionStatic:(CGFloat) t
 {
-//    const CGFloat dx = self.bounds.size.width * t;
+    const CGFloat dx = self.bounds.size.width * t;
 //    for (NSInteger i = buttons.count - 1; i >=0 ; --i) {
 //        UIView * button = [buttons objectAtIndex:i];
 //        const CGFloat x = fromLeft ? self.bounds.size.width - dx + button.bounds.size.width * i : dx - button.bounds.size.width * (buttons.count - i);
 //        button.frame = CGRectMake(x, 0, button.bounds.size.width, button.bounds.size.height);
 //    }
-    for (int i = 0; i < buttons.count; i ++) {
-        UIView *btn = [buttons objectAtIndex:i];
-        CGFloat x = 0;
-        if (i == 0) {
-            x = 0;
+    
+    // 目前先分一个和多个的 没想到好的解决方法
+    if (!fromLeft) {
+        if (buttons.count > 1) {
+            CGFloat w = 0;
+            for (int i = 0; i < buttons.count; i ++) {
+                UIView *btn = [buttons objectAtIndex:i];
+                w = btn.frame.size.width;
+                CGFloat x = 0;
+                if (i == 0) {
+                    x = -w + dx - 50;
+                }else{
+                    UIView *tmp = [buttons objectAtIndex:i - 1];
+                    x = CGRectGetMaxX(tmp.frame);
+                }
+                btn.frame = CGRectMake(x, 0, btn.bounds.size.width, btn.bounds.size.height);
+            }
         }else{
-            UIView *tmp = [buttons objectAtIndex:i - 1];
-            x = CGRectGetMaxX(tmp.frame);
+            CGFloat w = 0;
+            for (int i = 0; i < buttons.count; i ++) {
+                UIView *btn = [buttons objectAtIndex:i];
+                w = btn.frame.size.width;
+                CGFloat x = -w + dx;
+                btn.frame = CGRectMake(x, 0, btn.bounds.size.width, btn.bounds.size.height);
+            }
         }
-        btn.frame = CGRectMake(x, 0, btn.bounds.size.width, btn.bounds.size.height);
+        
     }
 }
 
