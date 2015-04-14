@@ -40,7 +40,7 @@
     _captureSession = nil;
     _isReading = NO;
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.startBtn.layer andBorderColor:[UIColor blackColor] andBorderWidth:1 andNeedShadow:YES];
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     

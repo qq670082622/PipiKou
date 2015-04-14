@@ -45,7 +45,7 @@
     if (self.note.text == nil) {
         self.note.text = @"请点击这里输入该客户的备注信息😄（选填）";
     }
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
@@ -84,6 +84,7 @@
     self.weChat.text = self.weChatStr;
     self.tele.text = self.teleStr;
     self.note.text = self.noteStr;
+    self.userName.text = self.userNameStr;
     
 }
 -(void)viewWillAppear:(BOOL)animated

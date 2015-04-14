@@ -7,7 +7,8 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StoreViewController">
             <connections>
-                <outlet property="btnLine" destination="Yd1-cA-JiY" id="iqo-PO-Ps2"/>
+                <outlet property="blackView" destination="jWg-xN-dov" id="eGI-nT-BOX"/>
+                <outlet property="btnLine" destination="ra8-GL-M8a" id="QlX-Ua-cAK"/>
                 <outlet property="cheapPrice" destination="buy-uC-D80" id="pLh-JC-5OD"/>
                 <outlet property="checkCheapBtnOutlet" destination="RCV-vP-AOt" id="wDO-c0-u8I"/>
                 <outlet property="jiafan" destination="0pD-fa-R4c" id="FfS-5V-zVb"/>
@@ -55,7 +56,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="buy-uC-D80">
-                            <rect key="frame" x="104" y="65" width="91" height="21"/>
+                            <rect key="frame" x="80" y="65" width="91" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -69,26 +70,31 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v51-WF-wlW">
-                            <rect key="frame" x="104" y="123" width="91" height="21"/>
+                            <rect key="frame" x="80" y="123" width="91" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0pD-fa-R4c">
-                            <rect key="frame" x="104" y="94" width="60" height="20"/>
+                            <rect key="frame" x="80" y="94" width="60" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="jiafan">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aYN-K0-1CW">
-                            <rect key="frame" x="172" y="95" width="60" height="20"/>
+                            <rect key="frame" x="148" y="95" width="60" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <state key="normal" image="quan">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
+                        <view contentMode="scaleToFill" id="Yd1-cA-JiY" userLabel="line">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                            <color key="backgroundColor" white="0.90694839015151518" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
@@ -105,10 +111,15 @@
                         <action selector="checkCheapPrice:" destination="-1" eventType="touchUpInside" id="v2X-OS-BXV"/>
                     </connections>
                 </button>
-                <view hidden="YES" contentMode="scaleToFill" id="Yd1-cA-JiY" userLabel="line">
+                <view hidden="YES" contentMode="scaleToFill" id="ra8-GL-M8a" userLabel="line">
                     <rect key="frame" x="0.0" y="431" width="320" height="1"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                    <color key="backgroundColor" white="0.90694839015151518" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.90694839019999995" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view alpha="0.0" contentMode="scaleToFill" id="jWg-xN-dov" userLabel="blackView">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="278"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

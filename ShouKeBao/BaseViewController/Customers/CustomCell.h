@@ -14,7 +14,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *userTele;
 @property (weak, nonatomic) IBOutlet UILabel *userOders;
-
+//@property (nonatomic,copy) NSString *ID;
+@property (weak, nonatomic) IBOutlet UIImageView *detailBtn;
 @property(nonatomic,strong) CustomModel *model;
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 

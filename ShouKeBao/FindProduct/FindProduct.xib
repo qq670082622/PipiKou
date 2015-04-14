@@ -87,9 +87,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="qzC-nf-QSK">
-                    <rect key="frame" x="70" y="4" width="256" height="34"/>
+                    <rect key="frame" x="70" y="4" width="245" height="34"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="shousuo">
+                    <state key="normal" image="sousuo">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -115,8 +115,8 @@
         </view>
     </objects>
     <resources>
-        <image name="fenzhan" width="117" height="67"/>
-        <image name="shousuo" width="296" height="31"/>
+        <image name="fenzhan" width="55" height="32"/>
+        <image name="sousuo" width="295" height="32"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

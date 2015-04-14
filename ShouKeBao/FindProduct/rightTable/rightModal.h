@@ -13,6 +13,7 @@
 @property (copy, nonatomic) NSString  *rightDescrip;
 @property (strong, nonatomic) NSNumber  *rightPrice;
 @property (copy,nonatomic) NSMutableString *productUrl;
+@property (strong,nonatomic) NSDictionary *ShareInfo;
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 

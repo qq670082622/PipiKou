@@ -49,7 +49,7 @@
    self.title = @"管客户";
     self.table.delegate = self;
     self.table.dataSource = self;
-    self.table.rowHeight = 55;
+    self.table.rowHeight = 64;
     //[self loadDataSource];
     [self customerRightBarItem];
     self.searchTextField.delegate = self;
@@ -67,16 +67,13 @@
     
     [self loadDataSource];
     [self.table reloadData];
+
 }
+
 -(void)customerRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    
-    [button setImage:[UIImage imageNamed:@"tianjia"] forState:UIControlStateNormal];
-    
-    [button addTarget:self action:@selector(setUp)forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setUp)];
     
     self.navigationItem.rightBarButtonItem= barItem;
 }
@@ -154,10 +151,12 @@
     }];
 
    }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
@@ -168,7 +167,7 @@
     detail.weChatStr = model.WeiXinCode;
     detail.teleStr = model.Mobile;
     detail.noteStr = model.Remark;
-    
+    detail.userNameStr = model.Name;
     detail.customMoel = model;
     
        [self.navigationController pushViewController:detail animated:YES];
@@ -178,14 +177,16 @@
 {
     return self.dataArr.count;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CustomCell *cell = [CustomCell cellWithTableView:tableView];
     CustomModel *model = _dataArr[indexPath.row];
     cell.model = model;
+    return cell;
    
-       return cell;
-    }
+}
+
 #pragma mark - textField delegate method
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {

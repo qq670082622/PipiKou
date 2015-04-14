@@ -28,8 +28,8 @@
 {
     _model = model;
     self.name.text = model.name;
-    self.email.text = model.email;
-    self.recordId.text = model.recordID;
+   // self.email.text = model.email;
+    //self.recordId.text = model.recordID;
     self.tele.text = model.tel;
 }
 
