@@ -9,41 +9,41 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="40" id="KGk-i7-Jjw" customClass="leftCell">
-            <rect key="frame" x="0.0" y="0.0" width="125" height="52"/>
+            <rect key="frame" x="0.0" y="0.0" width="125" height="49"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我爱你的每一天哈哈哈😄" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OEs-hV-xbW">
-                        <rect key="frame" x="35" y="0.0" width="83" height="52"/>
+                        <rect key="frame" x="39" y="0.0" width="83" height="49"/>
                         <fontDescription key="fontDescription" name=".HelveticaNeueDeskInterface-Regular" family=".Helvetica Neue DeskInterface" pointSize="11"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="JQg-HP-Np5">
-                        <rect key="frame" x="6" y="13" width="23" height="23"/>
+                        <rect key="frame" x="12" y="16" width="15" height="15"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="23" id="ecn-BV-bEL"/>
+                            <constraint firstAttribute="width" constant="15" id="DNM-qm-Snv"/>
+                            <constraint firstAttribute="height" constant="15" id="HNW-5V-9EN"/>
                         </constraints>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eAd-kZ-4FC" userLabel="line">
-                        <rect key="frame" x="0.0" y="51" width="125" height="1"/>
+                        <rect key="frame" x="0.0" y="48" width="125" height="1"/>
                         <color key="backgroundColor" white="0.75459280303030318" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <color key="backgroundColor" red="0.83921568627450982" green="0.87058823529411766" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                 <constraints>
-                    <constraint firstAttribute="trailingMargin" secondItem="OEs-hV-xbW" secondAttribute="trailing" constant="-1" id="8gD-pe-D9B"/>
-                    <constraint firstAttribute="trailing" secondItem="eAd-kZ-4FC" secondAttribute="trailing" id="9Wh-AH-bA3"/>
-                    <constraint firstItem="OEs-hV-xbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="GW6-4n-Sks"/>
-                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="top" secondItem="JQg-HP-Np5" secondAttribute="bottom" constant="15" id="ISZ-hZ-vvG"/>
-                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="bottom" secondItem="OEs-hV-xbW" secondAttribute="bottom" id="Rdg-Qg-HgM"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="OEs-hV-xbW" secondAttribute="bottom" constant="-8.5" id="WOr-qM-IUi"/>
-                    <constraint firstItem="JQg-HP-Np5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="5" id="c2l-iM-NXB"/>
-                    <constraint firstItem="OEs-hV-xbW" firstAttribute="leading" secondItem="JQg-HP-Np5" secondAttribute="trailing" constant="6" id="g0m-xE-xrG"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="JQg-HP-Np5" secondAttribute="bottom" constant="7.5" id="lMd-n6-MII"/>
-                    <constraint firstItem="JQg-HP-Np5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="-2" id="tfa-jD-5Bv"/>
-                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="uTF-ql-Ipl"/>
+                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="7uC-7c-HuQ"/>
+                    <constraint firstItem="OEs-hV-xbW" firstAttribute="leading" secondItem="JQg-HP-Np5" secondAttribute="trailing" constant="12" id="8yk-8z-kzQ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="OEs-hV-xbW" secondAttribute="trailing" constant="-5" id="BYV-tz-1yv"/>
+                    <constraint firstItem="JQg-HP-Np5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="Ors-XB-lE1"/>
+                    <constraint firstItem="JQg-HP-Np5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="8" id="Osa-oq-bpG"/>
+                    <constraint firstAttribute="trailing" secondItem="eAd-kZ-4FC" secondAttribute="trailing" id="WBH-JB-nVs"/>
+                    <constraint firstItem="OEs-hV-xbW" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="XEy-cd-qwC"/>
+                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="bottom" secondItem="OEs-hV-xbW" secondAttribute="bottom" id="c6k-cL-yTv"/>
+                    <constraint firstItem="OEs-hV-xbW" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="d0O-zj-5hd"/>
+                    <constraint firstItem="eAd-kZ-4FC" firstAttribute="top" secondItem="JQg-HP-Np5" secondAttribute="bottom" constant="17" id="qPY-uc-bti"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

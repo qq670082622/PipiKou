@@ -11,6 +11,7 @@
                 <outlet property="SetRemindBtnOutlet" destination="kpK-0o-0re" id="8FG-ul-wlk"/>
                 <outlet property="note" destination="Zra-fb-qb6" id="UAE-33-D1o"/>
                 <outlet property="tele" destination="4fk-NQ-RPR" id="PN9-pt-hEC"/>
+                <outlet property="userName" destination="fqq-Af-yEW" id="j9Z-cR-jQH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="weChat" destination="vwA-qL-6SN" id="4GG-iX-uce"/>
             </connections>
@@ -20,8 +21,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="vwA-qL-6SN" userLabel="weChat">
-                    <rect key="frame" x="19" y="132" width="258" height="30"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="王剑锋" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fqq-Af-yEW">
+                    <rect key="frame" x="32" y="17" width="180" height="31"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="vwA-qL-6SN" userLabel="weChat">
+                    <rect key="frame" x="31" y="147" width="258" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -29,8 +37,8 @@
                         <outlet property="delegate" destination="-1" id="ml0-Kv-ytC"/>
                     </connections>
                 </textField>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="eV2-vR-QDE" userLabel="QQ">
-                    <rect key="frame" x="19" y="207" width="258" height="30"/>
+                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="eV2-vR-QDE" userLabel="QQ">
+                    <rect key="frame" x="32" y="200" width="258" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <textInputTraits key="textInputTraits" returnKeyType="next"/>
@@ -38,8 +46,48 @@
                         <outlet property="delegate" destination="-1" id="hEK-q7-FnX"/>
                     </connections>
                 </textField>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="暂无备注" id="Zra-fb-qb6" userLabel="Note">
-                    <rect key="frame" x="19" y="279" width="258" height="60"/>
+                <textField opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="4fk-NQ-RPR" userLabel="tele">
+                    <rect key="frame" x="31" y="86" width="258" height="30"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="sIy-B8-lOe"/>
+                    </connections>
+                </textField>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dianhua" id="PDQ-32-s7W">
+                    <rect key="frame" x="32" y="55" width="46" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weixin" id="V7b-e1-1GK">
+                    <rect key="frame" x="32" y="115" width="46" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qq" id="Gjm-BV-p1D">
+                    <rect key="frame" x="32" y="176" width="46" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beizhu" id="STr-49-bUx">
+                    <rect key="frame" x="32" y="238" width="46" height="26"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                </imageView>
+                <view contentMode="scaleToFill" id="27j-cf-cYU" userLabel="line1">
+                    <rect key="frame" x="20" y="115" width="300" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81751786901595747" green="0.81751786901595747" blue="0.81751786901595747" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" id="aA8-fx-tI9" userLabel="line2">
+                    <rect key="frame" x="20" y="230" width="300" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <view contentMode="scaleToFill" id="VcI-VY-O4K" userLabel="line3">
+                    <rect key="frame" x="20" y="176" width="300" height="1"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="暂无备注" id="Zra-fb-qb6" userLabel="Note">
+                    <rect key="frame" x="31" y="272" width="258" height="60"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <color key="textColor" white="0.50402462121212099" alpha="1" colorSpace="calibratedWhite"/>
@@ -49,93 +97,58 @@
                         <outlet property="delegate" destination="-1" id="7Pe-ET-lJu"/>
                     </connections>
                 </textView>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kpK-0o-0re" userLabel="setRemond">
-                    <rect key="frame" x="0.0" y="365" width="320" height="49"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <state key="normal" image="shezhitixing">
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="remond:" destination="-1" eventType="touchUpInside" id="rQK-MA-jG5"/>
-                    </connections>
-                </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NAX-uH-nFC" userLabel="delete">
-                    <rect key="frame" x="21" y="420" width="278" height="30"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <state key="normal" title="删除客户">
-                        <color key="titleColor" red="0.96862751245498657" green="0.43921571969985962" blue="0.13725490868091583" alpha="1" colorSpace="deviceRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="deleteCustomer:" destination="-1" eventType="touchUpInside" id="knE-mf-ENh"/>
-                    </connections>
-                </button>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" id="4fk-NQ-RPR" userLabel="tele">
-                    <rect key="frame" x="19" y="60" width="258" height="30"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" returnKeyType="next"/>
-                    <connections>
-                        <outlet property="delegate" destination="-1" id="sIy-B8-lOe"/>
-                    </connections>
-                </textField>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="dianhua" id="PDQ-32-s7W">
-                    <rect key="frame" x="19" y="24" width="60" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="weixin" id="V7b-e1-1GK">
-                    <rect key="frame" x="19" y="92" width="60" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="qq" id="Gjm-BV-p1D">
-                    <rect key="frame" x="19" y="165" width="60" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="beizhu" id="STr-49-bUx">
-                    <rect key="frame" x="19" y="238" width="60" height="40"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                </imageView>
-                <view contentMode="scaleToFill" id="27j-cf-cYU" userLabel="line1">
-                    <rect key="frame" x="20" y="92" width="300" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81751786901595747" green="0.81751786901595747" blue="0.81751786901595747" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="aA8-fx-tI9" userLabel="line2">
-                    <rect key="frame" x="20" y="240" width="300" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="VcI-VY-O4K" userLabel="line3">
-                    <rect key="frame" x="20" y="165" width="300" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="h7z-ms-S9f" userLabel="line5">
-                    <rect key="frame" x="0.0" y="419" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="MBF-kL-dH4" userLabel="line4">
-                    <rect key="frame" x="0.0" y="360" width="320" height="1"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <view contentMode="scaleToFill" id="93F-b4-Hsf">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="370"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                <view contentMode="scaleToFill" id="bHm-Aw-SiJ" userLabel="tixingView">
+                    <rect key="frame" x="1" y="346" width="320" height="134"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="kpK-0o-0re" userLabel="setRemond">
+                            <rect key="frame" x="0.0" y="10" width="320" height="49"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <state key="normal" image="shezhitixing">
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="remond:" destination="-1" eventType="touchUpInside" id="rQK-MA-jG5"/>
+                            </connections>
+                        </button>
+                        <view contentMode="scaleToFill" id="MBF-kL-dH4" userLabel="line4">
+                            <rect key="frame" x="0.0" y="59" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <view contentMode="scaleToFill" id="h7z-ms-S9f" userLabel="line5">
+                            <rect key="frame" x="0.0" y="10" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="NAX-uH-nFC" userLabel="delete">
+                            <rect key="frame" x="0.0" y="69" width="320" height="48"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" title="删除客户">
+                                <color key="titleColor" red="0.96862751245498657" green="0.43921571969985962" blue="0.13725490868091583" alpha="1" colorSpace="deviceRGB"/>
+                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            </state>
+                            <connections>
+                                <action selector="deleteCustomer:" destination="-1" eventType="touchUpInside" id="knE-mf-ENh"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.85882352941176465" green="0.8901960784313725" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="233" y="260"/>
         </view>
     </objects>
     <resources>
-        <image name="beizhu" width="99" height="33"/>
-        <image name="dianhua" width="97" height="28"/>
-        <image name="qq" width="93" height="34"/>
-        <image name="shezhitixing" width="750" height="98"/>
-        <image name="weixin" width="101" height="32"/>
+        <image name="beizhu" width="49" height="16"/>
+        <image name="dianhua" width="48" height="14"/>
+        <image name="qq" width="46" height="17"/>
+        <image name="shezhitixing" width="375" height="49"/>
+        <image name="weixin" width="50" height="16"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

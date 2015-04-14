@@ -34,13 +34,22 @@
 
     [self loadHotWordDataSource];
     [self loadHistoryDataSource];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
-  
-  
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
     
 }
 
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {

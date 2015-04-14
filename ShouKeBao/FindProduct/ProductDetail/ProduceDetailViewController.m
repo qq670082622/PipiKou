@@ -59,7 +59,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:self.produceUrl forKey:@"PageUrl"];
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-       // NSLog(@"-----分享返回数据json is %@------",json);
+        NSLog(@"-----分享返回数据json is %@------",json);
        self.shareStr =  [NSMutableString stringWithFormat:@"%@",json[@"ShareUrl"]];
     } failure:^(NSError *error) {
         NSLog(@"分享请求数据失败，原因：%@",error);

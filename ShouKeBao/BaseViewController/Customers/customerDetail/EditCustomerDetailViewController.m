@@ -33,7 +33,7 @@
     self.wechat.text = self.wechatStr;
     self.QQ.text = self.QQStr;
     self.note.text = self.noteStr;
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     

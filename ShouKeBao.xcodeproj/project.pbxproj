@@ -65,7 +65,6 @@
 		5A52FC4C1ACEBF220076DAE6 /* ProductList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB8F1ACEBF220076DAE6 /* ProductList.m */; };
 		5A52FC4D1ACEBF220076DAE6 /* ProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB901ACEBF220076DAE6 /* ProductList.xib */; };
 		5A52FC4E1ACEBF220076DAE6 /* ProductModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB921ACEBF220076DAE6 /* ProductModal.m */; };
-		5A52FC4F1ACEBF220076DAE6 /* Person.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB951ACEBF220076DAE6 /* Person.m */; };
 		5A52FC501ACEBF220076DAE6 /* rightCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB971ACEBF220076DAE6 /* rightCell.m */; };
 		5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB981ACEBF220076DAE6 /* rightCell.xib */; };
 		5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB9A1ACEBF220076DAE6 /* rightCell2.m */; };
@@ -363,8 +362,6 @@
 		5A52FB901ACEBF220076DAE6 /* ProductList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductList.xib; sourceTree = "<group>"; };
 		5A52FB911ACEBF220076DAE6 /* ProductModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModal.h; sourceTree = "<group>"; };
 		5A52FB921ACEBF220076DAE6 /* ProductModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModal.m; sourceTree = "<group>"; };
-		5A52FB941ACEBF220076DAE6 /* Person.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Person.h; sourceTree = "<group>"; };
-		5A52FB951ACEBF220076DAE6 /* Person.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Person.m; sourceTree = "<group>"; };
 		5A52FB961ACEBF220076DAE6 /* rightCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rightCell.h; sourceTree = "<group>"; };
 		5A52FB971ACEBF220076DAE6 /* rightCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = rightCell.m; sourceTree = "<group>"; };
 		5A52FB981ACEBF220076DAE6 /* rightCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = rightCell.xib; sourceTree = "<group>"; };
@@ -975,8 +972,6 @@
 		5A52FB931ACEBF220076DAE6 /* rightTable */ = {
 			isa = PBXGroup;
 			children = (
-				5A52FB941ACEBF220076DAE6 /* Person.h */,
-				5A52FB951ACEBF220076DAE6 /* Person.m */,
 				5A52FB961ACEBF220076DAE6 /* rightCell.h */,
 				5A52FB971ACEBF220076DAE6 /* rightCell.m */,
 				5A52FB981ACEBF220076DAE6 /* rightCell.xib */,
@@ -1658,18 +1653,18 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
+				636C8B511AC2E1420097CAE9 /* ShareSDK */,
+				5AB7C9811ACBC9C700217CAC /* CustomView */,
 				5A52FB371ACEBF220076DAE6 /* Category */,
+				63D31E881AB16EA00043B3CA /* Main */,
+				845514F81AC0327E00D588A7 /* Manager */,
+				845514E61ABFFAB500D588A7 /* BaseViewController */,
 				5A52FB701ACEBF220076DAE6 /* FindProduct */,
 				5A52FBB21ACEBF220076DAE6 /* Login */,
 				5A52FBC71ACEBF220076DAE6 /* Me */,
 				5A52FBF41ACEBF220076DAE6 /* Orders */,
-				5AB7C9811ACBC9C700217CAC /* CustomView */,
-				636C8B511AC2E1420097CAE9 /* ShareSDK */,
 				632613081AB1C16E003AC2DA /* Tool */,
-				845514F81AC0327E00D588A7 /* Manager */,
 				5A0058571ACEBD1E007AF362 /* Customers */,
-				845514E61ABFFAB500D588A7 /* BaseViewController */,
-				63D31E881AB16EA00043B3CA /* Main */,
 				5A076E951ACD8B270077611C /* ShouKebao */,
 				63D31E4E1AB143D00043B3CA /* Images.xcassets */,
 				63D31E501AB143D00043B3CA /* LaunchScreen.xib */,
@@ -1919,7 +1914,6 @@
 				633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */,
 				633263D51AB851590021553B /* AFNetworkReachabilityManager.m in Sources */,
 				632AF23B1AD3E523004916C0 /* SearchFootView.m in Sources */,
-				5A52FC4F1ACEBF220076DAE6 /* Person.m in Sources */,
 				5A52FC871ACEBF220076DAE6 /* CantactView.m in Sources */,
 				633263D41AB851590021553B /* AFHTTPSessionManager.m in Sources */,
 				63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */,

@@ -18,10 +18,11 @@
 @property (nonatomic,copy) NSString *ID;
 @property (weak, nonatomic) IBOutlet UITextField *tele;
 @property (nonatomic,copy) NSString *weChatStr;
+@property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (nonatomic,copy) NSString *QQStr;
 @property (nonatomic,copy) NSString *noteStr;
 @property (nonatomic,copy) NSString *teleStr;
-
+@property (nonatomic,copy) NSString *userNameStr;
 @property (nonatomic,strong) CustomModel *customMoel;
 
 - (IBAction)remond:(id)sender;

@@ -417,10 +417,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 1) {
-        return 52;
+        return 49;
     }
     if (tableView.tag == 3 ) {
-        return 54;
+        return 74;
     }
     
     if (tableView.tag == 4 ) {
@@ -432,17 +432,20 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if(tableView.tag == 1){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 52)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 49)];
         view.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];
         
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 48.5, self.leftTable.frame.size.width, 0.5)];
+        line.backgroundColor = [UIColor colorWithRed:184/255.f green:186/255.f blue:191/255.f alpha:1];
+        
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
-       img.frame = CGRectMake(6, 13, 23, 23);
+       img.frame = CGRectMake(11, 15, 20, 20);
         UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotBtnClick:)];
         [img addGestureRecognizer:tap];
         self.hotIcon = img;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(26, 9, 60, 30);
+        btn.frame = CGRectMake(32, 15, 60, 20);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:11];
@@ -458,6 +461,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
             view.backgroundColor = [UIColor whiteColor];
         }
+        [view addSubview:line];
         [view addSubview:img];
         [view addSubview:btn];
         self.subHotView = view;
@@ -465,7 +469,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     if (tableView.tag == 3) {
         HeaderView *header = [HeaderView headerView];
-        header.frame = CGRectMake(0, 0, 200, 54);
+        header.frame = CGRectMake(0, 0, 200, 74);
         header.delegate = self;
         return header;
     }if (tableView.tag == 4) {
@@ -488,13 +492,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
-        return 52;
+        return 49;
     }else if (tableView.tag == 2){
         return  104;
     }else if (tableView.tag == 3){
         return 59;
     }else if (tableView.tag == 4){
-        return 78;
+        return 88;
     }
     return 0;
 }

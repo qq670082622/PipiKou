@@ -107,7 +107,7 @@
                                     <color key="backgroundColor" white="0.78605587119999998" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
                                 <view contentMode="scaleToFill" id="tR1-md-mxk" userLabel="line2sub1">
-                                    <rect key="frame" x="0.0" y="7.5" width="249" height="0.5"/>
+                                    <rect key="frame" x="0.0" y="8" width="249" height="0.5"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.78605587119999998" alpha="1" colorSpace="calibratedWhite"/>
                                 </view>
@@ -123,10 +123,10 @@
                                 <outlet property="delegate" destination="-1" id="0Bf-bk-J0y"/>
                             </connections>
                         </tableView>
-                        <view contentMode="scaleToFill" id="XIz-vT-unq" userLabel="leftLine">
+                        <view alpha="0.49999999999999961" contentMode="scaleToFill" id="XIz-vT-unq" userLabel="leftLine">
                             <rect key="frame" x="-2" y="0.0" width="3" height="450"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="1gb-cJ-bfB">
                             <rect key="frame" x="1" y="0.0" width="249" height="35"/>
@@ -230,14 +230,14 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="hkW-tU-ycf" userLabel="line2sub1">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="0.5"/>
+                            <rect key="frame" x="0.0" y="1" width="320" height="1"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="0.78605587119999998" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="w1l-D9-2dA" userLabel="line2sub2">
                             <rect key="frame" x="0.0" y="9.5" width="320" height="0.5"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" white="0.78605587123030296" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="backgroundColor" white="0.84895833335151494" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                     </subviews>
                     <color key="backgroundColor" red="0.90980392156862744" green="0.91764705882352937" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
@@ -266,7 +266,7 @@
         </view>
     </objects>
     <resources>
-        <image name="backArrowLeft" width="38" height="66"/>
+        <image name="backArrowLeft" width="19" height="33"/>
         <image name="xiangyou" width="20" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

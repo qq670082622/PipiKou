@@ -25,11 +25,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
   self.title = @"批量添加客户";
-    self.table.rowHeight = 98;
+    self.table.rowHeight = 60;
     [self loadData];
     [self.table setEditing:YES animated:YES];
     [self setUpRightButton];
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     

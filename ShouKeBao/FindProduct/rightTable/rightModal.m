@@ -23,6 +23,7 @@
         self.rightDescrip = dict[@"Name"];
            self.rightPrice = dict[@"PersonPeerPrice"];
     self.productUrl = dict[@"LinkUrl"];
+    self.ShareInfo = dict[@"ShareInfo"];
 //    }
     return self;
 }

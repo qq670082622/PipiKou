@@ -16,17 +16,17 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="澳大利亚" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Gdw-iZ-6vV">
-                        <rect key="frame" x="25" y="10" width="160" height="40"/>
+                        <rect key="frame" x="33" y="10" width="160" height="40"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstAttribute="bottomMargin" secondItem="Gdw-iZ-6vV" secondAttribute="bottom" constant="0.5" id="83h-QD-JJX"/>
-                    <constraint firstItem="Gdw-iZ-6vV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="Lfl-X9-2fZ"/>
-                    <constraint firstItem="Gdw-iZ-6vV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="17" id="NFe-IQ-3TL"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="Gdw-iZ-6vV" secondAttribute="trailing" constant="28" id="tF9-i1-khN"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Gdw-iZ-6vV" secondAttribute="trailing" constant="20" id="BPe-pY-ogU"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Gdw-iZ-6vV" secondAttribute="bottom" constant="0.5" id="Pka-Co-6qC"/>
+                    <constraint firstItem="Gdw-iZ-6vV" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="dAU-9y-yDP"/>
+                    <constraint firstItem="Gdw-iZ-6vV" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="25" id="kOG-8V-a0A"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

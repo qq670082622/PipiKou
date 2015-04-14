@@ -21,6 +21,8 @@
 @property (weak, nonatomic) IBOutlet UIButton *quan;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
+
+@property (weak, nonatomic) IBOutlet UIView *blackView;
 @property (weak, nonatomic) IBOutlet UIView *btnLine;
 
 @end
@@ -32,11 +34,26 @@
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
     [self.webView loadRequest:request];
     [self customRightBarItem];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
     
 }
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)customRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
     
@@ -64,7 +81,9 @@
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
         if ([json[@"PageType"] isEqualToString:@"0"]) {
-           
+            self.checkCheapBtnOutlet.hidden = YES;
+           self.blackView.alpha = 0;
+            self.btnLine.hidden = YES;
             self.shareDic = json[@"ShareInfo"];
         }
         else if ([json[@"PageType"] isEqualToString:@"2" ]){
@@ -77,16 +96,17 @@
             [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
                 NSLog(@"产品详情json is %@",json);
                 NSString *testStr = json[@"Product"][@"PersonPeerPrice"];
-                if (testStr!=nil || testStr != NULL ) {
-                    self.cheapPrice.text = json[@"Product"][@"PersonPeerPrice"];
-                    self.profit.text = json[@"Product"][@"PersonProfit"];
-                    [self.jiafan setTitle:json[@"Product"][@"PersonBackPrice"] forState:UIControlStateNormal];
-                    [self.quan setTitle:json[@"Product"][@"PersonCashCoupon"] forState:UIControlStateNormal];
-                }
-                else if (testStr == nil && testStr == NULL)
-                {
-                    self.checkCheapBtnOutlet.hidden  = YES;
-                }
+//                if (testStr!=nil || testStr != NULL )
+//               {
+//                    self.cheapPrice.text = json[@"Product"][@"PersonPeerPrice"];
+//                    self.profit.text = json[@"Product"][@"PersonProfit"];
+//                    [self.jiafan setTitle:json[@"Product"][@"PersonBackPrice"] forState:UIControlStateNormal];
+//                    [self.quan setTitle:json[@"Product"][@"PersonCashCoupon"] forState:UIControlStateNormal];
+//                }
+//                else if (testStr == nil && testStr == NULL)
+//                              {
+//                    self.checkCheapBtnOutlet.hidden  = YES;
+//                }
             } failure:^(NSError *error) {
                 NSLog(@"同行价网络请求失败,%@",error);
             }];
@@ -158,9 +178,11 @@
     if (self.checkCheapBtnOutlet.selected == NO) {
         [self.checkCheapBtnOutlet setSelected:YES];
         self.subView.hidden = NO;
+        self.blackView.alpha = 0.5;
     }else if (self.checkCheapBtnOutlet.selected == YES){
         [self.checkCheapBtnOutlet setSelected:NO];
         self.subView.hidden = YES;
+        self.blackView.alpha = 0;
     }
     
 }

@@ -145,7 +145,7 @@
     searchVC.delegate = self;
     
    
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
@@ -557,7 +557,7 @@
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
         line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
         [view addSubview:line];
-        
+      
         view.backgroundColor = [UIColor whiteColor];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
@@ -573,8 +573,8 @@
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 35)];
         view.userInteractionEnabled = YES;
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-1, view.frame.size.width, 1)];
-        line.backgroundColor = [UIColor lightGrayColor];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
+        line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
         [view addSubview:line];
 
         view.backgroundColor = [UIColor whiteColor];
@@ -1024,10 +1024,11 @@
 
 - (IBAction)sunCancel:(id)sender {
    [UIView animateWithDuration:0.3 animations:^{
-       self.blackView.alpha = 0;
-       self.subView.alpha = 0;
+              self.subView.alpha = 0;
        self.subView.hidden = YES;
    }];
+    self.blackView.alpha = 0;
+
    }
 
 - (IBAction)subReset:(id)sender {
@@ -1042,12 +1043,16 @@
 }
 
 - (IBAction)subDone:(id)sender {
-    self.subView.hidden = YES;
-    self.blackView.hidden = YES;
-    [self recommond:sender];
-    [self.commondOutlet setSelected:YES];
-    self.profitOutlet.selected = NO;
-    self.cheapOutlet.selected = NO;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.subView.hidden = YES;
+        self.subView.alpha = 0;
+        
+        [self recommond:sender];
+        [self.commondOutlet setSelected:YES];
+        self.profitOutlet.selected = NO;
+        self.cheapOutlet.selected = NO;
+    }];
+self.blackView.alpha = 0;
 }
 
 - (IBAction)subMinMax:(id)sender {

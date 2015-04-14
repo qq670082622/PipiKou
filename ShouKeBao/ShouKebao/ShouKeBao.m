@@ -88,11 +88,7 @@
     
     [self customLeftBarItem];
     [self customRightBarItem];
-    self.searchBtn.layer.cornerRadius = 4;
-    self.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.searchBtn.layer.borderWidth = 0.5f;
-    self.searchBtn.layer.masksToBounds = YES;
-   
+    
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
