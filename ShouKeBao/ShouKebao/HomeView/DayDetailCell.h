@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MGSwipeTableCell.h"
 
 @class DayDetail;
 
-@interface DayDetailCell : UITableViewCell
+@interface DayDetailCell : MGSwipeTableCell
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 

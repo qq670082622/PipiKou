@@ -18,6 +18,9 @@
 
 @property (nonatomic,copy) NSString *bPrice;
 
+//  Desc Pic Title Url
+@property (nonatomic,strong) NSDictionary *shareInfo;
+
 + (instancetype)dayDetailWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

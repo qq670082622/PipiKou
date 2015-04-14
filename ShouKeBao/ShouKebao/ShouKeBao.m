@@ -36,6 +36,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "UIImageView+WebCache.h"
 #import "RemindDetailViewController.h"
+#import "OrderDetailViewController.h"
 
 #define FiveDay 432000
 
@@ -137,7 +138,7 @@
 }
 
 
--(NSMutableDictionary *)messageDic
+- (NSMutableDictionary *)messageDic
 {
     if (_messageDic == nil) {
         self.messageDic = [NSMutableDictionary dictionary];
@@ -145,7 +146,7 @@
     return _messageDic;
 }
 
--(void)getUserInformation
+- (void)getUserInformation
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
@@ -208,6 +209,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:237/255.0 alpha:1];
+        _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;
 }
@@ -247,8 +249,9 @@
                 }
                 
                 // 添加订单
+                int i = 0;
                 for (NSDictionary *dic in json[@"OrderList"]) {
-                    
+                    i ++;
                     HomeList *list = [HomeList homeListWithDict:dic];
                     
                     HomeBase *base = [[HomeBase alloc] init];
@@ -257,6 +260,9 @@
                     base.idStr = list.ID;
                     
                     [self.dataSource addObject:base];
+                    if (i == 10) {
+                        break;
+                    }
                 }
                 // 加载未查看的提醒
                 [self showOldRemind];
@@ -302,7 +308,7 @@
     }
 }
 
-// 显示过去 没有消失的提醒 避免一直刷新列表的解决办法
+// 显示过去没有消失的提醒 避免一直刷新列表的解决办法
 - (void)showOldRemind
 {
     NSArray *remindArr = [WriteFileManager readData:@"remindData"];
@@ -320,9 +326,9 @@
     }
 }
 
+// 去掉隐藏的数据
 - (void)cleanDataSource
 {
-    // 去掉隐藏的数据
     NSArray *hideData = [WriteFileManager readData:@"hideData"];
     for (int i = 0; i < self.dataSource.count; i ++) {
         HomeBase *new = self.dataSource[i];
@@ -525,6 +531,10 @@
     HomeBase *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[HomeList class]]) {
+        HomeList *order = model.model;
+        OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        detail.url = order.LinkUrl;
+        [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendViewController *rec = [[RecommendViewController alloc] init];
@@ -607,14 +617,17 @@
 - (void)didLookUpRemind
 {
     // 去除所有的提醒 重新添加 目前不能一个个加
-    for (HomeBase *base in self.dataSource){
+    NSMutableArray *tmp = self.dataSource.copy;
+    for (int i = 0; i < tmp.count; i ++) {
+        HomeBase *base = tmp[i];
         if ([base.model isKindOfClass:[remondModel class]]) {
             [self.dataSource removeObject:base];
-            break;
         }
     }
     
     [self showOldRemind];
+    
+    [self sortDataSource];
     [self.tableView reloadData];
 }
 

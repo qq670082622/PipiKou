@@ -20,9 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
-    self.isCurrent = YES;
     
-    [self calendarConfigure];
 }
 
 - (void)viewDidAppear:(BOOL)animated
@@ -31,18 +29,9 @@
 }
 
 #pragma mark - private
-- (void)calendarConfigure
-{
-   
-}
+
 
 #pragma mark - getter
-
-
-#pragma mark - JTCalendarDataSource
-
-
-#pragma mark - FSCalendarDelegate
 
 
 @end

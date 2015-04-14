@@ -47,6 +47,8 @@
  */
 @property (nonatomic,copy) NSString *ShowType;
 
+@property (nonatomic,copy) NSString *LinkUrl;
+
 + (instancetype)homeListWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

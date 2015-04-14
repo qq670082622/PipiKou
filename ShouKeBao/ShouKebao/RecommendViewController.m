@@ -11,12 +11,24 @@
 #import "HomeHttpTool.h"
 #import "SearchProductViewController.h"
 #import "StationSelect.h"
+#import "DayDetail.h"
+#import "MGSwipeTableCell.h"
+#import "MGSwipeButton.h"
+#import "MJRefresh.h"
+#import <ShareSDK/ShareSDK.h>
+#import "MBProgressHUD+MJ.h"
 
-@interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate>
+#define pageSize @"10"
+
+@interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
 
 @property (nonatomic,strong) UITableView *tableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
+
+@property (nonatomic,assign) NSInteger pageIndex;
+
+@property (nonatomic,assign) BOOL isRefresh;
 
 @end
 
@@ -24,9 +36,19 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
+    self.automaticallyAdjustsScrollViewInsets = NO;
+    self.pageIndex = 1;
     
-    [self setupHead];
+    //下啦刷新
+    [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
+    
+    //设置文字
+    self.tableView.headerPullToRefreshText = @"下拉刷新";
+    self.tableView.headerRefreshingText = @"正在刷新中";
+    
+    
     
     [self setupFoot];
     
@@ -38,16 +60,28 @@
     [super viewWillAppear:animated];
     
     self.view.window.backgroundColor = [UIColor clearColor];
+    
+    [self setupHead];
 }
 
 #pragma mark - private
 - (void)loadDataSource
 {
-    NSDictionary *param = @{@"PageSize":@"1",
-                            @"PageIndex":@"5"};
+    NSDictionary *param = @{@"PageSize":pageSize,
+                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex]};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
+        [self.tableView headerEndRefreshing];
         if (json) {
             NSLog(@"aaaaaaaa  %@",json);
+            if (self.isRefresh) {
+                [self.dataSource removeAllObjects];
+            }
+            
+            for (NSDictionary *dic in json[@"ProductList"]) {
+                DayDetail *detail = [DayDetail dayDetailWithDict:dic];
+                [self.dataSource addObject:detail];
+            }
+            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         
@@ -63,7 +97,9 @@
     UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 50, 30)];
     [station setBackgroundImage:[UIImage imageNamed:@"fenzhan"] forState:UIControlStateNormal];
     [station addTarget:self action:@selector(selectStation:) forControlEvents:UIControlEventTouchUpInside];
-    [station setTitle:@"    上海" forState:UIControlStateNormal];
+    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+    NSString *subStationName = [udf stringForKey:@"SubstationName"];
+    [station setTitle:[NSString stringWithFormat:@"    %@",subStationName] forState:UIControlStateNormal];
     [station setTitleColor:[UIColor colorWithRed:91/255.0 green:155/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
     station.titleLabel.font = [UIFont systemFontOfSize:12];
     [cover addSubview:station];
@@ -83,8 +119,13 @@
 {
     // 加载更多
     UIButton *more = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
+    [more setTitle:@"查看更多产品" forState:UIControlStateNormal];
     [more setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
     [more addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
+    sep.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
+    [more addSubview:sep];
     
     self.tableView.tableFooterView = more;
 }
@@ -103,10 +144,46 @@
     [self.navigationController pushViewController:searchVC animated:YES];
 }
 
+// 刷新列表
+- (void)headRefresh
+{
+    self.isRefresh = YES;
+    self.pageIndex = 1;
+    [self loadDataSource];
+}
+
 // 加载更多
 - (void)loadMore:(UIButton *)sender
 {
+    self.isRefresh = NO;
+    self.pageIndex ++;
+    [self loadDataSource];
+}
+
+// 右边滑动的按钮
+- (NSArray *)createRightButtons
+{
+    NSMutableArray * result = [NSMutableArray array];
+    UIColor * color = [UIColor whiteColor];
     
+    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"滑动隐藏<<" backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
+        NSLog(@"Convenience callback received (right).");
+        return YES;
+    }];
+    
+    CGRect frame = button.frame;
+    frame.size.width = 50;
+    button.frame = frame;
+    
+    button.enabled = YES;
+    [button setImage:[UIImage imageNamed:@"fenx"] forState:UIControlStateNormal];
+    
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 64)];
+    sep.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+    [button addSubview:sep];
+    [result addObject:button];
+    
+    return result;
 }
 
 #pragma mark - getter
@@ -121,10 +198,11 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 40)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 104)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 70;
+        _tableView.rowHeight = 80;
+        _tableView.separatorInset = UIEdgeInsetsZero;
     }
     return _tableView;
 }
@@ -138,10 +216,75 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView];
+    cell.delegate = self;
+    
+    DayDetail *detail = self.dataSource[indexPath.row];
+    cell.detail = detail;
     
     return cell;
 }
 
 #pragma mark - UITableViewDelegate
+
+#pragma mark - MGSwipeTableCellDelegate
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
+{
+    return YES;
+}
+
+- (NSArray *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
+{
+    swipeSettings.transition = MGSwipeTransitionStatic;
+    if (direction == MGSwipeDirectionRightToLeft) {
+        return [self createRightButtons];
+    }
+    return [NSArray array];
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    // 取出模型
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    DayDetail *detail = self.dataSource[indexPath.row];
+    NSDictionary *tmp = detail.shareInfo;
+    
+    //构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:tmp[@"Title"]
+                                       defaultContent:tmp[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:tmp[@"Pic"]]
+                                                title:tmp[@"Title"]
+                                                  url:tmp[@"Url"]                                          description:tmp[@"Desc"]
+                                            mediaType:SSPublishContentMediaTypeNews];
+    //创建弹出菜单容器
+    id<ISSContainer> container = [ShareSDK container];
+//    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
+    
+    //弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:nil
+                      shareOptions:nil
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    
+                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                        [MBProgressHUD hideHUD];
+                                    });
+                                    
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }
+                            }];
+
+    
+    return YES;
+}
 
 @end

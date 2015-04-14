@@ -134,6 +134,7 @@
 		5A52FC921ACEBF220076DAE6 /* SKSearckDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */; };
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
+		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
 		5AB725781AD611E80044B318 /* QDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725771AD611E80044B318 /* QDMenu.m */; };
@@ -149,7 +150,6 @@
 		5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */; };
 		5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */; };
 		5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */; };
-		5AED0A131ADB5C5400B0E0E5 /* DayDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AED0A111ADB5C5400B0E0E5 /* DayDetailCell.xib */; };
 		5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A151ADB604C00B0E0E5 /* DayDetail.m */; };
 		5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
@@ -486,6 +486,8 @@
 		5A62B4921AD3DD7500DFF567 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		5A62B4941AD3DEE800DFF567 /* TravelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelButton.h; sourceTree = "<group>"; };
 		5A62B4951AD3DEE800DFF567 /* TravelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelButton.m; sourceTree = "<group>"; };
+		5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDayViewController.h; sourceTree = "<group>"; };
+		5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseDayViewController.m; sourceTree = "<group>"; };
 		5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBaoCell.h; sourceTree = "<group>"; };
 		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
 		5A82161A1AD3843B009388DA /* HomeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeList.h; sourceTree = "<group>"; };
@@ -515,7 +517,6 @@
 		5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
 		5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailCell.h; sourceTree = "<group>"; };
 		5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetailCell.m; sourceTree = "<group>"; };
-		5AED0A111ADB5C5400B0E0E5 /* DayDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayDetailCell.xib; sourceTree = "<group>"; };
 		5AED0A141ADB604C00B0E0E5 /* DayDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetail.h; sourceTree = "<group>"; };
 		5AED0A151ADB604C00B0E0E5 /* DayDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetail.m; sourceTree = "<group>"; };
 		5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRemindCell.h; sourceTree = "<group>"; };
@@ -1175,6 +1176,8 @@
 				5A52FBFC1ACEBF220076DAE6 /* OrderDetailViewController.m */,
 				5A52FC021ACEBF220076DAE6 /* Orders.h */,
 				5A52FC031ACEBF220076DAE6 /* Orders.m */,
+				5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */,
+				5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */,
 			);
 			path = Orders;
 			sourceTree = "<group>";
@@ -1272,7 +1275,6 @@
 				5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */,
 				5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */,
 				5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */,
-				5AED0A111ADB5C5400B0E0E5 /* DayDetailCell.xib */,
 				5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */,
 				5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */,
 			);
@@ -1842,7 +1844,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */,
-				5AED0A131ADB5C5400B0E0E5 /* DayDetailCell.xib in Resources */,
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
 				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
 				5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */,
@@ -1926,6 +1927,7 @@
 				632BFFFB1AB92A3A003B15AD /* SDWebImagePrefetcher.m in Sources */,
 				5A52FC891ACEBF220076DAE6 /* DetailView.m in Sources */,
 				5A52FC691ACEBF220076DAE6 /* ModifyPwdViewController.m in Sources */,
+				5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */,
 				63B8C7021ACE917E00328C8C /* messageModel.m in Sources */,
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
 				632BFFCF1AB91FD3003B15AD /* GTMBase65.m in Sources */,
@@ -2228,7 +2230,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = ShouKeBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2255,7 +2257,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = ShouKeBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",

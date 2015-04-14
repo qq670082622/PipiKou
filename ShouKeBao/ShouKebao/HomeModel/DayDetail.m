@@ -22,7 +22,11 @@
     if (self) {
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:dict];
         
-        
+        self.icon = muta[@"PicUrl"];
+        self.title = muta[@"Name"];
+        self.aPrice = muta[@"PersonPrice"];
+        self.bPrice = muta[@"PersonPeerPrice"];
+        self.shareInfo = muta[@"ShareInfo"];
     }
     return self;
     

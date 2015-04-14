@@ -68,6 +68,7 @@
     NSString *json = [StrToDic jsonStringWithDicL:tmp];
     request.HTTPBody = [json dataUsingEncoding:NSUTF8StringEncoding];
     request.HTTPMethod = @"POST";
+    request.timeoutInterval = 10;
     
     NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
     if (data) {

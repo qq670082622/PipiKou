@@ -125,8 +125,12 @@
                 
                 [UserInfo userInfoWithDict:json];
                 
-                [def setObject:json[@"ShowName"] forKey:@"showname"];
-                [def setObject:json[@"LoginAvatar"] forKey:@"loginavatar"];
+                if (![json[@"ShowName"] isKindOfClass:[NSNull class]]) {
+                    [def setObject:json[@"ShowName"] forKey:@"ShowName"];
+                }
+                if (![json[@"LoginAvatar"] isKindOfClass:[NSNull class]]) {
+                    [def setObject:json[@"LoginAvatar"] forKey:@"loginavatar"];
+                }
                 
                 if (![json[@"BusinessList"] isKindOfClass:[NSNull class]]) {
                     

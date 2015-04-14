@@ -43,10 +43,10 @@
     // 设置头部图标
     [self setupHeader];
     
+//    self.accountField.text = @"gaowei@pipikou.com";
+//    self.passwordField.text = @"123456";
     self.accountField.text = @"lxstest";
     self.passwordField.text = @"123456";
-//    self.accountField.text = @"18767155187";
-//    self.passwordField.text = @"222222";
     
     [self setWithName:[[NSUserDefaults standardUserDefaults] objectForKey:@"showname"]];
 }

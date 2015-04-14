@@ -22,6 +22,7 @@
     [aCoder encodeObject:self.Price forKey:@"Price"];
     [aCoder encodeObject:self.ProductName forKey:@"ProductName"];
     [aCoder encodeObject:self.ShowType forKey:@"ShowType"];
+    [aCoder encodeObject:self.LinkUrl forKey:@"LinkUrl"];
 }
 
 
@@ -37,6 +38,7 @@
         self.Price =  [aDecoder decodeObjectForKey:@"Price"];
         self.ProductName =  [aDecoder decodeObjectForKey:@"ProductName"];
         self.ShowType =  [aDecoder decodeObjectForKey:@"ShowType"];
+        self.LinkUrl = [aDecoder decodeObjectForKey:@"LinkUrl"];
     }
     
     return self;
@@ -62,6 +64,7 @@
         self.Price = muta[@"Price"];
         self.ProductName = muta[@"ProductName"];
         self.ShowType = muta[@"ShowType"];
+        self.LinkUrl = muta[@"LinkUrl"];
     }
     return self;
 }
