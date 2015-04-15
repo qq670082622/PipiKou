@@ -85,7 +85,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"理订单";
-    self.view.window.windowLevel = UIWindowLevelAlert;
     [self.dataArr removeAllObjects];// 进来时清空数组 心情舒畅些
     self.pageIndex = 1;// 页码从1开始
     self.view.backgroundColor = [UIColor whiteColor];
@@ -238,7 +237,6 @@
     
     // 筛选视图
     [cover addSubview:self.dressView];
-    self.view.window.windowLevel = UIWindowLevelAlert;
     [self.view.window addSubview:cover];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -249,7 +247,6 @@
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {
-    self.view.window.windowLevel = UIWindowLevelNormal;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -596,7 +593,6 @@
 #pragma mark - DressViewDelegate
 - (void)wantToPushAreaWithType:(areaType)type
 {
-    self.view.window.windowLevel = UIWindowLevelNormal;
     AreaViewController *area = [[AreaViewController alloc] init];
     area.delegate = self;
     
@@ -651,9 +647,10 @@
 
 - (void)didSelectedTimeWithType:(timeType)type
 {
-    self.cover.hidden = YES;
     ChooseDayViewController *choose = [[ChooseDayViewController alloc] init];
     choose.type = type;
+    choose.delegate = self;
+    self.cover.hidden = YES;
     [self.navigationController pushViewController:choose animated:YES];
 }
 
@@ -667,12 +664,13 @@
         self.createDateStart = timeArr[0];
         self.createDateEnd = timeArr[1];
     }
+    self.cover.hidden = NO;
+    [self.dressView.tableView reloadData];
 }
 
 #pragma mark - Notification
 - (void)clickBack:(NSNotification *)noty
 {
-    self.view.window.windowLevel = UIWindowLevelNormal;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -698,7 +696,6 @@
 
 - (void)clickConfirm:(NSNotification *)noty
 {
-    self.view.window.windowLevel = UIWindowLevelNormal;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
