@@ -17,13 +17,14 @@
 - (IBAction)checkCheapPrice:(id)sender;
 @property (weak, nonatomic) IBOutlet UILabel *cheapPrice;
 @property (weak, nonatomic) IBOutlet UILabel *profit;
-@property (weak, nonatomic) IBOutlet UIButton *jiafan;
-@property (weak, nonatomic) IBOutlet UIButton *quan;
+@property (weak, nonatomic) IBOutlet UILabel *jiafan;
+@property (weak, nonatomic) IBOutlet UILabel *quan;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
 
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 @property (weak, nonatomic) IBOutlet UIView *btnLine;
+@property (weak,nonatomic)  IBOutlet UILabel *offLineLabel;
 
 @end
 
@@ -86,8 +87,8 @@
             self.btnLine.hidden = YES;
             self.shareDic = json[@"ShareInfo"];
         }
-        else if ([json[@"PageType"] isEqualToString:@"2" ]){
-            self.checkCheapBtnOutlet.hidden = NO;
+        else if ([json[@"PageType"] isEqualToString:@"2"]){
+          self.checkCheapBtnOutlet.hidden = NO;
             self.btnLine.hidden = NO;
             NSMutableString *productID = [NSMutableString string];
             productID = json[@"ProductID"];
@@ -95,18 +96,25 @@
             [dic setObject:productID forKey:@"ProductID"];
             [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
                 NSLog(@"产品详情json is %@",json);
-                NSString *testStr = json[@"Product"][@"PersonPeerPrice"];
-//                if (testStr!=nil || testStr != NULL )
-//               {
-//                    self.cheapPrice.text = json[@"Product"][@"PersonPeerPrice"];
-//                    self.profit.text = json[@"Product"][@"PersonProfit"];
-//                    [self.jiafan setTitle:json[@"Product"][@"PersonBackPrice"] forState:UIControlStateNormal];
-//                    [self.quan setTitle:json[@"Product"][@"PersonCashCoupon"] forState:UIControlStateNormal];
-//                }
-//                else if (testStr == nil && testStr == NULL)
-//                              {
-//                    self.checkCheapBtnOutlet.hidden  = YES;
-//                }
+                NSString *personPrice = json[@"Product"][@"PersonPrice"];
+                if (personPrice.length>2) {
+                  
+                    self.cheapPrice.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonPeerPrice"]];
+                    self.profit.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonProfit"]];
+                   
+                    self.jiafan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonBackPrice"]];
+                   
+                    self.quan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonCashCoupon"]];
+                
+                }else if (personPrice.length<3){
+                    self.btnLine.hidden = NO;
+                    self.checkCheapBtnOutlet.hidden = YES;
+                    self.blackView.hidden = YES;
+                    self.offLineLabel.hidden = NO;
+                }
+
+                
+                
             } failure:^(NSError *error) {
                 NSLog(@"同行价网络请求失败,%@",error);
             }];

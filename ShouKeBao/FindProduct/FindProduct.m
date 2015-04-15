@@ -248,10 +248,10 @@
 -(void)loadHotData
 {
 
-[self.hotArr removeAllObjects];
 [IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
     NSLog(@"---------热卖返回json is %@--------",json);
-   
+   [self.hotArr removeAllObjects];
+    
    // [self.hotSectionArr removeAllObjects];
     NSMutableArray *hotDicNameArr = [NSMutableArray array];
     for (NSDictionary *dic in json[@"RankingProdctList"]) {
@@ -261,7 +261,7 @@
    
     
     NSLog(@"hotSectionArr is %@",_hotSectionArr);
-    //[self.hotArr removeAllObjects];
+    
     for (NSDictionary *dic in json[@"RankingProdctList"]) {
         NSMutableArray *tmp = [NSMutableArray array];
 for (NSDictionary *dict in dic[@"ProductList"]) {

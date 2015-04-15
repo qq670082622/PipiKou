@@ -21,6 +21,8 @@
 @end
 
 @implementation AppDelegate
+// NSString *string = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/us/app/id%@?mt=8", @"797395756"];
+//[[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];根据ID跳转到appstore
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {

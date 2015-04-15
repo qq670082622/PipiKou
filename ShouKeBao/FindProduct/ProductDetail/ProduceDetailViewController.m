@@ -21,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]];
+    NSLog(@"--------link is %@",_produceUrl);
     [self.webView loadRequest:request];
     [self customRightBarItem];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
