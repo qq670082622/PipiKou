@@ -5,7 +5,7 @@
 //  Created by David on 15/3/17.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
-#define titleWid 15/32
+#define titleWid 3/5
 #import "ProductList.h"
 #import "ProductCell.h"
 #import "ProductModal.h"
@@ -127,8 +127,8 @@
     // UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 14, 14)];
     //imgv.image = [UIImage imageNamed:@"fdjBtn"];
     btn2.frame = CGRectMake(28, 0, self.view.frame.size.width*titleWid-28, 34);
-    [btn2 setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, self.view.frame.size.width*titleWid/4)];
-    [btn2 setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0,self.view.frame.size.width*titleWid/2)];
+    [btn2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
+
     [btn2 setTitle:[NSString stringWithFormat:@"%@",_pushedSearchK] forState:UIControlStateNormal];
     btn2.titleLabel.font = [UIFont systemFontOfSize:15];
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
