@@ -28,6 +28,8 @@
     
     NSArray *tmp = @[@"出发日期",@"返回日期"];
     self.dataSource = [NSMutableArray arrayWithArray:tmp];
+    
+    [self setFoot];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -39,6 +41,12 @@
             [_delegate finishChoosedTimeArr:self.dataSource andType:self.type];
         }
     }
+}
+
+#pragma mark - private
+- (void)setFoot
+{
+    
 }
 
 #pragma mark - tableviewdatasource

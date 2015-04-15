@@ -94,8 +94,9 @@
     calendarView.date = [NSDate date];
     calendarView.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year){
         
-        [self dismissViewControllerAnimated:YES completion:nil];
+        
         self.selectedDate = [NSString stringWithFormat:@"%li-%li-%li",(long)year,(long)month,(long)day];
+        [self dismissViewControllerAnimated:YES completion:nil];
     };
     
     // other month
@@ -113,8 +114,9 @@
         
         ca.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year){
             
-            [self dismissViewControllerAnimated:YES completion:nil];
+            
             self.selectedDate = [NSString stringWithFormat:@"%li-%li-%li",(long)year,(long)month,(long)day];
+            [self dismissViewControllerAnimated:YES completion:nil];
         };
         //        if (i%2 == 0) {
         //            ca.backgroundColor = [UIColor whiteColor];
