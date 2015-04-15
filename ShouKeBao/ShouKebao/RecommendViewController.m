@@ -97,9 +97,15 @@
     UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 50, 30)];
     [station setBackgroundImage:[UIImage imageNamed:@"fenzhan"] forState:UIControlStateNormal];
     [station addTarget:self action:@selector(selectStation:) forControlEvents:UIControlEventTouchUpInside];
+    
+    // 取出储存的分站
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     [station setTitle:[NSString stringWithFormat:@"    %@",subStationName] forState:UIControlStateNormal];
+    if (!subStationName) {
+        [station setTitle:@"    上海" forState:UIControlStateNormal];
+    }
+    
     [station setTitleColor:[UIColor colorWithRed:91/255.0 green:155/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
     station.titleLabel.font = [UIFont systemFontOfSize:12];
     [cover addSubview:station];

@@ -15,8 +15,8 @@ typedef enum : NSUInteger {
 } areaType;
 
 typedef enum : NSUInteger {
-    timePick,
-    datePick,
+    timePick,// 出发时间选择
+    datePick,// 创建时间选择
 } timeType;
 
 @class DressView;

@@ -7,12 +7,19 @@
 //
 
 #import "SKViewController.h"
-#import "DressView.h"
+
+@protocol CalendarViewControllerDelegate <NSObject>
+
+- (void)didSelectedDate:(NSString *)date atIndex:(NSInteger)index;
+
+@end
 
 @interface CalendarViewController : SKViewController
 
-@property (nonatomic,assign) timeType type;
-
 @property (nonatomic,copy) NSString *selectedDate;
+
+@property (nonatomic,assign) NSInteger index;
+
+@property (nonatomic,weak) id<CalendarViewControllerDelegate> delegate;
 
 @end

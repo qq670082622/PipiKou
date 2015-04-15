@@ -170,10 +170,9 @@
     _selectButton = dayBtn;
     
     NSInteger day = [[dayBtn titleForState:UIControlStateNormal] integerValue];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSWeekdayCalendarUnit | NSWeekOfMonthCalendarUnit | NSWeekOfYearCalendarUnit) fromDate:self.date];
     
-    [calendar setFirstWeekday:1]; // Sunday == 1, Saturday == 7
     NSLog(@"Adjusted weekday ordinal: %lu", (unsigned long)comp.weekday);
     if (self.calendarBlock) {
         self.calendarBlock(day, [comp month], [comp year]);

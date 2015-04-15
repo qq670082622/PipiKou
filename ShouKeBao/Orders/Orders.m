@@ -30,10 +30,11 @@
 
 #define pageSize 10
 
-@interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate>
+@interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,assign) int pageIndex;// 当前页
+@property (nonatomic,assign) BOOL added;
 
 @property (nonatomic,strong) MenuButton *menuButton;
 @property (nonatomic,strong) QDMenu *qdmenu;
@@ -46,6 +47,12 @@
 @property (nonatomic,copy) NSString *choosedTime;// 选择的时间
 @property (nonatomic,copy) NSString *choosedStatus;// 选择的状态
 
+@property (nonatomic,copy) NSString *goDateStart;
+@property (nonatomic,copy) NSString *goDateEnd;
+
+@property (nonatomic,copy) NSString *createDateStart;
+@property (nonatomic,copy) NSString *createDateEnd;
+
 @property (nonatomic,strong) NSMutableArray *firstAreaData;
 @property (nonatomic,strong) NSDictionary *firstValue;// 选择大区以后获取值
 @property (nonatomic,strong) NSDictionary *secondValue;// 选择二级区获取的值
@@ -57,7 +64,7 @@
 @property (nonatomic,weak) UIView *cover;
 
 
-@property (nonatomic,weak) UIView *sep1;// 开始搜索的边界线
+//@property (nonatomic,weak) UIView *sep1;// 开始搜索的边界线
 @property (nonatomic,weak) UIView *sep2;
 
 @property (nonatomic,strong) SKSearchBar *searchBar;
@@ -86,6 +93,10 @@
     self.choosedTime = @"";
     self.choosedStatus = @"0";
     self.searchKeyWord = @"";
+    self.goDateStart = @"";
+    self.goDateEnd = @"";
+    self.createDateStart = @"";
+    self.createDateEnd = @"";
     
     // 导航按钮
     [self customRightBarItem];
@@ -180,13 +191,13 @@
                             @"KeyWord":self.searchKeyWord,
                             @"CreatedDateRang":self.choosedTime,
                             @"State":self.choosedStatus,
-                            @"GoDateStart":@"",
-                            @"GoDateEnd":@"",
+                            @"GoDateStart":self.goDateStart,
+                            @"GoDateEnd":self.goDateEnd,
                             @"FirstLevelArea":first,
                             @"SecondLevelAreaID":second,
                             @"ThirdLevelAreaID":third,
-                            @"CreatedDateStart":@"",
-                            @"CreatedDateEnd":@"",
+                            @"CreatedDateStart":self.createDateStart,
+                            @"CreatedDateEnd":self.createDateEnd,
                             @"IsRefund":[NSString stringWithFormat:@"%d",self.dressView.IsRefund.on]};
     [OrderTool getOrderListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
@@ -241,6 +252,7 @@
     
     // 筛选视图
     [cover addSubview:self.dressView];
+    self.view.window.windowLevel = UIWindowLevelAlert;
     [self.view.window addSubview:cover];
     
     [UIView animateWithDuration:0.3 animations:^{
@@ -251,6 +263,7 @@
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {
+    self.view.window.windowLevel = UIWindowLevelNormal;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -597,6 +610,7 @@
 #pragma mark - DressViewDelegate
 - (void)wantToPushAreaWithType:(areaType)type
 {
+    self.view.window.windowLevel = UIWindowLevelNormal;
     AreaViewController *area = [[AreaViewController alloc] init];
     area.delegate = self;
     
@@ -653,12 +667,26 @@
 {
     self.cover.hidden = YES;
     ChooseDayViewController *choose = [[ChooseDayViewController alloc] init];
+    choose.type = type;
     [self.navigationController pushViewController:choose animated:YES];
+}
+
+#pragma mark - ChooseDayViewControllerDelegate
+- (void)finishChoosedTimeArr:(NSMutableArray *)timeArr andType:(timeType)type
+{
+    if (type == timePick) {
+        self.goDateStart = timeArr[0];
+        self.goDateEnd = timeArr[1];
+    }else{
+        self.createDateStart = timeArr[0];
+        self.createDateEnd = timeArr[1];
+    }
 }
 
 #pragma mark - Notification
 - (void)clickBack:(NSNotification *)noty
 {
+    self.view.window.windowLevel = UIWindowLevelNormal;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -684,6 +712,7 @@
 
 - (void)clickConfirm:(NSNotification *)noty
 {
+    self.view.window.windowLevel = UIWindowLevelNormal;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
@@ -738,7 +767,6 @@
 // 这个方法里面纯粹调样式
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    UITextField *field;
     for (UIView *searchbuttons in [[searchBar.subviews objectAtIndex:0] subviews])
     {
         if ([searchbuttons isKindOfClass:[UIButton class]])
@@ -750,20 +778,12 @@
             [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
             [attr addAttributes:muta range:NSMakeRange(0, 2)];
             [cancelButton setAttributedTitle:attr forState:UIControlStateNormal];
+            NSLog(@"----%@",searchbuttons);
             break;
         }else{
-            if ([searchbuttons isKindOfClass:[UITextField class]]) {
-                field = (UITextField *)searchbuttons;
-            }
+            NSLog(@"----%@",searchbuttons);
         }
     }
-    
-    CGFloat sepX = CGRectGetMaxX(field.frame);
-    UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 1, 34)];
-    sep2.backgroundColor = [UIColor lightGrayColor];
-    sep2.alpha = 0.3;
-    [self.view.window addSubview:sep2];
-    self.sep2 = sep2;
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
@@ -818,14 +838,21 @@
      self.searchBar.barTintColor = [UIColor whiteColor];
     
     // 边界线
-    UIView *sep1 = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 1)];
-    sep1.backgroundColor = [UIColor lightGrayColor];
-    sep1.alpha = 0.3;
-    [self.view.window addSubview:sep1];
-    self.sep1 = sep1;
+//    UIView *sep1 = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 1)];
+//    sep1.backgroundColor = [UIColor lightGrayColor];
+//    sep1.alpha = 0.3;
+//    [self.view.window addSubview:sep1];
+//    self.sep1 = sep1;
+    
+    CGFloat sepX = self.view.frame.size.width - 57;
+    UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 0.5, 34)];
+    sep2.backgroundColor = [UIColor lightGrayColor];
+    sep2.alpha = 0.3;
+    [self.view.window addSubview:sep2];
+    self.sep2 = sep2;
     
     // 历史记录的界面
-    HistoryView *historyView = [[HistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height - 64)];
+    HistoryView *historyView = [[HistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height + 49)];
     historyView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
     [self.view.window addSubview:historyView];
     self.historyView = historyView;
@@ -840,7 +867,7 @@
     //        }];
     //    }
     
-    [self.sep1 removeFromSuperview];
+//    [self.sep1 removeFromSuperview];
     [self.sep2 removeFromSuperview];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;

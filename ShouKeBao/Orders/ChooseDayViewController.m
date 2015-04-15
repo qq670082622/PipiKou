@@ -10,9 +10,11 @@
 #import "CalendarViewController.h"
 #import "WMNavigationController.h"
 
-@interface ChooseDayViewController ()
+@interface ChooseDayViewController ()<CalendarViewControllerDelegate>
 
-@property (nonatomic,strong) NSArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *dataSource;
+
+@property (nonatomic,assign) BOOL isSelected;// 是否选择
 
 @end
 
@@ -22,8 +24,21 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
+    self.isSelected = NO;
     
-    self.dataSource = @[@"出发日期",@"返回日期"];
+    NSArray *tmp = @[@"出发日期",@"返回日期"];
+    self.dataSource = [NSMutableArray arrayWithArray:tmp];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.isSelected) {
+        if (_delegate && [_delegate respondsToSelector:@selector(finishChoosedTimeArr:andType:)]) {
+            [_delegate finishChoosedTimeArr:self.dataSource andType:self.type];
+        }
+    }
 }
 
 #pragma mark - tableviewdatasource
@@ -51,9 +66,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     CalendarViewController *calendar = [[CalendarViewController alloc] init];
-    
+    calendar.delegate = self;
+    calendar.index = indexPath.row;
     WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:calendar];
     [self presentViewController:nav animated:YES completion:nil];
+}
+
+#pragma mark - CalendarViewControllerDelegate
+- (void)didSelectedDate:(NSString *)date atIndex:(NSInteger)index
+{
+    self.isSelected = YES;
+    [self.dataSource replaceObjectAtIndex:index withObject:date];
+    [self.tableView reloadData];
 }
 
 @end

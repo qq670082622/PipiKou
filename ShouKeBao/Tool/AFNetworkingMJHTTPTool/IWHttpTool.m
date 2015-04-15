@@ -38,14 +38,17 @@
     }else if (!subStation){
         [tmp setObject:@"10" forKey:@"Substation"];
     }
-
- 
-    if ([UserInfo shareUser].BusinessID) {
-        [tmp setObject:[UserInfo shareUser].BusinessID forKey:@"BusinessID"];
-        [tmp setObject:[UserInfo shareUser].DistributionID forKey:@"DistributionID"];
+    
+    NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];
+    NSString *distributionId = [accoutDefault objectForKey:@"DistributionID"];
+    if (businessId || distributionId) {
+        [tmp setObject:businessId forKey:@"BusinessID"];
+        [tmp setObject:distributionId forKey:@"DistributionID"];
     }
-    if ([UserInfo shareUser].loginType) {
-        [tmp setObject:[UserInfo shareUser].loginType forKey:@"LoginType"];
+    
+    NSString *loginType = [accoutDefault objectForKey:@"LoginType"];
+    if (loginType) {
+        [tmp setObject:loginType forKey:@"LoginType"];
     }
     [tmp addEntriesFromDictionary:params];
    

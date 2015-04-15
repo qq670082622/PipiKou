@@ -7,7 +7,18 @@
 //
 
 #import "SKTableViewController.h"
+#import "DressView.h"
+
+@protocol ChooseDayViewControllerDelegate <NSObject>
+
+- (void)finishChoosedTimeArr:(NSMutableArray *)timeArr andType:(timeType)type;
+
+@end
 
 @interface ChooseDayViewController : SKTableViewController
+
+@property (nonatomic,assign) timeType type;
+
+@property (nonatomic,weak) id<ChooseDayViewControllerDelegate> delegate;
 
 @end

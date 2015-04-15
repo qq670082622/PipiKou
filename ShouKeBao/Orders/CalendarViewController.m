@@ -28,6 +28,17 @@
     [self setNavBar];
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.selectedDate) {
+        if (_delegate && [_delegate respondsToSelector:@selector(didSelectedDate:atIndex:)]) {
+            [_delegate didSelectedDate:self.selectedDate atIndex:self.index];
+        }
+    }
+}
+
 - (void)setNavBar
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];

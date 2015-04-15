@@ -9,7 +9,7 @@
 #import "HistoryView.h"
 #import "WriteFileManager.h"
 
-@interface HistoryView() <UITableViewDataSource,UITableViewDelegate>
+@interface HistoryView() <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) UITableView *TableView;
 
@@ -112,6 +112,12 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01f;
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.window endEditing:YES];
 }
 
 #pragma mark - private

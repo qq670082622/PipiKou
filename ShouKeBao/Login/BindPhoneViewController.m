@@ -16,6 +16,7 @@
 #import "Business.h"
 
 @interface BindPhoneViewController () <UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIButton *codeBtn;
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNum;// 手机号
 
@@ -27,6 +28,8 @@
 
 @property (nonatomic,strong) NSMutableArray *businessList;// 旅行社列表
 
+
+@property (nonatomic,assign) NSInteger count;
 @end
 
 @implementation BindPhoneViewController
@@ -37,6 +40,7 @@
     self.nextBtn.layer.cornerRadius = 25;
     self.nextBtn.layer.masksToBounds = YES;
     self.nextBtn.enabled = NO;
+    [self.nextBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
     
     // 设置头部图标
     [self setupHeader];
@@ -96,17 +100,36 @@
     if (self.phoneNum.text.length) {
         
         NSDictionary *param = @{@"Mobile" :self.phoneNum.text};
-        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [LoginTool getCodeWithParam:param success:^(id json) {
             NSLog(@"---%@",json);
-            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             if ([json[@"IsSuccess"] integerValue] == 1) {
+                
+                self.count = 60;
+                self.codeBtn.enabled = NO;
+                NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
+                [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+                
                 self.nextBtn.enabled = YES;
             }
             
         } failure:^(NSError *error) {
-            
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         }];
+    }
+}
+
+- (void)countDown:(NSTimer *)timer
+{
+    if (self.count > 0) {
+        self.count --;
+        self.codeBtn.titleLabel.text = [NSString stringWithFormat:@"重新发送%ld",(long)self.count];
+        [self.codeBtn setTitle:[NSString stringWithFormat:@"重新发送%ld",(long)self.count] forState:UIControlStateNormal];
+    }else{
+        self.codeBtn.enabled = YES;
+        [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+        [timer invalidate];
     }
 }
 
@@ -116,14 +139,20 @@
 - (IBAction)bindAccount:(id)sender
 {
 //    if ([self.code.text integerValue] == [self.getCode integerValue]) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         NSDictionary *param = @{@"Mobile":self.phoneNum.text,
                                 @"VerificationCode":self.code.text};
         [LoginTool checkCodeWithParam:param success:^(id json) {
             NSLog(@"---%@",json);
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             if ([json[@"IsSuccess"] integerValue] == 1) {
                 
                 [UserInfo userInfoWithDict:json];
+                [def setObject:json[@"BusinessID"] forKey:@"BusinessID"];
+                [def setObject:json[@"DistributionID"] forKey:@"DistributionID"];
+                [def setObject:json[@"LoginType"] forKey:@"LoginType"];
                 
                 if (![json[@"ShowName"] isKindOfClass:[NSNull class]]) {
                     [def setObject:json[@"ShowName"] forKey:@"ShowName"];
@@ -153,7 +182,7 @@
                 }
             }
         } failure:^(NSError *error) {
-            
+           [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         }];
     
 //    }else{

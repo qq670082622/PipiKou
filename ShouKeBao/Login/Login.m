@@ -17,6 +17,7 @@
 #import "UserInfo.h"
 #import "Business.h"
 #import "UIImageView+WebCache.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface Login () <UIScrollViewDelegate>
 
@@ -46,7 +47,7 @@
 //    self.accountField.text = @"gaowei@pipikou.com";
 //    self.passwordField.text = @"123456";
     self.accountField.text = @"lxstest";
-    self.passwordField.text = @"123456";
+    self.passwordField.text = @"A148A148";
     
     [self setWithName:[[NSUserDefaults standardUserDefaults] objectForKey:@"showname"]];
 }
@@ -83,6 +84,7 @@
     // 登录按钮样式
     self.loginBtn.layer.cornerRadius = 25;
     self.loginBtn.layer.masksToBounds = YES;
+    [self.loginBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
     
     // 退出编辑
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tanHandle:)];
@@ -147,10 +149,11 @@
  */
 - (IBAction)loginAction:(UIButton *)sender
 {
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDictionary *param = @{@"LoginName":self.accountField.text,
                             @"LoginPassword":self.passwordField.text};
     [LoginTool loginWithParam:param success:^(id json) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSLog(@"----%@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
@@ -168,7 +171,7 @@
             [app setTabbarRoot];
         }
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
 
