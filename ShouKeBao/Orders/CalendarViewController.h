@@ -13,4 +13,6 @@
 
 @property (nonatomic,assign) timeType type;
 
+@property (nonatomic,copy) NSString *selectedDate;
+
 @end

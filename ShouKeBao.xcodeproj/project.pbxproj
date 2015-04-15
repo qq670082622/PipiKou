@@ -41,6 +41,7 @@
 		5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A076E981ACD8B270077611C /* ShouKeBao.xib */; };
 		5A076EA71ACD8B270077611C /* StoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E9E1ACD8B270077611C /* StoreViewController.m */; };
 		5A076EA81ACD8B270077611C /* StoreViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A076E9F1ACD8B270077611C /* StoreViewController.xib */; };
+		5A3CC4C41ADE02480047A5E1 /* MyCalendarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A3CC4C31ADE02480047A5E1 /* MyCalendarItem.m */; };
 		5A4965CD1AD4F30E00233E5E /* Business.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A4965CC1AD4F30E00233E5E /* Business.m */; };
 		5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB6B1ACEBF220076DAE6 /* NSMutableDictionary+QD.m */; };
 		5A52FC391ACEBF220076DAE6 /* NSString+QD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB6D1ACEBF220076DAE6 /* NSString+QD.m */; };
@@ -323,6 +324,8 @@
 		5A076E9D1ACD8B270077611C /* StoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StoreViewController.h; sourceTree = "<group>"; };
 		5A076E9E1ACD8B270077611C /* StoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StoreViewController.m; sourceTree = "<group>"; };
 		5A076E9F1ACD8B270077611C /* StoreViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StoreViewController.xib; sourceTree = "<group>"; };
+		5A3CC4C21ADE02480047A5E1 /* MyCalendarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyCalendarItem.h; sourceTree = "<group>"; };
+		5A3CC4C31ADE02480047A5E1 /* MyCalendarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyCalendarItem.m; sourceTree = "<group>"; };
 		5A4965CB1AD4F30E00233E5E /* Business.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Business.h; sourceTree = "<group>"; };
 		5A4965CC1AD4F30E00233E5E /* Business.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Business.m; sourceTree = "<group>"; };
 		5A52FB6A1ACEBF220076DAE6 /* NSMutableDictionary+QD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSMutableDictionary+QD.h"; sourceTree = "<group>"; };
@@ -887,6 +890,15 @@
 			path = Store;
 			sourceTree = "<group>";
 		};
+		5A3CC4C11ADE02480047A5E1 /* MyCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				5A3CC4C21ADE02480047A5E1 /* MyCalendarItem.h */,
+				5A3CC4C31ADE02480047A5E1 /* MyCalendarItem.m */,
+			);
+			path = MyCalendar;
+			sourceTree = "<group>";
+		};
 		5A52FB371ACEBF220076DAE6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
@@ -1299,6 +1311,7 @@
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				5A3CC4C11ADE02480047A5E1 /* MyCalendar */,
 				6359441D1ADBA9C7004F0035 /* textStyle */,
 				63B8C6F11ACE8D7200328C8C /* NavigationItemBadgeValue */,
 				5A076E7B1ACD89DA0077611C /* Animations */,
@@ -1966,6 +1979,7 @@
 				5A52FC701ACEBF220076DAE6 /* Organization.m in Sources */,
 				5A52FC811ACEBF220076DAE6 /* CalendarViewController.m in Sources */,
 				632BFFFD1AB92A3A003B15AD /* UIImage+GIF.m in Sources */,
+				5A3CC4C41ADE02480047A5E1 /* MyCalendarItem.m in Sources */,
 				5A52FC6C1ACEBF220076DAE6 /* SafeSettingViewController.m in Sources */,
 				5A52FC801ACEBF220076DAE6 /* ButtonDetailViewController.m in Sources */,
 				5A52FC5A1ACEBF220076DAE6 /* rightModal3.m in Sources */,
@@ -2157,7 +2171,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Jpush",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Jpush";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -2200,7 +2214,7 @@
 					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
 					"$(SRCROOT)/Jpush",
 				);
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Jpush";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PROVISIONING_PROFILE = "93e21890-f273-49e3-bba6-d91a2929e679";

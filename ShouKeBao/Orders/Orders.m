@@ -14,7 +14,6 @@
 #import "DressView.h"
 #import "AreaViewController.h"
 #import "MBProgressHUD+MJ.h"
-#import "CalendarViewController.h"
 #import "ButtonDetailViewController.h"
 #import "OrderDetailViewController.h"
 #import "DetailView.h"
@@ -27,6 +26,7 @@
 #import "HistoryView.h"
 #import "MenuButton.h"
 #import "QDMenu.h"
+#import "ChooseDayViewController.h"
 
 #define pageSize 10
 
@@ -652,8 +652,8 @@
 - (void)didSelectedTimeWithType:(timeType)type
 {
     self.cover.hidden = YES;
-    CalendarViewController *calendar = [[CalendarViewController alloc] init];
-    [self.navigationController pushViewController:calendar animated:YES];
+    ChooseDayViewController *choose = [[ChooseDayViewController alloc] init];
+    [self.navigationController pushViewController:choose animated:YES];
 }
 
 #pragma mark - Notification
