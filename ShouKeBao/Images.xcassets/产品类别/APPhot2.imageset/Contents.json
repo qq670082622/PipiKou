@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPhot2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPhot2.png"
+      "filename" : "APPhot2-1.png"
     }
   ],
   "info" : {

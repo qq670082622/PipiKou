@@ -46,7 +46,7 @@
 //    self.accountField.text = @"gaowei@pipikou.com";
 //    self.passwordField.text = @"123456";
     self.accountField.text = @"lxstest";
-    self.passwordField.text = @"123456";
+    self.passwordField.text = @"A148A148";
     
     [self setWithName:[[NSUserDefaults standardUserDefaults] objectForKey:@"showname"]];
 }

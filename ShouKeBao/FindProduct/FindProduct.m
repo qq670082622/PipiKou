@@ -92,9 +92,9 @@
     self.hotTable.delegate = self;
     self.hotTable.dataSource = self;
     
-   
-    self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPdaxiang",@"APPstatue",@"APPfeiji",@"APPyoulun",@"APPshanzi",@"APPconglinhaidao",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
-    self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPdaxiang2",@"APPstatue2",@"APPfeiji2.png",@"APPyoulun2.png",@"APPshanzi2",@"APPconglinhaidao2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
+    self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPfeiji",@"APPyoulun",@"APPdaxiang",@"APPshanzi",@"APPconglinhaidao",@"APPstatue",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
+    self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPfeiji2",@"APPyoulun2.png",@"APPdaxiang2",@"APPshanzi2",@"APPconglinhaidao2",@"APPstatue2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
   self.isHot = YES;
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
  
@@ -128,6 +128,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+   
+    
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
@@ -343,7 +346,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 - (IBAction)search:(id)sender {
     
-    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
 -(void)setLeftTableHeader{

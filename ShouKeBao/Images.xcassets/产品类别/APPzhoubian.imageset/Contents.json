@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPzhoubian.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPzhoubian.png"
+      "filename" : "APPzhoubian-1.png"
     }
   ],
   "info" : {

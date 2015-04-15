@@ -20,10 +20,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]];
-    NSLog(@"--------link is %@",_produceUrl);
-    [self.webView loadRequest:request];
+    self.navigationController.title = self.productName;
+       NSLog(@"--------link is %@ ",_produceUrl);
+    
+    
+    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
+    
     [self customRightBarItem];
+  
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -41,6 +45,8 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+
+
 -(void)customRightBarItem
 {
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -53,12 +59,14 @@
     
     self.navigationItem.rightBarButtonItem= barItem;
 }
+
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.produceUrl forKey:@"PageUrl"];
+   // [dic setObject:self.produceUrl forKey:@"PageUrl"];
+    [dic setObject:@"http://mtest.lvyouquan.cn/Product/ProductDetail/a4a5b3802104487495d3f3523a9186a5" forKey:@"PageUrl"];
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
        self.shareStr =  [NSMutableString stringWithFormat:@"%@",json[@"ShareUrl"]];

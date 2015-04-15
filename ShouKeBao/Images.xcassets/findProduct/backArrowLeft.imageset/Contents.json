@@ -7,11 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "backArrowLeft.png"
+      "filename" : "fanhui.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "3x"
+      "scale" : "3x",
+      "filename" : "backArrowLeft.png"
     }
   ],
   "info" : {

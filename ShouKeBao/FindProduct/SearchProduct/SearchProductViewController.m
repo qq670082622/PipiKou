@@ -12,6 +12,7 @@
 #import "ProductList.h"
 #import "WriteFileManager.h"
 #import "SearchFootView.h"
+#import <QuartzCore/QuartzCore.h>
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -34,6 +35,13 @@
 
     [self loadHotWordDataSource];
     [self loadHistoryDataSource];
+    
+   [self.inputView becomeFirstResponder];
+    
+
+
+ 
+
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -48,7 +56,13 @@
 
 -(void)back
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+   
 }
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -188,6 +202,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
     [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
     
 }
@@ -201,7 +216,7 @@
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
   //  self.footView.hidden = NO;
-    
+   // self.navigationController.navigationBar.hidden = NO;
     [self.navigationController pushViewController:list animated:YES];
 }
 
@@ -209,7 +224,8 @@
 {
     self.inputView.text = @"";
     [self.inputView resignFirstResponder];
-    
+    // self.navigationController.navigationBar.hidden = NO;
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(IBAction)hotWordSearch:(id)sender
@@ -222,7 +238,7 @@
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
     [self.table reloadData];
-    
+   // self.navigationController.navigationBar.hidden = NO;
    [self.navigationController pushViewController:list animated:YES];
  
 }

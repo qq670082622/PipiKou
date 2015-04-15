@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPconglinhaidao.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPconglinhaidao.png"
+      "filename" : "APPconglinhaidao-1.png"
     }
   ],
   "info" : {
