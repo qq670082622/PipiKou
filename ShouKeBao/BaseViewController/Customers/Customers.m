@@ -66,7 +66,6 @@
     [hudView show:YES];
     
     [self loadDataSource];
-    [self.table reloadData];
 
 }
 
@@ -138,6 +137,7 @@
     
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         NSLog(@"------管客户json is %@-------",json);
+        [self.dataArr removeAllObjects];
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];

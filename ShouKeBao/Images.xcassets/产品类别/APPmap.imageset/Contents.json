@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPmap.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPmap.png"
+      "filename" : "APPmap-1.png"
     }
   ],
   "info" : {

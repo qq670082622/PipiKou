@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPshanzi.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPshanzi.png"
+      "filename" : "APPshanzi-1.png"
     }
   ],
   "info" : {

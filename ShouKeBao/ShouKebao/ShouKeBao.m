@@ -37,7 +37,8 @@
 #import "UIImageView+WebCache.h"
 #import "RemindDetailViewController.h"
 #import "OrderDetailViewController.h"
-
+#import "NSMutableDictionary+QD.h"
+#import "WMAnimations.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate,remindDetailDelegate>
@@ -70,6 +71,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     [self.view addSubview:self.tableView];
     
@@ -126,6 +129,8 @@
     }
     return _shareDic;
 }
+
+
 #pragma -mark massegeCenterDelegate
 -(void)refreshSKBMessgaeCount:(int)count
 {
@@ -147,12 +152,19 @@
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
         NSLog(@"首页个人消息汇总%@",json);
-        self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",json[@"OrderCount"]];
-        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",json[@"VisitorCount"]];
-        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:json[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
-        self.userName.text = json[@"ShowName"];
-        self.shareLink = json[@"ShareLinkUrl"];
-        self.shareDic = json[@"ShareInfo"];
+        
+        NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
+        
+        
+        self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
+        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",muta[@"VisitorCount"]];
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:muta[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
+        self.userName.text = muta[@"ShowName"];
+        self.shareLink = muta[@"ShareLinkUrl"];
+        if (![muta[@"ShareInfo"] isKindOfClass:[NSNull class]]) {
+            NSMutableDictionary *info = [NSMutableDictionary cleanNullResult:muta[@"ShareInfo"]];
+            self.shareDic = info;
+        }
     } failure:^(NSError *error) {
         NSLog(@"首页个人消息汇总失败%@",error);
     }];
@@ -179,7 +191,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
         [self.stationName setTitle:subStationName forState:UIControlStateNormal];
@@ -377,13 +389,17 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
     [self.navigationController pushViewController:sos animated:YES];
+    
 }
 
 - (IBAction)search:(id)sender
 {
-    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     
-    [self.navigationController pushViewController:searchVC animated:YES];
+
+    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
+    [self.navigationController pushViewController:searchVC animated:NO];
+    
+   
 }
 
 - (IBAction)add:(id)sender

@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPfeiji.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPfeiji.png"
+      "filename" : "APPfeiji-1.png"
     }
   ],
   "info" : {

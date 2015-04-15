@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPdaxiang.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPdaxiang.png"
+      "filename" : "APPdaxiang-1.png"
     }
   ],
   "info" : {

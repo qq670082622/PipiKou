@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "APPyoulun.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "APPyoulun.png"
+      "filename" : "APPyoulun-1.png"
     }
   ],
   "info" : {
