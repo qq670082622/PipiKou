@@ -22,6 +22,8 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.tableView];
+        self.goDateText = @"不限";
+        self.createDateText = @"不限";
         
         [self setHeader];
         
@@ -113,7 +115,13 @@
     
     cell.textLabel.text = self.dataSource[indexPath.section][indexPath.row];
     if ((indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 0) {
-        cell.detailTextLabel.text = @"不限";
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
+        if (indexPath.section == 0) {
+            cell.detailTextLabel.text = self.goDateText;
+        }else{
+            cell.detailTextLabel.text = self.createDateText;
+        }
+        
     }else{
         switch (indexPath.row) {
             case 1:{
@@ -145,9 +153,11 @@
         switch (indexPath.section) {
             case 0:
                 type = timePick;
+                
                 break;
             case 1:
                 type = datePick;
+                
                 break;
             default:
                 break;

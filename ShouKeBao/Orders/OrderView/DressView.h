@@ -37,6 +37,10 @@ typedef enum : NSUInteger {
 
 @property (weak, nonatomic) IBOutlet UISwitch *IsRefund;
 
+@property (nonatomic,copy) NSString *goDateText;
+
+@property (nonatomic,copy) NSString *createDateText;
+
 @property (nonatomic,copy) NSString *firstText;
 
 @property (nonatomic,copy) NSString *secondText;
