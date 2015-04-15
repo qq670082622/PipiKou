@@ -6,12 +6,13 @@
     },
     {
       "idiom" : "universal",
-      "scale" : "2x"
+      "scale" : "2x",
+      "filename" : "fenzhan.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "fenzhan.png"
+      "filename" : "dizhi.png"
     }
   ],
   "info" : {

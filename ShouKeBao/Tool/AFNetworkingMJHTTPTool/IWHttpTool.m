@@ -15,7 +15,7 @@
 
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    NSString *normalURL = kWebServiceHost;
+    NSString *normalURL = formalRUL;
     NSString *overStr = [normalURL stringByAppendingString:url];
    
    //组dic
@@ -72,7 +72,7 @@
 
 + (void)WMpostWithURL:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
     
-    NSString *normalURL = kWebServiceHost;
+    NSString *normalURL = formalRUL;
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic
