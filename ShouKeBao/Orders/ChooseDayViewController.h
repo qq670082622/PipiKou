@@ -13,6 +13,8 @@
 
 - (void)finishChoosedTimeArr:(NSMutableArray *)timeArr andType:(timeType)type;
 
+- (void)backToDress;
+
 @end
 
 @interface ChooseDayViewController : SKTableViewController

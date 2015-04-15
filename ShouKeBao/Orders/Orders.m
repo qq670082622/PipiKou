@@ -657,15 +657,23 @@
 #pragma mark - ChooseDayViewControllerDelegate
 - (void)finishChoosedTimeArr:(NSMutableArray *)timeArr andType:(timeType)type
 {
+    self.cover.hidden = NO;
     if (type == timePick) {
         self.goDateStart = timeArr[0];
         self.goDateEnd = timeArr[1];
+        self.dressView.goDateText = [NSString stringWithFormat:@"%@~%@",self.goDateStart,self.goDateEnd];
     }else{
         self.createDateStart = timeArr[0];
         self.createDateEnd = timeArr[1];
+        self.dressView.createDateText = [NSString stringWithFormat:@"%@~%@",self.createDateStart,self.createDateEnd];
     }
-    self.cover.hidden = NO;
     [self.dressView.tableView reloadData];
+}
+
+- (void)backToDress
+{
+    self.cover.hidden = NO;
+    
 }
 
 #pragma mark - Notification
@@ -734,8 +742,10 @@
         self.thirdValue = value;
         self.dressView.thirdText = value[@"Text"];
     }
+    [UIView animateWithDuration:0.3 animations:^{
+        self.cover.hidden = NO;
+    }];
     
-    self.cover.hidden = NO;
     [self.dressView.tableView reloadData];
 }
 
