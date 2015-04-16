@@ -72,6 +72,9 @@
     [super viewDidLoad];
     
     
+   // [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.upView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES];
+    
+    
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     [self.view addSubview:self.tableView];

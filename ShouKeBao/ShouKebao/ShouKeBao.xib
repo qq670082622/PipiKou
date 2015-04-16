@@ -118,11 +118,6 @@
                             <color key="textColor" red="0.40744473071808507" green="0.40744473071808507" blue="0.40744473071808507" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <view alpha="0.20000000000000001" contentMode="scaleToFill" id="kxz-cm-29M" userLabel="line">
-                            <rect key="frame" x="0.0" y="98" width="320" height="1"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ENS-cq-QWM" userLabel="蒙板">
                             <rect key="frame" x="0.0" y="45" width="50" height="50"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
@@ -143,6 +138,11 @@
                                 <action selector="phoneToService:" destination="-1" eventType="touchUpInside" id="kOI-8s-6aM"/>
                             </connections>
                         </button>
+                        <view contentMode="scaleToFill" id="kxz-cm-29M" userLabel="line">
+                            <rect key="frame" x="0.0" y="99" width="320" height="1"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                            <color key="backgroundColor" red="0.8073789376675603" green="0.8073789376675603" blue="0.8073789376675603" alpha="1" colorSpace="calibratedRGB"/>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
