@@ -80,13 +80,10 @@
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 160)];
     cover.backgroundColor = [UIColor clearColor];
     
-    CGFloat iconX = (self.view.frame.size.width - 100) * 0.5;
-    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 25, 100, 100)];
+    CGFloat iconX = (self.view.frame.size.width - 120) * 0.5;
+    UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 25, 120, 120)];
     iconView.backgroundColor = [UIColor clearColor];
     iconView.image = [UIImage imageNamed:@"bigIcon"];
-    iconView.layer.shadowColor = [UIColor blackColor].CGColor;
-    iconView.layer.shadowOpacity = 0.3;
-    iconView.layer.shadowOffset = CGSizeMake(5, 5);
     [cover addSubview:iconView];
     
     self.tableView.tableHeaderView = cover;
@@ -99,20 +96,21 @@
 {
     if (self.phoneNum.text.length) {
         
-        NSDictionary *param = @{@"Mobile" :self.phoneNum.text};
+        NSDictionary *param = @{@"Mobile" :self.phoneNum.text,
+                                @"Type":@"3"};
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [LoginTool getCodeWithParam:param success:^(id json) {
             NSLog(@"---%@",json);
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            if ([json[@"IsSuccess"] integerValue] == 1) {
-                
+//            if ([json[@"IsSuccess"] integerValue] == 1) {
+            
                 self.count = 60;
                 self.codeBtn.enabled = NO;
                 NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
                 
                 self.nextBtn.enabled = YES;
-            }
+//            }
             
         } failure:^(NSError *error) {
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -120,6 +118,7 @@
     }
 }
 
+// 倒计时
 - (void)countDown:(NSTimer *)timer
 {
     if (self.count > 0) {
@@ -138,56 +137,26 @@
  */
 - (IBAction)bindAccount:(id)sender
 {
-//    if ([self.code.text integerValue] == [self.getCode integerValue]) {
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        NSDictionary *param = @{@"Mobile":self.phoneNum.text,
-                                @"VerificationCode":self.code.text};
-        [LoginTool checkCodeWithParam:param success:^(id json) {
-            NSLog(@"---%@",json);
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSDictionary *param = @{@"Mobile":self.phoneNum.text,
+                            @"Captche":self.code.text,
+                            @"Type":@"3"};
+    [LoginTool checkCodeWithParam:param success:^(id json) {
+        NSLog(@"---%@",json);
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        if ([json[@"IsSuccess"] integerValue] == 1) {
             
-            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-            if ([json[@"IsSuccess"] integerValue] == 1) {
-                
-                [UserInfo userInfoWithDict:json];
-                [def setObject:json[@"BusinessID"] forKey:@"BusinessID"];
-                [def setObject:json[@"DistributionID"] forKey:@"DistributionID"];
-                [def setObject:json[@"LoginType"] forKey:@"LoginType"];
-                
-                if (![json[@"ShowName"] isKindOfClass:[NSNull class]]) {
-                    [def setObject:json[@"ShowName"] forKey:@"ShowName"];
-                }
-                if (![json[@"LoginAvatar"] isKindOfClass:[NSNull class]]) {
-                    [def setObject:json[@"LoginAvatar"] forKey:@"loginavatar"];
-                }
-                
-                if (![json[@"BusinessList"] isKindOfClass:[NSNull class]]) {
-                    
-                    // 整理旅行社列表
-                    [self.businessList removeAllObjects];
-                    for (NSDictionary *dic in json[@"BusinessList"]) {
-                        Business *business = [Business businessWithDict:dic];
-                        [self.businessList addObject:business];
-                    }
-                    
-                    // 储存手机号 证明已经绑定过手机
-                    
-                    [def setObject:self.phoneNum.text forKey:@"phonenumber"];
-                    [def synchronize];
-                    
-                    // 去选择旅行社
-                    ChildAccountViewController *child = [[ChildAccountViewController alloc] init];
-                    child.dataSource = self.businessList;
-                    [self.navigationController pushViewController:child animated:YES];
-                }
-            }
-        } failure:^(NSError *error) {
-           [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        }];
-    
-//    }else{
-//        [MBProgressHUD showError:@"验证码错误" toView:self.view.window];
-//    }
+            // 去选择旅行社
+            ChildAccountViewController *child = [[ChildAccountViewController alloc] init];
+
+            child.mobile = self.phoneNum.text;
+            [self.navigationController pushViewController:child animated:YES];
+
+        }
+    } failure:^(NSError *error) {
+       [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }];
 }
 
 #pragma mark - tableviewdelegate

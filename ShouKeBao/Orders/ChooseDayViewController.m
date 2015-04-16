@@ -14,11 +14,13 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
-@property (nonatomic,strong) NSMutableArray *chooseArr;
+@property (nonatomic,weak) UIButton *confirm;// 确认按钮
 
-@property (nonatomic,weak) UIButton *confirm;
+@property (nonatomic,weak) UIButton *reset;// 重置按钮
 
-@property (nonatomic,weak) UIButton *reset;
+@property (nonatomic,copy) NSString *start;
+
+@property (nonatomic,copy) NSString *end;
 
 @end
 
@@ -44,13 +46,7 @@
 }
 
 #pragma mark - getter
-- (NSMutableArray *)chooseArr
-{
-    if (!_chooseArr) {
-        _chooseArr  = [NSMutableArray array];
-    }
-    return _chooseArr;
-}
+
 
 #pragma mark - private
 - (void)setNav
@@ -84,7 +80,8 @@
     reset.layer.masksToBounds = YES;
     [reset setTitle:@"重选" forState:UIControlStateNormal];
     [reset setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [reset setBackgroundColor:[UIColor colorWithRed:18/255.0 green:143/255.0 blue:221/255.0 alpha:1]];
+    [reset setBackgroundImage:[UIImage imageNamed:@"rili-chongx"] forState:UIControlStateNormal];
+    [reset addTarget:self action:@selector(resetChoose:) forControlEvents:UIControlEventTouchUpInside];
     self.reset = reset;
     [cover addSubview:reset];
     
@@ -94,7 +91,7 @@
     confirm.layer.masksToBounds = YES;
     [confirm setTitle:@"确定" forState:UIControlStateNormal];
     [confirm setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [confirm setBackgroundColor:[UIColor colorWithRed:248/255.0 green:144/255.0 blue:27/255.0 alpha:1]];
+    [confirm setBackgroundImage:[UIImage imageNamed:@"rili-qur"] forState:UIControlStateNormal];
     [confirm addTarget:self action:@selector(confirmDate:) forControlEvents:UIControlEventTouchUpInside];
     self.confirm = confirm;
     [cover addSubview:confirm];
@@ -102,11 +99,24 @@
     self.tableView.tableFooterView = cover;
 }
 
+// 重置选择
+- (void)resetChoose:(UIButton *)sender
+{
+    self.start = nil;
+    self.end = nil;
+    NSArray *tmp = @[@"出发日期",@"返回日期"];
+    self.dataSource = [NSMutableArray arrayWithArray:tmp];
+    [self.tableView reloadData];
+}
+
+// 确认选择
 - (void)confirmDate:(UIButton *)sender
 {
-    if (self.chooseArr.count == 2) {
+    if (self.start && self.end) {
+        NSArray *tmp = @[self.start,self.end];
+        
         if (_delegate && [_delegate respondsToSelector:@selector(finishChoosedTimeArr:andType:)]) {
-            [_delegate finishChoosedTimeArr:self.dataSource andType:self.type];
+            [_delegate finishChoosedTimeArr:tmp andType:self.type];
         }
         [self.navigationController popViewControllerAnimated:YES];
     }
@@ -146,9 +156,16 @@
 #pragma mark - CalendarViewControllerDelegate
 - (void)didSelectedDate:(NSString *)date atIndex:(NSInteger)index
 {
-    [self.chooseArr addObject:date];
-    [self.dataSource replaceObjectAtIndex:index withObject:date];
-    [self.tableView reloadData];
+    if (date.length){
+        if (index == 0){
+            self.start = date;
+        }else{
+            self.end = date;
+        }
+        
+        [self.dataSource replaceObjectAtIndex:index withObject:date];
+        [self.tableView reloadData];
+    }
 }
 
 @end

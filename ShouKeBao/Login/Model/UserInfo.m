@@ -48,7 +48,6 @@ static UserInfo *user;
         self.DistributionID = muta[@"DistributionID"];
         self.loginType = muta[@"LoginType"];
         self.userName = muta[@"ShowName"];
-        self.account = muta[@"LoginName"];
         self.LoginAvatar = muta[@"LoginAvatar"];
     }
     return self;

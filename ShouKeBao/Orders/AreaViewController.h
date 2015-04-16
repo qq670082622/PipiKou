@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
+@property (nonatomic,strong) NSDictionary *param;
+
 @property (nonatomic,weak) id<AreaViewControllerDelegate> delegate;
 
 @end

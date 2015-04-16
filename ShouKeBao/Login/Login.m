@@ -151,19 +151,30 @@
 {
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDictionary *param = @{@"LoginName":self.accountField.text,
-                            @"LoginPassword":self.passwordField.text};
+                            @"LoginPassword":self.passwordField.text,
+                            @"ChooseBusinessID":self.chooseId,
+                            @"BusinessID":self.businessId,
+                            @"DistributionID":self.distributeId};
+    
     [LoginTool loginWithParam:param success:^(id json) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSLog(@"----%@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
-//            [UserInfo shareUser].BusinessID = json[@"BusinessID"];
-            [UserInfo userInfoWithDict:json];
             
             // 保存账号密码
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             [def setObject:self.accountField.text forKey:@"account"];
             [def setObject:self.passwordField.text forKey:@"password"];
+            
+            // 储存手机号 证明已经绑定过手机
+            [def setObject:self.mobile forKey:@"phonenumber"];
+            
+            // 保存必要参数
+            [def setObject:json[@"LoginType"] forKey:@"LoginType"];
+            [def setObject:self.businessId forKey:@"BusinessID"];
+            [def setObject:self.distributeId forKey:@"DistributionID"];
+            [def setObject:self.chooseId forKey:@"ChooseID"];
             [def synchronize];
             
             // 跳转主界面

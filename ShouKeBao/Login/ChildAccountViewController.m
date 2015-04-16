@@ -16,12 +16,21 @@
 #import "TravelCell.h"
 #import "Login.h"
 #import "UIImageView+WebCache.h"
+#import "NSMutableDictionary+QD.h"
 
 @interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate,TravelCellDelegate>
 
 @property (nonatomic,weak) UIButton *nameBtn;
 
 @property (nonatomic,strong) UITableView *tableView;
+
+@property (nonatomic,strong) NSMutableArray *dataSource;
+
+@property (nonatomic,weak) UIImageView *iconView;
+
+@property (nonatomic,copy) NSString *businessId;
+
+@property (nonatomic,copy) NSString *distributeId;
 
 @end
 
@@ -35,14 +44,17 @@
     
     self.title = nil;
     
-    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
+    UIImage *image = [UIImage imageNamed:@"beijing"];
+    self.view.layer.contents = (id) image.CGImage;
+    
+//    self.view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
     [self.view addSubview:self.tableView];
     
     // 设置头部图标
     [self setupHeader];
     
-    // 设置用户名称
-    [self setWithName:[UserInfo shareUser].userName];
+    // 请求数据
+    [self loadDataSource];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -62,6 +74,40 @@
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"clearNavi"] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage imageNamed:@"clearNavi"]];
+}
+
+#pragma mark - loadDataSource
+- (void)loadDataSource
+{
+    NSDictionary *param = @{@"Mobile":self.mobile};
+    [LoginTool getBusinessListWithParam:param success:^(id json) {
+        if (json) {
+            NSLog(@"-----  %@",json);
+            NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
+            [UserInfo userInfoWithDict:muta];
+            
+            self.businessId = muta[@"BusinessID"];
+            self.distributeId = muta[@"DistributionID"];
+
+            if (![muta[@"BusinessList"] isKindOfClass:[NSNull class]]){
+                // 整理旅行社列表
+                [self.dataSource removeAllObjects];
+                for (NSDictionary *dic in muta[@"BusinessList"]) {
+                    Business *business = [Business businessWithDict:dic];
+                    [self.dataSource addObject:business];
+                }
+            }
+            
+            // 设置用户名称以及头像
+            [self setWithName:[UserInfo shareUser].userName];
+            [self.iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
+            
+            // 刷新列表
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - getter
@@ -96,11 +142,16 @@
     iconView.backgroundColor = [UIColor orangeColor];
     iconView.contentMode = UIViewContentModeScaleAspectFill;
     iconView.backgroundColor = [UIColor clearColor];
-    [iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
-    iconView.layer.shadowColor = [UIColor blackColor].CGColor;
-    iconView.layer.shadowOpacity = 0.3;
-    iconView.layer.shadowOffset = CGSizeMake(5, 5);
+    iconView.layer.cornerRadius = 50;
+    iconView.layer.masksToBounds = YES;
     [cover addSubview:iconView];
+    self.iconView = iconView;
+    
+    UIImageView *shadow = [[UIImageView alloc] init];
+    shadow.center = iconView.center;
+    shadow.bounds = CGRectMake(0, 0, 120, 120);
+    shadow.image = [UIImage imageNamed:@"yiny1"];
+    [cover insertSubview:shadow atIndex:0];
     
     CGFloat nameY = CGRectGetMaxY(iconView.frame) + 10;
     UIButton *nameBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 100, 20)];
@@ -132,7 +183,13 @@
 }
 
 #pragma mark - getter
-
+- (NSMutableArray *)dataSource
+{
+    if (!_dataSource) {
+        _dataSource = [NSMutableArray array];
+    }
+    return _dataSource;
+}
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -146,7 +203,8 @@
     cell.delegate = self;
     cell.indexPath = indexPath;
     
-    cell.model = self.dataSource[indexPath.row];
+    Business *business = self.dataSource[indexPath.row];
+    cell.model = business;
     
     return cell;
 }
@@ -176,7 +234,10 @@
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
     Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
-    lg.aa = [NSString stringWithFormat:@"%@  %d",travel.name,indexPath.row];
+    lg.chooseId = travel.bussinessId;
+    lg.businessId = self.businessId;
+    lg.distributeId = self.distributeId;
+    lg.mobile = self.mobile;
     [self.navigationController pushViewController:lg animated:YES];
 }
 

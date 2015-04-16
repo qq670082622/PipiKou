@@ -55,10 +55,15 @@
     [tmp setObject:@"1" forKey:@"MobileType"];
     [tmp setObject:currentVersion forKey:@"MobileVersion"];
     [tmp setObject:mobileID forKey:@"MobileID"];
-    if ([UserInfo shareUser].BusinessID) {
-        [tmp setObject:[UserInfo shareUser].BusinessID forKey:@"BusinessID"];
-        [tmp setObject:[UserInfo shareUser].DistributionID forKey:@"DistributionID"];
-    }
+    
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *disId = [def objectForKey:@"DistributionID"];
+    NSString *busId = [def objectForKey:@"BusinessID"];
+    NSString *choId = [def objectForKey:@"ChooseID"];
+    [tmp setObject:busId forKey:@"BusinessID"];
+    [tmp setObject:disId forKey:@"DistributionID"];
+    [tmp setObject:choId forKey:@"ChooseBusinessID"];
     [tmp addEntriesFromDictionary:param];
     
     NSLog(@"-------url:%@",overStr);
@@ -107,7 +112,7 @@
 + (void)getCodeWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     
-    [IWHttpTool postWithURL:@"Business/GetMobileVerificationCode" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"Common/GetMobileCaptche" params:param success:^(id json) {
         
         if (success) {
             success(json);
@@ -123,12 +128,33 @@
 }
 
 /**
- *  检查验证码 以及旅行社列表
+ *  检查验证码
  */
 + (void)checkCodeWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     
-    [IWHttpTool postWithURL:@"Business/CheckMobileVerificationCode" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"Common/ValidateMobileCaptche" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  获取旅行社列表
+ */
++ (void)getBusinessListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    
+    [IWHttpTool postWithURL:@"Business/GetLoginBindInfo" params:param success:^(id json) {
         
         if (success) {
             success(json);

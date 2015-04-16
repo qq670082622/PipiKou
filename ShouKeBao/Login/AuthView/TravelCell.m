@@ -9,6 +9,7 @@
 #import "TravelCell.h"
 #import "TravelButton.h"
 #import "Business.h"
+#import "UIButton+WebCache.h"
 
 @interface TravelCell()
 
@@ -67,7 +68,7 @@
 {
     _model = model;
     
-    [self.travelBtn setImage:[UIImage imageNamed:model.icon] forState:UIControlStateNormal];
+    [self.travelBtn sd_setImageWithURL:[NSURL URLWithString:model.icon] forState:UIControlStateNormal];
     
     [self.travelBtn setTitle:model.name forState:UIControlStateNormal];
 }

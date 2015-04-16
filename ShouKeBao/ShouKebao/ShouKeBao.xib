@@ -145,7 +145,7 @@
     <resources>
         <image name="banjiubing" width="50" height="50"/>
         <image name="fdjBtn" width="13" height="13"/>
-        <image name="fenxianglan" width="90" height="90"/>
+        <image name="fenxianglan" width="45" height="45"/>
         <image name="fenzhan" width="100" height="45"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

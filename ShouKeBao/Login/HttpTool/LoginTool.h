@@ -32,9 +32,14 @@
 + (void)getCodeWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
- *  检查验证码 以及旅行社列表
+ *  检查验证码
  */
 + (void)checkCodeWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+/**
+ *  获取旅行社列表
+ */
++ (void)getBusinessListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  绑定手机

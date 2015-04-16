@@ -11,7 +11,7 @@
 
 @protocol ChooseDayViewControllerDelegate <NSObject>
 
-- (void)finishChoosedTimeArr:(NSMutableArray *)timeArr andType:(timeType)type;
+- (void)finishChoosedTimeArr:(NSArray *)timeArr andType:(timeType)type;
 
 - (void)backToDress;
 

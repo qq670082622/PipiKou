@@ -21,23 +21,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [self configure];
     
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-    
+    [self loadDataSource];
 }
-
--(void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -48,8 +36,60 @@
     }
 }
 
-#pragma mark - loadDataSource
+#pragma mark - private
+- (void)configure
+{
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+}
 
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - loadDataSource
+- (void)loadDataSource
+{
+    if (self.type == firstArea){
+        return;
+    }else if (self.type == secondArea){
+        // 获取二级菜单
+        [OrderTool getSecondLevelAreaWithParam:self.param success:^(id json) {
+            if (json) {
+                NSLog(@"-----%@",json);
+                [self.dataSource removeAllObjects];
+                for (NSDictionary *dic in json[@"LevelAreaList"]) {
+                    [self.dataSource addObject:dic];
+                }
+                [self.tableView reloadData];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }else{
+        // 获取三级菜单
+        [OrderTool getThirdLevelAreaWithParam:self.param success:^(id json) {
+            if (json) {
+                NSLog(@"-----%@",json);
+                [self.dataSource removeAllObjects];
+                for (NSDictionary *dic in json[@"LevelAreaList"]) {
+                    [self.dataSource addObject:dic];
+                }
+                [self.tableView reloadData];
+            }
+        } failure:^(NSError *error) {
+            
+        }];
+    }
+}
 
 #pragma mark - getter
 - (NSMutableArray *)dataSource

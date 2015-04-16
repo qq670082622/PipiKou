@@ -48,7 +48,7 @@
     self.tableView.headerPullToRefreshText = @"下拉刷新";
     self.tableView.headerRefreshingText = @"正在刷新中";
     
-    
+    [self setNav];
     
     [self setupFoot];
     
@@ -88,22 +88,40 @@
     }];
 }
 
+- (void)setNav
+{
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    [back setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(backToHome) forControlEvents:UIControlEventTouchUpInside];
+    [cover addSubview:back];
+    
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cover];
+}
+
+- (void)backToHome
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)setupHead
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
     cover.backgroundColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
     
     // 选择分站按钮
-    UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(5, 5, 50, 30)];
-    [station setBackgroundImage:[UIImage imageNamed:@"fenzhan"] forState:UIControlStateNormal];
+    UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 75, 30)];
+    station.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+    [station setBackgroundImage:[UIImage imageNamed:@"dizhi"] forState:UIControlStateNormal];
     [station addTarget:self action:@selector(selectStation:) forControlEvents:UIControlEventTouchUpInside];
     
     // 取出储存的分站
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
-    [station setTitle:[NSString stringWithFormat:@"    %@",subStationName] forState:UIControlStateNormal];
-    if (!subStationName) {
-        [station setTitle:@"    上海" forState:UIControlStateNormal];
+    [station setTitle:subStationName forState:UIControlStateNormal];
+    if (![subStationName isKindOfClass:[NSNull class]]) {
+        [station setTitle:@"上海" forState:UIControlStateNormal];
     }
     
     [station setTitleColor:[UIColor colorWithRed:91/255.0 green:155/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
@@ -112,7 +130,7 @@
     
     // 搜索按钮
     CGFloat searchX = CGRectGetMaxX(station.frame) + 5;
-    CGFloat searchW = self.view.frame.size.width - station.frame.size.width - 5 * 3;
+    CGFloat searchW = self.view.frame.size.width - station.frame.size.width - 25;
     UIButton *search = [[UIButton alloc] initWithFrame:CGRectMake(searchX, 5, searchW, 30)];
     [search setBackgroundImage:[UIImage imageNamed:@"shousuochanpin"] forState:UIControlStateNormal];
     [search addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];

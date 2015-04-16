@@ -605,42 +605,20 @@
         if (self.firstValue) {
             // 获取二级列表
             NSDictionary *param = @{@"FirstLevelArea":self.firstValue[@"Value"]};
-            [OrderTool getSecondLevelAreaWithParam:param success:^(id json) {
-                if (json) {
-                    NSLog(@"-----%@",json);
-                    NSMutableArray *tmp = [NSMutableArray array];
-                    for (NSDictionary *dic in json[@"LevelAreaList"]) {
-                        [tmp addObject:dic];
-                    }
-                    self.cover.hidden = YES;
-                    area.type = secondArea;
-                    area.dataSource = tmp;
-                    [self.navigationController pushViewController:area animated:YES];
-                }
-            } failure:^(NSError *error) {
-                
-            }];
+            self.cover.hidden = YES;
+            area.type = secondArea;
+            area.param = param;
+            [self.navigationController pushViewController:area animated:YES];
+           
         }
     }else{// 点击三级区域
         if (self.secondValue) {
             // 获取三级级列表
             NSDictionary *param = @{@"SecondLevelAreaID":self.secondValue[@"Value"]};
-            [OrderTool getThirdLevelAreaWithParam:param success:^(id json) {
-                if (json) {
-                    NSLog(@"-----%@",json);
-                    NSMutableArray *tmp = [NSMutableArray array];
-                    for (NSDictionary *dic in json[@"LevelAreaList"]) {
-                        [tmp addObject:dic];
-                    }
-                    self.cover.hidden = YES;
-                    area.type = thirdArea;
-                    area.dataSource = tmp;
-                    [self.navigationController pushViewController:area animated:YES];
-                }
-            } failure:^(NSError *error) {
-                
-            }];
-
+            self.cover.hidden = YES;
+            area.type = thirdArea;
+            area.param = param;
+            [self.navigationController pushViewController:area animated:YES];
         }
     }
 }
@@ -655,7 +633,7 @@
 }
 
 #pragma mark - ChooseDayViewControllerDelegate
-- (void)finishChoosedTimeArr:(NSMutableArray *)timeArr andType:(timeType)type
+- (void)finishChoosedTimeArr:(NSArray *)timeArr andType:(timeType)type
 {
     self.cover.hidden = NO;
     if (type == timePick) {
@@ -694,12 +672,18 @@
     self.firstValue = nil;
     self.secondValue = nil;
     self.thirdValue = nil;
+    self.goDateStart = @"";
+    self.goDateEnd = @"";
+    self.createDateStart = @"";
+    self.createDateEnd = @"";
     
     self.dressView.firstText = nil;
     self.dressView.secondText = nil;
     self.dressView.thirdText = nil;
+    self.dressView.goDateText = @"";
+    self.dressView.createDateText = @"";
     [self.dressView.tableView reloadData];
-    [self loadConditionData];
+//    [self loadConditionData];
 }
 
 - (void)clickConfirm:(NSNotification *)noty
