@@ -17,9 +17,12 @@
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xixixi" translatesAutoresizingMaskIntoConstraints="NO" id="38c-01-iBG">
                         <rect key="frame" x="15" y="10" width="50" height="50"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="HMU-Tz-Tw7"/>
+                        </constraints>
                     </imageView>
                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="dsadasfkjasbfkjasbfkjaskjdbkjasbdkjbaskd" translatesAutoresizingMaskIntoConstraints="NO" id="Out-8Q-BH6">
-                        <rect key="frame" x="70" y="0.0" width="145" height="75"/>
+                        <rect key="frame" x="75" y="0.0" width="140" height="75"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -33,36 +36,35 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同行起价:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAd-jX-Oc6">
                         <rect key="frame" x="70" y="62" width="60" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="qO0-NY-0T2"/>
+                            <constraint firstAttribute="width" constant="60" id="byr-IG-5Sk"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4RY-oe-rpi" userLabel="mengban">
-                        <rect key="frame" x="65" y="0.0" width="155" height="88"/>
+                        <rect key="frame" x="75" y="0.0" width="140" height="75"/>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="38c-01-iBG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="0x3-jI-nqF"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="54" id="5ha-aN-RvA"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="JlF-Ol-VPx" secondAttribute="trailing" constant="-83" id="5pA-iR-wTz"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="zAd-jX-Oc6" secondAttribute="bottom" constant="-3.5" id="9ES-pQ-BNs"/>
-                    <constraint firstItem="Out-8Q-BH6" firstAttribute="leading" secondItem="38c-01-iBG" secondAttribute="trailing" constant="5" id="AsY-CU-BHD"/>
-                    <constraint firstItem="38c-01-iBG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="F0S-Ro-gTJ"/>
-                    <constraint firstItem="Out-8Q-BH6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="HIy-JM-0Qb"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="4RY-oe-rpi" secondAttribute="bottom" constant="-8.5" id="L8V-hS-P1m"/>
-                    <constraint firstItem="Out-8Q-BH6" firstAttribute="top" secondItem="4RY-oe-rpi" secondAttribute="top" id="QH4-Kq-V2R"/>
-                    <constraint firstItem="JlF-Ol-VPx" firstAttribute="top" secondItem="zAd-jX-Oc6" secondAttribute="top" id="QHc-DB-Iqr"/>
-                    <constraint firstItem="4RY-oe-rpi" firstAttribute="centerX" secondItem="Out-8Q-BH6" secondAttribute="centerX" id="TOz-uI-Mfn"/>
-                    <constraint firstAttribute="trailing" secondItem="4RY-oe-rpi" secondAttribute="trailing" id="UHf-JD-KZb"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="bottom" secondItem="JlF-Ol-VPx" secondAttribute="bottom" id="qUV-Bu-CSy"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="Out-8Q-BH6" secondAttribute="bottom" constant="4.5" id="qVh-sb-agp"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="62" id="r5q-gX-idR"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="leading" secondItem="Out-8Q-BH6" secondAttribute="leading" id="sRN-ud-szM"/>
-                    <constraint firstItem="JlF-Ol-VPx" firstAttribute="leading" secondItem="zAd-jX-Oc6" secondAttribute="trailing" constant="5" id="u6R-AJ-v75"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="38c-01-iBG" secondAttribute="bottom" constant="19.5" id="vYa-CA-Skw"/>
-                    <constraint firstItem="4RY-oe-rpi" firstAttribute="leading" secondItem="38c-01-iBG" secondAttribute="trailing" id="wyl-Zs-tod"/>
+                    <constraint firstItem="JlF-Ol-VPx" firstAttribute="leading" secondItem="zAd-jX-Oc6" secondAttribute="trailing" constant="5" id="0zg-Wc-LgX"/>
+                    <constraint firstItem="4RY-oe-rpi" firstAttribute="leading" secondItem="Out-8Q-BH6" secondAttribute="leading" id="3VS-Ub-9CW"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="38c-01-iBG" secondAttribute="bottom" constant="19.5" id="5l4-aA-NlU"/>
+                    <constraint firstItem="38c-01-iBG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="7" id="9Pg-mj-5vC"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="54" id="C3o-en-0iU"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Out-8Q-BH6" secondAttribute="bottom" constant="4.5" id="Heh-os-IYX"/>
+                    <constraint firstItem="Out-8Q-BH6" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Kge-7z-PRF"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="62" id="VJt-8h-ISF"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="top" secondItem="JlF-Ol-VPx" secondAttribute="top" id="ZAT-Cn-JNJ"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JlF-Ol-VPx" secondAttribute="trailing" constant="-83" id="ZX7-VP-PIT"/>
+                    <constraint firstItem="Out-8Q-BH6" firstAttribute="leading" secondItem="38c-01-iBG" secondAttribute="trailing" constant="10" id="czN-Gk-9UC"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="zAd-jX-Oc6" secondAttribute="bottom" constant="-3.5" id="dQk-eY-cth"/>
+                    <constraint firstItem="38c-01-iBG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="2" id="edX-9L-N9c"/>
+                    <constraint firstItem="4RY-oe-rpi" firstAttribute="top" secondItem="Out-8Q-BH6" secondAttribute="top" id="iGR-f7-YzQ"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="bottom" secondItem="JlF-Ol-VPx" secondAttribute="bottom" id="jIN-aG-b36"/>
+                    <constraint firstItem="4RY-oe-rpi" firstAttribute="trailing" secondItem="Out-8Q-BH6" secondAttribute="trailing" id="mwr-iU-0kY"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="4RY-oe-rpi" secondAttribute="trailing" constant="-3" id="oaz-l2-eFz"/>
+                    <constraint firstItem="Out-8Q-BH6" firstAttribute="bottom" secondItem="4RY-oe-rpi" secondAttribute="bottom" id="wfj-zO-kka"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

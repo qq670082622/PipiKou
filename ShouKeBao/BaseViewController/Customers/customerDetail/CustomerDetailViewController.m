@@ -14,7 +14,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "CustomModel.h"
 
-@interface CustomerDetailViewController ()<UITextFieldDelegate>
+@interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
 
@@ -27,23 +27,23 @@
     [self customerRightBarItem];
     self.title = @"客户详情";
     
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
-    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
-    [segment setTintColor:[UIColor whiteColor]];
-    segment.frame = CGRectMake(0, 0, 150, 28);
-    [segment setSelected:YES];
-    [segment setSelectedSegmentIndex:0];
-    [titleView addSubview:segment];
-    self.segmentControl = segment;
-    self.navigationItem.titleView = titleView;
+//    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
+//    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
+//    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
+//    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
+//    [segment setTintColor:[UIColor whiteColor]];
+//    segment.frame = CGRectMake(0, 0, 150, 28);
+//    [segment setSelected:YES];
+//    [segment setSelectedSegmentIndex:0];
+//    [titleView addSubview:segment];
+//    self.segmentControl = segment;
+//    self.navigationItem.titleView = titleView;
     
-    [self.SetRemindBtnOutlet setHighlighted:NO];
+   // [self.SetRemindBtnOutlet setHighlighted:NO];
     
     [self setSubViews];
     if (self.note.text == nil) {
-        self.note.text = @"请点击这里输入该客户的备注信息😄（选填）";
+        self.note.text = @"备注信息";
     }
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
@@ -90,16 +90,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.segmentControl setSelectedSegmentIndex:0];
+   // [self.segmentControl setSelectedSegmentIndex:0];
 }
--(void)sex:(id)sender
-{
-    UISegmentedControl *control = (UISegmentedControl *)sender;
-    if (control.selectedSegmentIndex == 1) {
-        CustomerOrdersUIViewController *orders = [[CustomerOrdersUIViewController alloc] init];
-        [self.navigationController pushViewController:orders animated:NO];
-    }
-}
+//-(void)sex:(id)sender
+//{
+//    UISegmentedControl *control = (UISegmentedControl *)sender;
+//    if (control.selectedSegmentIndex == 1) {
+//        CustomerOrdersUIViewController *orders = [[CustomerOrdersUIViewController alloc] init];
+//        [self.navigationController pushViewController:orders animated:NO];
+//    }
+//}
 -(void)customerRightBarItem
 {
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
@@ -120,9 +120,21 @@
     edit.wechatStr = self.weChatStr;
     edit.noteStr = self.noteStr;
     edit.teleStr = self.teleStr;
+    edit.nameStr = self.userNameStr;
+    edit.delegate = self;
     [self.navigationController pushViewController:edit animated:YES];
 }
-
+#pragma -mark 编辑用户资料后通知更新
+-(void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note
+{
+    
+    self.QQ.text = qq;
+    self.weChat.text = weChat;
+    self.tele.text = phone;
+    self.note.text = note;
+    self.userName.text = name;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -24,7 +24,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *btn6;
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *subView;
-@property (weak,nonatomic) UIView *footView;
+//@property (weak,nonatomic) UIView *footView;
 
 @end
 
@@ -51,6 +51,12 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+    
+    if (self.tableDataArr.count>0) {
+        self.table.tableFooterView.hidden = NO;
+    }else if (self.tableDataArr.count== 0){
+        self.table.tableFooterView.hidden = YES;
+    }
     
 }
 
@@ -136,7 +142,7 @@
     [self.tableDataArr removeAllObjects];
     [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
     [self.table reloadData];
-    //self.footView.hidden = YES;
+    self.table.tableFooterView.hidden = YES;
     [self.inputView setText:@""];
 }
 
@@ -153,9 +159,9 @@
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [btn addTarget:self action:@selector(searchFootViewDidClickedLoadBtn:) forControlEvents:UIControlEventTouchUpInside];
     [foot addSubview:btn];
-    self.footView = foot;
-    _footView.hidden = YES;
-    return self.footView;
+    self.table.tableFooterView = foot;
+    foot.hidden = YES;
+    return foot;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -174,7 +180,8 @@
         self.inputView.text = selectHistoryKey;
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
-         self.footView.hidden = NO;
+        self.table.tableFooterView.hidden = NO;
+        //self.footView.hidden = NO;
         [self.navigationController pushViewController:list animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
@@ -190,9 +197,9 @@
     }
     if (_tableDataArr) {
     cell.textLabel.text = _tableDataArr[indexPath.row ];
-        self.footView.hidden = NO;
+        self.table.tableFooterView.hidden = NO;
     }else if (!_tableDataArr){
-        self.footView.hidden = YES;
+         self.table.tableFooterView.hidden = YES;
     }
     
     return cell;
@@ -215,7 +222,7 @@
     
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
-  //  self.footView.hidden = NO;
+     self.table.tableFooterView.hidden = NO;
    // self.navigationController.navigationBar.hidden = NO;
     [self.navigationController pushViewController:list animated:YES];
 }
@@ -224,6 +231,7 @@
 {
     self.inputView.text = @"";
     [self.inputView resignFirstResponder];
+     self.table.tableFooterView.hidden = NO;
     // self.navigationController.navigationBar.hidden = NO;
     [self.navigationController popViewControllerAnimated:NO];
 }

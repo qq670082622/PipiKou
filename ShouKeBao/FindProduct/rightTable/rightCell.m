@@ -31,12 +31,15 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"rightCell" owner:nil options:nil] lastObject];
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
-       
+        
         
     }
     return cell;
 }
-
+-(void)layoutSubviews
+{
+self.rightIcon.frame = CGRectMake(15, 10, 50, 50);
+}
 
 
 -(void)setModal:(rightModal *)modal

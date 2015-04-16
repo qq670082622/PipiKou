@@ -25,6 +25,9 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"leftCell" owner:nil options:nil] lastObject];
         cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, 100, 0.5)];
+        line.backgroundColor = [UIColor lightGrayColor];
+        [cell.contentView addSubview:line ];
        
     }
     return cell;
