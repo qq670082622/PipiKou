@@ -61,9 +61,12 @@
     NSString *disId = [def objectForKey:@"DistributionID"];
     NSString *busId = [def objectForKey:@"BusinessID"];
     NSString *choId = [def objectForKey:@"ChooseID"];
-    [tmp setObject:busId forKey:@"BusinessID"];
-    [tmp setObject:disId forKey:@"DistributionID"];
-    [tmp setObject:choId forKey:@"ChooseBusinessID"];
+    if (disId && busId && choId) {
+        [tmp setObject:busId forKey:@"BusinessID"];
+        [tmp setObject:disId forKey:@"DistributionID"];
+        [tmp setObject:choId forKey:@"ChooseBusinessID"];
+
+    }
     [tmp addEntriesFromDictionary:param];
     
     NSLog(@"-------url:%@",overStr);

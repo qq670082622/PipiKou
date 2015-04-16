@@ -18,6 +18,8 @@
 
 @property (nonatomic,copy) NSString *bPrice;
 
+@property (nonatomic,copy) NSString *linkUrl;
+
 //  Desc Pic Title Url
 @property (nonatomic,strong) NSDictionary *shareInfo;
 

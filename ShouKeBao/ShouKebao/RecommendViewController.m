@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
+#import "OrderDetailViewController.h"
 
 #define pageSize @"10"
 
@@ -92,7 +93,8 @@
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
     
-    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 40, 40)];
+    back.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
     [back setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(backToHome) forControlEvents:UIControlEventTouchUpInside];
     [cover addSubview:back];
@@ -249,6 +251,13 @@
 }
 
 #pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    DayDetail *detail = self.dataSource[indexPath.row];
+    OrderDetailViewController *web = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    web.url = detail.linkUrl;
+    [self.navigationController pushViewController:web animated:YES];
+}
 
 #pragma mark - MGSwipeTableCellDelegate
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction

@@ -27,6 +27,7 @@
         self.aPrice = muta[@"PersonPrice"];
         self.bPrice = muta[@"PersonPeerPrice"];
         self.shareInfo = muta[@"ShareInfo"];
+        self.linkUrl = muta[@"LinkUrl"];
     }
     return self;
     
