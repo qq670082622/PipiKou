@@ -10,7 +10,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
-
+#import "AppDelegate.h"
 @interface StoreViewController ()<UIWebViewDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
 @property (weak, nonatomic) IBOutlet UIButton *checkCheapBtnOutlet;
@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 @property (weak, nonatomic) IBOutlet UIView *btnLine;
 @property (weak,nonatomic)  IBOutlet UILabel *offLineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *remindLabel;
 
 @end
 
@@ -129,6 +130,8 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+    
+    
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Title"]
                                        defaultContent:self.shareDic[@"Desc"]
@@ -140,7 +143,7 @@
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
     
-    //弹出分享菜单
+   //弹出分享菜单
     [ShareSDK showShareActionSheet:container
                          shareList:nil
                            content:publishContent
@@ -148,8 +151,19 @@
                        authOptions:nil
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+//                                UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(60, 180, self.view.frame.size.width-120, 18)];
+//                                label.text = @"您分享出去的产品对外只显示门市价";
+//                                label.font = [UIFont systemFontOfSize:11];
+//                                label.textColor = [UIColor lightGrayColor];
+//                                
+//                                [[UIApplication sharedApplication].delegate.window addSubview:label];
+//                                [[UIApplication sharedApplication].delegate.window bringSubviewToFront:label ];
+                                if (state == SSResponseStateCancel) {
                                 
-                                if (state == SSResponseStateSuccess)
+                                    NSLog(@"取消了按钮");
+                                }
+                                
+                                else if (state == SSResponseStateSuccess)
                                 {
                                     
                                     [MBProgressHUD showSuccess:@"分享成功"];
@@ -163,7 +177,7 @@
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }
                             }];
-    
+   
     
 }
 

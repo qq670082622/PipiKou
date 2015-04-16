@@ -30,7 +30,7 @@
     [self addChildVc:skb title:@"收客宝" image:@"skb2" selectedImage:@"skb"];
     
     FindProduct *fdp = [[FindProduct alloc] init];
-    [self addChildVc:fdp title:@"找产品" image:@"fenlei" selectedImage:@"fenlei2"];
+    [self addChildVc:fdp title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
     
     Orders *ods = [[Orders alloc] init];
     [self addChildVc:ods title:@"理订单" image:@"lidingdan" selectedImage:@"lidingdan2"];

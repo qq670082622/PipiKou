@@ -7,6 +7,7 @@
 //
 
 #import "messageCell.h"
+#import "NSDate+Category.h"
 
 @implementation messageCell
 
@@ -31,9 +32,13 @@
 
 -(void)setModel:(messageModel *)model
 {
+   
     _model = model;
     self.title.text = model.title;
-    self.time.text = model.CreatedDate;
+    
+
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
+    self.time.text = [createDate formattedTime];
     
 }
 @end
