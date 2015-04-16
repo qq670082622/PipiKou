@@ -23,6 +23,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "SearchProductViewController.h"
 #import "WMAnimations.h"
+#import "ResizeImage.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -637,7 +638,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         NSInteger section = indexPath.section;
         NSInteger row = indexPath.row;
         rightCell *cell = [rightCell cellWithTableView:tableView];
-        
+        cell.rightIcon.image = [ResizeImage reSizeImage:cell.rightIcon.image toSize:CGSizeMake(50, 50)];
+
         rightModal *model = [[self.hotArr objectAtIndex:section] objectAtIndex:row];
         cell.modal = model;
         return cell;

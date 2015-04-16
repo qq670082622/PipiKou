@@ -28,7 +28,7 @@
     [self loadDeleteArr];
     [self loadIsReadArr];
     
-    self.table.rowHeight = 40;
+    self.table.rowHeight = 75;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -39,7 +39,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    self.table.rowHeight = 60;
+    
 }
 -(void)toReferesh
 {

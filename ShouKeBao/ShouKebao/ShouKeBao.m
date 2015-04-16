@@ -139,6 +139,12 @@
 {
     BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
     barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
+   
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    
+    NSLog(@"count is %d",count);
+    [accountDefaults setObject:[NSString stringWithFormat:@"%d",count] forKey:@"messageCount"];
+      [accountDefaults synchronize];
 }
 
 
@@ -181,8 +187,14 @@
         NSLog(@"首页公告消息列表%@",json);
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
             BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-            barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
-        
+        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+        NSString *count = [accountDefaults stringForKey:@"messageCount"];
+        NSLog(@"count is 初始化%@ ",count);
+        if ([count intValue]>0) {
+             barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
+        }else if ([count intValue]==0){
+        barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
+        }
         self.messageDic = json;
         
     } failure:^(NSError *error) {

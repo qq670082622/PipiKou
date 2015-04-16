@@ -15,6 +15,7 @@
                 <outlet property="offLineLabel" destination="kWr-c3-Fv2" id="0W6-lG-S0r"/>
                 <outlet property="profit" destination="v51-WF-wlW" id="I0Y-pu-h8j"/>
                 <outlet property="quan" destination="pUD-39-1qX" id="PKW-Tf-Bp2"/>
+                <outlet property="remindLabel" destination="uJC-4i-WSx" id="Lf8-ax-SRR"/>
                 <outlet property="subView" destination="cT5-E6-60Z" id="BH3-ue-CLU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="TP1-Kp-isn" id="vx2-uv-rkJ"/>
@@ -148,6 +149,13 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="您分享出去的产品对外只显示门市价" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uJC-4i-WSx">
+                    <rect key="frame" x="70" y="180" width="180" height="18"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                    <color key="textColor" red="0.34178116621983923" green="0.34178116621983923" blue="0.34178116621983923" alpha="1" colorSpace="calibratedRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

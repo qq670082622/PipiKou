@@ -9,6 +9,7 @@
 #import "rightCell.h"
 
 #import "UIImageView+WebCache.h"
+#import "ResizeImage.h"
 @interface rightCell()//
 
 @end
@@ -45,8 +46,9 @@ self.rightIcon.frame = CGRectMake(15, 10, 50, 50);
 -(void)setModal:(rightModal *)modal
 {
     _modal = modal;
+    
     [self.rightIcon sd_setImageWithURL:[NSURL URLWithString:modal.rightIcon]];
-    self.rightDescrip.text = modal.rightDescrip;
+       self.rightDescrip.text = modal.rightDescrip;
     
    self.rightPrice.text = [NSString stringWithFormat:@"￥%@",modal.rightPrice];
     
