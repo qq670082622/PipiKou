@@ -435,10 +435,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if(tableView.tag == 1){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 49)];
-        view.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 50)];
+        view.backgroundColor = [UIColor colorWithRed:227/255.f green:237/255.f blue:245/255.f alpha:1];
         
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 48.5, self.leftTable.frame.size.width, 0.5)];
+        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, self.leftTable.frame.size.width, 0.5)];
         line.backgroundColor = [UIColor colorWithRed:184/255.f green:186/255.f blue:191/255.f alpha:1];
         
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
@@ -451,7 +451,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         btn.frame = CGRectMake(32, 15, 60, 20);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:11];
+        btn.titleLabel.font = [UIFont systemFontOfSize:13];
         [btn addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         self.hotBtn = btn;
         
@@ -495,9 +495,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
-        return 49;
+        return 50;
     }else if (tableView.tag == 2){
-        return  104;
+        return  88;
     }else if (tableView.tag == 3){
         return 59;
     }else if (tableView.tag == 4){

@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
+@protocol notifiToRefereshCustomerDetailInfo<NSObject>
+-(void)refreshCustomerInfoWithName:(NSString*)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note;
+@end
 @interface EditCustomerDetailViewController : SKViewController
 @property (nonatomic,copy) NSString *ID;
 @property (nonatomic,copy) NSString *nameStr;
@@ -15,7 +18,7 @@
 @property (nonatomic,copy) NSString *wechatStr;
 @property (nonatomic,copy) NSString *QQStr;
 @property (nonatomic,copy) NSString *noteStr;
-
+@property(nonatomic,weak) id<notifiToRefereshCustomerDetailInfo>delegate;
 //@property (weak, nonatomic) IBOutlet UITextField *name;
 //@property (weak, nonatomic) IBOutlet UITextField *tele;
 //@property (weak, nonatomic) IBOutlet UITextField *wechat;
