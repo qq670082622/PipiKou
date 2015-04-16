@@ -36,7 +36,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] init];
         _tableView.separatorInset = UIEdgeInsetsMake(0, -67, 0, 0);
-        _tableView.rowHeight = 40;
+        _tableView.rowHeight = 45;
         _tableView.dataSource = self;
         _tableView.delegate = self;
     }

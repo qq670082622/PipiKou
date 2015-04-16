@@ -25,6 +25,7 @@
         UIButton *leftBtn = [[UIButton alloc] init];
         [leftBtn setTitle:@"时间不限" forState:UIControlStateNormal];
         [leftBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [leftBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         leftBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [leftBtn addTarget:self action:@selector(left:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:leftBtn];
@@ -38,6 +39,7 @@
         UIButton *rightBtn = [[UIButton alloc] init];
         [rightBtn setTitle:@"全部状态" forState:UIControlStateNormal];
         [rightBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [rightBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
         rightBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [rightBtn addTarget:self action:@selector(right:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:rightBtn];

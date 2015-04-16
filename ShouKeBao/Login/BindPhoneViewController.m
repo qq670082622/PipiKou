@@ -102,7 +102,7 @@
         [LoginTool getCodeWithParam:param success:^(id json) {
             NSLog(@"---%@",json);
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-//            if ([json[@"IsSuccess"] integerValue] == 1) {
+            if ([json[@"IsSuccess"] integerValue] == 1) {
             
                 self.count = 60;
                 self.codeBtn.enabled = NO;
@@ -110,7 +110,7 @@
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
                 
                 self.nextBtn.enabled = YES;
-//            }
+            }
             
         } failure:^(NSError *error) {
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

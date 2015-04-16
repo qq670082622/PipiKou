@@ -31,6 +31,8 @@
 
 @property (nonatomic,assign) BOOL isRefresh;
 
+@property (nonatomic,copy) NSString *totalCount;
+
 @end
 
 @implementation RecommendViewController
@@ -74,6 +76,7 @@
         [self.tableView headerEndRefreshing];
         if (json) {
             NSLog(@"aaaaaaaa  %@",json);
+            self.totalCount = json[@"TotalCount"];
             if (self.isRefresh) {
                 [self.dataSource removeAllObjects];
             }
@@ -87,6 +90,17 @@
     } failure:^(NSError *error) {
         
     }];
+}
+
+- (NSInteger)getEndPage
+{
+    NSInteger page = [pageSize integerValue];
+    NSInteger cos = [self.totalCount integerValue] % page;
+    if (cos == 0) {
+        return [self.totalCount integerValue] / page;
+    }else{
+        return [self.totalCount integerValue] / page + 1;
+    }
 }
 
 - (void)setNav
@@ -183,7 +197,9 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-    [self loadDataSource];
+    if (self.pageIndex < [self getEndPage]) {
+        [self loadDataSource];
+    }
 }
 
 // 右边滑动的按钮
@@ -203,6 +219,7 @@
     
     button.enabled = YES;
     [button setImage:[UIImage imageNamed:@"fenx"] forState:UIControlStateNormal];
+    button.imageEdgeInsets = UIEdgeInsetsMake(0, 5, 0, 0);
     
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 8, 0.5, 64)];
     sep.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
@@ -257,6 +274,7 @@
     OrderDetailViewController *web = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     web.url = detail.linkUrl;
     [self.navigationController pushViewController:web animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 #pragma mark - MGSwipeTableCellDelegate

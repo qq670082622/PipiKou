@@ -17,7 +17,7 @@
 {
     switch (num) {
         case 1:
-            return [UIColor colorWithRed:193/255.0 green:193/255.0 blue:193/255.0 alpha:1];
+            return [UIColor colorWithRed:102/255.0 green:102/255.0 blue:102/255.0 alpha:1];
             break;
         case 2:
             return [UIColor colorWithRed:21/255.0 green:105/255.0 blue:254/255.0 alpha:1];

@@ -98,13 +98,13 @@
     
     // 中线条
     UIView *sep2 = [[UIView alloc] init];
-    sep2.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    sep2.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     [self.contentView addSubview:sep2];
     self.sep2 = sep2;
     
     // 下线条
     UIView *sep3 = [[UIView alloc] init];
-    sep3.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+    sep3.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
     [self.contentView addSubview:sep3];
     self.sep3 = sep3;
     

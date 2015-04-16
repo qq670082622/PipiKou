@@ -35,6 +35,7 @@
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,assign) int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL added;
+@property (nonatomic,copy) NSString *totalCount;
 
 @property (nonatomic,strong) MenuButton *menuButton;
 @property (nonatomic,strong) QDMenu *qdmenu;
@@ -194,6 +195,7 @@
                 if (self.isHeadRefresh) {
                     [self.dataArr removeAllObjects];
                 }
+                self.totalCount = json[@"TotalCount"];
                 
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
@@ -211,6 +213,16 @@
 }
 
 #pragma mark - private
+- (NSInteger)getEndPage
+{
+    NSInteger cos = [self.totalCount integerValue] % pageSize;
+    if (cos == 0) {
+        return [self.totalCount integerValue] / pageSize;
+    }else{
+        return [self.totalCount integerValue] / pageSize + 1;
+    }
+}
+
 // 自定义导航按钮
 -(void)customRightBarItem
 {
@@ -279,7 +291,11 @@
 {
     self.pageIndex ++;
     self.isHeadRefresh = NO;
-    [self loadDataSuorceByCondition];
+    if (self.pageIndex < [self getEndPage]) {
+        [self loadDataSuorceByCondition];
+    }else{
+        [self.tableView footerEndRefreshing];
+    }
 }
 
 // 右边滑动的按钮
@@ -319,6 +335,11 @@
     self.qdmenu.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     self.qdmenu.frame = frame;
     self.qdmenu.dataSource = dataSource;
+    if (direct == 0) {
+        UIImage *image = [UIImage imageNamed:@"qipao"];
+        [image stretchableImageWithLeftCapWidth:200 topCapHeight:300];
+        self.qdmenu.image = image;
+    }
     [self.coverView addSubview:self.qdmenu];
     
     [self.view.window addSubview:self.coverView];
@@ -357,7 +378,7 @@
 - (MenuButton *)menuButton
 {
     if (!_menuButton) {
-        _menuButton = [[MenuButton alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 40)];
+        _menuButton = [[MenuButton alloc] initWithFrame:CGRectMake(0, 44, self.view.frame.size.width, 45)];
         _menuButton.delegate = self;
     }
     return _menuButton;
@@ -430,7 +451,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 84, self.view.frame.size.width, self.view.frame.size.height - 197) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 89, self.view.frame.size.width, self.view.frame.size.height - 202) style:UITableViewStyleGrouped];
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.dataSource = self;
         _tableView.delegate = self;
@@ -473,7 +494,7 @@
 - (void)menuDidSelectLeftBtn:(UIButton *)leftBtn
 {
     CGFloat menuX = self.view.frame.size.width * 0.25 - 40;
-    CGRect frame = CGRectMake(menuX, 148, 135, 40 * self.chooseTime.count);
+    CGRect frame = CGRectMake(menuX, 153, 300, 45 * 6);
     [self createMenuWithSelectedIndex:self.LselectedIndex frame:frame dataSource:self.chooseTime direct:0];
 }
 
@@ -483,7 +504,7 @@
 - (void)menuDidSelectRightBtn:(UIButton *)RightBtn
 {
     CGFloat menuX = self.view.frame.size.width * 0.75 - 40;
-    CGRect frame = CGRectMake(menuX, 148, 100, 40 * self.chooseStatus.count);
+    CGRect frame = CGRectMake(menuX, 153, 135, 45 * 7);
     [self createMenuWithSelectedIndex:self.RselectedIndex frame:frame dataSource:self.chooseStatus direct:1];
 }
 

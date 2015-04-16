@@ -70,6 +70,7 @@
 #pragma mark - private
 - (void)setNav
 {
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.view addSubview:self.meheader];
 }
 
