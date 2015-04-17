@@ -176,6 +176,8 @@
             [def setObject:self.distributeId forKey:@"DistributionID"];
             [def setObject:self.chooseId forKey:@"ChooseID"];
             [def synchronize];
+            //给用户打上jpush标签
+            [APService setAlias:self.businessId callbackSelector:nil object:nil];
             
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;
