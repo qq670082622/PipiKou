@@ -154,7 +154,9 @@
     [cover insertSubview:shadow atIndex:0];
     
     CGFloat nameY = CGRectGetMaxY(iconView.frame) + 10;
-    UIButton *nameBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 100, 20)];
+    UIButton *nameBtn = [[UIButton alloc] init];
+    nameBtn.center = CGPointMake(self.view.frame.size.width * 0.5, nameY + 10);
+    nameBtn.bounds = CGRectMake(0, 0, 100, 20);
     [nameBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [nameBtn setBackgroundColor:[UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.3]];
     nameBtn.layer.cornerRadius = 5;

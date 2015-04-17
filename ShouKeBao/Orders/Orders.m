@@ -28,6 +28,7 @@
 #import "QDMenu.h"
 #import "ChooseDayViewController.h"
 #import "UIImage+QD.h"
+#import "ArrowBtn.h"
 
 #define pageSize 10
 
@@ -516,12 +517,27 @@
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (menu.direct == 0) {
-        [self.menuButton.leftBtn setTitle:menu.dataSource[indexPath.row][@"Text"] forState:UIControlStateNormal];
+        NSString *title = menu.dataSource[indexPath.row][@"Text"];
+        self.menuButton.leftBtn.text = title;
+//        [self.menuButton.leftBtn setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
+        
+//        UIImage *imgArrow = [UIImage imageNamed:@"xiangxia"];
+//        [self.menuButton.leftBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -imgArrow.size.width, 0, imgArrow.size.width)];
+//        [self.menuButton.leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, self.menuButton.leftBtn.titleLabel.bounds.size.width, 0, -self.menuButton.leftBtn.titleLabel.bounds.size.width)];
+        
         self.choosedTime = menu.dataSource[indexPath.row][@"Value"];
         [self removeMenuFunc];
         self.LselectedIndex = indexPath.row;
+        
     }else{
-        [self.menuButton.rightBtn setTitle:menu.dataSource[indexPath.row][@"Text"] forState:UIControlStateNormal];
+         NSString *title = menu.dataSource[indexPath.row][@"Text"];
+        self.menuButton.rightBtn.text = title;
+//        [self.menuButton.rightBtn setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
+        
+//        UIImage *imgArrow = [UIImage imageNamed:@"xiangxia"];
+//        [self.menuButton.rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -imgArrow.size.width, 0, imgArrow.size.width)];
+//        [self.menuButton.rightBtn setImageEdgeInsets:UIEdgeInsetsMake(0, self.menuButton.rightBtn.titleLabel.bounds.size.width, 0, -self.menuButton.rightBtn.titleLabel.bounds.size.width)];
+        
         self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
         [self removeMenuFunc];
         self.RselectedIndex = indexPath.row;

@@ -160,8 +160,6 @@
 #pragma mark - LoadDataSource
 - (void)loadDataSourceLeft
 {
-
-   
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"加载中...";
     

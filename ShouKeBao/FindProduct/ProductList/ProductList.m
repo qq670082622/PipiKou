@@ -481,17 +481,22 @@
 // 左边滑动的按钮
 - (NSArray *)createLeftButtons:(ProductModal *)model
 {
-    NSString *tmp = [NSString stringWithFormat:@"%@ %@",model.ContactName,model.ContactMobile];
+//    NSString *tmp = [NSString stringWithFormat:@"%@\n%@",model.ContactName,model.ContactMobile];
+    NSString *tmp = [NSString stringWithFormat:@"联系人\n%@\n\n联系电话\n%@",@"恰的",@"13120555759"];
     NSMutableArray * result = [NSMutableArray array];
-    UIColor * color = [UIColor lightGrayColor];
+    UIColor * color = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
     
     MGSwipeButton * button = [MGSwipeButton buttonWithTitle:tmp icon:nil backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
         NSLog(@"Convenience callback received (left).");
         return YES;
     }];
     CGRect frame = button.frame;
-    frame.size.width = 50;
+    frame.size.width = 100;
     button.frame = frame;
+    button.titleLabel.numberOfLines = 0;
+    [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
+    button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+    button.titleLabel.font = [UIFont systemFontOfSize:12];
     [result addObject:button];
     button.enabled = NO;
     
@@ -504,7 +509,7 @@
     NSMutableArray * result = [NSMutableArray array];
     NSString *add = [NSString stringWithFormat:@"最近班期:%@\n\n供应商:%@",model.LastScheduleDate,model.SupplierName];
     NSString* titles[2] = {@"", add};
-    UIColor * colors[2] = {[UIColor clearColor], [UIColor lightGrayColor]};
+    UIColor * colors[2] = {[UIColor clearColor], [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1]};
     for (int i = 0; i < 2; i ++)
     {
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
@@ -519,9 +524,11 @@
             button.titleLabel.numberOfLines = 0;
             button.enabled = NO;
         }
-        button.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        button.titleLabel.font = [UIFont systemFontOfSize:12];
+        [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
         CGRect frame = button.frame;
-        frame.size.width = i == 1 ? 200 : 50;
+        frame.size.width = i == 1 ? 200 : 42;
         button.frame = frame;
         
         [result addObject:button];

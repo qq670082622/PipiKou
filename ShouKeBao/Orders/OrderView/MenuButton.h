@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+@class ArrowBtn;
+
 @protocol MenuButtonDelegate <NSObject>
 
 - (void)menuDidSelectLeftBtn:(UIButton *)leftBtn;
@@ -18,9 +20,9 @@
 
 @interface MenuButton : UIView
 
-@property (nonatomic,weak) UIButton *leftBtn;
+@property (nonatomic,weak) ArrowBtn *leftBtn;
 
-@property (nonatomic,weak) UIButton *rightBtn;
+@property (nonatomic,weak) ArrowBtn *rightBtn;
 
 @property (nonatomic,weak) id<MenuButtonDelegate> delegate;
 

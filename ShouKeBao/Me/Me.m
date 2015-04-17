@@ -42,9 +42,10 @@
     
     self.desArr = @[@[@"我的旅行社"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于收客宝",@"评价收客宝"]];
     
-    self.isPerson = [[UserInfo shareUser].loginType integerValue] != 1;
-    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *loginType = [def objectForKey:@"LoginType"];
+    self.isPerson = [loginType integerValue] != 1;
+    
     NSData *head = [def objectForKey:@"userhead"];
     if (head) {
         [self.meheader.headIcon setBackgroundImage:[UIImage imageWithData:head] forState:UIControlStateNormal];

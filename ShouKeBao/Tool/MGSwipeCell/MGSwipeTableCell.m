@@ -215,7 +215,7 @@
                 w = btn.frame.size.width;
                 CGFloat x = 0;
                 if (i == 0) {
-                    x = -w + dx - 50;
+                    x = -w + dx - 42;
                 }else{
                     UIView *tmp = [buttons objectAtIndex:i - 1];
                     x = CGRectGetMaxX(tmp.frame);
