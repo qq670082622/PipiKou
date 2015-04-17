@@ -13,7 +13,7 @@
 #import "LoginTool.h"
 #import "UserInfo.h"
 #import "BindPhoneViewController.h"
-
+#import "SearchProductViewController.h"
 @interface AppDelegate ()
 
 @property (nonatomic,assign) BOOL isAutoLogin;
@@ -117,17 +117,18 @@
 }
 
 
-#pragma mark - jpush信息处理集中在此方法
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
-    
-    // IOS 7 Support Required
-    
-    [APService setBadge:0];
-    
-    [APService handleRemoteNotification:userInfo];
-    completionHandler(UIBackgroundFetchResultNewData);
-}
+//#pragma mark - jpush信息处理集中在此方法
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//    
+//    
+//    // IOS 7 Support Required
+//    
+//    [APService setBadge:0];
+//    
+//    [APService handleRemoteNotification:userInfo];
+//    
+//    completionHandler(UIBackgroundFetchResultNewData);
+//}
 
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -136,8 +137,46 @@
     [APService registerDeviceToken:deviceToken];
 }
 
+
+//jpush推送代码notification 处理函数一律切换到下面函数，后台推送代码也在此函数中调用。
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    
+    //    新订单消息推送
+    //    orderId（订单Id）
+    NSString *orderID = [userInfo valueForKey:@"orderId"];
+    //    订单状态变化消息推送
+    //    orderId（订单Id）
+    
+    //    客户提示消息推送
+    //    userId（用户Id）
+    NSString *userId = [userInfo valueForKey:@"userId"];
+    //    精品推荐消息推送
+    //    点击进入精品推荐页面，无附加字段
+    NSString  *recommond = [userInfo valueForKey:@"recommond"];
+    //    新线路推荐消息推送
+    //    productId（产品Id）
+    NSString *productId = [userInfo valueForKey:@"productId"];
+    //    系统\公告消息推送
+    //    messageId（消息Id）
+    NSString *messageId = [userInfo valueForKey:@"messageId"];
+    
+    NSLog(@"userInfo is %@orderid is %@ userid is %@ recommond is %@  productid is %@ messageid is %@",userInfo , orderID,userId,recommond,productId,messageId);
+  //  NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+   // [defaultCenter postNotificationName:@"webUrlPost" object:webUrl];
+
+    [APService setBadge:0];
+    // IOS 7 Support Required
+    [APService handleRemoteNotification:userInfo];
+    
+      completionHandler(UIBackgroundFetchResultNewData);
+    
+}
+
+
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
+   
     // Required
     [APService handleRemoteNotification:userInfo];
 }

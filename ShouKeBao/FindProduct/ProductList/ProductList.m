@@ -5,7 +5,7 @@
 //  Created by David on 15/3/17.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
-#define titleWid 3/5
+#define titleWid 2/3
 #import "ProductList.h"
 #import "ProductCell.h"
 #import "ProductModal.h"
@@ -72,7 +72,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self iniFooterPull];
+    [self initPull];
     
     [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
@@ -129,7 +129,7 @@
     btn2.frame = CGRectMake(28, 0, self.view.frame.size.width*titleWid-28, 34);
     [btn2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
 
-    [btn2 setTitle:[NSString stringWithFormat:@"%@",_pushedSearchK] forState:UIControlStateNormal];
+    [btn2 setTitle:[NSString stringWithFormat:@"  %@",_pushedSearchK] forState:UIControlStateNormal];
     btn2.titleLabel.font = [UIFont systemFontOfSize:15];
     [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     
@@ -261,18 +261,31 @@
 
 
 
--(void)iniFooterPull
+-(void)initPull
 {
     //上啦刷新
     [self.table addFooterWithTarget:self action:@selector(footViewDidClickedLoadBtn:)];
     //设置文字
-   self.table.footerPullToRefreshText = @"上拉刷新";
+   self.table.footerPullToRefreshText = @"加载更多";
     self.table.footerRefreshingText = @"正在刷新";
+    //下拉
+    [self.table addHeaderWithTarget:self action:@selector(headerPull)];
+    [self.table headerBeginRefreshing];
+
+    self.table.headerPullToRefreshText =@"刷新内容";
+    self.table.headerRefreshingText = @"正在刷新";
    
 }
 
-
-#pragma footView - delegate
+#pragma  -mark 下来刷新数据
+-(void)headerPull
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    [self.table headerEndRefreshing];
+});
+    
+}
+#pragma footView - delegate上拉加载更多
 -(void)footViewDidClickedLoadBtn:(FootView *)footView
 {//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
@@ -412,6 +425,8 @@
         self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
 
         if (_dataArr != nil) {
+           
+           
             [self.table reloadData];
      
         }
@@ -518,7 +533,7 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
-        return 140;
+        return 136;
     }
     return 30;
 }
