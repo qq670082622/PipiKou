@@ -135,28 +135,81 @@
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     
-    //    新订单消息推送
-    //    orderId（订单Id）
-    NSString *orderID = [userInfo valueForKey:@"orderId"];
-    //    订单状态变化消息推送
-    //    orderId（订单Id）
+    //    新订单消息推送//    orderId（订单Id）  //
+    // NSString *newOrderID = [userInfo valueForKey:@"orderId"];
+    // NSString *newOrderUri = [userInfo valueForKey:@"orderUri"];
+    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     
-    //    客户提示消息推送
-    //    userId（用户Id）
-    NSString *userId = [userInfo valueForKey:@"userId"];
-    //    精品推荐消息推送
-    //    点击进入精品推荐页面，无附加字段
+    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
+    NSString *orderId = [userInfo valueForKey:@"orderId"];
+    NSString *orderUri = [userInfo valueForKey:@"orderUri"];
+    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    //    客户提示消息推送//    userId（用户Id）
+    NSString *remindTime = [userInfo valueForKey:@"remindTime"];
+    NSString *remindContent = [userInfo valueForKey:@"remindContent"];
+    //NSString *customerUri = [userInfo valueForKey:<#(NSString *)#>]
+    
+    //    精品推荐消息推送//    点击进入精品推荐页面，无附加字段
     NSString  *recommond = [userInfo valueForKey:@"recommond"];
-    //    新线路推荐消息推送
-    //    productId（产品Id）
-    NSString *productId = [userInfo valueForKey:@"productId"];
-    //    系统\公告消息推送
-    //    messageId（消息Id）
-    NSString *messageId = [userInfo valueForKey:@"messageId"];
+    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     
-    NSLog(@"userInfo is %@ orderid is %@ userid is %@ recommond is %@  productid is %@ messageid is %@",userInfo,orderID,userId,recommond,productId,messageId);
-    //  NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    // [defaultCenter postNotificationName:@"webUrlPost" object:webUrl];
+    //    新线路推荐消息推送//    productId（产品Id）
+    NSString *productUri = [userInfo valueForKey:@"productUri"];
+    NSString *productId = [userInfo valueForKey:@"productId"];
+    //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    //    系统\公告消息推送//    messageId（消息Id）
+    NSString *messageId = [userInfo valueForKey:@"messageId"];
+    NSString *messageUri = [userInfo valueForKey:@"messageUri"];
+    
+    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
+    
+    if (orderUri.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"orderId"];
+        [arr addObject:orderId];
+        [arr addObject:orderUri];
+        [defaultCenter postNotificationName:@"push" object:arr];
+    }
+    if (remindContent.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"remind"];
+        [arr addObject:remindTime];
+        [arr addObject:remindContent];
+        [defaultCenter postNotificationName:@"push" object:arr];
+        
+    }
+    if ([recommond isEqualToString:@"123"]) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"recommond"];
+        [arr addObject:recommond];
+        [arr addObject:@"123"];
+        [defaultCenter postNotificationName:@"push" object:arr];
+        
+    }
+    if (productId.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"productId"];
+        [arr addObject:productId];
+        [arr addObject:productUri];
+        [defaultCenter postNotificationName:@"push" object:arr];
+    }
+    if (messageId.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"messageId"];
+        [arr addObject:messageId];
+        [arr addObject:messageUri];
+        [defaultCenter postNotificationName:@"push" object:arr];
+        
+    }
+    
+    
     
     [APService setBadge:0];
     // IOS 7 Support Required
@@ -172,7 +225,13 @@
     [APService handleRemoteNotification:userInfo];
 }
 
-
+-(void)dealloc
+{
+    //如果是非arc 需要＋[super dealloc];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+    
+}
 
 
 #pragma weChat
