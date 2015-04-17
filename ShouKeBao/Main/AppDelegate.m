@@ -13,6 +13,7 @@
 #import "LoginTool.h"
 #import "UserInfo.h"
 #import "BindPhoneViewController.h"
+#import "WelcomeView.h"
 
 @interface AppDelegate ()
 
@@ -47,6 +48,7 @@
 
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *phone = [def objectForKey:@"phonenumber"];
+    NSString *isFirst = [def objectForKey:@"isFirst"];
     
     // 是否绑定
     if (phone) {
@@ -57,8 +59,12 @@
             [self setLoginRoot];
         }
     }else{
-        // 如果未绑定手机号 去绑定手机
-        [self setBindRoot];
+        if ([isFirst integerValue] != 1) {// 是否第一次打开app
+            [self setWelcome];
+        }else{
+            // 如果未绑定手机号 去绑定手机
+            [self setBindRoot];
+        }
     }
     
 #pragma mark -about shareSDK
@@ -165,6 +171,14 @@
 }
 
 #pragma public
+- (void)setWelcome
+{
+    [self setBindRoot];
+    
+    WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:self.window.bounds];
+    [self.window addSubview:welceome];
+}
+
 -(void)setTabbarRoot
 {
     ViewController *vc = [[ViewController alloc] init];

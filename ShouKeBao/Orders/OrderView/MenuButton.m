@@ -26,6 +26,7 @@
         [leftBtn setTitle:@"时间不限" forState:UIControlStateNormal];
         [leftBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [leftBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [leftBtn setImage:[UIImage imageNamed:@"xiangxia"] forState:UIControlStateNormal];
         leftBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [leftBtn addTarget:self action:@selector(left:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:leftBtn];

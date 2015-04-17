@@ -7,6 +7,7 @@
 //
 
 #import "QDMenu.h"
+#import "UIImage+QD.h"
 
 @interface QDMenu() <UITableViewDataSource,UITableViewDelegate>
 
@@ -21,7 +22,7 @@
         [self addSubview:self.tableView];
         
         self.userInteractionEnabled = YES;
-        self.image = [UIImage imageNamed:@"qipao"];
+        self.image = [UIImage resizedImageWithName:@"bubble" left:0.6 top:0.5];
         self.layer.shadowColor = [UIColor lightGrayColor].CGColor;
         self.layer.shadowOpacity = 1;
         self.layer.shadowOffset = CGSizeMake(1, 1);

@@ -18,7 +18,7 @@
 @interface OrderCell()
 
 // 上线条
-@property (weak, nonatomic) UIView *sep1;
+//@property (weak, nonatomic) UIView *sep1;
 
 // 中线条
 @property (weak, nonatomic) UIView *sep2;
@@ -92,9 +92,9 @@
 - (void)setup
 {
     // 上线条
-    UIView *sep1 = [[UIView alloc] init];
-    [self.contentView addSubview:sep1];
-    self.sep1 = sep1;
+//    UIView *sep1 = [[UIView alloc] init];
+//    [self.contentView addSubview:sep1];
+//    self.sep1 = sep1;
     
     // 中线条
     UIView *sep2 = [[UIView alloc] init];
@@ -185,11 +185,12 @@
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
     // 上线条
-    self.sep1.frame = CGRectMake(0, 0, screenW, 2);
+//    self.sep1.frame = CGRectMake(0, 0, screenW, 2);
     
     // 状态图标
     CGFloat statusIconX = gap * 2;
-    CGFloat statusIconY = CGRectGetMaxY(self.sep1.frame) + gap;
+//    CGFloat statusIconY = CGRectGetMaxY(self.sep1.frame) + gap;
+    CGFloat statusIconY = gap;
     CGFloat statusW = [model.ProgressState integerValue] == 0 ? 0 : 24;
     self.statusIcon.frame = CGRectMake(statusIconX, statusIconY, statusW, 20);
     
@@ -256,7 +257,7 @@
     self.sep3.hidden = !model.buttonList.count;
     
     // 上线条
-    self.sep1.backgroundColor = model.TopBarColor;
+//    self.sep1.backgroundColor = model.TopBarColor;
     // 订单号
     self.tourCode.text = model.Code;
     // 状态图标
@@ -277,7 +278,7 @@
     [self.price setAttributedText:attrStr];
     
     if ([model.IsCruiseShip integerValue] == 1) {
-        NSString *count = [NSString stringWithFormat:@"%d",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
+        NSString *count = [NSString stringWithFormat:@"%ld",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
         self.childCount.text = [NSString stringWithFormat:@"人数%@",count];
     }else{
         // 成人个数

@@ -132,6 +132,9 @@
 		5A52FC901ACEBF220076DAE6 /* OrderCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC171ACEBF220076DAE6 /* OrderCell.m */; };
 		5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC1A1ACEBF220076DAE6 /* SKSearchBar.m */; };
 		5A52FC921ACEBF220076DAE6 /* SKSearckDisplayController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */; };
+		5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC6A1AE09AA800CDAC4B /* UIImage+QD.m */; };
+		5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC721AE0A93400CDAC4B /* WelcomeView.m */; };
+		5A60FC771AE0A97000CDAC4B /* WelcomePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC761AE0A97000CDAC4B /* WelcomePageControl.m */; };
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
@@ -482,6 +485,12 @@
 		5A52FC1A1ACEBF220076DAE6 /* SKSearchBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSearchBar.m; sourceTree = "<group>"; };
 		5A52FC1B1ACEBF220076DAE6 /* SKSearckDisplayController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKSearckDisplayController.h; sourceTree = "<group>"; };
 		5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKSearckDisplayController.m; sourceTree = "<group>"; };
+		5A60FC691AE09AA800CDAC4B /* UIImage+QD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+QD.h"; sourceTree = "<group>"; };
+		5A60FC6A1AE09AA800CDAC4B /* UIImage+QD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+QD.m"; sourceTree = "<group>"; };
+		5A60FC711AE0A93400CDAC4B /* WelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeView.h; sourceTree = "<group>"; };
+		5A60FC721AE0A93400CDAC4B /* WelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeView.m; sourceTree = "<group>"; };
+		5A60FC751AE0A97000CDAC4B /* WelcomePageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomePageControl.h; sourceTree = "<group>"; };
+		5A60FC761AE0A97000CDAC4B /* WelcomePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePageControl.m; sourceTree = "<group>"; };
 		5A62B4911AD3DD7500DFF567 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		5A62B4921AD3DD7500DFF567 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		5A62B4941AD3DEE800DFF567 /* TravelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelButton.h; sourceTree = "<group>"; };
@@ -912,6 +921,8 @@
 				5ABA4F5D1AD7B26E004AA8F6 /* NSDate+Category.m */,
 				5ABA4F5E1AD7B26E004AA8F6 /* NSDateFormatter+Category.h */,
 				5ABA4F5F1AD7B26E004AA8F6 /* NSDateFormatter+Category.m */,
+				5A60FC691AE09AA800CDAC4B /* UIImage+QD.h */,
+				5A60FC6A1AE09AA800CDAC4B /* UIImage+QD.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1245,6 +1256,25 @@
 				5A52FC1C1ACEBF220076DAE6 /* SKSearckDisplayController.m */,
 			);
 			path = SearchBar;
+			sourceTree = "<group>";
+		};
+		5A60FC6C1AE0A8CD00CDAC4B /* Welcome */ = {
+			isa = PBXGroup;
+			children = (
+				5A60FC741AE0A97000CDAC4B /* WelcomeView */,
+				5A60FC711AE0A93400CDAC4B /* WelcomeView.h */,
+				5A60FC721AE0A93400CDAC4B /* WelcomeView.m */,
+			);
+			path = Welcome;
+			sourceTree = "<group>";
+		};
+		5A60FC741AE0A97000CDAC4B /* WelcomeView */ = {
+			isa = PBXGroup;
+			children = (
+				5A60FC751AE0A97000CDAC4B /* WelcomePageControl.h */,
+				5A60FC761AE0A97000CDAC4B /* WelcomePageControl.m */,
+			);
+			path = WelcomeView;
 			sourceTree = "<group>";
 		};
 		5A62B4901AD3DD5E00DFF567 /* AuthView */ = {
@@ -1675,6 +1705,7 @@
 				845514F81AC0327E00D588A7 /* Manager */,
 				845514E61ABFFAB500D588A7 /* BaseViewController */,
 				5A52FB701ACEBF220076DAE6 /* FindProduct */,
+				5A60FC6C1AE0A8CD00CDAC4B /* Welcome */,
 				5A52FBB21ACEBF220076DAE6 /* Login */,
 				5A52FBC71ACEBF220076DAE6 /* Me */,
 				5A52FBF41ACEBF220076DAE6 /* Orders */,
@@ -1942,6 +1973,7 @@
 				6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */,
 				5A52FC861ACEBF220076DAE6 /* OrderTool.m in Sources */,
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
+				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
 				5A52FC6F1ACEBF220076DAE6 /* MeHttpTool.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,
@@ -1966,6 +1998,7 @@
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				5A52FC7E1ACEBF220076DAE6 /* SuggestViewController.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
+				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				63B8C6F91ACE8EB000328C8C /* messageCenterViewController.m in Sources */,
@@ -1985,6 +2018,7 @@
 				5A52FC5A1ACEBF220076DAE6 /* rightModal3.m in Sources */,
 				5A52FC431ACEBF220076DAE6 /* ConditionModel.m in Sources */,
 				5A52FC391ACEBF220076DAE6 /* NSString+QD.m in Sources */,
+				5A60FC771AE0A97000CDAC4B /* WelcomePageControl.m in Sources */,
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
 				845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */,
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,

@@ -27,6 +27,7 @@
 #import "MenuButton.h"
 #import "QDMenu.h"
 #import "ChooseDayViewController.h"
+#import "UIImage+QD.h"
 
 #define pageSize 10
 
@@ -335,10 +336,13 @@
     self.qdmenu.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
     self.qdmenu.frame = frame;
     self.qdmenu.dataSource = dataSource;
-    if (direct == 0) {
-        UIImage *image = [UIImage imageNamed:@"qipao"];
-        [image stretchableImageWithLeftCapWidth:200 topCapHeight:300];
-        self.qdmenu.image = image;
+    if (direct == 1) {
+        self.qdmenu.layer.anchorPoint = CGPointMake(1, 0);
+        UIImage *image = [UIImage imageNamed:@"bubble"];
+        CGFloat w = image.size.width;
+        CGFloat h = image.size.height;
+        self.qdmenu.image = [image resizableImageWithCapInsets:UIEdgeInsetsMake(h * 0.5, w * 0.2, h * 0.5, w * 0.8)];
+//        self.qdmenu.image = [UIImage resizedImageWithName:@"bubble" left:0.2 top:0.5];
     }
     [self.coverView addSubview:self.qdmenu];
     
@@ -456,7 +460,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = 204;
+        _tableView.rowHeight = 202;
         _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     }
     return _tableView;
@@ -493,8 +497,8 @@
  */
 - (void)menuDidSelectLeftBtn:(UIButton *)leftBtn
 {
-    CGFloat menuX = self.view.frame.size.width * 0.25 - 40;
-    CGRect frame = CGRectMake(menuX, 153, 300, 45 * 6);
+    CGFloat menuX = self.view.frame.size.width * 0.25 - 30;
+    CGRect frame = CGRectMake(menuX, 153, 135, 45 * 6);
     [self createMenuWithSelectedIndex:self.LselectedIndex frame:frame dataSource:self.chooseTime direct:0];
 }
 
@@ -503,7 +507,7 @@
  */
 - (void)menuDidSelectRightBtn:(UIButton *)RightBtn
 {
-    CGFloat menuX = self.view.frame.size.width * 0.75 - 40;
+    CGFloat menuX = self.view.frame.size.width * 0.75 + 30;
     CGRect frame = CGRectMake(menuX, 153, 135, 45 * 7);
     [self createMenuWithSelectedIndex:self.RselectedIndex frame:frame dataSource:self.chooseStatus direct:1];
 }
