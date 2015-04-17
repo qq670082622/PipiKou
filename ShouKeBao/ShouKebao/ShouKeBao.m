@@ -39,6 +39,9 @@
 #import "OrderDetailViewController.h"
 #import "NSMutableDictionary+QD.h"
 #import "WMAnimations.h"
+#import "ProduceDetailViewController.h"
+#import "RemindDetailViewController.h"
+#import "messageDetailViewController.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate,remindDetailDelegate>
@@ -109,8 +112,58 @@
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPush:) name:@"push" object:nil];
 }
-
+#pragma  - mark远程推送处理函数
+-(void)dealPush:(NSNotification *)noti
+{ //arr[0]是value arr[1]是key
+    //orderId ,userId ,recommond ,productId ,messageId
+    NSMutableArray *message = noti.object;
+    NSLog(@"viewController 里取得值是 is %@",message);
+    
+    if ([message[0] isEqualToString:@"orderId"]) {
+    //已经处理的订单在发生变化时发送消息给用户，点击消息直接进入该订单消息的订单详情
+        //message[2]是订单url
+        OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        detail.url = message[2];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    
+    else if ([message[0] isEqualToString:@"remind"]){
+    //跳remindDetail
+        NSString *remindTime = message[1];
+        NSString *remindContent = message[2];
+        //time,note
+        RemindDetailViewController *remindDetail = [[RemindDetailViewController alloc] init];
+        remindDetail.time = remindTime;
+        remindDetail.note = remindContent;
+        [self.navigationController pushViewController:remindDetail animated:YES];
+    }
+    
+    else if ([message[0] isEqualToString:@"recommond"]){
+        //精品推荐界面
+        //无需参数，直接跳转到精品推荐
+        RecommendViewController *rec = [[RecommendViewController alloc] init];
+        [self.navigationController pushViewController:rec animated:YES];
+    }
+    
+    else if ([message[0] isEqualToString:@"productId"]){
+        //产品详情h5
+        
+        ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+        detail.produceUrl = message[2];
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    
+    else if ([message[0] isEqualToString:@"messageId"]){
+        //进入h5
+        NSString *messageURL = message[2];
+        messageDetailViewController *messageDetail = [[messageDetailViewController alloc] init];
+        messageDetail.messageURL = messageURL;
+        [self.navigationController pushViewController:messageDetail animated:YES];
+    }
+}
 -(NSMutableString *)messageCount
 {
     if (_messageCount == nil) {

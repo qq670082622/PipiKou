@@ -13,5 +13,5 @@
 @interface messageDetailViewController : UIViewController
 @property(nonatomic,weak) id<notifiToReferesh>delegate;
 @property (nonatomic,copy) NSString *ID;
-
+@property (nonatomic,copy) NSString *messageURL;
 @end

@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *imgV;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 - (IBAction)pushAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIWebView *web;
 
 @end
 
@@ -22,8 +23,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.title = @"活动";
+    self.navigationController.title = @"消息";
     [self loadData];
+    [self.web loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_messageURL]]];
 }
 
 -(void)viewDidDisappear:(BOOL)animated
