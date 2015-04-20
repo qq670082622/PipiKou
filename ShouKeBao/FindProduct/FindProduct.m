@@ -450,7 +450,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         btn.frame = CGRectMake(32, 15, 60, 20);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:13];
+        btn.titleLabel.font = [UIFont systemFontOfSize:12];
         [btn addTarget:self action:@selector(hotBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         self.hotBtn = btn;
         
@@ -477,7 +477,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }if (tableView.tag == 4) {
                 UIView *v_headerView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 200, 13)];
       
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(20, -5, 180, 13)];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(12, -5, 180, 13)];
                 lab.text = self.hotSectionArr[section];
                 lab.font = [UIFont systemFontOfSize:11];
         [v_headerView addSubview:lab];
@@ -544,7 +544,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         NSLog(@"self.row is %@",_row);
         [self.leftTable reloadData];
             [self loadDataSourceRight];
-        [self.hotBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [self.hotBtn setTitleColor:[UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:0.7] forState:UIControlStateNormal];
+        self.hotBtn.titleLabel.font = [UIFont systemFontOfSize:12];
          self.subHotView.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];
         [UIView animateWithDuration:0.3 animations:^{
             self.rightTable2.alpha = 0;
@@ -552,6 +553,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
            // self.hotIcon.image = [UIImage imageNamed:@"APPhot"];
             self.rightTable.alpha = 1;
             self.rightTable.frame = self.hotTable.frame;
+            
+            [self.hotBtn setTitleColor:[UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:0.7] forState:UIControlStateNormal];
+            self.hotBtn.titleLabel.font = [UIFont systemFontOfSize:12];
 
         }];
         

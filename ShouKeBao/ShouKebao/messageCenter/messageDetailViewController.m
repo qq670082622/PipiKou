@@ -8,13 +8,11 @@
 
 #import "messageDetailViewController.h"
 #import "HomeHttpTool.h"
+#import "NSDate+Category.h"
 @interface messageDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *messgeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *time;
-@property (weak, nonatomic) IBOutlet UITextView *content;
-@property (weak, nonatomic) IBOutlet UIImageView *imgV;
-@property (weak, nonatomic) IBOutlet UIView *subView;
-- (IBAction)pushAction:(id)sender;
+
 @property (weak, nonatomic) IBOutlet UIWebView *web;
 
 @end
@@ -39,20 +37,24 @@
 
 
 -(void)loadData{
-    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
-    
-    [dic setObject:self.ID forKey:@"ActivitiesNoticeID"];
-    
-    [HomeHttpTool getActivitiesNoticeDetailWithParam:dic success:^(id json) {
-        NSLog(@"公告详细消息%@",json);
-        NSDictionary *dic =  json[@"ActivitiesNotice"];
-        
-        self.messgeTitle.text = dic[@"Title"];
-        self.time.text = dic[@"CreatedDate"];
-        self.content.text = dic[@"Content"];
-    } failure:^(NSError *error) {
-        NSLog(@"公告详细消息失败%@",error);
-    }];
+//    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
+//    
+//    [dic setObject:self.ID forKey:@"ActivitiesNoticeID"];
+//    
+//    [HomeHttpTool getActivitiesNoticeDetailWithParam:dic success:^(id json) {
+//        NSLog(@"公告详细消息%@",json);
+//        NSDictionary *dic =  json[@"ActivitiesNotice"];
+//        
+//        self.messgeTitle.text = dic[@"Title"];
+//        self.time.text = dic[@"CreatedDate"];
+//        self.content.text = dic[@"Content"];
+//    } failure:^(NSError *error) {
+//        NSLog(@"公告详细消息失败%@",error);
+//    }];
+    self.messgeTitle.text = self.title;
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[self.createDate doubleValue]];
+    self.time.text = [createDate formattedTime];
+    [self.web loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:_messageURL]]];
 }
 
 
@@ -65,7 +67,5 @@
  便签
 */
 
-- (IBAction)pushAction:(id)sender {
-    
-}
+
 @end

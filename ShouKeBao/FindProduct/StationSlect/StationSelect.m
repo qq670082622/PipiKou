@@ -21,7 +21,7 @@
     [super viewDidLoad];
     self.title = @"切换分站";
     
-    self.table.rowHeight = 40;
+    self.table.rowHeight = 55;
     
     self.table.delegate = self;
     self.table.dataSource = self;

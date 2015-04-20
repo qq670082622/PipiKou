@@ -13,6 +13,8 @@
 @property (nonatomic,copy) NSString *CreatedDate;
 @property (nonatomic,copy) NSString *ID;
 @property (nonatomic,copy) NSString  *Content;
+@property (nonatomic,copy) NSString *IsRead;
+@property (nonatomic,copy) NSString *LinkUrl;
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end

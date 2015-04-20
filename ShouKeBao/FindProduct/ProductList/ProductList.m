@@ -44,7 +44,7 @@
 - (IBAction)jishiSwitchAction:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *priceBtnOutlet;
-@property (weak, nonatomic) IBOutlet UIView *blackView;
+//@property (weak, nonatomic) IBOutlet UIView *blackView;
 
 //@property (copy , nonatomic) NSMutableString *ProductSortingType;//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
 //同行价（从低往高）:”3,同行价（从高往低）:"4"
@@ -65,6 +65,7 @@
 @property (copy,nonatomic) NSMutableString *jiafan;
 @property (copy,nonatomic) NSMutableString *jishi;
 @property (weak, nonatomic) IBOutlet UIView *subSubView;
+@property (weak,nonatomic) UIView *coverView;
 
 @end
 
@@ -155,13 +156,22 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-  
+ 
+
    
     }
 
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(UIView *)subView
+{
+    if (_subView == nil) {
+        self.subView = [[[NSBundle mainBundle] loadNibNamed:@"ProductList" owner:self options:nil] lastObject];
+    }
+    return _subView;
 }
 #pragma - stationSelect delegate
 -(void)passStation:(NSString *)stationName andStationNum:(NSNumber *)stationNum
@@ -239,7 +249,7 @@
         [self.subTable reloadData];
 
     }
-   
+    self.coverView.hidden = NO;
       NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
     
 }
@@ -440,22 +450,23 @@
 #pragma 筛选navitem
 -(void)setSubViewHideNo
 {
-   if (self.subView.hidden == YES) {
-       [UIView animateWithDuration:0.3 animations:^{
-           self.subView.alpha = 1;
-           self.subView.hidden = NO;
-           self.blackView.alpha = 0.5;
-       }];
-      
-   }else if (self.subView.hidden == NO){
-   [UIView animateWithDuration:0.3 animations:^{
-       self.subView.alpha = 0;
-       self.blackView.alpha = 0;
-       self.subView.hidden = YES;
-       
-   }];
+
+    UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
    
-   }
+    CGFloat W = self.view.frame.size.width * 0.8;
+  
+    self.subView.frame = CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height);
+
+    [cover addSubview:self.subView];
+    self.coverView = cover;
+    [self.view.window addSubview:cover];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
+    }];
+
+    
 }
 
 
@@ -542,7 +553,7 @@
     if (tableView.tag == 1) {
         return 136;
     }
-    return 30;
+    return 50;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -573,7 +584,7 @@
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {  if(tableView.tag == 2){
   if(section == 1 && [_turn isEqualToString:@"Off"]){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 35)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 38)];
         view.userInteractionEnabled = YES;
     
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
@@ -583,8 +594,8 @@
         view.backgroundColor = [UIColor whiteColor];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.titleLabel.font = [UIFont systemFontOfSize:13];
-        btn.frame = CGRectMake(0, 0, view.frame.size.width, 35);
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        btn.frame = CGRectMake(0, 0, view.frame.size.width, 38);
         [btn setTitle:@"展开更多▼" forState:UIControlStateNormal];
        [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
         self.subTableSectionBtn = btn;
@@ -592,7 +603,7 @@
         
         return view;
     }else if (section == 1 && [_turn isEqualToString:@"On"]){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 35)];
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 38)];
         view.userInteractionEnabled = YES;
         
         UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
@@ -602,8 +613,8 @@
         view.backgroundColor = [UIColor whiteColor];
        
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.titleLabel.font = [UIFont systemFontOfSize:13];
-        btn.frame = CGRectMake(0, 0,view.frame.size.width, 35);
+        btn.titleLabel.font = [UIFont systemFontOfSize:15];
+        btn.frame = CGRectMake(0, 0,view.frame.size.width, 38);
         [btn setTitle:@"收起▲" forState:UIControlStateNormal];
         [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
         self.subTableSectionBtn = btn;
@@ -629,14 +640,14 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 2 && section == 1) {
-        return 35;
+        return 38;
     }
     return 0;
 }
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (tableView.tag == 2 &&section == 1) {
-        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 160)];
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 180)];
        
         UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 20)];
         subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
@@ -647,7 +658,7 @@
        
         [footView addSubview:subLine];
         
-        self.subSubView.frame = CGRectMake(0, 20, self.subTable.frame.size.width, 113);
+        self.subSubView.frame = CGRectMake(0, 20, self.subTable.frame.size.width, 160);
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
         [footView addSubview:self.subSubView];
        
@@ -660,7 +671,7 @@
 {
     if (tableView.tag == 2 && section == 1) {
         
-        return 133;
+        return 185;
     }
     return 0;
 }
@@ -700,6 +711,7 @@
         
        
         //    NSLog(@"-----------conditionVC.conditionDic is %@---------",conditionVC.conditionDic);
+        self.coverView.hidden = YES;
         [self.navigationController pushViewController:conditionVC animated:YES];
     }
     
@@ -734,22 +746,22 @@
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, self.subTable.frame.size.width, 0.5)];
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, self.subTable.frame.size.width, 0.5)];
             line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
             [cell addSubview:line];
         }
        
        if (indexPath.section == 0) {
-           cell.textLabel.font = [UIFont systemFontOfSize:13];
+           cell.textLabel.font = [UIFont systemFontOfSize:15];
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr1[indexPath.row]];
-           cell.detailTextLabel.font = [UIFont systemFontOfSize:11.0];
+           cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
            cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
            cell.detailTextLabel.textColor = [UIColor orangeColor];
        }else {
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
-           cell.textLabel.font = [UIFont systemFontOfSize:13];
+           cell.textLabel.font = [UIFont systemFontOfSize:15];
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
-           cell.detailTextLabel.font = [UIFont systemFontOfSize:11.0];
+           cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
            cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
            cell.detailTextLabel.textColor = [UIColor orangeColor];
 
@@ -1045,11 +1057,17 @@
 }
 
 - (IBAction)sunCancel:(id)sender {
-   [UIView animateWithDuration:0.3 animations:^{
-              self.subView.alpha = 0;
-       self.subView.hidden = YES;
-   }];
-    self.blackView.alpha = 0;
+//   [UIView animateWithDuration:0.3 animations:^{
+//              self.subView.alpha = 0;
+//       self.subView.hidden = YES;
+//   }];
+    //self.blackView.alpha = 0;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.subView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        [self.coverView removeFromSuperview];
+       // [_dressView removeFromSuperview];
+    }];
 
    }
 
@@ -1065,16 +1083,28 @@
 }
 
 - (IBAction)subDone:(id)sender {
+    
     [UIView animateWithDuration:0.3 animations:^{
-        self.subView.hidden = YES;
-        self.subView.alpha = 0;
-        
+        self.subView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        [self.coverView removeFromSuperview];
+        // [_dressView removeFromSuperview];
         [self recommond:sender];
         [self.commondOutlet setSelected:YES];
         self.profitOutlet.selected = NO;
         self.cheapOutlet.selected = NO;
     }];
-self.blackView.alpha = 0;
+
+//    [UIView animateWithDuration:0.3 animations:^{
+//      
+//        [self recommond:sender];
+//        [self.commondOutlet setSelected:YES];
+//        self.profitOutlet.selected = NO;
+//        self.cheapOutlet.selected = NO;
+//
+//        self.coverView.hidden = YES;
+//    }];
+
 }
 
 - (IBAction)subMinMax:(id)sender {

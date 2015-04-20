@@ -62,12 +62,13 @@
     [super viewWillAppear:animated];
     
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    hudView.labelText = @"加载中...";
     [hudView show:YES];
-    
+    hudView.labelText = @"加载中...";
     [self loadDataSource];
-
-}
+    //[hudView show:NO];
+    
+    
+    }
 
 -(void)customerRightBarItem
 {

@@ -14,7 +14,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "CustomModel.h"
 
-@interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo>
+@interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
 
@@ -150,19 +150,33 @@
 }
 
 - (IBAction)deleteCustomer:(id)sender {
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    hudView.labelText = @"删除中...";
-    [hudView show:YES];
+    
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"确定删除" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
+    [sheet showInView:self.view];
+    
+  }
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        
+        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+        hudView.labelText = @"删除中...";
+        [hudView show:YES];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.ID forKey:@"CustomerID"];
+        [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
+            NSLog(@"删除客户信息成功%@",json);
+            hudView.labelText = @"删除成功...";
+            [hudView hide:YES afterDelay:0.4];
+        } failure:^(NSError *error) {
+            NSLog(@"删除客户请求失败%@",error);
+        }];
+        [self.navigationController popViewControllerAnimated:YES];
 
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.ID forKey:@"CustomerID"];
-    [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
-        NSLog(@"删除客户信息成功%@",json);
-        hudView.labelText = @"删除成功...";
- [hudView hide:YES afterDelay:0.4];
-    } failure:^(NSError *error) {
-        NSLog(@"删除客户请求失败%@",error);
-    }];
-    [self.navigationController popViewControllerAnimated:YES];
+    }
+    if (buttonIndex == 1) {
+        return;
+    }
 }
 @end

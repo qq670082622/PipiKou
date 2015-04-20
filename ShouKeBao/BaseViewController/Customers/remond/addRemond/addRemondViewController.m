@@ -34,6 +34,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    [self.descript becomeFirstResponder];
 }
 
 -(void)back
