@@ -40,5 +40,9 @@
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
     self.time.text = [createDate formattedTime];
     
+    if ([model.IsRead isEqualToString:@"0"]) {
+        self.hongdian.hidden = NO;
+    }
+    
 }
 @end

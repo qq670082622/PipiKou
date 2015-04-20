@@ -59,12 +59,11 @@
 
 @property (weak, nonatomic) IBOutlet UIView *upView;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
-@property (nonatomic,copy) NSMutableString *messageCount;
+//@property (nonatomic,copy) NSMutableString *messageCount;
 - (IBAction)search:(id)sender;
 
 - (IBAction)add:(id)sender;//现改为share!!
 
-@property(strong,nonatomic)NSMutableDictionary *messageDic;
 @property (nonatomic,copy) NSMutableString *shareLink;
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
 @end
@@ -164,13 +163,13 @@
         [self.navigationController pushViewController:messageDetail animated:YES];
     }
 }
--(NSMutableString *)messageCount
-{
-    if (_messageCount == nil) {
-        self.messageCount = [NSMutableString string];
-    }
-    return _messageCount;
-}
+//-(NSMutableString *)messageCount
+//{
+//    if (_messageCount == nil) {
+//        self.messageCount = [NSMutableString string];
+//    }
+//    return _messageCount;
+//}
 -(NSMutableString *)shareLink
  {
      if (_shareLink == nil) {
@@ -190,24 +189,11 @@
 #pragma -mark massegeCenterDelegate
 -(void)refreshSKBMessgaeCount:(int)count
 {
-    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-    barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
+    [self getNotifiList];
    
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    
-    NSLog(@"count is %d",count);
-    [accountDefaults setObject:[NSString stringWithFormat:@"%d",count] forKey:@"messageCount"];
-      [accountDefaults synchronize];
-}
+   }
 
 
-- (NSMutableDictionary *)messageDic
-{
-    if (_messageDic == nil) {
-        self.messageDic = [NSMutableDictionary dictionary];
-    }
-    return _messageDic;
-}
 
 - (void)getUserInformation
 {
@@ -239,16 +225,19 @@
     [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
         NSLog(@"首页公告消息列表%@",json);
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
-            BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        NSString *count = [accountDefaults stringForKey:@"messageCount"];
-        NSLog(@"count is 初始化%@ ",count);
-        if ([count intValue]>0) {
-             barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
-        }else if ([count intValue]==0){
-        barButton.badgeValue = [NSString stringWithFormat:@"%lu",(unsigned long)arr.count];
+        
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+        
+        int count = 0;
+        for (int i = 0; i<arr.count; i++) {
+            NSDictionary *dic = arr[i];
+            if ([dic[@"IsRead"] isEqualToString:@"0"]) {
+                count += 1;
+            }
         }
-        self.messageDic = json;
+        barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
+      
+      
         
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
@@ -286,6 +275,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:237/255.0 alpha:1];
         _tableView.tableFooterView = [[UIView alloc] init];
+        
     }
     return _tableView;
 }
@@ -542,8 +532,6 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 {
 
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
-    
-    messgeCenter.dataDic = self.messageDic;
     messgeCenter.delegate = self;
     [self.navigationController pushViewController:messgeCenter animated:YES];
     

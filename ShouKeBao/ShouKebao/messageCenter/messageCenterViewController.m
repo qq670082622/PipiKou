@@ -12,11 +12,14 @@
 #import "messageDetailViewController.h"
 #import "HomeHttpTool.h"
 #import "WriteFileManager.h"
+#import "IWHttpTool.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,strong) NSMutableArray *deleteArr;
 @property (nonatomic,strong) NSMutableArray *isReadArr;
+
+@property (nonatomic,assign) NSInteger isRead;
 @end
 
 @implementation messageCenterViewController
@@ -25,9 +28,8 @@
     [super viewDidLoad];
    self.title = @"消息中心";
     [self loadDataSource];
-    [self loadDeleteArr];
-    [self loadIsReadArr];
     
+
     self.table.rowHeight = 75;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
@@ -44,9 +46,7 @@
 -(void)toReferesh
 {
     [self loadDataSource];
-    [self loadDeleteArr];
-    [self loadIsReadArr];
-    [self.table reloadData];
+  
     NSLog(@"代理重新刷新");
 }
 -(void)back
@@ -62,68 +62,28 @@
     }
     return _dataArr;
 }
--(NSMutableArray *)deleteArr
-{
-    if (_deleteArr == nil) {
-        self.deleteArr = [NSMutableArray array];
-    }
-    return _deleteArr;
-}
--(NSMutableArray *)isReadArr
-{
-    if (_isReadArr == nil) {
-        self.isReadArr = [NSMutableArray array];
-    }
-    return _isReadArr;
-}
 
--(void)loadIsReadArr
-{
-    self.isReadArr = [WriteFileManager WMreadData:@"hasRead"];
-}
--(void)loadDeleteArr
-{
-    self.deleteArr = [WriteFileManager WMreadData:@"deleted"];
-}
 
 -(void)loadDataSource
 {
-   
-    NSMutableArray *arr = [WriteFileManager WMreadData:@"deleted"];
-    NSLog(@"file's arr is%@",arr);
-    [self.dataArr removeAllObjects];
-   
-    for(NSDictionary *dic in self.dataDic[@"ActivitiesNoticeList"]){
-       messageModel *model = [messageModel modalWithDict:dic];
+    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
+    [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
+        NSLog(@"首页公告消息列表%@",json);
+        for (NSDictionary *dic in json[@"ActivitiesNoticeList"]) {
+            [self.dataArr removeAllObjects];
+            messageModel *model = [messageModel modalWithDict:dic];
+            [self.dataArr addObject:model];
+}
+        [self.table reloadData];
         
-        [self.dataArr addObject:model];
+    } failure:^(NSError *error) {
+        NSLog(@"首页公告消息列表失败%@",error);
+    }];
+    
 }
 
-    for(int i = 0; i<self.dataArr.count ; i++){
-        messageModel *model = _dataArr[i];
-        if ([arr containsObject:model.ID]) {
-            [self.dataArr removeObjectAtIndex:i];
-        }
-    }
-    
-    for(int i = 0; i<self.dataArr.count ; i++){
-        messageModel *model = _dataArr[i];
-        if ([arr containsObject:model.ID]) {
-            [self.dataArr removeObjectAtIndex:i];
-        }
-    }
-    
-    for(int i = 0; i<self.dataArr.count ; i++){
-        messageModel *model = _dataArr[i];
-        if ([arr containsObject:model.ID]) {
-            [self.dataArr removeObjectAtIndex:i];
-        }
-    }
-    
-    
-    [self.table reloadData];
-    
-}
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -144,13 +104,15 @@
         
         NSLog(@"%ld", (long)indexPath.row);
         
-        
         messageModel *model = self.dataArr[indexPath.row];
-       [self.deleteArr addObject:model.ID];
-        [WriteFileManager WMsaveData:self.deleteArr name:@"deleted"];
-        
         [self.dataArr removeObjectAtIndex:[indexPath row]];
-        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:model.ID forKey:@"ActivitiesNoticeID"];
+        [IWHttpTool WMpostWithURL:@"/Home/DeleteActivitiesNotice" params:dic success:^(id json) {
+            NSLog(@"删除单个信息成功，返回信息json ：%@",json);
+        } failure:^(NSError *error) {
+            NSLog(@"删除单个信息失败，返回消息error %@",error);
+        }];
         
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
         }
@@ -163,24 +125,11 @@
     messageDetail.delegate = self;
     messageModel *model = _dataArr[indexPath.row];
     messageDetail.ID = model.ID;
-    
-    [self.isReadArr addObject:model.ID];
-   [WriteFileManager WMsaveData:self.isReadArr name:@"hasRead"];
+    messageDetail.messageURL = model.LinkUrl;
+    messageDetail.createDate = model.CreatedDate;
+    messageDetail.title = model.title;
 
-
-    //此处是计算还有几条未读消息，并将值通过代理返给首页，以供铃铛debadgeValue使用
-    int count = 0;
-    for (int i = 0; i<self.dataArr.count; i++) {
-        messageModel *model = self.dataArr[i];
-        if ([_isReadArr containsObject:model.ID]) {
-            count+=1;
-        }
-    }
-    
-    int newCount = (int)(self.dataArr.count - count);
-   [self.delegate refreshSKBMessgaeCount:newCount];
-    
-    
+    self.isRead = indexPath.row;
     [self.navigationController pushViewController:messageDetail animated:YES];
     
 }
@@ -195,9 +144,7 @@
     messageCell *cell = [messageCell cellWithTableView:tableView];
     messageModel *model = _dataArr[indexPath.row];
     cell.model = model;
-
-if ([_isReadArr containsObject:model.ID]) {
-   
+    if (indexPath.row == _isRead) {
         cell.hongdian.hidden = YES;
     }
     

@@ -13,7 +13,7 @@
 @interface rightCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *rightIcon;
 //@property (weak, nonatomic) IBOutlet UILabel *rightDescrip;
-@property (weak, nonatomic) IBOutlet UITextView *rightDescrip;
+@property (weak, nonatomic) IBOutlet UILabel *rightDescrip;
 
 @property (weak, nonatomic) IBOutlet UILabel *rightPrice;
 @property (strong , nonatomic) rightModal *modal;

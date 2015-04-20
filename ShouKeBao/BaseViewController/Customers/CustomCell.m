@@ -21,6 +21,19 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)callAction:(id)sender {
+    
+    if (self.userTele.text.length>6) {
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.userTele.text];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+    }
+    else if (self.userTele.text.length<=6){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"失败" message:@"该客户电话号码错误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+    }
+
 + (instancetype)cellWithTableView:(UITableView *)tableView
 { static NSString *cellID = @"customCell";
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
@@ -39,16 +52,7 @@
     self.userTele.text = [NSString stringWithFormat:@"电话：%@",model.Mobile];
     self.userOders.text = [NSString stringWithFormat:@"订单数：%@",model.OrderCount];
     
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:model.ID forKey:@"CustomerID"];
-//    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerRemindList" params:dic success:^(id json) {
-//        NSMutableArray *remindList = json[@"CustomerRemindList"];
-//        if (remindList.count>0) {
-//            self.detailBtn.hidden = NO;
-//        }
-//        } failure:^(NSError *error) {
-//        NSLog(@"客户提醒列表请求错误 %@",error);
-//    }];
+
     }
 
 @end

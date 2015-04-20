@@ -12,6 +12,6 @@
 @end
 
 @interface messageCenterViewController : UIViewController
-@property (nonatomic,strong) NSMutableDictionary *dataDic;
+
 @property (nonatomic,weak) id<notifiSKBToReferesh>delegate;
 @end
