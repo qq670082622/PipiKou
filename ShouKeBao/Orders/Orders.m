@@ -461,7 +461,6 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        _tableView.rowHeight = 202;
         _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     }
     return _tableView;
@@ -581,10 +580,20 @@
     
     OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detail.url = order.DetailLinkUrl;
-    
+    detail.title = @"订单详情";
     [self.navigationController pushViewController:detail animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    OrderModel *order = self.dataArr[indexPath.section];
+    if (order.buttonList.count) {
+        return 202;
+    }else{
+        return 172;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -721,10 +730,10 @@
     self.dressView.firstText = nil;
     self.dressView.secondText = nil;
     self.dressView.thirdText = nil;
-    self.dressView.goDateText = @"";
-    self.dressView.createDateText = @"";
+    self.dressView.goDateText = @"不限";
+    self.dressView.createDateText = @"不限";
+    [self.dressView.IsRefund setOn:YES animated:YES];
     [self.dressView.tableView reloadData];
-//    [self loadConditionData];
 }
 
 - (void)clickConfirm:(NSNotification *)noty

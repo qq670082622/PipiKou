@@ -35,9 +35,6 @@
     
 }
 
-
-
-
 -(void)loadData{
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
     

@@ -7,7 +7,7 @@
 //
 
 #import "DressView.h"
-
+#import "DressFooter.h"
 
 @interface DressView() <UITableViewDataSource,UITableViewDelegate>
 
@@ -68,9 +68,10 @@
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 60)];
     
-    UIView *footer = [[[NSBundle mainBundle] loadNibNamed:@"DressFooter" owner:nil options:nil] lastObject];
+    DressFooter *footer = [[[NSBundle mainBundle] loadNibNamed:@"DressFooter" owner:nil options:nil] lastObject];
     footer.frame = CGRectMake(0, 10, self.bounds.size.width, 50);
     [cover addSubview:footer];
+    self.IsRefund = footer.isRefund;
     
     self.tableView.tableFooterView = footer;
 }

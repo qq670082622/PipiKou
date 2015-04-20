@@ -3,8 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-        <capability name="Alignment constraints to the first baseline" minToolsVersion="6.0"/>
-        <capability name="Alignment constraints with different attributes" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -58,14 +56,13 @@
             <constraints>
                 <constraint firstItem="L0D-UB-bb2" firstAttribute="top" secondItem="cIu-aK-xJu" secondAttribute="top" id="1hb-ak-juB"/>
                 <constraint firstItem="faD-mI-f4Y" firstAttribute="leading" secondItem="UGl-jb-UIV" secondAttribute="leadingMargin" id="31E-En-gVe"/>
-                <constraint firstItem="L0D-UB-bb2" firstAttribute="baseline" secondItem="cIu-aK-xJu" secondAttribute="firstBaseline" id="3be-0b-vE1"/>
                 <constraint firstItem="cIu-aK-xJu" firstAttribute="trailing" secondItem="UGl-jb-UIV" secondAttribute="trailingMargin" id="5Wy-JJ-7Hd"/>
-                <constraint firstItem="cIu-aK-xJu" firstAttribute="baseline" secondItem="L0D-UB-bb2" secondAttribute="baseline" id="7Uh-mG-vaI"/>
+                <constraint firstAttribute="bottom" secondItem="faD-mI-f4Y" secondAttribute="bottom" constant="14" id="5nJ-N3-blJ"/>
                 <constraint firstItem="faD-mI-f4Y" firstAttribute="top" secondItem="UGl-jb-UIV" secondAttribute="top" constant="14" id="CnU-Ii-Dlh"/>
                 <constraint firstItem="cIu-aK-xJu" firstAttribute="leading" secondItem="L0D-UB-bb2" secondAttribute="trailing" constant="20" id="GMb-ZY-G2j"/>
-                <constraint firstItem="cIu-aK-xJu" firstAttribute="baseline" secondItem="L0D-UB-bb2" secondAttribute="firstBaseline" id="JgY-XF-Xu6"/>
-                <constraint firstItem="L0D-UB-bb2" firstAttribute="baseline" secondItem="faD-mI-f4Y" secondAttribute="baseline" id="RJn-ft-CIH"/>
+                <constraint firstAttribute="bottom" secondItem="cIu-aK-xJu" secondAttribute="bottom" constant="14" id="PkU-fN-eBY"/>
                 <constraint firstItem="faD-mI-f4Y" firstAttribute="centerY" secondItem="UGl-jb-UIV" secondAttribute="centerY" id="bdb-lH-Veu"/>
+                <constraint firstAttribute="bottom" secondItem="L0D-UB-bb2" secondAttribute="bottom" constant="14" id="nqj-Qi-Uv0"/>
                 <constraint firstItem="faD-mI-f4Y" firstAttribute="top" secondItem="L0D-UB-bb2" secondAttribute="top" id="pCp-BU-vBm"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>

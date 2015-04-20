@@ -32,10 +32,10 @@
                                                         <constraint firstAttribute="width" constant="18" id="sSM-jk-KDH"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入登录邮箱/手机" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4kN-B0-sX8">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入登录邮箱/手机" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="4kN-B0-sX8">
                                                     <rect key="frame" x="51" y="18" width="230" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -69,10 +69,10 @@
                                                         <constraint firstAttribute="width" constant="18" id="1Fk-8N-6U4"/>
                                                     </constraints>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入登录密码" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qr6-GY-jFa">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入登录密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qr6-GY-jFa">
                                                     <rect key="frame" x="51" y="18" width="230" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits"/>
+                                                    <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -193,17 +193,14 @@
                                                 </view>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入手机" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="K7D-pV-o4b">
                                                     <rect key="frame" x="51" y="18" width="159" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="159" id="N6b-m1-6o5"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAv-uA-d9X">
-                                                    <rect key="frame" x="230" y="18" width="65" height="30"/>
+                                                    <rect key="frame" x="225" y="9" width="80" height="48"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="65" id="vW4-Z2-ndO"/>
-                                                        <constraint firstAttribute="height" constant="30" id="xTv-Ku-ZFT"/>
+                                                        <constraint firstAttribute="width" constant="80" id="PvF-aR-Btz"/>
+                                                        <constraint firstAttribute="height" constant="48" id="bRt-SR-PSa"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                     <state key="normal" title="发送验证码">
@@ -223,20 +220,22 @@
                                             <constraints>
                                                 <constraint firstItem="K7D-pV-o4b" firstAttribute="top" secondItem="QRC-gc-uGA" secondAttribute="topMargin" constant="10" id="0oK-eC-sBc"/>
                                                 <constraint firstItem="Rii-15-rbo" firstAttribute="leading" secondItem="K7D-pV-o4b" secondAttribute="trailing" constant="15" id="1Yn-hp-b4e"/>
-                                                <constraint firstItem="XAv-uA-d9X" firstAttribute="leading" secondItem="Rii-15-rbo" secondAttribute="trailing" constant="4" id="4hn-tV-DBd"/>
                                                 <constraint firstItem="zPz-JV-ngw" firstAttribute="top" secondItem="QRC-gc-uGA" secondAttribute="topMargin" id="9LP-ob-6KX"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="XAv-uA-d9X" secondAttribute="trailing" constant="7" id="ESd-pQ-I3w"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="K7D-pV-o4b" secondAttribute="trailing" constant="102" id="GHG-RX-fLh"/>
                                                 <constraint firstItem="K7D-pV-o4b" firstAttribute="leading" secondItem="1oG-BO-i5i" secondAttribute="trailing" constant="8" symbolic="YES" id="HB2-rk-v9F"/>
                                                 <constraint firstItem="1oG-BO-i5i" firstAttribute="centerY" secondItem="K7D-pV-o4b" secondAttribute="centerY" id="HzR-GB-RWN"/>
-                                                <constraint firstItem="XAv-uA-d9X" firstAttribute="bottom" secondItem="K7D-pV-o4b" secondAttribute="bottom" id="L7m-kI-n7T"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="zPz-JV-ngw" secondAttribute="bottom" constant="-1" id="QTK-vF-SOH"/>
                                                 <constraint firstItem="Rii-15-rbo" firstAttribute="bottom" secondItem="QRC-gc-uGA" secondAttribute="bottomMargin" id="RB6-P0-2NX"/>
                                                 <constraint firstItem="1oG-BO-i5i" firstAttribute="top" secondItem="QRC-gc-uGA" secondAttribute="topMargin" constant="15" id="XzA-88-5Qk"/>
-                                                <constraint firstItem="XAv-uA-d9X" firstAttribute="top" secondItem="K7D-pV-o4b" secondAttribute="top" id="bDb-bK-0AO"/>
+                                                <constraint firstItem="XAv-uA-d9X" firstAttribute="top" secondItem="QRC-gc-uGA" secondAttribute="topMargin" constant="1" id="cC3-O7-xwC"/>
                                                 <constraint firstItem="zPz-JV-ngw" firstAttribute="centerX" secondItem="QRC-gc-uGA" secondAttribute="centerX" id="cvl-yx-2b9"/>
                                                 <constraint firstItem="1oG-BO-i5i" firstAttribute="leading" secondItem="QRC-gc-uGA" secondAttribute="leadingMargin" constant="17" id="f1i-qR-5qg"/>
                                                 <constraint firstItem="zPz-JV-ngw" firstAttribute="leading" secondItem="QRC-gc-uGA" secondAttribute="leadingMargin" constant="7" id="fNE-VS-SI9"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="XAv-uA-d9X" secondAttribute="trailing" constant="17" id="p3s-k5-Fhs"/>
-                                                <constraint firstItem="Rii-15-rbo" firstAttribute="centerY" secondItem="XAv-uA-d9X" secondAttribute="centerY" id="s3I-EH-dIl"/>
+                                                <constraint firstItem="XAv-uA-d9X" firstAttribute="leading" secondItem="K7D-pV-o4b" secondAttribute="trailing" constant="15" id="fUC-Ij-MJp"/>
+                                                <constraint firstItem="Rii-15-rbo" firstAttribute="top" secondItem="XAv-uA-d9X" secondAttribute="top" id="jQj-uI-W2R"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="K7D-pV-o4b" secondAttribute="bottom" constant="9" id="sI8-Gz-ceW"/>
+                                                <constraint firstItem="XAv-uA-d9X" firstAttribute="bottom" secondItem="QRC-gc-uGA" secondAttribute="bottomMargin" id="sbH-vb-d4A"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -252,7 +251,7 @@
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FDG-Qc-uD4">
                                                     <rect key="frame" x="53" y="18" width="231" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passwrod_icon" translatesAutoresizingMaskIntoConstraints="NO" id="uhe-uf-y7X">
                                                     <rect key="frame" x="25" y="23" width="20" height="20"/>

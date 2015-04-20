@@ -10,7 +10,7 @@
 
 @protocol CalendarViewControllerDelegate <NSObject>
 
-- (void)didSelectedDate:(NSString *)date atIndex:(NSInteger)index;
+- (void)didSelectedDateStr:(NSString *)dateStr atIndex:(NSInteger)index date:(NSDate *)date;
 
 @end
 
@@ -19,6 +19,10 @@
 @property (nonatomic,copy) NSString *selectedDate;
 
 @property (nonatomic,assign) NSInteger index;
+
+@property (nonatomic,strong) NSDate *date;
+
+@property (nonatomic,strong) NSDate *goDate;
 
 @property (nonatomic,weak) id<CalendarViewControllerDelegate> delegate;
 

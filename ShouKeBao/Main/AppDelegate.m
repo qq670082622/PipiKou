@@ -283,6 +283,7 @@
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
     Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
+    lg.autoLoginFailed = !self.isAutoLogin;
     self.window.rootViewController = lg;
     [self.window makeKeyAndVisible];
 }

@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 @interface textStyle : NSObject
-+(void)textStyleLabel:(UILabel *)labell FontNumber:(CGFloat)font AndRange:(NSRange)range AndColor:(UIColor *)vaColor;
++(void)textStyleLabel:(UILabel *)labell text:(NSString *)text FontNumber:(CGFloat)font AndRange:(NSRange)range AndColor:(UIColor *)vaColor;
 @end

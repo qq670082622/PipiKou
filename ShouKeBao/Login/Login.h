@@ -25,4 +25,6 @@
 
 @property (nonatomic,strong) Business *business;
 
+@property (nonatomic,assign) BOOL autoLoginFailed;
+
 @end

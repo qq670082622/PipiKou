@@ -33,8 +33,8 @@
     [super viewWillDisappear:animated];
     
     if (self.selectedDate) {
-        if (_delegate && [_delegate respondsToSelector:@selector(didSelectedDate:atIndex:)]) {
-            [_delegate didSelectedDate:self.selectedDate atIndex:self.index];
+        if (_delegate && [_delegate respondsToSelector:@selector(didSelectedDateStr:atIndex:date:)]) {
+            [_delegate didSelectedDateStr:self.selectedDate atIndex:self.index date:self.date];
         }
     }
 }
@@ -92,9 +92,20 @@
     [scroll addSubview:calendarView];
     
     calendarView.date = [NSDate date];
-    calendarView.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year){
+    calendarView.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year, NSDate *date){
         
+        // 判断返回时间是否大于出发时间
+        if (self.index == 1) {
+            NSTimeInterval first = [date timeIntervalSince1970];
+            NSTimeInterval second = [self.goDate timeIntervalSince1970];
+            if (first < second) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"返回时间必须大于出发时间" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                [alert show];
+                return;
+            }
+        }
         
+        self.date = date;
         self.selectedDate = [NSString stringWithFormat:@"%li-%li-%li",(long)year,(long)month,(long)day];
         [self dismissViewControllerAnimated:YES completion:nil];
     };
@@ -112,15 +123,23 @@
         NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
         ca.date = newDate;
         
-        ca.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year){
+        ca.calendarBlock =  ^(NSInteger day, NSInteger month, NSInteger year, NSDate *date){
             
+            // 判断返回时间是否大于出发时间
+            if (self.index == 1) {
+                NSTimeInterval first = [date timeIntervalSince1970];
+                NSTimeInterval second = [self.goDate timeIntervalSince1970];
+                if (first < second) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"返回时间必须大于出发时间" delegate:self cancelButtonTitle:@"确定" otherButtonTitles: nil];
+                    [alert show];
+                    return;
+                }
+            }
             
+            self.date = date;
             self.selectedDate = [NSString stringWithFormat:@"%li-%li-%li",(long)year,(long)month,(long)day];
             [self dismissViewControllerAnimated:YES completion:nil];
         };
-        //        if (i%2 == 0) {
-        //            ca.backgroundColor = [UIColor whiteColor];
-        //        }
         [scroll addSubview:ca];
     }
     scroll.contentSize = CGSizeMake(self.view.frame.size.width, viewH * 5 + 25);

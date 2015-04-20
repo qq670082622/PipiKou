@@ -175,16 +175,17 @@
     //self.productNum.text = [NSString stringWithFormat:@"产品编号: %@",modal.Code];
     self.normalPrice.text = [NSString stringWithFormat:@"门市价: ￥%@",modal.PersonPrice];
     
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"产品编号: %@",modal.Code]];
-    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(5, modal.Code.length + 1)];
+    NSString *codeStr = [NSString stringWithFormat:@"产品编号: %@",modal.Code];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:codeStr];
+    [str addAttribute:NSForegroundColorAttributeName value:[UIColor blackColor] range:NSMakeRange(0, modal.Code.length + 1)];
    self.productNum.attributedText = str;
-    [textStyle textStyleLabel:self.productNum FontNumber:12 AndRange:NSMakeRange(5, modal.Code.length+1) AndColor:[UIColor blackColor]];
+    [textStyle textStyleLabel:self.productNum text:codeStr FontNumber:12 AndRange:NSMakeRange(5, modal.Code.length) AndColor:[UIColor blackColor]];
     
     NSMutableAttributedString *str1 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"同行价: ￥%@",modal.PersonPeerPrice]];
-    [str1 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5, modal.PersonPeerPrice.length + 1)];
+    [str1 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, modal.PersonPeerPrice.length + 1)];
     
     self.cheapPrice.attributedText = str1;
-   [textStyle textStyleLabel:self.cheapPrice FontNumber:15 AndRange:NSMakeRange(5, modal.PersonPeerPrice.length+1) AndColor:[UIColor redColor]];
+//    [textStyle textStyleLabel:self.cheapPrice text:modal.PersonPeerPrice FontNumber:15 AndRange:NSMakeRange(0, modal.PersonPeerPrice.length+1) AndColor:[UIColor redColor]];
     
     NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"利润: ￥%@",modal.PersonProfit]];
     [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(4, modal.PersonProfit.length + 1)];

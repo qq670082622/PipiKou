@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "ChildAccountViewController.h"
 #import "MBProgressHUD+MJ.h"
+#import "MBProgressHUD.h"
 #import "Business.h"
 
 @interface BindPhoneViewController () <UIScrollViewDelegate>
@@ -46,6 +47,8 @@
     [self setupHeader];
     
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beijing"]];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
+    [self.view addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -110,6 +113,8 @@
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
                 
                 self.nextBtn.enabled = YES;
+            }else{
+                [MBProgressHUD showError:@"获取失败,请检查网络连接"];
             }
             
         } failure:^(NSError *error) {
@@ -123,8 +128,8 @@
 {
     if (self.count > 0) {
         self.count --;
-        self.codeBtn.titleLabel.text = [NSString stringWithFormat:@"重新发送%ld",(long)self.count];
-        [self.codeBtn setTitle:[NSString stringWithFormat:@"重新发送%ld",(long)self.count] forState:UIControlStateNormal];
+        self.codeBtn.titleLabel.text = [NSString stringWithFormat:@"重新发送(%ld)",(long)self.count];
+        [self.codeBtn setTitle:[NSString stringWithFormat:@"重新发送(%ld)",(long)self.count] forState:UIControlStateNormal];
     }else{
         self.codeBtn.enabled = YES;
         [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
@@ -153,10 +158,20 @@
             child.mobile = self.phoneNum.text;
             [self.navigationController pushViewController:child animated:YES];
 
+        }else{
+            [MBProgressHUD showError:@"验证码输入错误"];
         }
     } failure:^(NSError *error) {
        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
+}
+
+/*
+    触碰退出编辑
+*/
+- (void)tapHandle:(UITapGestureRecognizer *)ges
+{
+    [self.view endEditing:YES];
 }
 
 #pragma mark - tableviewdelegate

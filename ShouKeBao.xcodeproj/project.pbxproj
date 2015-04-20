@@ -141,6 +141,7 @@
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
+		5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA176D81AE4A146003F7875 /* DressFooter.m */; };
 		5AB725781AD611E80044B318 /* QDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725771AD611E80044B318 /* QDMenu.m */; };
 		5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257A1AD61A4C0044B318 /* MenuButton.m */; };
 		5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257D1AD664610044B318 /* HomeHttpTool.m */; };
@@ -504,6 +505,8 @@
 		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
 		5A82161A1AD3843B009388DA /* HomeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeList.h; sourceTree = "<group>"; };
 		5A82161B1AD3843B009388DA /* HomeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
+		5AA176D71AE4A146003F7875 /* DressFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressFooter.h; sourceTree = "<group>"; };
+		5AA176D81AE4A146003F7875 /* DressFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressFooter.m; sourceTree = "<group>"; };
 		5AB725761AD611E80044B318 /* QDMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMenu.h; sourceTree = "<group>"; };
 		5AB725771AD611E80044B318 /* QDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMenu.m; sourceTree = "<group>"; };
 		5AB725791AD61A4C0044B318 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
@@ -1232,6 +1235,8 @@
 				5A52FC0B1ACEBF220076DAE6 /* DetailView.h */,
 				5A52FC0C1ACEBF220076DAE6 /* DetailView.m */,
 				5A52FC0D1ACEBF220076DAE6 /* DetailView.xib */,
+				5AA176D71AE4A146003F7875 /* DressFooter.h */,
+				5AA176D81AE4A146003F7875 /* DressFooter.m */,
 				5A52FC0E1ACEBF220076DAE6 /* DressFooter.xib */,
 				5A52FC0F1ACEBF220076DAE6 /* DressHeader.xib */,
 				5A52FC101ACEBF220076DAE6 /* DressView.h */,
@@ -2038,6 +2043,7 @@
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
 				5A0058901ACEBD1E007AF362 /* CustomCell.m in Sources */,
 				632B00021AB92A3A003B15AD /* UIView+WebCacheOperation.m in Sources */,
+				5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */,
 				632BFFC31AB91FB1003B15AD /* StrToDic.m in Sources */,
 				632BFFF51AB92A3A003B15AD /* SDImageCache.m in Sources */,
 				845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */,

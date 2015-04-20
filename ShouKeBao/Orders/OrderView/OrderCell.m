@@ -236,12 +236,20 @@
     self.goTime.frame = CGRectMake(goTimeX, priceY, 100, 20);
     
     // 状态描述
+    CGFloat statusDesH = 20;
+    CGFloat bottomGap = gap;
+    CGFloat sep3H = 1;
+    if (!model.buttonList.count) {
+        statusDesH = 0;
+        bottomGap = 0;
+        sep3H = 0;
+    }
     CGFloat statusY = CGRectGetMaxY(self.price.frame) + gap;
-    self.statusDes.frame = CGRectMake(statusIconX, statusY, sep2W, 20);
+    self.statusDes.frame = CGRectMake(statusIconX, statusY, sep2W, statusDesH);
     
     // 下线条
-    CGFloat sep3Y = CGRectGetMaxY(self.statusDes.frame) + gap;
-    self.sep3.frame = CGRectMake(0, sep3Y, screenW, 1);
+    CGFloat sep3Y = CGRectGetMaxY(self.statusDes.frame) + bottomGap;
+    self.sep3.frame = CGRectMake(0, sep3Y, screenW, sep3H);
     
     // 底部按钮
     CGFloat bottomY = CGRectGetMaxY(self.sep3.frame);
@@ -254,12 +262,13 @@
     
     [self setFrameWithModel:model];
     
-    self.sep3.hidden = !model.buttonList.count;
+//    self.sep3.hidden = !model.buttonList.count;
     
     // 上线条
 //    self.sep1.backgroundColor = model.TopBarColor;
     // 订单号
     self.tourCode.text = model.Code;
+    
     // 状态图标
     NSString *name = [NSString stringWithFormat:@"progress%@",model.ProgressState];
     self.statusIcon.image = [UIImage imageNamed:name];
@@ -274,7 +283,7 @@
     NSString *tmp = [NSString stringWithFormat:@"￥%@(同行)",model.OrderPrice];
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:tmp];
     [attrStr addAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor],
-                             NSFontAttributeName:[UIFont boldSystemFontOfSize:15]} range:NSMakeRange(0, model.OrderPrice.length + 1)];
+                             NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:NSMakeRange(0, model.OrderPrice.length + 1)];
     [self.price setAttributedText:attrStr];
     
     if ([model.IsCruiseShip integerValue] == 1) {
@@ -289,6 +298,7 @@
     
     // 出发日期
     self.goTime.text = model.GoDate;
+    
     // 状态描述
     self.statusDes.text = model.StateText;
     
@@ -326,6 +336,8 @@
         doneLab.text = [model.ProgressState integerValue] == 0 ? @"订单取消" : @"交易完成";
         doneLab.textColor = [model.ProgressState integerValue] == 0 ? [UIColor grayColor] : [UIColor greenColor];
         [self.bottomView addSubview:doneLab];
+        
+        self.statusDes.text = nil;
     }
 }
 

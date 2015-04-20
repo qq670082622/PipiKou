@@ -125,7 +125,7 @@
     _model = model;
         
     // 图标
-    if ([model.IsSKBOrder integerValue] == 0) {
+    if ([model.IsSKBOrder integerValue] == 1) {
         self.iconView.image = [UIImage imageNamed:@"zhike"];
         // 右边待定内容
         self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];

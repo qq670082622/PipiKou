@@ -17,6 +17,6 @@
 - (NSDate *)lastMonth:(NSDate *)date;
 
 @property (nonatomic, strong) NSDate *date;
-@property (nonatomic, copy) void(^calendarBlock)(NSInteger day, NSInteger month, NSInteger year);
+@property (nonatomic, copy) void(^calendarBlock)(NSInteger day, NSInteger month, NSInteger year,NSDate *date);
 
 @end

@@ -44,12 +44,12 @@
     // 设置头部图标
     [self setupHeader];
     
-    self.accountField.text = @"gaowei@pipikou.com";
-    self.passwordField.text = @"123456";
-//    self.accountField.text = @"lxstest";
-//    self.passwordField.text = @"A148A148";
+//    self.accountField.text = @"gaowei@pipikou.com";
+//    self.passwordField.text = @"123456";
+    self.accountField.text = @"lxstest";
+    self.passwordField.text = @"A148A148";
     
-    [self setWithName:[[NSUserDefaults standardUserDefaults] objectForKey:@"showname"]];
+    [self setWithName:[UserInfo shareUser].userName];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -89,6 +89,14 @@
     // 退出编辑
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tanHandle:)];
     [self.view addGestureRecognizer:tap];
+    
+    
+    if (self.autoLoginFailed) {// 如果自动登录失败
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        self.businessId = [def objectForKey:@"DistributionID"];
+        self.distributeId = [def objectForKey:@"BusinessID"];
+        self.chooseId = [def objectForKey:@"ChooseID"];
+    }
 }
 
 // 返回
@@ -114,11 +122,16 @@
     iconView.backgroundColor = [UIColor orangeColor];
     iconView.contentMode = UIViewContentModeScaleAspectFill;
     iconView.backgroundColor = [UIColor clearColor];
-    [iconView sd_setImageWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:@"loginavatar"]] placeholderImage:nil];
-    iconView.layer.shadowColor = [UIColor blackColor].CGColor;
-    iconView.layer.shadowOpacity = 0.3;
-    iconView.layer.shadowOffset = CGSizeMake(5, 5);
+    [iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
+    iconView.layer.cornerRadius = 50;
+    iconView.layer.masksToBounds = YES;
     [cover addSubview:iconView];
+    
+    UIImageView *shadow = [[UIImageView alloc] init];
+    shadow.center = iconView.center;
+    shadow.bounds = CGRectMake(0, 0, 120, 120);
+    shadow.image = [UIImage imageNamed:@"yiny1"];
+    [cover insertSubview:shadow atIndex:0];
     
     CGFloat nameY = CGRectGetMaxY(iconView.frame) + 10;
     UIButton *nameBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 100, 20)];
@@ -176,12 +189,15 @@
             [def setObject:self.distributeId forKey:@"DistributionID"];
             [def setObject:self.chooseId forKey:@"ChooseID"];
             [def synchronize];
-            //给用户打上jpush标签
+            
+            // 给用户打上jpush标签
             [APService setAlias:self.businessId callbackSelector:nil object:nil];
             
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;
             [app setTabbarRoot];
+        }else{
+            
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

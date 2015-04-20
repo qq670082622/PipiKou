@@ -94,7 +94,7 @@
 //    self.backgroundColor = [UIColor orangeColor];
     // 1.year month
     UILabel *headlabel = [[UILabel alloc] init];
-    headlabel.text     = [NSString stringWithFormat:@"%li年%li月",[self year:date],[self month:date]];
+    headlabel.text     = [NSString stringWithFormat:@"%li年%li月",(long)[self year:date],(long)[self month:date]];
     headlabel.font     = [UIFont systemFontOfSize:14];
     headlabel.frame           = CGRectMake(0, 0, self.frame.size.width, 25);
     headlabel.textAlignment   = NSTextAlignmentCenter;
@@ -144,7 +144,7 @@
             [self setStyle_AfterToday:dayButton];
         }
         
-        [dayButton setTitle:[NSString stringWithFormat:@"%li", day] forState:UIControlStateNormal];
+        [dayButton setTitle:[NSString stringWithFormat:@"%li", (long)day] forState:UIControlStateNormal];
         
         // this month
         if ([self month:date] == [self month:[NSDate date]]) {
@@ -173,12 +173,26 @@
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
     NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSWeekdayCalendarUnit | NSWeekOfMonthCalendarUnit | NSWeekOfYearCalendarUnit) fromDate:self.date];
     
-    NSLog(@"Adjusted weekday ordinal: %lu", (unsigned long)comp.weekday);
+    NSDate *tmpDate = [self dateFromString:[NSString stringWithFormat:@"%ld-%ld-%ld",(long)[comp year],(long)[comp month],(long)day]];
+    
+    NSDateComponents *co = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSWeekdayCalendarUnit | NSWeekOfMonthCalendarUnit | NSWeekOfYearCalendarUnit) fromDate:tmpDate];
+    NSLog(@"------%ld",(long)co.weekday - 1);
+    
     if (self.calendarBlock) {
-        self.calendarBlock(day, [comp month], [comp year]);
+        
+        
+        self.calendarBlock(day, [comp month], [comp year] ,tmpDate);
     }
 }
 
+- (NSDate *)dateFromString:(NSString *)dateString{
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat: @"yyyy-MM-dd"];
+    
+    NSDate *destDate= [dateFormatter dateFromString:dateString];
+    
+    return destDate;
+}
 
 #pragma mark - date button style
 

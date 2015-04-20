@@ -614,6 +614,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
         HomeList *order = model.model;
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
         detail.url = order.LinkUrl;
+        detail.title = @"订单详情";
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){

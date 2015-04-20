@@ -35,7 +35,7 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,strong) UITableView *tableView;
 
-@property (weak, nonatomic) IBOutlet UISwitch *IsRefund;
+@property (weak, nonatomic) UISwitch *IsRefund;
 
 @property (nonatomic,copy) NSString *goDateText;
 

@@ -23,6 +23,8 @@
 
 @property (nonatomic,assign) NSInteger pageIndex;
 
+@property (nonatomic,copy) NSString *totalCount;
+
 @end
 
 @implementation MyListViewController
@@ -44,11 +46,13 @@
     NSDictionary *param = @{@"PageSize":[NSString stringWithFormat:@"%d",pageSize],
                             @"PageIndex":[NSString stringWithFormat:@"%d",self.pageIndex]};
     if (self.listType == collectionType) {
+        self.title = @"我的收藏";
         [MeHttpTool getFavoritesProductListWithParam:param success:^(id json) {
             [self.tableView headerEndRefreshing];
             [self.tableView footerEndRefreshing];
             if (json) {
                 NSLog(@"-----%@",json);
+                self.totalCount = json[@"TotalCount"];
                 if (self.pageIndex == 1) {
                     [self.dataSource removeAllObjects];
                 }
@@ -62,11 +66,21 @@
             
         }];
     }else{
+        self.title = @"客户最近浏览";
         [MeHttpTool getHistoryProductListWithParam:param success:^(id json) {
             [self.tableView headerEndRefreshing];
             [self.tableView footerEndRefreshing];
             if (json) {
                 NSLog(@"-----%@",json);
+                self.totalCount = json[@"TotalCount"];
+                if (self.pageIndex == 1) {
+                    [self.dataSource removeAllObjects];
+                }
+                for (NSDictionary *dic in json[@"ProductList"]) {
+                    ProductModal *model = [ProductModal modalWithDict:dic];
+                    [self.dataSource addObject:model];
+                }
+                [self.tableView reloadData];
             }
         } failure:^(NSError *error) {
             
@@ -84,6 +98,16 @@
 }
 
 #pragma mark - private
+- (NSInteger)getEndPage
+{
+    NSInteger cos = [self.totalCount integerValue] % pageSize;
+    if (cos == 0) {
+        return [self.totalCount integerValue] / pageSize;
+    }else{
+        return [self.totalCount integerValue] / pageSize + 1;
+    }
+}
+
 -(void)iniHeader
 {    //下啦刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -106,8 +130,14 @@
 -(void)footRefresh
 {
     self.pageIndex ++;
-    [self loadDataSource];
+    if (self.pageIndex < [self getEndPage]) {
+        [self loadDataSource];
+    }else{
+        [self.tableView footerEndRefreshing];
+    }
 }
+
+
 
 // 右边滑动的按钮
 - (NSArray *)createRightButtons:(ProductModal *)model
@@ -130,9 +160,10 @@
             button.titleLabel.numberOfLines = 0;
             button.enabled = NO;
         }
-        button.titleLabel.font = [UIFont boldSystemFontOfSize:15];
+        button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+        button.titleLabel.font = [UIFont systemFontOfSize:12];
         CGRect frame = button.frame;
-        frame.size.width = i == 1 ? 200 : 50;
+        frame.size.width = i == 1 ? 200 : 42;
         button.frame = frame;
         
         [result addObject:button];

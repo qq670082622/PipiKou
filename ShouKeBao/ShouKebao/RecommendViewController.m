@@ -273,6 +273,7 @@
     DayDetail *detail = self.dataSource[indexPath.row];
     OrderDetailViewController *web = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     web.url = detail.linkUrl;
+    web.title = @"产品详情";
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

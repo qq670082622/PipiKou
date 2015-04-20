@@ -18,6 +18,7 @@
 
 @property (nonatomic,weak) UIButton *reset;// 重置按钮
 
+@property (nonatomic,strong) NSDate *startDate;
 @property (nonatomic,copy) NSString *start;
 
 @property (nonatomic,copy) NSString *end;
@@ -30,8 +31,9 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
+    self.title = @"选择日期";
     
-    NSArray *tmp = @[@"出发日期",@"返回日期"];
+    NSArray *tmp = @[@"最早时间",@"最晚时间"];
     self.dataSource = [NSMutableArray arrayWithArray:tmp];
     
     [self setFoot];
@@ -104,7 +106,7 @@
 {
     self.start = nil;
     self.end = nil;
-    NSArray *tmp = @[@"出发日期",@"返回日期"];
+    NSArray *tmp = @[@"最早时间",@"最晚时间"];
     self.dataSource = [NSMutableArray arrayWithArray:tmp];
     [self.tableView reloadData];
 }
@@ -112,7 +114,10 @@
 // 确认选择
 - (void)confirmDate:(UIButton *)sender
 {
-    if (self.start && self.end) {
+    if (self.start) {
+        if (!self.end) {
+            self.end = self.start;
+        }
         NSArray *tmp = @[self.start,self.end];
         
         if (_delegate && [_delegate respondsToSelector:@selector(finishChoosedTimeArr:andType:)]) {
@@ -149,21 +154,27 @@
     CalendarViewController *calendar = [[CalendarViewController alloc] init];
     calendar.delegate = self;
     calendar.index = indexPath.row;
+    
+    // 如果出发时间已经选过 传给日历 便于判断返回时间要小于出发时间
+    if (self.start.length > 0){
+        calendar.goDate = self.startDate;
+    }
+    
     WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:calendar];
     [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - CalendarViewControllerDelegate
-- (void)didSelectedDate:(NSString *)date atIndex:(NSInteger)index
+- (void)didSelectedDateStr:(NSString *)dateStr atIndex:(NSInteger)index date:(NSDate *)date
 {
-    if (date.length){
+    if (dateStr.length){
         if (index == 0){
-            self.start = date;
+            self.start = dateStr;
         }else{
-            self.end = date;
+            self.end = dateStr;
         }
-        
-        [self.dataSource replaceObjectAtIndex:index withObject:date];
+        self.startDate = date;
+        [self.dataSource replaceObjectAtIndex:index withObject:dateStr];
         [self.tableView reloadData];
     }
 }

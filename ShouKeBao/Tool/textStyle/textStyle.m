@@ -10,9 +10,9 @@
 
 @implementation textStyle
 //设置不同字体颜色
-+(void)textStyleLabel:(UILabel *)labell FontNumber:(CGFloat)font AndRange:(NSRange)range AndColor:(UIColor *)vaColor
++ (void)textStyleLabel:(UILabel *)labell text:(NSString *)text FontNumber:(CGFloat)font AndRange:(NSRange)range AndColor:(UIColor *)vaColor
 {
-    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:labell.text];
+    NSMutableAttributedString *str = [[NSMutableAttributedString alloc] initWithString:text];
     
     //设置字号
     [str addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:font] range:range];
