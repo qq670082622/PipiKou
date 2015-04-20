@@ -52,7 +52,7 @@
                         <constraints>
                             <constraint firstAttribute="width" constant="20" id="4sj-re-SMh"/>
                         </constraints>
-                        <state key="normal" backgroundImage="detailBtn">
+                        <state key="normal" backgroundImage="calling">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                         <connections>
@@ -88,7 +88,7 @@
         </tableViewCell>
     </objects>
     <resources>
-        <image name="detailBtn" width="29" height="29"/>
+        <image name="calling" width="30" height="30"/>
         <image name="xixixi" width="28" height="28"/>
     </resources>
 </document>
