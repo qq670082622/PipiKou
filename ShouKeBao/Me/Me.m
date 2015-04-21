@@ -83,7 +83,7 @@
         _meheader = [[MeHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
-        _meheader.headIcon.enabled = NO;
+//        _meheader.headIcon.enabled = NO;
         _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
     }
     return _meheader;

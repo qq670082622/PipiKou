@@ -10,4 +10,6 @@
 
 @interface ResultViewController : SKViewController
 
+@property (nonatomic,assign) BOOL isSuccess;
+
 @end

@@ -9,6 +9,7 @@
 #import "ModifyPwdViewController.h"
 #import "ResultViewController.h"
 #import "MeHttpTool.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface ModifyPwdViewController ()
 
@@ -25,8 +26,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    self.title = @"账号安全设置";
     
     [self setNextBtn];
+    
+    [self setNav];
+}
+
+- (void)setNav
+{
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)setNextBtn
@@ -38,22 +60,34 @@
     [submit setBackgroundImage:[UIImage imageNamed:@"next"] forState:UIControlStateNormal];
     [submit setTitle:@"下一步" forState:UIControlStateNormal];
     [submit setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [submit addTarget:self action:@selector(next:) forControlEvents:UIControlEventTouchUpInside];
+    [submit addTarget:self action:@selector(nextStep:) forControlEvents:UIControlEventTouchUpInside];
     
     [cover addSubview:submit];
     self.tableView.tableFooterView = cover;
 }
 
-- (void)next:(UIButton *)sender
+- (void)nextStep:(UIButton *)sender
 {
     NSDictionary *param = @{@"OldPassword":self.oldPassword.text,
                             @"NewPassword":self.comfirmPassword.text};
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [MeHttpTool setPasswordWithParam:param success:^(id json) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (json) {
             NSLog(@"------%@",json);
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+            ResultViewController *result = [sb instantiateViewControllerWithIdentifier:@"ResultView"];
+            if ([json[@"IsSuccess"] integerValue] == 1) {
+//                [MBProgressHUD showSuccess:@"修改密码成功"];
+                result.isSuccess = YES;
+            }else{
+//                [MBProgressHUD showError:json[@"ErrorMsg"]];
+                result.isSuccess = NO;
+            }
+            [self.navigationController pushViewController:result animated:YES];
         }
     } failure:^(NSError *error) {
-        
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
 

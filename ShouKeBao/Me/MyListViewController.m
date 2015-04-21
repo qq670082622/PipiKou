@@ -165,7 +165,7 @@
     NSMutableArray * result = [NSMutableArray array];
     NSString *add = [NSString stringWithFormat:@"最近班期:%@\n\n供应商:%@",model.LastScheduleDate,model.SupplierName];
     NSString* titles[2] = {@"", add};
-    UIColor * colors[2] = {[UIColor clearColor], [UIColor lightGrayColor]};
+    UIColor * colors[2] = {[UIColor clearColor], [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1]};
     for (int i = 0; i < 2; i ++)
     {
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
@@ -182,8 +182,10 @@
         }
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
         button.titleLabel.font = [UIFont systemFontOfSize:12];
+        [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
         CGRect frame = button.frame;
-        frame.size.width = i == 1 ? 200 : 42;
+        CGFloat cancelW = self.listType == collectionType ? 42 : 47;
+        frame.size.width = i == 1 ? 200 : cancelW;
         button.frame = frame;
         
         [result addObject:button];

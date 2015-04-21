@@ -283,7 +283,6 @@
 
     self.table.headerPullToRefreshText =@"刷新内容";
     self.table.headerRefreshingText = @"正在刷新";
-   
 }
 
 #pragma  -mark 下来刷新数据

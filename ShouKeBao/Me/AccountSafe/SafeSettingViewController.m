@@ -11,7 +11,7 @@
 #import "ModifyPwdViewController.h"
 #import "AppDelegate.h"
 
-@interface SafeSettingViewController()
+@interface SafeSettingViewController()<UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *accountLab;// 显示当前账号
 
@@ -31,31 +31,43 @@
     [super viewDidLoad];
     
     self.title = @"账号安全设置";
+    
+    [self setNav];
 }
 
-// 修改密码
-- (IBAction)modifyPwd:(UIButton *)sender
+- (void)setNav
 {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
-    ModifyPwdViewController *modify = [sb instantiateViewControllerWithIdentifier:@"ModifyPwd"];
-    [self.navigationController pushViewController:modify animated:YES];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - uitableviewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 2) {
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def removeObjectForKey:@"account"];
-        [def removeObjectForKey:@"password"];
-        [def removeObjectForKey:@"phonenumber"];
-        [def removeObjectForKey:@"LoginType"];
-        [def removeObjectForKey:@"BusinessID"];
-        [def removeObjectForKey:@"DistributionID"];
-        [def removeObjectForKey:@"ChooseID"];
-        AppDelegate *app = [UIApplication sharedApplication].delegate;
-        [app setBindRoot];
+    if (indexPath.section == 1) {
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
+        ModifyPwdViewController *modify = [sb instantiateViewControllerWithIdentifier:@"ModifyPwd"];
+        [self.navigationController pushViewController:modify animated:YES];
+
+    }else if(indexPath.section == 2){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定退出登录吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        
+        [alert show];
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -75,5 +87,22 @@
 //    ReBindViewController *reBind = [sb instantiateViewControllerWithIdentifier:@"ReBind"];
 //    [self.navigationController pushViewController:reBind animated:YES];
 //}
+
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        [def removeObjectForKey:@"account"];
+        [def removeObjectForKey:@"password"];
+        [def removeObjectForKey:@"phonenumber"];
+        [def removeObjectForKey:@"LoginType"];
+        [def removeObjectForKey:@"BusinessID"];
+        [def removeObjectForKey:@"DistributionID"];
+        [def removeObjectForKey:@"ChooseID"];
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        [app setBindRoot];
+    }
+}
 
 @end

@@ -55,7 +55,7 @@
                             </tableViewSection>
                             <tableViewSection id="zfr-Va-0vR">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="55" id="UuS-ex-sYP">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="55" id="UuS-ex-sYP">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UuS-ex-sYP" id="K2D-sd-mjn">
                                             <autoresizingMask key="autoresizingMask"/>
@@ -63,41 +63,28 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anquanqiangdu" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-OV-qgW">
                                                     <rect key="frame" x="15" y="18" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="20" id="mE9-is-T3u"/>
-                                                        <constraint firstAttribute="height" constant="20" id="rTd-Ew-4g9"/>
+                                                        <constraint firstAttribute="height" constant="20" id="1Q4-W2-u2y"/>
+                                                        <constraint firstAttribute="width" constant="20" id="PRD-Kh-mCc"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="密码强度" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOb-zx-iKU">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="修改登录密码" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rOb-zx-iKU">
                                                     <rect key="frame" x="60" y="17" width="201" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="bAo-zz-lDl"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fk9-2I-eXd">
-                                                    <rect key="frame" x="269" y="18" width="38" height="20"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="38" id="J59-Xa-NkE"/>
-                                                        <constraint firstAttribute="height" constant="20" id="iu7-iR-ZoN"/>
-                                                    </constraints>
-                                                    <state key="normal" backgroundImage="xiugai">
-                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="modifyPwd:" destination="IWD-1I-3Ii" eventType="touchUpInside" id="UbG-Uj-BKw"/>
-                                                    </connections>
-                                                </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerX" secondItem="rOb-zx-iKU" secondAttribute="centerX" constant="-0.5" id="8D6-Xh-A3B"/>
-                                                <constraint firstItem="fk9-2I-eXd" firstAttribute="top" secondItem="K2D-sd-mjn" secondAttribute="topMargin" constant="10" id="9iW-Yk-J6J"/>
-                                                <constraint firstItem="bBr-OV-qgW" firstAttribute="leading" secondItem="K2D-sd-mjn" secondAttribute="leadingMargin" constant="7" id="Wp8-iP-8il"/>
-                                                <constraint firstItem="rOb-zx-iKU" firstAttribute="leading" secondItem="bBr-OV-qgW" secondAttribute="trailing" constant="25" id="hU6-x1-NdO"/>
-                                                <constraint firstItem="rOb-zx-iKU" firstAttribute="top" secondItem="K2D-sd-mjn" secondAttribute="topMargin" constant="9" id="kiB-rL-euq"/>
-                                                <constraint firstItem="bBr-OV-qgW" firstAttribute="top" secondItem="K2D-sd-mjn" secondAttribute="topMargin" constant="10" id="oC4-ti-nAX"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="rOb-zx-iKU" secondAttribute="bottom" constant="8" id="pyP-TL-cFR"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="bBr-OV-qgW" secondAttribute="bottom" constant="8" id="qqJ-M7-bFG"/>
-                                                <constraint firstItem="fk9-2I-eXd" firstAttribute="leading" secondItem="rOb-zx-iKU" secondAttribute="trailing" constant="8" id="vuS-Xf-ctc"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="fk9-2I-eXd" secondAttribute="trailing" constant="5" id="zlI-cY-3ET"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="rOb-zx-iKU" secondAttribute="bottom" constant="8" id="1af-a1-Oee"/>
+                                                <constraint firstItem="rOb-zx-iKU" firstAttribute="top" secondItem="K2D-sd-mjn" secondAttribute="topMargin" constant="9" id="BmP-zF-wcW"/>
+                                                <constraint firstItem="bBr-OV-qgW" firstAttribute="top" secondItem="K2D-sd-mjn" secondAttribute="topMargin" constant="10" id="GBJ-UD-aKQ"/>
+                                                <constraint firstItem="rOb-zx-iKU" firstAttribute="leading" secondItem="bBr-OV-qgW" secondAttribute="trailing" constant="25" id="RZh-fL-yd7"/>
+                                                <constraint firstItem="bBr-OV-qgW" firstAttribute="leading" secondItem="K2D-sd-mjn" secondAttribute="leadingMargin" constant="7" id="SAJ-2b-tpB"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="bBr-OV-qgW" secondAttribute="bottom" constant="8" id="Yej-45-T0x"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="rOb-zx-iKU" secondAttribute="trailing" constant="18" id="ZDP-BL-OdK"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -390,6 +377,5 @@
     <resources>
         <image name="anquanqiangdu" width="16" height="16"/>
         <image name="huoquyanzhengma" width="88" height="37"/>
-        <image name="xiugai" width="47" height="22"/>
     </resources>
 </document>
