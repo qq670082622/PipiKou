@@ -25,7 +25,7 @@
     messageCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"messageCell" owner:nil options:nil] lastObject];
-        
+     cell.selectionStyle = UITableViewCellSelectionStyleNone;   
     }
     return cell;
 }
