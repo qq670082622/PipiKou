@@ -23,6 +23,7 @@
 - (IBAction)deletAction:(id)sender;
 
 @property (nonatomic,assign) BOOL isEditing;
+@property (strong, nonatomic) IBOutlet UIView *footView;
 
 @end
 
@@ -32,12 +33,16 @@
     [super viewDidLoad];
    [self loadData];
     [self setUpRightButton];
+    self.table.separatorStyle = UITableViewCellAccessoryNone;
+    
+    UIView *footView = [[[NSBundle mainBundle] loadNibNamed:@"remondViewController" owner:self options:nil] lastObject];
+    self.table.tableFooterView = footView;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
 
     [super viewWillAppear:animated];
-    self.table.rowHeight = 78;
+    self.table.rowHeight = 62;
 
     
     
@@ -130,6 +135,12 @@
     }
     return _editArr;
 }
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10;
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
@@ -173,8 +184,10 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-return     self.dataArr.count;
+
+    return     self.dataArr.count;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     remondTableViewCell *cell = [remondTableViewCell cellWithTableView:tableView];
@@ -182,6 +195,7 @@ return     self.dataArr.count;
     return cell;
 
 }
+
 - (IBAction)addRemond:(id)sender {
     
     addRemondViewController *add = [[addRemondViewController alloc] init];

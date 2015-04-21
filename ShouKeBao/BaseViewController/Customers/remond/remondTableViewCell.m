@@ -23,6 +23,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     }
+  
     return cell;
 }
 -(void)setModel:(remondModel *)model

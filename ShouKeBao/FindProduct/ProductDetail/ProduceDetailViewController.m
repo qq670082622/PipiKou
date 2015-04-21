@@ -11,8 +11,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 @interface ProduceDetailViewController ()
-@property(copy,nonatomic)NSMutableString *shareStr;
-
+//@property(copy,nonatomic)NSMutableString *shareStr;
+@property (nonatomic,strong) NSMutableDictionary *shareInfo;
 
 @end
 
@@ -20,7 +20,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationController.title = self.productName;
+    self.title = @"产品详情";
        NSLog(@"--------link is %@ ",_produceUrl);
     
     
@@ -46,6 +46,13 @@
 }
 
 
+-(NSMutableDictionary *)shareInfo
+{
+    if ( _shareInfo == nil ) {
+        self.shareInfo = [NSMutableDictionary dictionary];
+    }
+    return _shareInfo;
+}
 
 -(void)customRightBarItem
 {
@@ -69,20 +76,21 @@
     [dic setObject:@"http://mtest.lvyouquan.cn/Product/ProductDetail/a4a5b3802104487495d3f3523a9186a5" forKey:@"PageUrl"];
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
-       self.shareStr =  [NSMutableString stringWithFormat:@"%@",json[@"ShareUrl"]];
+        [self.shareInfo removeAllObjects];
+        self.shareInfo = json[@"ShareInfo"];
     } failure:^(NSError *error) {
         NSLog(@"分享请求数据失败，原因：%@",error);
     }];
     
-    NSString *imagePath = [[NSBundle mainBundle] pathForResource:@"lvyouquanIcon" ofType:@"png"];
+    
     
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.productName
+    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:@"旅游圈，匹匹扣"
-                                                image:[ShareSDK imageWithPath:imagePath]
-                                                title:@"旅游圈，匹匹扣"
-                                                  url:self.shareStr
-                                          description:@"旅游圈，匹匹扣"
+                                                image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
+                                                title:self.shareInfo[@"Title"]
+                                                  url:self.shareInfo[@"Url"]
+                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];

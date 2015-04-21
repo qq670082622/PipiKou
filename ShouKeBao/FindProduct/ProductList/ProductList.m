@@ -157,7 +157,7 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
  
-
+self.table.separatorStyle = UITableViewCellSelectionStyleNone;
    
     }
 
@@ -257,13 +257,17 @@
 #pragma  mark -priceDelegate
 -(void)passTheMinPrice:(NSString *)min AndMaxPrice:(NSString *)max
 {
-    if (![min  isEqual: @"0"] && ![max  isEqual: @"0"]) {
+    self.coverView.hidden = NO;
+    
+    if (![min  isEqual: @""] && ![max  isEqual: @""]) {
         [self.conditionDic setObject:min forKey:@"MinPrice"];
         [self.conditionDic setObject:max forKey:@"MaxPrice"];
         [self.priceBtnOutlet setTitle:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max] forState:UIControlStateNormal];
 
-    }else if ([min isEqualToString:@"0"] && [max isEqualToString:@"0"]){
-        [self.priceBtnOutlet setTitle:@"价格区间         >" forState:UIControlStateNormal];
+    }else if ([max isEqualToString:@"0"]){
+        [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
+    }else if ([min  isEqual: @""] || [max  isEqual: @""]){
+     [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
     }
     
 }
@@ -1095,50 +1099,28 @@
         self.cheapOutlet.selected = NO;
     }];
 
-//    [UIView animateWithDuration:0.3 animations:^{
-//      
-//        [self recommond:sender];
-//        [self.commondOutlet setSelected:YES];
-//        self.profitOutlet.selected = NO;
-//        self.cheapOutlet.selected = NO;
-//
-//        self.coverView.hidden = YES;
-//    }];
+
 
 }
 
 - (IBAction)subMinMax:(id)sender {
     MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
     mm.delegate = self;
+     self.coverView.hidden = YES;
     [self.navigationController pushViewController:mm animated:YES];
 }
 
 
 - (IBAction)jiafanSwitchAction:(id)sender {
-//    if (self.jiafanSwitch.selected == YES) {
-//        [self.jiafanSwitch setSelected:NO];
-//        self.jiafan = [NSMutableString stringWithFormat:@"0"];
-//    }else
-//        [self.jiafanSwitch setSelected:YES];
-//    self.jiafan = [NSMutableString stringWithFormat:@"1"];
+
     
 }
 
 - (IBAction)jishiSwitchAction:(id)sender {
-//    if (self.jishiSwitch.selected == YES) {
-//        [self.jishiSwitch setSelected:NO];
-//        self.jishi = [NSMutableString stringWithFormat:@"0"];
-//    }else
-//        [self.jishiSwitch setSelected:YES];
-//    self.jishi = [NSMutableString stringWithFormat:@"1"];
+
     
 }
 
-//-(NSMutableDictionary *)conditionDic
-//{
-//    
-//    return _conditionDic;
-//}
-- (IBAction)savePrice:(id)sender {
-}
+
+
 @end

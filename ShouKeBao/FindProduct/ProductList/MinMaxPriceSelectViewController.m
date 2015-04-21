@@ -22,6 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"价格区间";
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.cancleBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1 andNeedShadow:YES];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -55,12 +56,19 @@
 
 
 - (IBAction)save:(id)sender {
-    [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
+   // [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
+}
+
 - (IBAction)cancle:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-    [self.delegate passTheMinPrice:@"0" AndMaxPrice:@"0"];
+    self.minPrice.text = @"";
+    self.maxPrice.text = @"";
 }
 @end
