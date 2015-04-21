@@ -102,6 +102,12 @@
     flash.image = [UIImage imageNamed:@"sandian"];
     [self.contentView addSubview:flash];
     self.flash = flash;
+    
+    //分割线
+    UIView *line = [[UIView alloc] init];
+    line.backgroundColor = [UIColor colorWithRed:170/255.f green:170/255.f blue:170/255.f alpha:1];
+    [self.contentView addSubview:line];
+    self.line = line;
 }
 
 - (void)layoutSubviews
@@ -149,7 +155,8 @@
     CGFloat sX = CGRectGetMaxX(self.flash.frame) + 10;
     self.ShanDianBtn.frame = CGRectMake(sX, jY, 70, 18);
     
-    
+    //分割线
+    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);
 }
 
 -(void)setModal:(ProductModal *)modal

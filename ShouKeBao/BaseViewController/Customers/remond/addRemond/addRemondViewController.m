@@ -35,11 +35,20 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
     [self.descript becomeFirstResponder];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKey)];
+    [self.view addGestureRecognizer:tap];
 }
 
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)hideKey
+{
+    
+    [self.descript resignFirstResponder];
 }
 
 -(void)customerRightBarItem

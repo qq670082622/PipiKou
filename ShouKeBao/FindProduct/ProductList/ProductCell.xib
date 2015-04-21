@@ -210,7 +210,7 @@
     <resources>
         <image name="chufa" width="66" height="23"/>
         <image name="jiafang" width="189" height="47"/>
-        <image name="quan" width="329" height="74"/>
-        <image name="sandian" width="28" height="23"/>
+        <image name="quan" width="66" height="18"/>
+        <image name="sandian" width="18" height="18"/>
     </resources>
 </document>

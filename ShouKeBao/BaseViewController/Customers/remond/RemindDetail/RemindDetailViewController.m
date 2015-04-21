@@ -9,7 +9,7 @@
 #import "RemindDetailViewController.h"
 #import "WriteFileManager.h"
 #import "remondModel.h"
-
+#import "NSDate+Category.h"
 @interface RemindDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UITextView *noteLebel;
@@ -32,7 +32,9 @@
     [WriteFileManager saveData:muta name:@"remindData"];
     
     self.noteLebel.text = [NSString stringWithFormat:@"%@",self.note];
-    self.timeLabel.text = [NSString stringWithFormat:@"%@",self.time];
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[self.time doubleValue]];
+    self.timeLabel.text = [createDate formattedTime];
+   
     
 
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];

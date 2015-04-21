@@ -221,6 +221,85 @@
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
+    //    新订单消息推送//    orderId（订单Id）  //
+    // NSString *newOrderID = [userInfo valueForKey:@"orderId"];
+    // NSString *newOrderUri = [userInfo valueForKey:@"orderUri"];
+    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
+    NSString *orderId = [userInfo valueForKey:@"orderId"];
+    NSString *orderUri = [userInfo valueForKey:@"orderUri"];
+    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    //    客户提示消息推送//    userId（用户Id）
+    NSString *remindTime = [userInfo valueForKey:@"remindTime"];
+    NSString *remindContent = [userInfo valueForKey:@"remindContent"];
+    //NSString *customerUri = [userInfo valueForKey:<#(NSString *)#>]
+    
+    //    精品推荐消息推送//    点击进入精品推荐页面，无附加字段
+    NSString  *recommond = [userInfo valueForKey:@"recommond"];
+    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    //    新线路推荐消息推送//    productId（产品Id）
+    NSString *productUri = [userInfo valueForKey:@"productUri"];
+    NSString *productId = [userInfo valueForKey:@"productId"];
+    //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    //    系统\公告消息推送//    messageId（消息Id）
+    NSString *messageId = [userInfo valueForKey:@"messageId"];
+    NSString *messageUri = [userInfo valueForKey:@"messageUri"];
+    
+    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
+    
+    if (orderUri.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"orderId"];
+        [arr addObject:orderId];
+        [arr addObject:orderUri];
+        [defaultCenter postNotificationName:@"push" object:arr];
+    }
+    if (remindContent.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"remind"];
+        [arr addObject:remindTime];
+        [arr addObject:remindContent];
+        [defaultCenter postNotificationName:@"push" object:arr];
+        
+    }
+    if ([recommond isEqualToString:@"123"]) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"recommond"];
+        [arr addObject:recommond];
+        [arr addObject:@"123"];
+        [defaultCenter postNotificationName:@"push" object:arr];
+        
+    }
+    if (productId.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"productId"];
+        [arr addObject:productId];
+        [arr addObject:productUri];
+        [defaultCenter postNotificationName:@"push" object:arr];
+    }
+    if (messageId.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"messageId"];
+        [arr addObject:messageId];
+        [arr addObject:messageUri];
+        [defaultCenter postNotificationName:@"push" object:arr];
+        
+    }
+    
+    
+    
+    [APService setBadge:0];
+
+    
     // Required
     [APService handleRemoteNotification:userInfo];
 }

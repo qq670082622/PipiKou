@@ -33,6 +33,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"店铺详情";
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
     [self.webView loadRequest:request];
     [self customRightBarItem];
@@ -87,10 +88,12 @@
            self.blackView.alpha = 0;
             self.btnLine.hidden = YES;
             self.shareDic = json[@"ShareInfo"];
+            self.title = @"店铺详情";
         }
         else if ([json[@"PageType"] isEqualToString:@"2"]){
           self.checkCheapBtnOutlet.hidden = NO;
             self.btnLine.hidden = NO;
+            self.title = @"产品详情";
             NSMutableString *productID = [NSMutableString string];
             productID = json[@"ProductID"];
             NSMutableDictionary *dic =[NSMutableDictionary dictionary];

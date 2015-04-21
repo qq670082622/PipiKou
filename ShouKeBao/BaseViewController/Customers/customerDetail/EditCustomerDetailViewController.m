@@ -43,11 +43,29 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKey)];
+    [self.view addGestureRecognizer:tap];
+    
 }
 
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)hideKey
+{
+    
+    
+    [self.name resignFirstResponder];
+    
+    [self.tele resignFirstResponder];
+    
+    [self.wechat resignFirstResponder];
+    
+    [self.QQ resignFirstResponder];
+    
+    [self.note resignFirstResponder];
 }
 
 - (void)didReceiveMemoryWarning {

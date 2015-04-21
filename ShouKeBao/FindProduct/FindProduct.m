@@ -101,7 +101,14 @@
  
 [self loadDataSourceLeft];
     [self loadHotData];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerViewDidClickedLoadBtn:)];
+    [self.blackView addGestureRecognizer:tap];
 }
+
+#pragma -mark 点击手势隐藏蒙板
+
+
 #pragma  mark - stationSelect delegate
 -(void)notifiToReloadData
 {
@@ -542,8 +549,15 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
-        [self.leftTable reloadData];
+        
+        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+        hudView.labelText = @"加载中...";
+        [hudView show:YES];
+            [self.leftTable reloadData];
             [self loadDataSourceRight];
+        [hudView hide:YES];
+       
+        
         [self.hotBtn setTitleColor:[UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:0.7] forState:UIControlStateNormal];
         self.hotBtn.titleLabel.font = [UIFont systemFontOfSize:12];
          self.subHotView.backgroundColor = [UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:1];

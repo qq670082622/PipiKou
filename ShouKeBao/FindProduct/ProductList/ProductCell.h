@@ -30,6 +30,7 @@
 
 @property (nonatomic,assign) BOOL isFlash;
 
+@property (nonatomic,weak) UIView *line;
 
 @property (strong, nonatomic) ProductModal *modal;
 
