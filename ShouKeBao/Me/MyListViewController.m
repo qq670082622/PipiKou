@@ -37,6 +37,8 @@
     self.tableView.tableFooterView = [[UIView alloc] init];
     [self iniHeader];
     
+    [self setNav];
+    
     [self.tableView headerBeginRefreshing];
 }
 
@@ -98,6 +100,24 @@
 }
 
 #pragma mark - private
+- (void)setNav
+{
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (NSInteger)getEndPage
 {
     NSInteger cos = [self.totalCount integerValue] % pageSize;
@@ -214,10 +234,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     
-    if (self.listType == collectionType) {
+//    if (self.listType == collectionType) {
         ProductCell *cell = [ProductCell cellWithTableView:tableView];
         cell.delegate = self;
         
+        cell.isHistory = self.listType == collectionType ? NO : YES;
         ProductModal *model = self.dataSource[indexPath.section];
         cell.modal = model;
         
@@ -226,18 +247,18 @@
         
         return cell;
         
-    }else{
-        ProductHistoryCell *cell = [ProductHistoryCell cellWithTableView:tableView];
-        cell.delegate = self;
-        
-        ProductModal *model = self.dataSource[indexPath.row];
-        cell.modal = model;
-        
-        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-        cell.rightButtons = [self createRightButtons:model];
-        
-        return cell;
-    }
+//    }else{
+//        ProductHistoryCell *cell = [ProductHistoryCell cellWithTableView:tableView];
+//        cell.delegate = self;
+//        
+//        ProductModal *model = self.dataSource[indexPath.row];
+//        cell.historyModel = model;
+//        
+//        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+//        cell.rightButtons = [self createRightButtons:model];
+//        
+//        return cell;
+//    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

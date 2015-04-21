@@ -11,7 +11,7 @@
 #import "MeHttpTool.h"
 #import "Organization.h"
 
-@interface OrgSettingViewController () <UIScrollViewDelegate,CityViewControllerDelegate>
+@interface OrgSettingViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *comanyName;
 
@@ -37,6 +37,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"修改资料";
+    [self setNav];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleBordered target:self action:@selector(submit)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
@@ -67,6 +69,24 @@
 }
 
 #pragma mark - private
+- (void)setNav
+{
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 - (void)submit
 {
     

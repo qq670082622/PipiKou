@@ -8,7 +8,10 @@
 
 #import "ProductCell.h"
 
+@class ProductModal;
 @interface ProductHistoryCell : ProductCell
+
+@property (nonatomic,strong) ProductModal *historyModel;
 
 + (instancetype)cellWithTableView:(UITableView *)tableView;
 

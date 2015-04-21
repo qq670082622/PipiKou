@@ -7,6 +7,7 @@
 //
 
 #import "ProductModal.h"
+#import "NSMutableDictionary+QD.h"
 
 @implementation ProductModal
 +(instancetype)modalWithDict:(NSDictionary *)dict

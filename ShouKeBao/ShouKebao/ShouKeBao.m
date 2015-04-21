@@ -150,8 +150,8 @@
     }
     
     else if ([message[0] isEqualToString:@"productId"]){
-        //产品详情h5
         
+        //产品详情h5
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         detail.produceUrl = message[2];
         [self.navigationController pushViewController:detail animated:YES];
@@ -205,7 +205,6 @@
         
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
         
-        
         self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
         self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",muta[@"VisitorCount"]];
 //        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:muta[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
@@ -219,7 +218,6 @@
     } failure:^(NSError *error) {
         NSLog(@"首页个人消息汇总失败%@",error);
     }];
-
 }
 
 -(void)getNotifiList

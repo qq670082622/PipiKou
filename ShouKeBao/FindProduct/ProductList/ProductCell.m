@@ -20,7 +20,7 @@
     ProductCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        
+        cell.separatorInset = UIEdgeInsetsZero;
     }
     return cell;
 }
@@ -29,6 +29,7 @@
 {
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
+        self.isHistory = NO;
         [self setup];
     }
     return self;
@@ -36,6 +37,19 @@
 
 - (void)setup
 {
+    // 历史浏览的内容
+    UILabel *time = [[UILabel alloc] init];
+    time.textAlignment = NSTextAlignmentRight;
+    time.font = [UIFont systemFontOfSize:12];
+    [self.contentView addSubview:time];
+    self.time = time;
+    
+    UIView *sep = [[UIView alloc] init];
+    sep.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
+    [self.contentView addSubview:sep];
+    self.sep = sep;
+    
+    // 与历史浏览无关的
     UILabel *title = [[UILabel alloc] init];
     title.numberOfLines = 0;
     title.font = [UIFont systemFontOfSize:15];
@@ -104,21 +118,36 @@
     self.flash = flash;
     
     //分割线
-    UIView *line = [[UIView alloc] init];
-    line.backgroundColor = [UIColor colorWithRed:170/255.f green:170/255.f blue:170/255.f alpha:1];
-    [self.contentView addSubview:line];
-    self.line = line;
+//    UIView *line = [[UIView alloc] init];
+//    line.backgroundColor = [UIColor colorWithRed:170/255.f green:170/255.f blue:170/255.f alpha:1];
+//    [self.contentView addSubview:line];
+//    self.line = line;
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-   // CGFloat iconWid = [UIScreen mainScreen].applicationFrame.size.width*7/32;
+    
     CGFloat iconWid = 60;
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
+    /**
+     *  历史控件
+     */
+    CGFloat timeW = screenW - gap * 2;
+    CGFloat timeX = screenW - timeW - gap;
+    self.time.frame = CGRectMake(timeX, 5, timeW, 20);
+    
+    CGFloat sepY = CGRectGetMaxY(self.time.frame) + 5;
+    self.sep.frame = CGRectMake(gap, sepY, screenW - gap * 2, 1);
+    
+    // 其他控件
+    CGFloat titleY = 8;
+    if (self.isHistory) {
+        titleY = CGRectGetMaxY(self.sep.frame) + gap;
+    }
     CGFloat titleW = screenW - gap * 2;
-    self.title.frame = CGRectMake(gap, 8, titleW, 45);//产品名称
+    self.title.frame = CGRectMake(gap, titleY, titleW, 45);//产品名称
     
     CGFloat iconY = CGRectGetMaxY(self.title.frame) + 8;//图片
     self.icon.frame = CGRectMake(gap, iconY, iconWid, 60);
@@ -156,10 +185,10 @@
     self.ShanDianBtn.frame = CGRectMake(sX, jY, 70, 18);
     
     //分割线
-    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);
+//    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);
 }
 
--(void)setModal:(ProductModal *)modal
+- (void)setModal:(ProductModal *)modal
 {
 //    @property (weak, nonatomic) IBOutlet UIImageView *jiafanImage;
 //    @property (weak, nonatomic) IBOutlet UILabel *jiafanValue;
@@ -169,6 +198,15 @@
 //    @property (weak, nonatomic) IBOutlet UILabel *setUpPlace;
 //    
     _modal = modal;
+    
+    if (!self.isHistory) {
+        self.time.hidden = YES;
+        self.sep.hidden = YES;
+    }
+    
+    // 历史时间
+    self.time.text = [NSString stringWithFormat:@"浏览时间: %@",modal.HistoryViewTime];
+    
    // self.icon.image = [UIImage imageNamed:modal.PicUrl];
     NSLog(@"=========%@",modal.PicUrl);
          [self.icon sd_setImageWithURL:[[NSURL alloc] initWithString:modal.PicUrl] placeholderImage:[UIImage imageNamed:@"lvyouquanIcon"]];

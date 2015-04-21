@@ -157,9 +157,8 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
  
-self.table.separatorStyle = UITableViewCellSelectionStyleNone;
-   
-    }
+//self.table.separatorStyle = UITableViewCellSelectionStyleNone;
+}
 
 -(void)back
 {

@@ -30,9 +30,13 @@
 
 @property (nonatomic,assign) BOOL isFlash;
 
-@property (nonatomic,weak) UIView *line;
+@property (nonatomic,weak) UILabel *time;// 浏览时间
+
+@property (nonatomic,weak) UIView *sep;// 线条
 
 @property (strong, nonatomic) ProductModal *modal;
+
+@property (nonatomic,assign) BOOL isHistory;
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
