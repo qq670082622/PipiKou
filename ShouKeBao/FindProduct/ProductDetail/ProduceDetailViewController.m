@@ -10,10 +10,10 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
-@interface ProduceDetailViewController ()
+@interface ProduceDetailViewController ()<UIWebViewDelegate>
 //@property(copy,nonatomic)NSMutableString *shareStr;
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
-
+@property (nonatomic,assign) int backCount;
 @end
 
 @implementation ProduceDetailViewController
@@ -38,11 +38,21 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    self.backCount = 3;
+    
 }
 
 -(void)back
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    self.backCount -= 1;
+    if (_backCount == 1 || _backCount == 2) {
+         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
+    }
+   
+    if (_backCount == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
 }
 
 
@@ -65,6 +75,14 @@
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
     self.navigationItem.rightBarButtonItem= barItem;
+}
+
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *rightUrl = request.URL.absoluteString;
+    
+    NSLog(@"webview当前加载的页面是%@",rightUrl);
+    return YES;
 }
 
 #pragma 筛选navitem

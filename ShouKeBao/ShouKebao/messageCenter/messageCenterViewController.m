@@ -41,6 +41,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    self.table.tableFooterView = [[UIView alloc] init];
     
 }
 -(void)toReferesh
@@ -69,8 +70,9 @@
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
     [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
         NSLog(@"首页公告消息列表%@",json);
+        [self.dataArr removeAllObjects];
         for (NSDictionary *dic in json[@"ActivitiesNoticeList"]) {
-            [self.dataArr removeAllObjects];
+            
             messageModel *model = [messageModel modalWithDict:dic];
             [self.dataArr addObject:model];
 }
@@ -136,7 +138,9 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+     NSLog(@"----------------------message count is %d",self.dataArr.count);
     return self.dataArr.count;
+   
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

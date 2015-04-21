@@ -73,16 +73,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-   
-//    self.searchBtn.layer.cornerRadius = 4;
-//    self.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//    self.searchBtn.layer.borderWidth = 0.5f;
-//    self.searchBtn.layer.masksToBounds = YES;
-
-    
-//    self.rightTable.rowHeight = 103;
-//    self.hotTable.rowHeight = 104;
-    
    self.title = @"找产品";
     self.leftTable.delegate = self;
     self.leftTable.dataSource  = self;
@@ -448,13 +438,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         line.backgroundColor = [UIColor colorWithRed:184/255.f green:186/255.f blue:191/255.f alpha:1];
         
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
-       img.frame = CGRectMake(11, 15, 20, 20);
+       img.frame = CGRectMake(10, 16, 18, 18);
         UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotBtnClick:)];
         [img addGestureRecognizer:tap];
         self.hotIcon = img;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(32, 15, 60, 20);
+        btn.frame = CGRectMake(28, 0, 60, 50);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -463,7 +453,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         
         if (7>=[self.row intValue]>=0) {
             img.image = [UIImage imageNamed:@"APPhot"];
-            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor colorWithRed:85/255.f green:94/255.f blue:100/255.f alpha:1] forState:UIControlStateNormal];
         }
         if (_isHot == YES) {
             img.image = [UIImage imageNamed:@"APPhot2"];

@@ -196,13 +196,7 @@
 
 - (void)setModal:(ProductModal *)modal
 {
-//    @property (weak, nonatomic) IBOutlet UIImageView *jiafanImage;
-//    @property (weak, nonatomic) IBOutlet UILabel *jiafanValue;
-//    @property (weak, nonatomic) IBOutlet UIImageView *quanImage;
-//    @property (weak, nonatomic) IBOutlet UILabel *quanValue;
-//    @property (weak, nonatomic) IBOutlet UIImageView *ShanDian;
-//    @property (weak, nonatomic) IBOutlet UILabel *setUpPlace;
-//    
+    
     _modal = modal;
     
     if (!self.isHistory) {
