@@ -163,6 +163,10 @@
     NSString *messageId = [userInfo valueForKey:@"messageId"];
     NSString *messageUri = [userInfo valueForKey:@"messageUri"];
     
+    //客户消息提醒
+    NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    
+    
     NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
     
     if (orderUri.length>4) {
@@ -207,6 +211,16 @@
         [arr addObject:messageUri];
         [defaultCenter postNotificationName:@"push" object:arr];
         
+    }
+
+    if (noticeType.length>4) {
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"noticeType"];
+        [arr addObject:noticeType];
+        [arr addObject:@"123"];
+        [defaultCenter postNotificationName:@"push" object:arr];
+
     }
     
     

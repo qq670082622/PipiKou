@@ -192,6 +192,7 @@
             
             // 给用户打上jpush标签
             [APService setAlias:self.businessId callbackSelector:nil object:nil];
+            NSLog(@"------------apns 的alias是%@----------",_businessId);
             
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;

@@ -74,9 +74,10 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
    // [dic setObject:self.produceUrl forKey:@"PageUrl"];
     [dic setObject:@"http://mtest.lvyouquan.cn/Product/ProductDetail/a4a5b3802104487495d3f3523a9186a5" forKey:@"PageUrl"];
+    //[self.shareInfo removeAllObjects];
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
-        [self.shareInfo removeAllObjects];
+        
         self.shareInfo = json[@"ShareInfo"];
     } failure:^(NSError *error) {
         NSLog(@"分享请求数据失败，原因：%@",error);

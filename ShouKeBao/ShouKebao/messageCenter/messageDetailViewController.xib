@@ -41,7 +41,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </webView>
             </subviews>
-            <color key="backgroundColor" white="0.97113373738910092" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="KK1-yL-Ofm" firstAttribute="centerX" secondItem="ND9-6t-560" secondAttribute="centerX" id="Ai1-0A-seY"/>
                 <constraint firstAttribute="trailing" secondItem="ND9-6t-560" secondAttribute="trailing" id="ED0-PH-ZWZ"/>

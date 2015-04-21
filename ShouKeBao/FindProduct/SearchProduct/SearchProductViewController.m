@@ -32,7 +32,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
+self.title = @"产品搜索";
+    
     [self loadHotWordDataSource];
     [self loadHistoryDataSource];
     

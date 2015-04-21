@@ -23,19 +23,25 @@
 
 - (IBAction)callAction:(id)sender {
     
-    if (self.userTele.text.length>6) {
-        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"telprompt://%@",self.userTele.text];
+    if (self.model.Mobile.length>6) {
+      
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel://%@",self.model.Mobile];
+        NSLog(@"电话号码是%@",str);
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
 
     }
-    else if (self.userTele.text.length<=6){
+    else if (self.model.Mobile.length<=6){
+       
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"失败" message:@"该客户电话号码错误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        
         [alert show];
     }
-    }
+  
+}
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView
-{ static NSString *cellID = @"customCell";
++ (instancetype)cellWithTableView:(UITableView *)tableView{
+    
+    static NSString *cellID = @"customCell";
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:nil options:nil] lastObject];

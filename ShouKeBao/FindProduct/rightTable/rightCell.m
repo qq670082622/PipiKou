@@ -31,10 +31,8 @@
     rightCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"rightCell" owner:nil options:nil] lastObject];
-        cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
-        
-        
-    }
+     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 -(void)layoutSubviews

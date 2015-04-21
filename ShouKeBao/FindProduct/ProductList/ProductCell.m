@@ -22,6 +22,7 @@
         cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
@@ -142,10 +143,14 @@
      底下的三个按钮
      */
     CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 10;
-    self.jiafanBtn.frame = CGRectMake(pX, jY, 55, 18);//加返按钮
+    //默认宽为55
+    CGFloat jW = self.fanIsZero ? 55 : 0 ;
+    CGFloat qW = self.quanIsZero ? 55 : 0 ;
+    
+    self.jiafanBtn.frame = CGRectMake(pX, jY, jW, 18);//加返按钮
     
     CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame)+10;
-    self.quanBtn.frame = CGRectMake(qX, jY, 55, 18);//券
+    self.quanBtn.frame = CGRectMake(qX, jY, qW, 18);//券
     
                     // 闪电
                     CGFloat fX = CGRectGetMaxX(self.quanBtn.frame)+10;
@@ -169,6 +174,12 @@
 //    @property (weak, nonatomic) IBOutlet UILabel *setUpPlace;
 //    
     _modal = modal;
+    
+    
+    self.fanIsZero = [modal.PersonBackPrice integerValue];
+    self.quanIsZero = [modal.PersonCashCoupon integerValue];
+    
+    
    // self.icon.image = [UIImage imageNamed:modal.PicUrl];
     NSLog(@"=========%@",modal.PicUrl);
          [self.icon sd_setImageWithURL:[[NSURL alloc] initWithString:modal.PicUrl] placeholderImage:[UIImage imageNamed:@"lvyouquanIcon"]];
