@@ -164,8 +164,14 @@
         messageDetail.messageURL = messageURL;
         [self.navigationController pushViewController:messageDetail animated:YES];
     }
+    
+    else if ([message[0] isEqualToString:@"noticeType"]){
+        
+        [self ringAction];
+    }
 }
 //-(NSMutableString *)messageCount
+
 //{
 //    if (_messageCount == nil) {
 //        self.messageCount = [NSMutableString string];

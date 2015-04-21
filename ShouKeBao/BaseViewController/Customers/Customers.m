@@ -25,7 +25,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *wordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *cancelSearchOutlet;
 @property (weak, nonatomic) IBOutlet UIButton *searchCustomerBtnOutlet;
-
+@property (copy,nonatomic) NSMutableString *callingPhoneNum;
 - (IBAction)cancelSearch:(id)sender;
 
 //1、 时间顺序;2、时间倒序; 3-订单数顺序;4、订单数倒序 5,字母顺序 6，字母倒序
@@ -55,6 +55,8 @@
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
+    
+    self.table.separatorStyle = UITableViewCellAccessoryNone;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -106,6 +108,13 @@
     return _dataArr;
 }
 
+-(NSMutableString *)callingPhoneNum
+{
+    if (_callingPhoneNum == nil) {
+        self.callingPhoneNum = [[NSMutableString alloc] init];
+    }
+    return _callingPhoneNum;
+}
 
 - (IBAction)addNewUser:(id)sender {
     self.subView.hidden = YES;
@@ -184,9 +193,12 @@
     CustomCell *cell = [CustomCell cellWithTableView:tableView];
     CustomModel *model = _dataArr[indexPath.row];
     cell.model = model;
+
     return cell;
    
 }
+
+
 
 #pragma mark - textField delegate method
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -115,7 +115,7 @@
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
     self.turn = [NSMutableString stringWithFormat:@"Off"];
 
-    
+    self.table.tableFooterView = [[UIView alloc] init];
 
 
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*titleWid, 34)];
@@ -268,11 +268,7 @@
     }else if ([min  isEqual: @""] || [max  isEqual: @""]){
      [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
     }
-    
 }
-
-
-
 
 -(void)initPull
 {
@@ -295,7 +291,7 @@
 {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
     [self.table headerEndRefreshing];
-});
+    });
     
 }
 #pragma footView - delegate上拉加载更多

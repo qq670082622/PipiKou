@@ -21,7 +21,9 @@
     if (cell == nil) {
         cell = [[ProductCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.separatorInset = UIEdgeInsetsZero;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
     }
+    
     return cell;
 }
 
@@ -171,15 +173,19 @@
      底下的三个按钮
      */
     CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 10;
-    self.jiafanBtn.frame = CGRectMake(pX, jY, 55, 18);//加返按钮
+    //默认宽为55
+    CGFloat jW = self.fanIsZero ? 55 : 0 ;
+    CGFloat qW = self.quanIsZero ? 55 : 0 ;
+    
+    self.jiafanBtn.frame = CGRectMake(pX, jY, jW, 18);//加返按钮
     
     CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame)+10;
-    self.quanBtn.frame = CGRectMake(qX, jY, 55, 18);//券
+    self.quanBtn.frame = CGRectMake(qX, jY, qW, 18);//券
     
-                    // 闪电
-                    CGFloat fX = CGRectGetMaxX(self.quanBtn.frame)+10;
-                    CGFloat fW = self.isFlash ? 18 : 0;
-                    self.flash.frame = CGRectMake(fX, jY, fW, 18);
+    // 闪电
+    CGFloat fX = CGRectGetMaxX(self.quanBtn.frame)+10;
+    CGFloat fW = self.isFlash ? 18 : 0;
+    self.flash.frame = CGRectMake(fX, jY, fW, 18);
     
     CGFloat sX = CGRectGetMaxX(self.flash.frame) + 10;
     self.ShanDianBtn.frame = CGRectMake(sX, jY, 70, 18);
@@ -206,6 +212,9 @@
     
     // 历史时间
     self.time.text = [NSString stringWithFormat:@"浏览时间: %@",modal.HistoryViewTime];
+    
+    self.fanIsZero = [modal.PersonBackPrice integerValue];
+    self.quanIsZero = [modal.PersonCashCoupon integerValue];
     
    // self.icon.image = [UIImage imageNamed:modal.PicUrl];
     NSLog(@"=========%@",modal.PicUrl);

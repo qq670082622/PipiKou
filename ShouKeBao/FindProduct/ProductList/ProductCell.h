@@ -29,6 +29,8 @@
 @property (nonatomic,weak) UIImageView *flash;
 
 @property (nonatomic,assign) BOOL isFlash;
+@property (nonatomic,assign) BOOL quanIsZero;
+@property (nonatomic,assign) BOOL fanIsZero;
 
 @property (nonatomic,weak) UILabel *time;// 浏览时间
 
