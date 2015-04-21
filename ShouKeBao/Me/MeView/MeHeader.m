@@ -20,6 +20,7 @@
         [headIcon addTarget:self action:@selector(clickHead:) forControlEvents:UIControlEventTouchUpInside];
         headIcon.layer.borderWidth = 3;
         headIcon.layer.borderColor = [UIColor whiteColor].CGColor;
+        headIcon.imageView.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:headIcon];
         self.headIcon = headIcon;
         

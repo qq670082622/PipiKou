@@ -196,8 +196,13 @@
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;
             [app setTabbarRoot];
-        }else{
             
+        }else{
+            if (![json[@"ErrorMsg"] isKindOfClass:[NSNull class]]) {
+                [MBProgressHUD showError:json[@"ErrorMsg"]];
+            }else{
+                [MBProgressHUD showError:@"网络连接错误"];
+            }
         }
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

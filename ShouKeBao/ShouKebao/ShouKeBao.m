@@ -42,6 +42,8 @@
 #import "ProduceDetailViewController.h"
 #import "RemindDetailViewController.h"
 #import "messageDetailViewController.h"
+#import "UserInfo.h"
+
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate,remindDetailDelegate>
@@ -206,7 +208,8 @@
         
         self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
         self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",muta[@"VisitorCount"]];
-        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:muta[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
+//        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:muta[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:[UIImage imageNamed:@""]];
         self.userName.text = muta[@"ShowName"];
         self.shareLink = muta[@"ShareLinkUrl"];
         if (![muta[@"ShareInfo"] isKindOfClass:[NSNull class]]) {

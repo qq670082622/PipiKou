@@ -22,6 +22,7 @@
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
     
+    
     [self configure];
     
     [self loadDataSource];

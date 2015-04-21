@@ -114,9 +114,11 @@
 // 确认选择
 - (void)confirmDate:(UIButton *)sender
 {
-    if (self.start) {
+    if (self.start || self.end) {
         if (!self.end) {
             self.end = self.start;
+        }else if(!self.start){
+            self.start = self.end;
         }
         NSArray *tmp = @[self.start,self.end];
         

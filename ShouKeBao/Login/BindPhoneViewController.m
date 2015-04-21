@@ -105,7 +105,12 @@
         [LoginTool getCodeWithParam:param success:^(id json) {
             NSLog(@"---%@",json);
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
             if ([json[@"IsSuccess"] integerValue] == 1) {
+                
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                    [MBProgressHUD showSuccess:@"短信发送成功"];
+                });
             
                 self.count = 60;
                 self.codeBtn.enabled = NO;
@@ -114,7 +119,7 @@
                 
                 self.nextBtn.enabled = YES;
             }else{
-                [MBProgressHUD showError:@"获取失败,请检查网络连接"];
+                [MBProgressHUD showError:json[@"ErrorMsg"]];
             }
             
         } failure:^(NSError *error) {
@@ -159,7 +164,7 @@
             [self.navigationController pushViewController:child animated:YES];
 
         }else{
-            [MBProgressHUD showError:@"验证码输入错误"];
+            [MBProgressHUD showError:json[@"ErrorMsg"]];
         }
     } failure:^(NSError *error) {
        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];

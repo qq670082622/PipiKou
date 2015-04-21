@@ -31,6 +31,7 @@
 #import "ArrowBtn.h"
 
 #define pageSize 10
+#define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
 
 @interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
 
@@ -203,7 +204,6 @@
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.dataArr addObject:order];
                 }
-                self.searchKeyWord = @"";
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
                 });
@@ -473,7 +473,7 @@
         _searchBar.delegate = self;
         _searchBar.barStyle = UISearchBarStyleDefault;
         _searchBar.translucent = NO;
-        _searchBar.placeholder = @"订单号/产品名称/供应商名称";
+        _searchBar.placeholder = searchDefaultPlaceholder;
         _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeSentences;
     }
@@ -515,38 +515,36 @@
 #pragma mark - QDMenuDelegate
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (menu.direct == 0) {
+    if (menu.direct == 0) {// 时间筛选
         NSString *title = menu.dataSource[indexPath.row][@"Text"];
         self.menuButton.leftBtn.text = title;
-//        [self.menuButton.leftBtn setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
-        
-//        UIImage *imgArrow = [UIImage imageNamed:@"xiangxia"];
-//        [self.menuButton.leftBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -imgArrow.size.width, 0, imgArrow.size.width)];
-//        [self.menuButton.leftBtn setImageEdgeInsets:UIEdgeInsetsMake(0, self.menuButton.leftBtn.titleLabel.bounds.size.width, 0, -self.menuButton.leftBtn.titleLabel.bounds.size.width)];
         
         self.choosedTime = menu.dataSource[indexPath.row][@"Value"];
         [self removeMenuFunc];
         self.LselectedIndex = indexPath.row;
-        
-    }else{
+        [self.tableView headerBeginRefreshing];
+    }else{// 状态筛选
          NSString *title = menu.dataSource[indexPath.row][@"Text"];
         self.menuButton.rightBtn.text = title;
-//        [self.menuButton.rightBtn setTitle:[NSString stringWithFormat:@"%@",title] forState:UIControlStateNormal];
-        
-//        UIImage *imgArrow = [UIImage imageNamed:@"xiangxia"];
-//        [self.menuButton.rightBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, -imgArrow.size.width, 0, imgArrow.size.width)];
-//        [self.menuButton.rightBtn setImageEdgeInsets:UIEdgeInsetsMake(0, self.menuButton.rightBtn.titleLabel.bounds.size.width, 0, -self.menuButton.rightBtn.titleLabel.bounds.size.width)];
         
         self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
         [self removeMenuFunc];
         self.RselectedIndex = indexPath.row;
+        [self.tableView headerBeginRefreshing];
     }
-    
 }
 
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
+    if (!self.dataArr.count) {
+        UIImage *image = [UIImage imageNamed:@"beijing"];
+        UIImageView *bg = [[UIImageView alloc] initWithImage:image];
+        self.tableView.backgroundView = bg;
+    }else{
+        self.tableView.backgroundView = nil;
+        self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
+    }
     return self.dataArr.count;
 }
 
@@ -650,16 +648,17 @@
         self.cover.hidden = YES;
         area.type = firstArea;
         area.dataSource = self.firstAreaData;
+        area.title = @"大区";
         [self.navigationController pushViewController:area animated:YES];
     }else if (type == secondArea){
-        if (self.firstValue) {
+        if (self.firstValue && ![self.firstValue[@"Value"] isEqualToString:@"0"]) {
             // 获取二级列表
             NSDictionary *param = @{@"FirstLevelArea":self.firstValue[@"Value"]};
             self.cover.hidden = YES;
             area.type = secondArea;
             area.param = param;
+            area.title = @"线路区域";
             [self.navigationController pushViewController:area animated:YES];
-           
         }
     }else{// 点击三级区域
         if (self.secondValue) {
@@ -668,6 +667,7 @@
             self.cover.hidden = YES;
             area.type = thirdArea;
             area.param = param;
+            area.title = @"国家/省份";
             [self.navigationController pushViewController:area animated:YES];
         }
     }
@@ -718,7 +718,7 @@
 
 - (void)clickReset:(NSNotification *)noty
 {
-    [self.firstAreaData removeAllObjects];
+//    [self.firstAreaData removeAllObjects];
     self.firstValue = nil;
     self.secondValue = nil;
     self.thirdValue = nil;
@@ -732,7 +732,7 @@
     self.dressView.thirdText = nil;
     self.dressView.goDateText = @"不限";
     self.dressView.createDateText = @"不限";
-    [self.dressView.IsRefund setOn:YES animated:YES];
+    [self.dressView.IsRefund setOn:NO animated:YES];
     [self.dressView.tableView reloadData];
 }
 
@@ -750,8 +750,10 @@
 - (void)orderCellDidClickButton:(NSNotification *)noty
 {
     NSString *url = noty.userInfo[@"linkUrl"];
+    NSString *title = noty.userInfo[@"title"];
     ButtonDetailViewController *detail = [[ButtonDetailViewController alloc] init];
     detail.linkUrl = url;
+    detail.title = title;
     [self.navigationController pushViewController:detail animated:YES];
 }
 
@@ -805,10 +807,10 @@
             [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
             [attr addAttributes:muta range:NSMakeRange(0, 2)];
             [cancelButton setAttributedTitle:attr forState:UIControlStateNormal];
-            NSLog(@"----%@",searchbuttons);
+            
             break;
         }else{
-            NSLog(@"----%@",searchbuttons);
+            
         }
     }
 }
@@ -843,7 +845,6 @@
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
 {
-    searchBar.text = @"";
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
 }
@@ -865,12 +866,6 @@
      self.searchBar.barTintColor = [UIColor whiteColor];
     
     // 边界线
-//    UIView *sep1 = [[UIView alloc] initWithFrame:CGRectMake(0, 20, self.view.frame.size.width, 1)];
-//    sep1.backgroundColor = [UIColor lightGrayColor];
-//    sep1.alpha = 0.3;
-//    [self.view.window addSubview:sep1];
-//    self.sep1 = sep1;
-    
     CGFloat sepX = self.view.frame.size.width - 57;
     UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 0.5, 34)];
     sep2.backgroundColor = [UIColor lightGrayColor];
@@ -883,6 +878,9 @@
     historyView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
     [self.view.window addSubview:historyView];
     self.historyView = historyView;
+    
+    self.searchBar.placeholder = searchDefaultPlaceholder;
+    self.searchBar.text = self.searchKeyWord;
 }
 
 -(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
@@ -893,14 +891,19 @@
     //                subview.transform = CGAffineTransformIdentity;
     //        }];
     //    }
-    
-//    [self.sep1 removeFromSuperview];
     [self.sep2 removeFromSuperview];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
     
     [self.historyView removeFromSuperview];
+    
+    if (self.searchKeyWord.length) {
+        self.searchBar.placeholder = self.searchKeyWord;
+    }else{
+        self.searchBar.placeholder = searchDefaultPlaceholder;
+    }
+    
 }
 
 @end

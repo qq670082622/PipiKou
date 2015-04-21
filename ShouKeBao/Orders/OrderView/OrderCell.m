@@ -370,7 +370,7 @@
 - (void)clickButton:(LinkButton *)sender
 {
     if (sender.linkUrl.length) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"orderCellDidClickButton" object:nil userInfo:@{@"linkUrl":sender.linkUrl}];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"orderCellDidClickButton" object:nil userInfo:@{@"linkUrl":sender.linkUrl,@"title":sender.text}];
     }else{
         if (_orderDelegate && [_orderDelegate respondsToSelector:@selector(checkDetailAtIndex:)]) {
             [_orderDelegate checkDetailAtIndex:self.indexPath.row];

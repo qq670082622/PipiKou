@@ -112,11 +112,11 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
     }
     
     cell.textLabel.text = self.dataSource[indexPath.section][indexPath.row];
     if ((indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 0) {
-        cell.detailTextLabel.font = [UIFont systemFontOfSize:12];
         if (indexPath.section == 0) {
             cell.detailTextLabel.text = self.goDateText;
         }else{
@@ -126,14 +126,27 @@
     }else{
         switch (indexPath.row) {
             case 1:{
+                if (!self.firstText.length) {
+                    self.firstText = @"全部";
+                }
                 cell.detailTextLabel.text = self.firstText;
                 break;
             }
             case 2:{
+                if ([self.firstText isEqualToString:@"全部"]) {
+                    cell.textLabel.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
+                }else{
+                    cell.textLabel.textColor = [UIColor blackColor];
+                }
                 cell.detailTextLabel.text = self.secondText;
                 break;
             }
             case 3:{
+                if (!self.secondText.length) {
+                    cell.textLabel.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
+                }else{
+                    cell.textLabel.textColor = [UIColor blackColor];
+                }
                 cell.detailTextLabel.text = self.thirdText;
                 break;
             }
@@ -186,6 +199,7 @@
             [_delegate wantToPushAreaWithType:type];
         }
     }
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

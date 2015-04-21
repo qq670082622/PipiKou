@@ -17,6 +17,7 @@
 #import "MyListViewController.h"
 #import "SafeSettingViewController.h"
 #import "UserInfo.h"
+#import "UIButton+WebCache.h"
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -46,9 +47,9 @@
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
     
-    NSData *head = [def objectForKey:@"userhead"];
+    NSString *head = [UserInfo shareUser].LoginAvatar;
     if (head) {
-        [self.meheader.headIcon setBackgroundImage:[UIImage imageWithData:head] forState:UIControlStateNormal];
+        [self.meheader.headIcon sd_setBackgroundImageWithURL:[NSURL URLWithString:head] forState:UIControlStateNormal];
     }
 }
 
@@ -82,6 +83,7 @@
         _meheader = [[MeHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
+        _meheader.headIcon.enabled = NO;
         _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
     }
     return _meheader;
@@ -113,8 +115,8 @@
 // 点击头像上传照片
 - (void)didClickHeadIcon
 {
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
-    [sheet showInView:self.view.window];
+//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
+//    [sheet showInView:self.view.window];
 }
 
 #pragma mark - MeButtonViewDelegate

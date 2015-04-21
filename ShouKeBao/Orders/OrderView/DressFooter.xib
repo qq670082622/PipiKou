@@ -12,9 +12,9 @@
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退款订单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dro-Cz-TQm">
-                    <rect key="frame" x="25" y="14" width="72" height="21"/>
+                    <rect key="frame" x="20" y="14" width="72" height="21"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="72" id="Fip-Yp-JA4"/>
+                        <constraint firstAttribute="width" constant="72" id="ZUq-QQ-bvW"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -26,9 +26,10 @@
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="N0b-Jj-sn1" firstAttribute="centerY" secondItem="dro-Cz-TQm" secondAttribute="centerY" id="9Sa-mC-RYe"/>
+                <constraint firstItem="dro-Cz-TQm" firstAttribute="top" secondItem="9Ta-SR-B8g" secondAttribute="top" constant="14" id="8SF-fr-jIw"/>
+                <constraint firstAttribute="bottom" secondItem="dro-Cz-TQm" secondAttribute="bottom" constant="15" id="AF6-Iw-RpH"/>
+                <constraint firstItem="dro-Cz-TQm" firstAttribute="leading" secondItem="9Ta-SR-B8g" secondAttribute="leading" constant="20" id="Avu-Gs-LTO"/>
                 <constraint firstItem="N0b-Jj-sn1" firstAttribute="top" secondItem="9Ta-SR-B8g" secondAttribute="top" constant="9" id="F1f-QO-hAF"/>
-                <constraint firstItem="dro-Cz-TQm" firstAttribute="leading" secondItem="9Ta-SR-B8g" secondAttribute="leading" constant="25" id="je6-NZ-LDq"/>
                 <constraint firstAttribute="trailing" secondItem="N0b-Jj-sn1" secondAttribute="trailing" constant="14" id="y2N-HP-sib"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
