@@ -27,6 +27,9 @@
 @property (weak,nonatomic)  IBOutlet UILabel *offLineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remindLabel;
 
+
+@property (nonatomic,assign) int webLoadCount;
+@property (nonatomic,strong) NSMutableArray *webUrlArr;
 @end
 
 @implementation StoreViewController
@@ -35,6 +38,9 @@
     [super viewDidLoad];
     self.title = @"店铺详情";
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
+    [self.webUrlArr addObject:_PushUrl];
+    self.webLoadCount = 1;
+
     [self.webView loadRequest:request];
     [self customRightBarItem];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -51,7 +57,25 @@
 
 -(void)back
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.webUrlArr.count >1) {
+        
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+        [self.webUrlArr removeLastObject];
+    }
+    
+    else if (self.webUrlArr.count == 1) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+}
+
+-(NSMutableArray *)webUrlArr
+{
+    if (_webUrlArr == nil) {
+        self.webUrlArr = [NSMutableArray array];
+    }
+    return _webUrlArr;
 }
 
 -(void)customRightBarItem
@@ -79,6 +103,11 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *rightStr = request.URL.absoluteString;
+    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:@"http://www.baidu.com/"])) {
+        [self.webUrlArr addObject:rightStr];
+    }
+    NSLog(@"即将加载的页面是%@  arr.count is %lu",rightStr,(unsigned long)[self.webUrlArr count]);
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightStr forKey:@"PageUrl"];
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
