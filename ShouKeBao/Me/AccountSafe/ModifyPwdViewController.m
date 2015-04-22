@@ -86,10 +86,8 @@
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
             ResultViewController *result = [sb instantiateViewControllerWithIdentifier:@"ResultView"];
             if ([json[@"IsSuccess"] integerValue] == 1) {
-//                [MBProgressHUD showSuccess:@"修改密码成功"];
                 result.isSuccess = YES;
             }else{
-//                [MBProgressHUD showError:json[@"ErrorMsg"]];
                 result.isSuccess = NO;
             }
             [self.navigationController pushViewController:result animated:YES];
