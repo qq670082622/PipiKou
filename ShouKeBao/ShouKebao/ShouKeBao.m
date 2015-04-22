@@ -186,15 +186,12 @@
     return _shareDic;
 }
 
-
 #pragma -mark massegeCenterDelegate
 -(void)refreshSKBMessgaeCount:(int)count
 {
     [self getNotifiList];
    
-   }
-
-
+}
 
 - (void)getUserInformation
 {
@@ -496,7 +493,6 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                                 }
                             }];
 }
-
 
 -(void)customLeftBarItem
 {
