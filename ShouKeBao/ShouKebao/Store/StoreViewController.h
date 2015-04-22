@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface StoreViewController : UIViewController
+#import "SKViewController.h"
+@interface StoreViewController : SKViewController
 @property (nonatomic,copy) NSString *PushUrl;
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 

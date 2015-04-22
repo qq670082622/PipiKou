@@ -14,14 +14,14 @@
 #import "BatchAddViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "WMAnimations.h"
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 @property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;
-@property (weak, nonatomic) IBOutlet UIButton *orderNumBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *orderNumBtn;
 @property (weak, nonatomic) IBOutlet UIButton *wordBtn;
 @property (weak, nonatomic) IBOutlet UIButton *cancelSearchOutlet;
 @property (weak, nonatomic) IBOutlet UIButton *searchCustomerBtnOutlet;
@@ -39,9 +39,9 @@
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
 [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
 
-    [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    [self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
- [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+   // [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    //[self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+ //[self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
     
     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
@@ -58,7 +58,11 @@
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
 }
-
+#pragma  -mark batchAdd delegate
+-(void)referesh
+{
+    [self loadDataSource];
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -75,13 +79,13 @@
 -(void)customerRightBarItem
 {
 
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setUp)];
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
     
     self.navigationItem.rightBarButtonItem= barItem;
 }
 
 
--(void)setUp
+-(void)setSubViewUp
 {
     if (self.subView.hidden == YES) {
         [UIView animateWithDuration:0.8 animations:^{
@@ -126,6 +130,7 @@
 - (IBAction)importUser:(id)sender {
     self.subView.hidden = YES;
     BatchAddViewController *batch = [[BatchAddViewController alloc] init];
+    batch.delegate = self;
     [self.navigationController pushViewController:batch animated:YES];
 }
 
@@ -227,7 +232,7 @@
 }
 
 - (IBAction)timeOrderAction:(id)sender {
-    [self.orderNumBtn setSelected:NO];
+  //  [self.orderNumBtn setSelected:NO];
     [self.wordBtn setSelected:NO];
     
     
@@ -238,7 +243,7 @@
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
-        [self.table reloadData];
+      //  [self.table reloadData];
 
     }else if (self.timeBtn.selected == YES && [self.timeBtn.currentTitle  isEqual: @"时间排序 ↓"]) {
         [self.timeBtn setSelected:YES];
@@ -248,7 +253,7 @@
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
-        [self.table reloadData];
+       // [self.table reloadData];
 
     }else if (self.timeBtn.selected == YES &&[self.timeBtn.currentTitle isEqual:@"时间排序 ↑"]){
         [self.timeBtn setSelected:YES];
@@ -258,12 +263,14 @@
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
-        [self.table reloadData];
+      //  [self.table reloadData];
 
     }
     
 }
-- (IBAction)orderNumAction:(id)sender {
+/*
+
+  - (IBAction)orderNumAction:(id)sender {
     [self.timeBtn setSelected:NO];
     [self.wordBtn setSelected:NO];
     if (self.orderNumBtn.selected == NO) {
@@ -297,9 +304,11 @@
 
     }
 }
+
+*/
 - (IBAction)wordOrderAction:(id)sender {
     [self.timeBtn setSelected:NO];
-    [self.orderNumBtn setSelected:NO];
+   // [self.orderNumBtn setSelected:NO];
     if (self.wordBtn.selected == NO) {
         [self.wordBtn setSelected:YES];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
@@ -307,7 +316,7 @@
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
-        [self.table reloadData];
+        //[self.table reloadData];
     }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↓"]){
         [self.wordBtn setSelected:YES];
         [self.wordBtn setTitle:@"字母排序 ↑" forState:UIControlStateNormal];
@@ -316,7 +325,7 @@
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
-        [self.table reloadData];
+       // [self.table reloadData];
 
     }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↑"]){
         [self.wordBtn setSelected:YES];
@@ -326,7 +335,7 @@
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
-        [self.table reloadData];
+        //[self.table reloadData];
 
            }
 

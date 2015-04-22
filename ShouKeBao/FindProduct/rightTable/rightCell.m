@@ -37,7 +37,13 @@
 }
 -(void)layoutSubviews
 {
-self.rightIcon.frame = CGRectMake(15, 10, 50, 50);
+    [super layoutSubviews];
+
+self.rightIcon.frame = CGRectMake(8, 6, 62, 62);
+    
+self.rightIcon.contentMode = UIViewContentModeScaleToFill;
+        
+    
 }
 
 

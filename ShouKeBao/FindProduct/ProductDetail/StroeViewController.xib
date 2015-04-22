@@ -177,7 +177,7 @@
     </objects>
     <resources>
         <image name="jiafang" width="94" height="23"/>
-        <image name="quan" width="329" height="74"/>
+        <image name="quan" width="66" height="18"/>
         <image name="tonghangHiglight" width="96" height="30"/>
         <image name="tonghangnormal" width="96" height="30"/>
     </resources>

@@ -13,7 +13,7 @@
 
 - (IBAction)timeOrderAction:(id)sender;
 
-- (IBAction)orderNumAction:(id)sender;
+//- (IBAction)orderNumAction:(id)sender;
 
 - (IBAction)wordOrderAction:(id)sender;
 - (IBAction)customSearch:(id)sender;

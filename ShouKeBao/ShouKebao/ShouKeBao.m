@@ -76,9 +76,7 @@
     [super viewDidLoad];
     self.userIcon.layer.masksToBounds = YES;
     
-   // [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.upView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES];
-    
-    
+      
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     [self.view addSubview:self.tableView];
@@ -116,6 +114,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPush:) name:@"push" object:nil];
 }
+
+
 #pragma  - mark远程推送处理函数
 -(void)dealPush:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
@@ -170,14 +170,7 @@
         [self ringAction];
     }
 }
-//-(NSMutableString *)messageCount
 
-//{
-//    if (_messageCount == nil) {
-//        self.messageCount = [NSMutableString string];
-//    }
-//    return _messageCount;
-//}
 -(NSMutableString *)shareLink
  {
      if (_shareLink == nil) {
@@ -213,10 +206,10 @@
         
         self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
         self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",muta[@"VisitorCount"]];
-//        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:muta[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"quanquange"]];
+
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:[UIImage imageNamed:@""]];
         self.userName.text = muta[@"ShowName"];
-        self.shareLink = muta[@"ShareLinkUrl"];
+        self.shareLink = muta[@"LinkUrl"];
         if (![muta[@"ShareInfo"] isKindOfClass:[NSNull class]]) {
             NSMutableDictionary *info = [NSMutableDictionary cleanNullResult:muta[@"ShareInfo"]];
             self.shareDic = info;
@@ -439,7 +432,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 -(void)pushToStore
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
-    store.PushUrl = @"http://skb.lvyouquan.cn/mc/kaifaceshi/";
+    store.PushUrl = _shareLink;
     [self.navigationController pushViewController:store animated:YES];
 }
 

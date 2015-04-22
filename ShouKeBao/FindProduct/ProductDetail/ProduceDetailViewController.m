@@ -11,9 +11,11 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate>
-//@property(copy,nonatomic)NSMutableString *shareStr;
+
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
-@property (nonatomic,assign) int backCount;
+
+@property (nonatomic,assign) int webLoadCount;
+@property (nonatomic,strong) NSMutableArray *webUrlArr;
 @end
 
 @implementation ProduceDetailViewController
@@ -25,7 +27,10 @@
     
     
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
+    [self.webUrlArr addObject:_produceUrl];
     
+    self.webLoadCount = 1;
+
     [self customRightBarItem];
   
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -38,23 +43,33 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    self.backCount = 3;
+   
     
 }
 
 -(void)back
 {
-    self.backCount -= 1;
-    if (_backCount == 1 || _backCount == 2) {
-         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
+    if (self.webUrlArr.count >1) {
+        
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+        [self.webUrlArr removeLastObject];
     }
-   
-    if (_backCount == 0) {
+    
+    else if (self.webUrlArr.count == 1) {
         [self.navigationController popViewControllerAnimated:YES];
     }
     
+    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+
 }
 
+-(NSMutableArray *)webUrlArr
+{
+    if (_webUrlArr == nil) {
+        self.webUrlArr = [NSMutableArray array];
+    }
+    return _webUrlArr;
+}
 
 -(NSMutableDictionary *)shareInfo
 {
@@ -79,9 +94,14 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *rightUrl = request.URL.absoluteString;
+    NSString *rightStr = request.URL.absoluteString;
     
-    NSLog(@"webview当前加载的页面是%@",rightUrl);
+    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_produceUrl])) {
+        [self.webUrlArr addObject:rightStr];
+    }
+    
+    NSLog(@"即将加载的页面是%@  arr.count is %lu",rightStr,(unsigned long)[self.webUrlArr count]);
+    
     return YES;
 }
 
@@ -90,15 +110,18 @@
 {
    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-   // [dic setObject:self.produceUrl forKey:@"PageUrl"];
-    [dic setObject:@"http://mtest.lvyouquan.cn/Product/ProductDetail/a4a5b3802104487495d3f3523a9186a5" forKey:@"PageUrl"];
-    //[self.shareInfo removeAllObjects];
+   [dic setObject:_produceUrl forKey:@"PageUrl"];
+    [self.shareInfo removeAllObjects];
+    
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+    
         NSLog(@"-----分享返回数据json is %@------",json);
         
         self.shareInfo = json[@"ShareInfo"];
     } failure:^(NSError *error) {
+        
         NSLog(@"分享请求数据失败，原因：%@",error);
+    
     }];
     
     
