@@ -138,6 +138,7 @@
 		5A60FC7A1AE0FC6D00CDAC4B /* ArrowBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC791AE0FC6D00CDAC4B /* ArrowBtn.m */; };
 		5A61657C1AE771C700641837 /* QuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61657B1AE771C700641837 /* QuanViewController.m */; };
 		5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61657E1AE7791F00641837 /* UINavigationController+SGProgress.m */; };
+		5A6165821AE79AEF00641837 /* NullContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6165811AE79AEF00641837 /* NullContentView.m */; };
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
@@ -501,6 +502,8 @@
 		5A61657B1AE771C700641837 /* QuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuanViewController.m; sourceTree = "<group>"; };
 		5A61657D1AE7791F00641837 /* UINavigationController+SGProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SGProgress.h"; sourceTree = "<group>"; };
 		5A61657E1AE7791F00641837 /* UINavigationController+SGProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SGProgress.m"; sourceTree = "<group>"; };
+		5A6165801AE79AEF00641837 /* NullContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NullContentView.h; sourceTree = "<group>"; };
+		5A6165811AE79AEF00641837 /* NullContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NullContentView.m; sourceTree = "<group>"; };
 		5A62B4911AD3DD7500DFF567 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		5A62B4921AD3DD7500DFF567 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		5A62B4941AD3DEE800DFF567 /* TravelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelButton.h; sourceTree = "<group>"; };
@@ -1263,6 +1266,8 @@
 				5AB7257A1AD61A4C0044B318 /* MenuButton.m */,
 				5A60FC781AE0FC6D00CDAC4B /* ArrowBtn.h */,
 				5A60FC791AE0FC6D00CDAC4B /* ArrowBtn.m */,
+				5A6165801AE79AEF00641837 /* NullContentView.h */,
+				5A6165811AE79AEF00641837 /* NullContentView.m */,
 			);
 			path = OrderView;
 			sourceTree = "<group>";
@@ -2049,6 +2054,7 @@
 				5A61657C1AE771C700641837 /* QuanViewController.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
+				5A6165821AE79AEF00641837 /* NullContentView.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
 				5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */,

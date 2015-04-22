@@ -24,6 +24,8 @@
 
 @property (nonatomic,copy) NSString *LoginAvatar;// 登录界面的头像
 
+@property (nonatomic,copy) NSString *pushMode; // 0关闭免打扰 1开启免打扰
+
 + (instancetype)userInfoWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

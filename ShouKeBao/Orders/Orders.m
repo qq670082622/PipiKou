@@ -29,6 +29,7 @@
 #import "ChooseDayViewController.h"
 #import "UIImage+QD.h"
 #import "ArrowBtn.h"
+#import "NullContentView.h"
 
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
@@ -74,12 +75,15 @@
 @property (nonatomic,strong) SKSearchBar *searchBar;
 @property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
 @property (nonatomic,copy) NSString *searchKeyWord;
+@property (nonatomic,assign) BOOL isSearch;// 判断是不是 搜索结果  因为列表空的话显示的文字不同
 
 @property (nonatomic,strong) DetailView *detailView;
 
 @property (nonatomic,weak) HistoryView *historyView;
 
 @property (nonatomic,assign) BOOL isHeadRefresh;
+
+@property (nonatomic,strong) NullContentView *nullContentView;
 
 @end
 
@@ -205,6 +209,8 @@
                     [self.dataArr addObject:order];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    self.isSearch = self.searchKeyWord.length;
+                    [self setNullImage];
                     [self.tableView reloadData];
                 });
             });
@@ -215,6 +221,14 @@
 }
 
 #pragma mark - private
+- (void)setNullImage
+{
+    self.nullContentView.hidden = self.dataArr.count;
+    if (!self.nullContentView.hidden) {
+        [self.nullContentView setNullContentIsSearch:self.isSearch];
+    }
+}
+
 - (NSInteger)getEndPage
 {
     NSInteger cos = [self.totalCount integerValue] % pageSize;
@@ -380,6 +394,20 @@
 }
 
 #pragma mark - getter
+- (NullContentView *)nullContentView
+{
+    if (!_nullContentView) {
+        _nullContentView = [[NullContentView alloc] init];
+        CGFloat viewW = self.view.frame.size.width;
+        CGFloat viewH = self.tableView.frame.size.height - 54 - 50;
+        CGFloat viewY = 25;
+        _nullContentView.frame = CGRectMake(0, viewY, viewW, viewH);
+        _nullContentView.hidden = YES;
+        [self.tableView addSubview:_nullContentView];
+    }
+    return _nullContentView;
+}
+
 - (MenuButton *)menuButton
 {
     if (!_menuButton) {
@@ -537,14 +565,6 @@
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    if (!self.dataArr.count) {
-        UIImage *image = [UIImage imageNamed:@"beijing"];
-        UIImageView *bg = [[UIImageView alloc] initWithImage:image];
-        self.tableView.backgroundView = bg;
-    }else{
-        self.tableView.backgroundView = nil;
-        self.tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
-    }
     return self.dataArr.count;
 }
 
