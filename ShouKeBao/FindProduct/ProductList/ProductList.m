@@ -235,23 +235,30 @@
     self.conditionDic = [NSMutableDictionary dictionary];
     
     if (value) {
-    [self.conditionDic setObject:value forKey:key];
+   
+        [self.conditionDic setObject:value forKey:key];
         
         if ([selectIndexPath[0]isEqualToString:@"0"]) {
+            
             NSInteger a = [selectIndexPath[1] integerValue];//分析selected IndexPath.row的值
             
             self.subIndicateDataArr1[a] = selectValue;
+     
         }else if ([selectIndexPath[0] isEqualToString:@"1"]){
             
             NSInteger a = [selectIndexPath[1] integerValue];
+           
             self.subIndicateDataArr2[a] = selectValue;
         }
         
         [self.subTable reloadData];
+        [self loadDataSource];
 
     }
+   
     self.coverView.hidden = NO;
-      NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
+    
+    NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
     
 }
 
@@ -318,7 +325,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
-    [dic setObject:@"10" forKey:@"Substation"];
+  //  [dic setObject:@"10" forKey:@"Substation"];
     [dic setObject:@"10" forKey:@"PageSize"];
     [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
     [dic setObject:_page forKey:@"PageIndex"];
@@ -382,7 +389,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
     self.page = [NSMutableString stringWithFormat:@"1"];
-    [dic setObject:@"10" forKey:@"Substation"];
+  //  [dic setObject:@"10" forKey:@"Substation"];
     [dic setObject:@"10" forKey:@"PageSize"];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
@@ -574,6 +581,8 @@
     }
     return 0;
 }
+
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (tableView.tag == 2) {
@@ -581,137 +590,295 @@
     }
     return 1;
 }
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{  if(tableView.tag == 2){
-  if(section == 1 && [_turn isEqualToString:@"Off"]){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 38)];
-        view.userInteractionEnabled = YES;
-    
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
-        line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
-        [view addSubview:line];
-      
-        view.backgroundColor = [UIColor whiteColor];
-        
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        btn.frame = CGRectMake(0, 0, view.frame.size.width, 38);
-        [btn setTitle:@"展开更多▼" forState:UIControlStateNormal];
-       [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
-        self.subTableSectionBtn = btn;
-        [view addSubview:btn];
-        
-        return view;
-    }else if (section == 1 && [_turn isEqualToString:@"On"]){
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 38)];
-        view.userInteractionEnabled = YES;
-        
-        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
-        line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
-        [view addSubview:line];
 
-        view.backgroundColor = [UIColor whiteColor];
-       
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15];
-        btn.frame = CGRectMake(0, 0,view.frame.size.width, 38);
-        [btn setTitle:@"收起▲" forState:UIControlStateNormal];
-        [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
-        self.subTableSectionBtn = btn;
-        [view addSubview:btn];
+//
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    if(tableView.tag == 2){
+
+//        if(section == 1 && [_turn isEqualToString:@"Off"]){
+//       
+//            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 38)];
+//        
+//            view.userInteractionEnabled = YES;
+//    
+//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
+//        
+//            line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+//        
+//            [view addSubview:line];
+//      
+//        view.backgroundColor = [UIColor whiteColor];
+//        
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+//        
+//            btn.titleLabel.font = [UIFont systemFontOfSize:15];
+//       
+//            btn.frame = CGRectMake(0, 0, view.frame.size.width, 38);
+//        
+//            [btn setTitle:@"展开更多▼" forState:UIControlStateNormal];
+//       
+//            [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
+//       
+//            self.subTableSectionBtn = btn;
+//       
+//            [view addSubview:btn];
+//        
+//        return view;
+//   
+//        }else if (section == 1 && [_turn isEqualToString:@"On"]){
+//        
+//            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 38)];
+//       
+//            view.userInteractionEnabled = YES;
+//        
+//        UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5,
+//                                                                view.frame.size.width, 0.5)];
+//       
+//            line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f
+//                                                   alpha:1];
+//        [view addSubview:line];
+//
+//        view.backgroundColor = [UIColor whiteColor];
+//       
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+//       
+//            btn.titleLabel.font = [UIFont systemFontOfSize:15];
+//       
+//            btn.frame = CGRectMake(0, 0,view.frame.size.width, 38);
+//       
+//            [btn setTitle:@"收起▲" forState:UIControlStateNormal];
+//       
+//            [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
+//       
+//            self.subTableSectionBtn = btn;
+//       
+//            [view addSubview:btn];
+//        
+   //     return view;
+//        
+//        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 0)];
+//        return view;
+//    }
+//
+//    return 0;
+//    
+//}
+
+
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (tableView.tag == 2 ) {
         
-        return view;
+        
+        if(section == 1 && [_turn isEqualToString:@"Off"]){
+            
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 38)];
+            
+            view.userInteractionEnabled = YES;
+            
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
+            
+            line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+            
+            [view addSubview:line];
+            
+            view.backgroundColor = [UIColor whiteColor];
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            
+            btn.titleLabel.font = [UIFont systemFontOfSize:15];
+            
+            btn.frame = CGRectMake(0, 0, view.frame.size.width, 38);
+            
+            [btn setTitle:@"展开更多▼" forState:UIControlStateNormal];
+            
+            [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
+            
+            self.subTableSectionBtn = btn;
+            
+            [view addSubview:btn];
+            
+            
+            
+            UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 210)];
+            
+            UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 30, self.subTable.frame.size.width, 20)];
+            
+            subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
+            
+            UIView *sublineSub = [[UIView alloc] initWithFrame:CGRectMake(0,49.5, subLine.frame.size.width,0.5)];
+            
+            sublineSub.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+            
+            [subLine addSubview:sublineSub];
+            
+            [footView addSubview:subLine];
+            
+            self.subSubView.frame = CGRectMake(0, 50, self.subTable.frame.size.width, 160);
+            
+            [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
+            
+            [footView addSubview:self.subSubView];
+
+            [footView addSubview:view];
+            return footView;
+            
+        }else if (section == 1 && [_turn isEqualToString:@"On"]){
+            
+            UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1,self.subTable.frame.size.width, 38)];
+            
+            view.userInteractionEnabled = YES;
+            
+            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5,
+                                                                    view.frame.size.width, 0.5)];
+            
+            line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f
+                                                   alpha:1];
+            [view addSubview:line];
+            
+            view.backgroundColor = [UIColor whiteColor];
+            
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+            
+            btn.titleLabel.font = [UIFont systemFontOfSize:15];
+            
+            btn.frame = CGRectMake(0, 0,view.frame.size.width, 38);
+            
+            [btn setTitle:@"收起▲" forState:UIControlStateNormal];
+            
+            [btn addTarget:self action:@selector(beMore) forControlEvents:UIControlEventTouchUpInside];
+            
+            self.subTableSectionBtn = btn;
+            
+            [view addSubview:btn];
+            
+//////////
+        
+        
+        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 210)];
+        
+        UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 30, self.subTable.frame.size.width, 20)];
+        
+        subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
+        
+        UIView *sublineSub = [[UIView alloc] initWithFrame:CGRectMake(0,49.5, subLine.frame.size.width,0.5)];
+        
+        sublineSub.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+        
+        [subLine addSubview:sublineSub];
+        
+        [footView addSubview:subLine];
+        
+        self.subSubView.frame = CGRectMake(0, 50, self.subTable.frame.size.width, 160);
+        
+        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
+        
+        [footView addSubview:self.subSubView];
+            [footView addSubview:view];
+        
+        return footView;
     }
+    }
+        return 0;
+
+
 }
-    return 0;
-    
-}
+
 -(void)beMore
 {
     NSLog(@"点击了butn");
+    
     if ([_turn isEqualToString:@"Off"]) {
+      
         self.turn = [NSMutableString stringWithString:@"On"];
     }
     else
+    
         self.turn = [NSMutableString stringWithString:@"Off"];
+  
     [self.subTable reloadData];
 }
+
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 2 && section == 1) {
-        return 38;
+   
+        return 0;
     }
+   
     return 0;
 }
--(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
-{
-    if (tableView.tag == 2 &&section == 1) {
-        UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 180)];
-       
-        UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 20)];
-        subLine.backgroundColor = [UIColor colorWithRed:237/255.f green:238/255.f blue:239/255.f alpha:1];
-      
-        UIView *sublineSub = [[UIView alloc] initWithFrame:CGRectMake(0,19.5, subLine.frame.size.width,0.5)];
-        sublineSub.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
-        [subLine addSubview:sublineSub];
-       
-        [footView addSubview:subLine];
-        
-        self.subSubView.frame = CGRectMake(0, 20, self.subTable.frame.size.width, 160);
-        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
-        [footView addSubview:self.subSubView];
-       
-        
-        return footView;
-    }
-    return 0;
-}
+
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (tableView.tag == 2 && section == 1) {
         
-        return 185;
+        return 220;
     }
     return 0;
 }
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
+       
         ProductModal *model = _dataArr[indexPath.row];
-        NSString *productUrl = model.LinkUrl;
+        
+       NSString *productUrl = model.LinkUrl;
+       
         NSString *productName = model.Name;
+     
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+       
         detail.produceUrl = productUrl;
+       
         detail.productName = productName;
+       
         [self.navigationController pushViewController:detail animated:YES];
+       
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
     }
+   
     if (tableView.tag == 2) {
         
         NSInteger a = (5*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
     
         //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
        NSDictionary *conditionDic = _conditionArr[a];
+       
         ConditionSelectViewController *conditionVC = [[ConditionSelectViewController alloc] init];
+       
         conditionVC.delegate = self;
+       
         conditionVC.conditionDic = conditionDic;
         
-        NSArray *arr = [NSArray arrayWithObjects:[NSString  stringWithFormat:@"%ld",(long)indexPath.section],[NSString  stringWithFormat:@"%ld",(long)indexPath.row], nil];
+        NSArray *arr = [NSArray arrayWithObjects:[NSString  stringWithFormat:@"%ld",(long)
+                                                  indexPath.section],[NSString  stringWithFormat:@"%ld",(long)indexPath.row], nil];
         conditionVC.superViewSelectIndexPath = arr;//取出第几行被选择
   
         //取出conditionVC的navTile
         NSString *conditionVCTile;
+       
         if (indexPath.section == 0) {
+       
             conditionVCTile = _subDataArr1[indexPath.row];
+       
         }else if (indexPath.section == 1){
+         
             conditionVCTile = _subDataArr2[indexPath.row];
         }
+       
         conditionVC.title = conditionVCTile;
         
        
         //    NSLog(@"-----------conditionVC.conditionDic is %@---------",conditionVC.conditionDic);
         self.coverView.hidden = YES;
+       
         [self.navigationController pushViewController:conditionVC animated:YES];
     }
     
@@ -721,20 +888,25 @@
 {
     if (tableView.tag == 1 ) {
        //if (_dataArr) {
-            ProductCell *cell = [ProductCell cellWithTableView:tableView];
+        
+        ProductCell *cell = [ProductCell cellWithTableView:tableView];
             
             ProductModal *model = _dataArr[indexPath.row];
-            cell.modal = model;
+        
+        cell.modal = model;
             
             cell.delegate = self;
             
             // cell的滑动设置
             cell.leftSwipeSettings.transition = MGSwipeTransitionStatic;
-            cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+        
+        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
             
             cell.leftButtons = [self createLeftButtons:model];
-            cell.rightButtons = [self createRightButtons:model];
-            return cell;
+        
+        cell.rightButtons = [self createRightButtons:model];
+        
+        return cell;
  
 //        }
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"没有找到符合要求的产品" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
@@ -742,27 +914,46 @@
             }
   
    if (tableView.tag == 2) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
-            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, self.subTable.frame.size.width, 0.5)];
-            line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
-            [cell addSubview:line];
+      
+       UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
+      
+       if (cell == nil) {
+           
+           cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];
+          
+           cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+          
+           UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 49.5, self.subTable.frame.size.width, 0.5)];
+           
+           line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
+           
+           [cell addSubview:line];
         }
        
        if (indexPath.section == 0) {
+          
            cell.textLabel.font = [UIFont systemFontOfSize:15];
+          
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr1[indexPath.row]];
-           cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+          
+          cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+         
            cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+          
            cell.detailTextLabel.textColor = [UIColor orangeColor];
+     
        }else {
+          
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
+          
            cell.textLabel.font = [UIFont systemFontOfSize:15];
+         
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
+          
            cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+          
            cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
+          
            cell.detailTextLabel.textColor = [UIColor orangeColor];
 
        }
@@ -770,6 +961,7 @@
     }
     return  0;
 }
+
 
 #pragma mark - MGSwipeTableCellDelegate
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
@@ -786,102 +978,159 @@
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
     NSIndexPath *indexPath = [self.table indexPathForCell:cell];
+    
     NSLog(@"------%@",indexPath);
     
     ProductModal *model = _dataArr[indexPath.row];
+   
     NSString *result = [model.IsFavorites isEqualToString:@"0"]?@"1":@"0";
+   
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
     [dic setObject:model.ID forKey:@"ProductID"];
+    
     [dic setObject:result forKey:@"IsFavorites"];///Product/ SetProductFavorites
-   [IWHttpTool WMpostWithURL:@"/Product/SetProductFavorites" params:dic success:^(id json) {
+  
+    [IWHttpTool WMpostWithURL:@"/Product/SetProductFavorites" params:dic success:^(id json) {
        NSLog(@"产品收藏成功%@",json);
-       [MBProgressHUD showSuccess:@"操作成功"];
-       dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-           [MBProgressHUD hideHUD];
-       });
+      
+        [MBProgressHUD showSuccess:@"操作成功"];
+     
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        
+            [MBProgressHUD hideHUD];
+      
+        });
 
    } failure:^(NSError *error) {
+  
        NSLog(@"产品收藏网络请求失败");
+  
    }];
+    
     return YES;
 }
 
+
 #pragma mark - other
 - (void)didReceiveMemoryWarning {
+   
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 - (IBAction)recommond:(id)sender {//推荐
+   
     [self.profitOutlet setSelected:NO];
+   
     [self.cheapOutlet setSelected:NO];
+   
     [self.commondOutlet setSelected:YES];
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-     [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+    
+    [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+   
     NSLog(@"----------增加的conditionDic is %@------------",_conditionDic);
+  
     [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+  
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-    [dic setObject:@"10" forKey:@"Substation"];
+  //  [dic setObject:@"10" forKey:@"Substation"];
     [dic setObject:@"10" forKey:@"PageSize"];
+   
     [dic setObject:@1 forKey:@"PageIndex"];
+   
     [dic setObject:@"0" forKey:@"ProductSortingType"];
    // [self ProductSortingTypeWith:@"0"];
+   
     [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
    // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+    
         [self.dataArr removeAllObjects];//移除
+      
         NSMutableArray *dicArr = [NSMutableArray array];
+      
         for (NSDictionary *dic in json[@"ProductList"]) {
+        
             ProductModal *modal = [ProductModal modalWithDict:dic];
+         
             [dicArr addObject:modal];
-            }
+        
+        }
+        
         _dataArr = dicArr;
        
         
         [self.table reloadData];
+       
         NSString *page = [NSString stringWithFormat:@"%@",_page];
+      
         self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
       //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
     } failure:^(NSError *error) {
+      
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
     }];
 
 }
 
+
 - (IBAction)profits:(id)sender {//利润2,1
+    
     if (self.profitOutlet.selected == NO) {
+       
         [self.profitOutlet setSelected:YES];
+       
         [self.cheapOutlet setSelected:NO];
+       
         [self.commondOutlet setSelected:NO];
+       
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+       
+        [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+       
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+       
         [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-        [dic setObject:@"10" forKey:@"Substation"];
+       // [dic setObject:@"10" forKey:@"Substation"];
         [dic setObject:@"10" forKey:@"PageSize"];
+      
         [dic setObject:@1 forKey:@"PageIndex"];
+      
         [dic setObject:@"2" forKey:@"ProductSortingType"];
         //[self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
+      
         NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+      
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+         
             [self.dataArr removeAllObjects];//移除
+         
             NSMutableArray *dicArr = [NSMutableArray array];
+         
             for (NSDictionary *dic in json[@"ProductList"]) {
+             
                 ProductModal *modal = [ProductModal modalWithDict:dic];
+              
                 [dicArr addObject:modal];
             }
             _dataArr = dicArr;
             
             
             [self.table reloadData];
+         
             NSString *page = [NSString stringWithFormat:@"%@",_page];
+           
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
           //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
+         
             NSLog(@"-------产品搜索请求失败 error is%@----------",error);
         }];
         
@@ -889,167 +1138,259 @@
     }else if (self.profitOutlet.selected == YES && [self.profitOutlet.titleLabel.text
                                                     isEqualToString:@"利润 ↑"]){
         [self.profitOutlet setTitle:@"利润 ↓" forState:UIControlStateNormal];
-               NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+       
+        [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+       
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+      
         [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-        [dic setObject:@"10" forKey:@"Substation"];
+      //  [dic setObject:@"10" forKey:@"Substation"];
         [dic setObject:@"10" forKey:@"PageSize"];
+       
         [dic setObject:@1 forKey:@"PageIndex"];
+      
         [dic setObject:@"1" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"1"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
        // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+       
             [self.dataArr removeAllObjects];//移除
+         
             NSMutableArray *dicArr = [NSMutableArray array];
+          
             for (NSDictionary *dic in json[@"ProductList"]) {
+          
                 ProductModal *modal = [ProductModal modalWithDict:dic];
+             
                 [dicArr addObject:modal];
             }
             _dataArr = dicArr;
             
             
             [self.table reloadData];
+           
             NSString *page = [NSString stringWithFormat:@"%@",_page];
+           
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
             //NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
+        
             NSLog(@"-------产品搜索请求失败 error is%@----------",error);
         }];
-    }else if (self.profitOutlet.selected == YES && [self.profitOutlet.titleLabel.text isEqualToString:@"利润 ↓"]){
+  
+    }else if (self.profitOutlet.selected == YES && [self.profitOutlet.titleLabel.text
+                                                    isEqualToString:@"利润 ↓"]){
     [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal];
+       
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+      
+        [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+     
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+       
         [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-        [dic setObject:@"10" forKey:@"Substation"];
+      //  [dic setObject:@"10" forKey:@"Substation"];
         [dic setObject:@"10" forKey:@"PageSize"];
+       
         [dic setObject:@1 forKey:@"PageIndex"];
+       
         [dic setObject:@"2" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
       //  NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+       
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+          
             [self.dataArr removeAllObjects];//移除
+         
             NSMutableArray *dicArr = [NSMutableArray array];
+          
             for (NSDictionary *dic in json[@"ProductList"]) {
+              
                 ProductModal *modal = [ProductModal modalWithDict:dic];
+               
                 [dicArr addObject:modal];
             }
             _dataArr = dicArr;
             
             
             [self.table reloadData];
+           
             NSString *page = [NSString stringWithFormat:@"%@",_page];
+          
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
           //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
+          
             NSLog(@"-------产品搜索请求失败 error is%@----------",error);
         }];
 
    }
     }
 
+
 - (IBAction)cheapPrice:(id)sender {//同行价4,3
+   
     if (self.cheapOutlet.selected == NO) {
+       
         [self.cheapOutlet setSelected:YES];
+        
         [self.commondOutlet setSelected:NO];
+        
         [self.profitOutlet setSelected:NO];
+        
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
+        [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+        
         [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-        [dic setObject:@"10" forKey:@"Substation"];
+        //[dic setObject:@"10" forKey:@"Substation"];
+        
         [dic setObject:@"10" forKey:@"PageSize"];
+        
         [dic setObject:@1 forKey:@"PageIndex"];
+        
         [dic setObject:@"4" forKey:@"ProductSortingType"];
      //   [self ProductSortingTypeWith:@"4"];
+        
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
        // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+        
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+        
             [self.dataArr removeAllObjects];//移除
+            
             NSMutableArray *dicArr = [NSMutableArray array];
+            
             for (NSDictionary *dic in json[@"ProductList"]) {
+            
                 ProductModal *modal = [ProductModal modalWithDict:dic];
+                
                 [dicArr addObject:modal];
             }
+           
             _dataArr = dicArr;
             
             
             [self.table reloadData];
+            
             NSString *page = [NSString stringWithFormat:@"%@",_page];
+            
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
           //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
+          
             NSLog(@"-------产品搜索请求失败 error is%@----------",error);
+        
         }];
 
     }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.titleLabel.text
                                                    isEqualToString:@"同行价 ↑"]){
+        
         [self.cheapOutlet setTitle:@"同行价 ↓" forState:UIControlStateNormal];
+        
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
+        [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+        
         [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-        [dic setObject:@"10" forKey:@"Substation"];
+      //  [dic setObject:@"10" forKey:@"Substation"];
+        
         [dic setObject:@"10" forKey:@"PageSize"];
+        
         [dic setObject:@1 forKey:@"PageIndex"];
+        
         [dic setObject:@"3" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"3"];
+        
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
        // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+        
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+        
             [self.dataArr removeAllObjects];//移除
+            
             NSMutableArray *dicArr = [NSMutableArray array];
+            
             for (NSDictionary *dic in json[@"ProductList"]) {
+            
                 ProductModal *modal = [ProductModal modalWithDict:dic];
+                
                 [dicArr addObject:modal];
             }
+            
             _dataArr = dicArr;
             
             
             [self.table reloadData];
+            
             NSString *page = [NSString stringWithFormat:@"%@",_page];
+            
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
          //   NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
+         
             NSLog(@"-------产品搜索请求失败 error is%@----------",error);
         }];
 
-    }else if (self.cheapOutlet.selected == YES &&[self.cheapOutlet.titleLabel.text isEqualToString:@"同行价 ↓"]){
+    }else if (self.cheapOutlet.selected == YES &&[self.cheapOutlet.titleLabel.text
+                                                  isEqualToString:@"同行价 ↓"]){
     [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal];
+       
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
+        [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
+        
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+        
         [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
 
-        [dic setObject:@"10" forKey:@"Substation"];
+       // [dic setObject:@"10" forKey:@"Substation"];
         [dic setObject:@"10" forKey:@"PageSize"];
+        
         [dic setObject:@1 forKey:@"PageIndex"];
+        
         [dic setObject:@"4" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"4"];
+        
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
       //  NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+        
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+        
             [self.dataArr removeAllObjects];//移除
+            
             NSMutableArray *dicArr = [NSMutableArray array];
+            
             for (NSDictionary *dic in json[@"ProductList"]) {
+            
                 ProductModal *modal = [ProductModal modalWithDict:dic];
+                
                 [dicArr addObject:modal];
             }
+            
             _dataArr = dicArr;
             
             
             [self.table reloadData];
+            
             NSString *page = [NSString stringWithFormat:@"%@",_page];
+            
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
          //   NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
+            
             NSLog(@"-------产品搜索请求失败 error is%@----------",error);
         }];
 
@@ -1063,35 +1404,55 @@
 //   }];
     //self.blackView.alpha = 0;
     [UIView animateWithDuration:0.3 animations:^{
+        
         self.subView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
+        
         [self.coverView removeFromSuperview];
        // [_dressView removeFromSuperview];
     }];
 
    }
 
+
 - (IBAction)subReset:(id)sender {
+
     self.conditionDic = nil;
+    
     self.jishi = [NSMutableString stringWithFormat:@"1"];
+    
     self.jiafan = [NSMutableString stringWithFormat:@"1"];
+    
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
+    
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
+    
     [self.subTable reloadData];
+    
     [self recommond:sender];
     
 }
 
 - (IBAction)subDone:(id)sender {
+   
+    [self initPull];
     
     [UIView animateWithDuration:0.3 animations:^{
+    
         self.subView.transform = CGAffineTransformIdentity;
+    
     } completion:^(BOOL finished) {
+    
         [self.coverView removeFromSuperview];
+        
         // [_dressView removeFromSuperview];
+        
         [self recommond:sender];
+        
         [self.commondOutlet setSelected:YES];
+        
         self.profitOutlet.selected = NO;
+        
         self.cheapOutlet.selected = NO;
     }];
 
@@ -1099,10 +1460,16 @@
 
 }
 
+
 - (IBAction)subMinMax:(id)sender {
+    
+    
     MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
+   
     mm.delegate = self;
-     self.coverView.hidden = YES;
+    
+    self.coverView.hidden = YES;
+    
     [self.navigationController pushViewController:mm animated:YES];
 }
 

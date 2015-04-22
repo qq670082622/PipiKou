@@ -104,6 +104,7 @@
 {
     [self loadDataSourceLeft];
     [self loadHotData];
+//    [self loadDataSourceLeft];
 
 }
 
