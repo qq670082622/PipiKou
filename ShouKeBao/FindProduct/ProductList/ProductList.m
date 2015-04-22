@@ -184,8 +184,8 @@
 #pragma  mark 没有产品时嵌图
 -(void)addANewFootViewWhenHaveNoProduct
 {
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(100, 100, self.view.frame.size.width-200,200)];
-    imgv.image = [UIImage imageNamed:@"meiyouchanpin"];
+    UIImageView *imgv = [[UIImageView alloc] initWithFrame:self.table.frame];
+    imgv.image = [UIImage imageNamed:@"content_null"];
     [self.view addSubview:imgv];
     self.navigationItem.rightBarButtonItem = nil;
 }

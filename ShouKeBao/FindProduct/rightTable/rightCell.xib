@@ -16,48 +16,46 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="xixixi" translatesAutoresizingMaskIntoConstraints="NO" id="38c-01-iBG">
-                        <rect key="frame" x="8" y="6" width="62" height="62"/>
-                        <constraints>
-                            <constraint firstAttribute="width" constant="62" id="zWb-Uh-dB5"/>
-                        </constraints>
+                        <rect key="frame" x="8" y="12" width="50" height="50"/>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="RMB2550" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JlF-Ol-VPx">
-                        <rect key="frame" x="145" y="62" width="75" height="21"/>
+                        <rect key="frame" x="130" y="60" width="88" height="21"/>
                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同行起价:" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAd-jX-Oc6">
-                        <rect key="frame" x="85" y="62" width="60" height="21"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="同行起价:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zAd-jX-Oc6">
+                        <rect key="frame" x="70" y="60" width="60" height="21"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="GLC-V8-9Ht"/>
-                            <constraint firstAttribute="height" constant="21" id="zJz-GQ-HMP"/>
+                            <constraint firstAttribute="width" constant="60" id="PHW-Ft-BbY"/>
+                            <constraint firstAttribute="height" constant="21" id="wi8-BB-PXO"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" white="0.25" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吴铭" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8m-9S-WWt">
-                        <rect key="frame" x="85" y="8" width="125" height="50"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="吴铭" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d8m-9S-WWt">
+                        <rect key="frame" x="70" y="6" width="135" height="50"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="d8m-9S-WWt" firstAttribute="leading" secondItem="zAd-jX-Oc6" secondAttribute="leading" id="24y-Jw-9rK"/>
-                    <constraint firstItem="d8m-9S-WWt" firstAttribute="leading" secondItem="38c-01-iBG" secondAttribute="trailing" constant="15" id="3OT-ug-3go"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="zAd-jX-Oc6" secondAttribute="bottom" constant="-3.5" id="Fad-UY-ZjQ"/>
-                    <constraint firstAttribute="trailing" secondItem="JlF-Ol-VPx" secondAttribute="trailing" id="Okz-eb-Ot2"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="d8m-9S-WWt" secondAttribute="trailing" constant="2" id="R5u-EV-Yb4"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="bottom" secondItem="JlF-Ol-VPx" secondAttribute="bottom" id="RPT-zH-IBU"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="top" secondItem="JlF-Ol-VPx" secondAttribute="top" id="RaP-yA-IwX"/>
-                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="top" secondItem="d8m-9S-WWt" secondAttribute="bottom" constant="4" id="TWg-hp-OrI"/>
-                    <constraint firstItem="d8m-9S-WWt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="Zr1-Ie-nVl"/>
-                    <constraint firstItem="38c-01-iBG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="bFf-Ex-m8L"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="38c-01-iBG" secondAttribute="bottom" constant="11.5" id="hXd-Vi-db4"/>
-                    <constraint firstItem="JlF-Ol-VPx" firstAttribute="leading" secondItem="zAd-jX-Oc6" secondAttribute="trailing" id="mdN-Ke-lwH"/>
-                    <constraint firstItem="38c-01-iBG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="ylB-Lr-R3x"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="JlF-Ol-VPx" secondAttribute="trailing" constant="-6" id="29s-B0-9b1"/>
+                    <constraint firstItem="38c-01-iBG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="5y7-mk-BOr"/>
+                    <constraint firstItem="38c-01-iBG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="4" id="ABg-wg-8Vk"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="top" secondItem="d8m-9S-WWt" secondAttribute="bottom" constant="4" id="DCG-li-SZc"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="62" id="IgQ-4g-imu"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="d8m-9S-WWt" secondAttribute="trailing" constant="7" id="Jm2-vX-X0F"/>
+                    <constraint firstItem="JlF-Ol-VPx" firstAttribute="top" secondItem="zAd-jX-Oc6" secondAttribute="top" id="LpY-WV-rH0"/>
+                    <constraint firstItem="d8m-9S-WWt" firstAttribute="leading" secondItem="38c-01-iBG" secondAttribute="trailing" constant="12" id="Nda-QS-Hp1"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="38c-01-iBG" secondAttribute="bottom" constant="17.5" id="Oxe-nw-pTL"/>
+                    <constraint firstItem="JlF-Ol-VPx" firstAttribute="leading" secondItem="zAd-jX-Oc6" secondAttribute="trailing" id="TxC-t0-8Ij"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="zAd-jX-Oc6" secondAttribute="bottom" constant="-1.5" id="Xbb-If-ZTQ"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="leading" secondItem="d8m-9S-WWt" secondAttribute="leading" id="aXk-5C-j6C"/>
+                    <constraint firstItem="zAd-jX-Oc6" firstAttribute="bottom" secondItem="JlF-Ol-VPx" secondAttribute="bottom" id="ey4-ra-F9E"/>
+                    <constraint firstItem="d8m-9S-WWt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="-2" id="rMV-FV-zku"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

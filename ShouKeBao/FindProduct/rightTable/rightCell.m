@@ -35,11 +35,13 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
+
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
 
-self.rightIcon.frame = CGRectMake(8, 6, 62, 62);
+self.rightIcon.frame = CGRectMake(8, 12, 50, 50);
     
 self.rightIcon.contentMode = UIViewContentModeScaleToFill;
         
