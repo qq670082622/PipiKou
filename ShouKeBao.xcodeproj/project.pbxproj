@@ -136,6 +136,8 @@
 		5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC721AE0A93400CDAC4B /* WelcomeView.m */; };
 		5A60FC771AE0A97000CDAC4B /* WelcomePageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC761AE0A97000CDAC4B /* WelcomePageControl.m */; };
 		5A60FC7A1AE0FC6D00CDAC4B /* ArrowBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A60FC791AE0FC6D00CDAC4B /* ArrowBtn.m */; };
+		5A61657C1AE771C700641837 /* QuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61657B1AE771C700641837 /* QuanViewController.m */; };
+		5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A61657E1AE7791F00641837 /* UINavigationController+SGProgress.m */; };
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
@@ -495,6 +497,10 @@
 		5A60FC761AE0A97000CDAC4B /* WelcomePageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomePageControl.m; sourceTree = "<group>"; };
 		5A60FC781AE0FC6D00CDAC4B /* ArrowBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArrowBtn.h; sourceTree = "<group>"; };
 		5A60FC791AE0FC6D00CDAC4B /* ArrowBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ArrowBtn.m; sourceTree = "<group>"; };
+		5A61657A1AE771C700641837 /* QuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QuanViewController.h; sourceTree = "<group>"; };
+		5A61657B1AE771C700641837 /* QuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QuanViewController.m; sourceTree = "<group>"; };
+		5A61657D1AE7791F00641837 /* UINavigationController+SGProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationController+SGProgress.h"; sourceTree = "<group>"; };
+		5A61657E1AE7791F00641837 /* UINavigationController+SGProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationController+SGProgress.m"; sourceTree = "<group>"; };
 		5A62B4911AD3DD7500DFF567 /* TravelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelCell.h; sourceTree = "<group>"; };
 		5A62B4921AD3DD7500DFF567 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		5A62B4941AD3DEE800DFF567 /* TravelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelButton.h; sourceTree = "<group>"; };
@@ -917,6 +923,8 @@
 		5A52FB371ACEBF220076DAE6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				5A61657D1AE7791F00641837 /* UINavigationController+SGProgress.h */,
+				5A61657E1AE7791F00641837 /* UINavigationController+SGProgress.m */,
 				5A52FB6A1ACEBF220076DAE6 /* NSMutableDictionary+QD.h */,
 				5A52FB6B1ACEBF220076DAE6 /* NSMutableDictionary+QD.m */,
 				5A52FB6C1ACEBF220076DAE6 /* NSString+QD.h */,
@@ -1127,6 +1135,8 @@
 				5A52FBF11ACEBF220076DAE6 /* SosViewController.m */,
 				5A52FBF21ACEBF220076DAE6 /* SuggestViewController.h */,
 				5A52FBF31ACEBF220076DAE6 /* SuggestViewController.m */,
+				5A61657A1AE771C700641837 /* QuanViewController.h */,
+				5A61657B1AE771C700641837 /* QuanViewController.m */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -1985,6 +1995,7 @@
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
 				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
+				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
 				5A52FC6F1ACEBF220076DAE6 /* MeHttpTool.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
@@ -2035,6 +2046,7 @@
 				5ABA4F611AD7B26E004AA8F6 /* NSDateFormatter+Category.m in Sources */,
 				5A82161C1AD3843B009388DA /* HomeList.m in Sources */,
 				5A60FC7A1AE0FC6D00CDAC4B /* ArrowBtn.m in Sources */,
+				5A61657C1AE771C700641837 /* QuanViewController.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,

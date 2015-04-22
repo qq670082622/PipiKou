@@ -55,4 +55,9 @@
  */
 + (void)cancelFavouriteWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
+/**
+ *  加载圈付宝
+ */
++ (void)getMeIndexWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
 @end

@@ -11,7 +11,7 @@
 #import "MeHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 
-@interface ModifyPwdViewController ()
+@interface ModifyPwdViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *oldPassword;
 
@@ -31,6 +31,14 @@
     [self setNextBtn];
     
     [self setNav];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)tapHandle:(UITapGestureRecognizer *)ges
+{
+    [self.view endEditing:YES];
 }
 
 - (void)setNav
@@ -89,6 +97,12 @@
     } failure:^(NSError *error) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 
 @end

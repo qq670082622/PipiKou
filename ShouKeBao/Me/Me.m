@@ -18,6 +18,9 @@
 #import "SafeSettingViewController.h"
 #import "UserInfo.h"
 #import "UIButton+WebCache.h"
+#import "APService.h"
+#import "NSDate+Category.h"
+#import "QuanViewController.h"
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -41,7 +44,7 @@
     self.tableView.tableHeaderView = self.buttonView;
     self.tableView.rowHeight = 50;
     
-    self.desArr = @[@[@"我的旅行社"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于收客宝",@"评价收客宝"]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于收客宝",@"评价收客宝"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -74,6 +77,23 @@
 {
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.view addSubview:self.meheader];
+}
+
+// 设置固定时间段免打扰
+- (void)changePushMode:(UISwitch *)modeSwitch
+{
+    if (modeSwitch.on) {
+        NSLog(@"免打扰");
+//        BOOL isNight = [NSDate isBetweenFromHour:11 toHour:14];
+//        if (isNight) {
+//            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+//        }
+        [APService setTags:[NSSet setWithObject:@"0"] callbackSelector:nil object:nil];
+    }else{
+        NSLog(@"打扰我吧");
+//        [[UIApplication sharedApplication] registerForRemoteNotifications];
+        [APService setTags:[NSSet setWithObject:@"1"] callbackSelector:nil object:nil];
+    }
 }
 
 #pragma mark - getter
@@ -168,16 +188,19 @@
     
     cell.textLabel.text = self.desArr[indexPath.section][indexPath.row];
     
-    // 前两个单独的行
+    // 前两个section的行
     if (indexPath.section != 2) {
         if (indexPath.section == 0) {
-            if (self.isPerson) {
-                cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
+            if (indexPath.row == 0) {
+                if (self.isPerson) {
+                    cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
+                }else{
+                    cell.textLabel.text = nil;
+                    cell.accessoryType = UITableViewCellAccessoryNone;
+                }
             }else{
-                cell.textLabel.text = nil;
-                cell.accessoryType = UITableViewCellAccessoryNone;
+                cell.imageView.image = [UIImage imageNamed:@"money"];
             }
-            
         }else{
             cell.imageView.image = [UIImage imageNamed:@"zhanghu-anquan"];
         }
@@ -189,6 +212,7 @@
         
         // 添加一个开关
         UISwitch *btn = [[UISwitch alloc] init];
+        [btn addTarget:self action:@selector(changePushMode:) forControlEvents:UIControlEventValueChanged];
         cell.accessoryView = btn;
     }
     
@@ -223,9 +247,17 @@
         }
     }else{
         if (indexPath.section == 0) {
-            MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
-            [self.navigationController pushViewController:myOrg animated:YES];
+            // 第一组的两个
+            if (indexPath.row == 0) {
+                MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
+                [self.navigationController pushViewController:myOrg animated:YES];
+            }else{
+                // 圈付宝
+                QuanViewController *quan = [[QuanViewController alloc] init];
+                [self.navigationController pushViewController:quan animated:YES];
+            }
         }else{
+            // 第二组 单个 账号安全
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
             SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
             [self.navigationController pushViewController:safe animated:YES];
@@ -237,17 +269,17 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.isPerson && indexPath.section == 0) {
-        return 0;
+    if (!self.isPerson && indexPath.section == 0 && indexPath.row == 0) {
+        return 0.5;
     }
     return 50;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (!self.isPerson && section == 0) {
-        return 0.01f;
-    }
+//    if (!self.isPerson && section == 0 ) {
+//        return 0.01f;
+//    }
     return 8.0f;
 }
 

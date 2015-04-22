@@ -196,4 +196,24 @@
     }];
 }
 
+/**
+ *  加载圈付宝
+ */
++ (void)getMeIndexWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/GetMeIndex" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
 @end

@@ -74,7 +74,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.userIcon.layer.masksToBounds = YES;
     
    // [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.upView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES];
     
@@ -275,14 +275,13 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 130, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 194)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 204)];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 54, 0);
         _tableView.rowHeight = 105;
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:237/255.0 alpha:1];
         _tableView.tableFooterView = [[UIView alloc] init];
-        
     }
     return _tableView;
 }
@@ -503,9 +502,6 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }
                             }];
-    
-    
-
 }
 
 

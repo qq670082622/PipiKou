@@ -7,8 +7,9 @@
 //
 
 #import "SuggestViewController.h"
+#import "MBProgressHUD+MJ.h"
 
-@interface SuggestViewController ()
+@interface SuggestViewController () <UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *holderLab;
 
 @property (weak, nonatomic) IBOutlet UITextView *adviceTextView;
@@ -25,6 +26,9 @@
     [self setNav];
     
     [self setBackButton];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(endInput:)];
+    [self.view addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textChange:) name:UITextViewTextDidChangeNotification object:self.adviceTextView];
 }
@@ -65,8 +69,8 @@
     
     CGFloat backX = (self.view.frame.size.width - 250) * 0.5;
     UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(backX, 20, 250, 45)];
-    [back setBackgroundImage:[UIImage imageNamed:@"fasong"] forState:UIControlStateNormal];
-    [back setTitle:@"发送" forState:UIControlStateNormal];
+    [back setBackgroundImage:[UIImage imageNamed:@"fanhui_bg"] forState:UIControlStateNormal];
+    [back setTitle:@"发  送" forState:UIControlStateNormal];
     [back setTitleColor:[UIColor colorWithRed:63/255.0 green:114/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(send:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -76,8 +80,28 @@
 
 - (void)send:(UIButton *)btn
 {
-//    [self.navigationController popViewControllerAnimated:YES];
-    
+    if (self.adviceTextView.text.length) {
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [self.navigationController popViewControllerAnimated:YES];
+            [MBProgressHUD showSuccess:@"发送成功" toView:self.view.window];
+        });
+    }else{
+        [MBProgressHUD showError:@"别不说话啊~ 我已经饥渴难耐了"];
+    }
+}
+
+- (void)endInput:(UITapGestureRecognizer *)ges
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark - scrollviewdelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.view endEditing:YES];
 }
 
 @end

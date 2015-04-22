@@ -91,4 +91,7 @@
 @property (readonly) NSInteger nthWeekday; // e.g. 2nd Tuesday of the month == 2
 @property (readonly) NSInteger year;
 
+// 时间段
++ (BOOL)isBetweenFromHour:(NSInteger)fromHour toHour:(NSInteger)toHour;
+
 @end
