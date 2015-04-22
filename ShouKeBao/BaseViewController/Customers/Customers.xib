@@ -8,7 +8,6 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Customers">
             <connections>
                 <outlet property="cancelSearchOutlet" destination="Ag8-T2-2ax" id="s33-S9-mM3"/>
-                <outlet property="orderNumBtn" destination="drW-DZ-1Mr" id="RCg-6K-FyZ"/>
                 <outlet property="searchCustomerBtnOutlet" destination="MwM-Ev-SlL" id="O2F-jD-ar5"/>
                 <outlet property="searchTextField" destination="Cmx-lG-vdB" id="BoE-3e-PK2"/>
                 <outlet property="subView" destination="frt-01-EIa" id="dlI-DF-O1s"/>
@@ -41,17 +40,12 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
                         <view contentMode="scaleToFill" id="nIi-7T-O1x" userLabel="line1">
-                            <rect key="frame" x="107" y="5" width="1" height="20"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
-                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                        </view>
-                        <view contentMode="scaleToFill" id="Bte-4w-hIj" userLabel="line2">
-                            <rect key="frame" x="214" y="5" width="1" height="20"/>
+                            <rect key="frame" x="159" y="5" width="1" height="20"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Rlf-f3-vtv">
-                            <rect key="frame" x="15" y="2" width="80" height="30"/>
+                            <rect key="frame" x="60" y="2" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="时间排序 ↓">
@@ -63,21 +57,8 @@
                                 <action selector="timeOrderAction:" destination="-1" eventType="touchUpInside" id="Eyb-mq-NL1"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="drW-DZ-1Mr">
-                            <rect key="frame" x="120" y="2" width="80" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="订单数排序 ↓">
-                                <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                            </state>
-                            <state key="highlighted" title="订单数排序↓"/>
-                            <connections>
-                                <action selector="orderNumAction:" destination="-1" eventType="touchUpInside" id="RSS-Pj-3tF"/>
-                            </connections>
-                        </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="ACz-8w-02j">
-                            <rect key="frame" x="232" y="2" width="80" height="30"/>
+                            <rect key="frame" x="180" y="2" width="80" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="字母排序 ↓">

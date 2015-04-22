@@ -93,6 +93,9 @@
 
     
 }
+
+
+
 -(NSMutableDictionary *)shareDic
 {
     if (_shareDic == nil) {
@@ -100,10 +103,13 @@
     }
     return _shareDic;
 }
+
+
+
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *rightStr = request.URL.absoluteString;
-    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:@"http://www.baidu.com/"])) {
+    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_PushUrl])) {
         [self.webUrlArr addObject:rightStr];
     }
     NSLog(@"即将加载的页面是%@  arr.count is %lu",rightStr,(unsigned long)[self.webUrlArr count]);
@@ -159,6 +165,8 @@
     
     return YES;
 }
+
+
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
@@ -213,6 +221,7 @@
     
 }
 
+
 -(void)reloadStateWithType:(ShareType)type
 {
     //现实授权信息，包括授权ID、授权有效期等。
@@ -220,6 +229,7 @@
     id<ISSPlatformCredential> credential = [ShareSDK getCredentialWithType:type];//此处用于得到返回结果
     NSLog(@"uid :%@ , token :%@ , secret:%@ , expirend:%@ , exInfo:%@",[credential uid],[credential token],[credential secret],[credential expired],[credential extInfo]);
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -240,4 +250,5 @@
     }
     
 }
+
 @end

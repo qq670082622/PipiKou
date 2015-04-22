@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
+@protocol notifiCustomersToReferesh<NSObject>
+-(void)referesh;
+@end
 @interface BatchAddViewController : SKViewController
-
+@property(nonatomic,weak) id<notifiCustomersToReferesh>delegate;
 @end

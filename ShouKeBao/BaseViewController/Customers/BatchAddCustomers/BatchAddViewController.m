@@ -39,6 +39,8 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    self.table.tableFooterView = [[UIView alloc] init];
+    
 }
 
 -(void)back
@@ -80,6 +82,7 @@
    
     [IWHttpTool WMpostWithURL:@"/Customer/CreateCustomerList" params:dic success:^(id json) {
         NSLog(@"批量导入客户成功 返回json is %@",json);
+        [self.delegate referesh];
     } failure:^(NSError *error) {
         NSLog(@"批量导入客户失败，返回error is %@",error);
     }];
@@ -92,29 +95,39 @@
     // Dispose of any resources that can be recreated.
 }
 -(void )loadData
-{ABAddressBookRef addressBooks = nil;
-addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
+{
+    ABAddressBookRef addressBooks = nil;
+
+    addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
     //获取通讯录权限
     dispatch_semaphore_t sema = dispatch_semaphore_create(0);
+    
     ABAddressBookRequestAccessWithCompletion(addressBooks, ^(bool granted, CFErrorRef error){dispatch_semaphore_signal(sema);});
+    
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
+    
     //获取通讯录中的所有人
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBooks);
+    
     //通讯录中人数
     CFIndex nPeople = ABAddressBookGetPersonCount(addressBooks);
+    
     for(NSInteger i = 0; i<nPeople; i++)
         {
         //创建一个addressBook shuxing类
         batchModel *addressBooks = [[batchModel alloc]init];
-        //获取个人
+       
+            //获取个人
         ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
-        //获取个人名字
+       
+            //获取个人名字
         CFTypeRef abName = ABRecordCopyValue(person, kABPersonAddressProperty);
         CFTypeRef abLastName = ABRecordCopyValue(person, kABPersonLastNameProperty);
         CFStringRef abFullName = ABRecordCopyCompositeName(person);
         NSString *nameString = (__bridge NSString *)abName;
         NSString *lastNameString = (__bridge NSString *)abLastName;
-        if ((__bridge id)abFullName != nil) {
+       
+            if ((__bridge id)abFullName != nil) {
             nameString = (__bridge NSString *)abFullName;
             } else {
             if ((__bridge id)abLastName != nil)
@@ -123,23 +136,31 @@ addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
                 }}
         
         addressBooks.name = nameString;
-        addressBooks.recordID = [NSString stringWithFormat:@"%d",ABRecordGetRecordID(person)];;
-        ABPropertyID multiProperties[] = {
+       
+            addressBooks.recordID = [NSString stringWithFormat:@"%d",ABRecordGetRecordID(person)];;
+       
+            ABPropertyID multiProperties[] = {
             kABPersonPhoneProperty,
             kABPersonEmailProperty
             };
-        NSInteger multiPropertiesTotal = sizeof(multiProperties) / sizeof(ABPropertyID);
-        for (NSInteger j = 0; j < multiPropertiesTotal; j++) {
+      
+            NSInteger multiPropertiesTotal = sizeof(multiProperties) / sizeof(ABPropertyID);
+       
+            for (NSInteger j = 0; j < multiPropertiesTotal; j++) {
             ABPropertyID property = multiProperties[j];
             ABMultiValueRef valuesRef = ABRecordCopyValue(person, property);
             NSInteger valuesCount = 0;
-            if (valuesRef != nil) valuesCount = ABMultiValueGetCount(valuesRef);
-            if (valuesCount == 0) {
+           
+                if (valuesRef != nil) valuesCount = ABMultiValueGetCount(valuesRef);
+            
+                if (valuesCount == 0) {
                 CFRelease(valuesRef);
                 continue;}
-            //获取电话号码和email
+           
+                //获取电话号码和email
             for (NSInteger k = 0; k < valuesCount; k++) {
                 CFTypeRef value = ABMultiValueCopyValueAtIndex(valuesRef, k);
+              
                 switch (j) {
                         case 0: {// Phone number
                         addressBooks.tel = (__bridge NSString*)value;
@@ -153,8 +174,10 @@ addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
                 }
             CFRelease(valuesRef);
             }
-        //将个人信息添加到数组中，循环完成后addressBookTemp中包含所有联系人的信息
+        
+            //将个人信息添加到数组中，循环完成后addressBookTemp中包含所有联系人的信息
         [self.dataArr addObject:addressBooks];
+            
         }
 }
 
@@ -178,12 +201,14 @@ addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
 {
     return self.dataArr.count;
 }
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     batchCell *cell = [batchCell cellWithTableView:tableView];
     cell.model = _dataArr[indexPath.row];
     return cell;
 }
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
@@ -198,6 +223,7 @@ addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
     
     NSLog(@"--------editArr is %@--------indexpath.row's model is %@---",_editArr,_dataArr[indexPath.row]);
 }
+
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     batchModel *model = _dataArr[indexPath.row];
