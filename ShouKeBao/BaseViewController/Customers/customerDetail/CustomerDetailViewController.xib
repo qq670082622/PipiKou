@@ -86,7 +86,7 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" red="0.81751786900000001" green="0.81751786900000001" blue="0.81751786900000001" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" editable="NO" text="暂无备注" id="Zra-fb-qb6" userLabel="Note">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" editable="NO" id="Zra-fb-qb6" userLabel="Note">
                     <rect key="frame" x="31" y="272" width="258" height="60"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -105,6 +105,7 @@
                             <rect key="frame" x="0.0" y="10" width="320" height="49"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <inset key="contentEdgeInsets" minX="0.0" minY="3" maxX="0.0" maxY="3"/>
                             <state key="normal" image="shezhitixing">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>

@@ -96,7 +96,7 @@
     }
     
     [self customLeftBarItem];
-    [self customRightBarItem];
+   // [self customRightBarItem];
     
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
