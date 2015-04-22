@@ -184,7 +184,9 @@
 #pragma  mark 没有产品时嵌图
 -(void)addANewFootViewWhenHaveNoProduct
 {
+   // CGFloat wid = self.view.frame.size.width;
     UIImageView *imgv = [[UIImageView alloc] initWithFrame:self.table.frame];
+    imgv.contentMode = UIViewContentModeScaleAspectFit;
     imgv.image = [UIImage imageNamed:@"content_null"];
     [self.view addSubview:imgv];
     self.navigationItem.rightBarButtonItem = nil;
@@ -288,7 +290,7 @@
 #pragma  -mark 下来刷新数据
 -(void)headerPull
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
     [self.table headerEndRefreshing];
     });
     
