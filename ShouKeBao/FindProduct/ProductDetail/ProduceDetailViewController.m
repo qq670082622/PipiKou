@@ -25,11 +25,11 @@
     self.title = @"产品详情";
        NSLog(@"--------link is %@ ",_produceUrl);
     
+    [self.webUrlArr addObject:_produceUrl];
+self.webLoadCount = 1;
     
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
-    [self.webUrlArr addObject:_produceUrl];
-    
-    self.webLoadCount = 1;
+  
 
     [self customRightBarItem];
   
@@ -46,9 +46,17 @@
    
     
 }
+-(NSMutableArray *)webUrlArr
+{
+    if (_webUrlArr == nil) {
+        self.webUrlArr = [NSMutableArray array];
+    }
+    return _webUrlArr;
+}
 
 -(void)back
 {
+    
     if (self.webUrlArr.count >1) {
         
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
@@ -63,13 +71,6 @@
 
 }
 
--(NSMutableArray *)webUrlArr
-{
-    if (_webUrlArr == nil) {
-        self.webUrlArr = [NSMutableArray array];
-    }
-    return _webUrlArr;
-}
 
 -(NSMutableDictionary *)shareInfo
 {
@@ -93,17 +94,15 @@
 }
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{
-    NSString *rightStr = request.URL.absoluteString;
-    
+{NSString *rightStr = request.URL.absoluteString;
     if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_produceUrl])) {
         [self.webUrlArr addObject:rightStr];
     }
-    
     NSLog(@"即将加载的页面是%@  arr.count is %lu",rightStr,(unsigned long)[self.webUrlArr count]);
     
     return YES;
 }
+
 
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
