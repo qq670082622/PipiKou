@@ -35,6 +35,8 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
+
+
 -(void)layoutSubviews
 {
     [super layoutSubviews];
