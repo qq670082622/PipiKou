@@ -14,6 +14,7 @@
 #import "BatchAddViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "WMAnimations.h"
+#import "MJRefresh.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -57,21 +58,46 @@
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
+    
+    
+
 }
 #pragma  -mark batchAdd delegate
 -(void)referesh
 {
     [self loadDataSource];
 }
+-(void)initPull
+{
+   
+    //下拉
+    [self.table addHeaderWithTarget:self action:@selector(headerPull)];
+    [self.table headerBeginRefreshing];
+    
+    self.table.headerPullToRefreshText =@"刷新内容";
+    self.table.headerRefreshingText = @"正在刷新";
+}
+
+-(void)headerPull
+{
+    [self loadDataSource];
+        [self.table headerEndRefreshing];
+    
+    
+}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    [hudView show:YES];
-    hudView.labelText = @"加载中...";
+//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//    [hudView show:YES];
+//    hudView.labelText = @"加载中...";
     [self loadDataSource];
     //[hudView show:NO];
+    
+    [self initPull];
     
     
     }
@@ -141,7 +167,7 @@
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
-    [dic setObject:@"100" forKey:@"PageSize"];
+    [dic setObject:@"500" forKey:@"PageSize"];
    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     NSString *sortType = [accountDefaults stringForKey:@"sortType"];
     if (sortType) {
@@ -158,8 +184,8 @@
             [self.dataArr addObject:model];
         }
         [self.table reloadData];
-        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window]
-    animated:YES];
+//        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window]
+//    animated:YES];
 
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);

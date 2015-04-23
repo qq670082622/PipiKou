@@ -91,7 +91,7 @@
     //self.table.tableFooterView = foot;
     [self.commondOutlet setSelected:YES];
     
-    [self loadDataSource];
+   // [self loadDataSource];
 
     [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal ];
    
@@ -124,7 +124,7 @@
 
     [btn2 setTitle:[NSString stringWithFormat:@"  %@",_pushedSearchK] forState:UIControlStateNormal];
     btn2.titleLabel.font = [UIFont systemFontOfSize:15];
-    [btn2 setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn2 setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
     
  [btn addTarget:self action:@selector(clickPush) forControlEvents:UIControlEventTouchUpInside];
     [titleView addSubview:btn];
@@ -192,8 +192,8 @@
 #pragma  mark 没有产品时嵌图
 -(void)addANewFootViewWhenHaveNoProduct
 {
-   // CGFloat wid = self.view.frame.size.width;
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:self.table.frame];
+    CGFloat wid = self.view.frame.size.width;
+    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake((wid-200)/2, 100, 200, 200)];
     imgv.contentMode = UIViewContentModeScaleAspectFit;
     imgv.image = [UIImage imageNamed:@"content_null"];
     [self.view addSubview:imgv];
@@ -202,7 +202,7 @@
 
 -(void)clickPush
 {
-    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
 -(NSMutableString *)jishi
@@ -218,6 +218,7 @@
     ;
 }
 
+
 -(NSMutableString *)jiafan
 {
     if (_jiafan == nil) {
@@ -229,6 +230,7 @@
     return _jiafan;
 }
 
+
 -(NSMutableDictionary *)conditionDic
 {
     if (_conditionDic == nil) {
@@ -236,11 +238,13 @@
     }
     return _conditionDic;
 }
+
+
 #pragma  mark - conditionDetail delegate//key 指大字典的key value指字典中某一子value的值
 -(void)passKey:(NSString *)key andValue:(NSString *)value andSelectIndexPath:(NSArray *)selectIndexPath andSelectValue:(NSString *)selectValue
 {
     //确认列表选择值
-    self.conditionDic = [NSMutableDictionary dictionary];
+   // self.conditionDic = [NSMutableDictionary dictionary];
     
     if (value) {
    
@@ -269,6 +273,7 @@
     NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
     
 }
+
 
 #pragma  mark -priceDelegate
 -(void)passTheMinPrice:(NSString *)min AndMaxPrice:(NSString *)max
@@ -305,7 +310,7 @@
 -(void)initConditionPull
 {
     //上啦刷新
-    [self.table addFooterWithTarget:self action:@selector(footViewDidClickedLoadBtn:)];
+    [self.table addFooterWithTarget:self action:@selector(loadDataSourceWithCondition)];
     //设置文字
     self.table.footerPullToRefreshText = @"加载更多";
     self.table.footerRefreshingText = @"正在刷新";
@@ -314,9 +319,9 @@
 #pragma  -mark 下来刷新数据
 -(void)headerPull
 {
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    [self loadDataSource];
     [self.table headerEndRefreshing];
-    });
+    
     
 }
 #pragma footView - delegate上拉加载更多
@@ -452,7 +457,7 @@
         NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
 
         
-        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
         
         
         NSString *page = [NSString stringWithFormat:@"%@",_page];
@@ -1466,13 +1471,6 @@
     [self initConditionPull];
     [self editButtons];
     
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
-    hudView.labelText = @"加载中...";
-    
-    [hudView show:YES];
-    [self loadDataSourceWithCondition];
-    [hudView hide:YES];
     
     [UIView animateWithDuration:0.3 animations:^{
     
@@ -1517,7 +1515,7 @@
     
     self.page = [NSMutableString stringWithFormat:@"1"];
     //  [dic setObject:@"10" forKey:@"Substation"];
-    [dic setObject:@"50" forKey:@"PageSize"];
+    [dic setObject:@"10" forKey:@"PageSize"];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
@@ -1525,12 +1523,20 @@
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
     [dic setObject:@"0" forKey:@"ProductSortingType"];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
-    [self.dataArr removeAllObjects];
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+ 
+    
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         
         NSLog(@"--------------json[condition is  %@------------]",json);
         NSArray *arr = json[@"ProductList"];
         NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
+     //   [self.dataArr removeAllObjects];
         if (arr.count==0) {
             [self addANewFootViewWhenHaveNoProduct];
            // self.table.tableFooterView.hidden = YES;
@@ -1562,7 +1568,7 @@
         NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
         
         
-        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
         
         
         NSString *page = [NSString stringWithFormat:@"%@",_page];
@@ -1572,6 +1578,13 @@
             
             
             [self.table reloadData];
+            
+            
+            
+           
+            [hudView hide:YES];
+            [self.table footerEndRefreshing];
+
             
         }
         

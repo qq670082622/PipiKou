@@ -118,6 +118,8 @@
     NSLog(@"~~~~~~~param:%@",tmp);
 
     
+    NSString *jsonStr = [StrToDic jsonStringWithDicL:tmp];
+    NSLog(@"--------------------jsonStr is %@------------",jsonStr);
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     mgr.requestSerializer = [AFJSONRequestSerializer serializer];

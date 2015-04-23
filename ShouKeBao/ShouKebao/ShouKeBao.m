@@ -43,7 +43,7 @@
 #import "RemindDetailViewController.h"
 #import "messageDetailViewController.h"
 #import "UserInfo.h"
-
+#import "APService.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate,remindDetailDelegate>
@@ -120,6 +120,9 @@
 -(void)dealPush:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [APService setBadge:0];
+    
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
