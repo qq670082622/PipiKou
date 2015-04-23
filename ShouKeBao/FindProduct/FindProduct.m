@@ -589,8 +589,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         list.pushedSearchK = key;
         list.title = title;
         
-      MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-        hudView.labelText = @"加载中...";
+//      MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        hudView.labelText = @"加载中...";
         
         [self.navigationController pushViewController:list animated:YES];
     }
