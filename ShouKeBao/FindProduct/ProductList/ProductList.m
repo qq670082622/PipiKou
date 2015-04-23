@@ -75,18 +75,8 @@
     [super viewDidLoad];
     [self initPull];
     
-    [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    [self.commondOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    [self editButtons];
     
-    [self.profitOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    [self.profitOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    [self.profitOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-    
-    [self.cheapOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    [self.cheapOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    [self.cheapOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-   
     // self.navigationController.title = self.title;
     [self customRightBarItem];
     self.table.delegate = self;
@@ -104,8 +94,10 @@
     [self loadDataSource];
 
     [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal ];
+   
     [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal ];
     
+   
    
     self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -165,6 +157,22 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)editButtons
+{
+    
+    [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    [self.commondOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    
+    [self.profitOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.profitOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    [self.profitOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    
+    [self.cheapOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    [self.cheapOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    [self.cheapOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+
+}
 -(UIView *)subView
 {
     if (_subView == nil) {
@@ -252,7 +260,7 @@
         }
         
         [self.subTable reloadData];
-        [self loadDataSource];
+        //[self loadDataSourceWithCondition];
 
     }
    
@@ -292,6 +300,15 @@
 
     self.table.headerPullToRefreshText =@"刷新内容";
     self.table.headerRefreshingText = @"正在刷新";
+}
+
+-(void)initConditionPull
+{
+    //上啦刷新
+    [self.table addFooterWithTarget:self action:@selector(footViewDidClickedLoadBtn:)];
+    //设置文字
+    self.table.footerPullToRefreshText = @"加载更多";
+    self.table.footerRefreshingText = @"正在刷新";
 }
 
 #pragma  -mark 下来刷新数据
@@ -337,10 +354,10 @@
         NSLog(@"----------更多按钮返回json is %@--------------",json);
         NSArray *arr = json[@"ProductList"];
         if (arr.count == 0) {
-            self.table.tableFooterView.hidden = YES;
+           // self.table.tableFooterView.hidden = YES;
             
         }else if (10>arr.count>0){
-          self.table.tableFooterView.hidden = YES;
+         // self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
@@ -350,7 +367,7 @@
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
         }else if (arr.count == 10){
-            self.table.tableFooterView.hidden = NO;
+           // self.table.tableFooterView.hidden = NO;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
@@ -406,16 +423,16 @@
         NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         if (arr.count==0) {
             [self addANewFootViewWhenHaveNoProduct];
-            self.table.tableFooterView.hidden = YES;
+          //  self.table.tableFooterView.hidden = YES;
         }else if (10>arr.count>0){
-         self.table.tableFooterView.hidden = YES;
+         //self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
             }
 
         }else if (arr.count == 10){
-            self.table.tableFooterView.hidden = NO;
+           // self.table.tableFooterView.hidden = NO;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
@@ -736,6 +753,13 @@
             line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f
                                                    alpha:1];
             [view addSubview:line];
+            
+            UIView *line2 = [[UIView alloc] initWithFrame:CGRectMake(0, 0,
+                                                                    view.frame.size.width, 0.5)];
+            
+            line2.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f
+                                                   alpha:1];
+            [view addSubview:line2];
             
             view.backgroundColor = [UIColor whiteColor];
             
@@ -1403,6 +1427,7 @@
 //       self.subView.hidden = YES;
 //   }];
     //self.blackView.alpha = 0;
+    [self editButtons];
     [UIView animateWithDuration:0.3 animations:^{
         
         self.subView.transform = CGAffineTransformIdentity;
@@ -1412,12 +1437,15 @@
        // [_dressView removeFromSuperview];
     }];
 
+    // [self loadDataSourceWithCondition];
+    
    }
 
 
 - (IBAction)subReset:(id)sender {
 
     self.conditionDic = nil;
+    [self editButtons];
     
     self.jishi = [NSMutableString stringWithFormat:@"1"];
     
@@ -1435,7 +1463,16 @@
 
 - (IBAction)subDone:(id)sender {
    
-    [self initPull];
+    [self initConditionPull];
+    [self editButtons];
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    [self loadDataSourceWithCondition];
+    [hudView hide:YES];
     
     [UIView animateWithDuration:0.3 animations:^{
     
@@ -1472,6 +1509,78 @@
     
     [self.navigationController pushViewController:mm animated:YES];
 }
+
+
+- (void)loadDataSourceWithCondition
+{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
+    self.page = [NSMutableString stringWithFormat:@"1"];
+    //  [dic setObject:@"10" forKey:@"Substation"];
+    [dic setObject:@"50" forKey:@"PageSize"];
+    [dic setObject:@1 forKey:@"PageIndex"];
+    [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+    [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
+    
+    [dic setObject:_pushedSearchK forKey:@"SearchKey"];
+    [dic setObject:@"0" forKey:@"ProductSortingType"];
+    [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
+    [self.dataArr removeAllObjects];
+    [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+        
+        NSLog(@"--------------json[condition is  %@------------]",json);
+        NSArray *arr = json[@"ProductList"];
+        NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
+        if (arr.count==0) {
+            [self addANewFootViewWhenHaveNoProduct];
+           // self.table.tableFooterView.hidden = YES;
+        }else if (10>arr.count>0){
+            //self.table.tableFooterView.hidden = YES;
+            for (NSDictionary *dic in json[@"ProductList"]) {
+                ProductModal *modal = [ProductModal modalWithDict:dic];
+                [self.dataArr addObject:modal];
+            }
+            
+        }else if (arr.count == 10){
+           // self.table.tableFooterView.hidden = NO;
+            for (NSDictionary *dic in json[@"ProductList"]) {
+                ProductModal *modal = [ProductModal modalWithDict:dic];
+                [self.dataArr addObject:modal];
+            }
+            
+        }
+        
+        NSMutableArray *conArr = [NSMutableArray array];
+        
+        for(NSDictionary *dic in json[@"ProductConditionList"] ){
+            [conArr addObject:dic];
+        }
+        
+        
+        _conditionArr = conArr;//装载筛选条件数据
+        
+        NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
+        
+        
+        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+        
+        
+        NSString *page = [NSString stringWithFormat:@"%@",_page];
+        self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+        
+        if (_dataArr != nil) {
+            
+            
+            [self.table reloadData];
+            
+        }
+        
+    } failure:^(NSError *error) {
+        NSLog(@"-------产品搜索请求失败 error is%@----------",error);
+    }];
+    
+}
+
 
 
 - (IBAction)jiafanSwitchAction:(id)sender {
