@@ -17,6 +17,9 @@
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UIx-h0-RWI" userLabel="descript">
                         <rect key="frame" x="12" y="0.0" width="304" height="44"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="44" id="WAo-7l-gjM"/>
+                        </constraints>
                         <string key="text">1（UITableViewCellEditingStyle）tableView:indexPath 中返回returnITableViewCellEditingStyleInsert; 即可在Eidt模式下最左边显示圆圈多选栏。
 </string>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
@@ -25,30 +28,27 @@
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="提醒时间：2015.4.1日 星期四 16:00" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSw-gT-xsl" userLabel="time">
                         <rect key="frame" x="12" y="43" width="304" height="19"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="19" id="VoG-yg-OaR"/>
-                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" red="0.062745098039215685" green="0.37647058823529411" blue="0.99607843137254903" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YoB-xb-NV9">
-                        <rect key="frame" x="0.0" y="62" width="320" height="1"/>
+                        <rect key="frame" x="0.0" y="61" width="320" height="1"/>
                         <color key="backgroundColor" white="0.84698728975535165" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="UIx-h0-RWI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="7cA-LU-quM"/>
-                    <constraint firstItem="hSw-gT-xsl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="35" id="BZn-Bb-xeI"/>
-                    <constraint firstAttribute="trailing" secondItem="YoB-xb-NV9" secondAttribute="trailing" id="I1r-qW-QDM"/>
-                    <constraint firstItem="YoB-xb-NV9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="Ssx-Ld-kBS"/>
-                    <constraint firstItem="UIx-h0-RWI" firstAttribute="trailing" secondItem="hSw-gT-xsl" secondAttribute="trailing" id="aW9-IN-Enk"/>
-                    <constraint firstItem="UIx-h0-RWI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="adB-wR-7qk"/>
-                    <constraint firstItem="YoB-xb-NV9" firstAttribute="top" secondItem="UIx-h0-RWI" secondAttribute="bottom" constant="18" id="cV7-lA-c4j"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="UIx-h0-RWI" secondAttribute="trailing" constant="-4" id="drw-L6-htE"/>
-                    <constraint firstItem="YoB-xb-NV9" firstAttribute="top" secondItem="hSw-gT-xsl" secondAttribute="bottom" id="mOP-OJ-x5g"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="YoB-xb-NV9" secondAttribute="bottom" constant="-9.5" id="rVA-lu-Rsa"/>
-                    <constraint firstItem="hSw-gT-xsl" firstAttribute="leading" secondItem="UIx-h0-RWI" secondAttribute="leading" id="yL3-Pl-o77"/>
+                    <constraint firstItem="YoB-xb-NV9" firstAttribute="bottom" secondItem="hSw-gT-xsl" secondAttribute="bottom" id="5Bb-v9-FJh"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" constant="4" id="G6R-WQ-BYa"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="leading" secondItem="hSw-gT-xsl" secondAttribute="leading" id="Rm9-2t-Jf9"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="trailing" secondItem="hSw-gT-xsl" secondAttribute="trailing" id="VKc-ZF-oZF"/>
+                    <constraint firstItem="hSw-gT-xsl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="35" id="Z51-an-Xeb"/>
+                    <constraint firstItem="YoB-xb-NV9" firstAttribute="top" secondItem="UIx-h0-RWI" secondAttribute="bottom" constant="17" id="c5z-qj-LWy"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="UIx-h0-RWI" secondAttribute="trailing" constant="-4" id="crc-vX-SXB"/>
+                    <constraint firstItem="YoB-xb-NV9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="klW-Re-8MU"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="YoB-xb-NV9" secondAttribute="bottom" constant="-8.5" id="pNY-bK-yI0"/>
+                    <constraint firstAttribute="trailing" secondItem="YoB-xb-NV9" secondAttribute="trailing" id="vwR-Bw-zYF"/>
+                    <constraint firstItem="UIx-h0-RWI" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xw5-fd-YGO"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>

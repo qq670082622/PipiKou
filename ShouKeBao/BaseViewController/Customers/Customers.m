@@ -15,6 +15,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "WMAnimations.h"
 #import "MJRefresh.h"
+#import "WriteFileManager.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -27,9 +28,12 @@
 @property (weak, nonatomic) IBOutlet UIButton *cancelSearchOutlet;
 @property (weak, nonatomic) IBOutlet UIButton *searchCustomerBtnOutlet;
 @property (copy,nonatomic) NSMutableString *callingPhoneNum;
-- (IBAction)cancelSearch:(id)sender;
+- (IBAction)cancelSearch;
 
 //1、 时间顺序;2、时间倒序; 3-订单数顺序;4、订单数倒序 5,字母顺序 6，字母倒序
+@property (weak, nonatomic) IBOutlet UIView *historyView;
+@property (weak, nonatomic) IBOutlet UITableView *historyTable;
+@property (nonatomic,strong) NSMutableArray *historyArr;
 @end
 
 @implementation Customers
@@ -59,6 +63,7 @@
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     
+    self.historyTable.tableFooterView = [[UIView alloc] init];
     
 
 }
@@ -138,6 +143,15 @@
     return _dataArr;
 }
 
+-(NSMutableArray *)historyArr
+{
+    if (_historyArr == nil) {
+       
+        self.historyArr = [NSMutableArray array];
+    }
+    return _historyArr;
+}
+
 -(NSMutableString *)callingPhoneNum
 {
     if (_callingPhoneNum == nil) {
@@ -193,6 +207,14 @@
 
    }
 
+-(void)loadHistoryArr
+{
+    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"costomerSearch"];
+    self.historyArr = searchArr;
+    [self.historyTable reloadData];
+
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -200,32 +222,55 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
-    CustomerDetailViewController *detail = [[CustomerDetailViewController alloc] init];
-    CustomModel *model = _dataArr[indexPath.row];
-    detail.QQStr = model.QQCode;
-    detail.ID = model.ID;
-    detail.weChatStr = model.WeiXinCode;
-    detail.teleStr = model.Mobile;
-    detail.noteStr = model.Remark;
-    detail.userNameStr = model.Name;
-    detail.customMoel = model;
-    
-       [self.navigationController pushViewController:detail animated:YES];
+    if (tableView.tag == 1) {
+        CustomerDetailViewController *detail = [[CustomerDetailViewController alloc] init];
+        CustomModel *model = _dataArr[indexPath.row];
+        detail.QQStr = model.QQCode;
+        detail.ID = model.ID;
+        detail.weChatStr = model.WeiXinCode;
+        detail.teleStr = model.Mobile;
+        detail.noteStr = model.Remark;
+        detail.userNameStr = model.Name;
+        detail.customMoel = model;
+        
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+    if (tableView.tag == 2) {
+        
+    }
+   
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArr.count;
+    if (tableView.tag == 1) {
+          return self.dataArr.count;
+    }
+    if (tableView.tag == 2) {
+        return self.historyArr.count;
+    }
+    return 0;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    CustomCell *cell = [CustomCell cellWithTableView:tableView];
-    CustomModel *model = _dataArr[indexPath.row];
-    cell.model = model;
-
-    return cell;
+    if (tableView.tag == 1) {
+        CustomCell *cell = [CustomCell cellWithTableView:tableView];
+        CustomModel *model = _dataArr[indexPath.row];
+        cell.model = model;
+        
+        return cell;
+    }
+    if (tableView.tag == 2) {
+        static NSString *historyID = @"history";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:historyID];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:historyID];
+        }
+        cell.textLabel.text = self.historyArr[indexPath.row];
+        return cell;
+    }
+    return 0;
    
 }
 
@@ -235,6 +280,16 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [self.searchTextField resignFirstResponder];
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
+        
+    }];
+
+    [self.historyArr addObject:self.searchTextField.text];
+    [WriteFileManager WMsaveData:_historyArr name:@"customerSearch"];
+    [self cancelSearch];
+    
   NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
@@ -372,11 +427,28 @@
     self.cancelSearchOutlet.hidden = NO;
     self.searchCustomerBtnOutlet.hidden = YES;
     [self.searchTextField becomeFirstResponder];
+    
+    [UIView animateWithDuration:0.3 animations:^{
+
+        self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
+  
+     self.historyView.hidden = NO;
+    }];
+    
+    [self loadHistoryArr];
+   
+
 }
-- (IBAction)cancelSearch:(id)sender {
+- (IBAction)cancelSearch {
     self.cancelSearchOutlet.hidden = YES;
     self.searchTextField.hidden = YES;
     self.searchCustomerBtnOutlet.hidden = NO;
     [self.searchTextField resignFirstResponder];
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.historyView.hidden = YES;
+    }];
+
 }
 @end

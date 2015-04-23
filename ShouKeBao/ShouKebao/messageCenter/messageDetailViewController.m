@@ -20,11 +20,33 @@
 @implementation messageDetailViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
     self.navigationController.title = @"消息";
+    
     [self loadData];
+    
     [self.web loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_messageURL]]];
+    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+
 }
+
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 -(void)viewDidDisappear:(BOOL)animated
 {
@@ -34,20 +56,7 @@
 }
 
 -(void)loadData{
-//    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
-//    
-//    [dic setObject:self.ID forKey:@"ActivitiesNoticeID"];
-//    
-//    [HomeHttpTool getActivitiesNoticeDetailWithParam:dic success:^(id json) {
-//        NSLog(@"公告详细消息%@",json);
-//        NSDictionary *dic =  json[@"ActivitiesNotice"];
-//        
-//        self.messgeTitle.text = dic[@"Title"];
-//        self.time.text = dic[@"CreatedDate"];
-//        self.content.text = dic[@"Content"];
-//    } failure:^(NSError *error) {
-//        NSLog(@"公告详细消息失败%@",error);
-//    }];
+
     self.messgeTitle.text = self.title;
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[self.createDate doubleValue]];
     self.time.text = [createDate formattedTime];
@@ -59,10 +68,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*
-
- 便签
-*/
 
 
 @end

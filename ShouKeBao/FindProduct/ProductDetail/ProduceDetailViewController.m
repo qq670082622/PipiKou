@@ -87,6 +87,7 @@ self.webLoadCount = 1;
     [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
     
     [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
+    [button addTarget:self action:@selector(showAlert) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
@@ -103,14 +104,18 @@ self.webLoadCount = 1;
     return YES;
 }
 
-
+-(void)showAlert
+{
+    UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+    [alert show];
+}
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
    [dic setObject:_produceUrl forKey:@"PageUrl"];
-    [self.shareInfo removeAllObjects];
+   // [self.shareInfo removeAllObjects];
     
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
     
