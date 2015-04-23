@@ -18,6 +18,7 @@
 #import "Business.h"
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD+MJ.h"
+#import "UIImage+QD.h"
 
 @interface Login () <UIScrollViewDelegate>
 
@@ -28,6 +29,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
 @property (nonatomic,weak) UIButton *nameBtn;
+
+@property (weak, nonatomic) IBOutlet UIImageView *imagebg1;
+
+@property (weak, nonatomic) IBOutlet UIImageView *imagebg2;
 
 @end
 
@@ -82,7 +87,8 @@
     self.tableView.backgroundColor = [UIColor clearColor];
     
     // 登录按钮样式
-    self.loginBtn.layer.cornerRadius = 25;
+    self.imagebg1.image = self.imagebg2.image = [UIImage resizedImageWithName:@"bg_white"];
+    self.loginBtn.layer.cornerRadius = 3;
     self.loginBtn.layer.masksToBounds = YES;
     [self.loginBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
     

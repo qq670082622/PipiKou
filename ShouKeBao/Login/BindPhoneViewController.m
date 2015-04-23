@@ -15,8 +15,15 @@
 #import "MBProgressHUD+MJ.h"
 #import "MBProgressHUD.h"
 #import "Business.h"
+#import "UIImage+QD.h"
+#import "StepView.h"
 
 @interface BindPhoneViewController () <UIScrollViewDelegate>
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageBg1;
+
+@property (weak, nonatomic) IBOutlet UIImageView *imageBg2;
+
 @property (weak, nonatomic) IBOutlet UIButton *codeBtn;
 
 @property (weak, nonatomic) IBOutlet UITextField *phoneNum;// 手机号
@@ -38,7 +45,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"绑定手机";
-    self.nextBtn.layer.cornerRadius = 25;
+    self.imageBg1.image = self.imageBg2.image = [UIImage resizedImageWithName:@"bg_white"];
+    self.nextBtn.layer.cornerRadius = 3;
     self.nextBtn.layer.masksToBounds = YES;
     self.nextBtn.enabled = NO;
     [self.nextBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
@@ -63,6 +71,11 @@
     [super viewWillDisappear:animated];
     
     self.navigationController.navigationBarHidden = NO;
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - getter
@@ -147,6 +160,11 @@
  */
 - (IBAction)bindAccount:(id)sender
 {
+    [self goNext];
+}
+
+- (void)goNext
+{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDictionary *param = @{@"Mobile":self.phoneNum.text,
                             @"Captche":self.code.text,
@@ -159,15 +177,15 @@
             
             // 去选择旅行社
             ChildAccountViewController *child = [[ChildAccountViewController alloc] init];
-
+            
             child.mobile = self.phoneNum.text;
             [self.navigationController pushViewController:child animated:YES];
-
+            
         }else{
             [MBProgressHUD showError:json[@"ErrorMsg"]];
         }
     } failure:^(NSError *error) {
-       [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
 
@@ -187,13 +205,11 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 20)];
-    title.text = @"①输入手机号码绑定您的个人收客宝账号";
-    title.font = [UIFont systemFontOfSize:13];
-    title.textColor = [UIColor blackColor];
-    [cover addSubview:title];
+    StepView *stepView = [[StepView alloc] initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 20)];
+    [stepView setStepAtIndex:0];
+    [cover addSubview:stepView];
     
     return cover;
 }

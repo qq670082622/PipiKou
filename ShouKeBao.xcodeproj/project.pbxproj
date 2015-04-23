@@ -142,6 +142,7 @@
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
 		5A6DAE681AE8927700B814C3 /* StepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DAE671AE8927700B814C3 /* StepView.m */; };
+		5A6DAE6D1AE8C23000B814C3 /* LoginCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DAE6C1AE8C23000B814C3 /* LoginCell.m */; };
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
@@ -511,6 +512,8 @@
 		5A62B4951AD3DEE800DFF567 /* TravelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelButton.m; sourceTree = "<group>"; };
 		5A6DAE661AE8927700B814C3 /* StepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepView.h; sourceTree = "<group>"; };
 		5A6DAE671AE8927700B814C3 /* StepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepView.m; sourceTree = "<group>"; };
+		5A6DAE6B1AE8C23000B814C3 /* LoginCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginCell.h; sourceTree = "<group>"; };
+		5A6DAE6C1AE8C23000B814C3 /* LoginCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginCell.m; sourceTree = "<group>"; };
 		5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDayViewController.h; sourceTree = "<group>"; };
 		5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseDayViewController.m; sourceTree = "<group>"; };
 		5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBaoCell.h; sourceTree = "<group>"; };
@@ -1314,6 +1317,8 @@
 				5A62B4951AD3DEE800DFF567 /* TravelButton.m */,
 				5A6DAE661AE8927700B814C3 /* StepView.h */,
 				5A6DAE671AE8927700B814C3 /* StepView.m */,
+				5A6DAE6B1AE8C23000B814C3 /* LoginCell.h */,
+				5A6DAE6C1AE8C23000B814C3 /* LoginCell.m */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -2073,6 +2078,7 @@
 				5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */,
 				5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */,
 				5A52FC481ACEBF220076DAE6 /* MinMaxPriceSelectViewController.m in Sources */,
+				5A6DAE6D1AE8C23000B814C3 /* LoginCell.m in Sources */,
 				5A52FC741ACEBF220076DAE6 /* MeButtonView.m in Sources */,
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
 				5A0058A01ACEBD1E007AF362 /* remondTableViewCell.m in Sources */,

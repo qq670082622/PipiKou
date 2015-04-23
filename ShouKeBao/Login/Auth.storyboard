@@ -22,11 +22,11 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="HzI-AZ-ccg" id="8Xu-5J-0jf">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shurukuang" translatesAutoresizingMaskIntoConstraints="NO" id="r48-oF-nkS">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="r48-oF-nkS">
                                                     <rect key="frame" x="15" y="8" width="290" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="name_icon" translatesAutoresizingMaskIntoConstraints="NO" id="gbn-O3-cDr">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon0" translatesAutoresizingMaskIntoConstraints="NO" id="gbn-O3-cDr">
                                                     <rect key="frame" x="25" y="20" width="18" height="25"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="18" id="sSM-jk-KDH"/>
@@ -59,21 +59,21 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Rvt-Ah-BNZ" id="e5y-Mq-yA9">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shurukuang" translatesAutoresizingMaskIntoConstraints="NO" id="A3A-Zl-iDK">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image=" " translatesAutoresizingMaskIntoConstraints="NO" id="A3A-Zl-iDK" userLabel="Image View">
                                                     <rect key="frame" x="15" y="8" width="290" height="50"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passwrod_icon" translatesAutoresizingMaskIntoConstraints="NO" id="xRI-D7-WpQ">
-                                                    <rect key="frame" x="25" y="20" width="18" height="25"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="18" id="1Fk-8N-6U4"/>
-                                                    </constraints>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入登录密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="qr6-GY-jFa">
                                                     <rect key="frame" x="51" y="18" width="230" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" enablesReturnKeyAutomatically="YES" secureTextEntry="YES"/>
                                                 </textField>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon1" translatesAutoresizingMaskIntoConstraints="NO" id="xRI-D7-WpQ">
+                                                    <rect key="frame" x="25" y="20" width="18" height="25"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="18" id="1Fk-8N-6U4"/>
+                                                    </constraints>
+                                                </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="qr6-GY-jFa" firstAttribute="top" secondItem="e5y-Mq-yA9" secondAttribute="topMargin" constant="10" id="40A-6w-i8k"/>
@@ -128,6 +128,8 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="accountField" destination="4kN-B0-sX8" id="zK1-jP-kP7"/>
+                        <outlet property="imagebg1" destination="r48-oF-nkS" id="vBD-Bv-Gnr"/>
+                        <outlet property="imagebg2" destination="A3A-Zl-iDK" id="QoC-ZB-Rum"/>
                         <outlet property="loginBtn" destination="Kia-lG-oG0" id="S56-cI-UZP"/>
                         <outlet property="passwordField" destination="qr6-GY-jFa" id="Ho3-7e-5cH"/>
                     </connections>
@@ -242,7 +244,7 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bTI-V4-J6c" id="QRC-gc-uGA">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shurukuang" translatesAutoresizingMaskIntoConstraints="NO" id="zPz-JV-ngw">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zPz-JV-ngw">
                                                     <rect key="frame" x="15" y="8" width="290" height="50"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="50" id="1cG-FF-BSO"/>
@@ -255,7 +257,7 @@
                                                         <constraint firstAttribute="width" constant="1" id="0JI-qf-MCL"/>
                                                     </constraints>
                                                 </view>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入手机" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="K7D-pV-o4b">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="11064808256" placeholder="输入手机" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="K7D-pV-o4b">
                                                     <rect key="frame" x="51" y="18" width="159" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
@@ -309,15 +311,15 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="hg3-zg-Tht" id="JaS-3A-Yp1">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="shurukuang" translatesAutoresizingMaskIntoConstraints="NO" id="y1B-HL-GeS">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="y1B-HL-GeS">
                                                     <rect key="frame" x="15" y="8" width="290" height="50"/>
                                                 </imageView>
-                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FDG-Qc-uD4">
+                                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="123456" placeholder="验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="FDG-Qc-uD4">
                                                     <rect key="frame" x="53" y="18" width="231" height="30"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passwrod_icon" translatesAutoresizingMaskIntoConstraints="NO" id="uhe-uf-y7X">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon1" translatesAutoresizingMaskIntoConstraints="NO" id="uhe-uf-y7X">
                                                     <rect key="frame" x="25" y="23" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="ut1-OE-7GT"/>
@@ -378,6 +380,8 @@
                     <connections>
                         <outlet property="code" destination="FDG-Qc-uD4" id="kZ6-hk-2KC"/>
                         <outlet property="codeBtn" destination="XAv-uA-d9X" id="L39-Jy-eWa"/>
+                        <outlet property="imageBg1" destination="zPz-JV-ngw" id="lMU-Gz-Omb"/>
+                        <outlet property="imageBg2" destination="y1B-HL-GeS" id="cbx-dU-p5x"/>
                         <outlet property="nextBtn" destination="1Hq-Ko-2vv" id="gcR-9l-hEL"/>
                         <outlet property="phoneNum" destination="K7D-pV-o4b" id="nQJ-Bo-wmN"/>
                     </connections>
@@ -388,9 +392,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="name_icon" width="50" height="57"/>
-        <image name="passwrod_icon" width="50" height="57"/>
+        <image name=" " width="334" height="51"/>
+        <image name="login_icon0" width="50" height="57"/>
+        <image name="login_icon1" width="50" height="57"/>
         <image name="phone_icon" width="50" height="57"/>
-        <image name="shurukuang" width="334" height="51"/>
     </resources>
 </document>

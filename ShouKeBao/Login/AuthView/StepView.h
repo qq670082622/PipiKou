@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StepView : UIImageView
+@interface StepView : UIView
+
+- (void)setStepAtIndex:(NSInteger)index;
 
 @end
