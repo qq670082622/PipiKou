@@ -83,7 +83,8 @@
             self.emailLab.text = self.server.Email;
             self.phoneLav.text = self.server.Mobile;
             self.QQLab.text = self.server.QQCode;
-            self.nameLab.text = self.server.Name;
+//            self.nameLab.text = self.server.Name;
+            self.nameLab.text = @"恰的";
         }
     } failure:^(NSError *error) {
         
@@ -94,12 +95,14 @@
 {
     CGFloat gap = self.view.frame.size.width * 0.0625;
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 230)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 180)];
     view.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"plusbanjiubingbg"]];
     
     // 头像
-    UIImageView *headIcon = [[UIImageView alloc] initWithFrame:CGRectMake(gap, 64, 100, 150)];
-    headIcon.image = [UIImage imageNamed:@"morentouxiang"];
+    UIImageView *headIcon = [[UIImageView alloc] initWithFrame:CGRectMake(gap, 64, 100, 100)];
+    headIcon.contentMode = UIViewContentModeScaleAspectFill;
+    headIcon.layer.masksToBounds = YES;
+    headIcon.image = [UIImage imageNamed:@"kefu"];
     [view addSubview:headIcon];
     
     CGFloat aX = CGRectGetMaxX(headIcon.frame) + gap;
@@ -109,8 +112,8 @@
     [view addSubview:a];
     
     CGFloat nameY = CGRectGetMaxY(a.frame) + gap;
-    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(aX, nameY, self.view.frame.size.width - 100 + gap * 3, 110)];
-    nameLab.font = [UIFont boldSystemFontOfSize:60];
+    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(aX, nameY, self.view.frame.size.width - 100 + gap * 3, 60)];
+    nameLab.font = [UIFont boldSystemFontOfSize:45];
     [view addSubview:nameLab];
     self.nameLab = nameLab;
     
@@ -151,6 +154,16 @@
 }
 
 #pragma mark - UIScrollViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 20;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // 避免漏出背景

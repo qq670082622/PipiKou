@@ -42,6 +42,9 @@
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faD-mI-f4Y">
                     <rect key="frame" x="8" y="14" width="52" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="22" id="4hp-sg-QhC"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="返回" image="backArrowLeft">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>

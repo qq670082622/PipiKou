@@ -55,10 +55,10 @@
 #pragma mark - private
 - (void)setHeader
 {
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 80)];
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 60)];
     
     UIView *header = [[[NSBundle mainBundle] loadNibNamed:@"DressHeader" owner:nil options:nil] lastObject];
-    header.frame = CGRectMake(0, 20, self.bounds.size.width, 50);
+    header.frame = CGRectMake(0, 0, self.bounds.size.width, 50);
     [cover addSubview:header];
     
     self.tableView.tableHeaderView = cover;

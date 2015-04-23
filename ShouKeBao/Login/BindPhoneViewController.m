@@ -190,7 +190,7 @@
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 30)];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 20)];
-    title.text = @"输入手机号码绑定您的个人收客宝账号";
+    title.text = @"①输入手机号码绑定您的个人收客宝账号";
     title.font = [UIFont systemFontOfSize:13];
     title.textColor = [UIColor blackColor];
     [cover addSubview:title];

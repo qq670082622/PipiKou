@@ -141,6 +141,7 @@
 		5A6165821AE79AEF00641837 /* NullContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6165811AE79AEF00641837 /* NullContentView.m */; };
 		5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4921AD3DD7500DFF567 /* TravelCell.m */; };
 		5A62B4961AD3DEE800DFF567 /* TravelButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A62B4951AD3DEE800DFF567 /* TravelButton.m */; };
+		5A6DAE681AE8927700B814C3 /* StepView.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A6DAE671AE8927700B814C3 /* StepView.m */; };
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
@@ -508,6 +509,8 @@
 		5A62B4921AD3DD7500DFF567 /* TravelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelCell.m; sourceTree = "<group>"; };
 		5A62B4941AD3DEE800DFF567 /* TravelButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelButton.h; sourceTree = "<group>"; };
 		5A62B4951AD3DEE800DFF567 /* TravelButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelButton.m; sourceTree = "<group>"; };
+		5A6DAE661AE8927700B814C3 /* StepView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StepView.h; sourceTree = "<group>"; };
+		5A6DAE671AE8927700B814C3 /* StepView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StepView.m; sourceTree = "<group>"; };
 		5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChooseDayViewController.h; sourceTree = "<group>"; };
 		5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChooseDayViewController.m; sourceTree = "<group>"; };
 		5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShouKeBaoCell.h; sourceTree = "<group>"; };
@@ -1309,6 +1312,8 @@
 				5A62B4921AD3DD7500DFF567 /* TravelCell.m */,
 				5A62B4941AD3DEE800DFF567 /* TravelButton.h */,
 				5A62B4951AD3DEE800DFF567 /* TravelButton.m */,
+				5A6DAE661AE8927700B814C3 /* StepView.h */,
+				5A6DAE671AE8927700B814C3 /* StepView.m */,
 			);
 			path = AuthView;
 			sourceTree = "<group>";
@@ -2149,6 +2154,7 @@
 				5A52FC621ACEBF220076DAE6 /* LoginTool.m in Sources */,
 				636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */,
 				632BFFD01AB91FD3003B15AD /* NSString+Base64Util.m in Sources */,
+				5A6DAE681AE8927700B814C3 /* StepView.m in Sources */,
 				632BFFF61AB92A3A003B15AD /* SDWebImageCompat.m in Sources */,
 				5A0058961ACEBD1E007AF362 /* CustomerOrdersUIViewController.m in Sources */,
 				5A52FC3B1ACEBF220076DAE6 /* FindProduct.m in Sources */,

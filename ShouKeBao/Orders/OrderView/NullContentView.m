@@ -46,14 +46,14 @@
 {
     [super layoutSubviews];
     
-    CGFloat iconW = self.frame.size.width / 3;
+    CGFloat iconW = self.frame.size.width / 2;
     CGFloat iconH = 5 * iconW / 4;
     CGFloat iconX = (self.frame.size.width - iconW) * 0.5;
     self.icon.frame = CGRectMake(iconX, 0, iconW, iconH);
     
     CGFloat labW = self.frame.size.width;
-    CGFloat labY = CGRectGetMaxY(self.icon.frame) + 10;
-    self.textLab.frame = CGRectMake(0, labY, labW, self.frame.size.height - iconH);
+    CGFloat labY = CGRectGetMaxY(self.icon.frame) + 5;
+    self.textLab.frame = CGRectMake(0, labY, labW, 40);
 }
 
 - (void)setNullContentIsSearch:(BOOL)isSearch

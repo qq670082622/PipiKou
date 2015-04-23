@@ -166,7 +166,6 @@
     }
     
     else if ([message[0] isEqualToString:@"noticeType"]){
-        
         [self ringAction];
     }
 }

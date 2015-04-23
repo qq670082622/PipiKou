@@ -21,6 +21,8 @@
 #import "APService.h"
 #import "NSDate+Category.h"
 #import "QuanViewController.h"
+#import "MeHttpTool.h"
+#import "MBProgressHUD+MJ.h"
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 
@@ -82,18 +84,16 @@
 // 设置固定时间段免打扰
 - (void)changePushMode:(UISwitch *)modeSwitch
 {
-    if (modeSwitch.on) {
-        NSLog(@"免打扰");
-//        BOOL isNight = [NSDate isBetweenFromHour:11 toHour:14];
-//        if (isNight) {
-//            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-//        }
-        [APService setTags:[NSSet setWithObject:@"0"] callbackSelector:nil object:nil];
-    }else{
-        NSLog(@"打扰我吧");
-//        [[UIApplication sharedApplication] registerForRemoteNotifications];
-        [APService setTags:[NSSet setWithObject:@"1"] callbackSelector:nil object:nil];
-    }
+    NSDictionary *param = @{@"DisturbSwitch":[NSString stringWithFormat:@"%d",modeSwitch.on]};
+    [MeHttpTool setDisturbSwitchWithParam:param success:^(id json) {
+        NSLog(@"json   %@",json);
+        if ([json[@"IsSuccess"] integerValue] == 0) {
+            [modeSwitch setOn:!modeSwitch.on animated:YES];
+            [MBProgressHUD showError:@"设置失败"];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 #pragma mark - getter
@@ -213,6 +213,7 @@
         // 添加一个开关
         UISwitch *btn = [[UISwitch alloc] init];
         [btn addTarget:self action:@selector(changePushMode:) forControlEvents:UIControlEventValueChanged];
+        btn.on = [[UserInfo shareUser].pushMode integerValue];
         cell.accessoryView = btn;
     }
     

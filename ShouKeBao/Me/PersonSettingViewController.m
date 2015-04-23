@@ -90,15 +90,17 @@
 #pragma mark - private
 - (void)submit
 {
-    NSDictionary *param = @{@"ID":self.trader.ID,
-                            @"Name":self.nickName.text,
-                            @"Sex":self.maleBtn.selected ? @"1" : @"2",
-                            @"Address":self.address.text,
-                            @"Signature":self.sign.text,
-                            @"Mobile":self.phone.text,
-                            @"WeiXinCode":self.wechat.text,
-                            @"Desc":self.remark.text};
+    NSDictionary *param = @{@"Distribution":@{@"ID":self.trader.ID,
+                                              @"Name":self.nickName.text,
+                                              @"Sex":self.maleBtn.selected ? @"1" : @"2",
+                                              @"Address":self.address.text,
+                                              @"Signature":self.sign.text,
+                                              @"Mobile":self.phone.text,
+                                              @"WeiXinCode":self.wechat.text,
+                                              @"Desc":self.remark.text}
+                            };
     [MeHttpTool setDistributionWithParam:param success:^(id json) {
+        NSLog(@"-----%@",json);
         if ([json[@"IsSuccess"] integerValue] == 1) {
             [self.navigationController popViewControllerAnimated:YES];
         }

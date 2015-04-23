@@ -49,6 +49,7 @@ static UserInfo *user;
         self.loginType = muta[@"LoginType"];
         self.userName = muta[@"ShowName"];
         self.LoginAvatar = muta[@"LoginAvatar"];
+        self.pushMode = muta[@"DisturbSwitch"];
     }
     return self;
 }

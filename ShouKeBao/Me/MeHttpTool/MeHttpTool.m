@@ -216,4 +216,24 @@
     }];
 }
 
+/**
+ *  设置勿扰模式开关
+ */
++ (void)setDisturbSwitchWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/SetDisturbSwitch" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
 @end

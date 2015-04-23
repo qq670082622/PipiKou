@@ -90,15 +90,16 @@
 - (void)submit
 {
     
-    NSDictionary *param = @{@"ID":self.org.ID,
-                            @"Name":self.comanyName.text,
-                            @"Address":self.address.text,
-                            @"ContactName":self.touchMan.text,
-                            @"ContactMobile":self.phone.text,
-                            @"Email":self.email.text,
-                            @"QQCode":self.qq.text,
-                            @"WeiXinCode":self.wechat.text,
-                            @"Desc":self.remark.text};
+    NSDictionary *param = @{@"Busienss" : @{@"ID":self.org.ID,
+                                            @"Name":self.comanyName.text,
+                                            @"Address":self.address.text,
+                                            @"ContactName":self.touchMan.text,
+                                            @"ContactMobile":self.phone.text,
+                                            @"Email":self.email.text,
+                                            @"QQCode":self.qq.text,
+                                            @"WeiXinCode":self.wechat.text,
+                                            @"Desc":self.remark.text}
+                            };
     [MeHttpTool setBusinessWithParam:param success:^(id json) {
         NSLog(@"------%@",json);
         if ([json[@"IsSuccess"] integerValue] == 1) {
