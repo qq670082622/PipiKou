@@ -23,7 +23,7 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
     }
-  cell.selectionStyle = UITableViewCellSelectionStyleNone;
+ // cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 -(void)setModel:(remondModel *)model
