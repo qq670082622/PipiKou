@@ -122,6 +122,7 @@
     // 创建时间
     UILabel *createTime = [[UILabel alloc] init];
     createTime.font = [UIFont systemFontOfSize:12];
+    createTime.textAlignment = NSTextAlignmentRight;
     [self.contentView addSubview:createTime];
     self.createTime = createTime;
     
@@ -196,11 +197,11 @@
     
     // 订单号
     CGFloat codeX = CGRectGetMaxX(self.statusIcon.frame) + gap;
-    CGFloat codeW = (screenW - statusW - gap * 5) * 0.5 + 10;
+    CGFloat codeW = (screenW - statusW - gap * 5) * 0.65 + 10;
     self.tourCode.frame = CGRectMake(codeX, statusIconY, codeW, 20);
     
     // 创建时间
-    CGFloat creatTimeW = 100;
+    CGFloat creatTimeW = (screenW - statusW - gap * 5) * 0.35;
     CGFloat creatTimeX = screenW - creatTimeW - gap * 2;
     self.createTime.frame = CGRectMake(creatTimeX, statusIconY, creatTimeW, 20);
     

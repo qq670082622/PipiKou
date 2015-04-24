@@ -63,11 +63,11 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hh5-qi-oxD">
-                                                    <rect key="frame" x="73" y="15" width="46" height="25"/>
+                                                    <rect key="frame" x="73" y="15" width="55" height="25"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="5yS-nk-QqY"/>
-                                                        <constraint firstAttribute="width" constant="46" id="bau-jK-Pf5"/>
+                                                        <constraint firstAttribute="width" constant="55" id="bau-jK-Pf5"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal">
@@ -79,11 +79,11 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="clip" translatesAutoresizingMaskIntoConstraints="NO" id="4sl-1t-bBJ">
-                                                    <rect key="frame" x="127" y="15" width="46" height="25"/>
+                                                    <rect key="frame" x="134" y="15" width="55" height="25"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="25" id="YwS-tx-jab"/>
-                                                        <constraint firstAttribute="width" constant="46" id="kgy-Ws-KaT"/>
+                                                        <constraint firstAttribute="width" constant="55" id="kgy-Ws-KaT"/>
                                                     </constraints>
                                                     <color key="tintColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <state key="normal">
@@ -95,7 +95,7 @@
                                                 </button>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="4sl-1t-bBJ" firstAttribute="leading" secondItem="Hh5-qi-oxD" secondAttribute="trailing" constant="8" id="0Ho-se-h4H"/>
+                                                <constraint firstItem="4sl-1t-bBJ" firstAttribute="leading" secondItem="Hh5-qi-oxD" secondAttribute="trailing" constant="6" id="0Ho-se-h4H"/>
                                                 <constraint firstItem="Hh5-qi-oxD" firstAttribute="top" secondItem="qkN-it-8lC" secondAttribute="topMargin" constant="7" id="4Pe-4Y-agU"/>
                                                 <constraint firstItem="MWs-Bi-Xwy" firstAttribute="top" secondItem="qkN-it-8lC" secondAttribute="topMargin" constant="9" id="Gel-ng-ob5"/>
                                                 <constraint firstItem="MWs-Bi-Xwy" firstAttribute="leading" secondItem="qkN-it-8lC" secondAttribute="leadingMargin" constant="7" id="XI9-s0-cat"/>
@@ -285,7 +285,6 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsW-pP-iHq">
                                                     <rect key="frame" x="15" y="37" width="297" height="105"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>
@@ -1061,7 +1060,6 @@
                                                 <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="v5k-CT-WW8">
                                                     <rect key="frame" x="15" y="37" width="297" height="105"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 </textView>

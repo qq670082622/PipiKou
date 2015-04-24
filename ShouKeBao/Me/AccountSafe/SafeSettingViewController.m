@@ -32,6 +32,8 @@
     
     self.title = @"账号安全设置";
     
+    self.accountLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    
     [self setNav];
 }
 
