@@ -19,7 +19,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-    self.navigationController.title = self.title;
+    self.navigationController.title = self.conditionTitle;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -34,6 +34,7 @@
 
 -(void)back
 {
+    [self.delegate passKey:@"" andValue:nil andSelectIndexPath:nil andSelectValue:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -88,8 +89,30 @@ static NSString *cellID = @"Cell";
 {
     [super viewWillDisappear:animated];
     
+    if ([_selectKey isEqualToString:@"ProductBrowseTag"]) {
+         [self.delegate passKey:@"ProductBrowseTagID" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    }
     
-    [self.delegate passKey:_selectKey andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    else if ([_selectKey isEqualToString:@"GoDate"]){
+     
+        [self.delegate passKey:@"StartDate" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    }
+    
+    else if ([_selectKey isEqualToString:@"ProductThemeTag"]){
+        [self.delegate passKey:@"ProductThemeTagID" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    }
+    
+    else if ([_selectKey isEqualToString:@"Supplier"]){
+        
+        [self.delegate passKey:@"SupplierId" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    }
+    
+    else if ([_selectKey isEqualToString:@"CruiseShipCompany"]){
+       
+        [self.delegate passKey:@"CruiseShipCompanyID" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    }
+    
+    
 
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

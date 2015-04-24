@@ -61,7 +61,7 @@
     [self customerRightBarItem];
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     
