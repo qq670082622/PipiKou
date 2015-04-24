@@ -44,21 +44,7 @@ self.webLoadCount = 1;
     self.navigationItem.leftBarButtonItem= leftItem;
     
     
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:_produceUrl forKey:@"PageUrl"];
-    // [self.shareInfo removeAllObjects];
     
-    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-        
-        NSLog(@"-----分享返回数据json is %@------",json);
-        
-        self.shareInfo = json[@"ShareInfo"];
-    } failure:^(NSError *error) {
-        
-        NSLog(@"分享请求数据失败，原因：%@",error);
-        
-    }];
-   
     
 }
 -(NSMutableArray *)webUrlArr
@@ -129,6 +115,26 @@ self.webLoadCount = 1;
     [alert show];
 }
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+ NSString *rightUrl = webView.request.URL.absoluteString;
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:rightUrl forKey:@"PageUrl"];
+    // [self.shareInfo removeAllObjects];
+    
+    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+        
+        NSLog(@"-----分享返回数据json is %@------",json);
+        
+        self.shareInfo = json[@"ShareInfo"];
+    } failure:^(NSError *error) {
+        
+        NSLog(@"分享请求数据失败，原因：%@",error);
+        
+    }];
+
+}
 
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
