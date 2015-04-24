@@ -73,10 +73,15 @@
 @implementation ShouKeBao
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [APService setBadge:0];
+    
+
     self.userIcon.layer.masksToBounds = YES;
     
-      
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     [self.view addSubview:self.tableView];
@@ -173,6 +178,7 @@
     }
 }
 
+
 -(NSMutableString *)shareLink
  {
      if (_shareLink == nil) {
@@ -180,6 +186,8 @@
      }
      return _shareLink;
  }
+
+
 -(NSMutableDictionary *)shareDic
 {
     if (_shareDic == nil) {
@@ -206,6 +214,7 @@
     [hudView show:YES];
     
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
+        
         NSLog(@"首页个人消息汇总%@",json);
         
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
