@@ -19,6 +19,7 @@
 {
     return [[[NSBundle mainBundle] loadNibNamed:@"HeaderView" owner:nil options:nil] lastObject];
 }
+
 -(void)awakeFromNib
 {
 //    self.btn.layer.cornerRadius = 5;

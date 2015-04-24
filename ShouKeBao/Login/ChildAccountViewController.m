@@ -133,8 +133,9 @@
             }
             
             // 设置用户名称以及头像
-            [self setWithName:[UserInfo shareUser].userName];
+            [self setWithName:json[@"Position"]];
             [self.iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
+            self.nameLab.text = [UserInfo shareUser].userName;
             
             // 刷新列表
             [self.tableView reloadData];
@@ -228,7 +229,6 @@
     CGFloat labX = labW * 0.5;
     CGFloat labY = CGRectGetMaxY(iconView.frame) + 5;
     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake(labX, labY, labW, 20)];
-    nameLab.text = @"恰的";
     nameLab.textAlignment = NSTextAlignmentCenter;
     nameLab.font = [UIFont systemFontOfSize:15];
     [cover addSubview:nameLab];

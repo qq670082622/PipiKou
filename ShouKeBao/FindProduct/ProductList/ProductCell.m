@@ -112,6 +112,7 @@
     ShanDianBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [ShanDianBtn setBackgroundImage:[UIImage resizedImageWithName:@"chufa"] forState:UIControlStateNormal];
     ShanDianBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+    ShanDianBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
     [self.contentView addSubview:ShanDianBtn];
     self.ShanDianBtn = ShanDianBtn;
     
@@ -174,23 +175,23 @@
     /**
      底下的三个按钮
      */
-    CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 7;
+    CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 10;
     //默认宽为55
     CGFloat jW = self.fanIsZero ? 55 : 0 ;
     CGFloat qW = self.quanIsZero ? 55 : 0 ;
     
-    self.jiafanBtn.frame = CGRectMake(pX, jY, jW, 18);//加返按钮
+    self.jiafanBtn.frame = CGRectMake(pX, jY, jW, 15);//加返按钮
     
     CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame)+10;
-    self.quanBtn.frame = CGRectMake(qX, jY, qW, 18);//券
+    self.quanBtn.frame = CGRectMake(qX, jY, qW, 15);//券
     
     // 闪电
     CGFloat fX = CGRectGetMaxX(self.quanBtn.frame)+10;
     CGFloat fW = self.isFlash ? 18 : 0;
-    self.flash.frame = CGRectMake(fX, jY, fW, 18);
+    self.flash.frame = CGRectMake(fX, jY, fW, 15);
     
     CGFloat sX = CGRectGetMaxX(self.flash.frame) + 10;
-    self.ShanDianBtn.frame = CGRectMake(sX, jY - 2, 60, 22);
+    self.ShanDianBtn.frame = CGRectMake(sX, jY - 2, 60, 20);
     
     //分割线
 //    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);

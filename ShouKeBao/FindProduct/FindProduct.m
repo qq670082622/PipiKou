@@ -409,8 +409,6 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         self.blackView.alpha = 0;
 
     }];
-    
-    
 }
 
 #pragma mark - tableviewdatasource&& tableviewdelegate
@@ -484,8 +482,6 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         lab.textColor = [UIColor grayColor];//设置v_headerLab的字体颜色
         lab.font = [UIFont fontWithName:@"Arial" size:11];//设置v_headerLab的字体样式和大小
         return v_headerView;
-        
-  
     }
     return 0;
 }
