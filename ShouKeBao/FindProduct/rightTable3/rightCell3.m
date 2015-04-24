@@ -23,10 +23,12 @@
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
 }
+
 -(void)setModal:(rightModal3 *)modal
 {
     self.name.text = [NSString stringWithFormat:@"%@",modal.Name];
 }
+
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 

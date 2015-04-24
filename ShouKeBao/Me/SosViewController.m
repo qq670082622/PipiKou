@@ -83,8 +83,7 @@
             self.emailLab.text = self.server.Email;
             self.phoneLav.text = self.server.Mobile;
             self.QQLab.text = self.server.QQCode;
-//            self.nameLab.text = self.server.Name;
-            self.nameLab.text = @"恰的";
+            self.nameLab.text = self.server.Name;
         }
     } failure:^(NSError *error) {
         
@@ -101,8 +100,9 @@
     // 头像
     UIImageView *headIcon = [[UIImageView alloc] initWithFrame:CGRectMake(gap, 64, 100, 100)];
     headIcon.contentMode = UIViewContentModeScaleAspectFill;
+    headIcon.layer.cornerRadius = 5;
     headIcon.layer.masksToBounds = YES;
-    headIcon.image = [UIImage imageNamed:@"kefu"];
+    headIcon.image = [UIImage imageNamed:@"aa"];
     [view addSubview:headIcon];
     
     CGFloat aX = CGRectGetMaxX(headIcon.frame) + gap;
@@ -137,7 +137,7 @@
         return;
     }
     if (![self joinGroup:nil key:nil]) {
-        UIAlertView*ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+        UIAlertView *ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [ale show];
     }
 }

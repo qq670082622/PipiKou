@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShouKeBao">
@@ -92,7 +92,7 @@
                         </button>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨日访客" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="n8Y-BO-Be6">
                             <rect key="frame" x="55" y="50" width="60" height="21"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <color key="textColor" red="0.32972490026595747" green="0.32972490026595747" blue="0.32972490026595747" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
@@ -104,20 +104,13 @@
                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kOB-7g-6eG">
-                            <rect key="frame" x="150" y="65" width="50" height="21"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <view alpha="0.5" contentMode="scaleToFill" id="sUz-15-yGa" userLabel="line2">
                             <rect key="frame" x="233" y="0.0" width="1" height="100"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         </view>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昨日订单数" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="sWh-dk-L5G">
-                            <rect key="frame" x="150" y="50" width="70" height="21"/>
+                            <rect key="frame" x="128" y="50" width="70" height="21"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <fontDescription key="fontDescription" type="system" pointSize="11"/>
                             <color key="textColor" red="0.40744473071808507" green="0.40744473071808507" blue="0.40744473071808507" alpha="1" colorSpace="calibratedRGB"/>
@@ -143,17 +136,29 @@
                                 <action selector="phoneToService:" destination="-1" eventType="touchUpInside" id="kOI-8s-6aM"/>
                             </connections>
                         </button>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clickarrow" id="fgs-ZF-EwK">
+                            <rect key="frame" x="203" y="62" width="15" height="15"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2单" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kOB-7g-6eG">
+                            <rect key="frame" x="128" y="65" width="50" height="21"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <nil key="highlightedColor"/>
+                        </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="0.90003083881578949" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="239" y="323"/>
+            <point key="canvasLocation" x="206" y="341"/>
         </view>
     </objects>
     <resources>
         <image name="banjiubing" width="50" height="50"/>
+        <image name="clickarrow" width="11" height="11"/>
         <image name="fdjBtn" width="13" height="13"/>
         <image name="fenxianglan" width="45" height="45"/>
         <image name="fenzhan" width="100" height="45"/>
