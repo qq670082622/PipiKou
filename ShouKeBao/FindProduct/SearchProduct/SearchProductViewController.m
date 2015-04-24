@@ -31,18 +31,17 @@
 @implementation SearchProductViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-self.title = @"产品搜索";
+
+    self.title = @"产品搜索";
     
     [self loadHotWordDataSource];
+    
     [self loadHistoryDataSource];
     
    [self.inputView becomeFirstResponder];
     
-
-
- 
-
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -60,10 +59,12 @@ self.title = @"产品搜索";
     }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+   
     [self.view addGestureRecognizer:tap];
   
 
 }
+
 -(void)hideKeyBoard
 {
     [self.inputView resignFirstResponder];
@@ -85,6 +86,7 @@ self.title = @"产品搜索";
     [self.inputView resignFirstResponder];
     return YES;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -120,6 +122,9 @@ self.title = @"产品搜索";
         
 
 }
+
+
+
 -(NSMutableArray *)hotSearchWord
 {
     if (_hotSearchWord == nil) {
@@ -128,6 +133,7 @@ self.title = @"产品搜索";
     }
     return _hotSearchWord;
 }
+
 
 -(NSMutableArray *)tableDataArr
 {
@@ -138,12 +144,14 @@ self.title = @"产品搜索";
     return _tableDataArr;
 }
 
+
 - (void)loadHistoryDataSource
 {
     NSMutableArray *searchArr = [WriteFileManager WMreadData:@"searchHistory"];
     self.tableDataArr = searchArr;
     
 }
+
 
 #pragma -mark footViewDelegate
 -(void)searchFootViewDidClickedLoadBtn:(SearchFootView *)footView
@@ -155,30 +163,40 @@ self.title = @"产品搜索";
     [self.inputView setText:@""];
 }
 
+
 -(CGFloat) tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 37;
 }
+
+
+
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 37)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
     btn.frame = foot.frame;
     [btn setTitle:@"清除历史纪录" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [btn.titleLabel setFont:[UIFont systemFontOfSize:15] ];
     [btn addTarget:self action:@selector(searchFootViewDidClickedLoadBtn:) forControlEvents:UIControlEventTouchUpInside];
     [foot addSubview:btn];
     self.table.tableFooterView = foot;
     foot.hidden = YES;
     return foot;
 }
+
+
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_tableDataArr) {
+       
         return self.tableDataArr.count;
     }
     return 0;
 }
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -196,6 +214,7 @@ self.title = @"产品搜索";
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *str = @"historyCell";
@@ -206,6 +225,9 @@ self.title = @"产品搜索";
     }
     if (_tableDataArr) {
     cell.textLabel.text = _tableDataArr[indexPath.row ];
+        [cell.textLabel setFont:[UIFont systemFontOfSize:15]];
+        cell.textLabel.textColor = [UIColor grayColor];
+        
         self.table.tableFooterView.hidden = NO;
     }else if (!_tableDataArr){
          self.table.tableFooterView.hidden = YES;
@@ -222,26 +244,39 @@ self.title = @"产品搜索";
     [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
     
 }
+
+
 - (IBAction)search:(id)sender
 {
-    
-    [self.tableDataArr addObject:self.inputView.text];
-    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
-    
+    if ([[_tableDataArr lastObject] isEqualToString:self.inputView.text]) {
+       
+        [self.tableDataArr addObject:self.inputView.text];
+       
+        [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+    }
     
     ProductList *list = [[ProductList alloc] init];
+    
     list.pushedSearchK = self.inputView.text;
-     self.table.tableFooterView.hidden = NO;
-   // self.navigationController.navigationBar.hidden = NO;
+    
+    self.table.tableFooterView.hidden = NO;
+   
+    // self.navigationController.navigationBar.hidden = NO;
+    
     [self.navigationController pushViewController:list animated:YES];
 }
+
 
 - (IBAction)clearinPutView:(id)sender
 {
     self.inputView.text = @"";
+   
     [self.inputView resignFirstResponder];
-     self.table.tableFooterView.hidden = NO;
+    
+    self.table.tableFooterView.hidden = NO;
+    
     // self.navigationController.navigationBar.hidden = NO;
+    
     [self.navigationController popViewControllerAnimated:NO];
 }
 

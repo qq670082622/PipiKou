@@ -73,10 +73,15 @@
 @implementation ShouKeBao
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
+    
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [APService setBadge:0];
+    
+
     self.userIcon.layer.masksToBounds = YES;
     
-      
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     [self.view addSubview:self.tableView];
@@ -107,7 +112,7 @@
     
     [self  getUserInformation];
     
-    [self getNotifiList];
+  //  [self getNotifiList];
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
@@ -173,6 +178,7 @@
     }
 }
 
+
 -(NSMutableString *)shareLink
  {
      if (_shareLink == nil) {
@@ -180,6 +186,8 @@
      }
      return _shareLink;
  }
+
+
 -(NSMutableDictionary *)shareDic
 {
     if (_shareDic == nil) {
@@ -198,7 +206,15 @@
 - (void)getUserInformation
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
+        
         NSLog(@"首页个人消息汇总%@",json);
         
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
@@ -216,6 +232,8 @@
     } failure:^(NSError *error) {
         NSLog(@"首页个人消息汇总失败%@",error);
     }];
+    
+    [hudView hide:YES];
 }
 
 -(void)getNotifiList
@@ -247,6 +265,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self getNotifiList];
+    
 NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {

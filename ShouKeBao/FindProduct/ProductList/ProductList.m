@@ -1048,6 +1048,13 @@
 
 - (IBAction)recommond:(id)sender {//推荐
    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
+    
     [self.profitOutlet setSelected:NO];
    
     [self.cheapOutlet setSelected:NO];
@@ -1101,12 +1108,22 @@
       
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
     }];
+    
+   
+    [hudView hide:YES];
 
 }
 
 
 - (IBAction)profits:(id)sender {//利润2,1
     
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
+   
     if (self.profitOutlet.selected == NO) {
        
         [self.profitOutlet setSelected:YES];
@@ -1257,11 +1274,22 @@
         }];
 
    }
+    
+    [hudView hide:YES];
+
     }
 
 
 - (IBAction)cheapPrice:(id)sender {//同行价4,3
    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
+
+    
     if (self.cheapOutlet.selected == NO) {
        
         [self.cheapOutlet setSelected:YES];
@@ -1421,6 +1449,7 @@
         }];
 
     }
+    [hudView hide:YES];
 }
 
 - (IBAction)sunCancel:(id)sender {
