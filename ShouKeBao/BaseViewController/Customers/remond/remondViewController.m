@@ -7,13 +7,13 @@
 //
 
 #import "remondViewController.h"
-#import "addRemondViewController.h"
+#import "AddRemindViewController.h"
 #import "IWHttpTool.h"
 #import "RemindDetailViewController.h"
 #import "WriteFileManager.h"
 #import "CustomModel.h"
 
-@interface remondViewController ()<UITableViewDataSource,UITableViewDelegate,ringToRefreshTheRemind>
+@interface remondViewController ()<UITableViewDataSource,UITableViewDelegate,AddRemindViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
 - (IBAction)addRemond:(id)sender;
@@ -31,9 +31,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"设置提醒";
+    
    [self loadData];
     [self setUpRightButton];
-    self.table.tableFooterView = [[UIView alloc] init];
+    self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     
     UIView *footView = [[[NSBundle mainBundle] loadNibNamed:@"remondViewController" owner:self options:nil] lastObject];
     self.table.tableFooterView = footView;
@@ -138,9 +140,14 @@
     return _editArr;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 10;
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.0f;
 }
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -210,7 +217,8 @@
 
 - (IBAction)addRemond:(id)sender {
     
-    addRemondViewController *add = [[addRemondViewController alloc] init];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AddRemind" bundle:nil];
+    AddRemindViewController *add = [sb instantiateViewControllerWithIdentifier:@"addRemind"];
     add.ID = self.ID;
     add.delegate = self;
     [self.navigationController pushViewController:add animated:YES];
@@ -218,7 +226,7 @@
 }
 
 
-#pragma -mark addRemindDelegate
+#pragma mark- AddRemindViewControllerDelegate
 -(void)ringToRefreshRemind
 {
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
