@@ -25,8 +25,6 @@
 		5A0058981ACEBD1E007AF362 /* Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058741ACEBD1E007AF362 /* Customers.m */; };
 		5A0058991ACEBD1E007AF362 /* Customers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058751ACEBD1E007AF362 /* Customers.xib */; };
 		5A00589A1ACEBD1E007AF362 /* CustomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058771ACEBD1E007AF362 /* CustomModel.m */; };
-		5A00589B1ACEBD1E007AF362 /* addRemondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00587B1ACEBD1E007AF362 /* addRemondViewController.m */; };
-		5A00589C1ACEBD1E007AF362 /* addRemondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A00587C1ACEBD1E007AF362 /* addRemondViewController.xib */; };
 		5A00589D1ACEBD1E007AF362 /* RemindDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00587F1ACEBD1E007AF362 /* RemindDetailViewController.m */; };
 		5A00589E1ACEBD1E007AF362 /* RemindDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058801ACEBD1E007AF362 /* RemindDetailViewController.xib */; };
 		5A00589F1ACEBD1E007AF362 /* remondModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058821ACEBD1E007AF362 /* remondModel.m */; };
@@ -147,6 +145,8 @@
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
 		5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA176D81AE4A146003F7875 /* DressFooter.m */; };
+		5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AA483CE1AEA4135002C046C /* AddRemind.storyboard */; };
+		5AA483D21AEA4345002C046C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA483D11AEA4345002C046C /* AddRemindViewController.m */; };
 		5AB725781AD611E80044B318 /* QDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725771AD611E80044B318 /* QDMenu.m */; };
 		5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257A1AD61A4C0044B318 /* MenuButton.m */; };
 		5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257D1AD664610044B318 /* HomeHttpTool.m */; };
@@ -309,9 +309,6 @@
 		5A0058751ACEBD1E007AF362 /* Customers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Customers.xib; sourceTree = "<group>"; };
 		5A0058761ACEBD1E007AF362 /* CustomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomModel.h; sourceTree = "<group>"; };
 		5A0058771ACEBD1E007AF362 /* CustomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomModel.m; sourceTree = "<group>"; };
-		5A00587A1ACEBD1E007AF362 /* addRemondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addRemondViewController.h; sourceTree = "<group>"; };
-		5A00587B1ACEBD1E007AF362 /* addRemondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addRemondViewController.m; sourceTree = "<group>"; };
-		5A00587C1ACEBD1E007AF362 /* addRemondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addRemondViewController.xib; sourceTree = "<group>"; };
 		5A00587E1ACEBD1E007AF362 /* RemindDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindDetailViewController.h; sourceTree = "<group>"; };
 		5A00587F1ACEBD1E007AF362 /* RemindDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindDetailViewController.m; sourceTree = "<group>"; };
 		5A0058801ACEBD1E007AF362 /* RemindDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindDetailViewController.xib; sourceTree = "<group>"; };
@@ -522,6 +519,9 @@
 		5A82161B1AD3843B009388DA /* HomeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
 		5AA176D71AE4A146003F7875 /* DressFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressFooter.h; sourceTree = "<group>"; };
 		5AA176D81AE4A146003F7875 /* DressFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressFooter.m; sourceTree = "<group>"; };
+		5AA483CE1AEA4135002C046C /* AddRemind.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddRemind.storyboard; sourceTree = "<group>"; };
+		5AA483D01AEA4345002C046C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
+		5AA483D11AEA4345002C046C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
 		5AB725761AD611E80044B318 /* QDMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMenu.h; sourceTree = "<group>"; };
 		5AB725771AD611E80044B318 /* QDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMenu.m; sourceTree = "<group>"; };
 		5AB725791AD61A4C0044B318 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
@@ -865,9 +865,9 @@
 		5A0058791ACEBD1E007AF362 /* addRemond */ = {
 			isa = PBXGroup;
 			children = (
-				5A00587A1ACEBD1E007AF362 /* addRemondViewController.h */,
-				5A00587B1ACEBD1E007AF362 /* addRemondViewController.m */,
-				5A00587C1ACEBD1E007AF362 /* addRemondViewController.xib */,
+				5AA483CE1AEA4135002C046C /* AddRemind.storyboard */,
+				5AA483D01AEA4345002C046C /* AddRemindViewController.h */,
+				5AA483D11AEA4345002C046C /* AddRemindViewController.m */,
 			);
 			path = addRemond;
 			sourceTree = "<group>";
@@ -1930,7 +1930,6 @@
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
-				5A00589C1ACEBD1E007AF362 /* addRemondViewController.xib in Resources */,
 				5A52FC491ACEBF220076DAE6 /* MinMaxPriceSelectViewController.xib in Resources */,
 				5A52FC4B1ACEBF220076DAE6 /* ProductCell.xib in Resources */,
 				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
@@ -1950,6 +1949,7 @@
 				5A52FC781ACEBF220076DAE6 /* SosHead.xib in Resources */,
 				5A0058931ACEBD1E007AF362 /* CustomerDetailViewController.xib in Resources */,
 				5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */,
+				5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */,
 				636C8B731AC2E1420097CAE9 /* Resource.bundle in Resources */,
 				63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */,
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
@@ -2066,6 +2066,7 @@
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
 				5A6165821AE79AEF00641837 /* NullContentView.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
+				5AA483D21AEA4345002C046C /* AddRemindViewController.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
 				5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */,
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
@@ -2130,7 +2131,6 @@
 				5A62B4931AD3DD7500DFF567 /* TravelCell.m in Sources */,
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
 				5A52FC601ACEBF220076DAE6 /* BindPhoneViewController.m in Sources */,
-				5A00589B1ACEBD1E007AF362 /* addRemondViewController.m in Sources */,
 				63B8C6FE1ACE906B00328C8C /* messageCell.m in Sources */,
 				5A52FC461ACEBF220076DAE6 /* FootView.m in Sources */,
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,

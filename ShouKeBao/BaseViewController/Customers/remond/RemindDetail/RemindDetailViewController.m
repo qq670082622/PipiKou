@@ -33,7 +33,7 @@
     
     self.noteLebel.text = [NSString stringWithFormat:@"%@",self.note];
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[self.time doubleValue]];
-    self.timeLabel.text = [createDate formattedTime];
+    self.timeLabel.text = [NSString stringWithFormat:@" %@",[createDate formattedTime]];
    
     
 
