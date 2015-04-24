@@ -334,7 +334,7 @@
         UILabel *doneLab = [[UILabel alloc] initWithFrame:CGRectMake(x, 5, 90, 25)];
         doneLab.font = [UIFont boldSystemFontOfSize:20];
         doneLab.text = [model.ProgressState integerValue] == 0 ? @"订单取消" : @"交易完成";
-        doneLab.textColor = [model.ProgressState integerValue] == 0 ? [UIColor grayColor] : [UIColor greenColor];
+        doneLab.textColor = [UIColor grayColor];
         [self.bottomView addSubview:doneLab];
         
         self.statusDes.text = nil;
