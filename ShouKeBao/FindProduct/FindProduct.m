@@ -456,6 +456,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             img.image = [UIImage imageNamed:@"APPhot"];
             [btn setTitleColor:[UIColor colorWithRed:85/255.f green:94/255.f blue:100/255.f alpha:1] forState:UIControlStateNormal];
         }
+        
         if (_isHot == YES) {
             img.image = [UIImage imageNamed:@"APPhot2"];
             [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];

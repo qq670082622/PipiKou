@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -62,8 +62,12 @@
                 <constraint firstItem="BDk-Xm-50x" firstAttribute="leading" secondItem="vwj-k0-xfF" secondAttribute="trailing" constant="8" symbolic="YES" id="2X8-l2-Zu0"/>
                 <constraint firstAttribute="bottom" secondItem="PaA-wO-8BY" secondAttribute="bottom" constant="29" id="6I0-cY-egR"/>
                 <constraint firstItem="BIa-TF-XIN" firstAttribute="trailing" secondItem="PaA-wO-8BY" secondAttribute="trailing" id="DTb-dS-sNM"/>
+                <constraint firstAttribute="centerY" secondItem="PaA-wO-8BY" secondAttribute="centerY" constant="-50.5" id="Dst-U2-HyN"/>
+                <constraint firstAttribute="centerY" secondItem="vwj-k0-xfF" secondAttribute="centerY" constant="65.5" id="ElO-ZM-Te6"/>
                 <constraint firstItem="vwj-k0-xfF" firstAttribute="top" secondItem="4AU-th-pbG" secondAttribute="top" constant="26" id="FrG-wz-Hi2"/>
+                <constraint firstAttribute="centerY" secondItem="BDk-Xm-50x" secondAttribute="centerY" constant="68" id="Fwc-Kd-2a8"/>
                 <constraint firstItem="BIa-TF-XIN" firstAttribute="leading" secondItem="vwj-k0-xfF" secondAttribute="leading" id="Lwq-HE-7rf"/>
+                <constraint firstAttribute="centerY" secondItem="BIa-TF-XIN" secondAttribute="centerY" constant="12.5" id="Rne-cu-LKK"/>
                 <constraint firstItem="vwj-k0-xfF" firstAttribute="leading" secondItem="4AU-th-pbG" secondAttribute="leading" constant="20" id="Ycu-74-Zax"/>
                 <constraint firstItem="PaA-wO-8BY" firstAttribute="top" secondItem="BIa-TF-XIN" secondAttribute="bottom" constant="18" id="aWh-HJ-WL8"/>
                 <constraint firstItem="BIa-TF-XIN" firstAttribute="top" secondItem="BDk-Xm-50x" secondAttribute="bottom" constant="18" id="bq1-Im-z9I"/>
@@ -80,7 +84,7 @@
                 <outlet property="name" destination="BDk-Xm-50x" id="0jJ-mx-cnO"/>
                 <outlet property="qqNum" destination="PaA-wO-8BY" id="f9A-09-EKK"/>
             </connections>
-            <point key="canvasLocation" x="289" y="69.5"/>
+            <point key="canvasLocation" x="289" y="69"/>
         </view>
     </objects>
     <resources>
