@@ -109,26 +109,11 @@ self.webLoadCount = 1;
     self.navigationItem.rightBarButtonItem= barItem;
 }
 
-//- (void)webViewDidFinishLoad:(UIWebView *)webview{
-//    
-//        NSString *js = @"var element = document.getElementById('backbtn');  element.style.dislay = 'none'";
-//    
-//        NSString *res = [webview stringByEvaluatingJavaScriptFromString:js];
-//    
-//    [webview loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:res]]];
-//    
-//}
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *rightStr = request.URL.absoluteString;
-//    if (self.webLoadCount == 2) {
-//        NSString *js = @"var element = document.getElementById('backbtn');  element.style.dislay = 'none'";
-//        
-//        NSString *res = [webView stringByEvaluatingJavaScriptFromString:js];
-//        
-//        [webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:res]]];
-//    }
+
     
     if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_produceUrl])) {
         [self.webUrlArr addObject:rightStr];
@@ -148,14 +133,12 @@ self.webLoadCount = 1;
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
-   
-  //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
-                                       defaultContent:@"旅游圈，匹匹扣"
+    //构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Title"]
+                                       defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
                                                 title:self.shareInfo[@"Title"]
-                                                  url:self.shareInfo[@"Url"]
-                                          description:self.shareInfo[@"Desc"]
+                                                  url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -173,18 +156,55 @@ self.webLoadCount = 1;
                                 if (state == SSResponseStateSuccess)
                                 {
                                     
-                                   [MBProgressHUD showSuccess:@"分享成功"];
+                                    [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];
                                     });
-
+                                    
                                 }
                                 else if (state == SSResponseStateFail)
                                 {
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }
                             }];
+
     
+//  //构造分享内容
+//    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
+//                                       defaultContent:@"旅游圈，匹匹扣"
+//                                                image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
+//                                                title:self.shareInfo[@"Title"]
+//                                                  url:self.shareInfo[@"Url"]
+//                                          description:self.shareInfo[@"Desc"]
+//                                            mediaType:SSPublishContentMediaTypeNews];
+//    //创建弹出菜单容器
+//    id<ISSContainer> container = [ShareSDK container];
+//    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
+//    
+//    //弹出分享菜单
+//    [ShareSDK showShareActionSheet:container
+//                         shareList:nil
+//                           content:publishContent
+//                     statusBarTips:YES
+//                       authOptions:nil
+//                      shareOptions:nil
+//                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+//                                
+//                                if (state == SSResponseStateSuccess)
+//                                {
+//                                    
+//                                   [MBProgressHUD showSuccess:@"分享成功"];
+//                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//                                        [MBProgressHUD hideHUD];
+//                                    });
+//
+//                                }
+//                                else if (state == SSResponseStateFail)
+//                                {
+//                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+//                                }
+//                            }];
+//    
     
     }
 

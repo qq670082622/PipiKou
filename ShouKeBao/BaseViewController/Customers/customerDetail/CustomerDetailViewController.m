@@ -55,6 +55,10 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    CGFloat windowWid = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat btnWid = self.SetRemindBtnOutlet.frame.size.width;
+    
+    self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
 }
 
 -(void)back
