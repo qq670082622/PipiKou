@@ -31,18 +31,17 @@
 @implementation SearchProductViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
-self.title = @"产品搜索";
+
+    self.title = @"产品搜索";
     
     [self loadHotWordDataSource];
+    
     [self loadHistoryDataSource];
     
    [self.inputView becomeFirstResponder];
     
-
-
- 
-
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -60,10 +59,12 @@ self.title = @"产品搜索";
     }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+   
     [self.view addGestureRecognizer:tap];
   
 
 }
+
 -(void)hideKeyBoard
 {
     [self.inputView resignFirstResponder];
@@ -85,6 +86,7 @@ self.title = @"产品搜索";
     [self.inputView resignFirstResponder];
     return YES;
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -189,6 +191,7 @@ self.title = @"产品搜索";
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (_tableDataArr) {
+       
         return self.tableDataArr.count;
     }
     return 0;

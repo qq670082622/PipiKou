@@ -34,6 +34,8 @@
 @property (weak, nonatomic) IBOutlet UIView *historyView;
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
 @property (nonatomic,strong) NSMutableArray *historyArr;
+@property (weak, nonatomic) IBOutlet UIView *conditionLine;
+
 @end
 
 @implementation Customers
@@ -65,6 +67,13 @@
     
     self.historyTable.tableFooterView = [[UIView alloc] init];
     
+    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.conditionLine.frame.size.width, 0.5)];
+    lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
+    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, self.conditionLine.frame.size.width, 0.5)];
+    lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
+    
+    [self.conditionLine addSubview:lineDown];
+    [self.conditionLine addSubview:lineOn];
 
 }
 #pragma  -mark batchAdd delegate
@@ -207,6 +216,8 @@
 
    }
 
+
+
 -(void)loadHistoryArr
 {
     NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
@@ -215,10 +226,14 @@
 
 }
 
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -241,6 +256,7 @@
    
 }
 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView.tag == 1) {
@@ -251,6 +267,7 @@
     }
     return 0;
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -273,6 +290,9 @@
     return 0;
    
 }
+
+
+
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (tableView.tag == 2) {
@@ -288,6 +308,9 @@
     }
     return 0;
 }
+
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (tableView.tag == 2) {
@@ -295,6 +318,8 @@
     }
     return 0;
 }
+
+
 -(void)cleanHistory
 {
     [self.historyArr removeAllObjects];
@@ -302,6 +327,7 @@
     [WriteFileManager WMsaveData:_historyArr name:@"customerSearch"];
     [self.historyTable reloadData];
 }
+
 
 #pragma mark - textField delegate method
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -338,6 +364,7 @@
     return YES;
    
 }
+
 
 - (IBAction)timeOrderAction:(id)sender {
   //  [self.orderNumBtn setSelected:NO];
@@ -383,44 +410,8 @@
     [hudView hide:YES];
     
 }
-/*
 
-  - (IBAction)orderNumAction:(id)sender {
-    [self.timeBtn setSelected:NO];
-    [self.wordBtn setSelected:NO];
-    if (self.orderNumBtn.selected == NO) {
-        [self.orderNumBtn setSelected:YES];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"3" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-        [self.table reloadData];
 
-    }else if (self.orderNumBtn.selected == YES && [self.orderNumBtn.currentTitle  isEqual: @"订单数排序 ↓"]){
-        [self.orderNumBtn setSelected:YES];
-        [self.orderNumBtn setTitle:@"订单数排序 ↑" forState:UIControlStateNormal];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"4" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-        [self.table reloadData];
-
-    }else if (self.orderNumBtn.selected == YES && [self.orderNumBtn.currentTitle  isEqual: @"订单数排序 ↑"]){
-        [self.orderNumBtn setSelected:YES];
-        [self.orderNumBtn setTitle:@"订单数排序 ↓" forState:UIControlStateNormal];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"3" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-        [self.table reloadData];
-
-    }
-}
-
-*/
 - (IBAction)wordOrderAction:(id)sender {
     
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];

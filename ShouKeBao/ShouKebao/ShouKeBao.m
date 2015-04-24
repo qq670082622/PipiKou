@@ -198,6 +198,13 @@
 - (void)getUserInformation
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
         NSLog(@"首页个人消息汇总%@",json);
         
@@ -216,6 +223,8 @@
     } failure:^(NSError *error) {
         NSLog(@"首页个人消息汇总失败%@",error);
     }];
+    
+    [hudView hide:YES];
 }
 
 -(void)getNotifiList

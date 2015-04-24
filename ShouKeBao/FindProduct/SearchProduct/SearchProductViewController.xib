@@ -38,7 +38,7 @@
                             </connections>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vJp-Vs-sxq">
-                            <rect key="frame" x="239" y="17" width="13" height="13"/>
+                            <rect key="frame" x="265" y="17" width="13" height="13"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                             <state key="normal" image="fdjBtn">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -51,15 +51,16 @@
                             <rect key="frame" x="278" y="10" width="30" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" title="取消">
+                            <state key="normal" title="搜索">
+                                <color key="titleColor" white="0.46974973777018564" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
-                                <action selector="clearinPutView:" destination="-1" eventType="touchUpInside" id="HXg-Mg-Vvo"/>
+                                <action selector="search:" destination="-1" eventType="touchUpInside" id="lw2-7w-Q4K"/>
                             </connections>
                         </button>
                         <view contentMode="scaleToFill" id="Grb-6G-vzv">
-                            <rect key="frame" x="270" y="8" width="1" height="31"/>
+                            <rect key="frame" x="250" y="8" width="1" height="31"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.59965093085106391" green="0.59965093085106391" blue="0.59965093085106391" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
