@@ -17,7 +17,7 @@
 #import "MJRefresh.h"
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
-#import "OrderDetailViewController.h"
+#import "ProduceDetailViewController.h"
 
 #define pageSize @"10"
 
@@ -271,9 +271,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DayDetail *detail = self.dataSource[indexPath.row];
-    OrderDetailViewController *web = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    web.url = detail.linkUrl;
-    web.title = @"产品详情";
+    ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
+    web.produceUrl = detail.linkUrl;
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

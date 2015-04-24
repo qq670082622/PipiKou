@@ -103,7 +103,6 @@
     [self customLeftBarItem];
    // [self customRightBarItem];
     
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
     
