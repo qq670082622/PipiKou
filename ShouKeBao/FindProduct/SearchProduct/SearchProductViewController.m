@@ -59,6 +59,14 @@ self.title = @"产品搜索";
         self.table.tableFooterView.hidden = YES;
     }
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+    [self.view addGestureRecognizer:tap];
+  
+
+}
+-(void)hideKeyBoard
+{
+    [self.inputView resignFirstResponder];
 }
 
 -(void)back
@@ -246,9 +254,11 @@ self.title = @"产品搜索";
     [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
+  self.table.tableFooterView.hidden = NO;
     [self.table reloadData];
-   // self.navigationController.navigationBar.hidden = NO;
+
    [self.navigationController pushViewController:list animated:YES];
+    
  
 }
 @end

@@ -57,13 +57,13 @@ self.webLoadCount = 1;
 -(void)back
 {
     
-    if (self.webUrlArr.count >1) {
+    if (self.webUrlArr.count >2) {
         
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
         [self.webUrlArr removeLastObject];
     }
     
-    else if (self.webUrlArr.count == 1) {
+    else if (self.webUrlArr.count == 2) {
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -94,8 +94,27 @@ self.webLoadCount = 1;
     self.navigationItem.rightBarButtonItem= barItem;
 }
 
+//- (void)webViewDidFinishLoad:(UIWebView *)webview{
+//    
+//        NSString *js = @"var element = document.getElementById('backbtn');  element.style.dislay = 'none'";
+//    
+//        NSString *res = [webview stringByEvaluatingJavaScriptFromString:js];
+//    
+//    [webview loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:res]]];
+//    
+//}
+
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
-{NSString *rightStr = request.URL.absoluteString;
+{
+    NSString *rightStr = request.URL.absoluteString;
+//    if (self.webLoadCount == 2) {
+//        NSString *js = @"var element = document.getElementById('backbtn');  element.style.dislay = 'none'";
+//        
+//        NSString *res = [webView stringByEvaluatingJavaScriptFromString:js];
+//        
+//        [webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:res]]];
+//    }
+    
     if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_produceUrl])) {
         [self.webUrlArr addObject:rightStr];
     }

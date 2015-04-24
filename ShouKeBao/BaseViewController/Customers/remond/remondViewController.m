@@ -33,14 +33,16 @@
     [super viewDidLoad];
    [self loadData];
     [self setUpRightButton];
-    self.table.separatorStyle = UITableViewCellAccessoryNone;
+    self.table.tableFooterView = [[UIView alloc] init];
     
     UIView *footView = [[[NSBundle mainBundle] loadNibNamed:@"remondViewController" owner:self options:nil] lastObject];
     self.table.tableFooterView = footView;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-
+    NSIndexPath *selected = [self.table indexPathForSelectedRow];
+    if(selected) [self.table deselectRowAtIndexPath:selected animated:NO];
+   
     [super viewWillAppear:animated];
     self.table.rowHeight = 62;
 
@@ -145,16 +147,21 @@
 {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
-
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     remondModel *model = _dataArr[indexPath.row];
+   
     if (self.table.editing == YES) {
-       
+    
         [self.editArr addObject:model];
       
     }else if (self.table.editing == NO){
+        
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
         remondDetail.time = model.RemindTime;
         remondDetail.note = model.Content;
@@ -164,6 +171,8 @@
     
     NSLog(@"--------editArr is %@--------indexpath.row's model is %@---",_editArr,_dataArr[indexPath.row]);
 }
+
+
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     remondModel *model = _dataArr[indexPath.row];
@@ -177,16 +186,19 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
 
     return     self.dataArr.count;
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -204,6 +216,8 @@
     [self.navigationController pushViewController:add animated:YES];
     
 }
+
+
 #pragma -mark addRemindDelegate
 -(void)ringToRefreshRemind
 {
@@ -216,9 +230,17 @@
     [self.table reloadData];
    
 }
+
+
 - (IBAction)deletAction:(id)sender {
     NSLog(@"_editArr is %@",_editArr);
-   
+    if (self.editArr.count == 0) {
+        [self.table setEditing:NO animated:YES ];
+        self.subView.hidden = NO;
+        self.navigationItem.rightBarButtonItem.title = @"编辑";
+        self.isEditing = NO;
+    }else if (self.editArr.count>0){
+    
     NSMutableArray *arr = [NSMutableArray array];
     for (int i = 0; i<self.editArr.count; i++) {
         remondModel *model = _editArr[i];
@@ -253,4 +275,7 @@
     }
     
     }
+}
+
+
 @end

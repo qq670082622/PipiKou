@@ -209,7 +209,7 @@
 
 -(void)loadHistoryArr
 {
-    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"costomerSearch"];
+    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
     self.historyArr = searchArr;
     [self.historyTable reloadData];
 
@@ -273,8 +273,35 @@
     return 0;
    
 }
-
-
+-(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (tableView.tag == 2) {
+        UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.historyTable.frame.size.width, 44)];
+        UIButton *clean = [UIButton buttonWithType:UIButtonTypeCustom];
+        [clean setTitle:@"清除历史纪录" forState:UIControlStateNormal];
+        [clean setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        clean.frame = foot.frame;
+        [clean addTarget:self action:@selector(cleanHistory) forControlEvents:UIControlEventTouchUpInside];
+        [foot addSubview:clean];
+        
+        return foot;
+    }
+    return 0;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (tableView.tag == 2) {
+        return 44;
+    }
+    return 0;
+}
+-(void)cleanHistory
+{
+    [self.historyArr removeAllObjects];
+    //[self.historyArr addObject:@""];
+    [WriteFileManager WMsaveData:_historyArr name:@"customerSearch"];
+    [self.historyTable reloadData];
+}
 
 #pragma mark - textField delegate method
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -433,6 +460,7 @@
         self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
   
      self.historyView.hidden = NO;
+        [[UIApplication sharedApplication] setStatusBarHidden:TRUE];
     }];
     
     [self loadHistoryArr];
@@ -448,6 +476,7 @@
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
+        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
     }];
 
 }

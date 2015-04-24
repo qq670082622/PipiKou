@@ -120,7 +120,7 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightStr forKey:@"PageUrl"];
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-        NSLog(@"-----分享返回数据json is %@------",json);
+      //  NSLog(@"-----分享返回数据json is %@------",json);
         if ([json[@"PageType"] isEqualToString:@"0"]) {
             self.checkCheapBtnOutlet.hidden = YES;
            self.blackView.alpha = 0;
@@ -137,7 +137,7 @@
             NSMutableDictionary *dic =[NSMutableDictionary dictionary];
             [dic setObject:productID forKey:@"ProductID"];
             [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
-                NSLog(@"产品详情json is %@",json);
+              //  NSLog(@"产品详情json is %@",json);
                 NSString *personPrice = json[@"Product"][@"PersonPrice"];
                 if (personPrice.length>2) {
                   

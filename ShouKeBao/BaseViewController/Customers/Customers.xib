@@ -76,7 +76,7 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vxd-KI-xbc">
-                    <rect key="frame" x="0.0" y="92" width="320" height="388"/>
+                    <rect key="frame" x="0.0" y="93" width="320" height="387"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
@@ -137,7 +137,7 @@
                     </subviews>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" id="L1Y-OC-Wif" userLabel="historyView">
-                    <rect key="frame" x="0.0" y="92" width="320" height="388"/>
+                    <rect key="frame" x="0.0" y="41" width="320" height="339"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史搜索" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f2V-Dx-CxV">
@@ -148,7 +148,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tQq-UU-4wX">
-                            <rect key="frame" x="0.0" y="31" width="320" height="357"/>
+                            <rect key="frame" x="0.0" y="31" width="320" height="313"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="sectionIndexBackgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
