@@ -43,6 +43,21 @@ self.webLoadCount = 1;
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:_produceUrl forKey:@"PageUrl"];
+    // [self.shareInfo removeAllObjects];
+    
+    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+        
+        NSLog(@"-----分享返回数据json is %@------",json);
+        
+        self.shareInfo = json[@"ShareInfo"];
+    } failure:^(NSError *error) {
+        
+        NSLog(@"分享请求数据失败，原因：%@",error);
+        
+    }];
    
     
 }
@@ -128,28 +143,13 @@ self.webLoadCount = 1;
     UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
     [alert show];
 }
+
+
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-   [dic setObject:_produceUrl forKey:@"PageUrl"];
-   // [self.shareInfo removeAllObjects];
-    
-    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-    
-        NSLog(@"-----分享返回数据json is %@------",json);
-        
-        self.shareInfo = json[@"ShareInfo"];
-    } failure:^(NSError *error) {
-        
-        NSLog(@"分享请求数据失败，原因：%@",error);
-    
-    }];
-    
-    
-    
-    //构造分享内容
+  //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:@"旅游圈，匹匹扣"
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
