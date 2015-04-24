@@ -55,6 +55,8 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+       
+    self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
 }
 
 -(void)back

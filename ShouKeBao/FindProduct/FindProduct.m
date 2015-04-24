@@ -248,6 +248,12 @@
 -(void)loadHotData
 {
 
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
 [IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
     NSLog(@"---------热卖返回json is %@--------",json);
    [self.hotArr removeAllObjects];
@@ -284,6 +290,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     NSLog(@"-----------hot json 请求失败，原因：%@",error);
 }];
 
+    [hudView hide:YES];
 }
 
 #pragma mark - private

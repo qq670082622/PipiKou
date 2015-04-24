@@ -259,13 +259,15 @@
            
             self.subIndicateDataArr2[a] = selectValue;
         }
-        
+         self.coverView.hidden = NO;
         [self.subTable reloadData];
         //[self loadDataSourceWithCondition];
 
+    }else if (!value){
+        self.coverView.hidden = NO;
     }
    
-    self.coverView.hidden = NO;
+   
     
     NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
     

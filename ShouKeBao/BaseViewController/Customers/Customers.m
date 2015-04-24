@@ -61,18 +61,19 @@
     [self customerRightBarItem];
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     
     self.historyTable.tableFooterView = [[UIView alloc] init];
     
-    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.conditionLine.frame.size.width, 0.5)];
+ CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
+    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
     lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, self.conditionLine.frame.size.width, 0.5)];
+    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
     lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
     
-    [self.conditionLine addSubview:lineDown];
+   [self.conditionLine addSubview:lineDown];
     [self.conditionLine addSubview:lineOn];
 
 }

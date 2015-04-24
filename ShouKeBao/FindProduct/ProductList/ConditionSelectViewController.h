@@ -13,7 +13,7 @@
 @end
 @interface ConditionSelectViewController : SKViewController<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
-@property(copy , nonatomic) NSString *title;
+@property(copy , nonatomic) NSString *conditionTitle;
 @property (strong , nonatomic) NSArray *dataArr1;
 @property (strong , nonatomic) NSArray *superViewSelectIndexPath;//格式[1,1] (前面代表section，后面代表row)
 @property (strong , nonatomic) NSDictionary *conditionDic;
