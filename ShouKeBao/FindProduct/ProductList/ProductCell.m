@@ -9,6 +9,8 @@
 #import "ProductCell.h"
 #import "UIImageView+WebCache.h"
 #import "textStyle.h"
+#import "UIImage+QD.h"
+
 @interface ProductCell()
 
 @end
@@ -106,10 +108,10 @@
     self.quanBtn = quanBtn;
     
     UIButton *ShanDianBtn = [[UIButton alloc] init];
-    [ShanDianBtn setTitleColor:[UIColor colorWithRed:128/255.0 green:188/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
-    ShanDianBtn.titleLabel.font = [UIFont boldSystemFontOfSize:11];
-    [ShanDianBtn setBackgroundImage:[UIImage imageNamed:@"chufa"] forState:UIControlStateNormal];
-    ShanDianBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [ShanDianBtn setTitleColor:[UIColor colorWithRed:0 green:91/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
+    ShanDianBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+    [ShanDianBtn setBackgroundImage:[UIImage resizedImageWithName:@"chufa"] forState:UIControlStateNormal];
+    ShanDianBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     [self.contentView addSubview:ShanDianBtn];
     self.ShanDianBtn = ShanDianBtn;
     
@@ -172,7 +174,7 @@
     /**
      底下的三个按钮
      */
-    CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 10;
+    CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 7;
     //默认宽为55
     CGFloat jW = self.fanIsZero ? 55 : 0 ;
     CGFloat qW = self.quanIsZero ? 55 : 0 ;
@@ -188,7 +190,7 @@
     self.flash.frame = CGRectMake(fX, jY, fW, 18);
     
     CGFloat sX = CGRectGetMaxX(self.flash.frame) + 10;
-    self.ShanDianBtn.frame = CGRectMake(sX, jY, 70, 18);
+    self.ShanDianBtn.frame = CGRectMake(sX, jY - 2, 60, 22);
     
     //分割线
 //    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);
@@ -245,7 +247,7 @@
      */
     [self.jiafanBtn setTitle:[NSString stringWithFormat:@"    ￥%@",modal.PersonBackPrice] forState:UIControlStateNormal];
     [self.quanBtn setTitle:[NSString stringWithFormat:  @"    ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
-    [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"    %@出发",modal.StartCityName] forState:UIControlStateNormal];
+    [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发",modal.StartCityName] forState:UIControlStateNormal];
     
     self.isFlash = [modal.IsComfirmStockNow integerValue];
     [self setNeedsLayout];

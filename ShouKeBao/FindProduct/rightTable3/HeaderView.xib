@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -11,22 +11,30 @@
             <rect key="frame" x="0.0" y="0.0" width="221" height="74"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AZj-ke-mXj">
-                    <rect key="frame" x="22" y="10" width="178" height="54"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
-                    <state key="normal" image="fanghui">
-                        <color key="titleColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="btn:" destination="iN0-l3-epB" eventType="touchUpInside" id="9VG-gq-N91"/>
-                    </connections>
-                </button>
                 <view contentMode="scaleToFill" id="2Vl-6w-Op2">
                     <rect key="frame" x="0.0" y="73" width="221" height="0.5"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                     <color key="backgroundColor" white="0.75" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" hasAttributedTitle="YES" id="AZj-ke-mXj">
+                    <rect key="frame" x="24" y="13" width="173" height="47"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <inset key="titleEdgeInsets" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
+                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="15" maxY="0.0"/>
+                    <state key="normal" image="backArrowLeft" backgroundImage="fanhui">
+                        <attributedString key="attributedTitle">
+                            <fragment content="返回">
+                                <attributes>
+                                    <color key="NSColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                    <font key="NSFont" size="18" name="STHeitiSC-Light"/>
+                                </attributes>
+                            </fragment>
+                        </attributedString>
+                    </state>
+                    <connections>
+                        <action selector="btn:" destination="iN0-l3-epB" eventType="touchUpInside" id="9VG-gq-N91"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
@@ -34,11 +42,12 @@
             <connections>
                 <outlet property="btn" destination="AZj-ke-mXj" id="dpk-ww-WA5"/>
             </connections>
-            <point key="canvasLocation" x="268.5" y="198"/>
+            <point key="canvasLocation" x="196.5" y="162"/>
         </view>
     </objects>
     <resources>
-        <image name="fanghui" width="231" height="54"/>
+        <image name="backArrowLeft" width="11" height="11"/>
+        <image name="fanhui" width="232" height="54"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

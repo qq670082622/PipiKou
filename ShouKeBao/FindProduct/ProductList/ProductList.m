@@ -96,8 +96,6 @@
     [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal ];
    
     [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal ];
-    
-   
    
     self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
@@ -108,7 +106,6 @@
     self.turn = [NSMutableString stringWithFormat:@"Off"];
 
     self.table.tableFooterView = [[UIView alloc] init];
-
 
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*titleWid, 34)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];//215 237 244
