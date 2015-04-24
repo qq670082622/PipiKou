@@ -11,5 +11,5 @@
 #import "SKViewController.h"
 @interface ProductList : SKViewController//<passValue>
 @property (nonatomic,copy) NSString *pushedSearchK;
-@property (nonatomic,copy) NSString *title;
+//@property (nonatomic,copy) NSString *productTitle;
 @end
