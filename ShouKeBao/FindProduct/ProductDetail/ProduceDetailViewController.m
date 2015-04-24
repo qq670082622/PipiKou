@@ -140,12 +140,14 @@ self.webLoadCount = 1;
 -(void)shareIt:(id)sender
 {
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Title"]
+    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
                                                 title:self.shareInfo[@"Title"]
                                                   url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
