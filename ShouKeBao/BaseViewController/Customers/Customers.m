@@ -341,6 +341,12 @@
 
 - (IBAction)timeOrderAction:(id)sender {
   //  [self.orderNumBtn setSelected:NO];
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    hudView.labelText = @"加载中...";
+    
+    [hudView show:YES];
+    
     [self.wordBtn setSelected:NO];
     
     
@@ -374,6 +380,7 @@
       //  [self.table reloadData];
 
     }
+    [hudView hide:YES];
     
 }
 /*
@@ -415,6 +422,12 @@
 
 */
 - (IBAction)wordOrderAction:(id)sender {
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"加载中...";
+    [hudView show:YES];
+    
+    
     [self.timeBtn setSelected:NO];
    // [self.orderNumBtn setSelected:NO];
     if (self.wordBtn.selected == NO) {
@@ -446,6 +459,7 @@
         //[self.table reloadData];
 
            }
+    [hudView hide:YES];
 
 }
 

@@ -88,7 +88,7 @@
                     <rect key="frame" x="8" y="5" width="264" height="30"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits" returnKeyType="done"/>
+                    <textInputTraits key="textInputTraits" returnKeyType="search"/>
                     <connections>
                         <outlet property="delegate" destination="-1" id="2bK-8c-nEy"/>
                     </connections>
@@ -135,6 +135,11 @@
                             </connections>
                         </button>
                     </subviews>
+                </view>
+                <view contentMode="scaleToFill" id="nFg-U4-mDP" userLabel="line">
+                    <rect key="frame" x="0.0" y="91" width="320" height="2"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" red="0.83137254901960789" green="0.87058823529411766" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <view hidden="YES" contentMode="scaleToFill" id="L1Y-OC-Wif" userLabel="historyView">
                     <rect key="frame" x="0.0" y="41" width="320" height="339"/>

@@ -136,22 +136,30 @@
     
 }
 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-     NSLog(@"----------------------message count is %d",self.dataArr.count);
+     NSLog(@"----------------------message count is %lu",(unsigned long)self.dataArr.count);
+    
     return self.dataArr.count;
    
 }
 
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     messageCell *cell = [messageCell cellWithTableView:tableView];
+   
     messageModel *model = _dataArr[indexPath.row];
+    
     cell.model = model;
+    
     if (indexPath.row == _isRead) {
+    
         cell.hongdian.hidden = YES;
     }
     
     return cell;
 }
+
 @end
