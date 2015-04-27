@@ -100,7 +100,7 @@
     self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.subDataArr1 = [NSArray arrayWithObjects:@"游览线路      ",@"出发日期      ",@"出发城市      ",@"主题推荐      ",@"供应商      ", nil];//5
-    self.subDataArr2 = [NSArray arrayWithObjects:@"酒店类型      ",@"出行方式      ",@"油轮公司      ",@"线路等级      ", nil];//4
+    self.subDataArr2 = [NSArray arrayWithObjects:@"酒店类型      ",@"出行方式      ",@"邮轮公司      ",@"线路等级      ", nil];//4
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
     self.turn = [NSMutableString stringWithFormat:@"Off"];

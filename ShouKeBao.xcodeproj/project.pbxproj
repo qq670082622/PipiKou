@@ -51,7 +51,6 @@
 		5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB791ACEBF220076DAE6 /* leftModal.m */; };
 		5A52FC401ACEBF220076DAE6 /* ProduceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB7C1ACEBF220076DAE6 /* ProduceDetailViewController.m */; };
 		5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB7D1ACEBF220076DAE6 /* ProduceDetailViewController.xib */; };
-		5A52FC421ACEBF220076DAE6 /* StroeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB7E1ACEBF220076DAE6 /* StroeViewController.xib */; };
 		5A52FC431ACEBF220076DAE6 /* ConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB811ACEBF220076DAE6 /* ConditionModel.m */; };
 		5A52FC441ACEBF220076DAE6 /* ConditionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB831ACEBF220076DAE6 /* ConditionSelectViewController.m */; };
 		5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB841ACEBF220076DAE6 /* ConditionSelectViewController.xib */; };
@@ -214,6 +213,7 @@
 		633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263CF1AB851590021553B /* AFURLSessionManager.m */; };
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
+		636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636085271AEE3A4600C0E1A1 /* Customer.storyboard */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
 		636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B541AC2E1420097CAE9 /* QQConnection.framework */; };
 		636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */; };
@@ -352,7 +352,6 @@
 		5A52FB7B1ACEBF220076DAE6 /* ProduceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProduceDetailViewController.h; sourceTree = "<group>"; };
 		5A52FB7C1ACEBF220076DAE6 /* ProduceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProduceDetailViewController.m; sourceTree = "<group>"; };
 		5A52FB7D1ACEBF220076DAE6 /* ProduceDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProduceDetailViewController.xib; sourceTree = "<group>"; };
-		5A52FB7E1ACEBF220076DAE6 /* StroeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StroeViewController.xib; path = ../../FindProduct/ProductDetail/StroeViewController.xib; sourceTree = "<group>"; };
 		5A52FB801ACEBF220076DAE6 /* ConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionModel.h; sourceTree = "<group>"; };
 		5A52FB811ACEBF220076DAE6 /* ConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionModel.m; sourceTree = "<group>"; };
 		5A52FB821ACEBF220076DAE6 /* ConditionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionSelectViewController.h; sourceTree = "<group>"; };
@@ -648,6 +647,7 @@
 		633263D11AB851590021553B /* IWHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHttpTool.m; sourceTree = "<group>"; };
 		6359441E1ADBA9D9004F0035 /* textStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textStyle.h; sourceTree = "<group>"; };
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
+		636085271AEE3A4600C0E1A1 /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Customer.storyboard; sourceTree = "<group>"; };
 		636C8B531AC2E1420097CAE9 /* CopyConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CopyConnection.framework; sourceTree = "<group>"; };
 		636C8B541AC2E1420097CAE9 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -825,6 +825,7 @@
 		5A0058681ACEBD1E007AF362 /* customerDetail */ = {
 			isa = PBXGroup;
 			children = (
+				636085271AEE3A4600C0E1A1 /* Customer.storyboard */,
 				5A0058691ACEBD1E007AF362 /* CustomerDetailViewController.h */,
 				5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */,
 				5A00586B1ACEBD1E007AF362 /* CustomerDetailViewController.xib */,
@@ -912,7 +913,6 @@
 		5A076E9C1ACD8B270077611C /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				5A52FB7E1ACEBF220076DAE6 /* StroeViewController.xib */,
 				5A076E9D1ACD8B270077611C /* StoreViewController.h */,
 				5A076E9E1ACD8B270077611C /* StoreViewController.m */,
 				5A076E9F1ACD8B270077611C /* StoreViewController.xib */,
@@ -1919,6 +1919,7 @@
 			files = (
 				5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */,
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
+				636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */,
 				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
 				5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */,
 				5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */,
@@ -1953,7 +1954,6 @@
 				636C8B731AC2E1420097CAE9 /* Resource.bundle in Resources */,
 				63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */,
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
-				5A52FC421ACEBF220076DAE6 /* StroeViewController.xib in Resources */,
 				5A0058991ACEBD1E007AF362 /* Customers.xib in Resources */,
 				632EDEAE1AC9009000EE98FC /* PushConfig.plist in Resources */,
 				6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */,
