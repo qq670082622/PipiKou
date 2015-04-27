@@ -15,7 +15,9 @@
 
 @interface SearchProductViewController : SKViewController<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *inputView;
-- (IBAction)search:(id)sender;
+@property (weak, nonatomic) IBOutlet UIView *gestureView;
+
+- (IBAction)search;
 - (IBAction)clearinPutView:(id)sender;
 -(IBAction)hotWordSearch:(id)sender;
 //@property (weak, nonatomic) IBOutlet UITableView *historyTable;

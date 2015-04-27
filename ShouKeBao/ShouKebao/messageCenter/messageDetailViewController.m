@@ -23,7 +23,7 @@
     
     [super viewDidLoad];
     
-    self.navigationController.title = @"消息";
+    self.title = @"消息详情";
     
     [self loadData];
     

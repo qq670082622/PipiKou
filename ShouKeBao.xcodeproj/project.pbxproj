@@ -51,7 +51,6 @@
 		5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB791ACEBF220076DAE6 /* leftModal.m */; };
 		5A52FC401ACEBF220076DAE6 /* ProduceDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB7C1ACEBF220076DAE6 /* ProduceDetailViewController.m */; };
 		5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB7D1ACEBF220076DAE6 /* ProduceDetailViewController.xib */; };
-		5A52FC421ACEBF220076DAE6 /* StroeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB7E1ACEBF220076DAE6 /* StroeViewController.xib */; };
 		5A52FC431ACEBF220076DAE6 /* ConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB811ACEBF220076DAE6 /* ConditionModel.m */; };
 		5A52FC441ACEBF220076DAE6 /* ConditionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FB831ACEBF220076DAE6 /* ConditionSelectViewController.m */; };
 		5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FB841ACEBF220076DAE6 /* ConditionSelectViewController.xib */; };
@@ -352,7 +351,6 @@
 		5A52FB7B1ACEBF220076DAE6 /* ProduceDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProduceDetailViewController.h; sourceTree = "<group>"; };
 		5A52FB7C1ACEBF220076DAE6 /* ProduceDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProduceDetailViewController.m; sourceTree = "<group>"; };
 		5A52FB7D1ACEBF220076DAE6 /* ProduceDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProduceDetailViewController.xib; sourceTree = "<group>"; };
-		5A52FB7E1ACEBF220076DAE6 /* StroeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = StroeViewController.xib; path = ../../FindProduct/ProductDetail/StroeViewController.xib; sourceTree = "<group>"; };
 		5A52FB801ACEBF220076DAE6 /* ConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionModel.h; sourceTree = "<group>"; };
 		5A52FB811ACEBF220076DAE6 /* ConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionModel.m; sourceTree = "<group>"; };
 		5A52FB821ACEBF220076DAE6 /* ConditionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionSelectViewController.h; sourceTree = "<group>"; };
@@ -912,7 +910,6 @@
 		5A076E9C1ACD8B270077611C /* Store */ = {
 			isa = PBXGroup;
 			children = (
-				5A52FB7E1ACEBF220076DAE6 /* StroeViewController.xib */,
 				5A076E9D1ACD8B270077611C /* StoreViewController.h */,
 				5A076E9E1ACD8B270077611C /* StoreViewController.m */,
 				5A076E9F1ACD8B270077611C /* StoreViewController.xib */,
@@ -1953,7 +1950,6 @@
 				636C8B731AC2E1420097CAE9 /* Resource.bundle in Resources */,
 				63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */,
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
-				5A52FC421ACEBF220076DAE6 /* StroeViewController.xib in Resources */,
 				5A0058991ACEBD1E007AF362 /* Customers.xib in Resources */,
 				632EDEAE1AC9009000EE98FC /* PushConfig.plist in Resources */,
 				6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */,

@@ -60,7 +60,7 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
    
-    [self.view addGestureRecognizer:tap];
+    [self.gestureView addGestureRecognizer:tap];
   
 
 }
@@ -83,6 +83,7 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    [self search];
     [self.inputView resignFirstResponder];
     return YES;
 }
@@ -246,7 +247,7 @@
 }
 
 
-- (IBAction)search:(id)sender
+- (IBAction)search
 {
     if ([[_tableDataArr lastObject] isEqualToString:self.inputView.text]) {
        

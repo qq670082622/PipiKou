@@ -129,7 +129,7 @@
     messageDetail.ID = model.ID;
     messageDetail.messageURL = model.LinkUrl;
     messageDetail.createDate = model.CreatedDate;
-    messageDetail.title = model.title;
+    messageDetail.messageTitle = model.title;
 
     self.isRead = indexPath.row;
     [self.navigationController pushViewController:messageDetail animated:YES];
