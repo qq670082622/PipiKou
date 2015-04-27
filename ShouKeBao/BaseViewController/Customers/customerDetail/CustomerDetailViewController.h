@@ -9,14 +9,16 @@
 #import <UIKit/UIKit.h>
 #import "CustomModel.h"
 #import "SKViewController.h"
+#import "SKTableViewController.h"
 @class CustomModel;
 
-@interface CustomerDetailViewController : SKViewController
-@property (weak, nonatomic) IBOutlet UITextField *weChat;
-@property (weak, nonatomic) IBOutlet UITextField *QQ;
+@interface CustomerDetailViewController : SKTableViewController
+@property (weak, nonatomic) IBOutlet UILabel *weChat;
+@property (weak, nonatomic) IBOutlet UILabel *QQ;
 @property (weak, nonatomic) IBOutlet UITextView *note;
 @property (nonatomic,copy) NSString *ID;
-@property (weak, nonatomic) IBOutlet UITextField *tele;
+
+@property (weak, nonatomic) IBOutlet UILabel *tele;
 @property (nonatomic,copy) NSString *weChatStr;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (nonatomic,copy) NSString *QQStr;

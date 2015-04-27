@@ -64,23 +64,23 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [self.weChat resignFirstResponder];
-   [self.QQ resignFirstResponder];
-    [self.note resignFirstResponder];
-    [self.tele resignFirstResponder];
-    return YES;
-}
--(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-{
-    if ([text isEqualToString:@"\n"]) {
-        [self.note resignFirstResponder];
-        return NO;
-    }
-    return YES;
-    
-}
+//-(BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//    [self.weChat resignFirstResponder];
+//   [self.QQ resignFirstResponder];
+//    [self.note resignFirstResponder];
+//    [self.tele resignFirstResponder];
+//    return YES;
+//}
+//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
+//{
+//    if ([text isEqualToString:@"\n"]) {
+//        [self.note resignFirstResponder];
+//        return NO;
+//    }
+//    return YES;
+//    
+//}
 -(void)setSubViews{
         self.QQ.text = self.QQStr;
     self.weChat.text = self.weChatStr;
@@ -181,4 +181,15 @@
         return;
     }
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.0f;
+}
+
 @end

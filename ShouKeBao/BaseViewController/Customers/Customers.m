@@ -239,7 +239,8 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
-        CustomerDetailViewController *detail = [[CustomerDetailViewController alloc] init];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+        CustomerDetailViewController *detail = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
         CustomModel *model = _dataArr[indexPath.row];
         detail.QQStr = model.QQCode;
         detail.ID = model.ID;

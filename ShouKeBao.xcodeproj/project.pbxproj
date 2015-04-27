@@ -213,6 +213,7 @@
 		633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263CF1AB851590021553B /* AFURLSessionManager.m */; };
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
+		636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636085271AEE3A4600C0E1A1 /* Customer.storyboard */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
 		636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B541AC2E1420097CAE9 /* QQConnection.framework */; };
 		636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */; };
@@ -646,6 +647,7 @@
 		633263D11AB851590021553B /* IWHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHttpTool.m; sourceTree = "<group>"; };
 		6359441E1ADBA9D9004F0035 /* textStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textStyle.h; sourceTree = "<group>"; };
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
+		636085271AEE3A4600C0E1A1 /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Customer.storyboard; sourceTree = "<group>"; };
 		636C8B531AC2E1420097CAE9 /* CopyConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CopyConnection.framework; sourceTree = "<group>"; };
 		636C8B541AC2E1420097CAE9 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -823,6 +825,7 @@
 		5A0058681ACEBD1E007AF362 /* customerDetail */ = {
 			isa = PBXGroup;
 			children = (
+				636085271AEE3A4600C0E1A1 /* Customer.storyboard */,
 				5A0058691ACEBD1E007AF362 /* CustomerDetailViewController.h */,
 				5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */,
 				5A00586B1ACEBD1E007AF362 /* CustomerDetailViewController.xib */,
@@ -1916,6 +1919,7 @@
 			files = (
 				5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */,
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
+				636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */,
 				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
 				5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */,
 				5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */,
