@@ -249,7 +249,7 @@
 
 - (IBAction)search
 {
-    if ([[_tableDataArr lastObject] isEqualToString:self.inputView.text]) {
+    if (![[_tableDataArr lastObject] isEqualToString:self.inputView.text]) {
        
         [self.tableDataArr addObject:self.inputView.text];
        
