@@ -479,10 +479,9 @@
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
     BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:bind];
+    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:bind];
     self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
-
 }
 
 -(void)setLoginRoot

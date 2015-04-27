@@ -17,6 +17,8 @@
 #import "Business.h"
 #import "UIImage+QD.h"
 #import "StepView.h"
+#import "RegisterViewController.h"
+#import "WMNavigationController.h"
 
 @interface BindPhoneViewController () <UIScrollViewDelegate>
 
@@ -53,6 +55,8 @@
     
     // 设置头部图标
     [self setupHeader];
+    
+    [self setFoot];
     
     self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beijing"]];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
@@ -103,6 +107,35 @@
     [cover addSubview:iconView];
     
     self.tableView.tableHeaderView = cover;
+}
+
+/**
+ *  添加新用户按钮
+ */
+- (void)setFoot
+{
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    
+    CGFloat newW = 100;
+    CGFloat newH = 30;
+    CGFloat newX = (self.view.frame.size.width - newW) * 0.5;
+    CGFloat newY = screenRect.size.height - newH - 30;
+    UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
+    [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
+    [new setTitle:@"新用户" forState:UIControlStateNormal];
+    new.titleLabel.font = [UIFont systemFontOfSize:13];
+    [new setBackgroundColor:[UIColor whiteColor]];
+    [new setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [self.view addSubview:new];
+}
+
+/**
+ *  跳转注册页面
+ */
+- (void)registerUser:(UIButton *)btn
+{
+    RegisterViewController *reg = [[RegisterViewController alloc] init];
+    [self.navigationController pushViewController:reg animated:YES];
 }
 
 /**

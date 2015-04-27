@@ -32,11 +32,12 @@
     disableTextAttrs[NSForegroundColorAttributeName] = [UIColor colorWithRed:1.0 green:1.0 blue:1.0 alpha:0.7];
     disableTextAttrs[NSFontAttributeName] = [UIFont systemFontOfSize:13];
     [item setTitleTextAttributes:disableTextAttrs forState:UIControlStateDisabled];
+    
     //设置navBar的title的颜色
     UINavigationBar *bar = [UINavigationBar appearance];
     NSMutableDictionary *textAttrs2 = [NSMutableDictionary dictionary];
     textAttrs2[NSForegroundColorAttributeName] = [UIColor whiteColor];
-    textAttrs2[NSFontAttributeName] = [UIFont systemFontOfSize:24];
+    textAttrs2[NSFontAttributeName] = [UIFont boldSystemFontOfSize:20];
     [bar setTitleTextAttributes:textAttrs2 ];
     
     [ bar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];

@@ -365,6 +365,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="comfirmPassword" destination="nli-H2-Xgm" id="6b3-wE-evV"/>
+                        <outlet property="currentAcount" destination="PsC-yF-bPy" id="uFZ-yk-gxN"/>
                         <outlet property="oldPassword" destination="nHO-XC-KtL" id="BDg-PR-nuZ"/>
                         <outlet property="setPassword" destination="0yD-3W-i5u" id="uaT-qN-nmd"/>
                     </connections>

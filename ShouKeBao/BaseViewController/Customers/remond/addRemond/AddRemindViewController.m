@@ -19,6 +19,8 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *holder;
 
+@property (weak, nonatomic) IBOutlet UILabel *selectedTime;// 选择的时间显示出来
+
 @end
 
 @implementation AddRemindViewController
@@ -50,11 +52,17 @@
         _datePicker = [[UIDatePicker alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height, self.view.frame.size.width, pickerH)];
         _datePicker.minimumDate = [NSDate date];
         _datePicker.backgroundColor = [UIColor whiteColor];
+        [_datePicker addTarget:self action:@selector(chooseDate:) forControlEvents:UIControlEventValueChanged];
     }
     return _datePicker;
 }
 
 #pragma mark - private
+- (void)chooseDate:(UIDatePicker *)piker
+{
+    self.selectedTime.text = [StrToDic stringFromDate:piker.date];
+}
+
 - (void)textHandle:(NSNotification *)noty
 {
     UITextView *textView = (UITextView *)noty.object;
@@ -135,7 +143,7 @@
         } failure:^(NSError *error) {
             NSLog(@"创建客户提醒的请求失败%@",error);
         }];
-    }else if (self.descript.text.length>2 ){
+    }else if (self.descript.text.length < 2 ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"最起码填写3个字吧？😄" message:@"若您想放弃添加提醒，点击返回按钮可以啦！～" delegate:self cancelButtonTitle:@"谢谢，我知道了" otherButtonTitles: nil];
         [alert show];
     }

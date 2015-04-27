@@ -44,9 +44,10 @@
 #import "messageDetailViewController.h"
 #import "UserInfo.h"
 #import "APService.h"
+
 #define FiveDay 432000
 
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,MGSwipeTableCellDelegate,remindDetailDelegate>
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
@@ -68,6 +69,8 @@
 
 @property (nonatomic,copy) NSMutableString *shareLink;
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
+
+@property (nonatomic,assign) NSInteger recommendCount;// 今日推荐的数量
 @end
 
 @implementation ShouKeBao
@@ -235,7 +238,7 @@
     [hudView hide:YES];
 }
 
--(void)getNotifiList
+- (void)getNotifiList
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
     [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
@@ -253,8 +256,6 @@
         }
         barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
       
-      
-        
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
     }];
@@ -322,6 +323,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                 NSLog(@"-----count %lu",(unsigned long)[json[@"OrderList"] count]);
                 [self.dataSource removeAllObjects];
                 
+                self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 // 添加精品推荐 如果有推荐的话
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
                     Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
@@ -555,27 +557,6 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
 }
 
-// 右边滑动的按钮
-- (NSArray *)createRightButtons
-{
-    NSMutableArray * result = [NSMutableArray array];
-    UIColor * color = [UIColor blueColor];
-    
-    MGSwipeButton *button = [MGSwipeButton buttonWithTitle:@"滑动隐藏<<" backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
-        NSLog(@"Convenience callback received (right).");
-        return YES;
-    }];
-    
-    CGRect frame = button.frame;
-    frame.size.width = 250;
-    button.frame = frame;
-    
-    button.enabled = NO;
-    [result addObject:button];
-    
-    return result;
-}
-
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -589,20 +570,19 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     if ([model.model isKindOfClass:[HomeList class]]) {
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
-        cell.delegate = self;// 滑动的代理
         
         return cell;
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         cell.recommend = model.model;
         
-        cell.delegate = self;// 滑动的代理
+        // 如果没有数据的话就隐藏这个红点
+        cell.redTip.hidden = !(self.recommendCount > 0);
         return cell;
     }else{
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;
         
-        cell.delegate = self;// 滑动的代理
         return cell;
     }
 }
@@ -620,9 +600,13 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
-        RecommendViewController *rec = [[RecommendViewController alloc] init];
         
+        RecommendViewController *rec = [[RecommendViewController alloc] init];
         [self.navigationController pushViewController:rec animated:YES];
+        
+        // 刷新下 隐藏红点
+        self.recommendCount = 0;
+        [tableView reloadData];
     }else{
         remondModel *r = model.model;
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
@@ -658,42 +642,34 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     }
 }
 
-#pragma mark - MGSwipeTableCellDelegate
-- (NSArray*)swipeTableCell:(MGSwipeTableCell*)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings*) swipeSettings expansionSettings:(MGSwipeExpansionSettings*) expansionSettings;
+/*
+    右滑动删除
+ */
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    swipeSettings.transition = MGSwipeTransitionStatic;
-    
-    // 左滑隐藏
-    if (direction == MGSwipeDirectionRightToLeft){
-        expansionSettings.buttonIndex = 0;
-        expansionSettings.fillOnTrigger = YES;
-        return [self createRightButtons];
-    }else {
-        return [NSArray array];
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        // 保存隐藏的模型
+        HomeBase *base = self.dataSource[indexPath.row];
+        NSArray *tmp = [WriteFileManager readData:@"hideData"];
+        NSMutableArray *muta = [NSMutableArray arrayWithArray:tmp];
+        [muta addObject:base];
+        [WriteFileManager saveData:muta name:@"hideData"];
+        
+        // 删除这行
+        [self.dataSource removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
 }
 
-- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return YES;
-}
-
-- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
-{
-    NSIndexPath *path = [self.tableView indexPathForCell:cell];
-    
-    // 保存隐藏的模型
-    HomeBase *base = self.dataSource[path.row];
-    NSArray *tmp = [WriteFileManager readData:@"hideData"];
-    NSMutableArray *muta = [NSMutableArray arrayWithArray:tmp];
-    [muta addObject:base];
-    [WriteFileManager saveData:muta name:@"hideData"];
-    
-    // 删除这行
-    [self.dataSource removeObjectAtIndex:path.row];
-    [self.tableView deleteRowsAtIndexPaths:@[path] withRowAnimation:UITableViewRowAnimationTop];
-    
-    return YES;
+    return @"隐藏";
 }
 
 #pragma mark - remindDetailDelegate

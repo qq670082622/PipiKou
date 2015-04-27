@@ -68,12 +68,22 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="clm-ya-EIw">
+                                                    <rect key="frame" x="195" y="14" width="139" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="gX7-NF-bMa" firstAttribute="leading" secondItem="rwD-YI-Avn" secondAttribute="leadingMargin" constant="12" id="3MS-c5-rJW"/>
+                                                <constraint firstItem="clm-ya-EIw" firstAttribute="top" secondItem="rwD-YI-Avn" secondAttribute="topMargin" constant="6" id="G8Z-SS-5KR"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="gX7-NF-bMa" secondAttribute="bottom" constant="6" id="KWV-fl-uYq"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="gX7-NF-bMa" secondAttribute="trailing" constant="157" id="MJE-aW-GMC"/>
                                                 <constraint firstItem="gX7-NF-bMa" firstAttribute="top" secondItem="rwD-YI-Avn" secondAttribute="topMargin" constant="6" id="UpO-UB-oUj"/>
+                                                <constraint firstItem="clm-ya-EIw" firstAttribute="leading" secondItem="gX7-NF-bMa" secondAttribute="trailing" constant="18" id="XJM-yo-8KE"/>
+                                                <constraint firstItem="clm-ya-EIw" firstAttribute="trailing" secondItem="rwD-YI-Avn" secondAttribute="trailingMargin" id="ZeR-wC-NrQ"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="clm-ya-EIw" secondAttribute="bottom" constant="6" id="dvZ-SJ-YAj"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
@@ -117,6 +127,7 @@
                     <connections>
                         <outlet property="descript" destination="sID-nc-Cq3" id="pDR-Ga-7dv"/>
                         <outlet property="holder" destination="lCH-Sv-2Do" id="Tjj-vc-S2X"/>
+                        <outlet property="selectedTime" destination="clm-ya-EIw" id="uwP-Yg-AzS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xe2-jb-iJB" userLabel="First Responder" sceneMemberID="firstResponder"/>

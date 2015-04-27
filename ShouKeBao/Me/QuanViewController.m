@@ -68,7 +68,7 @@
             NSLog(@"-----%@",json);
             [self loadWithUrl:json[@"QFBLinkUrl"]];
         }
-    } failure:^(NSError *error) {
+    }failure:^(NSError *error){
         
     }];
 }

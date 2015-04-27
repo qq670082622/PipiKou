@@ -86,7 +86,6 @@
 		5A52FC631ACEBF220076DAE6 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBBC1ACEBF220076DAE6 /* Login.m */; };
 		5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBBF1ACEBF220076DAE6 /* Distribution.m */; };
 		5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBC11ACEBF220076DAE6 /* UserInfo.m */; };
-		5A52FC661ACEBF220076DAE6 /* Register.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBC31ACEBF220076DAE6 /* Register.m */; };
 		5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FBC41ACEBF220076DAE6 /* Register.xib */; };
 		5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBC61ACEBF220076DAE6 /* ResultViewController.m */; };
 		5A52FC691ACEBF220076DAE6 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBCA1ACEBF220076DAE6 /* ModifyPwdViewController.m */; };
@@ -144,6 +143,7 @@
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
+		5A9C640B1AEE1CBA00F48BDF /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */; };
 		5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA176D81AE4A146003F7875 /* DressFooter.m */; };
 		5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AA483CE1AEA4135002C046C /* AddRemind.storyboard */; };
 		5AA483D21AEA4345002C046C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA483D11AEA4345002C046C /* AddRemindViewController.m */; };
@@ -409,8 +409,6 @@
 		5A52FBBF1ACEBF220076DAE6 /* Distribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Distribution.m; sourceTree = "<group>"; };
 		5A52FBC01ACEBF220076DAE6 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		5A52FBC11ACEBF220076DAE6 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
-		5A52FBC21ACEBF220076DAE6 /* Register.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Register.h; sourceTree = "<group>"; };
-		5A52FBC31ACEBF220076DAE6 /* Register.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Register.m; sourceTree = "<group>"; };
 		5A52FBC41ACEBF220076DAE6 /* Register.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Register.xib; sourceTree = "<group>"; };
 		5A52FBC51ACEBF220076DAE6 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		5A52FBC61ACEBF220076DAE6 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
@@ -517,6 +515,8 @@
 		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
 		5A82161A1AD3843B009388DA /* HomeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeList.h; sourceTree = "<group>"; };
 		5A82161B1AD3843B009388DA /* HomeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
+		5A9C64091AEE1CBA00F48BDF /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		5AA176D71AE4A146003F7875 /* DressFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressFooter.h; sourceTree = "<group>"; };
 		5AA176D81AE4A146003F7875 /* DressFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressFooter.m; sourceTree = "<group>"; };
 		5AA483CE1AEA4135002C046C /* AddRemind.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddRemind.storyboard; sourceTree = "<group>"; };
@@ -1089,10 +1089,10 @@
 				5A52FBB51ACEBF220076DAE6 /* BindPhoneViewController.m */,
 				5A52FBB61ACEBF220076DAE6 /* ChildAccountViewController.h */,
 				5A52FBB71ACEBF220076DAE6 /* ChildAccountViewController.m */,
+				5A9C64091AEE1CBA00F48BDF /* RegisterViewController.h */,
+				5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */,
 				5A52FBBB1ACEBF220076DAE6 /* Login.h */,
 				5A52FBBC1ACEBF220076DAE6 /* Login.m */,
-				5A52FBC21ACEBF220076DAE6 /* Register.h */,
-				5A52FBC31ACEBF220076DAE6 /* Register.m */,
 				5A52FBC41ACEBF220076DAE6 /* Register.xib */,
 				5A52FBC51ACEBF220076DAE6 /* ResultViewController.h */,
 				5A52FBC61ACEBF220076DAE6 /* ResultViewController.m */,
@@ -2018,7 +2018,6 @@
 				63D31E441AB143D00043B3CA /* main.m in Sources */,
 				5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */,
 				633263D91AB851590021553B /* AFURLResponseSerialization.m in Sources */,
-				5A52FC661ACEBF220076DAE6 /* Register.m in Sources */,
 				5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */,
 				5A52FC441ACEBF220076DAE6 /* ConditionSelectViewController.m in Sources */,
 				6326131F1AB1C175003AC2DA /* UIScrollView+MJExtension.m in Sources */,
@@ -2119,6 +2118,7 @@
 				8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */,
 				5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */,
 				632BFFFF1AB92A3A003B15AD /* UIImage+WebP.m in Sources */,
+				5A9C640B1AEE1CBA00F48BDF /* RegisterViewController.m in Sources */,
 				5A076CA11ACD24050077611C /* CityViewController.m in Sources */,
 				5A00588B1ACEBD1E007AF362 /* BatchAddViewController.m in Sources */,
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,

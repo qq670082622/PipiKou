@@ -15,6 +15,8 @@
 
 @property (nonatomic,strong) Recommend *recommend;
 
+@property (nonatomic,weak) UIImageView *redTip;// 红点
+
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

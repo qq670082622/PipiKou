@@ -9,7 +9,6 @@
 #import "Login.h"
 #import "AppDelegate.h"
 #import "ViewController.h"
-#import "Register.h"
 #import "AppDelegate.h"
 #import "ChildAccountViewController.h"
 #import "WriteFileManager.h"

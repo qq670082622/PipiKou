@@ -13,6 +13,8 @@
 
 @interface ModifyPwdViewController () <UIScrollViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UILabel *currentAcount;
+
 @property (weak, nonatomic) IBOutlet UITextField *oldPassword;
 
 @property (weak, nonatomic) IBOutlet UITextField *setPassword;
@@ -27,10 +29,13 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"账号安全设置";
+    [self.oldPassword becomeFirstResponder];
     
     [self setNextBtn];
     
     [self setNav];
+    
+    self.currentAcount.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
     [self.view addGestureRecognizer:tap];
@@ -83,16 +88,17 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         if (json) {
             NSLog(@"------%@",json);
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
-            ResultViewController *result = [sb instantiateViewControllerWithIdentifier:@"ResultView"];
+            
             if ([json[@"IsSuccess"] integerValue] == 1) {
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+                ResultViewController *result = [sb instantiateViewControllerWithIdentifier:@"ResultView"];
                 result.isSuccess = YES;
+                [self.navigationController pushViewController:result animated:YES];
             }else{
-                result.isSuccess = NO;
+                [MBProgressHUD showError:json[@"ErrorMsg"]];
             }
-            [self.navigationController pushViewController:result animated:YES];
         }
-    } failure:^(NSError *error) {
+    } failure:^(NSError *error){
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
