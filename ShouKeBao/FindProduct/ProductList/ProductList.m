@@ -149,6 +149,13 @@
 //self.table.separatorStyle = UITableViewCellSelectionStyleNone;
 }
 
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSIndexPath *selected = [self.subTable indexPathForSelectedRow];
+    if(selected) [self.subTable deselectRowAtIndexPath:selected animated:NO];
+}
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -247,6 +254,7 @@
    
         [self.conditionDic setObject:value forKey:key];
         
+        NSLog(@"-------------传过来的key is %@------------",key);
         if ([selectIndexPath[0]isEqualToString:@"0"]) {
             
             NSInteger a = [selectIndexPath[1] integerValue];//分析selected IndexPath.row的值

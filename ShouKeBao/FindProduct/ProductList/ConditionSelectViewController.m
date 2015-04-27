@@ -29,12 +29,43 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+    [self changeSelectKey];
     
+}
+
+-(void)changeSelectKey
+{
+    if ([_selectKey isEqualToString:@"ProductBrowseTag"]) {
+        
+        self.selectKey = [NSMutableString stringWithFormat:@"ProductBrowseTagID"];
+    }
+    
+    else if ([_selectKey isEqualToString:@"GoDate"]){
+        
+      
+        self.selectKey = [NSMutableString stringWithFormat:@"StartDate"];
+    }
+    
+    else if ([_selectKey isEqualToString:@"ProductThemeTag"]){
+        
+        self.selectKey = [NSMutableString stringWithFormat:@"ProductThemeTagID"];
+    }
+    
+    else if ([_selectKey isEqualToString:@"Supplier"]){
+        
+    self.selectKey = [NSMutableString stringWithFormat:@"SupplierId"];
+    }
+    
+    else if ([_selectKey isEqualToString:@"CruiseShipCompany"]){
+        
+        self.selectKey = [NSMutableString stringWithFormat:@"CruiseShipCompanyID"];
+    }
+
 }
 
 -(void)back
 {
-    [self.delegate passKey:@"" andValue:nil andSelectIndexPath:nil andSelectValue:nil];
+   // [self.delegate passKey:@"" andValue:nil andSelectIndexPath:nil andSelectValue:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -89,32 +120,11 @@ static NSString *cellID = @"Cell";
 {
     [super viewWillDisappear:animated];
     
-    if ([_selectKey isEqualToString:@"ProductBrowseTag"]) {
-         [self.delegate passKey:@"ProductBrowseTagID" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+   [self.delegate passKey:_selectKey andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
+    
     }
-    
-    else if ([_selectKey isEqualToString:@"GoDate"]){
-     
-        [self.delegate passKey:@"StartDate" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
-    }
-    
-    else if ([_selectKey isEqualToString:@"ProductThemeTag"]){
-        [self.delegate passKey:@"ProductThemeTagID" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
-    }
-    
-    else if ([_selectKey isEqualToString:@"Supplier"]){
-        
-        [self.delegate passKey:@"SupplierId" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
-    }
-    
-    else if ([_selectKey isEqualToString:@"CruiseShipCompany"]){
-       
-        [self.delegate passKey:@"CruiseShipCompanyID" andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
-    }
-    
-    
 
-}
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *keys = [self.conditionDic allKeys];

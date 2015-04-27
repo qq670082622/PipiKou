@@ -465,8 +465,10 @@
 
         self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
   
-     self.historyView.hidden = NO;
-        [[UIApplication sharedApplication] setStatusBarHidden:TRUE];
+       // self.inputView.transform = CGAffineTransformMakeTranslation(0, 20);
+     
+        self.historyView.hidden = NO;
+        //[[UIApplication sharedApplication] setStatusBarHidden:TRUE];
     }];
     
     [self loadHistoryArr];
@@ -482,7 +484,7 @@
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
-        [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+       // [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
     }];
 
 }

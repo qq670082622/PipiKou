@@ -481,7 +481,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 - (IBAction)add:(id)sender
 {
 //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Title"]
+    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
                                        defaultContent:self.shareDic[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
                                                 title:self.shareDic[@"Title"]

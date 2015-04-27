@@ -44,21 +44,7 @@ self.webLoadCount = 1;
     self.navigationItem.leftBarButtonItem= leftItem;
     
     
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:_produceUrl forKey:@"PageUrl"];
-    // [self.shareInfo removeAllObjects];
     
-    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-        
-        NSLog(@"-----分享返回数据json is %@------",json);
-        
-        self.shareInfo = json[@"ShareInfo"];
-    } failure:^(NSError *error) {
-        
-        NSLog(@"分享请求数据失败，原因：%@",error);
-        
-    }];
-   
     
 }
 -(NSMutableArray *)webUrlArr
@@ -129,17 +115,39 @@ self.webLoadCount = 1;
     [alert show];
 }
 
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+ NSString *rightUrl = webView.request.URL.absoluteString;
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:rightUrl forKey:@"PageUrl"];
+    // [self.shareInfo removeAllObjects];
+    
+    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+        
+        NSLog(@"-----分享返回数据json is %@------",json);
+        
+        self.shareInfo = json[@"ShareInfo"];
+    } failure:^(NSError *error) {
+        
+        NSLog(@"分享请求数据失败，原因：%@",error);
+        
+    }];
+
+}
 
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Title"]
+    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
                                                 title:self.shareInfo[@"Title"]
                                                   url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
