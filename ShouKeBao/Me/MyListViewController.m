@@ -14,6 +14,7 @@
 #import "ProductModal.h"
 #import "ProductHistoryCell.h"
 #import "MBProgressHUD+MJ.h"
+#import "ProduceDetailViewController.h"
 
 #define pageSize 10
 
@@ -134,6 +135,7 @@
     
     //上啦刷新
     [self.tableView addFooterWithTarget:self action:@selector(footRefresh)];
+    
     //设置文字
     self.tableView.headerPullToRefreshText = @"下拉刷新";
     self.tableView.headerRefreshingText = @"正在刷新中";
@@ -211,14 +213,23 @@
 
     ProductModal *model = self.dataSource[indexPath.row];
     NSDictionary *param = @{@"ProductID":model.ID,
-                            @"IsFavorites":@"0"};
+                            @"IsFavorites":[NSString stringWithFormat:@"%d",![model.IsFavorites integerValue]]};
     [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
     [MeHttpTool cancelFavouriteWithParam:param success:^(id json) {
         NSLog(@"-----%@",json);
         [MBProgressHUD hideAllHUDsForView:self.view.window animated:YES];
         if ([json[@"IsSuccess"] integerValue] == 1) {
-            [self.dataSource removeObjectAtIndex:indexPath.row];
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            
+            if (self.listType == collectionType) {
+                [self.dataSource removeObjectAtIndex:indexPath.row];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            }else{
+                model.IsFavorites = [NSString stringWithFormat:@"%d",![model.IsFavorites integerValue]];
+                [self.dataSource replaceObjectAtIndex:indexPath.row withObject:model];
+                [self.tableView reloadData];
+            }
+        }else{
+            [MBProgressHUD showError:json[@"ErrorMsg"]];
         }
     } failure:^(NSError *error) {
         
@@ -235,37 +246,35 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    ProductCell *cell = [ProductCell cellWithTableView:tableView];
+    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+    cell.delegate = self;
     
-//    if (self.listType == collectionType) {
-        ProductCell *cell = [ProductCell cellWithTableView:tableView];
-        cell.delegate = self;
-        
-        cell.isHistory = self.listType == collectionType ? NO : YES;
-        ProductModal *model = self.dataSource[indexPath.section];
-        cell.modal = model;
-        
-        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-        cell.rightButtons = [self createRightButtons:model];
-        
-        return cell;
-        
-//    }else{
-//        ProductHistoryCell *cell = [ProductHistoryCell cellWithTableView:tableView];
-//        cell.delegate = self;
-//        
-//        ProductModal *model = self.dataSource[indexPath.row];
-//        cell.historyModel = model;
-//        
-//        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-//        cell.rightButtons = [self createRightButtons:model];
-//        
-//        return cell;
-//    }
+    cell.isHistory = self.listType == collectionType ? NO : YES;
+    ProductModal *model = self.dataSource[indexPath.section];
+    cell.modal = model;
+    
+    cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+    cell.rightButtons = [self createRightButtons:model];
+    
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    ProductModal *model = self.dataSource[indexPath.section];
+    
+    ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+    detail.produceUrl = model.LinkUrl;
+    detail.productName = model.Name;
+    [self.navigationController pushViewController:detail animated:YES];
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.listType == collectionType) {
+    if(self.listType == collectionType) {
         return 140;
     }else{
         return 170;

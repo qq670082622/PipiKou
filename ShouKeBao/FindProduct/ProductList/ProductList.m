@@ -505,50 +505,30 @@
     
 }
 
-
-#pragma mark - getter
-- (NSMutableArray *)dataArr
-{
-    if (_dataArr == nil) {
-        _dataArr = [NSMutableArray array];
-    }
-
-    return _dataArr;
-   
-}
-
--(NSMutableArray *)conditionArr
-{
-    if (_conditionArr == nil) {
-        _conditionArr = [NSMutableArray array];
-    }
-    return _conditionArr;
-}
-
 // 左边滑动的按钮
-- (NSArray *)createLeftButtons:(ProductModal *)model
-{
-//    NSString *tmp = [NSString stringWithFormat:@"%@\n%@",model.ContactName,model.ContactMobile];
-    NSString *tmp = [NSString stringWithFormat:@"联系人\n%@\n\n联系电话\n%@",@"恰的",@"13120555759"];
-    NSMutableArray * result = [NSMutableArray array];
-    UIColor * color = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-    
-    MGSwipeButton * button = [MGSwipeButton buttonWithTitle:tmp icon:nil backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
-        NSLog(@"Convenience callback received (left).");
-        return YES;
-    }];
-    CGRect frame = button.frame;
-    frame.size.width = 100;
-    button.frame = frame;
-    button.titleLabel.numberOfLines = 0;
-    [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
-    button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-    button.titleLabel.font = [UIFont systemFontOfSize:12];
-    [result addObject:button];
-    button.enabled = NO;
-    
-    return result;
-}
+//- (NSArray *)createLeftButtons:(ProductModal *)model
+//{
+//    //    NSString *tmp = [NSString stringWithFormat:@"%@\n%@",model.ContactName,model.ContactMobile];
+//    NSString *tmp = [NSString stringWithFormat:@"联系人\n%@\n\n联系电话\n%@",@"恰的",@"13120555759"];
+//    NSMutableArray * result = [NSMutableArray array];
+//    UIColor * color = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
+//    
+//    MGSwipeButton * button = [MGSwipeButton buttonWithTitle:tmp icon:nil backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
+//        NSLog(@"Convenience callback received (left).");
+//        return YES;
+//    }];
+//    CGRect frame = button.frame;
+//    frame.size.width = 100;
+//    button.frame = frame;
+//    button.titleLabel.numberOfLines = 0;
+//    [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
+//    button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
+//    button.titleLabel.font = [UIFont systemFontOfSize:12];
+//    [result addObject:button];
+//    button.enabled = NO;
+//    
+//    return result;
+//}
 
 // 右边滑动的按钮
 - (NSArray *)createRightButtons:(ProductModal *)model
@@ -581,6 +561,25 @@
         [result addObject:button];
     }
     return result;
+}
+
+#pragma mark - getter
+- (NSMutableArray *)dataArr
+{
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+
+    return _dataArr;
+   
+}
+
+-(NSMutableArray *)conditionArr
+{
+    if (_conditionArr == nil) {
+        _conditionArr = [NSMutableArray array];
+    }
+    return _conditionArr;
 }
 
 #pragma mark - tableviewdatasource& tableviewdelegate
@@ -935,11 +934,11 @@
             cell.delegate = self;
             
             // cell的滑动设置
-            cell.leftSwipeSettings.transition = MGSwipeTransitionStatic;
+//            cell.leftSwipeSettings.transition = MGSwipeTransitionStatic;
         
         cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
             
-            cell.leftButtons = [self createLeftButtons:model];
+//            cell.leftButtons = [self createLeftButtons:model];
         
         cell.rightButtons = [self createRightButtons:model];
         
@@ -1020,7 +1019,7 @@
     
     ProductModal *model = _dataArr[indexPath.row];
    
-    NSString *result = [model.IsFavorites isEqualToString:@"0"]?@"1":@"0";
+    NSString *result = [NSString stringWithFormat:@"%d",![model.IsFavorites integerValue]];
    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
@@ -1031,14 +1030,15 @@
     [IWHttpTool WMpostWithURL:@"/Product/SetProductFavorites" params:dic success:^(id json) {
        NSLog(@"产品收藏成功%@",json);
       
-        [MBProgressHUD showSuccess:@"操作成功"];
-     
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        if ([json[@"IsSuccess"] integerValue] == 1) {
+            [MBProgressHUD showSuccess:@"操作成功"];
+            model.IsFavorites = [NSString stringWithFormat:@"%d",![model.IsFavorites integerValue]];
+            [self.dataArr replaceObjectAtIndex:indexPath.row withObject:model];
+            [self.table reloadData];
+        }else{
+            [MBProgressHUD showError:json[@"ErrorMsg"]];
+        }
         
-            [MBProgressHUD hideHUD];
-      
-        });
-
    } failure:^(NSError *error) {
   
        NSLog(@"产品收藏网络请求失败");
