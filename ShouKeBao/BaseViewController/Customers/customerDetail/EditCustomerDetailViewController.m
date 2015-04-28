@@ -24,10 +24,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"编辑资料";
-    self.saveOutlet.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.saveOutlet.layer.borderWidth = 1;
-    self.saveOutlet.layer.cornerRadius = 4;
-    self.saveOutlet.layer.masksToBounds = YES;
+//    self.saveOutlet.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    self.saveOutlet.layer.borderWidth = 1;
+//    self.saveOutlet.layer.cornerRadius = 4;
+//    self.saveOutlet.layer.masksToBounds = YES;
     self.name.text = self.nameStr;
     self.tele.text = self.teleStr;
     self.wechat.text = self.wechatStr;
@@ -88,6 +88,16 @@
     }
     return YES;
     
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.0f;
 }
 
 - (IBAction)save:(id)sender {

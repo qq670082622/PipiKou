@@ -99,8 +99,8 @@
    
     self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.subDataArr1 = [NSArray arrayWithObjects:@"游览线路      ",@"出发日期      ",@"出发城市      ",@"主题推荐      ",@"供应商      ", nil];//5
-    self.subDataArr2 = [NSArray arrayWithObjects:@"酒店类型      ",@"出行方式      ",@"邮轮公司      ",@"线路等级      ", nil];//4
+    self.subDataArr1 = [NSArray arrayWithObjects:@"出发城市      ",@"出发日期      ",@"行程天数      ",@"游览线路      ",@"供应商      ", nil];//5
+    self.subDataArr2 = [NSArray arrayWithObjects:@"主题推荐      ",@"酒店类型      ",@"出行方式      ",@"邮轮公司      ", nil];//4
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
     self.turn = [NSMutableString stringWithFormat:@"Off"];
@@ -789,8 +789,7 @@
             
             [view addSubview:btn];
             
-//////////
-        
+
         
         UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 210)];
         
@@ -808,6 +807,8 @@
         
         self.subSubView.frame = CGRectMake(0, 50, self.subTable.frame.size.width, 160);
         
+            self.subTable.contentOffset = CGPointMake(0, 250);
+            
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
         
         [footView addSubview:self.subSubView];
