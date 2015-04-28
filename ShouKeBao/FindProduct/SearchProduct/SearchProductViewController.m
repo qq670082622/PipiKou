@@ -14,6 +14,7 @@
 #import "SearchFootView.h"
 #import <QuartzCore/QuartzCore.h>
 #import "MJRefresh.h"
+#import "NSArray+QD.h"
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -163,9 +164,10 @@
 
 - (void)loadHistoryDataSource
 {
-    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"searchHistory"];
+    NSArray *tmp = [WriteFileManager readData:@"searchHistory"];
+    NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
     self.tableDataArr = searchArr;
-    
+    [self.table reloadData];
 }
 
 
@@ -173,7 +175,9 @@
 -(void)searchFootViewDidClickedLoadBtn:(SearchFootView *)footView
 {
     [self.tableDataArr removeAllObjects];
-    [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+    NSArray *arr = [NSArray arrayWithObject:self.tableDataArr];
+   
+    [WriteFileManager saveData:arr name:@"searchHistory"];
     [self.table reloadData];
     self.table.tableFooterView.hidden = YES;
     [self.inputView setText:@""];
@@ -265,17 +269,19 @@
 - (IBAction)search
 {
     
-        [self.tableDataArr addObject:self.inputView.text];
+    [self.tableDataArr addObject:self.inputView.text];
     
-    NSSet *set = [NSSet setWithObject:_tableDataArr];
-    NSMutableArray *newArr = [NSMutableArray arrayWithArray:[set allObjects]];
-        [WriteFileManager WMsaveData:newArr name:@"searchHistory"];
-      
+    if (self.tableDataArr.count > 6) {
+        [self.tableDataArr removeObjectAtIndex:0];
+    }
+    
+    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
+    
+    [WriteFileManager saveData:tmp name:@"searchHistory"];
+    
     ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
     self.table.tableFooterView.hidden = NO;
-    self.tableDataArr = newArr;
-    [self.table reloadData];
     
     [self.navigationController pushViewController:list animated:YES];
 }
@@ -301,25 +307,6 @@
     UIButton *btn = (UIButton *)sender;
     self.inputView.text = btn.currentTitle;
     [self search];
-// 
-//    for (int i = 0; i<self.tableDataArr.count; i++) {
-//        
-//        if (![_tableDataArr[i]  isEqualToString:btn.currentTitle]) {
-//            
-//            NSLog(@"tableDataArr[i] is %@ inputText is %@",_tableDataArr[i],self.inputView.text);
-//            [self.tableDataArr addObject:self.inputView.text];
-//            
-//            [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
-//        }
-//        }
-//
-//    ProductList *list = [[ProductList alloc] init];
-//    list.pushedSearchK = self.inputView.text;
-//  self.table.tableFooterView.hidden = NO;
-//    [self.table reloadData];
-//
-//   [self.navigationController pushViewController:list animated:YES];
-    
  
 }
 @end

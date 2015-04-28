@@ -16,6 +16,7 @@
 #import "WMAnimations.h"
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
+#import "NSArray+QD.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -221,8 +222,13 @@
 
 -(void)loadHistoryArr
 {
-    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
-    self.historyArr = searchArr;
+//    
+    NSArray *tmp = [WriteFileManager readFielWithName:@"customerSearch"];
+    NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
+   self.historyArr = searchArr;
+
+//    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
+//    self.historyArr = searchArr;
     [self.historyTable reloadData];
 
 }
@@ -326,6 +332,14 @@
 #pragma mark - textField delegate method
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+//    [self.tableDataArr addObject:self.inputView.text];
+//    if (self.tableDataArr.count > 6) {
+//        [self.tableDataArr removeObjectAtIndex:0];
+//    }
+//    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
+//    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
+
+    
     [self.searchTextField resignFirstResponder];
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -334,7 +348,12 @@
     }];
 
     [self.historyArr addObject:self.searchTextField.text];
-    [WriteFileManager WMsaveData:_historyArr name:@"customerSearch"];
+        if (self.historyArr.count > 6) {
+            [self.historyArr removeObjectAtIndex:0];
+        }
+        NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
+        [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
+   
     [self cancelSearch];
     
   NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -446,6 +465,7 @@
 
 }
 
+
 - (IBAction)customSearch:(id)sender {
     self.searchTextField.hidden = NO;
     self.cancelSearchOutlet.hidden = NO;
@@ -466,6 +486,8 @@
    
 
 }
+
+
 - (IBAction)cancelSearch {
     self.cancelSearchOutlet.hidden = YES;
     self.searchTextField.hidden = YES;
