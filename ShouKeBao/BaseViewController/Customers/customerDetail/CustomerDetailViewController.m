@@ -116,7 +116,9 @@
 }
 -(void)EditCustomerDetail
 {
-    EditCustomerDetailViewController *edit = [[EditCustomerDetailViewController alloc] init];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+    
+    EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
     edit.ID = self.ID;
     edit.QQStr = self.QQStr;
     edit.wechatStr = self.weChatStr;

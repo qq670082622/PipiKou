@@ -17,9 +17,7 @@
 		5A0058901ACEBD1E007AF362 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058661ACEBD1E007AF362 /* CustomCell.m */; };
 		5A0058911ACEBD1E007AF362 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058671ACEBD1E007AF362 /* CustomCell.xib */; };
 		5A0058921ACEBD1E007AF362 /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */; };
-		5A0058931ACEBD1E007AF362 /* CustomerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A00586B1ACEBD1E007AF362 /* CustomerDetailViewController.xib */; };
 		5A0058941ACEBD1E007AF362 /* EditCustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00586D1ACEBD1E007AF362 /* EditCustomerDetailViewController.m */; };
-		5A0058951ACEBD1E007AF362 /* EditCustomerDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A00586E1ACEBD1E007AF362 /* EditCustomerDetailViewController.xib */; };
 		5A0058961ACEBD1E007AF362 /* CustomerOrdersUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058711ACEBD1E007AF362 /* CustomerOrdersUIViewController.m */; };
 		5A0058971ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058721ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib */; };
 		5A0058981ACEBD1E007AF362 /* Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058741ACEBD1E007AF362 /* Customers.m */; };
@@ -298,10 +296,8 @@
 		5A0058671ACEBD1E007AF362 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		5A0058691ACEBD1E007AF362 /* CustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDetailViewController.h; sourceTree = "<group>"; };
 		5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
-		5A00586B1ACEBD1E007AF362 /* CustomerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerDetailViewController.xib; sourceTree = "<group>"; };
 		5A00586C1ACEBD1E007AF362 /* EditCustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCustomerDetailViewController.h; sourceTree = "<group>"; };
 		5A00586D1ACEBD1E007AF362 /* EditCustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCustomerDetailViewController.m; sourceTree = "<group>"; };
-		5A00586E1ACEBD1E007AF362 /* EditCustomerDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditCustomerDetailViewController.xib; sourceTree = "<group>"; };
 		5A0058701ACEBD1E007AF362 /* CustomerOrdersUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerOrdersUIViewController.h; sourceTree = "<group>"; };
 		5A0058711ACEBD1E007AF362 /* CustomerOrdersUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrdersUIViewController.m; sourceTree = "<group>"; };
 		5A0058721ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerOrdersUIViewController.xib; sourceTree = "<group>"; };
@@ -831,10 +827,8 @@
 				636085271AEE3A4600C0E1A1 /* Customer.storyboard */,
 				5A0058691ACEBD1E007AF362 /* CustomerDetailViewController.h */,
 				5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */,
-				5A00586B1ACEBD1E007AF362 /* CustomerDetailViewController.xib */,
 				5A00586C1ACEBD1E007AF362 /* EditCustomerDetailViewController.h */,
 				5A00586D1ACEBD1E007AF362 /* EditCustomerDetailViewController.m */,
-				5A00586E1ACEBD1E007AF362 /* EditCustomerDetailViewController.xib */,
 			);
 			path = customerDetail;
 			sourceTree = "<group>";
@@ -1953,7 +1947,6 @@
 				5A52FC5E1ACEBF220076DAE6 /* StationSelect.xib in Resources */,
 				5A0058911ACEBD1E007AF362 /* CustomCell.xib in Resources */,
 				5A52FC781ACEBF220076DAE6 /* SosHead.xib in Resources */,
-				5A0058931ACEBD1E007AF362 /* CustomerDetailViewController.xib in Resources */,
 				5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */,
 				5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */,
 				636C8B731AC2E1420097CAE9 /* Resource.bundle in Resources */,
@@ -1970,7 +1963,6 @@
 				5A52FC4D1ACEBF220076DAE6 /* ProductList.xib in Resources */,
 				636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */,
 				5A0058A11ACEBD1E007AF362 /* remondTableViewCell.xib in Resources */,
-				5A0058951ACEBD1E007AF362 /* EditCustomerDetailViewController.xib in Resources */,
 				5A52FC591ACEBF220076DAE6 /* rightCell3.xib in Resources */,
 				636C8B721AC2E1420097CAE9 /* ShareSDKLocalizable.strings in Resources */,
 				5A52FC881ACEBF220076DAE6 /* ContactView.xib in Resources */,

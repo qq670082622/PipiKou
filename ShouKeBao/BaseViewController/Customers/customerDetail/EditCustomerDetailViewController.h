@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
+#import "SKTableViewController.h"
 @protocol notifiToRefereshCustomerDetailInfo<NSObject>
 -(void)refreshCustomerInfoWithName:(NSString*)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note;
 @end
-@interface EditCustomerDetailViewController : SKViewController
+@interface EditCustomerDetailViewController : SKTableViewController
 @property (nonatomic,copy) NSString *ID;
 @property (nonatomic,copy) NSString *nameStr;
 @property (nonatomic,copy) NSString *teleStr;
