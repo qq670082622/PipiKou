@@ -319,7 +319,7 @@
     //上啦刷新
     [self.table addFooterWithTarget:self action:@selector(loadDataSourceWithCondition)];
     //设置文字
-    self.table.footerPullToRefreshText = @"加载更多";
+    self.table.footerPullToRefreshText = @"更新列表";
     self.table.footerRefreshingText = @"正在刷新";
 }
 

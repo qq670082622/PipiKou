@@ -444,13 +444,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         line.backgroundColor = [UIColor colorWithRed:184/255.f green:186/255.f blue:191/255.f alpha:1];
         
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
-       img.frame = CGRectMake(10, 16, 18, 18);
+       img.frame = CGRectMake(16, 16, 18, 18);
         UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotBtnClick:)];
         [img addGestureRecognizer:tap];
         self.hotIcon = img;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(28, 0, 60, 50);
+        btn.frame = CGRectMake(32, 0, 60, 50);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];

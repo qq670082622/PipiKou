@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchCustomerBtnOutlet;
 @property (copy,nonatomic) NSMutableString *callingPhoneNum;
 - (IBAction)cancelSearch;
+@property (weak, nonatomic) IBOutlet UIButton *batchCustomerBtn;
 
 //1、 时间顺序;2、时间倒序; 3-订单数顺序;4、订单数倒序 5,字母顺序 6，字母倒序
 @property (weak, nonatomic) IBOutlet UIView *historyView;
@@ -76,6 +77,8 @@
     
    [self.conditionLine addSubview:lineDown];
     [self.conditionLine addSubview:lineOn];
+    
+    self.table.tableFooterView = [[UIView alloc] init];
 
 }
 #pragma  -mark batchAdd delegate
@@ -106,12 +109,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//    [hudView show:YES];
-//    hudView.labelText = @"加载中...";
+  
     [self loadDataSource];
-    //[hudView show:NO];
+   
     
     [self initPull];
     
@@ -129,11 +129,39 @@
 
 -(void)setSubViewUp
 {
+    CGFloat screenWid = [[UIScreen mainScreen] bounds].size.width;
+   
+    CGFloat subX = self.subView.frame.origin.x;
+    CGFloat subY = self.subView.frame.origin.y;
+    CGFloat subViewWid = self.subView.frame.size.width;
+    CGFloat subViewHeight320 = self.subView.frame.size.height;
+    CGFloat subViewHeight = self.subView.frame.size.height;
+
+    if (screenWid == 320) {
+        //23,127,255
+        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
+   
+        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight320/2);
+        
+        
+    
+    }else if (screenWid > 320){
+        
+        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
+        
+        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight);
+
+    }
+    
+
+   
+    
     if (self.subView.hidden == YES) {
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 0;
             self.subView.alpha = 1;
            self.subView.hidden = NO;
+            
         }];
         
     }else if (self.subView.hidden == NO){

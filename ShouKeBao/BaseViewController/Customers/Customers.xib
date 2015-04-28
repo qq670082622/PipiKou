@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Customers">
             <connections>
+                <outlet property="batchCustomerBtn" destination="nhR-tZ-9Ut" id="XVW-q8-1eq"/>
                 <outlet property="cancelSearchOutlet" destination="Ag8-T2-2ax" id="s33-S9-mM3"/>
                 <outlet property="conditionLine" destination="JzP-XY-h4A" id="e7d-qD-SHs"/>
                 <outlet property="historyTable" destination="tQq-UU-4wX" id="21r-HT-p7S"/>
@@ -110,7 +111,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nhR-tZ-9Ut" userLabel="importUser">
-                            <rect key="frame" x="0.0" y="46" width="130" height="37"/>
+                            <rect key="frame" x="0.0" y="46" width="130" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinY="YES"/>
                             <state key="normal">
                                 <color key="titleColor" red="0.16078431900000001" green="0.94117653369999998" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>

@@ -46,7 +46,7 @@
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:nil options:nil] lastObject];
        }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+   // cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
 }
 
