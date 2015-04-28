@@ -8,10 +8,9 @@
 
 #import "HistoryView.h"
 #import "WriteFileManager.h"
+#import "NSArray+QD.h"
 
 @interface HistoryView() <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
-
-@property (nonatomic,strong) UITableView *TableView;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
@@ -58,7 +57,8 @@
         
         NSArray *tmp = [WriteFileManager readFielWithName:@"historysearch"];
         
-        _dataSource = [NSMutableArray arrayWithArray:tmp];
+        NSArray *noRepeat = [NSArray arrayWithMemberIsOnly:tmp];
+        _dataSource = [NSMutableArray arrayWithArray:noRepeat];
     }
     return _dataSource;
 }
@@ -81,7 +81,8 @@
         cell.textLabel.font = [UIFont systemFontOfSize:15];
     }
     
-    cell.textLabel.text = self.dataSource[indexPath.row];
+    cell.textLabel.text =  [self.dataSource objectAtIndex:[self.dataSource count] - (indexPath.row + 1)];
+    
     return cell;
 }
 

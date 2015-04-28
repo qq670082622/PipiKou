@@ -33,6 +33,7 @@
 
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
+#define historyCount 6
 
 @interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
 
@@ -855,8 +856,15 @@
     NSArray *arr = [WriteFileManager readFielWithName:@"historysearch"];
     [tmp addObjectsFromArray:arr];
     
-    // 再加上新的搜索记录 并保存
+    // 再加上新的搜索记录
     [tmp addObject:self.searchKeyWord];
+    
+    // 判断超出了6个的话把最早的去掉
+    if (tmp.count > historyCount) {
+        [tmp removeObjectAtIndex:0];
+    }
+    
+    // 并保存
     [WriteFileManager saveFileWithArray:tmp Name:@"historysearch"];
     
     [self.searchDisplayController setActive:NO animated:YES];
@@ -923,7 +931,6 @@
     }else{
         self.searchBar.placeholder = searchDefaultPlaceholder;
     }
-    
 }
 
 @end

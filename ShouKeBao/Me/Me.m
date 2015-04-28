@@ -24,7 +24,7 @@
 #import "MeHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 
-@interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+@interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
 
@@ -42,9 +42,8 @@
     [super viewDidLoad];
     self.title = @"我";
     
-    self.tableView.contentInset = UIEdgeInsetsMake(200, 0, 0, 0);
-    self.tableView.tableHeaderView = self.buttonView;
     self.tableView.rowHeight = 50;
+    [self setHeader];
     
     self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于收客宝",@"评价收客宝"]];
     
@@ -63,22 +62,26 @@
     [super viewWillAppear:animated];
     
     [self.navigationController setNavigationBarHidden:YES animated:NO];
-    [self setNav];
+    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     
-    [self.meheader removeFromSuperview];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 
 #pragma mark - private
-- (void)setNav
+// 设置头部
+- (void)setHeader
 {
-    self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
-    [self.navigationController.view addSubview:self.meheader];
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 260)];
+    
+    [cover addSubview:self.meheader];
+    [cover addSubview:self.buttonView];
+    
+    self.tableView.tableHeaderView = cover;
 }
 
 // 设置固定时间段免打扰
@@ -112,7 +115,8 @@
 - (MeButtonView *)buttonView
 {
     if (!_buttonView) {
-        _buttonView = [[MeButtonView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width,60)];
+        CGFloat buttonViewY = 200;
+        _buttonView = [[MeButtonView alloc] initWithFrame:CGRectMake(0, buttonViewY, self.view.frame.size.width,60)];
         _buttonView.delegate = self;
     }
     return _buttonView;
@@ -327,6 +331,17 @@
     [def synchronize];
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+}
+
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    CGFloat offset = scrollView.contentOffset.y;
+    if (offset < 0) {
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }else{
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    }
 }
 
 @end

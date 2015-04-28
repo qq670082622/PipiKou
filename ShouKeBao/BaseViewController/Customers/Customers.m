@@ -354,9 +354,7 @@
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
     
-
     return YES;
-   
 }
 
 

@@ -142,6 +142,7 @@
 		5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */; };
 		5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */; };
 		5A82161C1AD3843B009388DA /* HomeList.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A82161B1AD3843B009388DA /* HomeList.m */; };
+		5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DF5C11AEF3AAF00E1A671 /* NSArray+QD.m */; };
 		5A9C640B1AEE1CBA00F48BDF /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */; };
 		5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA176D81AE4A146003F7875 /* DressFooter.m */; };
 		5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AA483CE1AEA4135002C046C /* AddRemind.storyboard */; };
@@ -514,6 +515,8 @@
 		5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoCell.m; sourceTree = "<group>"; };
 		5A82161A1AD3843B009388DA /* HomeList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HomeList.h; sourceTree = "<group>"; };
 		5A82161B1AD3843B009388DA /* HomeList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeList.m; sourceTree = "<group>"; };
+		5A8DF5C01AEF3AAF00E1A671 /* NSArray+QD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSArray+QD.h"; sourceTree = "<group>"; };
+		5A8DF5C11AEF3AAF00E1A671 /* NSArray+QD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSArray+QD.m"; sourceTree = "<group>"; };
 		5A9C64091AEE1CBA00F48BDF /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		5AA176D71AE4A146003F7875 /* DressFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressFooter.h; sourceTree = "<group>"; };
@@ -946,6 +949,8 @@
 				5ABA4F5F1AD7B26E004AA8F6 /* NSDateFormatter+Category.m */,
 				5A60FC691AE09AA800CDAC4B /* UIImage+QD.h */,
 				5A60FC6A1AE09AA800CDAC4B /* UIImage+QD.m */,
+				5A8DF5C01AEF3AAF00E1A671 /* NSArray+QD.h */,
+				5A8DF5C11AEF3AAF00E1A671 /* NSArray+QD.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2002,6 +2007,7 @@
 				5A52FC691ACEBF220076DAE6 /* ModifyPwdViewController.m in Sources */,
 				5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */,
 				63B8C7021ACE917E00328C8C /* messageModel.m in Sources */,
+				5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */,
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
 				632BFFCF1AB91FD3003B15AD /* GTMBase65.m in Sources */,
 				5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */,

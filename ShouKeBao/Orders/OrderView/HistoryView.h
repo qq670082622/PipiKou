@@ -10,4 +10,6 @@
 
 @interface HistoryView : UIView
 
+@property (nonatomic,strong) UITableView *TableView;
+
 @end
