@@ -29,7 +29,7 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
-    [self changeSelectKey];
+ 
     
 }
 
@@ -43,7 +43,7 @@
     else if ([_selectKey isEqualToString:@"GoDate"]){
         
       
-        self.selectKey = [NSMutableString stringWithFormat:@"StartDate"];
+       // self.selectKey = [NSMutableString stringWithFormat:@"StartDate"];
     }
     
     else if ([_selectKey isEqualToString:@"ProductThemeTag"]){
@@ -63,11 +63,13 @@
 
 }
 
+
 -(void)back
 {
    // [self.delegate passKey:@"" andValue:nil andSelectIndexPath:nil andSelectValue:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 -(NSArray *)dataArr1
 {
@@ -85,15 +87,20 @@
         return _dataArr1;
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self dataArr1 ].count;
 }
+
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 static NSString *cellID = @"Cell";
@@ -116,6 +123,9 @@ static NSString *cellID = @"Cell";
     
     return cell;
 }
+
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -134,6 +144,9 @@ static NSString *cellID = @"Cell";
    
     self.selectValue = _dataArr1[indexPath.row][@"Text"];//取得的value的名称
   
+    [self changeSelectKey];
+    
+    NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
 //    [self.delegate passKey:key andValue:value andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:selectValue];
     
     [self.navigationController popViewControllerAnimated:YES];
