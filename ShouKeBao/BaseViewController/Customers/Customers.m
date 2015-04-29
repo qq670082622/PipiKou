@@ -17,7 +17,7 @@
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
@@ -79,7 +79,7 @@
     [self.conditionLine addSubview:lineOn];
     
     self.table.tableFooterView = [[UIView alloc] init];
-
+  
 }
 #pragma  -mark batchAdd delegate
 -(void)referesh
@@ -126,33 +126,20 @@
     self.navigationItem.rightBarButtonItem= barItem;
 }
 
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [UIView animateWithDuration:0.8 animations:^{
+        self.subView.alpha = 1;
+        self.subView.alpha = 0;
+        self.subView.hidden = YES;
+    }];
+}
+
+
 
 -(void)setSubViewUp
 {
-//    CGFloat screenWid = [[UIScreen mainScreen] bounds].size.width;
-//   
-//    CGFloat subX = self.subView.frame.origin.x;
-//    CGFloat subY = self.subView.frame.origin.y;
-//    CGFloat subViewWid = self.subView.frame.size.width;
-//    CGFloat subViewHeight320 = self.subView.frame.size.height;
-//    CGFloat subViewHeight = self.subView.frame.size.height;
-//
-//    if (screenWid == 320) {
-//        //23,127,255
-//        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
-//   
-//        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight320/2);
-//        
-//        
-//    
-//    }else if (screenWid > 320){
-//        
-//        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
-//        
-//        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight);
-//
-//    }
-//    
 
    
     
@@ -207,10 +194,18 @@
 }
 
 - (IBAction)importUser:(id)sender {
-    self.subView.hidden = YES;
+    NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
+    if ([systemVersion intValue]<8.0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+        [alert show];
+        self.subView.hidden = YES;
+    }else if ([systemVersion intValue] >= 8.0){
+  
+        self.subView.hidden = YES;
     BatchAddViewController *batch = [[BatchAddViewController alloc] init];
     batch.delegate = self;
-    [self.navigationController pushViewController:batch animated:YES];
+        [self.navigationController pushViewController:batch animated:YES];
+    }
 }
 
 
@@ -237,6 +232,9 @@
             [self.dataArr addObject:model];
         }
         [self.table reloadData];
+        if (_dataArr.count==0) {
+            [self addANewFootViewWhenHaveNoProduct];
+        }
 //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window]
 //    animated:YES];
 
@@ -245,6 +243,16 @@
     }];
 
    }
+#pragma  mark 没有产品时嵌图
+-(void)addANewFootViewWhenHaveNoProduct
+{
+    CGFloat wid = self.view.frame.size.width;
+    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake((wid-200)/2, 100, 200, 200)];
+    imgv.contentMode = UIViewContentModeScaleAspectFit;
+    imgv.image = [UIImage imageNamed:@"content_null"];
+    [self.view addSubview:imgv];
+    self.navigationItem.rightBarButtonItem = nil;
+}
 
 
 
@@ -283,7 +291,8 @@
         [self.navigationController pushViewController:detail animated:YES];
     }
     if (tableView.tag == 2) {
-        
+        self.searchTextField.text = _historyArr[indexPath.row];
+        [self textFieldShouldReturn:self.searchTextField];
     }
 }
 
@@ -397,6 +406,9 @@
             [self.dataArr addObject:model];
         }
         [self.table reloadData];
+        if (_dataArr.count == 0) {
+            [self addANewFootViewWhenHaveNoProduct];
+        }
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];

@@ -427,12 +427,13 @@
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
     [dic setObject:@"0" forKey:@"ProductSortingType"];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
-    [self.dataArr removeAllObjects];
+    
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         
         NSLog(@"--------------json[condition is  %@------------]",json);
         NSArray *arr = json[@"ProductList"];
         NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
+        [self.dataArr removeAllObjects];
         if (arr.count==0) {
             [self addANewFootViewWhenHaveNoProduct];
           //  self.table.tableFooterView.hidden = YES;
