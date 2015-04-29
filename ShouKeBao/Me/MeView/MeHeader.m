@@ -91,9 +91,7 @@
 {
     _isPerson = isPerson;
     
-    if (isPerson) {
-        self.headIcon.layer.cornerRadius = 45;
-    }
+    self.headIcon.layer.cornerRadius = isPerson ? 45 : 3;
 }
 
 @end
