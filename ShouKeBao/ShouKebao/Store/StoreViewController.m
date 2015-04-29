@@ -54,6 +54,8 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
+    
 }
 
 -(void)back

@@ -44,9 +44,11 @@ self.webLoadCount = 1;
     self.navigationItem.leftBarButtonItem= leftItem;
     
     
-    
+     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     
 }
+
+
 -(NSMutableArray *)webUrlArr
 {
     if (_webUrlArr == nil) {

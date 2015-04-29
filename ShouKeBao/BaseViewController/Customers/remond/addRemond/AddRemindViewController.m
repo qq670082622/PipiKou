@@ -181,7 +181,16 @@
             } completion:^(BOOL finished) {
                 
             }];
-        }
+//        }else if (_datePicker){
+//            
+//            [UIView animateWithDuration:0.3 animations:^{
+//                _datePicker.transform = CGAffineTransformMakeTranslation(0,  _datePicker.frame.size.height);
+//            } completion:^(BOOL finished) {
+//                
+//            }];
+//
+//            //[self.datePicker removeFromSuperview];
+            }
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

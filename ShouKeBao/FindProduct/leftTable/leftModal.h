@@ -13,8 +13,10 @@
 @property (nonatomic, copy) NSString *Name;
 @property (nonatomic, copy) NSString *Type;
 @property (nonatomic , copy) NSString *title;
-
+@property (nonatomic , copy) NSString *MaxIcon;
+@property (nonatomic , copy) NSString *MaxIconFocus;
+@property (nonatomic , copy) NSString *MinIcon;
+@property (nonatomic , copy) NSString *MinIconFocus;
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
-
 @end
