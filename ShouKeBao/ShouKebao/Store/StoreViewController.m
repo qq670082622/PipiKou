@@ -132,6 +132,10 @@
     }
     NSLog(@"即将加载的页面是%@  arr.count is %lu",rightStr,(unsigned long)[self.webUrlArr count]);
     
+    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
+    NSLog(@"---------------------result is %@-------------------------",result);
+    
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightStr forKey:@"PageUrl"];
     
