@@ -144,7 +144,7 @@
             NSLog(@"创建客户提醒的请求失败%@",error);
         }];
     }else if (self.descript.text.length < 2 ){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"最起码填写3个字吧？😄" message:@"若您想放弃添加提醒，点击返回按钮可以啦！～" delegate:self cancelButtonTitle:@"谢谢，我知道了" otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"注意" message:@"您忘记填写提醒内容了？😄" delegate:self cancelButtonTitle:@"谢谢，我知道了" otherButtonTitles: nil];
         [alert show];
     }
     [self.navigationController popViewControllerAnimated:YES];
