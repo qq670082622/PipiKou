@@ -24,6 +24,7 @@
 #import "SearchProductViewController.h"
 #import "WMAnimations.h"
 #import "ResizeImage.h"
+#import "UIImageView+WebCache.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -84,8 +85,8 @@
     self.hotTable.dataSource = self;
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
-    self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPfeiji",@"APPyoulun",@"APPdaxiang",@"APPshanzi",@"APPconglinhaidao",@"APPstatue",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
-    self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPfeiji2",@"APPyoulun2.png",@"APPdaxiang2",@"APPshanzi2",@"APPconglinhaidao2",@"APPstatue2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
+//    self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPfeiji",@"APPyoulun",@"APPdaxiang",@"APPshanzi",@"APPconglinhaidao",@"APPstatue",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
+//    self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPfeiji2",@"APPyoulun2.png",@"APPdaxiang2",@"APPshanzi2",@"APPconglinhaidao2",@"APPstatue2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
   self.isHot = YES;
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
  
@@ -162,7 +163,8 @@
     hudView.labelText = @"加载中...";
     
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationType" params:nil success:^(id json) {
-      
+        NSLog(@"-------------------left json is %@----------",json);
+        
         [self.leftTableArr removeAllObjects];
         for(NSDictionary *dic in json[@"NavigationTypeList"]){
             leftModal *modal = [leftModal modalWithDict:dic];
@@ -626,11 +628,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
     if (tableView.tag == 1 ) {//&& ([_row intValue] == 0)
         leftCell *cell = [leftCell cellWithTableView:tableView];
-        cell.modal = [self.leftTableArr objectAtIndex:indexPath.row];
-        cell.icon.image = [UIImage imageNamed:[self.leftNormoalIconArr objectAtIndex:indexPath.row]];
+        leftModal *model = self.leftTableArr[indexPath.row];
+        cell.modal = model;
+        [cell.icon sd_setImageWithURL:[NSURL URLWithString:model.MaxIcon]];
+        
         if (indexPath.row == [self.row intValue] && self.isHot == NO){//&& self.hotIcon.image == [UIImage imageNamed:@"APPhot"]) {
             cell.name.textColor = [UIColor orangeColor];
-            cell.icon.image = [UIImage imageNamed:[self.leftSelectIconArr objectAtIndex:indexPath.row]];
+            [cell.icon sd_setImageWithURL:[NSURL URLWithString:model.MaxIconFocus]];
             cell.contentView.backgroundColor = [UIColor whiteColor];
         }
         return cell;

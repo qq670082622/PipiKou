@@ -129,30 +129,30 @@
 
 -(void)setSubViewUp
 {
-    CGFloat screenWid = [[UIScreen mainScreen] bounds].size.width;
-   
-    CGFloat subX = self.subView.frame.origin.x;
-    CGFloat subY = self.subView.frame.origin.y;
-    CGFloat subViewWid = self.subView.frame.size.width;
-    CGFloat subViewHeight320 = self.subView.frame.size.height;
-    CGFloat subViewHeight = self.subView.frame.size.height;
-
-    if (screenWid == 320) {
-        //23,127,255
-        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
-   
-        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight320/2);
-        
-        
-    
-    }else if (screenWid > 320){
-        
-        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
-        
-        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight);
-
-    }
-    
+//    CGFloat screenWid = [[UIScreen mainScreen] bounds].size.width;
+//   
+//    CGFloat subX = self.subView.frame.origin.x;
+//    CGFloat subY = self.subView.frame.origin.y;
+//    CGFloat subViewWid = self.subView.frame.size.width;
+//    CGFloat subViewHeight320 = self.subView.frame.size.height;
+//    CGFloat subViewHeight = self.subView.frame.size.height;
+//
+//    if (screenWid == 320) {
+//        //23,127,255
+//        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
+//   
+//        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight320/2);
+//        
+//        
+//    
+//    }else if (screenWid > 320){
+//        
+//        self.batchCustomerBtn.backgroundColor = [UIColor colorWithRed:23/255.f green:127/255.f blue:255/255.f alpha:1];
+//        
+//        self.subView.frame = CGRectMake(subX, subY, subViewWid, subViewHeight);
+//
+//    }
+//    
 
    
     
