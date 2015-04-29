@@ -43,7 +43,7 @@ self.webLoadCount = 1;
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    
+     [self.webView scalesPageToFit];
      [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     
 }

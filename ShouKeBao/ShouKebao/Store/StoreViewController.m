@@ -60,6 +60,8 @@
     tap.delegate = self;
     [self.blackView addGestureRecognizer:tap];
     
+     [self.webView scalesPageToFit];
+    
 }
 
 -(void)tapBlackViewToHideIt
