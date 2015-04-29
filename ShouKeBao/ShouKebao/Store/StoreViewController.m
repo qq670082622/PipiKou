@@ -11,10 +11,10 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
-@interface StoreViewController ()<UIWebViewDelegate>
+@interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
 @property (weak, nonatomic) IBOutlet UIButton *checkCheapBtnOutlet;
-- (IBAction)checkCheapPrice:(id)sender;
+- (IBAction)checkCheapPrice;
 @property (weak, nonatomic) IBOutlet UILabel *cheapPrice;
 @property (weak, nonatomic) IBOutlet UILabel *profit;
 @property (weak, nonatomic) IBOutlet UILabel *jiafan;
@@ -55,6 +55,10 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cheapPrice)];
+    tap.delegate = self;
+    [self.blackView addGestureRecognizer:tap];
     
 }
 
@@ -249,7 +253,7 @@
 
 
 
-- (IBAction)checkCheapPrice:(id)sender {
+- (IBAction)checkCheapPrice{
     if (self.checkCheapBtnOutlet.selected == NO) {
         [self.checkCheapBtnOutlet setSelected:YES];
         self.subView.hidden = NO;
