@@ -15,7 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MJRefresh.h"
 #import "NSArray+QD.h"
-@interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate>
+@interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
 @property (weak, nonatomic) IBOutlet UIButton *btn1;
@@ -168,6 +168,11 @@
     NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
     self.tableDataArr = searchArr;
     [self.table reloadData];
+}
+#pragma mark - UIScrollViewDelegate
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.inputView resignFirstResponder];
 }
 
 

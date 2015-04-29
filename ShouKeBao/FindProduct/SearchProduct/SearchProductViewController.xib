@@ -13,7 +13,7 @@
                 <outlet property="btn4" destination="xf8-FO-MJu" id="qpG-cV-Ss4"/>
                 <outlet property="btn5" destination="eYH-Vq-AbK" id="rvf-4G-isG"/>
                 <outlet property="btn6" destination="yVJ-ud-aMf" id="Orc-He-aty"/>
-                <outlet property="gestureView" destination="06O-R7-Jei" id="8LS-ZY-GHA"/>
+                <outlet property="gestureView" destination="60w-MI-Uz8" id="eLd-mA-MCB"/>
                 <outlet property="inputView" destination="FZI-bY-7VM" id="m2P-cz-AIe"/>
                 <outlet property="table" destination="wtk-pA-fcT" id="fvg-ET-Mgf"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -73,6 +73,11 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="06O-R7-Jei" userLabel="gestureView">
+                    <rect key="frame" x="0.0" y="47" width="320" height="434"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                </view>
+                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" id="60w-MI-Uz8">
                     <rect key="frame" x="0.0" y="47" width="320" height="434"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
@@ -168,18 +173,20 @@
                             <color key="textColor" white="0.5" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
+                        <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wtk-pA-fcT">
+                            <rect key="frame" x="20" y="175" width="280" height="260"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="dataSource" destination="-1" id="KYu-n1-Qhx"/>
+                                <outlet property="delegate" destination="-1" id="jYp-HB-UT3"/>
+                            </connections>
+                        </tableView>
                     </subviews>
-                    <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
-                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="wtk-pA-fcT">
-                    <rect key="frame" x="20" y="220" width="280" height="260"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <connections>
-                        <outlet property="dataSource" destination="-1" id="KYu-n1-Qhx"/>
-                        <outlet property="delegate" destination="-1" id="jYp-HB-UT3"/>
+                        <outlet property="delegate" destination="-1" id="lkL-st-9Ip"/>
                     </connections>
-                </tableView>
+                </scrollView>
             </subviews>
             <color key="backgroundColor" white="0.96241714015151514" alpha="1" colorSpace="calibratedWhite"/>
             <nil key="simulatedStatusBarMetrics"/>
