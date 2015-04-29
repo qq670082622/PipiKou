@@ -70,10 +70,10 @@
 
 @implementation FindProduct
 
-- (void)viewDidLoad {
+- (void)viewDidLoad{
     [super viewDidLoad];
     self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
-   self.title = @"找产品";
+    self.title = @"找产品";
     self.leftTable.delegate = self;
     self.leftTable.dataSource  = self;
     self.rightTable.delegate = self;
@@ -86,10 +86,10 @@
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPfeiji",@"APPyoulun",@"APPdaxiang",@"APPshanzi",@"APPconglinhaidao",@"APPstatue",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
     self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPfeiji2",@"APPyoulun2.png",@"APPdaxiang2",@"APPshanzi2",@"APPconglinhaidao2",@"APPstatue2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
-  self.isHot = YES;
+      self.isHot = YES;
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
  
-[self loadDataSourceLeft];
+    [self loadDataSourceLeft];
     [self loadHotData];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerViewDidClickedLoadBtn:)];
@@ -100,7 +100,7 @@
 
 
 #pragma  mark - stationSelect delegate
--(void)notifiToReloadData
+- (void)notifiToReloadData
 {
     [self loadDataSourceLeft];
     [self loadHotData];
@@ -108,7 +108,7 @@
 
 }
 
--(NSMutableString *)row
+- (NSMutableString *)row
 {
     if (_row == nil) {
         self.row = [NSMutableString string];
@@ -116,7 +116,7 @@
     return _row;
 }
 
--(NSMutableString *)table2Row
+- (NSMutableString *)table2Row
 {
     if (_table2Row == nil) {
         self.table2Row = [NSMutableString string];
@@ -124,7 +124,7 @@
     return _table2Row;
 }
 
--(void)viewWillAppear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     
@@ -152,7 +152,7 @@
     NSIndexPath *selected3 = [self.rightTable2 indexPathForSelectedRow];
     if(selected3) [self.rightTable2 deselectRowAtIndexPath:selected animated:NO];
     
-  }
+}
 
 
 #pragma mark - LoadDataSource
@@ -245,56 +245,55 @@
 }
 
 
--(void)loadHotData
+- (void)loadHotData
 {
-
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
     
     [hudView show:YES];
     
-[IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
-    NSLog(@"---------热卖返回json is %@--------",json);
-   [self.hotArr removeAllObjects];
-    
-   // [self.hotSectionArr removeAllObjects];
-    NSMutableArray *hotDicNameArr = [NSMutableArray array];
-    for (NSDictionary *dic in json[@"RankingProdctList"]) {
-        [hotDicNameArr addObject:dic[@"Name"]];
+    [IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
+        NSLog(@"---------热卖返回json is %@--------",json);
+       [self.hotArr removeAllObjects];
+        
+       // [self.hotSectionArr removeAllObjects];
+        NSMutableArray *hotDicNameArr = [NSMutableArray array];
+        for (NSDictionary *dic in json[@"RankingProdctList"]) {
+            [hotDicNameArr addObject:dic[@"Name"]];
+        }
+        self.hotSectionArr = hotDicNameArr;   //获取section数组
+       
+        
+        NSLog(@"hotSectionArr is %@",_hotSectionArr);
+        
+        for (NSDictionary *dic in json[@"RankingProdctList"]) {
+            NSMutableArray *tmp = [NSMutableArray array];
+    for (NSDictionary *dict in dic[@"ProductList"]) {
+                rightModal *modal = [rightModal modalWithDict:dict];
+                  [tmp addObject:modal];
     }
-    self.hotSectionArr = hotDicNameArr;   //获取section数组
-   
-    
-    NSLog(@"hotSectionArr is %@",_hotSectionArr);
-    
-    for (NSDictionary *dic in json[@"RankingProdctList"]) {
-        NSMutableArray *tmp = [NSMutableArray array];
-for (NSDictionary *dict in dic[@"ProductList"]) {
-            rightModal *modal = [rightModal modalWithDict:dict];
-              [tmp addObject:modal];
-}
-         [self.hotArr addObject:tmp];
-        }//获得热卖总数组
-    
-    NSLog(@"------------hotarr------------------%@",self.hotArr);
+             [self.hotArr addObject:tmp];
+            }//获得热卖总数组
+        
+        NSLog(@"------------hotarr------------------%@",self.hotArr);
 
-    for (int i = 0 ; i<self.hotArr.count; i++) {
-        [self.hotArrDic setObject:self.hotArr[i] forKey:self.hotSectionArr[i]];
-    }
-    
+        for (int i = 0 ; i<self.hotArr.count; i++) {
+            [self.hotArrDic setObject:self.hotArr[i] forKey:self.hotSectionArr[i]];
+        }
+        
 
-        [self.hotTable reloadData];
-    
-} failure:^(NSError *error) {
-    NSLog(@"-----------hot json 请求失败，原因：%@",error);
-}];
+            [self.hotTable reloadData];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"-----------hot json 请求失败，原因：%@",error);
+    }];
 
     [hudView hide:YES];
 }
 
 #pragma mark - private
--(void)iniHeaderRight
+- (void)iniHeaderRight
 {
         //下啦刷新
     [self.rightTable addHeaderWithTarget:self action:@selector(rightheadRefresh) dateKey:nil];
@@ -323,8 +322,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     self.hotTable.footerRefreshingText = @"正在刷新";
 }
 
--(void)rightheadRefresh
-{//上拉刷新,一般在此方法内添加刷新内容
+- (void)rightheadRefresh
+{
+    //上拉刷新,一般在此方法内添加刷新内容
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [self loadDataSourceRight];
         [self loadHotData];
@@ -332,8 +332,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
       });
 }
 
--(void)rightfootRefresh
-{//下拉刷新
+- (void)rightfootRefresh
+{
+    //下拉刷新
    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [self loadDataSourceRight];
          [self loadHotData];
@@ -353,9 +354,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
--(void)setLeftTableHeader{
+- (void)setLeftTableHeader{
 
 }
+
 - (void)hotBtnClick:(id)sender {
     self.row = nil;
 //    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
@@ -367,11 +369,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         self.rightTable2.alpha = 0;
         self.hotTable.alpha = 1;
         self.hotIcon.image = [UIImage imageNamed:@"APPhot2"];
-
-
     }];
-    
-    
 }
 
 #pragma mark - getter
@@ -384,12 +382,12 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 }
      
 -(NSMutableArray *)rightTableArr
-    {
+{
         if (_rightTableArr == nil) {
             _rightTableArr = [NSMutableArray array];
         }
         return _rightTableArr;
-    }
+}
 
 - (NSMutableArray *)rightMoreArr
 {
@@ -398,6 +396,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return _rightMoreArr;
 }
+
 - (NSMutableArray *)hotArr
 {
     if (!_hotArr) {
@@ -408,7 +407,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 
 #pragma mark - rightTable2的代理方法
--(void)headerViewDidClickedLoadBtn:(HeaderView *)headerView//rightTable2的代理方法
+- (void)headerViewDidClickedLoadBtn:(HeaderView *)headerView//rightTable2的代理方法
 {
     [UIView animateWithDuration:0.3 animations:^{
         self.rightTable2.alpha = 0;
@@ -434,7 +433,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     return 0;
 }
 
--(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if(tableView.tag == 1){
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.leftTable.frame.size.width, 50)];
@@ -493,7 +492,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     return 0;
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
         return 50;
@@ -506,7 +505,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return 0;
 }
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
    if (tableView.tag == 4) {
        NSLog(@"-------%lu",(unsigned long)self.hotSectionArr.count);
@@ -514,7 +514,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return 1;
 }
--(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 4) {
         return self.hotSectionArr[section];
@@ -524,7 +525,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 }
 
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView.tag == 1) {
         return self.leftTableArr.count;
@@ -538,7 +539,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return 0;
 }
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
         self.isHot = NO;
@@ -567,8 +569,6 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             self.hotBtn.titleLabel.font = [UIFont systemFontOfSize:12];
 
         }];
-        
-
     }
     
     if (tableView.tag == 2) {
@@ -610,9 +610,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
  [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
 }
 
-
 - (void)deselect
-
 {
     
    // [self.leftTable deselectRowAtIndexPath:[self.leftTable indexPathForSelectedRow] animated:YES];
@@ -621,6 +619,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
      [self.hotTable deselectRowAtIndexPath:[self.hotTable indexPathForSelectedRow] animated:YES];
     
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];

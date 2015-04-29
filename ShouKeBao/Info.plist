@@ -11,7 +11,7 @@
 	<key>CFBundleIcons~ipad</key>
 	<dict/>
 	<key>CFBundleIdentifier</key>
-	<string>com.pipiKou</string>
+	<string>com.pipikou.shoukebao</string>
 	<key>CFBundleInfoDictionaryVersion</key>
 	<string>6.0</string>
 	<key>CFBundleLocalizations</key>
@@ -19,7 +19,7 @@
 		<string>zh</string>
 	</array>
 	<key>CFBundleName</key>
-	<string>收客宝</string>
+	<string>ShouKeBao</string>
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>

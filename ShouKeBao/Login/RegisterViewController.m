@@ -7,8 +7,11 @@
 //
 
 #import "RegisterViewController.h"
+#import "UINavigationController+SGProgress.h"
 
-@interface RegisterViewController ()
+@interface RegisterViewController () <UIWebViewDelegate>
+
+@property (nonatomic,strong) UIWebView *webView;
 
 @end
 
@@ -21,6 +24,9 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setNav];
+    
+    [self.view addSubview:self.webView];
+    [self loadWithUrl:@"http://www.lvyouquan.cn/MicroChannel/Reg"];
 }
 
 - (void)setNav
@@ -43,6 +49,41 @@
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - getter
+- (UIWebView *)webView
+{
+    if (!_webView) {
+        _webView = [[UIWebView alloc] init];
+        _webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        _webView.delegate = self;
+    }
+    return _webView;
+}
+
+#pragma mark - loadWebView
+- (void)loadWithUrl:(NSString *)url
+{
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
+    
+    [self.webView loadRequest:request];
+}
+
+#pragma mark - UIWebViewDelegate
+- (void)webViewDidStartLoad:(UIWebView *)webView
+{
+    [self.navigationController showSGProgressWithDuration:5 andTintColor:[UIColor colorWithRed:80/255.0 green:218/255.0 blue:85/255.0 alpha:1] andTitle:@"加载中..."];
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [self.navigationController cancelSGProgress];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self.navigationController cancelSGProgress];
 }
 
 @end

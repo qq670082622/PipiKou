@@ -47,7 +47,7 @@
 - (void)loadDataSource
 {
     NSDictionary *param = @{@"PageSize":[NSString stringWithFormat:@"%d",pageSize],
-                            @"PageIndex":[NSString stringWithFormat:@"%d",self.pageIndex]};
+                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex]};
     if (self.listType == collectionType) {
         self.title = @"我的收藏";
         [MeHttpTool getFavoritesProductListWithParam:param success:^(id json) {
@@ -251,7 +251,7 @@
     cell.delegate = self;
     
     cell.isHistory = self.listType == collectionType ? NO : YES;
-    ProductModal *model = self.dataSource[indexPath.section];
+    ProductModal *model = self.dataSource[indexPath.row];
     cell.modal = model;
     
     cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
@@ -262,7 +262,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    ProductModal *model = self.dataSource[indexPath.section];
+    ProductModal *model = self.dataSource[indexPath.row];
     
     ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
     detail.produceUrl = model.LinkUrl;

@@ -17,13 +17,15 @@
 @end
 
 @interface MeHeader : UIImageView
-@property (weak, nonatomic) UIButton *headIcon;
+@property (weak, nonatomic) UIImageView *headIcon;
 
 @property (weak, nonatomic) UILabel *nickName;
 
 @property (weak, nonatomic) UILabel *personType;
 
 @property (weak, nonatomic) UIButton *setBtn;
+
+@property (nonatomic,assign) BOOL isPerson;
 
 @property (nonatomic,weak) id<MeHeaderDelegate> delegate;
 

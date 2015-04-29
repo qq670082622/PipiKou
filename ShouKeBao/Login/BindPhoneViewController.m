@@ -116,11 +116,13 @@
 {
     CGRect screenRect = [UIScreen mainScreen].bounds;
     
-    CGFloat newW = 100;
+    CGFloat newW = 80;
     CGFloat newH = 30;
     CGFloat newX = (self.view.frame.size.width - newW) * 0.5;
     CGFloat newY = screenRect.size.height - newH - 30;
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
+    new.layer.cornerRadius = 15;
+    new.layer.masksToBounds = YES;
     [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
     [new setTitle:@"新用户" forState:UIControlStateNormal];
     new.titleLabel.font = [UIFont systemFontOfSize:13];

@@ -13,6 +13,8 @@
 @property (nonatomic, copy) NSString *Name;
 @property (nonatomic, copy) NSString *Type;
 @property (nonatomic , copy) NSString *title;
+
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
+
 @end

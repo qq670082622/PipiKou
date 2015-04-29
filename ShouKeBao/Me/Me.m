@@ -17,7 +17,7 @@
 #import "MyListViewController.h"
 #import "SafeSettingViewController.h"
 #import "UserInfo.h"
-#import "UIButton+WebCache.h"
+#import "UIImageView+WebCache.h"
 #import "APService.h"
 #import "NSDate+Category.h"
 #import "QuanViewController.h"
@@ -38,12 +38,12 @@
 
 @implementation Me
 
+#pragma mark - lifecircle
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我";
     
     self.tableView.rowHeight = 50;
-    [self setHeader];
     
     self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于收客宝",@"评价收客宝"]];
     
@@ -51,9 +51,13 @@
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
     
+    // 知道登录类型以后 设置头部
+    [self setHeader];
+    
+    // 设置头像
     NSString *head = [UserInfo shareUser].LoginAvatar;
     if (head) {
-        [self.meheader.headIcon sd_setBackgroundImageWithURL:[NSURL URLWithString:head] forState:UIControlStateNormal];
+        [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@""]];
     }
 }
 
@@ -106,7 +110,7 @@
         _meheader = [[MeHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
-//        _meheader.headIcon.enabled = NO;
+        _meheader.isPerson = self.isPerson;
         _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
     }
     return _meheader;
@@ -324,7 +328,7 @@
 {
     NSLog(@"----%@",info);
     UIImage *image = info[@"UIImagePickerControllerEditedImage"];
-    [self.meheader.headIcon setBackgroundImage:image forState:UIControlStateNormal];
+    self.meheader.headIcon.image = image;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];

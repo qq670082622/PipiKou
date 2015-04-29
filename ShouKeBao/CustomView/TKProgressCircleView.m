@@ -78,7 +78,7 @@
 
 }
 
-- (void) updateProgress{
+- (void)updateProgress{
 	
 	if(_displayProgress >= _progress || _twirlMode) return;
 	

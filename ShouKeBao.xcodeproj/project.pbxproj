@@ -83,7 +83,6 @@
 		5A52FC631ACEBF220076DAE6 /* Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBBC1ACEBF220076DAE6 /* Login.m */; };
 		5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBBF1ACEBF220076DAE6 /* Distribution.m */; };
 		5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBC11ACEBF220076DAE6 /* UserInfo.m */; };
-		5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A52FBC41ACEBF220076DAE6 /* Register.xib */; };
 		5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBC61ACEBF220076DAE6 /* ResultViewController.m */; };
 		5A52FC691ACEBF220076DAE6 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBCA1ACEBF220076DAE6 /* ModifyPwdViewController.m */; };
 		5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A52FBCC1ACEBF220076DAE6 /* ReBindViewController.m */; };
@@ -405,7 +404,6 @@
 		5A52FBBF1ACEBF220076DAE6 /* Distribution.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Distribution.m; sourceTree = "<group>"; };
 		5A52FBC01ACEBF220076DAE6 /* UserInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfo.h; sourceTree = "<group>"; };
 		5A52FBC11ACEBF220076DAE6 /* UserInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfo.m; sourceTree = "<group>"; };
-		5A52FBC41ACEBF220076DAE6 /* Register.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Register.xib; sourceTree = "<group>"; };
 		5A52FBC51ACEBF220076DAE6 /* ResultViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResultViewController.h; sourceTree = "<group>"; };
 		5A52FBC61ACEBF220076DAE6 /* ResultViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResultViewController.m; sourceTree = "<group>"; };
 		5A52FBC91ACEBF220076DAE6 /* ModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPwdViewController.h; sourceTree = "<group>"; };
@@ -1092,7 +1090,6 @@
 				5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */,
 				5A52FBBB1ACEBF220076DAE6 /* Login.h */,
 				5A52FBBC1ACEBF220076DAE6 /* Login.m */,
-				5A52FBC41ACEBF220076DAE6 /* Register.xib */,
 				5A52FBC51ACEBF220076DAE6 /* ResultViewController.h */,
 				5A52FBC61ACEBF220076DAE6 /* ResultViewController.m */,
 			);
@@ -1877,7 +1874,7 @@
 				TargetAttributes = {
 					63D31E3D1AB143D00043B3CA = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = WS6NM65Y2F;
+						DevelopmentTeam = ZE6MJL8P7K;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -1916,7 +1913,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5A52FC671ACEBF220076DAE6 /* Register.xib in Resources */,
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
 				636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */,
 				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
@@ -2222,8 +2218,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2249,7 +2245,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Jpush";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "93e21890-f273-49e3-bba6-d91a2929e679";
+				PROVISIONING_PROFILE = "fba9c703-5652-4a7b-8f01-de9431b672bd";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2271,8 +2267,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2291,7 +2287,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Jpush";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "93e21890-f273-49e3-bba6-d91a2929e679";
+				PROVISIONING_PROFILE = "fba9c703-5652-4a7b-8f01-de9431b672bd";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};

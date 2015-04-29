@@ -14,13 +14,13 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        UIButton *headIcon = [[UIButton alloc] init];
-        headIcon.layer.cornerRadius = 45;
+        UIImageView *headIcon = [[UIImageView alloc] init];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHead:)];
+        [headIcon addGestureRecognizer:tap];
         headIcon.layer.masksToBounds = YES;
-        [headIcon addTarget:self action:@selector(clickHead:) forControlEvents:UIControlEventTouchUpInside];
         headIcon.layer.borderWidth = 3;
         headIcon.layer.borderColor = [UIColor whiteColor].CGColor;
-        headIcon.imageView.contentMode = UIViewContentModeScaleAspectFill;
+        headIcon.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:headIcon];
         self.headIcon = headIcon;
         
@@ -58,10 +58,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    CGFloat headW = 90;
+   
+    CGFloat headW = self.isPerson ? 90 : 120;
     CGFloat headX = (self.frame.size.width - headW) * 0.5;
-    self.headIcon.frame = CGRectMake(headX, 30, headW, headW);
+    self.headIcon.frame = CGRectMake(headX, 30, headW, 90);
     
     CGFloat nameY = CGRectGetMaxY(self.headIcon.frame) + 8;
     self.nickName.frame = CGRectMake(0, nameY, self.frame.size.width, 20);
@@ -80,10 +80,19 @@
     }
 }
 
-- (void)clickHead:(UIButton *)sender
+- (void)clickHead:(UITapGestureRecognizer *)ges
 {
     if (_delegate && [_delegate respondsToSelector:@selector(didClickHeadIcon)]) {
         [_delegate didClickHeadIcon];
+    }
+}
+
+- (void)setIsPerson:(BOOL)isPerson
+{
+    _isPerson = isPerson;
+    
+    if (isPerson) {
+        self.headIcon.layer.cornerRadius = 45;
     }
 }
 

@@ -90,7 +90,7 @@
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[recommend.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];
     
-    self.leftLab.text = [NSString stringWithFormat:@"今日共享您推荐%@条精品线路",recommend.Count];
+    self.leftLab.text = [NSString stringWithFormat:@"今日共向您推荐%@条精品线路",recommend.Count];
     
     
     NSString *str = [NSString stringWithFormat:@"最低价%@元起",recommend.Price];

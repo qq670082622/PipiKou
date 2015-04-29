@@ -111,7 +111,6 @@
     NSLog(@"=========%@",historyModel.PicUrl);
     [self.icon sd_setImageWithURL:[[NSURL alloc] initWithString:historyModel.PicUrl] placeholderImage:[UIImage imageNamed:@"lvyouquanIcon"]];
     
-    
     self.title.text = historyModel.Name;
     
     /**
