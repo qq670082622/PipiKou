@@ -516,6 +516,24 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }
                             }];
+    
+    [self showAlert];
+    
+}
+
+-(void)showAlert
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *account = [accountDefaults stringForKey:@"shareCount"];
+    
+    if ([account intValue]<3){
+        
+        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
+        [accountDefaults setObject:newCount forKey:@"shareCount"];
+        
+        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 -(void)customLeftBarItem
