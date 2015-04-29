@@ -20,7 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *jiafan;
 @property (weak, nonatomic) IBOutlet UILabel *quan;
 @property (weak, nonatomic) IBOutlet UIView *subView;
-@property (nonatomic,strong) NSMutableDictionary *shareDic;
+@property (nonatomic,strong) NSMutableArray *shareArr;
 
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 @property (weak, nonatomic) IBOutlet UIView *btnLine;
@@ -56,10 +56,17 @@
     
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(cheapPrice)];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBlackViewToHideIt)];
     tap.delegate = self;
     [self.blackView addGestureRecognizer:tap];
     
+}
+
+-(void)tapBlackViewToHideIt
+{
+    [self.checkCheapBtnOutlet setSelected:NO];
+    self.subView.hidden = YES;
+    self.blackView.alpha = 0;
 }
 
 -(void)back
@@ -105,12 +112,12 @@
 
 
 
--(NSMutableDictionary *)shareDic
+-(NSMutableArray *)shareArr
 {
-    if (_shareDic == nil) {
-        self.shareDic = [NSMutableDictionary dictionary];
+    if (_shareArr == nil) {
+        self.shareArr = [NSMutableArray array];
     }
-    return _shareDic;
+    return _shareArr;
 }
 
 
@@ -125,13 +132,17 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightStr forKey:@"PageUrl"];
+    
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-      //  NSLog(@"-----分享返回数据json is %@------",json);
-        if ([json[@"PageType"] isEqualToString:@"0"]) {
+        NSLog(@"-----分享返回数据json is %@------",json);
+       
+        [self.shareArr removeAllObjects];
+        [self.shareArr addObject:json[@"ShareInfo"]];
+
+        if (![json[@"PageType"] isEqualToString:@"2"]) {
             self.checkCheapBtnOutlet.hidden = YES;
            self.blackView.alpha = 0;
             self.btnLine.hidden = YES;
-            self.shareDic = json[@"ShareInfo"];
             self.title = @"店铺详情";
         }
         else if ([json[@"PageType"] isEqualToString:@"2"]){
@@ -197,13 +208,14 @@
 {
    
    
-    
+    NSDictionary *shareDic = [NSDictionary dictionary];
+        shareDic = [self.shareArr lastObject];
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
-                                       defaultContent:self.shareDic[@"Desc"]
-                                                image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
-                                                title:self.shareDic[@"Title"]
-                                                  url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
+    id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
+                                       defaultContent:shareDic[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:shareDic[@"Pic"]]
+                                                title:shareDic[@"Title"]
+                                                  url:shareDic[@"Url"]                                          description:shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -232,7 +244,7 @@
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }
                             }];
-   
+    NSLog(@"--------------分享出去的url is %@--------------",shareDic[@"Url"]);
     
 }
 

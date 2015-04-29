@@ -807,7 +807,7 @@
         
         self.subSubView.frame = CGRectMake(0, 50, self.subTable.frame.size.width, 160);
         
-            self.subTable.contentOffset = CGPointMake(0, 250);
+          //  self.subTable.contentOffset = CGPointMake(0, 250);
             
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
         
