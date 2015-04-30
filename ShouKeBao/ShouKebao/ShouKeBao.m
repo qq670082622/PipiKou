@@ -44,6 +44,7 @@
 #import "messageDetailViewController.h"
 #import "UserInfo.h"
 #import "APService.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 #define FiveDay 432000
 
@@ -78,7 +79,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+   
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [APService setBadge:0];
     
@@ -188,6 +189,20 @@
     }
 }
 
+
+#pragma -mark 声音
+-(void)getVoice{
+   
+    //添加提示音
+    SystemSoundID messageSound;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
+    
+    AudioServicesPlaySystemSound (messageSound);
+   
+}
+
+
 #pragma  - mark程序在前台时远程推送处理函数
 -(void)dealPushForeground:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
@@ -201,7 +216,7 @@
     [self loadContentDataSource];
     
     [self  getUserInformation];
-   
+    [self getVoice];
     //if ([self.tabBarItem.badgeValue intValue]>5) {
          self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
   //  }
