@@ -58,13 +58,14 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
-    [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBlackViewToHideIt)];
     tap.delegate = self;
     [self.blackView addGestureRecognizer:tap];
     
      [self.webView scalesPageToFit];
+    [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
 }
 

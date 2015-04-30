@@ -23,6 +23,10 @@
     
     [super viewDidLoad];
     
+    [self.web scalesPageToFit];
+    [self.web.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.web.scrollView setShowsHorizontalScrollIndicator:NO];
+    
     self.title = @"消息详情";
     
     [self loadData];
