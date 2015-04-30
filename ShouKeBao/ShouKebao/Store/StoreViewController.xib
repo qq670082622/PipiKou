@@ -11,10 +11,10 @@
                 <outlet property="btnLine" destination="ra8-GL-M8a" id="QlX-Ua-cAK"/>
                 <outlet property="cheapPrice" destination="buy-uC-D80" id="pLh-JC-5OD"/>
                 <outlet property="checkCheapBtnOutlet" destination="RCV-vP-AOt" id="wDO-c0-u8I"/>
-                <outlet property="jiafan" destination="ugl-LR-o2l" id="mSl-mn-hfW"/>
+                <outlet property="fanBtn" destination="0pD-fa-R4c" id="pUF-96-Rwq"/>
                 <outlet property="offLineLabel" destination="kWr-c3-Fv2" id="0W6-lG-S0r"/>
                 <outlet property="profit" destination="v51-WF-wlW" id="I0Y-pu-h8j"/>
-                <outlet property="quan" destination="pUD-39-1qX" id="PKW-Tf-Bp2"/>
+                <outlet property="quanBtn" destination="aYN-K0-1CW" id="sQB-8V-nyf"/>
                 <outlet property="subView" destination="cT5-E6-60Z" id="BH3-ue-CLU"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="TP1-Kp-isn" id="vx2-uv-rkJ"/>
@@ -101,21 +101,21 @@
                             <color key="textColor" white="0.3966382575757576" alpha="1" colorSpace="calibratedWhite"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0pD-fa-R4c">
+                        <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0pD-fa-R4c" userLabel="fanButton">
                             <rect key="frame" x="80" y="100" width="75" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" image="jiafan">
-                                <color key="titleColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" backgroundImage="jiafan">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
-                        <button opaque="NO" contentMode="left" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aYN-K0-1CW">
+                        <button opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="aYN-K0-1CW" userLabel="quanButton">
                             <rect key="frame" x="165" y="100" width="75" height="15"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <state key="normal" image="quan">
-                                <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                            <state key="normal" backgroundImage="quan">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                         </button>
@@ -124,20 +124,6 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                             <color key="backgroundColor" white="0.90694839015151518" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2550" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ugl-LR-o2l" userLabel="jiafan">
-                            <rect key="frame" x="111" y="100" width="45" height="15"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2550" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pUD-39-1qX" userLabel="quan">
-                            <rect key="frame" x="197" y="100" width="45" height="15"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1445" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="v51-WF-wlW">
                             <rect key="frame" x="80" y="140" width="91" height="21"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
