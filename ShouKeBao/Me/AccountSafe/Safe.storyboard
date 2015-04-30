@@ -100,7 +100,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退出账号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GIQ-vj-TQV">
                                                     <rect key="frame" x="80" y="16" width="150" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -123,13 +123,16 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="accountLab" destination="4eX-7o-H0J" id="IxI-xf-aAD"/>
+                        <outlet property="ganTan" destination="bBr-OV-qgW" id="Yqo-KH-BwD"/>
                         <outlet property="pwdLevel" destination="rOb-zx-iKU" id="kzA-dO-KUO"/>
                         <outlet property="pwdStatus" destination="bBr-OV-qgW" id="umW-Gk-Ro8"/>
+                        <outlet property="setPwdCell" destination="UuS-ex-sYP" id="vk7-RU-Rls"/>
+                        <outlet property="setPwdLab" destination="rOb-zx-iKU" id="0jj-NY-A6X"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fbc-2J-jQG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-421" y="-370"/>
+            <point key="canvasLocation" x="-550" y="-370"/>
         </scene>
         <!--Re Bind View Controller-->
         <scene sceneID="wgE-2d-PhH">

@@ -13,6 +13,13 @@
 
 @interface SafeSettingViewController()<UIAlertViewDelegate>
 
+/**
+ *  这三个纯粹解决问题
+ */
+@property (weak, nonatomic) IBOutlet UIImageView *ganTan;
+@property (weak, nonatomic) IBOutlet UILabel *setPwdLab;
+@property (weak, nonatomic) IBOutlet UITableViewCell *setPwdCell;
+
 @property (weak, nonatomic) IBOutlet UILabel *accountLab;// 显示当前账号
 
 @property (weak, nonatomic) IBOutlet UIImageView *pwdStatus; // 密码状态图标
@@ -88,7 +95,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.isPerson && indexPath.section == 1) {
-        return 0.01f;
+        self.ganTan.hidden = YES;
+        self.setPwdLab.hidden = YES;
+        self.setPwdCell.accessoryType = UITableViewCellAccessoryNone;
+        return 0;
     }
     return 55;
 }
