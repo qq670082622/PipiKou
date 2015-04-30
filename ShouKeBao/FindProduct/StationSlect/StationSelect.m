@@ -8,6 +8,7 @@
 
 #import "StationSelect.h"
 #import "IWHttpTool.h"
+#import "APService.h"
 @interface StationSelect ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
@@ -35,6 +36,8 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+    
+    self.table.tableFooterView = [[UIView alloc] init];
     
 }
 
@@ -94,6 +97,8 @@
     [accountDefaults setObject:_stationName forKey:@"SubstationName"];
     [accountDefaults synchronize];
     [self.delegate notifiToReloadData];
+    NSString *normal = @"substation_";
+    [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationName]] callbackSelector:nil object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated

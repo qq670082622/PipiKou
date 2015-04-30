@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
-
 @interface ShouKeBao : SKViewController
 
 @end

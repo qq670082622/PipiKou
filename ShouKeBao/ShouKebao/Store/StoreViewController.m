@@ -27,6 +27,8 @@
 @property (weak,nonatomic)  IBOutlet UILabel *offLineLabel;
 @property (weak, nonatomic) IBOutlet UILabel *remindLabel;
 
+@property (weak, nonatomic) IBOutlet UIButton *fanBtn;
+@property (weak, nonatomic) IBOutlet UIButton *quanBtn;
 
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
@@ -57,7 +59,7 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
-    
+    [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBlackViewToHideIt)];
     tap.delegate = self;
     [self.blackView addGestureRecognizer:tap];
@@ -175,18 +177,32 @@
             NSMutableDictionary *dic =[NSMutableDictionary dictionary];
             [dic setObject:productID forKey:@"ProductID"];
             [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
-              //  NSLog(@"产品详情json is %@",json);
+                NSLog(@"产品详情json is %@",json);
                 NSString *personPrice = json[@"Product"][@"PersonPrice"];
-                if (personPrice.length>2) {
+                if ([personPrice intValue] >0) {
                   
                     self.cheapPrice.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonPeerPrice"]];
                     self.profit.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonProfit"]];
-                   
-                    self.jiafan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonBackPrice"]];
-                   
-                    self.quan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonCashCoupon"]];
+                    
+                    if ([json[@"Product"][@"PersonBackPrice"]  isEqual: @"0"]) {
+                        //self.jiafan.hidden = YES;
+                        self.fanBtn.hidden = YES;
+                    }else if (![json[@"Product"]  isEqual: @"0"]){
+                        self.fanBtn.hidden = NO;
+                        [self.fanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonBackPrice"]] forState:UIControlStateNormal];
+
+                    }
+                    
+                    if ([json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]) {
+
+                        self.quanBtn.hidden = YES;
+                    }else if (![json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]){
+                        self.quanBtn.hidden = NO;
+                        [self.quanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonCashCoupon"]] forState:UIControlStateNormal];
+
+                    }
                 
-                }else if (personPrice.length<3){
+                }else if ([personPrice intValue]<1){
                     self.btnLine.hidden = NO;
                     self.checkCheapBtnOutlet.hidden = YES;
                     self.blackView.hidden = YES;

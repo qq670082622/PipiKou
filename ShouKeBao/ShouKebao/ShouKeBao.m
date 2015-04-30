@@ -119,12 +119,20 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPush:) name:@"push" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
+    
+    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+    
+    [appIsBack setObject:@"no" forKey:@"appIsBack"];
+    
+    [appIsBack synchronize];
+
 }
 
 
-#pragma  - mark远程推送处理函数
--(void)dealPush:(NSNotification *)noti
+#pragma  - mark程序在后台时远程推送处理函数
+-(void)dealPushBackGround:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -176,8 +184,64 @@
     }
     
     else if ([message[0] isEqualToString:@"noticeType"]){
-        [self ringAction];
+       // [self ringAction];
     }
+}
+
+#pragma  - mark程序在前台时远程推送处理函数
+-(void)dealPushForeground:(NSNotification *)noti
+{ //arr[0]是value arr[1]是key
+    //orderId ,userId ,recommond ,productId ,messageId
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [APService setBadge:0];
+    
+    NSMutableArray *message = noti.object;
+    NSLog(@"viewController 里取得值是 is %@",message);
+    
+    [self loadContentDataSource];
+    
+    [self  getUserInformation];
+   
+    //if ([self.tabBarItem.badgeValue intValue]>5) {
+         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+  //  }
+   
+
+    if ([message[0] isEqualToString:@"orderId"]) {//订单消息
+     
+    }
+    
+    else if ([message[0] isEqualToString:@"remind"]){//客户提醒
+
+        
+    }
+    
+    else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
+      
+        
+    }
+    
+    else if ([message[0] isEqualToString:@"productId"]){//新线路（新产品）
+        
+           }
+    
+     if ([message[0] isEqualToString:@"messageId"]){//新公告
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+        int valueCount = [barButton.badgeValue intValue];
+        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+        
+        //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+    }
+    
+//    else if ([message[0] isEqualToString:@"noticeType"]){
+//      
+//        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+//        int valueCount = [barButton.badgeValue intValue];
+//        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+//        
+//        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+//
+//    }
 }
 
 
@@ -246,7 +310,8 @@
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
         
         BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-        
+       
+
         int count = 0;
         for (int i = 0; i<arr.count; i++) {
             NSDictionary *dic = arr[i];
@@ -563,9 +628,20 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
     messgeCenter.delegate = self;
+    
+    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+   
+self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [barButton.badgeValue intValue]];
+   
+    if ([self.tabBarItem.badgeValue intValue] == 0) {
+        self.tabBarItem.badgeValue = @"";
+    }
+
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }
+
+
 -(void)codeAction
 {
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
@@ -606,6 +682,11 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 {
     HomeBase *model = self.dataSource[indexPath.row];
     
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+    if ([self.tabBarItem.badgeValue intValue] == 0) {
+        self.tabBarItem.badgeValue = @"";
+    }
+
     if ([model.model isKindOfClass:[HomeList class]]) {
         HomeList *order = model.model;
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
