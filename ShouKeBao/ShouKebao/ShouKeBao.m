@@ -634,7 +634,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [barButton.badgeValue intValue]];
    
     if ([self.tabBarItem.badgeValue intValue] == 0) {
-        self.tabBarItem.badgeValue = @"";
+        self.tabBarItem.badgeValue = nil;
     }
 
     [self.navigationController pushViewController:messgeCenter animated:YES];
@@ -684,7 +684,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
     if ([self.tabBarItem.badgeValue intValue] == 0) {
-        self.tabBarItem.badgeValue = @"";
+        self.tabBarItem.badgeValue = nil;
     }
 
     if ([model.model isKindOfClass:[HomeList class]]) {
