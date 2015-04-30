@@ -46,7 +46,7 @@
     
     self.tableView.rowHeight = 50;
     
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",@"评价旅游圈"]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"关于旅游圈",@"评价旅游圈"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -239,12 +239,12 @@
                 
                 break;
             }
+//            case 1:{
+//                SuggestViewController *suggest = [sb instantiateViewControllerWithIdentifier:@"Suggest"];
+//                [self.navigationController pushViewController:suggest animated:YES];
+//                break;
+//            }
             case 1:{
-                SuggestViewController *suggest = [sb instantiateViewControllerWithIdentifier:@"Suggest"];
-                [self.navigationController pushViewController:suggest animated:YES];
-                break;
-            }
-            case 2:{
                 UIWindow *window = [UIApplication sharedApplication].delegate.window;
                 WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
                 welceome.alpha = 0;
@@ -256,7 +256,7 @@
                 
                 break;
             }
-            case 3:{
+            case 2:{
                 
                 break;
             }

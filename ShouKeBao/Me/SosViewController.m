@@ -9,6 +9,7 @@
 #import "SosViewController.h"
 #import "MeHttpTool.h"
 #import "Server.h"
+#import "UIImageView+WebCache.h"
 
 @interface SosViewController () <UIScrollViewDelegate>
 
@@ -21,6 +22,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *QQLab;
 
 @property (weak, nonatomic) UILabel *nameLab;
+
+@property (weak,nonatomic) UIImageView *iconView;
 
 @end
 
@@ -80,6 +83,7 @@
             NSDictionary *dic = json[@"Reinforcements"];
             self.server = [Server serverWithDict:dic];
             
+            [self.iconView sd_setImageWithURL:[NSURL URLWithString:self.server.Avatar] placeholderImage:[UIImage imageNamed:@"kefutouxiang"]];
             self.emailLab.text = self.server.Email;
             self.phoneLav.text = self.server.Mobile;
             self.QQLab.text = self.server.QQCode;
@@ -102,8 +106,8 @@
     headIcon.contentMode = UIViewContentModeScaleAspectFill;
     headIcon.layer.cornerRadius = 5;
     headIcon.layer.masksToBounds = YES;
-    headIcon.image = [UIImage imageNamed:@"aa"];
     [view addSubview:headIcon];
+    self.iconView = headIcon;
     
     CGFloat aX = CGRectGetMaxX(headIcon.frame) + gap;
     UILabel *a = [[UILabel alloc] initWithFrame:CGRectMake(aX, headIcon.frame.origin.y, 150, gap)];
