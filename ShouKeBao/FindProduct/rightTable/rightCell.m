@@ -53,9 +53,10 @@ self.rightIcon.contentMode = UIViewContentModeScaleToFill;
 {
     _modal = modal;
     
-    [self.rightIcon sd_setImageWithURL:[NSURL URLWithString:modal.rightIcon]];
+    [self.rightIcon sd_setImageWithURL:[NSURL URLWithString:modal.rightIcon] placeholderImage:[UIImage imageNamed:@"lvyouquanIcon"]];
        self.rightDescrip.text = modal.rightDescrip;
     
+   
    self.rightPrice.text = [NSString stringWithFormat:@"￥%@",modal.rightPrice];
     
     

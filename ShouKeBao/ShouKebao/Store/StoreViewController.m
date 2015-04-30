@@ -30,6 +30,8 @@
 
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
+
+@property (nonatomic , strong) NSTimer *timer;
 @end
 
 @implementation StoreViewController
@@ -64,6 +66,13 @@
     
 }
 
+-(NSTimer *)timer
+{
+    if (_timer == nil) {
+        self.timer = [[NSTimer alloc] init];
+    }
+    return _timer;
+}
 -(void)tapBlackViewToHideIt
 {
     [self.checkCheapBtnOutlet setSelected:NO];
@@ -84,6 +93,12 @@
     }
     
     NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.timer invalidate];
 }
 
 -(NSMutableArray *)webUrlArr
@@ -192,6 +207,29 @@
     return YES;
 }
 //
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+    self.timer = timer;
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+
+   
+
+}
+-(void)hideButn:(NSTimer*)timer
+{
+    NSString *result = [self.webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
+    NSLog(@"-------222222222222--------------result is %@-------------------------",result);
+    if ([result  isEqual: @"1"]) {
+        self.checkCheapBtnOutlet.hidden = YES;
+        self.blackView.alpha = 0;
+        self.btnLine.hidden = YES;
+        self.offLineLabel.hidden = YES;
+
+    }
+    //[timer invalidate];
+}
 -(void)showAlert
 {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
