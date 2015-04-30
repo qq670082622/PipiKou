@@ -507,6 +507,16 @@
 
 
 - (IBAction)customSearch:(id)sender {
+   
+   if (self.subView.hidden == NO){
+        [UIView animateWithDuration:0.8 animations:^{
+            self.subView.alpha = 1;
+            self.subView.alpha = 0;
+            self.subView.hidden = YES;
+        }];
+        
+   }else if (self.subView.hidden == YES){
+
     self.searchTextField.hidden = NO;
     self.cancelSearchOutlet.hidden = NO;
     self.searchCustomerBtnOutlet.hidden = YES;
@@ -515,15 +525,13 @@
     [UIView animateWithDuration:0.3 animations:^{
 
         self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
-  
-       // self.inputView.transform = CGAffineTransformMakeTranslation(0, 20);
-     
-        self.historyView.hidden = NO;
-        //[[UIApplication sharedApplication] setStatusBarHidden:TRUE];
+  self.historyView.hidden = NO;
+        
     }];
     
     [self loadHistoryArr];
    
+   }
 
 }
 
