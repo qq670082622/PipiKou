@@ -71,7 +71,8 @@
 - (IBAction)buttonClick:(id)sender
 {
     if (self.isSuccess) {
-        
+        AppDelegate *app = [UIApplication sharedApplication].delegate;
+        [app setLoginRoot];
     }else{
         [self.navigationController popViewControllerAnimated:YES];
     }

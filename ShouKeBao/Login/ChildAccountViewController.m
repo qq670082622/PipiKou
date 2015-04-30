@@ -433,11 +433,11 @@
         
         if (indexPath.row == 0) {
             self.accountField = cell.inputField;
-            self.accountField.text = @"lxstest";
+//            self.accountField.text = @"lxstest";
         }else{
             self.passwordField = cell.inputField;
             [self.passwordField setSecureTextEntry:YES];
-            self.passwordField.text = @"A148A148";
+//            self.passwordField.text = @"A148A148";
         }
         
         return cell;

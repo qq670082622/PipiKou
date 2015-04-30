@@ -9,6 +9,8 @@
 #import "RegisterViewController.h"
 #import "UINavigationController+SGProgress.h"
 
+#define RegisterUrl @"http://www.lvyouquan.cn/MicroChannel/Reg"
+
 @interface RegisterViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
@@ -26,7 +28,7 @@
     [self setNav];
     
     [self.view addSubview:self.webView];
-    [self loadWithUrl:@"http://www.lvyouquan.cn/MicroChannel/Reg"];
+    [self loadWithUrl:RegisterUrl];
 }
 
 - (void)setNav

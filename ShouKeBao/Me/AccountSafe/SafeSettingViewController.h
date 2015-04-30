@@ -10,4 +10,6 @@
 
 @interface SafeSettingViewController : SKTableViewController
 
+@property (nonatomic,assign) BOOL isPerson;
+
 @end

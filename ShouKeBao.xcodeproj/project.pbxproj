@@ -1874,7 +1874,7 @@
 				TargetAttributes = {
 					63D31E3D1AB143D00043B3CA = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = WS6NM65Y2F;
+						DevelopmentTeam = ZE6MJL8P7K;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2218,8 +2218,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -2245,7 +2245,7 @@
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Jpush";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "dc1e49a1-6b86-4d6d-bd64-4f59a5f6e2bf";
+				PROVISIONING_PROFILE = "27ce0dae-a57b-47bc-8b37-f79bd4fb8353";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -2267,8 +2267,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -2287,7 +2287,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LIBRARY_SEARCH_PATHS = "$(SRCROOT)/Jpush";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				PROVISIONING_PROFILE = "dc1e49a1-6b86-4d6d-bd64-4f59a5f6e2bf";
+				PROVISIONING_PROFILE = "27ce0dae-a57b-47bc-8b37-f79bd4fb8353";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -2309,15 +2309,17 @@
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = ShouKeBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dc1e49a1-6b86-4d6d-bd64-4f59a5f6e2bf";
+				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -2337,7 +2339,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/UI",
 				);
 				INFOPLIST_FILE = ShouKeBao/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2345,7 +2347,8 @@
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dc1e49a1-6b86-4d6d-bd64-4f59a5f6e2bf";
+				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -2353,8 +2356,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2366,7 +2369,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Debug;
@@ -2375,8 +2378,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2384,7 +2387,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Release;

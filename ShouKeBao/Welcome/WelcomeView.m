@@ -133,14 +133,14 @@
 }
 
 /**
- *  开始微博
+ *  开始收客宝
  */
 - (void)start
 {
     // 显示状态栏
     [UIApplication sharedApplication].statusBarHidden = NO;
     
-    [UIView animateWithDuration:1 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
@@ -156,10 +156,7 @@
     checkbox.selected = !checkbox.isSelected;
 }
 
-/**
- *  只要UIScrollView滚动了,就会调用
- *
- */
+#pragma mark - scrollviewdelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     // 1.取出水平方向上滚动的距离

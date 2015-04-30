@@ -23,6 +23,7 @@
 #import "QuanViewController.h"
 #import "MeHttpTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "WelcomeView.h"
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
@@ -244,6 +245,14 @@
                 break;
             }
             case 2:{
+                UIWindow *window = [UIApplication sharedApplication].delegate.window;
+                WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
+                welceome.alpha = 0;
+                [window addSubview:welceome];
+                // 为了看起来不突兀一些
+                [UIView animateWithDuration:0.3 animations:^{
+                    welceome.alpha = 1;
+                }];
                 
                 break;
             }
@@ -269,6 +278,7 @@
             // 第二组 单个 账号安全
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
             SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
+            safe.isPerson = self.isPerson;
             [self.navigationController pushViewController:safe animated:YES];
         }
     }
@@ -341,7 +351,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     CGFloat offset = scrollView.contentOffset.y;
-    if (offset < 0) {
+    if (offset < 0){
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }else{
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;

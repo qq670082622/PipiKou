@@ -335,9 +335,8 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                 }
                 
                 // 添加订单
-                int i = 0;
                 for (NSDictionary *dic in json[@"OrderList"]) {
-                    i ++;
+
                     HomeList *list = [HomeList homeListWithDict:dic];
                     
                     HomeBase *base = [[HomeBase alloc] init];
@@ -346,9 +345,6 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                     base.idStr = list.ID;
                     
                     [self.dataSource addObject:base];
-                    if (i == 10) {
-                        break;
-                    }
                 }
                 // 加载未查看的提醒
                 [self showOldRemind];

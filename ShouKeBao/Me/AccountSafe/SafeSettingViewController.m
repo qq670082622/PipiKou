@@ -74,12 +74,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
+    if (self.isPerson && section == 1) {
+        return 0.01f;
+    }
     return 10.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.isPerson && indexPath.section == 1) {
+        return 0.01f;
+    }
+    return 55;
 }
 
 // 修改绑定的手机

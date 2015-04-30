@@ -41,8 +41,7 @@
         self.personType = personType;
         
         UIButton *setBtn = [[UIButton alloc] init];
-        [setBtn setImage:[UIImage imageNamed:@"setting_icon"] forState:UIControlStateNormal];
-        setBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 5, 5, 0);
+        [setBtn setBackgroundImage:[UIImage imageNamed:@"setting_icon"] forState:UIControlStateNormal];
         [setBtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:setBtn];
         self.setBtn = setBtn;
@@ -61,7 +60,7 @@
    
     CGFloat headW = self.isPerson ? 90 : 120;
     CGFloat headX = (self.frame.size.width - headW) * 0.5;
-    self.headIcon.frame = CGRectMake(headX, 30, headW, 90);
+    self.headIcon.frame = CGRectMake(headX, 40, headW, 90);
     
     CGFloat nameY = CGRectGetMaxY(self.headIcon.frame) + 8;
     self.nickName.frame = CGRectMake(0, nameY, self.frame.size.width, 20);
@@ -69,8 +68,8 @@
     CGFloat typeY = CGRectGetMaxY(self.nickName.frame) + 8;
     self.personType.frame = CGRectMake(headX, typeY, headW, 20);
     
-    CGFloat btnX = self.frame.size.width - 48;
-    self.setBtn.frame = CGRectMake(btnX, 30, 40, 40);
+    CGFloat btnX = self.frame.size.width - 37;
+    self.setBtn.frame = CGRectMake(btnX, 40, 20, 20);
 }
 
 - (void)setting:(UIButton *)sender
