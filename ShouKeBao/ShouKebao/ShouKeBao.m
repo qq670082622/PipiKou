@@ -216,6 +216,7 @@
     [self loadContentDataSource];
     
     [self  getUserInformation];
+  
     [self getVoice];
     //if ([self.tabBarItem.badgeValue intValue]>5) {
          self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
@@ -648,7 +649,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
    
 self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [barButton.badgeValue intValue]];
    
-    if ([self.tabBarItem.badgeValue intValue] == 0) {
+    if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
     }
 
@@ -698,7 +699,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     HomeBase *model = self.dataSource[indexPath.row];
     
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
-    if ([self.tabBarItem.badgeValue intValue] == 0) {
+    if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
     }
 
