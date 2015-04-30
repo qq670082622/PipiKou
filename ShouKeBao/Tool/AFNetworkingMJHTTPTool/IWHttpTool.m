@@ -10,7 +10,7 @@
 #import "AFNetworking.h"
 #import "StrToDic.h"
 #import "UserInfo.h"
-
+#import "APService.h"
 @implementation IWHttpTool
 
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
@@ -37,6 +37,7 @@
         [tmp setObject:subStation forKey:@"Substation"];
     }else if (!subStation){
         [tmp setObject:@"10" forKey:@"Substation"];
+      //  [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
     }
     
     NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];
@@ -98,6 +99,8 @@
         [tmp setObject:subStation forKey:@"Substation"];
     }else if (!subStation){
         [tmp setObject:@"10" forKey:@"Substation"];
+       // [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
+
     }
     
     NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];

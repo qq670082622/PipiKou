@@ -254,6 +254,8 @@
 		63B8C7021ACE917E00328C8C /* messageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C7011ACE917E00328C8C /* messageModel.m */; };
 		63B8C7061ACE9C3F00328C8C /* messageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C7041ACE9C3F00328C8C /* messageDetailViewController.m */; };
 		63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */; };
+		63B8F5441AF2218900A162DC /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 63B8F5431AF2218800A162DC /* message.wav */; };
+		63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8F5451AF221AC00A162DC /* AudioToolbox.framework */; };
 		63D31E441AB143D00043B3CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D31E431AB143D00043B3CA /* main.m */; };
 		63D31E4F1AB143D00043B3CA /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D31E4E1AB143D00043B3CA /* Images.xcassets */; };
 		63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63D31E501AB143D00043B3CA /* LaunchScreen.xib */; };
@@ -700,6 +702,8 @@
 		63B8C7031ACE9C3F00328C8C /* messageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageDetailViewController.h; sourceTree = "<group>"; };
 		63B8C7041ACE9C3F00328C8C /* messageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageDetailViewController.m; sourceTree = "<group>"; };
 		63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageDetailViewController.xib; sourceTree = "<group>"; };
+		63B8F5431AF2218800A162DC /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
+		63B8F5451AF221AC00A162DC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		63D31E3E1AB143D00043B3CA /* ShouKeBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShouKeBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D31E421AB143D00043B3CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63D31E431AB143D00043B3CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -731,6 +735,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */,
 				63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */,
 				632EDEA11AC8FC8300EE98FC /* libz.dylib in Frameworks */,
 				636C8B871AC2E22D0097CAE9 /* Security.framework in Frameworks */,
@@ -1566,6 +1571,7 @@
 		636C8B511AC2E1420097CAE9 /* ShareSDK */ = {
 			isa = PBXGroup;
 			children = (
+				63B8F5451AF221AC00A162DC /* AudioToolbox.framework */,
 				636C8B8C1AC2E2740097CAE9 /* libsqlite3.dylib */,
 				636C8B8A1AC2E2520097CAE9 /* libstdc++.dylib */,
 				636C8B881AC2E23C0097CAE9 /* MessageUI.framework */,
@@ -1753,6 +1759,7 @@
 		63D31E411AB143D00043B3CA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				63B8F5431AF2218800A162DC /* message.wav */,
 				5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */,
 				5A076C9A1ACD1C0F0077611C /* area.plist */,
 				63D31E421AB143D00043B3CA /* Info.plist */,
@@ -1883,7 +1890,7 @@
 					};
 					63D31E561AB143D00043B3CA = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = WS6NM65Y2F;
+						DevelopmentTeam = ZE6MJL8P7K;
 						TestTargetID = 63D31E3D1AB143D00043B3CA;
 					};
 				};
@@ -1920,6 +1927,7 @@
 				5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
+				63B8F5441AF2218900A162DC /* message.wav in Resources */,
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
 				5A52FC471ACEBF220076DAE6 /* FootView.xib in Resources */,
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
@@ -2298,8 +2306,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2318,7 +2326,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2328,8 +2336,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2347,7 +2355,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -2356,8 +2364,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2369,7 +2377,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Debug;
@@ -2378,8 +2386,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2387,7 +2395,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Release;

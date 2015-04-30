@@ -98,13 +98,16 @@
     [accountDefaults synchronize];
     [self.delegate notifiToReloadData];
     NSString *normal = @"substation_";
-    [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationName]] callbackSelector:nil object:nil];
+    [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationNum]] callbackSelector:nil object:nil];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    }
+   
+}
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     static NSString *ID = @"Station";

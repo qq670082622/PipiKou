@@ -13,7 +13,7 @@
 #import "HomeHttpTool.h"
 #import "WriteFileManager.h"
 #import "IWHttpTool.h"
-@interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate,notifiToReferesh>
+@interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,strong) NSMutableArray *deleteArr;
@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    self.title = @"消息中心";
-    [self loadDataSource];
+   // [self loadDataSource];
     
 
     self.table.rowHeight = 75;
@@ -46,9 +46,15 @@
 }
 -(void)toReferesh
 {
+//    [self loadDataSource];
+//  
+//    NSLog(@"代理重新刷新");
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     [self loadDataSource];
-  
-    NSLog(@"代理重新刷新");
 }
 -(void)back
 {
@@ -124,7 +130,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
   messageDetailViewController *messageDetail = [[messageDetailViewController alloc] init];
-    messageDetail.delegate = self;
+   // messageDetail.delegate = self;
     messageModel *model = _dataArr[indexPath.row];
     messageDetail.ID = model.ID;
     messageDetail.messageURL = model.LinkUrl;
@@ -154,11 +160,11 @@
     
     cell.model = model;
     
-    if (indexPath.row == _isRead) {
-    
-        cell.hongdian.hidden = YES;
-    }
-    
+//    if (indexPath.row == _isRead) {
+//    
+//        cell.hongdian.hidden = YES;
+//    }
+//    
     return cell;
 }
 
