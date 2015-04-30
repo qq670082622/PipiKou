@@ -139,6 +139,9 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [APService setBadge:0];
     
+    [self loadContentDataSource];
+    [self  getUserInformation];
+   
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
