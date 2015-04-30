@@ -37,7 +37,7 @@
 
     
     ShouKeBao *skb = [[ShouKeBao alloc] init];
-    [self addChildVc:skb title:@"收客宝" image:@"skb2" selectedImage:@"skb"];
+    [self addChildVc:skb title:@"旅游圈" image:@"skb2" selectedImage:@"skb"];
     
 
    // [[self.childViewControllers objectAtIndex:0] setBadgeValue:_skbValue];

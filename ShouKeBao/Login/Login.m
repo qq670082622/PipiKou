@@ -193,11 +193,19 @@
             [def setObject:self.businessId forKey:@"BusinessID"];
             [def setObject:self.distributeId forKey:@"DistributionID"];
             [def setObject:self.chooseId forKey:@"ChooseID"];
+            
+            // 保存分站
+            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:@"Substation"];
+            
             [def synchronize];
             
             // 给用户打上jpush标签
             [APService setAlias:self.businessId callbackSelector:nil object:nil];
             NSLog(@"------------apns 的alias是%@----------",_businessId);
+            NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
+            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
+            
+            
             
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;

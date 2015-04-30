@@ -46,7 +46,7 @@
     
     self.tableView.rowHeight = 50;
     
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于收客宝",@"评价收客宝"]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",@"评价旅游圈"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];

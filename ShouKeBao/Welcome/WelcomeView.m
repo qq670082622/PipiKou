@@ -12,8 +12,10 @@
 #define WelcomeImageCount 4
 // 2.获得RGB颜色
 #define IWColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
-// 4.是否为4inch
-#define fourInch ([UIScreen mainScreen].bounds.size.height == 568)
+// 4.不同屏幕尺寸
+#define foureSize ([UIScreen mainScreen].bounds.size.height == 480)
+#define fiveSize ([UIScreen mainScreen].bounds.size.height == 568)
+#define sixSize ([UIScreen mainScreen].bounds.size.height > 667)
 
 @interface WelcomeView() <UIScrollViewDelegate>
 
@@ -36,6 +38,8 @@
         [self setupPageControl];
         
         self.backgroundColor = [UIColor whiteColor];
+        
+        NSLog(@"---- chichun  %f",[UIScreen mainScreen].bounds.size.height);
     }
     return self;
 }
@@ -78,13 +82,17 @@
         UIImageView *imageView = [[UIImageView alloc] init];
         
         // 设置图片
-        NSString *name = [NSString stringWithFormat:@"welcome_%d", index];
-//        if (fourInch) { // 4inch
-//            name = [NSString stringWithFormat:@"welcome_%d", index];
-//        } else {
-//            name = [NSString stringWithFormat:@"welcome_%d", index];
-//        }
-        imageView.image = [UIImage imageNamed:name];
+        NSString *name4 = [NSString stringWithFormat:@"welcome_%d-4s", index];
+        NSString *name5 = [NSString stringWithFormat:@"welcome_%d-5s",index];
+        NSString *name6 = [NSString stringWithFormat:@"welcome_%d",index];
+        
+        if (foureSize) {
+            imageView.image = [UIImage imageNamed:name4];
+        }else if(fiveSize){
+            imageView.image = [UIImage imageNamed:name5];
+        }else{
+            imageView.image = [UIImage imageNamed:name6];
+        }
         
         // 设置frame
         CGFloat imageX = index * imageW;
@@ -126,14 +134,14 @@
     startButton.bounds = (CGRect){CGPointZero, 160,48};
     
     // 3.设置文字
-    [startButton setTitle:@"进入收客宝" forState:UIControlStateNormal];
+    [startButton setTitle:@"进入旅游圈" forState:UIControlStateNormal];
     [startButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [startButton addTarget:self action:@selector(start) forControlEvents:UIControlEventTouchUpInside];
     [imageView addSubview:startButton];
 }
 
 /**
- *  开始收客宝
+ *  开始旅游圈
  */
 - (void)start
 {

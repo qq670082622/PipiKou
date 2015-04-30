@@ -56,7 +56,7 @@
 {
     [super willMoveToSuperview:newSuperview];
     
-    CAKeyframeAnimation* animation1 = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
+    CAKeyframeAnimation *animation1 = [CAKeyframeAnimation animationWithKeyPath:@"transform.scale"];
     animation1.duration = 0.3;
     
     animation1.values = @[@(0.1),@(1.05),@(1.0)];

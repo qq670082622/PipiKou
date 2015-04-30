@@ -45,7 +45,7 @@
         [step setTitleColor:[UIColor blackColor] forState:UIControlStateSelected];
         [step setImage:[UIImage imageNamed:[NSString stringWithFormat:@"step%d",i + 1]] forState:UIControlStateNormal];
         [step setImage:[UIImage imageNamed:[NSString stringWithFormat:@"step%d_selected",i + 1]] forState:UIControlStateSelected];
-        [step setTitle:i == 0 ? @"验证收客宝手机" : @"登录旅行社账号" forState:UIControlStateNormal];
+        [step setTitle:i == 0 ? @"验证旅游圈手机" : @"登录旅行社账号" forState:UIControlStateNormal];
         step.reversesTitleShadowWhenHighlighted = NO;
         step.adjustsImageWhenHighlighted = NO;
         [self addSubview:step];

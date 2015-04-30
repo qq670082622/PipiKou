@@ -637,6 +637,14 @@
         if ([json[@"IsSuccess"] integerValue] == 1) {
             [UserInfo userInfoWithDict:json];
             
+            NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
+            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
+            
+            // 保存分站
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:@"Substation"];
+            [def synchronize];
+            
             self.isAutoLogin = YES;
         }
 
