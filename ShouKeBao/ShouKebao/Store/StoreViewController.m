@@ -57,7 +57,7 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
-    
+    [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBlackViewToHideIt)];
     tap.delegate = self;
     [self.blackView addGestureRecognizer:tap];
@@ -181,10 +181,19 @@
                   
                     self.cheapPrice.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonPeerPrice"]];
                     self.profit.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonProfit"]];
-                   
-                    self.jiafan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonBackPrice"]];
-                   
-                    self.quan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonCashCoupon"]];
+                    
+                    if ([json[@"Product"][@"PersonBackPrice"]  isEqual: @"0"]) {
+                        self.jiafan.hidden = YES;
+                    }else if (![json[@"Product"]  isEqual: @"0"]){
+                        self.jiafan.hidden = NO;
+                        self.jiafan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonBackPrice"]];}
+                    
+                    if ([json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]) {
+                        self.quan.hidden = YES;
+                    }else if (![json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]){
+                        self.quan.hidden = NO;
+                        self.quan.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonCashCoupon"]];
+                    }
                 
                 }else if (personPrice.length<3){
                     self.btnLine.hidden = NO;
