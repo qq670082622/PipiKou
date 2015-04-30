@@ -1571,6 +1571,7 @@
 		636C8B511AC2E1420097CAE9 /* ShareSDK */ = {
 			isa = PBXGroup;
 			children = (
+				63B8F5451AF221AC00A162DC /* AudioToolbox.framework */,
 				636C8B8C1AC2E2740097CAE9 /* libsqlite3.dylib */,
 				636C8B8A1AC2E2520097CAE9 /* libstdc++.dylib */,
 				636C8B881AC2E23C0097CAE9 /* MessageUI.framework */,
@@ -1714,7 +1715,6 @@
 		63D31E351AB143D00043B3CA = {
 			isa = PBXGroup;
 			children = (
-				63B8F5451AF221AC00A162DC /* AudioToolbox.framework */,
 				63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */,
 				632EDE911AC8FC0300EE98FC /* Jpush */,
 				63D31E401AB143D00043B3CA /* ShouKeBao */,
