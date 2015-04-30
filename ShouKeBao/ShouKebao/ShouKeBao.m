@@ -119,12 +119,20 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPush:) name:@"push" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
+    
+    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+    
+    [appIsBack setObject:@"no" forKey:@"appIsBack"];
+    
+    [appIsBack synchronize];
+
 }
 
 
-#pragma  - mark远程推送处理函数
--(void)dealPush:(NSNotification *)noti
+#pragma  - mark程序在后台时远程推送处理函数
+-(void)dealPushBackGround:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -176,7 +184,54 @@
     }
     
     else if ([message[0] isEqualToString:@"noticeType"]){
-        [self ringAction];
+       // [self ringAction];
+    }
+}
+
+#pragma  - mark程序在前台时远程推送处理函数
+-(void)dealPushForeground:(NSNotification *)noti
+{ //arr[0]是value arr[1]是key
+    //orderId ,userId ,recommond ,productId ,messageId
+    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    [APService setBadge:0];
+    
+    NSMutableArray *message = noti.object;
+    NSLog(@"viewController 里取得值是 is %@",message);
+    
+  
+    if ([message[0] isEqualToString:@"orderId"]) {
+        
+    }
+    
+    else if ([message[0] isEqualToString:@"remind"]){
+
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+        
+    }
+    
+    else if ([message[0] isEqualToString:@"recommond"]){
+      
+         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+    }
+    
+    else if ([message[0] isEqualToString:@"productId"]){
+        
+       
+         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+    }
+    
+    else if ([message[0] isEqualToString:@"messageId"]){
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+        int valueCount = [barButton.badgeValue intValue];
+        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+    }
+    
+    else if ([message[0] isEqualToString:@"noticeType"]){
+      
+        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+        int valueCount = [barButton.badgeValue intValue];
+        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+
     }
 }
 
