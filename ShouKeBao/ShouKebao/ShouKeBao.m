@@ -198,41 +198,50 @@
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
-  
-    if ([message[0] isEqualToString:@"orderId"]) {
-        
-    }
+    [self loadContentDataSource];
     
-    else if ([message[0] isEqualToString:@"remind"]){
+    [self  getUserInformation];
+   
+    //if ([self.tabBarItem.badgeValue intValue]>5) {
+         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+  //  }
+   
 
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+    if ([message[0] isEqualToString:@"orderId"]) {//订单消息
+     
+    }
+    
+    else if ([message[0] isEqualToString:@"remind"]){//客户提醒
+
         
     }
     
-    else if ([message[0] isEqualToString:@"recommond"]){
+    else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
       
-         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-    }
-    
-    else if ([message[0] isEqualToString:@"productId"]){
         
-       
-         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
     }
     
-    else if ([message[0] isEqualToString:@"messageId"]){
+    else if ([message[0] isEqualToString:@"productId"]){//新线路（新产品）
+        
+           }
+    
+     if ([message[0] isEqualToString:@"messageId"]){//新公告
         BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
         int valueCount = [barButton.badgeValue intValue];
         barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+        
+        //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
     }
     
-    else if ([message[0] isEqualToString:@"noticeType"]){
-      
-        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-        int valueCount = [barButton.badgeValue intValue];
-        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
-
-    }
+//    else if ([message[0] isEqualToString:@"noticeType"]){
+//      
+//        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+//        int valueCount = [barButton.badgeValue intValue];
+//        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+//        
+//        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+//
+//    }
 }
 
 
@@ -301,7 +310,8 @@
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
         
         BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-        
+       
+
         int count = 0;
         for (int i = 0; i<arr.count; i++) {
             NSDictionary *dic = arr[i];
@@ -622,9 +632,20 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
     messgeCenter.delegate = self;
+    
+    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+   
+self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [barButton.badgeValue intValue]];
+   
+    if ([self.tabBarItem.badgeValue intValue] == 0) {
+        self.tabBarItem.badgeValue = @"";
+    }
+
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }
+
+
 -(void)codeAction
 {
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
@@ -665,6 +686,11 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 {
     HomeBase *model = self.dataSource[indexPath.row];
     
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+    if ([self.tabBarItem.badgeValue intValue] == 0) {
+        self.tabBarItem.badgeValue = @"";
+    }
+
     if ([model.model isKindOfClass:[HomeList class]]) {
         HomeList *order = model.model;
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];

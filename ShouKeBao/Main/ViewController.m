@@ -40,14 +40,14 @@
     [self addChildVc:skb title:@"收客宝" image:@"skb2" selectedImage:@"skb"];
     
 
-    [[self.childViewControllers objectAtIndex:0] setBadgeValue:_skbValue];
+   // [[self.childViewControllers objectAtIndex:0] setBadgeValue:_skbValue];
     
     FindProduct *fdp = [[FindProduct alloc] init];
     [self addChildVc:fdp title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
     
     Orders *ods = [[Orders alloc] init];
     [self addChildVc:ods title:@"理订单" image:@"lidingdan" selectedImage:@"lidingdan2"];
-    [[self.childViewControllers objectAtIndex:2] setBadgeValue:_odsValue];
+   // [[self.childViewControllers objectAtIndex:2] setBadgeValue:_odsValue];
 
     
     Customers *cstm = [[Customers alloc] init];
@@ -58,7 +58,7 @@
     [self addChildVc:me title:@"我" image:@"wo2" selectedImage:@"wo"];
    
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
     
     NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
     
