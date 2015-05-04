@@ -299,6 +299,7 @@
     DayDetail *detail = self.dataSource[indexPath.row];
     NSDictionary *tmp = detail.shareInfo;
     
+    NSLog(@"------分享内容为%@-------------",tmp);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
