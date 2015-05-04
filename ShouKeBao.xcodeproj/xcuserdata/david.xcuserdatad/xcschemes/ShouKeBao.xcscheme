@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-               BuildableName = "ShouKeBao.app"
-               BlueprintName = "ShouKeBao"
+               BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+               BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
                ReferencedContainer = "container:ShouKeBao.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -57,8 +57,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-            BuildableName = "ShouKeBao.app"
-            BlueprintName = "ShouKeBao"
+            BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+            BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
             ReferencedContainer = "container:ShouKeBao.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -72,12 +72,13 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-            BuildableName = "ShouKeBao.app"
-            BlueprintName = "ShouKeBao"
+            BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+            BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
             ReferencedContainer = "container:ShouKeBao.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -90,12 +91,13 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-            BuildableName = "ShouKeBao.app"
-            BlueprintName = "ShouKeBao"
+            BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+            BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
             ReferencedContainer = "container:ShouKeBao.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

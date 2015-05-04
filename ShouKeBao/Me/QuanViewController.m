@@ -54,17 +54,17 @@
 #pragma -mark private
 -(void)back
 {
-    if (self.webUrlArr.count >2) {
-        
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-        [self.webUrlArr removeLastObject];
-    }
-    
-    else if (self.webUrlArr.count == 2) {
+//    if (self.webUrlArr.count >2) {
+//        
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+//        [self.webUrlArr removeLastObject];
+//    }
+//    
+//    else if (self.webUrlArr.count == 2) {
         [self.navigationController popViewControllerAnimated:YES];
-    }
+   // }
     
-    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+   // NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
     
 }
 
