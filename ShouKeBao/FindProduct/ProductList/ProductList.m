@@ -24,6 +24,7 @@
 #import "MinMaxPriceSelectViewController.h"
 #import "WMAnimations.h"
 #import "MJRefresh.h"
+#import "WriteFileManager.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -292,6 +293,8 @@
         [self.conditionDic setObject:min forKey:@"MinPrice"];
         [self.conditionDic setObject:max forKey:@"MaxPrice"];
         [self.priceBtnOutlet setTitle:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max] forState:UIControlStateNormal];
+        NSArray *priceData = [NSArray arrayWithObjects:min,max,self.priceBtnOutlet.titleLabel.text ,nil];
+        [WriteFileManager saveData:priceData name:@"priceData"];
 
     }else if ([max isEqualToString:@"0"]){
         [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
@@ -496,11 +499,13 @@
     CGFloat W = self.view.frame.size.width * 0.8;
   
     self.subView.frame = CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height);
-
     [cover addSubview:self.subView];
     self.coverView = cover;
     [self.view.window addSubview:cover];
-    
+   NSArray *priceData = [WriteFileManager readData:@"priceData"];
+    if (priceData) {
+        [self.priceBtnOutlet setTitle:priceData[2] forState:UIControlStateNormal];
+    }
     UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
     [self.coverView addSubview:gestureView];
     
