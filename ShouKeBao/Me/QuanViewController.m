@@ -13,7 +13,9 @@
 @interface QuanViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
-
+@property (nonatomic,assign) int webLoadCount;
+@property (nonatomic,strong) NSMutableArray *webUrlArr;
+@property (nonatomic,copy) NSString *linkUrl;
 @end
 
 @implementation QuanViewController
@@ -27,6 +29,10 @@
     [self.view addSubview:self.webView];
     
     [self loadDataSource];
+    
+    
+    
+
 }
 
 // 先一个个页面设置吧 以后再搞一起的
@@ -43,9 +49,21 @@
     self.navigationItem.leftBarButtonItem= leftItem;
 }
 
+#pragma -mark private
 -(void)back
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    if (self.webUrlArr.count >2) {
+        
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+        [self.webUrlArr removeLastObject];
+    }
+    
+    else if (self.webUrlArr.count == 2) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+    
 }
 
 
@@ -60,6 +78,22 @@
     return _webView;
 }
 
+-(NSMutableArray *)webUrlArr
+{
+    if (_webUrlArr == nil) {
+        self.webUrlArr = [NSMutableArray array];
+    }
+    return _webUrlArr;
+}
+
+-(NSString *)linkUrl
+{
+    if (_linkUrl == nil) {
+        self.linkUrl = [NSString string];
+    }
+    return _linkUrl;
+}
+
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {
@@ -67,11 +101,30 @@
         if (json) {
             NSLog(@"-----%@",json);
             [self loadWithUrl:json[@"QFBLinkUrl"]];
+            self.linkUrl = json[@"QFBLinkUrl"];
+            [self.webUrlArr addObject:_linkUrl];
+            self.webLoadCount = 1;
         }
     }failure:^(NSError *error){
         
     }];
 }
+
+#pragma  - mark delegate
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *rightStr = request.URL.absoluteString;
+    
+    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_linkUrl])) {
+        
+        [self.webUrlArr addObject:rightStr];
+    }
+    
+    
+    return YES;
+    
+}
+
 
 #pragma mark - loadWebView
 - (void)loadWithUrl:(NSString *)url
