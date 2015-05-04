@@ -121,7 +121,7 @@
     
     // 长按搬救兵 打电话
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressCall:)];
-    longPress.minimumPressDuration = 1.5;
+    longPress.minimumPressDuration = 1;
     [self.phoneBtn addGestureRecognizer:longPress];
     
     // 显示提醒
@@ -560,13 +560,18 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 // 长按搬救兵打电话
 - (void)longPressCall:(UILongPressGestureRecognizer *)ges
 {
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *mobile = [def objectForKey:@"ServerMobile"];
-    if (!mobile) {
-        return;
+    if (ges.state == UIGestureRecognizerStateEnded) {
+        
     }
-    NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+    else {
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        NSString *mobile = [def objectForKey:@"ServerMobile"];
+        if (!mobile) {
+            return;
+        }
+        NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+    }
 }
 
 - (IBAction)search:(id)sender

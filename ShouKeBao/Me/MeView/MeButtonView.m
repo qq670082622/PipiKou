@@ -26,6 +26,9 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self setup];
+        
+        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressToCall:)];
+        [self.sosBtn addGestureRecognizer:longPress];
     }
     return self;
 }
@@ -84,6 +87,19 @@
 {
     if (_delegate && [_delegate respondsToSelector:@selector(buttonViewSelectedWithIndex:)]) {
         [_delegate buttonViewSelectedWithIndex:btn.tag];
+    }
+}
+
+- (void)longPressToCall:(UILongPressGestureRecognizer *)ges
+{
+    // 长按搬救兵打电话
+    if (ges.state == UIGestureRecognizerStateEnded) {
+        
+    }
+    else {
+        if (_delegate && [_delegate respondsToSelector:@selector(buttonViewLongPressToCall)]) {
+            [_delegate buttonViewLongPressToCall];
+        }
     }
 }
 

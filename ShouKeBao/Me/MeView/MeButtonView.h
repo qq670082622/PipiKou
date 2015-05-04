@@ -12,6 +12,8 @@
 
 - (void)buttonViewSelectedWithIndex:(NSInteger)index;
 
+- (void)buttonViewLongPressToCall;
+
 @end
 
 @interface MeButtonView : UIView

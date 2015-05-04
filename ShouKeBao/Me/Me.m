@@ -175,6 +175,17 @@
     }
 }
 
+- (void)buttonViewLongPressToCall
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *mobile = [def objectForKey:@"ServerMobile"];
+    if (!mobile) {
+        return;
+    }
+    NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+}
+
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {

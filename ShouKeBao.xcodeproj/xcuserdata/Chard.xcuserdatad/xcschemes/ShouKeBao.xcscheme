@@ -107,7 +107,7 @@
    </AnalyzeAction>
    <ArchiveAction
       buildConfiguration = "Release"
-      customArchiveName = "&#x65c5;&#x6e38;&#x5708;"
+      customArchiveName = "lvyouquan"
       revealArchiveInOrganizer = "YES">
    </ArchiveAction>
 </Scheme>
