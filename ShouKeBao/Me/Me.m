@@ -175,6 +175,7 @@
     }
 }
 
+// 长按打电话
 - (void)buttonViewLongPressToCall
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];

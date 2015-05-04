@@ -831,7 +831,15 @@
             
             break;
         }else{
+            UITextField *textField = (UITextField *)searchbuttons;
             
+            // 边界线
+            CGFloat sepX = CGRectGetMaxX(textField.frame);
+            UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 0.5, 34)];
+            sep2.backgroundColor = [UIColor lightGrayColor];
+            sep2.alpha = 0.3;
+            [self.view.window addSubview:sep2];
+            self.sep2 = sep2;
         }
     }
 }
@@ -893,14 +901,6 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
      self.searchBar.barTintColor = [UIColor whiteColor];
     
-    // 边界线
-    CGFloat sepX = self.view.frame.size.width - 57;
-    UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 0.5, 34)];
-    sep2.backgroundColor = [UIColor lightGrayColor];
-    sep2.alpha = 0.3;
-    [self.view.window addSubview:sep2];
-    self.sep2 = sep2;
-    
     // 历史记录的界面
     HistoryView *historyView = [[HistoryView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height + 49)];
     historyView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
@@ -926,7 +926,7 @@
     
     [self.historyView removeFromSuperview];
     
-    if (self.searchKeyWord.length) {
+    if (self.searchKeyWord.length){
         self.searchBar.placeholder = self.searchKeyWord;
     }else{
         self.searchBar.placeholder = searchDefaultPlaceholder;
