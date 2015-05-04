@@ -67,7 +67,7 @@
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     
-    self.historyTable.tableFooterView = [[UIView alloc] init];
+    self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
     
  CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
     UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
