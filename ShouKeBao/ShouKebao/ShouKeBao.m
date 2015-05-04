@@ -560,12 +560,17 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 // 长按搬救兵打电话
 - (void)longPressCall:(UILongPressGestureRecognizer *)ges
 {
-    NSLog(@"lalala  电话又来啦");
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *mobile = [def objectForKey:@"ServerMobile"];
+    if (!mobile) {
+        return;
+    }
+    NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
 
 - (IBAction)search:(id)sender
 {
-    
 
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
