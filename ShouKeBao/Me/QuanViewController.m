@@ -30,7 +30,9 @@
     
     [self loadDataSource];
     
-    
+    [self.webView scalesPageToFit];
+    [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
 
 }

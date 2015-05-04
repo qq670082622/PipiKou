@@ -60,16 +60,16 @@
         self.table.tableFooterView.hidden = YES;
     }
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
-   
-    [self.gestureView addGestureRecognizer:tap];
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyBoard)];
+//   
+//    [self.gestureView addGestureRecognizer:tap];
   
  }
 
--(void)hideKeyBoard
-{
-    [self.inputView resignFirstResponder];
-}
+//-(void)hideKeyBoard
+//{
+//    [self.inputView resignFirstResponder];
+//}
 
 -(void)back
 {

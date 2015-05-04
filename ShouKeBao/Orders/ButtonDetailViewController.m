@@ -36,6 +36,9 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    [self.webView scalesPageToFit];
+    [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
+    [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
     [self.webUrlArr addObject:_linkUrl];
     self.webLoadCount = 1;
