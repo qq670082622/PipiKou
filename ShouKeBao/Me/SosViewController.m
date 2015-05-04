@@ -170,9 +170,11 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    // 避免漏出背景
-    if (scrollView.contentOffset.y < 0) {
-        [scrollView setContentOffset:CGPointMake(0, 0)];
+    CGFloat offset = scrollView.contentOffset.y;
+    if (offset < 0){
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+    }else{
+        [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     }
 }
 
