@@ -300,7 +300,7 @@
     NSDictionary *tmp = detail.shareInfo;
     
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:tmp[@"Title"]
+    id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:tmp[@"Pic"]]
                                                 title:tmp[@"Title"]

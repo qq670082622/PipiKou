@@ -501,11 +501,28 @@
     self.coverView = cover;
     [self.view.window addSubview:cover];
     
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBlackViewToHide)];
+    [self.coverView addGestureRecognizer:tap];
+    
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
     }];
 
     
+}
+
+-(void)clickBlackViewToHide
+{
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.subView.transform = CGAffineTransformIdentity;
+    } completion:^(BOOL finished) {
+        
+        [self.coverView removeFromSuperview];
+        // [_dressView removeFromSuperview];
+    }];
+    
+
 }
 
 // 左边滑动的按钮
