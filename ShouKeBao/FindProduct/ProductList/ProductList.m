@@ -145,7 +145,7 @@
 
 }
 
-
+#pragma -mark VClife
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -156,6 +156,15 @@
     line.backgroundColor = [UIColor colorWithRed:175/255.f green:175/255.f blue:175/255.f alpha:1];
      self.table.tableFooterView = line;
 }
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
+    [WriteFileManager saveData:priceData name:@"priceData"];
+}
+#pragma -mark private
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -177,6 +186,8 @@
     [self.cheapOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
 
 }
+
+#pragma  -mark getter
 -(UIView *)subView
 {
     if (_subView == nil) {
@@ -184,7 +195,43 @@
     }
     return _subView;
 }
-#pragma - stationSelect delegate
+
+-(NSMutableString *)jishi
+{
+    if (_jishi == nil) {
+        if (self.jishiSwitch.on == YES) {
+            _jishi = [NSMutableString stringWithFormat:@"1"];
+        }else
+            _jishi = [NSMutableString stringWithFormat:@"0"];
+        
+    }
+    return _jishi
+    ;
+}
+
+
+-(NSMutableString *)jiafan
+{
+    if (_jiafan == nil) {
+        if (self.jiafanSwitch.on == YES) {
+            _jiafan = [NSMutableString stringWithFormat:@"1"];
+        }else
+            _jiafan = [NSMutableString stringWithFormat:@"0"];
+    }
+    return _jiafan;
+}
+
+
+-(NSMutableDictionary *)conditionDic
+{
+    if (_conditionDic == nil) {
+        self.conditionDic = [NSMutableDictionary dictionary];
+    }
+    return _conditionDic;
+}
+
+
+#pragma - mark stationSelect delegate
 -(void)passStation:(NSString *)stationName andStationNum:(NSNumber *)stationNum
 {
 
@@ -211,39 +258,7 @@
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
--(NSMutableString *)jishi
-{
-    if (_jishi == nil) {
-        if (self.jishiSwitch.on == YES) {
-            _jishi = [NSMutableString stringWithFormat:@"1"];
-        }else
-            _jishi = [NSMutableString stringWithFormat:@"0"];
-       
-    }
-    return _jishi
-    ;
-}
 
-
--(NSMutableString *)jiafan
-{
-    if (_jiafan == nil) {
-        if (self.jiafanSwitch.on == YES) {
-            _jiafan = [NSMutableString stringWithFormat:@"1"];
-        }else
-            _jiafan = [NSMutableString stringWithFormat:@"0"];
-    }
-    return _jiafan;
-}
-
-
--(NSMutableDictionary *)conditionDic
-{
-    if (_conditionDic == nil) {
-        self.conditionDic = [NSMutableDictionary dictionary];
-    }
-    return _conditionDic;
-}
 
 
 #pragma  mark - conditionDetail delegate//key 指大字典的key value指字典中某一子value的值
@@ -503,7 +518,7 @@
     self.coverView = cover;
     [self.view.window addSubview:cover];
    NSArray *priceData = [WriteFileManager readData:@"priceData"];
-    if (priceData) {
+    if (priceData.count == 3) {
         [self.priceBtnOutlet setTitle:priceData[2] forState:UIControlStateNormal];
     }
     UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
@@ -1005,7 +1020,7 @@
 }
 
 
-#pragma mark - other
+#pragma mark - 控件Action
 - (void)didReceiveMemoryWarning {
    
     [super didReceiveMemoryWarning];
@@ -1444,6 +1459,11 @@
 
     self.conditionDic = nil;
     [self editButtons];
+    
+    [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
+    
+    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
+    [WriteFileManager saveData:priceData name:@"priceData"];
     
     self.jishi = [NSMutableString stringWithFormat:@"1"];
     
