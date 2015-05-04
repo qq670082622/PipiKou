@@ -501,8 +501,11 @@
     self.coverView = cover;
     [self.view.window addSubview:cover];
     
+    UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
+    [self.coverView addSubview:gestureView];
+    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBlackViewToHide)];
-    [self.coverView addGestureRecognizer:tap];
+    [gestureView addGestureRecognizer:tap];
     
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
