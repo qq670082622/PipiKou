@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShouKeBao">
             <connections>
+                <outlet property="phoneBtn" destination="oE9-3F-kUd" id="K8s-va-nGC"/>
                 <outlet property="searchBtn" destination="Y8O-Mt-FKQ" id="YzR-Wz-9bV"/>
                 <outlet property="stationName" destination="25d-1C-lO3" id="XRJ-R3-NTN"/>
                 <outlet property="upView" destination="Bc7-6G-aOu" id="GGQ-vi-Ffv"/>
@@ -153,7 +154,7 @@
             </subviews>
             <color key="backgroundColor" white="0.90003083881578949" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="206" y="341"/>
+            <point key="canvasLocation" x="261" y="334"/>
         </view>
     </objects>
     <resources>

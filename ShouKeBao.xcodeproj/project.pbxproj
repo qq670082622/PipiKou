@@ -1835,9 +1835,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		63D31E3D1AB143D00043B3CA /* ShouKeBao */ = {
+		63D31E3D1AB143D00043B3CA /* 旅游圈 */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 63D31E611AB143D00043B3CA /* Build configuration list for PBXNativeTarget "ShouKeBao" */;
+			buildConfigurationList = 63D31E611AB143D00043B3CA /* Build configuration list for PBXNativeTarget "旅游圈" */;
 			buildPhases = (
 				63D31E3A1AB143D00043B3CA /* Sources */,
 				63D31E3B1AB143D00043B3CA /* Frameworks */,
@@ -1847,7 +1847,7 @@
 			);
 			dependencies = (
 			);
-			name = ShouKeBao;
+			name = "旅游圈";
 			productName = ShouKeBao;
 			productReference = 63D31E3E1AB143D00043B3CA /* ShouKeBao.app */;
 			productType = "com.apple.product-type.application";
@@ -1909,7 +1909,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				63D31E3D1AB143D00043B3CA /* ShouKeBao */,
+				63D31E3D1AB143D00043B3CA /* 旅游圈 */,
 				63D31E561AB143D00043B3CA /* ShouKeBaoTests */,
 			);
 		};
@@ -2183,7 +2183,7 @@
 /* Begin PBXTargetDependency section */
 		63D31E591AB143D00043B3CA /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 63D31E3D1AB143D00043B3CA /* ShouKeBao */;
+			target = 63D31E3D1AB143D00043B3CA /* 旅游圈 */;
 			targetProxy = 63D31E581AB143D00043B3CA /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -2412,7 +2412,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		63D31E611AB143D00043B3CA /* Build configuration list for PBXNativeTarget "ShouKeBao" */ = {
+		63D31E611AB143D00043B3CA /* Build configuration list for PBXNativeTarget "旅游圈" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				63D31E621AB143D00043B3CA /* Debug */,

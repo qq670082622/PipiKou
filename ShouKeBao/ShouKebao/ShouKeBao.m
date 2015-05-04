@@ -53,6 +53,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *phoneBtn;// 搬救兵电话按钮
+
+
 @property (weak, nonatomic) IBOutlet UILabel *yesterDayOrderCount;
 @property (weak, nonatomic) IBOutlet UILabel *yesterdayVisitors;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
@@ -83,7 +86,6 @@
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [APService setBadge:0];
     
-
     self.userIcon.layer.masksToBounds = YES;
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -117,6 +119,12 @@
     
   //  [self getNotifiList];
     
+    // 长按搬救兵 打电话
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressCall:)];
+    longPress.minimumPressDuration = 1.5;
+    [self.phoneBtn addGestureRecognizer:longPress];
+    
+    // 显示提醒
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
@@ -202,7 +210,6 @@
     AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
     
     AudioServicesPlaySystemSound (messageSound);
-   
 }
 
 
@@ -548,6 +555,12 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
     [self.navigationController pushViewController:sos animated:YES];
     
+}
+
+// 长按搬救兵打电话
+- (void)longPressCall:(UILongPressGestureRecognizer *)ges
+{
+    NSLog(@"lalala  电话又来啦");
 }
 
 - (IBAction)search:(id)sender
