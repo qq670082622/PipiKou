@@ -302,9 +302,11 @@
 #pragma  mark -priceDelegate
 -(void)passTheMinPrice:(NSString *)min AndMaxPrice:(NSString *)max
 {
+    NSLog(@"价格筛选--------%@------------%@------",min,max);
     self.coverView.hidden = NO;
     
-    if (![min  isEqual: @""] && ![max  isEqual: @""]) {
+    if (![max  isEqual: @""]) {
+       
         [self.conditionDic setObject:min forKey:@"MinPrice"];
         [self.conditionDic setObject:max forKey:@"MaxPrice"];
         [self.priceBtnOutlet setTitle:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max] forState:UIControlStateNormal];
@@ -312,9 +314,16 @@
         [WriteFileManager saveData:priceData name:@"priceData"];
 
     }else if ([max isEqualToString:@"0"]){
+        
         [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
-    }else if ([min  isEqual: @""] || [max  isEqual: @""]){
-     [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
+        [self.conditionDic setObject:@"" forKey:@"MinPrice"];
+        [self.conditionDic setObject:@"" forKey:@"MaxPrice"];
+   
+    }else if ([max  isEqual: @""]){
+    
+        [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
+        [self.conditionDic setObject:@"" forKey:@"MinPrice"];
+        [self.conditionDic setObject:@"" forKey:@"MaxPrice"];
     }
 }
 
@@ -1464,6 +1473,8 @@
     
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
+    [self.conditionDic setObject:@"" forKey:@"MinPrice"];
+    [self.conditionDic setObject:@"" forKey:@"MaxPrice"];
     
     self.jishi = [NSMutableString stringWithFormat:@"1"];
     
