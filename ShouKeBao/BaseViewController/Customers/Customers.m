@@ -17,7 +17,7 @@
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
@@ -37,7 +37,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
 @property (nonatomic,strong) NSMutableArray *historyArr;
 @property (weak, nonatomic) IBOutlet UIView *conditionLine;
-
+@property (weak,nonatomic) UIImageView *imageViewWhenIsNull;
 @end
 
 @implementation Customers
@@ -67,7 +67,7 @@
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     
-    self.historyTable.tableFooterView = [[UIView alloc] init];
+    self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
     
  CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
     UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
@@ -99,12 +99,17 @@
 
 -(void)headerPull
 {
+//    self.imageViewWhenIsNull.hidden = YES;
+//     self.imageViewWhenIsNull.hidden = YES;
     [self loadDataSource];
         [self.table headerEndRefreshing];
     
     
 }
-
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [self.imageViewWhenIsNull removeFromSuperview];
+}
 
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -231,9 +236,12 @@
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
-        [self.table reloadData];
+               [self.table reloadData];
         if (_dataArr.count==0) {
             [self addANewFootViewWhenHaveNoProduct];
+        }else if (_dataArr.count>0){
+            self.imageViewWhenIsNull.hidden = NO;
+
         }
 //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window]
 //    animated:YES];
@@ -251,6 +259,8 @@
     imgv.contentMode = UIViewContentModeScaleAspectFit;
     imgv.image = [UIImage imageNamed:@"content_null"];
     [self.view addSubview:imgv];
+    self.imageViewWhenIsNull = imgv;
+    self.imageViewWhenIsNull.hidden = NO;
     self.navigationItem.rightBarButtonItem = nil;
 }
 
@@ -391,7 +401,7 @@
         NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
         [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
    
-    [self cancelSearch];
+   
     
   NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
@@ -399,20 +409,22 @@
    [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
        
-        NSLog(@"------管客户json is %@-------",json);
+        NSLog(@"------管客户搜索结果的json is %@-------",json);
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
         [self.table reloadData];
-        if (_dataArr.count == 0) {
-            [self addANewFootViewWhenHaveNoProduct];
+        if (self.dataArr.count == 0) {
+           [self addANewFootViewWhenHaveNoProduct];
+        }else if (self.dataArr.count >0){
+            self.imageViewWhenIsNull.hidden = NO;
         }
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
-    
+     [self cancelSearch];
     return YES;
 }
 
@@ -516,7 +528,7 @@
         }];
         
    }else if (self.subView.hidden == YES){
-
+       self.imageViewWhenIsNull.hidden = YES;
     self.searchTextField.hidden = NO;
     self.cancelSearchOutlet.hidden = NO;
     self.searchCustomerBtnOutlet.hidden = YES;
@@ -540,12 +552,19 @@
     self.cancelSearchOutlet.hidden = YES;
     self.searchTextField.hidden = YES;
     self.searchCustomerBtnOutlet.hidden = NO;
+    self.searchTextField.text = @"";
     [self.searchTextField resignFirstResponder];
+    if (self.dataArr.count > 0) {
+        self.imageViewWhenIsNull.hidden = YES;
+    }else if (self.dataArr.count == 0){
+        self.imageViewWhenIsNull.hidden = NO;
+   }
+ 
     [UIView animateWithDuration:0.3 animations:^{
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
-       // [[UIApplication sharedApplication] setStatusBarHidden:FALSE];
+     
     }];
 
 }

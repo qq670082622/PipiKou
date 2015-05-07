@@ -40,10 +40,7 @@
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
-    [self.webUrlArr addObject:_linkUrl];
-    self.webLoadCount = 1;
-
-}
+   }
 
 #pragma -mark private
 -(void)back
@@ -58,7 +55,6 @@
         [self.navigationController popViewControllerAnimated:YES];
     //}
     
-   // NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
     
 }
 
@@ -85,13 +81,14 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *rightStr = request.URL.absoluteString;
-    
-    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_linkUrl])) {
-        
-        [self.webUrlArr addObject:rightStr];
-    }
-    
+//    NSString *rightStr = request.URL.absoluteString;
+//    
+//    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
+//        
+//        [self.webUrlArr addObject:rightStr];
+//    }
+//    
+//     NSLog(@"------------------\narr count is %lu  \n arr is %@\n--------",self.webUrlArr.count,_webUrlArr);
     
     return YES;
     
