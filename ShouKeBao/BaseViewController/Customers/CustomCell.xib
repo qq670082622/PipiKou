@@ -47,7 +47,7 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" id="AEU-Zk-NFM">
-                        <rect key="frame" x="0.0" y="62.5" width="320" height="0.5"/>
+                        <rect key="frame" x="15" y="62.5" width="305" height="0.5"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.85773843654434245" alpha="1" colorSpace="calibratedWhite"/>
                     </view>

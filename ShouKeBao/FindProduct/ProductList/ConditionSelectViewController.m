@@ -7,11 +7,12 @@
 //
 
 #import "ConditionSelectViewController.h"
-
+#import "WriteFileManager.h"
 @interface ConditionSelectViewController ()
 @property (nonatomic,copy)NSMutableString *passValue;
 @property (nonatomic,copy)NSMutableString *selectKey;
 @property (nonatomic,copy)NSMutableString *selectValue;
+
 @end
 
 @implementation ConditionSelectViewController
@@ -30,6 +31,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
  
+    self.table.tableFooterView = [[UIView alloc] init];
     
 }
 
@@ -73,6 +75,7 @@
 
 -(NSArray *)dataArr1
 {
+    NSLog(@"选择列表的数据是%@----",_conditionDic);
     if (_dataArr1 == nil) {
         NSMutableArray *arr = [NSMutableArray array];
         NSArray *keys = [self.conditionDic allKeys];
@@ -112,7 +115,8 @@ static NSString *cellID = @"Cell";
         NSLog(@"----------- dataArr1 is %@-----------",_dataArr1);
         label1.text = _dataArr1[indexPath.row][@"Text"];
         
-     
+       
+        
       //  NSString *value = _dataArr1[indexPath.row][@"Value"];//选项的searchID;
         
         label1.font = [UIFont systemFontOfSize:13.0];
@@ -145,8 +149,7 @@ static NSString *cellID = @"Cell";
     self.selectValue = _dataArr1[indexPath.row][@"Text"];//取得的value的名称
   
     [self changeSelectKey];
-    
-    NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
+      NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
 //    [self.delegate passKey:key andValue:value andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:selectValue];
     
     [self.navigationController popViewControllerAnimated:YES];

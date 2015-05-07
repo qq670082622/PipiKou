@@ -157,6 +157,7 @@
 
     if (_tableDataArr == nil) {
         self.tableDataArr = [NSMutableArray array];
+        
     }
     return _tableDataArr;
 }
@@ -164,11 +165,11 @@
 
 - (void)loadHistoryDataSource
 {
-    NSArray *tmp = [WriteFileManager readData:@"searchHistory"];
-    NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
-    self.tableDataArr = searchArr;
+    self.tableDataArr = [WriteFileManager WMreadData:@"searchHistory"];
+
     [self.table reloadData];
 }
+
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
@@ -180,9 +181,7 @@
 -(void)searchFootViewDidClickedLoadBtn:(SearchFootView *)footView
 {
     [self.tableDataArr removeAllObjects];
-    NSArray *arr = [NSArray arrayWithObject:self.tableDataArr];
-   
-    [WriteFileManager saveData:arr name:@"searchHistory"];
+   [WriteFileManager WMsaveData:self.tableDataArr name:@"searchHistory"];
     [self.table reloadData];
     self.table.tableFooterView.hidden = YES;
     [self.inputView setText:@""];
@@ -273,18 +272,20 @@
 
 - (IBAction)search
 {
-    
-    [self.tableDataArr addObject:self.inputView.text];
-    
-    if (self.tableDataArr.count > 6) {
-        [self.tableDataArr removeObjectAtIndex:0];
+    if (![self.tableDataArr containsObject:self.inputView.text]) {
+        [self.tableDataArr addObject:self.inputView.text];
+        
+        if (self.tableDataArr.count > 6) {
+            [self.tableDataArr removeObjectAtIndex:0];
+        }
+        
+        
+        [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+        
+
     }
     
-    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
-    
-    [WriteFileManager saveData:tmp name:@"searchHistory"];
-    
-    ProductList *list = [[ProductList alloc] init];
+        ProductList *list = [[ProductList alloc] init];
     list.pushedSearchK = self.inputView.text;
     self.table.tableFooterView.hidden = NO;
     
@@ -301,7 +302,6 @@
     
     self.table.tableFooterView.hidden = NO;
     
-    // self.navigationController.navigationBar.hidden = NO;
     
     [self.navigationController popViewControllerAnimated:NO];
 }

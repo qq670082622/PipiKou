@@ -9,11 +9,13 @@
 #import "StationSelect.h"
 #import "IWHttpTool.h"
 #import "APService.h"
+#import "WriteFileManager.h"
 @interface StationSelect ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
 @property (copy,nonatomic) NSMutableString *stationName;
 @property (copy,nonatomic) NSMutableString *stationNum;
+
 @end
 
 @implementation StationSelect
@@ -60,6 +62,7 @@
     return _dataArr;
 }
 
+
 -(void)loadDataSource
 {
     
@@ -90,8 +93,8 @@
 {
     self.stationName = _dataArr[indexPath.row][@"Text"];
     self.stationNum = [NSMutableString stringWithFormat:@"%@",_dataArr[indexPath.row][@"Value"]];
-    [self.navigationController popViewControllerAnimated:YES];
-   //储存substation
+    
+      //储存substation
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
    [accountDefaults setObject:_stationNum forKey:@"Substation"];
     [accountDefaults setObject:_stationName forKey:@"SubstationName"];
@@ -99,6 +102,9 @@
     [self.delegate notifiToReloadData];
     NSString *normal = @"substation_";
     [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationNum]] callbackSelector:nil object:nil];
+    
+    [self.navigationController popViewControllerAnimated:YES];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -114,9 +120,12 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
     cell.textLabel.text = _dataArr[indexPath.row][@"Text"];
+    
+   
+   
     //    _dataArr[indexPath.row][@"Value"] 分站代号 int型
     return cell;
 }

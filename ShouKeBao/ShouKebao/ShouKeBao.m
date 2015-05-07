@@ -45,6 +45,7 @@
 #import "UserInfo.h"
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "MobClick.h"
 
 #define FiveDay 432000
 
@@ -75,6 +76,8 @@
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
 
 @property (nonatomic,assign) NSInteger recommendCount;// 今日推荐的数量
+
+
 @end
 
 @implementation ShouKeBao
@@ -82,7 +85,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-   
+    [self Guide];
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [APService setBadge:0];
     
@@ -136,7 +139,13 @@
     [appIsBack setObject:@"no" forKey:@"appIsBack"];
     
     [appIsBack synchronize];
-
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+   
+    NSString *isFirst = [def objectForKey:@"isFirst"];
+    if ([isFirst integerValue] != 1) {// 是否第一次打开app
+        [self Guide];
+    }
 }
 
 
@@ -314,7 +323,13 @@
         self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
         self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",muta[@"VisitorCount"]];
 
-        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:[UIImage imageNamed:@""]];
+        [self.userIcon sd_setImageWithURL:[NSURL URLWithString:muta[@"HeadPic"]] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+        NSUserDefaults *iconDefault = [NSUserDefaults standardUserDefaults];
+        [iconDefault setObject:muta[@"HeadPic"] forKey:@"iconUrl"];
+        [iconDefault synchronize];
+        
+       // [self.userIcon sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:[UIImage imageNamed:@"morentouxiang"]];
+        
         self.userName.text = muta[@"ShowName"];
         self.shareLink = muta[@"LinkUrl"];
         if (![muta[@"ShareInfo"] isKindOfClass:[NSNull class]]) {
@@ -376,6 +391,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 }
 
 #pragma mark - getter
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -459,6 +475,13 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
 
 #pragma mark - private
+//引导页
+-(void)Guide
+{
+    
+    
+}
+
 // 显示提醒
 - (void)showRemind:(NSTimer *)timer
 {
@@ -539,6 +562,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
 -(void)pushToStore
 {
+    [MobClick event:@"clickToStore"];
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
     [self.navigationController pushViewController:store animated:YES];
@@ -546,11 +570,15 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
 - (IBAction)changeStation:(id)sender {
     
+     [MobClick event:@"changeStationInPageOne"];
+
     [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
 }
 
 - (IBAction)phoneToService:(id)sender
 {
+    [MobClick endEvent:@"sosInPageOne"];
+    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
     [self.navigationController pushViewController:sos animated:YES];
@@ -576,7 +604,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
 - (IBAction)search:(id)sender
 {
-
+      [MobClick event:@"searchInPageOne"];
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
     
@@ -607,7 +635,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    
+                                    [MobClick endEvent:@"shareStore"];
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];
@@ -678,7 +706,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
     }
-
+    [MobClick event:@"checkMessage"];
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }
@@ -730,6 +758,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     }
 
     if ([model.model isKindOfClass:[HomeList class]]) {
+        [MobClick event:@"orderClickInPageOne"];
         HomeList *order = model.model;
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
         detail.url = order.LinkUrl;
@@ -737,7 +766,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
-        
+        [MobClick event:@"recommendClick"];
         RecommendViewController *rec = [[RecommendViewController alloc] init];
         [self.navigationController pushViewController:rec animated:YES];
         

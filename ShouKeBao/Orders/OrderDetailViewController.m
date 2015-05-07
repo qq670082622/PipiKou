@@ -43,26 +43,24 @@
     [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self.webUrlArr addObject:_url];
-    self.webLoadCount = 1;
-
+   
     
 }
 
 #pragma -mark private
 -(void)back
 {
-//    if (self.webUrlArr.count >1) {
-//        
-//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-//        [self.webUrlArr removeLastObject];
-//    }
-//    
-//    else if (self.webUrlArr.count == 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-   // }
+    if (self.webUrlArr.count >2) {
+        
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+        [self.webUrlArr removeLastObject];
+    }
     
-   // NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+    else if (self.webUrlArr.count == 2) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    
+    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
 
 }
 
@@ -91,11 +89,11 @@
 {
     NSString *rightStr = request.URL.absoluteString;
     
-    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_url])) {
+    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
         
         [self.webUrlArr addObject:rightStr];
     }
-
+    NSLog(@"\narr count is %lu  \n arr is %@\n",self.webUrlArr.count,_webUrlArr);
     
     return YES;
     

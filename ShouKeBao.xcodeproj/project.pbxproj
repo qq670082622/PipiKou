@@ -240,7 +240,11 @@
 		636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B901AC2E6860097CAE9 /* MBProgressHUD+MJ.m */; };
 		636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */; };
 		636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */; };
+		6384E74F1AFB55BB0074AEFE /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E74D1AFB55BB0074AEFE /* GuideViewController.m */; };
+		6384E7501AFB55BB0074AEFE /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E74E1AFB55BB0074AEFE /* GuideViewController.xib */; };
 		6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6389CE041AB7F9F600A8326E /* ResizeImage.m */; };
+		63B6CCF91AF7810C00273329 /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B6CCF61AF7810C00273329 /* libMobClickLibrary.a */; };
+		63B6CCFA1AF7814D00273329 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 632EDEA01AC8FC8300EE98FC /* libz.dylib */; };
 		63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */; };
 		63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */; };
 		63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C6AA1ACE672C00328C8C /* QRCodeViewController.xib */; };
@@ -680,8 +684,14 @@
 		636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		636C8B921AC2E6860097CAE9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		6384E74C1AFB55BB0074AEFE /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
+		6384E74D1AFB55BB0074AEFE /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
+		6384E74E1AFB55BB0074AEFE /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideViewController.xib; sourceTree = "<group>"; };
 		6389CE031AB7F9F600A8326E /* ResizeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImage.h; sourceTree = "<group>"; };
 		6389CE041AB7F9F600A8326E /* ResizeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeImage.m; sourceTree = "<group>"; };
+		63B6CCF61AF7810C00273329 /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		63B6CCF71AF7810C00273329 /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		63B6CCF81AF7810C00273329 /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
 		63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		63B8C6A81ACE672C00328C8C /* QRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeViewController.h; sourceTree = "<group>"; };
 		63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeViewController.m; sourceTree = "<group>"; };
@@ -765,6 +775,7 @@
 				636C8B7B1AC2E1420097CAE9 /* ShareSDKShareActionSheet.framework in Frameworks */,
 				636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */,
 				636C8B781AC2E1420097CAE9 /* ShareSDK.framework in Frameworks */,
+				63B6CCF91AF7810C00273329 /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -772,6 +783,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63B6CCFA1AF7814D00273329 /* libz.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1663,6 +1675,16 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		6384E74B1AFB558E0074AEFE /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				6384E74C1AFB55BB0074AEFE /* GuideViewController.h */,
+				6384E74D1AFB55BB0074AEFE /* GuideViewController.m */,
+				6384E74E1AFB55BB0074AEFE /* GuideViewController.xib */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
 		6389CE021AB7F9DC00A8326E /* ImageTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -1670,6 +1692,16 @@
 				6389CE041AB7F9F600A8326E /* ResizeImage.m */,
 			);
 			path = ImageTool;
+			sourceTree = "<group>";
+		};
+		63B6CCF51AF780EB00273329 /* Umeng */ = {
+			isa = PBXGroup;
+			children = (
+				63B6CCF61AF7810C00273329 /* libMobClickLibrary.a */,
+				63B6CCF71AF7810C00273329 /* MobClick.h */,
+				63B6CCF81AF7810C00273329 /* MobClickSocialAnalytics.h */,
+			);
+			path = Umeng;
 			sourceTree = "<group>";
 		};
 		63B8C6A71ACE671D00328C8C /* QRCode */ = {
@@ -1735,6 +1767,8 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
+				6384E74B1AFB558E0074AEFE /* Guide */,
+				63B6CCF51AF780EB00273329 /* Umeng */,
 				636C8B511AC2E1420097CAE9 /* ShareSDK */,
 				5AB7C9811ACBC9C700217CAC /* CustomView */,
 				5A52FB371ACEBF220076DAE6 /* Category */,
@@ -1949,6 +1983,7 @@
 				5A52FC5C1ACEBF220076DAE6 /* SearchProductViewController.xib in Resources */,
 				5A52FC6E1ACEBF220076DAE6 /* Me.storyboard in Resources */,
 				5A52FC5E1ACEBF220076DAE6 /* StationSelect.xib in Resources */,
+				6384E7501AFB55BB0074AEFE /* GuideViewController.xib in Resources */,
 				5A0058911ACEBD1E007AF362 /* CustomCell.xib in Resources */,
 				5A52FC781ACEBF220076DAE6 /* SosHead.xib in Resources */,
 				5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */,
@@ -2005,6 +2040,7 @@
 				63B8C7021ACE917E00328C8C /* messageModel.m in Sources */,
 				5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */,
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
+				6384E74F1AFB55BB0074AEFE /* GuideViewController.m in Sources */,
 				632BFFCF1AB91FD3003B15AD /* GTMBase65.m in Sources */,
 				5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */,
 				6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */,
@@ -2323,6 +2359,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
+					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2353,6 +2390,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
+					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";

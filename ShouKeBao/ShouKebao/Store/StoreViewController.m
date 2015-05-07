@@ -11,6 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
+#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
 @property (weak, nonatomic) IBOutlet UIButton *checkCheapBtnOutlet;
@@ -34,6 +35,7 @@
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
 
 @property (nonatomic , strong) NSTimer *timer;
+@property (nonatomic,copy) NSMutableString *needTimer;
 @end
 
 @implementation StoreViewController
@@ -41,10 +43,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"店铺详情";
-    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
-    [self.webUrlArr addObject:_PushUrl];
-    self.webLoadCount = 1;
-
+       NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
+  
     [self.webView loadRequest:request];
     [self customRightBarItem];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -69,41 +69,14 @@
     
 }
 
--(NSTimer *)timer
-{
-    if (_timer == nil) {
-        self.timer = [[NSTimer alloc] init];
-    }
-    return _timer;
-}
--(void)tapBlackViewToHideIt
-{
-    [self.checkCheapBtnOutlet setSelected:NO];
-    self.subView.hidden = YES;
-    self.blackView.alpha = 0;
-}
-
--(void)back
-{
-    if (self.webUrlArr.count >1) {
-        
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-        [self.webUrlArr removeLastObject];
-    }
-    
-    else if (self.webUrlArr.count == 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    }
-    
-    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
-}
-
+#pragma  -mark VC Life
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.timer invalidate];
+   
 }
 
+#pragma -mark getter
 -(NSMutableArray *)webUrlArr
 {
     if (_webUrlArr == nil) {
@@ -112,6 +85,31 @@
     return _webUrlArr;
 }
 
+-(NSMutableArray *)shareArr
+{
+    if (_shareArr == nil) {
+        self.shareArr = [NSMutableArray array];
+    }
+    return _shareArr;
+}
+
+-(NSTimer *)timer
+{
+    if (_timer == nil) {
+        self.timer = [[NSTimer alloc] init];
+    }
+    return _timer;
+}
+
+-(NSMutableString *)needTimer
+{
+    if (_needTimer == nil) {
+        self.needTimer = [NSMutableString string];
+    }
+    return _needTimer;
+}
+
+#pragma  -mark private
 -(void)customRightBarItem
 {
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -131,46 +129,187 @@
 }
 
 
-
--(NSMutableArray *)shareArr
+-(void)tapBlackViewToHideIt
 {
-    if (_shareArr == nil) {
-        self.shareArr = [NSMutableArray array];
+    [self.checkCheapBtnOutlet setSelected:NO];
+    self.subView.hidden = YES;
+    self.blackView.alpha = 0;
+}
+
+-(void)back
+{
+    if (self.webUrlArr.count >1) {
+       
+            [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+            [self.webUrlArr removeLastObject];
+        }
+    
+    else if (self.webUrlArr.count == 1) {
+        [self.navigationController popViewControllerAnimated:YES];
     }
-    return _shareArr;
+    
+    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
 }
 
 
 
+-(void)showAlert
+{
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    NSString *account = [accountDefaults stringForKey:@"shareCount"];
+    
+    if ([account intValue]<3){
+        
+        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
+        [accountDefaults setObject:newCount forKey:@"shareCount"];
+        
+        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
+
+- (IBAction)checkCheapPrice{
+    if (self.checkCheapBtnOutlet.selected == NO) {
+        [self.checkCheapBtnOutlet setSelected:YES];
+        self.subView.hidden = NO;
+        self.blackView.alpha = 0.5;
+    }else if (self.checkCheapBtnOutlet.selected == YES){
+        [self.checkCheapBtnOutlet setSelected:NO];
+        self.subView.hidden = YES;
+        self.blackView.alpha = 0;
+    }
+    
+}
+
+#pragma -mark webviewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *rightStr = request.URL.absoluteString;
-    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_PushUrl])) {
+//    NSString *rightStr = request.URL.absoluteString;
+//    if (![rightStr isEqual:[self.webUrlArr lastObject]]) {
+//        [self.webUrlArr addObject:rightStr];
+//    }
+//    
+//    
+//    
+//    NSLog(@"\narr.count is %lu ,\n arr is %@\n",self.webUrlArr.count,_webUrlArr);
+//    
+//    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
+//    NSLog(@"---------------------result is %@-------------------------",result);
+//    
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    
+//       [dic setObject:rightStr forKey:@"PageUrl"];
+//    
+//    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+//        NSLog(@"-----分享返回数据json is %@------",json);
+//       
+//        [self.shareArr removeAllObjects];
+//        [self.shareArr addObject:json[@"ShareInfo"]];
+//
+//        if (![json[@"PageType"] isEqualToString:@"2"]) {
+//            self.needTimer = [NSMutableString stringWithFormat:@"0"];
+//             [self.timer invalidate];
+//            
+//            self.checkCheapBtnOutlet.hidden = YES;
+//           self.blackView.alpha = 0;
+//            self.btnLine.hidden = YES;
+//            self.title = @"店铺详情";
+//        }
+//        else if ([json[@"PageType"] isEqualToString:@"2"]){
+//            self.needTimer = [NSMutableString stringWithFormat:@"1"];
+//          self.checkCheapBtnOutlet.hidden = NO;
+//            self.btnLine.hidden = NO;
+//            self.title = @"产品详情";
+//            NSMutableString *productID = [NSMutableString string];
+//            productID = json[@"ProductID"];
+//            NSMutableDictionary *dic =[NSMutableDictionary dictionary];
+//            [dic setObject:productID forKey:@"ProductID"];
+//            [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
+//                NSLog(@"产品详情json is %@",json);
+//                NSString *personPrice = json[@"Product"][@"PersonPrice"];
+//                if ([personPrice intValue] >0) {
+//                  
+//                    self.cheapPrice.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonPeerPrice"]];
+//                    self.profit.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonProfit"]];
+//                    
+//                    if ([json[@"Product"][@"PersonBackPrice"]  isEqual: @"0"]) {
+//                        //self.jiafan.hidden = YES;
+//                        self.fanBtn.hidden = YES;
+//                    }else if (![json[@"Product"]  isEqual: @"0"]){
+//                        self.fanBtn.hidden = NO;
+//                        [self.fanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonBackPrice"]] forState:UIControlStateNormal];
+//
+//                    }
+//                    
+//                    if ([json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]) {
+//
+//                        self.quanBtn.hidden = YES;
+//                    }else if (![json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]){
+//                        self.quanBtn.hidden = NO;
+//                        [self.quanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonCashCoupon"]] forState:UIControlStateNormal];
+//
+//                    }
+//                
+//                }else if ([personPrice intValue]<1){
+//                    self.btnLine.hidden = NO;
+//                    self.checkCheapBtnOutlet.hidden = YES;
+//                    self.blackView.hidden = YES;
+//                    self.offLineLabel.hidden = NO;
+//                }
+//
+//                
+//                
+//            } failure:^(NSError *error) {
+//                NSLog(@"同行价网络请求失败,%@",error);
+//            }];
+//        }
+//        
+//    } failure:^(NSError *error) {
+//        NSLog(@"分享请求数据失败，原因：%@",error);
+//    }];
+    
+    return YES;
+}
+//
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSLog(@"-----------webview.string is %@",webView.request.URL.absoluteString);
+    NSString *rightStr = webView.request.URL.absoluteString;
+    if (![rightStr isEqual:[self.webUrlArr lastObject]]) {
         [self.webUrlArr addObject:rightStr];
     }
-    NSLog(@"即将加载的页面是%@  arr.count is %lu",rightStr,(unsigned long)[self.webUrlArr count]);
+    
+    
+    
+    NSLog(@"\narr.count is %lu ,\n arr is %@\n",self.webUrlArr.count,_webUrlArr);
     
     NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
     NSLog(@"---------------------result is %@-------------------------",result);
     
-    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
     [dic setObject:rightStr forKey:@"PageUrl"];
     
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
-       
+        
         [self.shareArr removeAllObjects];
         [self.shareArr addObject:json[@"ShareInfo"]];
-
+        
         if (![json[@"PageType"] isEqualToString:@"2"]) {
+            self.needTimer = [NSMutableString stringWithFormat:@"0"];
+            [self.timer invalidate];
+            
             self.checkCheapBtnOutlet.hidden = YES;
-           self.blackView.alpha = 0;
+            self.blackView.alpha = 0;
             self.btnLine.hidden = YES;
             self.title = @"店铺详情";
         }
         else if ([json[@"PageType"] isEqualToString:@"2"]){
-          self.checkCheapBtnOutlet.hidden = NO;
+            self.needTimer = [NSMutableString stringWithFormat:@"1"];
+            self.checkCheapBtnOutlet.hidden = NO;
             self.btnLine.hidden = NO;
             self.title = @"产品详情";
             NSMutableString *productID = [NSMutableString string];
@@ -181,7 +320,7 @@
                 NSLog(@"产品详情json is %@",json);
                 NSString *personPrice = json[@"Product"][@"PersonPrice"];
                 if ([personPrice intValue] >0) {
-                  
+                    
                     self.cheapPrice.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonPeerPrice"]];
                     self.profit.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonProfit"]];
                     
@@ -191,25 +330,25 @@
                     }else if (![json[@"Product"]  isEqual: @"0"]){
                         self.fanBtn.hidden = NO;
                         [self.fanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonBackPrice"]] forState:UIControlStateNormal];
-
+                        
                     }
                     
                     if ([json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]) {
-
+                        
                         self.quanBtn.hidden = YES;
                     }else if (![json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]){
                         self.quanBtn.hidden = NO;
                         [self.quanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonCashCoupon"]] forState:UIControlStateNormal];
-
+                        
                     }
-                
+                    
                 }else if ([personPrice intValue]<1){
                     self.btnLine.hidden = NO;
                     self.checkCheapBtnOutlet.hidden = YES;
                     self.blackView.hidden = YES;
                     self.offLineLabel.hidden = NO;
                 }
-
+                
                 
                 
             } failure:^(NSError *error) {
@@ -220,16 +359,13 @@
     } failure:^(NSError *error) {
         NSLog(@"分享请求数据失败，原因：%@",error);
     }];
-    
-    return YES;
-}
-//
 
--(void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
-    self.timer = timer;
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    if ([_needTimer  isEqual: @"1"]) {
+        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+        self.timer = timer;
+        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    }
+   
 
    
 
@@ -247,20 +383,7 @@
     }
     //[timer invalidate];
 }
--(void)showAlert
-{
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [accountDefaults stringForKey:@"shareCount"];
-    
-    if ([account intValue]<3){
-        
-        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
-        [accountDefaults setObject:newCount forKey:@"shareCount"];
-        
-        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
-        }
-   }
+
 
 
 
@@ -326,17 +449,5 @@
 
 
 
-- (IBAction)checkCheapPrice{
-    if (self.checkCheapBtnOutlet.selected == NO) {
-        [self.checkCheapBtnOutlet setSelected:YES];
-        self.subView.hidden = NO;
-        self.blackView.alpha = 0.5;
-    }else if (self.checkCheapBtnOutlet.selected == YES){
-        [self.checkCheapBtnOutlet setSelected:NO];
-        self.subView.hidden = YES;
-        self.blackView.alpha = 0;
-    }
-    
-}
 
 @end

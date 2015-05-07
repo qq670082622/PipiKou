@@ -162,6 +162,8 @@
     self.nameBtn.frame = rect;
 }
 
+
+
 /**
  *  登录
  */
@@ -201,11 +203,8 @@
             
             // 给用户打上jpush标签
             [APService setAlias:self.businessId callbackSelector:nil object:nil];
-            NSLog(@"------------apns 的alias是%@----------",_businessId);
-            NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
-            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
             
-            
+            //[APService setTags:[NSSet setWithObject:self.businessId] alias:nil callbackSelector:nil object:nil];
             
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;
@@ -222,6 +221,7 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     }];
 }
+
 
 #pragma mark - uitableviewdelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section

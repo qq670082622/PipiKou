@@ -64,7 +64,6 @@
         [self.navigationController popViewControllerAnimated:YES];
    // }
     
-   // NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
     
 }
 
@@ -117,11 +116,11 @@
 {
     NSString *rightStr = request.URL.absoluteString;
     
-    if ((![rightStr isEqualToString:[_webUrlArr lastObject]]) && (rightStr.length>8) && (![rightStr isEqualToString:_linkUrl])) {
+    if (![rightStr isEqualToString:[self.webUrlArr lastObject]]) {
         
         [self.webUrlArr addObject:rightStr];
     }
-    
+          NSLog(@"\narr.count is %lu \n    arr is %@\n",self.webUrlArr.count,_webUrlArr);
     
     return YES;
     

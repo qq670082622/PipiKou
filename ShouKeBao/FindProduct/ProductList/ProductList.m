@@ -25,6 +25,7 @@
 #import "WMAnimations.h"
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
+#import "MobClick.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -48,8 +49,8 @@
 
 //@property (copy , nonatomic) NSMutableString *ProductSortingType;//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
 //同行价（从低往高）:”3,同行价（从高往低）:"4"
-- (IBAction)recommond:(id)sender;
-- (IBAction)profits:(id)sender;
+- (IBAction)recommond;
+- (IBAction)profits;
 - (IBAction)cheapPrice:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *commondOutlet;
 @property (weak, nonatomic) IBOutlet UIButton *profitOutlet;
@@ -145,6 +146,8 @@
 
 }
 
+
+
 #pragma -mark VClife
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -157,6 +160,7 @@
      self.table.tableFooterView = line;
 }
 
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -164,11 +168,15 @@
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
 }
+
+
+
 #pragma -mark private
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 -(void)editButtons
 {
@@ -196,14 +204,15 @@
     return _subView;
 }
 
+
 -(NSMutableString *)jishi
 {
     if (_jishi == nil) {
-        if (self.jishiSwitch.on == YES) {
-            _jishi = [NSMutableString stringWithFormat:@"1"];
-        }else
-            _jishi = [NSMutableString stringWithFormat:@"0"];
-        
+                    self.jishi = [NSMutableString stringWithFormat:@"1"];
+    }else if (_jishi && self.jishiSwitch.on == YES){
+      self.jishi = [NSMutableString stringWithFormat:@"1"];
+    }else if (_jishi && self.jishiSwitch.on == NO){
+     self.jishi = [NSMutableString stringWithFormat:@"0"];
     }
     return _jishi
     ;
@@ -213,10 +222,15 @@
 -(NSMutableString *)jiafan
 {
     if (_jiafan == nil) {
-        if (self.jiafanSwitch.on == YES) {
-            _jiafan = [NSMutableString stringWithFormat:@"1"];
-        }else
-            _jiafan = [NSMutableString stringWithFormat:@"0"];
+   
+            self.jiafan = [NSMutableString stringWithFormat:@"1"];
+      
+    }else if (_jiafan && self.jiafanSwitch.on == YES){
+        self.jiafan = [NSMutableString stringWithFormat:@"1"];
+
+    }else if (_jiafan && self.jiafanSwitch.on == NO){
+        self.jiafan = [NSMutableString stringWithFormat:@"0"];
+
     }
     return _jiafan;
 }
@@ -240,6 +254,9 @@
 {
     self.pushedSearchK = [NSMutableString stringWithFormat:@"%@",searchKey];
 }
+
+
+
 #pragma  mark 没有产品时嵌图
 -(void)addANewFootViewWhenHaveNoProduct
 {
@@ -327,6 +344,8 @@
     }
 }
 
+
+
 -(void)initPull
 {
     //上啦刷新
@@ -352,6 +371,8 @@
 //    self.table.footerRefreshingText = @"正在刷新";
 //}
 
+
+
 #pragma  -mark 下来刷新数据
 -(void)headerPull
 {
@@ -360,6 +381,9 @@
     
     
 }
+
+
+
 #pragma footView - delegate上拉加载更多
 -(void)footLoad
 {//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
@@ -395,9 +419,14 @@
         NSLog(@"----------更多按钮返回json is %@--------------",json);
         NSArray *arr = json[@"ProductList"];
         if (arr.count == 0) {
-           // self.table.tableFooterView.hidden = YES;
+            UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 20)];
+            label.text = @"抱歉，没有更多产品了😢";
+            label.textColor = [UIColor orangeColor];
+            label.textAlignment = NSTextAlignmentCenter;
             
-        }else if (10>arr.count>0){
+            self.table.tableFooterView = label;
+            
+        }else if (arr.count>0){
          // self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
@@ -407,19 +436,7 @@
             [self.table reloadData];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
-        }else if (arr.count == 10){
-           // self.table.tableFooterView.hidden = NO;
-            for (NSDictionary *dic in json[@"ProductList"]) {
-                ProductModal *modal = [ProductModal modalWithDict:dic];
-                [self.dataArr addObject:modal];
-            }
-            
-            [self.table reloadData];
-            NSString *page = [NSString stringWithFormat:@"%@",_page];
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
-
         }
-       
         [self.table footerEndRefreshing];
             
     } failure:^(NSError *error) {
@@ -428,6 +445,10 @@
 
 
 }
+
+
+
+
 #pragma mark - private
 -(void)customRightBarItem
 {
@@ -441,6 +462,8 @@
     
     self.navigationItem.rightBarButtonItem= barItem;
 }
+
+
 
 - (void)loadDataSource
 {
@@ -466,21 +489,14 @@
         if (arr.count==0) {
             [self addANewFootViewWhenHaveNoProduct];
           //  self.table.tableFooterView.hidden = YES;
-        }else if (10>arr.count>0){
+        }else if (arr.count>0){
          //self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
             }
 
-        }else if (arr.count == 10){
-           // self.table.tableFooterView.hidden = NO;
-            for (NSDictionary *dic in json[@"ProductList"]) {
-                ProductModal *modal = [ProductModal modalWithDict:dic];
-                [self.dataArr addObject:modal];
-            }
-
-        }
+                }
         
         NSMutableArray *conArr = [NSMutableArray array];
         
@@ -513,6 +529,8 @@
 
 }
 
+
+
 #pragma 筛选navitem
 -(void)setSubViewHideNo
 {
@@ -526,10 +544,13 @@
     [cover addSubview:self.subView];
     self.coverView = cover;
     [self.view.window addSubview:cover];
-   NSArray *priceData = [WriteFileManager readData:@"priceData"];
+   
+    NSArray *priceData = [WriteFileManager readData:@"priceData"];
     if (priceData.count == 3) {
         [self.priceBtnOutlet setTitle:priceData[2] forState:UIControlStateNormal];
     }
+    
+  
     UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
     [self.coverView addSubview:gestureView];
     
@@ -539,6 +560,19 @@
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
     }];
+    
+    NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
+    if ([_jiafan  isEqual: @"0"]) {
+        self.jiafanSwitch.on = NO;
+        
+    }else if ([_jiafan isEqual:@"1"]){
+        self.jiafanSwitch.on = YES;
+    }
+    if ([_jishi isEqual:@"0"]) {
+        self.jishiSwitch.on = NO;
+    }else if ([_jishi isEqual:@"1"]){
+       self.jishiSwitch.on = YES;
+    }
 
     
 }
@@ -582,6 +616,7 @@
 //    return result;
 //}
 
+
 // 右边滑动的按钮
 - (NSArray *)createRightButtons:(ProductModal *)model
 {
@@ -615,6 +650,8 @@
     return result;
 }
 
+
+
 #pragma mark - getter
 - (NSMutableArray *)dataArr
 {
@@ -626,6 +663,8 @@
    
 }
 
+
+
 -(NSMutableArray *)conditionArr
 {
     if (_conditionArr == nil) {
@@ -633,6 +672,8 @@
     }
     return _conditionArr;
 }
+
+
 
 #pragma mark - tableviewdatasource& tableviewdelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -642,6 +683,8 @@
     }
     return 50;
 }
+
+
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -661,6 +704,7 @@
     }
     return 0;
 }
+
 
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -724,7 +768,6 @@
             [footView addSubview:subLine];
             
             self.subSubView.frame = CGRectMake(0, 50, self.subTable.frame.size.width, 160);
-            
             [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.subSubView.layer andBorderColor:[UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1] andBorderWidth:0.5 andNeedShadow:NO ];
             
             [footView addSubview:self.subSubView];
@@ -801,6 +844,9 @@
 
 }
 
+
+
+
 -(void)beMore
 {
     NSLog(@"点击了butn");
@@ -815,6 +861,8 @@
   
     [self.subTable reloadData];
 }
+
+
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -839,6 +887,8 @@
 }
 
 
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
@@ -848,7 +898,10 @@
        NSString *productUrl = model.LinkUrl;
        
         NSString *productName = model.Name;
-     
+       
+        [MobClick event:@"productlistSelectProduct" attributes:@{@"productName":productName}];
+      //  [MobClick event:@"productlistSelectProduct2" attributes:@{@"productName":productName}];
+
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
        
         detail.produceUrl = productUrl;
@@ -883,10 +936,15 @@
         if (indexPath.section == 0) {
        
             conditionVCTile = _subDataArr1[indexPath.row];
+            
+            [MobClick event:@"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
        
         }else if (indexPath.section == 1){
          
             conditionVCTile = _subDataArr2[indexPath.row];
+            [MobClick event:@"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
+            
+
         }
        
         conditionVC.title = conditionVCTile;
@@ -899,6 +957,8 @@
     }
     
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -979,16 +1039,24 @@
 }
 
 
+
+
+
 #pragma mark - MGSwipeTableCellDelegate
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
 {
     return YES;
 }
 
+
+
+
 - (NSArray *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
 {
     return [NSArray array];
 }
+
+
 
 // 收藏按钮点击
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
@@ -1029,6 +1097,9 @@
 }
 
 
+
+
+
 #pragma mark - 控件Action
 - (void)didReceiveMemoryWarning {
    
@@ -1037,7 +1108,9 @@
 }
 
 
-- (IBAction)recommond:(id)sender {//推荐
+
+
+- (IBAction)recommond{//推荐
    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
@@ -1106,7 +1179,10 @@
 }
 
 
-- (IBAction)profits:(id)sender {//利润2,1
+
+
+
+- (IBAction)profits {//利润2,1
     
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
@@ -1269,6 +1345,9 @@
     [hudView hide:YES];
 
     }
+
+
+
 
 
 - (IBAction)cheapPrice:(id)sender {//同行价4,3
@@ -1443,13 +1522,18 @@
     [hudView hide:YES];
 }
 
+
+
+
 - (IBAction)sunCancel:(id)sender {
 //   [UIView animateWithDuration:0.3 animations:^{
 //              self.subView.alpha = 0;
 //       self.subView.hidden = YES;
 //   }];
     //self.blackView.alpha = 0;
+   
     [self editButtons];
+    [self initPull];
     [UIView animateWithDuration:0.3 animations:^{
         
         self.subView.transform = CGAffineTransformIdentity;
@@ -1464,6 +1548,7 @@
    }
 
 
+
 - (IBAction)subReset:(id)sender {
 
     self.conditionDic = nil;
@@ -1473,12 +1558,11 @@
     
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
-    [self.conditionDic setObject:@"" forKey:@"MinPrice"];
-    [self.conditionDic setObject:@"" forKey:@"MaxPrice"];
-    
-    self.jishi = [NSMutableString stringWithFormat:@"1"];
-    
-    self.jiafan = [NSMutableString stringWithFormat:@"1"];
+
+    [self.jishiSwitch setOn:YES];
+    [self jishi];
+    [self.jiafanSwitch setOn:YES];
+    [self jiafan];
     
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
     
@@ -1486,15 +1570,23 @@
     
     [self.subTable reloadData];
     
-    [self recommond:sender];
+    
+    [self initPull];
     
 }
 
+
+
+
 - (IBAction)subDone:(id)sender {
    
-  // [self initConditionPull];
-    //[self loadDataSourceWithCondition];
-    [self loadDataSource];
+  //  [self.dataArr removeAllObjects];
+   // [self recommond];
+   
+    // [self loadDataSource];
+    [MobClick event:@"productlistScreening"];
+    
+    [self initPull];
     [self editButtons];
     
     
@@ -1508,7 +1600,7 @@
         
         // [_dressView removeFromSuperview];
         
-        [self recommond:sender];
+        [self recommond];
         
         [self.commondOutlet setSelected:YES];
         
@@ -1522,8 +1614,9 @@
 }
 
 
+
 - (IBAction)subMinMax:(id)sender {
-    
+    [MobClick event:@"prodcutlistPrice"];
     
     MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
    
@@ -1619,13 +1712,33 @@
 
 
 - (IBAction)jiafanSwitchAction:(id)sender {
-
-    
+    [self jiafan];
+  
+//    BOOL isOn = [self.jiafanSwitch isOn];
+//    if (isOn) {
+//        self.jiafanSwitch.on = NO;
+//        self.jishi = [NSMutableString stringWithFormat:@"0"];
+//       
+//    }else if (!isOn){
+//        self.jiafanSwitch.on = YES;
+//        self.jishi = [NSMutableString stringWithFormat:@"1"];
+//    }
+      NSLog(@"--------加返-------------%@-------------------被点击",_jiafan);
 }
 
 - (IBAction)jishiSwitchAction:(id)sender {
-
-    
+    [self jishi];
+//    BOOL isOn = [self.jishiSwitch isOn];
+//    if (isOn) {
+//        self.jiafanSwitch.on = NO;
+//        //self.jiafan = [NSMutableString stringWithFormat:@"0"];
+//        [self jishi];
+//    }else if (!isOn){
+//        self.jishiSwitch.on = YES;
+//       // self.jiafan = [NSMutableString stringWithFormat:@"1"];
+//        [self jiafan];
+//    }
+     NSLog(@"----------及时------------%@------------------被点击",_jishi);
 }
 
 

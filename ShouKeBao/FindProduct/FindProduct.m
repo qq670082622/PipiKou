@@ -25,6 +25,7 @@
 #import "WMAnimations.h"
 #import "ResizeImage.h"
 #import "UIImageView+WebCache.h"
+#import "MobClick.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -345,6 +346,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 }
 
 - (IBAction)stationSelect:(id)sender {
+    [MobClick event:@"changeStationInPageTwo"];
     StationSelect *station = [[StationSelect alloc] init];
     station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
@@ -352,6 +354,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 - (IBAction)search:(id)sender {
     
+    [MobClick event:@"searchInpageTwo"];
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
@@ -359,6 +362,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 }
 - (void)hotBtnClick:(id)sender {
+    [MobClick event:@"remmondClick"];
     self.row = nil;
 //    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
 //    self.leftTable.tableHeaderView.backgroundColor = [UIColor whiteColor];
@@ -543,6 +547,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
+        leftModal *model = self.leftTableArr[indexPath.row];
+        [MobClick event:@"leftTableClick" attributes:@{@"name":model.Name}];
+       
         self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
@@ -574,6 +581,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     
     if (tableView.tag == 2) {
+        rightModal2 *model = self.rightTableArr[indexPath.row];
+        [MobClick event:@"clickRightTable" attributes:@{@"name":model.title}];
     self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"-----------tableSelectRow is %@--------",_table2Row);
         [UIView animateWithDuration:0.3 animations:^{
@@ -587,6 +596,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         [self loadDataSourceRight2];
     }
     if (tableView.tag ==3 ) {
+    rightModal3 *model = self.rightMoreArr[indexPath.row];
+    [MobClick event:@"clickRightTable2" attributes:@{@"name":model.Name}];
         rightModal3 *modal3 = _rightMoreArr[indexPath.row];
         NSString *key = modal3.searchKey;
         NSString *title = modal3.Name;
@@ -605,7 +616,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         rightModal *model =  _hotArr[indexPath.section][indexPath.row];
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
-        
+        [MobClick event:@"clickRecommendName" attributes:@{@"recommendName":model.rightDescrip}];
         [self.navigationController pushViewController:detail animated:YES];
     }
 

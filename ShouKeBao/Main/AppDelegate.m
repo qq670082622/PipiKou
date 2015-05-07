@@ -15,7 +15,7 @@
 #import "BindPhoneViewController.h"
 #import "WelcomeView.h"
 #import "SearchProductViewController.h"
-
+#import "MobClick.h"
 @interface AppDelegate ()
 
 @property (nonatomic,assign) BOOL isAutoLogin;
@@ -68,15 +68,35 @@
         }
     }
     
+#pragma -mark U-meng
+    [MobClick startWithAppkey:@"554748a767e58ea65b00299e" reportPolicy:BATCH   channelId:@"Web"];
+    //channelId:@"Web" 中的Web 替换为您应用的推广渠道。channelId为nil或@""时，默认会被当作@"App Store"渠道。
+    //reportPolicy为发送频次
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    //确认版本号
+
+    //统计方法:如下
+//    - (void)viewWillAppear:(BOOL)animated
+//    {
+//        [super viewWillAppear:animated];
+//        [MobClick beginLogPageView:@"PageOne"];
+//    }
+//    - (void)viewWillDisappear:(BOOL)animated
+//    {
+//        [super viewWillDisappear:animated];
+//        [MobClick endLogPageView:@"PageOne"];
+//    }
+
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104440028"
-                           appSecret:@"2ANfew5nXyU5HOcz"
+    [ShareSDK connectQZoneWithAppKey:@"1104542403"
+                           appSecret:@"zOYB51wNKimtVaBg"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104440028"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104542403"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    
