@@ -10,6 +10,7 @@
 
 #define kWebServiceHost @"http://app200.lvyouquan.cn/"
 #define formalRUL @"http://app.lvyouquan.cn/"
+#define kWebTestHost @"http://apptest.lvyouquan.cn/"
 
 
 @interface IWHttpTool : NSObject

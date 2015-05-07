@@ -18,20 +18,22 @@
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD+MJ.h"
 #import "UIImage+QD.h"
+#import "RegisterViewController.h"
+#import "WMNavigationController.h"
+#import "BindPhoneViewController.h"
+#import "TravelLoginController.h"
 
 @interface Login () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
-@property (weak, nonatomic) IBOutlet UITextField *accountField;
-
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
-@property (nonatomic,weak) UIButton *nameBtn;
-
-@property (weak, nonatomic) IBOutlet UIImageView *imagebg1;
+@property (nonatomic,weak) UILabel *nameLab;
 
 @property (weak, nonatomic) IBOutlet UIImageView *imagebg2;
+
+@property (nonatomic,assign) BOOL isModal;// 是否modal出来 是就不显示导航
 
 @end
 
@@ -48,29 +50,25 @@
     // 设置头部图标
     [self setupHeader];
     
-//    self.accountField.text = @"gaowei@pipikou.com";
-//    self.passwordField.text = @"123456";
-//    self.accountField.text = @"lxstest";
-//    self.passwordField.text = @"A148A148";
-    
-    [self setWithName:[UserInfo shareUser].userName];
+    // 设置注册按钮
+    [self setOtherBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    backBtn.frame = CGRectMake(0, 0, 44, 44);
-    backBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 30);
-    
-    [backBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(doBack:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:backBtn];
-    self.navigationItem.leftBarButtonItem = backItem;
-    
-    self.navigationController.navigationBar.hidden = NO;
+  
+    self.navigationController.navigationBar.hidden = YES;
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    if (!self.isModal) {
+        self.navigationController.navigationBar.hidden = NO;
+    }
+    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
 }
 
 #pragma mark - private
@@ -78,15 +76,10 @@
 {
     // 背景
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.view.backgroundColor = [UIColor clearColor];
-    self.tableView.backgroundColor = [UIColor clearColor];
-    UIImageView *bg = [[UIImageView alloc] initWithFrame:self.view.bounds];
-    bg.image = [UIImage imageNamed:@"beijing"];
-    self.tableView.backgroundView = bg;
-    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     
     // 登录按钮样式
-    self.imagebg1.image = self.imagebg2.image = [UIImage resizedImageWithName:@"bg_white"];
+    self.imagebg2.image = [UIImage resizedImageWithName:@"bg_white"];
     self.loginBtn.layer.cornerRadius = 3;
     self.loginBtn.layer.masksToBounds = YES;
     [self.loginBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
@@ -95,12 +88,8 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tanHandle:)];
     [self.view addGestureRecognizer:tap];
     
-    
     if (self.autoLoginFailed) {// 如果自动登录失败
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        self.businessId = [def objectForKey:@"DistributionID"];
-        self.distributeId = [def objectForKey:@"BusinessID"];
-        self.chooseId = [def objectForKey:@"ChooseID"];
+        
     }
 }
 
@@ -116,12 +105,75 @@
     [self.view endEditing:YES];
 }
 
+/**
+ *  添加新用户按钮
+ */
+- (void)setOtherBtn
+{
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    
+    // 注册用户按钮
+    CGFloat newW = 80;
+    CGFloat newH = 30;
+    CGFloat newX = (self.view.frame.size.width - newW) * 0.5;
+    CGFloat newY = screenRect.size.height - newH - 10;
+    UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
+    new.layer.cornerRadius = 15;
+    new.layer.masksToBounds = YES;
+    [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
+    [new setTitle:@"新用户" forState:UIControlStateNormal];
+    new.titleLabel.font = [UIFont systemFontOfSize:13];
+    [new setBackgroundColor:[UIColor whiteColor]];
+    [new setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [new setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [self.view addSubview:new];
+    
+    // 切换用户按钮
+    CGFloat changeW = 80;
+    CGFloat changeX = screenRect.size.width - changeW - 10;
+    UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(changeX, 30, changeW, 30)];
+    [change setTitle:@"切换账号" forState:UIControlStateNormal];
+    change.titleLabel.font = [UIFont systemFontOfSize:13];
+    [change setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [change setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [change addTarget:self action:@selector(changeUser:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:change];
+    
+    // 忘记密码
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 40)];
+    
+    CGFloat forgetW = 80;
+    CGFloat forgetX = cover.frame.size.width - forgetW;
+    UIButton *forget = [[UIButton alloc] initWithFrame:CGRectMake(forgetX, 0, forgetW, 40)];
+    forget.titleLabel.font = [UIFont systemFontOfSize:13];
+    [forget setTitle:@"忘记密码?" forState:UIControlStateNormal];
+    [forget setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [forget setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [forget addTarget:self action:@selector(forgetPassword:) forControlEvents:UIControlEventTouchUpInside];
+    [cover addSubview:forget];
+    
+    self.tableView.tableFooterView = cover;
+}
+
+/**
+ *  跳转注册页面
+ */
+- (void)registerUser:(UIButton *)btn
+{
+    self.isModal = YES;
+    
+    RegisterViewController *reg = [[RegisterViewController alloc] init];
+    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:reg];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+
 // 设置头部
 - (void)setupHeader
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 205)];
     cover.backgroundColor = [UIColor clearColor];
     
+    // 头像
     CGFloat iconX = (self.view.frame.size.width - 100) * 0.5;
     UIImageView *iconView = [[UIImageView alloc] initWithFrame:CGRectMake(iconX, 64, 100, 100)];
     iconView.backgroundColor = [UIColor orangeColor];
@@ -132,114 +184,97 @@
     iconView.layer.masksToBounds = YES;
     [cover addSubview:iconView];
     
+    // 阴影
     UIImageView *shadow = [[UIImageView alloc] init];
     shadow.center = iconView.center;
     shadow.bounds = CGRectMake(0, 0, 120, 120);
     shadow.image = [UIImage imageNamed:@"yiny1"];
     [cover insertSubview:shadow atIndex:0];
     
+    // 手机
     CGFloat nameY = CGRectGetMaxY(iconView.frame) + 10;
-    UIButton *nameBtn = [[UIButton alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 150) * 0.5, nameY, 100, 20)];
-    [nameBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [nameBtn setBackgroundColor:[UIColor colorWithHue:0 saturation:0 brightness:0 alpha:0.3]];
-    nameBtn.layer.cornerRadius = 5;
-    nameBtn.layer.masksToBounds = YES;
-    nameBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-    [cover addSubview:nameBtn];
-    nameBtn.contentEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 20);
-    self.nameBtn = nameBtn;
+    UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 200) * 0.5, nameY, 200, 20)];
+    nameLab.textColor = [UIColor blackColor];
+    nameLab.font = [UIFont systemFontOfSize:17];
+    nameLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyPoneNum];
+    nameLab.textAlignment = NSTextAlignmentCenter;
+    self.nameLab = nameLab;
+    [cover addSubview:nameLab];
 
     self.tableView.tableHeaderView = cover;
 }
 
-// 设置用户名称
-- (void)setWithName:(NSString *)name
-{
-    [self.nameBtn setTitle:name forState:UIControlStateNormal];
-    [self.nameBtn sizeToFit];
-    CGRect rect = self.nameBtn.frame;
-    rect.origin.x = (self.view.frame.size.width - rect.size.width) * 0.5;
-    self.nameBtn.frame = rect;
-}
-
-/**
- *  登录
- */
+#pragma mark - 登录旅行社请求
 - (IBAction)loginAction:(UIButton *)sender
 {
-    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    NSDictionary *param = @{@"LoginName":self.accountField.text,
-                            @"LoginPassword":self.passwordField.text,
-                            @"ChooseBusinessID":self.chooseId,
-                            @"BusinessID":self.businessId,
-                            @"DistributionID":self.distributeId};
+    // 取出用户密码
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *mobile = [def objectForKey:UserInfoKeyPoneNum];
     
-    [LoginTool loginWithParam:param success:^(id json) {
+    NSDictionary *param = @{@"Mobile":mobile,
+                            @"LoginPassword":self.passwordField.text};
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [LoginTool regularLoginWithParam:param success:^(id json) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        NSLog(@"----%@",json);
+        NSLog(@"-----  %@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
             
-            // 保存账号密码
-            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-            [def setObject:self.accountField.text forKey:@"account"];
-            [def setObject:self.passwordField.text forKey:@"password"];
+            // 保存必要的参数
+            [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
+            [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
+            [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
+            [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+            [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
             
-            // 储存手机号 证明已经绑定过手机
-            [def setObject:self.mobile forKey:@"phonenumber"];
-            
-            // 保存必要参数
-            [def setObject:json[@"LoginType"] forKey:@"LoginType"];
-            [def setObject:self.businessId forKey:@"BusinessID"];
-            [def setObject:self.distributeId forKey:@"DistributionID"];
-            [def setObject:self.chooseId forKey:@"ChooseID"];
+            // 保存用户模型
+            [UserInfo userInfoWithDict:json];
             
             // 保存分站
-            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:@"Substation"];
-            
+            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
             [def synchronize];
             
             // 给用户打上jpush标签
-            [APService setAlias:self.businessId callbackSelector:nil object:nil];
-            NSLog(@"------------apns 的alias是%@----------",_businessId);
+            [APService setAlias:[def objectForKey:UserInfoKeyBusinessID] callbackSelector:nil object:nil];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
             [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
-            
-            
             
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;
             [app setTabbarRoot];
-            
         }else{
-            if (![json[@"ErrorMsg"] isKindOfClass:[NSNull class]]) {
-                [MBProgressHUD showError:json[@"ErrorMsg"]];
-            }else{
-                [MBProgressHUD showError:@"网络连接错误"];
-            }
+            [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
         }
+        
     } failure:^(NSError *error) {
-        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
     }];
+    
 }
 
-#pragma mark - uitableviewdelegate
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+#pragma mark - 切换用户
+- (void)changeUser:(UIButton *)btn
 {
-    return 20;
+    self.isModal = YES;
+    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+    TravelLoginController *travel = [sb instantiateViewControllerWithIdentifier:@"TravelLogin"];
+    travel.isChangeUser = YES;
+    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:travel];
+    
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+#pragma mark - 忘记密码
+- (void)forgetPassword:(UIButton *)btn
 {
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
+    self.isModal = NO;
     
-    UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(25, 0, self.view.frame.size.width - 50, 20)];
-    title.text = @"输入旅行社账号密码";
-    title.font = [UIFont systemFontOfSize:13];
-    title.textColor = [UIColor whiteColor];
-    [cover addSubview:title];
-    
-    return cover;
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+    BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
+    bind.isForget = YES;
+    [self.navigationController pushViewController:bind animated:YES];
 }
 
 #pragma mark - UIScrollViewDelegate

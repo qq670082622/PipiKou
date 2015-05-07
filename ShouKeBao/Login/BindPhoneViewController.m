@@ -16,9 +16,9 @@
 #import "MBProgressHUD.h"
 #import "Business.h"
 #import "UIImage+QD.h"
-#import "StepView.h"
 #import "RegisterViewController.h"
 #import "WMNavigationController.h"
+#import "SetPhonePwdViewController.h"
 
 @interface BindPhoneViewController () <UIScrollViewDelegate>
 
@@ -54,32 +54,11 @@
     [self.nextBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
     
     // 设置头部图标
-    [self setupHeader];
+//    [self setupHeader];
+    self.phoneNum.text = @"11064808256";
     
-    [self setFoot];
-    
-    self.tableView.backgroundView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"beijing"]];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
     [self.view addGestureRecognizer:tap];
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
-    self.navigationController.navigationBarHidden = YES;
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    self.navigationController.navigationBarHidden = NO;
-}
-
-- (void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 #pragma mark - getter
@@ -110,69 +89,36 @@
 }
 
 /**
- *  添加新用户按钮
- */
-- (void)setFoot
-{
-    CGRect screenRect = [UIScreen mainScreen].bounds;
-    
-    CGFloat newW = 80;
-    CGFloat newH = 30;
-    CGFloat newX = (self.view.frame.size.width - newW) * 0.5;
-    CGFloat newY = screenRect.size.height - newH - 30;
-    UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
-    new.layer.cornerRadius = 15;
-    new.layer.masksToBounds = YES;
-    [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
-    [new setTitle:@"新用户" forState:UIControlStateNormal];
-    new.titleLabel.font = [UIFont systemFontOfSize:13];
-    [new setBackgroundColor:[UIColor whiteColor]];
-    [new setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [self.view addSubview:new];
-}
-
-/**
- *  跳转注册页面
- */
-- (void)registerUser:(UIButton *)btn
-{
-    RegisterViewController *reg = [[RegisterViewController alloc] init];
-    [self.navigationController pushViewController:reg animated:YES];
-}
-
-/**
  *  获取验证码
  */
 - (IBAction)getCode:(id)sender
 {
     if (self.phoneNum.text.length) {
         
-        NSDictionary *param = @{@"Mobile" :self.phoneNum.text,
-                                @"Type":@"3"};
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [LoginTool getCodeWithParam:param success:^(id json) {
-            NSLog(@"---%@",json);
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            
-            if ([json[@"IsSuccess"] integerValue] == 1) {
-                
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    [MBProgressHUD showSuccess:@"短信发送成功"];
-                });
-            
+//        NSDictionary *param = @{@"Mobile" :self.phoneNum.text,
+//                                @"Type":@"3"};
+//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        [LoginTool getCodeWithParam:param success:^(id json) {
+//            NSLog(@"---%@",json);
+//            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+//            
+//            if ([json[@"IsSuccess"] integerValue] == 1) {
+//
+                [MBProgressHUD showSuccess:@"短信发送成功"];
+        
                 self.count = 60;
                 self.codeBtn.enabled = NO;
                 NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(countDown:) userInfo:nil repeats:YES];
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
                 
                 self.nextBtn.enabled = YES;
-            }else{
-                [MBProgressHUD showError:json[@"ErrorMsg"]];
-            }
-            
-        } failure:^(NSError *error) {
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        }];
+//            }else{
+//                [MBProgressHUD showError:json[@"ErrorMsg"]];
+//            }
+//            
+//        } failure:^(NSError *error) {
+//            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+//        }];
     }
 }
 
@@ -209,12 +155,13 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
-            
-            // 去选择旅行社
-            ChildAccountViewController *child = [[ChildAccountViewController alloc] init];
-            
-            child.mobile = self.phoneNum.text;
-            [self.navigationController pushViewController:child animated:YES];
+//
+            // 去设置手机独立密码
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+            SetPhonePwdViewController *phonePwd = [sb instantiateViewControllerWithIdentifier:@"phonePwd"];
+            phonePwd.isForget = self.isForget;
+            phonePwd.phoneNum = self.phoneNum.text;
+            [self.navigationController pushViewController:phonePwd animated:YES];
             
         }else{
             [MBProgressHUD showError:json[@"ErrorMsg"]];
@@ -235,18 +182,12 @@
 #pragma mark - tableviewdelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 30;
+    return 45;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 20)];
-    
-    StepView *stepView = [[StepView alloc] initWithFrame:CGRectMake(15, 0, self.view.frame.size.width - 30, 20)];
-    [stepView setStepAtIndex:0];
-    [cover addSubview:stepView];
-    
-    return cover;
+    return @"安全手机将作为您的手机登录账号";
 }
 
 #pragma mark - UIScrollViewDelegate

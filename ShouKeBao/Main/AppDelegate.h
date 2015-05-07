@@ -18,11 +18,14 @@
 
 @property (strong, nonatomic) UIWindow *window;
 
+// 切换到主界面
 - (void)setTabbarRoot;
 
-- (void)setBindRoot;
-
+// 常规登录
 - (void)setLoginRoot;
+
+// 登录旅行社账号
+- (void)setTravelLoginRoot;
 
 @end
 

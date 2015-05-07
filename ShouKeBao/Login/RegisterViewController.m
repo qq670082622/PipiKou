@@ -33,24 +33,12 @@
 
 - (void)setNav
 {
-    // 返回按钮
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-    
-    // 背景
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:self action:@selector(cancel:)];
 }
 
--(void)back
+- (void)cancel:(UIBarButtonItem *)item
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - getter
@@ -58,7 +46,7 @@
 {
     if (!_webView) {
         _webView = [[UIWebView alloc] init];
-        _webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+        _webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
         _webView.delegate = self;
     }
     return _webView;

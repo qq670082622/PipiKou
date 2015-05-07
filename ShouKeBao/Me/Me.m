@@ -56,9 +56,9 @@
     [self setHeader];
     
     // 设置头像
-    NSString *head = [UserInfo shareUser].LoginAvatar;
+    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
     if (head) {
-        [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@""]];
+        [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
     }
 }
 

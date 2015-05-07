@@ -12,19 +12,19 @@
 @interface LoginTool : NSObject
 
 /**
- *  请求登录
+ *  旅行社登录
  */
-+ (void)loginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
++ (void)travelLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+/**
+ *  绑定手机密码
+ */
++ (void)bindPhonePwdWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  同步请求登录
  */
 + (void)syncLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
-
-/**
- *  获取商户和商户分销人信息
- */
-+ (void)getDistributionListWithSuccess:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  获取验证码
@@ -37,13 +37,33 @@
 + (void)checkCodeWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
- *  获取旅行社列表
+ *  获取分销人和旅行社列表
  */
-+ (void)getBusinessListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
++ (void)getUserListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
- *  绑定手机
+ *  选择分销人或者旅行社
  */
-+ (void)bindPhoneWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
++ (void)chooseUserWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+/**
+ *  常规登录
+ */
++ (void)regularLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+/**
+ *  开通个人收客宝
+ */
++ (void)createDistributionWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+/**
+ *  创建收客宝
+ */
++ (void)applyOpenSkbWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+/**
+ *  创建收客宝的上传头像
+ */
++ (void)uploadHeadWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 @end

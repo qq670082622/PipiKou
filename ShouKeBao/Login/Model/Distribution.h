@@ -10,6 +10,10 @@
 
 @interface Distribution : NSObject
 
+@property (nonatomic,copy) NSString *SkbType;// 1是旅行社 2是分销人
+
+@property (nonatomic,copy) NSString *icon;
+
 @property (nonatomic,copy) NSString *name;
 
 @property (nonatomic,copy) NSString *distributionId;

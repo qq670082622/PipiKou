@@ -15,7 +15,7 @@
 
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
    
    //组dic
@@ -28,11 +28,13 @@
     NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
     NSLog(@"---------subStation is %@-------",subStation);
 
+    // 基本参数
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
     [tmp setObject:@"1" forKey:@"MobileType"];
     [tmp setObject:currentVersion forKey:@"MobileVersion"];
     [tmp setObject:mobileID forKey:@"MobileID"];
     
+    // 分区设置
     if (subStation) {
         [tmp setObject:subStation forKey:@"Substation"];
     }else if (!subStation){
@@ -40,17 +42,19 @@
       //  [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
     }
     
-    NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];
-    NSString *distributionId = [accoutDefault objectForKey:@"DistributionID"];
-    if (businessId || distributionId) {
-        [tmp setObject:businessId forKey:@"BusinessID"];
-        [tmp setObject:distributionId forKey:@"DistributionID"];
-    }
+    // 取出两个id
+    NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
+    NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
     
-    NSString *loginType = [accoutDefault objectForKey:@"LoginType"];
-    if (loginType) {
-        [tmp setObject:loginType forKey:@"LoginType"];
-    }
+    // 判断这两个是否空
+    [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
+    [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    
+    // 取出logintype
+    NSString *loginType = [accoutDefault objectForKey:UserInfoKeyLoginType];
+    [tmp setObject:loginType ? loginType : @"0" forKey:@"LoginType"];
+    
+    // 拼接所有参数
     [tmp addEntriesFromDictionary:params];
    
     NSLog(@"-------url:%@",overStr);
@@ -59,7 +63,7 @@
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     mgr.requestSerializer = [AFJSONRequestSerializer serializer];
-//    mgr.operationQueue = [NSOperationQueue mainQueue];
+    
     [mgr POST:overStr parameters:tmp
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
          
@@ -73,59 +77,120 @@
       }];
 }
 
-
-+ (void)WMpostWithURL:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
++ (void)WMpostWithURL:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
     
-    NSString *normalURL = formalRUL;
+//    NSString *normalURL = formalRUL;
+//    NSString *overStr = [normalURL stringByAppendingString:url];
+//    
+//    //组dic
+//    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+//    
+//    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+//    
+//    NSString *mobileID = [[UIDevice currentDevice].identifierForVendor UUIDString];
+//  
+//    NSUserDefaults *accoutDefault=[NSUserDefaults standardUserDefaults];
+//    NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
+//    NSLog(@"---------subStation is %@-------",subStation);
+//    //ClientSource 0其他，无需
+//    
+//    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+//    [tmp setObject:@"1" forKey:@"MobileType"];
+//    [tmp setObject:currentVersion forKey:@"MobileVersion"];
+//    [tmp setObject:mobileID forKey:@"MobileID"];
+//    if (subStation) {
+//        [tmp setObject:subStation forKey:@"Substation"];
+//    }else if (!subStation){
+//        [tmp setObject:@"10" forKey:@"Substation"];
+//       // [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
+//
+//    }
+//    
+//    NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];
+//    NSString *distributionId = [accoutDefault objectForKey:@"DistributionID"];
+//    if (businessId || distributionId) {
+//        [tmp setObject:businessId forKey:@"BusinessID"];
+//        [tmp setObject:distributionId forKey:@"DistributionID"];
+//    }
+//    
+//    NSString *loginType = [accoutDefault objectForKey:@"LoginType"];
+//    if (loginType) {
+//        [tmp setObject:loginType forKey:@"LoginType"];
+//    }
+//
+//    [tmp addEntriesFromDictionary:params];
+//    
+//    NSLog(@"-------url:%@",overStr);
+//    NSLog(@"~~~~~~~param:%@",tmp);
+//
+//    
+//    NSString *jsonStr = [StrToDic jsonStringWithDicL:tmp];
+//    NSLog(@"--------------------jsonStr is %@------------",jsonStr);
+//    // 1.创建请求管理对象
+//    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+//    mgr.requestSerializer = [AFJSONRequestSerializer serializer];
+//    [mgr POST:overStr parameters:tmp
+//      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//          
+//          if (success) {
+//              success(responseObject);
+//          }
+//      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+//          if (failure) {
+//              failure(error);
+//          }
+//      }];
+    
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
-    
     NSString *mobileID = [[UIDevice currentDevice].identifierForVendor UUIDString];
-  
+    //ClientSource 0其他，无需
+    
     NSUserDefaults *accoutDefault=[NSUserDefaults standardUserDefaults];
     NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
     NSLog(@"---------subStation is %@-------",subStation);
-    //ClientSource 0其他，无需
     
+    // 基本参数
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
     [tmp setObject:@"1" forKey:@"MobileType"];
     [tmp setObject:currentVersion forKey:@"MobileVersion"];
     [tmp setObject:mobileID forKey:@"MobileID"];
+    
+    // 分区设置
     if (subStation) {
         [tmp setObject:subStation forKey:@"Substation"];
     }else if (!subStation){
         [tmp setObject:@"10" forKey:@"Substation"];
-       // [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
-
+        //  [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
     }
     
-    NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];
-    NSString *distributionId = [accoutDefault objectForKey:@"DistributionID"];
-    if (businessId || distributionId) {
-        [tmp setObject:businessId forKey:@"BusinessID"];
-        [tmp setObject:distributionId forKey:@"DistributionID"];
-    }
+    // 取出两个id
+    NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
+    NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
     
-    NSString *loginType = [accoutDefault objectForKey:@"LoginType"];
-    if (loginType) {
-        [tmp setObject:loginType forKey:@"LoginType"];
-    }
-
+    // 判断这两个是否空
+    [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
+    [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    
+    // 取出logintype
+    NSString *loginType = [accoutDefault objectForKey:UserInfoKeyLoginType];
+    [tmp setObject:loginType ? loginType : @"0" forKey:@"LoginType"];
+    
+    // 拼接所有参数
     [tmp addEntriesFromDictionary:params];
     
     NSLog(@"-------url:%@",overStr);
     NSLog(@"~~~~~~~param:%@",tmp);
-
     
-    NSString *jsonStr = [StrToDic jsonStringWithDicL:tmp];
-    NSLog(@"--------------------jsonStr is %@------------",jsonStr);
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     mgr.requestSerializer = [AFJSONRequestSerializer serializer];
+    
     [mgr POST:overStr parameters:tmp
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
           
@@ -137,7 +202,6 @@
               failure(error);
           }
       }];
-    
 }
 
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray success:(void (^)(id))success failure:(void (^)(NSError *))failure

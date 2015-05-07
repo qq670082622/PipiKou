@@ -7,6 +7,7 @@
 //
 
 #import "Distribution.h"
+#import "NSMutableDictionary+QD.h"
 
 @implementation Distribution
 
@@ -19,8 +20,12 @@
 {
     self = [super init];
     if (self) {
-        self.name = dict[@"Text"];
-        self.distributionId = dict[@"Value"];
+        NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:dict];
+        
+        self.SkbType = muta[@"SkbType"];
+        self.icon = muta[@"SkbLogo"];
+        self.name = muta[@"SkbName"];
+        self.distributionId = muta[@"DistributionID"];
     }
     return self;
 }

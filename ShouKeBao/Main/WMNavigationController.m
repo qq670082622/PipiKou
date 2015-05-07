@@ -17,6 +17,7 @@
 
 + (void)initialize
 {
+    
     // 设置整个项目所有item的主题样式
     UIBarButtonItem *item = [UIBarButtonItem appearance];
     
@@ -40,7 +41,7 @@
     textAttrs2[NSFontAttributeName] = [UIFont boldSystemFontOfSize:20];
     [bar setTitleTextAttributes:textAttrs2 ];
     
-    [ bar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];
+    [bar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];
 
     //  每一个像素都有自己的颜色，每一种颜色都可以由RGB3色组成
     //  12bit颜色: #f00  #0f0 #00f #ff0

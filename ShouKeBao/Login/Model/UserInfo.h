@@ -8,6 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+
+#define UserInfoKeyBusinessID @"BusinessID"
+#define UserInfoKeyAppUserID @"AppUserID"
+#define UserInfoKeyPoneNum @"PhoneNum"
+#define UserInfoKeyPassword @"Password"
+#define UserInfoKeyLoginType @"LoginType"
+#define UserInfoKeyDistributionID @"DistributionID"
+#define UserInfoKeySubstation @"Substation"
+#define UserInfoKeyLoginAvatar @"LoginAvatar"
+
 @interface UserInfo : NSObject
 
 + (UserInfo *)shareUser;
@@ -21,6 +31,8 @@
 @property (nonatomic,copy) NSString *userName; // 账号昵称
 
 @property (nonatomic,copy) NSString *account;// 账号
+
+@property (nonatomic,copy) NSString *phoneNum;// 手机号码
 
 @property (nonatomic,copy) NSString *LoginAvatar;// 登录界面的头像
 

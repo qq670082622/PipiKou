@@ -15,12 +15,33 @@
 @implementation LoginTool
 
 /**
- *  请求登录
+ *  旅行社登录
  */
-+ (void)loginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
++ (void)travelLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     
-    [IWHttpTool postWithURL:@"Business/Login" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"Business/LoginDistributor" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  绑定手机密码
+ */
++ (void)bindPhonePwdWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    
+    [IWHttpTool postWithURL:@"Business/CreateLoginPassword" params:param success:^(id json) {
         
         if (success) {
             success(json);
@@ -40,9 +61,8 @@
  */
 + (void)syncLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
-    
-    NSString *normalURL = formalRUL;
-    NSString *url = @"Business/Login";
+    NSString *normalURL = kWebTestHost;
+    NSString *url = @"Business/LoginQuick";
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic
@@ -51,21 +71,36 @@
     NSString *mobileID = [[UIDevice currentDevice].identifierForVendor UUIDString];
     //ClientSource 0其他，无需
     
+    NSUserDefaults *accoutDefault=[NSUserDefaults standardUserDefaults];
+    NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
+    NSLog(@"---------subStation is %@-------",subStation);
+    
+    // 基本参数
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
     [tmp setObject:@"1" forKey:@"MobileType"];
     [tmp setObject:currentVersion forKey:@"MobileVersion"];
     [tmp setObject:mobileID forKey:@"MobileID"];
     
-    
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *disId = [def objectForKey:@"DistributionID"];
-    NSString *busId = [def objectForKey:@"BusinessID"];
-    NSString *choId = [def objectForKey:@"ChooseID"];
-    if (disId && busId && choId) {
-        [tmp setObject:busId forKey:@"BusinessID"];
-        [tmp setObject:disId forKey:@"DistributionID"];
-        [tmp setObject:choId forKey:@"ChooseBusinessID"];
+    // 分区设置
+    if (subStation) {
+        [tmp setObject:subStation forKey:@"Substation"];
+    }else if (!subStation){
+        [tmp setObject:@"10" forKey:@"Substation"];
+        //  [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
     }
+    
+    // 取出两个id
+    NSString *businessId = [accoutDefault objectForKey:@"BusinessID"];
+    NSString *distributionId = [accoutDefault objectForKey:@"DistributionID"];
+    
+    // 判断这两个是否空
+    [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
+    [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    
+    // 取出logintype
+    NSString *loginType = [accoutDefault objectForKey:@"LoginType"];
+    [tmp setObject:loginType ? loginType : @"0" forKey:@"LoginType"];
+    
     [tmp addEntriesFromDictionary:param];
     
     NSLog(@"-------url:%@",overStr);
@@ -85,27 +120,6 @@
         NSError *error = [[NSError alloc] init];
         failure(error);
     }
-}
-
-/**
- *  获取商户和商户分销人信息
- */
-+ (void)getDistributionListWithSuccess:(void (^)(id json))success failure:(void (^)(NSError *error))failure
-{
-    NSDictionary *param = @{};
-    [IWHttpTool postWithURL:@"Business/GetDistributionList" params:param success:^(id json) {
-        
-        if (success) {
-            success(json);
-        }
-        
-    } failure:^(NSError *error) {
-        
-        if (failure) {
-            failure(error);
-        }
-        
-    }];
 }
 
 /**
@@ -151,12 +165,12 @@
 }
 
 /**
- *  获取旅行社列表
+ *  获取分销人和旅行社列表
  */
-+ (void)getBusinessListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
++ (void)getUserListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     
-    [IWHttpTool postWithURL:@"Business/GetLoginBindInfo" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"Business/GetSkbList" params:param success:^(id json) {
         
         if (success) {
             success(json);
@@ -172,12 +186,92 @@
 }
 
 /**
- *  绑定手机
+ *  选择分销人或者旅行社
  */
-+ (void)bindPhoneWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
++ (void)chooseUserWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     
-    [IWHttpTool postWithURL:@"Business/DistributionBind" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"Business/BindingSkb" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  常规登录
+ */
++ (void)regularLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/LoginQuick" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  开通个人收客宝
+ */
++ (void)createDistributionWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/CreateDistribution" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  创建收客宝
+ */
++ (void)applyOpenSkbWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/ApplyOpenSkb" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  创建收客宝的上传头像
+ */
++ (void)uploadHeadWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"File/UploadPicture" params:param success:^(id json) {
         
         if (success) {
             success(json);

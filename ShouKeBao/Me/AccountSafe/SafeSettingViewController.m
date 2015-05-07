@@ -10,6 +10,7 @@
 #import "ReBindViewController.h"
 #import "ModifyPwdViewController.h"
 #import "AppDelegate.h"
+#import "UserInfo.h"
 
 @interface SafeSettingViewController()<UIAlertViewDelegate>
 
@@ -116,15 +117,9 @@
 {
     if (buttonIndex == 1) {
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def removeObjectForKey:@"account"];
         [def removeObjectForKey:@"password"];
-        [def removeObjectForKey:@"phonenumber"];
-        [def removeObjectForKey:@"LoginType"];
-        [def removeObjectForKey:@"BusinessID"];
-        [def removeObjectForKey:@"DistributionID"];
-        [def removeObjectForKey:@"ChooseID"];
         AppDelegate *app = [UIApplication sharedApplication].delegate;
-        [app setBindRoot];
+        [app setLoginRoot];
     }
 }
 

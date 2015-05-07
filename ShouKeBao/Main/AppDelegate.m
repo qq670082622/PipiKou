@@ -12,9 +12,9 @@
 #import "WMNavigationController.h"
 #import "LoginTool.h"
 #import "UserInfo.h"
-#import "BindPhoneViewController.h"
 #import "WelcomeView.h"
 #import "SearchProductViewController.h"
+#import "TravelLoginController.h"
 
 @interface AppDelegate ()
 
@@ -33,10 +33,10 @@
     self.isAutoLogin = NO;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *account = [def objectForKey:@"account"];
-    NSString *password = [def objectForKey:@"password"];
-    if (account.length && password.length) {
-        [self autoLoginWithAccount:account passWord:password];
+    NSString *phone = [def objectForKey:UserInfoKeyPoneNum];
+    NSString *password = [def objectForKey:UserInfoKeyPassword];
+    if (phone.length && password.length) {
+        [self autoLoginWithAccount:phone passWord:password];
     }else{
         self.isAutoLogin = NO;
     }
@@ -48,23 +48,18 @@
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
 
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *phone = [def objectForKey:@"phonenumber"];
     NSString *isFirst = [def objectForKey:@"isFirst"];
     
-    // 是否绑定
-    if (phone) {
-        // 如果自动登录了 就切到主界面
-        if (self.isAutoLogin) {
+    // 是否第一次打开app
+    if ([isFirst integerValue] != 1) {
+        // 如果是第一次 就去登录旅行社 绑定手机 并显示欢迎界面
+        [self setWelcome];
+    }else{
+        // 如果不是第一次就 显示常规登录
+        if (self.isAutoLogin){
             [self setTabbarRoot];
         }else{
             [self setLoginRoot];
-        }
-    }else{
-        if ([isFirst integerValue] != 1) {// 是否第一次打开app
-            [self setWelcome];
-        }else{
-            // 如果未绑定手机号 去绑定手机
-            [self setBindRoot];
         }
     }
     
@@ -591,15 +586,17 @@
                         wxDelegate:self];
 }
 
-#pragma public
+#pragma mark - public
+// 设置欢迎界面
 - (void)setWelcome
 {
-    [self setBindRoot];
+    [self setTravelLoginRoot];
     
     WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:self.window.bounds];
     [self.window addSubview:welceome];
 }
 
+// 切换到主界面
 -(void)setTabbarRoot
 {
     ViewController *vc = [[ViewController alloc] init];
@@ -607,21 +604,26 @@
     [self.window makeKeyAndVisible];
 }
 
-- (void)setBindRoot
-{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
-    BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
-    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:bind];
-    self.window.rootViewController = nav;
-    [self.window makeKeyAndVisible];
-}
-
+// 常规登录
 -(void)setLoginRoot
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
     Login *lg = [sb instantiateViewControllerWithIdentifier:@"Login"];
     lg.autoLoginFailed = !self.isAutoLogin;
-    self.window.rootViewController = lg;
+    
+    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:lg];
+    self.window.rootViewController = nav;
+    [self.window makeKeyAndVisible];
+}
+
+// 登录旅行社
+- (void)setTravelLoginRoot
+{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+    TravelLoginController *travel = [sb instantiateViewControllerWithIdentifier:@"TravelLogin"];
+    travel.isChangeUser = NO;
+    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:travel];
+    self.window.rootViewController = nav;
     [self.window makeKeyAndVisible];
 }
 
@@ -629,21 +631,32 @@
 // 请求同步登录
 - (void)autoLoginWithAccount:(NSString *)account passWord:(NSString *)passWord
 {
-    NSDictionary *param = @{@"LoginName":account,
+    NSDictionary *param = @{@"Mobile":account,
                             @"LoginPassword":passWord};
     [LoginTool syncLoginWithParam:param success:^(id json) {
         NSLog(@"----%@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            
+            // 保存必要的参数
+            [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
+            [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
+            [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
+            [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+            [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
+            
+            // 保存用户模型
             [UserInfo userInfoWithDict:json];
             
+            // 保存分站
+            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
+            [def synchronize];
+            
+            // 给用户打上jpush标签
+            [APService setAlias:[def objectForKey:UserInfoKeyBusinessID] callbackSelector:nil object:nil];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
             [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
-            
-            // 保存分站
-            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:@"Substation"];
-            [def synchronize];
             
             self.isAutoLogin = YES;
         }

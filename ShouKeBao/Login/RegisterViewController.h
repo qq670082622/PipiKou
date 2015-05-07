@@ -6,8 +6,8 @@
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SKViewController.h"
 
-@interface RegisterViewController : UIViewController
+@interface RegisterViewController : SKViewController
 
 @end
