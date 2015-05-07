@@ -82,7 +82,7 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-   
+    
     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     [APService setBadge:0];
     
@@ -132,11 +132,15 @@
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
     
     NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
-    
     [appIsBack setObject:@"no" forKey:@"appIsBack"];
-    
     [appIsBack synchronize];
-
+    
+     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *isFirst = [def objectForKey:@"isFirst"];
+    if ([isFirst integerValue] != 1) {// 是否第一次打开app
+        [self Guide];
+    }
+[self Guide];
 }
 
 
@@ -460,6 +464,29 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 
 
 #pragma mark - private
+//第一次开机引导
+-(void)Guide
+{
+    UIView *guideView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    guideView.backgroundColor = [UIColor clearColor];
+    UIImageView *img = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    img.image = [UIImage imageNamed:@"messageCenterGuide"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        img.image = [UIImage imageNamed:@"SosGuide"];
+
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        img.image = [UIImage imageNamed:@"storeGuide"];
+        
+    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(9.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [guideView removeFromSuperview];
+    });
+
+    [guideView addSubview:img];
+    [[[UIApplication sharedApplication].delegate window] addSubview:guideView];
+}
+
 // 显示提醒
 - (void)showRemind:(NSTimer *)timer
 {
