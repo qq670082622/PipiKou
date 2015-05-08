@@ -180,7 +180,8 @@
     iconView.backgroundColor = [UIColor orangeColor];
     iconView.contentMode = UIViewContentModeScaleAspectFill;
     iconView.backgroundColor = [UIColor clearColor];
-    [iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
+    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+    [iconView sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
     iconView.layer.cornerRadius = 50;
     iconView.layer.masksToBounds = YES;
     [cover addSubview:iconView];
