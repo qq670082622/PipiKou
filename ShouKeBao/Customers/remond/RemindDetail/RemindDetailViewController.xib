@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="RemindDetailViewController">
             <connections>
-                <outlet property="noteLebel" destination="8mc-bE-tk9" id="ZBq-gj-4fM"/>
+                <outlet property="noteLebel" destination="1qr-ik-E0e" id="fnE-nD-Avc"/>
                 <outlet property="timeLabel" destination="hxV-2y-xdR" id="3mD-ZF-Cxh"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -21,29 +21,28 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="21"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstAttribute="height" constant="21" id="Qhn-Jm-hTe"/>
+                        <constraint firstAttribute="height" constant="21" id="wiS-qF-2oV"/>
                     </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" white="0.4968631628787879" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8mc-bE-tk9" userLabel="note">
+                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1qr-ik-E0e">
                     <rect key="frame" x="0.0" y="22" width="320" height="446"/>
-                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                </textView>
             </subviews>
-            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <color key="backgroundColor" white="0.9182765151515152" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="8mc-bE-tk9" firstAttribute="top" secondItem="hxV-2y-xdR" secondAttribute="bottom" constant="1" id="EiW-6g-9xB"/>
-                <constraint firstItem="8mc-bE-tk9" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="SXr-Ms-WLV"/>
-                <constraint firstItem="hxV-2y-xdR" firstAttribute="trailing" secondItem="8mc-bE-tk9" secondAttribute="trailing" id="Ynf-yK-fgS"/>
-                <constraint firstAttribute="bottom" secondItem="8mc-bE-tk9" secondAttribute="bottom" constant="12" id="Ziv-jV-T4i"/>
-                <constraint firstAttribute="trailing" secondItem="hxV-2y-xdR" secondAttribute="trailing" id="cRL-v4-sDU"/>
-                <constraint firstItem="hxV-2y-xdR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="fRn-3C-Q4A"/>
-                <constraint firstItem="hxV-2y-xdR" firstAttribute="leading" secondItem="8mc-bE-tk9" secondAttribute="leading" id="xqi-BL-aZv"/>
+                <constraint firstItem="1qr-ik-E0e" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="0Bz-PI-HRX"/>
+                <constraint firstItem="1qr-ik-E0e" firstAttribute="leading" secondItem="hxV-2y-xdR" secondAttribute="leading" id="Gju-PA-K7p"/>
+                <constraint firstItem="hxV-2y-xdR" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="IhO-6d-iuR"/>
+                <constraint firstAttribute="bottom" secondItem="1qr-ik-E0e" secondAttribute="bottom" constant="12" id="MgB-3R-Uek"/>
+                <constraint firstItem="hxV-2y-xdR" firstAttribute="trailing" secondItem="1qr-ik-E0e" secondAttribute="trailing" id="kDS-wt-dZN"/>
+                <constraint firstItem="1qr-ik-E0e" firstAttribute="top" secondItem="hxV-2y-xdR" secondAttribute="bottom" constant="1" id="mfu-md-w6X"/>
+                <constraint firstItem="hxV-2y-xdR" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qQP-b5-IHa"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>

@@ -86,6 +86,10 @@
 
 @property (nonatomic,strong) NullContentView *nullContentView;
 
+@property (nonatomic,strong) UIView *guideView;
+@property (nonatomic,strong) UIImageView *guideImageView;
+@property (nonatomic,assign) int guideIndex;
+
 @end
 
 @implementation Orders
@@ -133,7 +137,7 @@
     if ([orderGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-  //  [self Guide];
+    //[self Guide];
 
     
 }
@@ -231,23 +235,34 @@
 
 #pragma mark - private
 
+//第一次开机引导
 -(void)Guide
 {
-    UIView *guideView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    guideView.backgroundColor = [UIColor clearColor];
-    UIImageView *img = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    img.image = [UIImage imageNamed:@"orderSwipLeftGuide"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [guideView removeFromSuperview];
-    });
+    self.guideView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _guideView.backgroundColor = [UIColor clearColor];
+    self.guideImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
+    self.guideImageView.image = [UIImage imageNamed:@"orderSwipLeftGuide"];
     
-    NSUserDefaults *orderGuideDefault = [NSUserDefaults standardUserDefaults];
-    [orderGuideDefault setObject:@"1" forKey:@"orderGuide"];
-    [orderGuideDefault synchronize];
     
-    [guideView addSubview:img];
-    [[[UIApplication sharedApplication].delegate window] addSubview:guideView];
+    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+    [guideDefault setObject:@"1" forKey:@"orderGuide"];
+    [guideDefault synchronize];
+    
+    [self.guideView addSubview:_guideImageView];
+    [[[UIApplication sharedApplication].delegate window] addSubview:_guideView];
 }
+-(void)click
+{
+    CATransition *an1 = [CATransition animation];
+    an1.type = @"rippleEffect";
+    an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
+    an1.duration = 2;
+    [self.guideImageView.layer addAnimation:an1 forKey:nil];    [self.guideView removeFromSuperview];
+    NSLog(@"被店家－－－－－－－－－－－－－indexi is %d－－",_guideIndex);
+    
+}
+
 - (void)setNullImage
 {
     self.nullContentView.hidden = self.dataArr.count;
