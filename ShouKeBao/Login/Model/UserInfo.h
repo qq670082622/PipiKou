@@ -17,6 +17,7 @@
 #define UserInfoKeyDistributionID @"DistributionID"
 #define UserInfoKeySubstation @"Substation"
 #define UserInfoKeyLoginAvatar @"LoginAvatar"
+#define UserInfoKeyAccount @"Account"
 
 @interface UserInfo : NSObject
 

@@ -40,7 +40,7 @@
     
     self.title = @"账号安全设置";
     
-    self.accountLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
+    self.accountLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyAccount];
     
     [self setNav];
 }

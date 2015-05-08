@@ -89,6 +89,7 @@
             // 保存businessid
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
+            [def setObject:self.accountField.text forKey:UserInfoKeyAccount];
             [def synchronize];
             
             if (self.isChangeUser) {
