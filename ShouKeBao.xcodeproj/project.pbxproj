@@ -138,6 +138,7 @@
 		5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */; };
 		5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A151ADB604C00B0E0E5 /* DayDetail.m */; };
 		5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */; };
+		630DFD721AFCB60800021553 /* libLotuseed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630DFD701AFCB60800021553 /* libLotuseed.a */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
 		6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130D1AB1C175003AC2DA /* MJRefreshBaseView.m */; };
 		6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130F1AB1C175003AC2DA /* MJRefreshConst.m */; };
@@ -218,9 +219,6 @@
 		636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B901AC2E6860097CAE9 /* MBProgressHUD+MJ.m */; };
 		636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */; };
 		636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */; };
-		6384E7551AFB78650074AEFE /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6384E7521AFB78650074AEFE /* libMobClickLibrary.a */; };
-		6384E75A1AFB786F0074AEFE /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E7581AFB786F0074AEFE /* GuideViewController.m */; };
-		6384E75B1AFB786F0074AEFE /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E7591AFB786F0074AEFE /* GuideViewController.xib */; };
 		6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6389CE041AB7F9F600A8326E /* ResizeImage.m */; };
 		63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */; };
 		63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */; };
@@ -523,6 +521,8 @@
 		5AED0A151ADB604C00B0E0E5 /* DayDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetail.m; sourceTree = "<group>"; };
 		5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRemindCell.h; sourceTree = "<group>"; };
 		5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRemindCell.m; sourceTree = "<group>"; };
+		630DFD701AFCB60800021553 /* libLotuseed.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLotuseed.a; sourceTree = "<group>"; };
+		630DFD711AFCB60800021553 /* Lotuseed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lotuseed.h; sourceTree = "<group>"; };
 		6326130A1AB1C175003AC2DA /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		6326130B1AB1C175003AC2DA /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		6326130C1AB1C175003AC2DA /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -653,12 +653,6 @@
 		636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		636C8B921AC2E6860097CAE9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		6384E7521AFB78650074AEFE /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
-		6384E7531AFB78650074AEFE /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
-		6384E7541AFB78650074AEFE /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
-		6384E7571AFB786F0074AEFE /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
-		6384E7581AFB786F0074AEFE /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
-		6384E7591AFB786F0074AEFE /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideViewController.xib; sourceTree = "<group>"; };
 		6389CE031AB7F9F600A8326E /* ResizeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImage.h; sourceTree = "<group>"; };
 		6389CE041AB7F9F600A8326E /* ResizeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeImage.m; sourceTree = "<group>"; };
 		63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -755,16 +749,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */,
-				63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */,
 				632EDEA11AC8FC8300EE98FC /* libz.dylib in Frameworks */,
 				636C8B871AC2E22D0097CAE9 /* Security.framework in Frameworks */,
+				636C8B7D1AC2E1F90097CAE9 /* SystemConfiguration.framework in Frameworks */,
+				63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */,
+				63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */,
 				632EDE9F1AC8FC7300EE98FC /* UIKit.framework in Frameworks */,
 				632EDE9D1AC8FC6B00EE98FC /* Foundation.framework in Frameworks */,
 				632EDE9B1AC8FC6300EE98FC /* CoreGraphics.framework in Frameworks */,
-				636C8B7D1AC2E1F90097CAE9 /* SystemConfiguration.framework in Frameworks */,
 				636C8B811AC2E20C0097CAE9 /* CoreTelephony.framework in Frameworks */,
 				632EDEAC1AC8FF4D00EE98FC /* libPushSDK-1.8.3.a in Frameworks */,
+				630DFD721AFCB60800021553 /* libLotuseed.a in Frameworks */,
 				632EDE991AC8FC4500EE98FC /* CoreFoundation.framework in Frameworks */,
 				632EDE971AC8FC3800EE98FC /* CFNetwork.framework in Frameworks */,
 				636C8B8D1AC2E2740097CAE9 /* libsqlite3.dylib in Frameworks */,
@@ -785,7 +780,6 @@
 				636C8B7B1AC2E1420097CAE9 /* ShareSDKShareActionSheet.framework in Frameworks */,
 				636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */,
 				636C8B781AC2E1420097CAE9 /* ShareSDK.framework in Frameworks */,
-				6384E7551AFB78650074AEFE /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1295,6 +1289,15 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		630DFD6F1AFCB60800021553 /* Lotuseed */ = {
+			isa = PBXGroup;
+			children = (
+				630DFD701AFCB60800021553 /* libLotuseed.a */,
+				630DFD711AFCB60800021553 /* Lotuseed.h */,
+			);
+			path = Lotuseed;
+			sourceTree = "<group>";
+		};
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
@@ -1584,27 +1587,6 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
-		6384E7511AFB78650074AEFE /* Umeng */ = {
-			isa = PBXGroup;
-			children = (
-				6384E7521AFB78650074AEFE /* libMobClickLibrary.a */,
-				6384E7531AFB78650074AEFE /* MobClick.h */,
-				6384E7541AFB78650074AEFE /* MobClickSocialAnalytics.h */,
-			);
-			name = Umeng;
-			path = ShouKeBao/Umeng;
-			sourceTree = "<group>";
-		};
-		6384E7561AFB786F0074AEFE /* Guide */ = {
-			isa = PBXGroup;
-			children = (
-				6384E7571AFB786F0074AEFE /* GuideViewController.h */,
-				6384E7581AFB786F0074AEFE /* GuideViewController.m */,
-				6384E7591AFB786F0074AEFE /* GuideViewController.xib */,
-			);
-			path = Guide;
-			sourceTree = "<group>";
-		};
 		6389CE021AB7F9DC00A8326E /* ImageTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -1657,7 +1639,6 @@
 		63D31E351AB143D00043B3CA = {
 			isa = PBXGroup;
 			children = (
-				6384E7511AFB78650074AEFE /* Umeng */,
 				63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */,
 				632EDE911AC8FC0300EE98FC /* Jpush */,
 				63D31E401AB143D00043B3CA /* ShouKeBao */,
@@ -1678,8 +1659,8 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
+				630DFD6F1AFCB60800021553 /* Lotuseed */,
 				63E0340D1AFC995300BD714A /* Customers */,
-				6384E7561AFB786F0074AEFE /* Guide */,
 				636C8B511AC2E1420097CAE9 /* ShareSDK */,
 				5AB7C9811ACBC9C700217CAC /* CustomView */,
 				5A52FB371ACEBF220076DAE6 /* Category */,
@@ -2023,7 +2004,6 @@
 				5A52FC591ACEBF220076DAE6 /* rightCell3.xib in Resources */,
 				636C8B721AC2E1420097CAE9 /* ShareSDKLocalizable.strings in Resources */,
 				5A52FC881ACEBF220076DAE6 /* ContactView.xib in Resources */,
-				6384E75B1AFB786F0074AEFE /* GuideViewController.xib in Resources */,
 				5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */,
 				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
 				5A52FC8A1ACEBF220076DAE6 /* DetailView.xib in Resources */,
@@ -2183,7 +2163,6 @@
 				5A52FC7A1ACEBF220076DAE6 /* MyOrgViewController.m in Sources */,
 				63E034531AFC995300BD714A /* remondModel.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
-				6384E75A1AFB786F0074AEFE /* GuideViewController.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				63E034421AFC995300BD714A /* batchCell.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
@@ -2380,6 +2359,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
 					"$(PROJECT_DIR)/ShouKeBao/Umeng",
+					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -2411,6 +2391,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
 					"$(PROJECT_DIR)/ShouKeBao/Umeng",
+					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "87d8d2a0-57e2-4319-9375-891dd949477a";

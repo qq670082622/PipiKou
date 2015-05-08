@@ -15,7 +15,7 @@
 #import "WelcomeView.h"
 #import "SearchProductViewController.h"
 #import "TravelLoginController.h"
-
+#import "Lotuseed.h"
 @interface AppDelegate ()
 
 @property (nonatomic,assign) BOOL isAutoLogin;
@@ -63,6 +63,32 @@
         }
     }
     
+#pragma -mark莲子统计Lotuseed
+    
+    [Lotuseed setDebugMode:YES];  //SDK处于DEBUG模式，发布时请关闭
+    //[Lotuseed setSessionContinueSeconds:15];  //更改应用默认Session重启间隔，单位：秒
+    
+    [Lotuseed setCrashReportEnabled:YES];  //是否提交程序异常报告
+    [Lotuseed startWithAppKey:@"H0lJ7jv5jIbpcqi4tfJ4"];  //必须添加的接口调用
+    
+    //页面停留统计
+//    - (void)viewWillAppear:(BOOL)animated {
+//        
+//        [super viewWillAppear:animated];
+//        
+//        [Lotuseed onPageViewBegin:@"PageOne"];
+//    }
+//    - (void)viewWillDisappear:(BOOL)animated {
+//        
+//        [super viewWillDisappear:animated];
+//        
+//        [Lotuseed onPageViewEnd:@"PageOne"];
+//    }
+//自定义事件
+//    + (void)onEvent:(NSString *)eventID;
+//+ (void)onEvent:(NSString *)eventID label:(NSString *)label;
+//    + (void)onEvent:(NSString *)eventID attributes:(NSDictionary *)dic;
+
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
     //QQ空间
