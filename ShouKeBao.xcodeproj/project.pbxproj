@@ -244,6 +244,9 @@
 		636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B901AC2E6860097CAE9 /* MBProgressHUD+MJ.m */; };
 		636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */; };
 		636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */; };
+		6384E7551AFB78650074AEFE /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6384E7521AFB78650074AEFE /* libMobClickLibrary.a */; };
+		6384E75A1AFB786F0074AEFE /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E7581AFB786F0074AEFE /* GuideViewController.m */; };
+		6384E75B1AFB786F0074AEFE /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E7591AFB786F0074AEFE /* GuideViewController.xib */; };
 		6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6389CE041AB7F9F600A8326E /* ResizeImage.m */; };
 		63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */; };
 		63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */; };
@@ -691,6 +694,12 @@
 		636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		636C8B921AC2E6860097CAE9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		6384E7521AFB78650074AEFE /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
+		6384E7531AFB78650074AEFE /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
+		6384E7541AFB78650074AEFE /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		6384E7571AFB786F0074AEFE /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
+		6384E7581AFB786F0074AEFE /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
+		6384E7591AFB786F0074AEFE /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideViewController.xib; sourceTree = "<group>"; };
 		6389CE031AB7F9F600A8326E /* ResizeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImage.h; sourceTree = "<group>"; };
 		6389CE041AB7F9F600A8326E /* ResizeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeImage.m; sourceTree = "<group>"; };
 		63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -776,6 +785,7 @@
 				636C8B7B1AC2E1420097CAE9 /* ShareSDKShareActionSheet.framework in Frameworks */,
 				636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */,
 				636C8B781AC2E1420097CAE9 /* ShareSDK.framework in Frameworks */,
+				6384E7551AFB78650074AEFE /* libMobClickLibrary.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1679,6 +1689,27 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		6384E7511AFB78650074AEFE /* Umeng */ = {
+			isa = PBXGroup;
+			children = (
+				6384E7521AFB78650074AEFE /* libMobClickLibrary.a */,
+				6384E7531AFB78650074AEFE /* MobClick.h */,
+				6384E7541AFB78650074AEFE /* MobClickSocialAnalytics.h */,
+			);
+			name = Umeng;
+			path = ShouKeBao/Umeng;
+			sourceTree = "<group>";
+		};
+		6384E7561AFB786F0074AEFE /* Guide */ = {
+			isa = PBXGroup;
+			children = (
+				6384E7571AFB786F0074AEFE /* GuideViewController.h */,
+				6384E7581AFB786F0074AEFE /* GuideViewController.m */,
+				6384E7591AFB786F0074AEFE /* GuideViewController.xib */,
+			);
+			path = Guide;
+			sourceTree = "<group>";
+		};
 		6389CE021AB7F9DC00A8326E /* ImageTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -1731,6 +1762,7 @@
 		63D31E351AB143D00043B3CA = {
 			isa = PBXGroup;
 			children = (
+				6384E7511AFB78650074AEFE /* Umeng */,
 				63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */,
 				632EDE911AC8FC0300EE98FC /* Jpush */,
 				63D31E401AB143D00043B3CA /* ShouKeBao */,
@@ -1751,6 +1783,7 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
+				6384E7561AFB786F0074AEFE /* Guide */,
 				636C8B511AC2E1420097CAE9 /* ShareSDK */,
 				5AB7C9811ACBC9C700217CAC /* CustomView */,
 				5A52FB371ACEBF220076DAE6 /* Category */,
@@ -1908,7 +1941,7 @@
 					};
 					63D31E561AB143D00043B3CA = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = ZE6MJL8P7K;
+						DevelopmentTeam = WS6NM65Y2F;
 						TestTargetID = 63D31E3D1AB143D00043B3CA;
 					};
 				};
@@ -1990,6 +2023,7 @@
 				636C8B721AC2E1420097CAE9 /* ShareSDKLocalizable.strings in Resources */,
 				5A52FC881ACEBF220076DAE6 /* ContactView.xib in Resources */,
 				5A0058971ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib in Resources */,
+				6384E75B1AFB786F0074AEFE /* GuideViewController.xib in Resources */,
 				5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */,
 				5A00588C1ACEBD1E007AF362 /* BatchAddViewController.xib in Resources */,
 				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
@@ -2149,6 +2183,7 @@
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
 				5A52FC7A1ACEBF220076DAE6 /* MyOrgViewController.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
+				6384E75A1AFB786F0074AEFE /* GuideViewController.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
@@ -2328,8 +2363,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2345,10 +2380,11 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
+					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2358,8 +2394,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2375,9 +2411,10 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Extend/WeChatSDK",
 					"$(PROJECT_DIR)/ShouKeBao/Jpush/lib",
+					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "dfc22ae9-81b2-4e34-b78a-95c775ad5bea";
+				PROVISIONING_PROFILE = "";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -2386,8 +2423,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2399,7 +2436,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "27ce0dae-a57b-47bc-8b37-f79bd4fb8353";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Debug;
@@ -2408,8 +2445,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -2417,7 +2454,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "27ce0dae-a57b-47bc-8b37-f79bd4fb8353";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Release;
