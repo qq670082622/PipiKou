@@ -117,7 +117,7 @@
 {
     if (buttonIndex == 1) {
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def removeObjectForKey:@"password"];
+        [def removeObjectForKey:UserInfoKeyPassword];
         AppDelegate *app = [UIApplication sharedApplication].delegate;
         [app setLoginRoot];
     }
