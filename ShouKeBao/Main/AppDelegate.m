@@ -76,11 +76,11 @@
                        tencentOAuthCls:[TencentOAuth class]];
    
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx64b55294f9f074c9"
+    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"
                            wechatCls:[WXApi class]];
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx64b55294f9f074c9"   //微信APPID
-                           appSecret:@"86715ba658374d84b7bc08514e0d0540"  //微信APPSecret
+    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"   //微信APPID
+                           appSecret:@"747908a80a1ee4681b131c384a275a46"  //微信APPSecret
                            wechatCls:[WXApi class]];
     
     //连接短信分享

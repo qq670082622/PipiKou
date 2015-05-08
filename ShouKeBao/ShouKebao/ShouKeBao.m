@@ -135,12 +135,12 @@
     [appIsBack setObject:@"no" forKey:@"appIsBack"];
     [appIsBack synchronize];
     
-     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *isFirst = [def objectForKey:@"isFirst"];
-    if ([isFirst integerValue] != 1) {// 是否第一次打开app
+     NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
+    NSString *SKBGuide = [guiDefault objectForKey:@"SKBGuide"];
+    if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-[self Guide];
+//[self Guide];
 }
 
 
@@ -482,7 +482,11 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(9.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [guideView removeFromSuperview];
     });
-
+    
+    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+    [guideDefault setObject:@"1" forKey:@"SKBGuide"];
+     [guideDefault synchronize];
+    
     [guideView addSubview:img];
     [[[UIApplication sharedApplication].delegate window] addSubview:guideView];
 }

@@ -128,12 +128,12 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"historysearch" object:nil];
     
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *isFirst = [def objectForKey:@"isFirst"];
-    if ([isFirst integerValue] != 1) {// 是否第一次打开app
+    NSUserDefaults *orderGuideDefault = [NSUserDefaults standardUserDefaults];
+    NSString *orderGuide = [orderGuideDefault objectForKey:@"orderGuide"];
+    if ([orderGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-    [self Guide];
+  //  [self Guide];
 
     
 }
@@ -240,6 +240,10 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [guideView removeFromSuperview];
     });
+    
+    NSUserDefaults *orderGuideDefault = [NSUserDefaults standardUserDefaults];
+    [orderGuideDefault setObject:@"1" forKey:@"orderGuide"];
+    [orderGuideDefault synchronize];
     
     [guideView addSubview:img];
     [[[UIApplication sharedApplication].delegate window] addSubview:guideView];
