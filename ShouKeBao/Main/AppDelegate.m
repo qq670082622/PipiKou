@@ -672,6 +672,9 @@
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
             [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
             
+            // 重新保存密码 因为如果注销了的话
+            [def setObject:passWord forKey:UserInfoKeyPassword];
+            
             // 保存用户模型
             [UserInfo userInfoWithDict:json];
             
