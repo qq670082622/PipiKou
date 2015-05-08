@@ -75,6 +75,10 @@
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
 
 @property (nonatomic,assign) NSInteger recommendCount;// 今日推荐的数量
+
+@property (nonatomic,strong) UIView *guideView;
+@property (nonatomic,strong) UIImageView *guideImageView;
+@property (nonatomic,assign) int guideIndex;
 @end
 
 @implementation ShouKeBao
@@ -140,7 +144,7 @@
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-//[self Guide];
+[self Guide];
 }
 
 
@@ -471,26 +475,47 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     guideView.backgroundColor = [UIColor clearColor];
     UIImageView *img = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     img.image = [UIImage imageNamed:@"messageCenterGuide"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        img.image = [UIImage imageNamed:@"SosGuide"];
-
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        img.image = [UIImage imageNamed:@"storeGuide"];
-        
-    });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(9.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [guideView removeFromSuperview];
-    });
+    self.guideView = guideView;
+    self.guideImageView = img;
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//        img.image = [UIImage imageNamed:@"SosGuide"];
+//
+//    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(6.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//        img.image = [UIImage imageNamed:@"storeGuide"];
+//        
+//    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(9.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//        [guideView removeFromSuperview];
+//    });
     
-    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
-    [guideDefault setObject:@"1" forKey:@"SKBGuide"];
-     [guideDefault synchronize];
+//    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+//    [guideDefault setObject:@"1" forKey:@"SKBGuide"];
+//     [guideDefault synchronize];
     
     [guideView addSubview:img];
     [[[UIApplication sharedApplication].delegate window] addSubview:guideView];
 }
-
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    self.guideIndex++;
+    if (_guideIndex == 3) {
+        [self.guideView removeFromSuperview];
+    }
+    NSString *str = [NSString stringWithFormat:@"GuideSKB%d",self.guideIndex+1];
+    self.guideImageView.image = [UIImage imageNamed:str];
+    
+    CATransition *an1 = [CATransition animation];
+    an1.type = @"rippleEffect";
+    
+    
+    
+    an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
+    an1.duration = 2;
+    
+    [self.guideImageView.layer addAnimation:an1 forKey:nil];
+   
+}
 // 显示提醒
 - (void)showRemind:(NSTimer *)timer
 {
