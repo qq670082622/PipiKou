@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface CustomerOrdersUIViewController : UIViewController
+#import "SKViewController.h"
+@interface CustomerOrdersUIViewController : SKViewController
 
 @end

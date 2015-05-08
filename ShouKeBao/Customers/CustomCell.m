@@ -8,6 +8,7 @@
 
 #import "CustomCell.h"
 #import "UIImageView+WebCache.h"
+#import "IWHttpTool.h"
 @implementation CustomCell
 
 - (void)awakeFromNib {
@@ -19,15 +20,35 @@
 
     // Configure the view for the selected state
 }
-+ (instancetype)cellWithTableView:(UITableView *)tableView
-{ static NSString *cellID = @"customCell";
+
+- (IBAction)callAction:(id)sender {
+    
+    if (self.model.Mobile.length>6) {
+      
+        NSMutableString * str=[[NSMutableString alloc] initWithFormat:@"tel://%@",self.model.Mobile];
+        NSLog(@"电话号码是%@",str);
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+    }
+    else if (self.model.Mobile.length<=6){
+       
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"失败" message:@"该客户电话号码错误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        
+        [alert show];
+    }
+  
+}
+
++ (instancetype)cellWithTableView:(UITableView *)tableView{
+    
+    static NSString *cellID = @"customCell";
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CustomCell" owner:nil options:nil] lastObject];
-       
-        }
-    return cell;
+       }
+     return cell;
 }
+
 -(void)setModel:(CustomModel *)model
 {
     _model = model;
@@ -35,6 +56,8 @@
     self.userName.text = model.Name;
     self.userTele.text = [NSString stringWithFormat:@"电话：%@",model.Mobile];
     self.userOders.text = [NSString stringWithFormat:@"订单数：%@",model.OrderCount];
-}
+    
+
+    }
 
 @end

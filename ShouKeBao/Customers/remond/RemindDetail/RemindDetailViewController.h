@@ -7,8 +7,20 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SKViewController.h"
 
-@interface RemindDetailViewController : UIViewController
+@protocol remindDetailDelegate <NSObject>
+
+- (void)didLookUpRemind;
+
+@end
+
+@interface RemindDetailViewController : SKViewController
 @property (nonatomic,copy)NSString *note;
 @property (nonatomic,copy)NSString *time;
+
+@property (nonatomic,copy) NSString *remindId;
+
+@property (nonatomic,weak) id<remindDetailDelegate> delegate;
+
 @end

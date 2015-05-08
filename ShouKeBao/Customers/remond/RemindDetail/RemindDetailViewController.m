@@ -7,10 +7,12 @@
 //
 
 #import "RemindDetailViewController.h"
-
+#import "WriteFileManager.h"
+#import "remondModel.h"
+#import "NSDate+Category.h"
 @interface RemindDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UILabel *noteLebel;
+@property (weak, nonatomic) IBOutlet UITextView *noteLebel;
 
 @end
 
@@ -18,33 +20,55 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.noteLebel.text = [NSString stringWithFormat:@"⏰提醒内容:%@",self.note];
-    self.timeLabel.text = [NSString stringWithFormat:@"⌚️提醒时间:%@",self.time];
     
-    self.noteLebel.layer.cornerRadius = 4;
-    self.noteLebel.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.noteLebel.layer.borderWidth = 0.5;
-    self.noteLebel.layer.masksToBounds = YES;
+    // 查看过的提醒从本地去除
+    NSArray *remindArr = [WriteFileManager readData:@"remindData"];
+    NSMutableArray *muta = [NSMutableArray arrayWithArray:remindArr];
+    for (remondModel *remind in remindArr) {
+        if ([remind.ID isEqualToString:self.remindId]) {
+            [muta removeObject:remind];
+        }
+    }
+    [WriteFileManager saveData:muta name:@"remindData"];
     
-    self.timeLabel.layer.cornerRadius = 4;
-    self.timeLabel.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.timeLabel.layer.borderWidth = 0.5;
-    self.timeLabel.layer.masksToBounds = YES;
+    self.noteLebel.text = [NSString stringWithFormat:@"%@",self.note];
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[self.time doubleValue]];
+    self.timeLabel.text = [NSString stringWithFormat:@" %@",[createDate formattedTime]];
+   
+    
+
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+    
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didLookUpRemind)]) {
+        [self.delegate didLookUpRemind];
+    }
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

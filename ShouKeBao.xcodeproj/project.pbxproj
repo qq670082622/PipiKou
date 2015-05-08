@@ -7,29 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5A0058891ACEBD1E007AF362 /* addCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00585A1ACEBD1E007AF362 /* addCustomerViewController.m */; };
-		5A00588A1ACEBD1E007AF362 /* addCustomerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A00585B1ACEBD1E007AF362 /* addCustomerViewController.xib */; };
-		5A00588B1ACEBD1E007AF362 /* BatchAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00585E1ACEBD1E007AF362 /* BatchAddViewController.m */; };
-		5A00588C1ACEBD1E007AF362 /* BatchAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A00585F1ACEBD1E007AF362 /* BatchAddViewController.xib */; };
-		5A00588D1ACEBD1E007AF362 /* batchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058611ACEBD1E007AF362 /* batchCell.m */; };
-		5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058621ACEBD1E007AF362 /* batchCell.xib */; };
-		5A00588F1ACEBD1E007AF362 /* batchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058641ACEBD1E007AF362 /* batchModel.m */; };
-		5A0058901ACEBD1E007AF362 /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058661ACEBD1E007AF362 /* CustomCell.m */; };
-		5A0058911ACEBD1E007AF362 /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058671ACEBD1E007AF362 /* CustomCell.xib */; };
-		5A0058921ACEBD1E007AF362 /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */; };
-		5A0058941ACEBD1E007AF362 /* EditCustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00586D1ACEBD1E007AF362 /* EditCustomerDetailViewController.m */; };
-		5A0058961ACEBD1E007AF362 /* CustomerOrdersUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058711ACEBD1E007AF362 /* CustomerOrdersUIViewController.m */; };
-		5A0058971ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058721ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib */; };
-		5A0058981ACEBD1E007AF362 /* Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058741ACEBD1E007AF362 /* Customers.m */; };
-		5A0058991ACEBD1E007AF362 /* Customers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058751ACEBD1E007AF362 /* Customers.xib */; };
-		5A00589A1ACEBD1E007AF362 /* CustomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058771ACEBD1E007AF362 /* CustomModel.m */; };
-		5A00589D1ACEBD1E007AF362 /* RemindDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A00587F1ACEBD1E007AF362 /* RemindDetailViewController.m */; };
-		5A00589E1ACEBD1E007AF362 /* RemindDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058801ACEBD1E007AF362 /* RemindDetailViewController.xib */; };
-		5A00589F1ACEBD1E007AF362 /* remondModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058821ACEBD1E007AF362 /* remondModel.m */; };
-		5A0058A01ACEBD1E007AF362 /* remondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058841ACEBD1E007AF362 /* remondTableViewCell.m */; };
-		5A0058A11ACEBD1E007AF362 /* remondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058851ACEBD1E007AF362 /* remondTableViewCell.xib */; };
-		5A0058A21ACEBD1E007AF362 /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0058871ACEBD1E007AF362 /* remondViewController.m */; };
-		5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5A0058881ACEBD1E007AF362 /* remondViewController.xib */; };
 		5A076C9B1ACD1C0F0077611C /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A076C9A1ACD1C0F0077611C /* area.plist */; };
 		5A076CA11ACD24050077611C /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076CA01ACD24050077611C /* CityViewController.m */; };
 		5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E7D1ACD89DA0077611C /* WMAnimations.m */; };
@@ -146,8 +123,6 @@
 		5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A8DF5C11AEF3AAF00E1A671 /* NSArray+QD.m */; };
 		5A9C640B1AEE1CBA00F48BDF /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */; };
 		5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA176D81AE4A146003F7875 /* DressFooter.m */; };
-		5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5AA483CE1AEA4135002C046C /* AddRemind.storyboard */; };
-		5AA483D21AEA4345002C046C /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AA483D11AEA4345002C046C /* AddRemindViewController.m */; };
 		5AB725781AD611E80044B318 /* QDMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB725771AD611E80044B318 /* QDMenu.m */; };
 		5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257A1AD61A4C0044B318 /* MenuButton.m */; };
 		5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AB7257D1AD664610044B318 /* HomeHttpTool.m */; };
@@ -215,7 +190,6 @@
 		633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263CF1AB851590021553B /* AFURLSessionManager.m */; };
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
-		636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 636085271AEE3A4600C0E1A1 /* Customer.storyboard */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
 		636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B541AC2E1420097CAE9 /* QQConnection.framework */; };
 		636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */; };
@@ -247,6 +221,32 @@
 		6384E7551AFB78650074AEFE /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6384E7521AFB78650074AEFE /* libMobClickLibrary.a */; };
 		6384E75A1AFB786F0074AEFE /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E7581AFB786F0074AEFE /* GuideViewController.m */; };
 		6384E75B1AFB786F0074AEFE /* GuideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E7591AFB786F0074AEFE /* GuideViewController.xib */; };
+		6384E8341AFC67210074AEFE /* addCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8061AFC67210074AEFE /* addCustomerViewController.m */; };
+		6384E8351AFC67210074AEFE /* addCustomerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8071AFC67210074AEFE /* addCustomerViewController.xib */; };
+		6384E8361AFC67210074AEFE /* BatchAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E80A1AFC67210074AEFE /* BatchAddViewController.m */; };
+		6384E8371AFC67210074AEFE /* BatchAddViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E80B1AFC67210074AEFE /* BatchAddViewController.xib */; };
+		6384E8381AFC67210074AEFE /* batchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E80D1AFC67210074AEFE /* batchCell.m */; };
+		6384E8391AFC67210074AEFE /* batchCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E80E1AFC67210074AEFE /* batchCell.xib */; };
+		6384E83A1AFC67210074AEFE /* batchModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8101AFC67210074AEFE /* batchModel.m */; };
+		6384E83B1AFC67210074AEFE /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8121AFC67210074AEFE /* CustomCell.m */; };
+		6384E83C1AFC67210074AEFE /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8131AFC67210074AEFE /* CustomCell.xib */; };
+		6384E83D1AFC67210074AEFE /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8151AFC67210074AEFE /* Customer.storyboard */; };
+		6384E83E1AFC67210074AEFE /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8171AFC67210074AEFE /* CustomerDetailViewController.m */; };
+		6384E83F1AFC67210074AEFE /* EditCustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8191AFC67210074AEFE /* EditCustomerDetailViewController.m */; };
+		6384E8401AFC67210074AEFE /* CustomerOrdersUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E81C1AFC67210074AEFE /* CustomerOrdersUIViewController.m */; };
+		6384E8411AFC67210074AEFE /* CustomerOrdersUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E81D1AFC67210074AEFE /* CustomerOrdersUIViewController.xib */; };
+		6384E8421AFC67210074AEFE /* Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E81F1AFC67210074AEFE /* Customers.m */; };
+		6384E8431AFC67210074AEFE /* Customers.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8201AFC67210074AEFE /* Customers.xib */; };
+		6384E8441AFC67210074AEFE /* CustomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8221AFC67210074AEFE /* CustomModel.m */; };
+		6384E8451AFC67210074AEFE /* AddRemind.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8251AFC67210074AEFE /* AddRemind.storyboard */; };
+		6384E8461AFC67210074AEFE /* AddRemindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8271AFC67210074AEFE /* AddRemindViewController.m */; };
+		6384E8471AFC67210074AEFE /* RemindDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E82A1AFC67210074AEFE /* RemindDetailViewController.m */; };
+		6384E8481AFC67210074AEFE /* RemindDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E82B1AFC67210074AEFE /* RemindDetailViewController.xib */; };
+		6384E8491AFC67210074AEFE /* remondModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E82D1AFC67210074AEFE /* remondModel.m */; };
+		6384E84A1AFC67210074AEFE /* remondTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E82F1AFC67210074AEFE /* remondTableViewCell.m */; };
+		6384E84B1AFC67210074AEFE /* remondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8301AFC67210074AEFE /* remondTableViewCell.xib */; };
+		6384E84C1AFC67210074AEFE /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6384E8321AFC67210074AEFE /* remondViewController.m */; };
+		6384E84D1AFC67210074AEFE /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 6384E8331AFC67210074AEFE /* remondViewController.xib */; };
 		6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6389CE041AB7F9F600A8326E /* ResizeImage.m */; };
 		63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */; };
 		63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */; };
@@ -288,43 +288,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		5A0058591ACEBD1E007AF362 /* addCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCustomerViewController.h; sourceTree = "<group>"; };
-		5A00585A1ACEBD1E007AF362 /* addCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCustomerViewController.m; sourceTree = "<group>"; };
-		5A00585B1ACEBD1E007AF362 /* addCustomerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCustomerViewController.xib; sourceTree = "<group>"; };
-		5A00585D1ACEBD1E007AF362 /* BatchAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchAddViewController.h; sourceTree = "<group>"; };
-		5A00585E1ACEBD1E007AF362 /* BatchAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchAddViewController.m; sourceTree = "<group>"; };
-		5A00585F1ACEBD1E007AF362 /* BatchAddViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BatchAddViewController.xib; sourceTree = "<group>"; };
-		5A0058601ACEBD1E007AF362 /* batchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batchCell.h; sourceTree = "<group>"; };
-		5A0058611ACEBD1E007AF362 /* batchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batchCell.m; sourceTree = "<group>"; };
-		5A0058621ACEBD1E007AF362 /* batchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = batchCell.xib; sourceTree = "<group>"; };
-		5A0058631ACEBD1E007AF362 /* batchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batchModel.h; sourceTree = "<group>"; };
-		5A0058641ACEBD1E007AF362 /* batchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batchModel.m; sourceTree = "<group>"; };
-		5A0058651ACEBD1E007AF362 /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
-		5A0058661ACEBD1E007AF362 /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
-		5A0058671ACEBD1E007AF362 /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
-		5A0058691ACEBD1E007AF362 /* CustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDetailViewController.h; sourceTree = "<group>"; };
-		5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
-		5A00586C1ACEBD1E007AF362 /* EditCustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCustomerDetailViewController.h; sourceTree = "<group>"; };
-		5A00586D1ACEBD1E007AF362 /* EditCustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCustomerDetailViewController.m; sourceTree = "<group>"; };
-		5A0058701ACEBD1E007AF362 /* CustomerOrdersUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerOrdersUIViewController.h; sourceTree = "<group>"; };
-		5A0058711ACEBD1E007AF362 /* CustomerOrdersUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrdersUIViewController.m; sourceTree = "<group>"; };
-		5A0058721ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerOrdersUIViewController.xib; sourceTree = "<group>"; };
-		5A0058731ACEBD1E007AF362 /* Customers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customers.h; sourceTree = "<group>"; };
-		5A0058741ACEBD1E007AF362 /* Customers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customers.m; sourceTree = "<group>"; };
-		5A0058751ACEBD1E007AF362 /* Customers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Customers.xib; sourceTree = "<group>"; };
-		5A0058761ACEBD1E007AF362 /* CustomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomModel.h; sourceTree = "<group>"; };
-		5A0058771ACEBD1E007AF362 /* CustomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomModel.m; sourceTree = "<group>"; };
-		5A00587E1ACEBD1E007AF362 /* RemindDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindDetailViewController.h; sourceTree = "<group>"; };
-		5A00587F1ACEBD1E007AF362 /* RemindDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindDetailViewController.m; sourceTree = "<group>"; };
-		5A0058801ACEBD1E007AF362 /* RemindDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindDetailViewController.xib; sourceTree = "<group>"; };
-		5A0058811ACEBD1E007AF362 /* remondModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondModel.h; sourceTree = "<group>"; };
-		5A0058821ACEBD1E007AF362 /* remondModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondModel.m; sourceTree = "<group>"; };
-		5A0058831ACEBD1E007AF362 /* remondTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondTableViewCell.h; sourceTree = "<group>"; };
-		5A0058841ACEBD1E007AF362 /* remondTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondTableViewCell.m; sourceTree = "<group>"; };
-		5A0058851ACEBD1E007AF362 /* remondTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondTableViewCell.xib; sourceTree = "<group>"; };
-		5A0058861ACEBD1E007AF362 /* remondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondViewController.h; sourceTree = "<group>"; };
-		5A0058871ACEBD1E007AF362 /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
-		5A0058881ACEBD1E007AF362 /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
 		5A076C9A1ACD1C0F0077611C /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		5A076C9F1ACD24050077611C /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		5A076CA01ACD24050077611C /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
@@ -531,9 +494,6 @@
 		5A9C640A1AEE1CBA00F48BDF /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		5AA176D71AE4A146003F7875 /* DressFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DressFooter.h; sourceTree = "<group>"; };
 		5AA176D81AE4A146003F7875 /* DressFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DressFooter.m; sourceTree = "<group>"; };
-		5AA483CE1AEA4135002C046C /* AddRemind.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddRemind.storyboard; sourceTree = "<group>"; };
-		5AA483D01AEA4345002C046C /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
-		5AA483D11AEA4345002C046C /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
 		5AB725761AD611E80044B318 /* QDMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QDMenu.h; sourceTree = "<group>"; };
 		5AB725771AD611E80044B318 /* QDMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QDMenu.m; sourceTree = "<group>"; };
 		5AB725791AD61A4C0044B318 /* MenuButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MenuButton.h; sourceTree = "<group>"; };
@@ -660,7 +620,6 @@
 		633263D11AB851590021553B /* IWHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHttpTool.m; sourceTree = "<group>"; };
 		6359441E1ADBA9D9004F0035 /* textStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textStyle.h; sourceTree = "<group>"; };
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
-		636085271AEE3A4600C0E1A1 /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Customer.storyboard; sourceTree = "<group>"; };
 		636C8B531AC2E1420097CAE9 /* CopyConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CopyConnection.framework; sourceTree = "<group>"; };
 		636C8B541AC2E1420097CAE9 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -700,6 +659,47 @@
 		6384E7571AFB786F0074AEFE /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		6384E7581AFB786F0074AEFE /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		6384E7591AFB786F0074AEFE /* GuideViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuideViewController.xib; sourceTree = "<group>"; };
+		6384E8051AFC67210074AEFE /* addCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCustomerViewController.h; sourceTree = "<group>"; };
+		6384E8061AFC67210074AEFE /* addCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCustomerViewController.m; sourceTree = "<group>"; };
+		6384E8071AFC67210074AEFE /* addCustomerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = addCustomerViewController.xib; sourceTree = "<group>"; };
+		6384E8091AFC67210074AEFE /* BatchAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BatchAddViewController.h; sourceTree = "<group>"; };
+		6384E80A1AFC67210074AEFE /* BatchAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BatchAddViewController.m; sourceTree = "<group>"; };
+		6384E80B1AFC67210074AEFE /* BatchAddViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BatchAddViewController.xib; sourceTree = "<group>"; };
+		6384E80C1AFC67210074AEFE /* batchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batchCell.h; sourceTree = "<group>"; };
+		6384E80D1AFC67210074AEFE /* batchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batchCell.m; sourceTree = "<group>"; };
+		6384E80E1AFC67210074AEFE /* batchCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = batchCell.xib; sourceTree = "<group>"; };
+		6384E80F1AFC67210074AEFE /* batchModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = batchModel.h; sourceTree = "<group>"; };
+		6384E8101AFC67210074AEFE /* batchModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = batchModel.m; sourceTree = "<group>"; };
+		6384E8111AFC67210074AEFE /* CustomCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomCell.h; sourceTree = "<group>"; };
+		6384E8121AFC67210074AEFE /* CustomCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomCell.m; sourceTree = "<group>"; };
+		6384E8131AFC67210074AEFE /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
+		6384E8151AFC67210074AEFE /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Customer.storyboard; sourceTree = "<group>"; };
+		6384E8161AFC67210074AEFE /* CustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDetailViewController.h; sourceTree = "<group>"; };
+		6384E8171AFC67210074AEFE /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
+		6384E8181AFC67210074AEFE /* EditCustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCustomerDetailViewController.h; sourceTree = "<group>"; };
+		6384E8191AFC67210074AEFE /* EditCustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCustomerDetailViewController.m; sourceTree = "<group>"; };
+		6384E81B1AFC67210074AEFE /* CustomerOrdersUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerOrdersUIViewController.h; sourceTree = "<group>"; };
+		6384E81C1AFC67210074AEFE /* CustomerOrdersUIViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrdersUIViewController.m; sourceTree = "<group>"; };
+		6384E81D1AFC67210074AEFE /* CustomerOrdersUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerOrdersUIViewController.xib; sourceTree = "<group>"; };
+		6384E81E1AFC67210074AEFE /* Customers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customers.h; sourceTree = "<group>"; };
+		6384E81F1AFC67210074AEFE /* Customers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customers.m; sourceTree = "<group>"; };
+		6384E8201AFC67210074AEFE /* Customers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Customers.xib; sourceTree = "<group>"; };
+		6384E8211AFC67210074AEFE /* CustomModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomModel.h; sourceTree = "<group>"; };
+		6384E8221AFC67210074AEFE /* CustomModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomModel.m; sourceTree = "<group>"; };
+		6384E8251AFC67210074AEFE /* AddRemind.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AddRemind.storyboard; sourceTree = "<group>"; };
+		6384E8261AFC67210074AEFE /* AddRemindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddRemindViewController.h; sourceTree = "<group>"; };
+		6384E8271AFC67210074AEFE /* AddRemindViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddRemindViewController.m; sourceTree = "<group>"; };
+		6384E8291AFC67210074AEFE /* RemindDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemindDetailViewController.h; sourceTree = "<group>"; };
+		6384E82A1AFC67210074AEFE /* RemindDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemindDetailViewController.m; sourceTree = "<group>"; };
+		6384E82B1AFC67210074AEFE /* RemindDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = RemindDetailViewController.xib; sourceTree = "<group>"; };
+		6384E82C1AFC67210074AEFE /* remondModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondModel.h; sourceTree = "<group>"; };
+		6384E82D1AFC67210074AEFE /* remondModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondModel.m; sourceTree = "<group>"; };
+		6384E82E1AFC67210074AEFE /* remondTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondTableViewCell.h; sourceTree = "<group>"; };
+		6384E82F1AFC67210074AEFE /* remondTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondTableViewCell.m; sourceTree = "<group>"; };
+		6384E8301AFC67210074AEFE /* remondTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondTableViewCell.xib; sourceTree = "<group>"; };
+		6384E8311AFC67210074AEFE /* remondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondViewController.h; sourceTree = "<group>"; };
+		6384E8321AFC67210074AEFE /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
+		6384E8331AFC67210074AEFE /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
 		6389CE031AB7F9F600A8326E /* ResizeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImage.h; sourceTree = "<group>"; };
 		6389CE041AB7F9F600A8326E /* ResizeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeImage.m; sourceTree = "<group>"; };
 		63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -799,111 +799,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		5A0058571ACEBD1E007AF362 /* Customers */ = {
-			isa = PBXGroup;
-			children = (
-				5A0058581ACEBD1E007AF362 /* addCustomer */,
-				5A00585C1ACEBD1E007AF362 /* BatchAddCustomers */,
-				5A0058681ACEBD1E007AF362 /* customerDetail */,
-				5A00586F1ACEBD1E007AF362 /* customerOrders */,
-				5A0058731ACEBD1E007AF362 /* Customers.h */,
-				5A0058741ACEBD1E007AF362 /* Customers.m */,
-				5A0058751ACEBD1E007AF362 /* Customers.xib */,
-				5A0058651ACEBD1E007AF362 /* CustomCell.h */,
-				5A0058661ACEBD1E007AF362 /* CustomCell.m */,
-				5A0058671ACEBD1E007AF362 /* CustomCell.xib */,
-				5A0058761ACEBD1E007AF362 /* CustomModel.h */,
-				5A0058771ACEBD1E007AF362 /* CustomModel.m */,
-				5A0058781ACEBD1E007AF362 /* remond */,
-			);
-			name = Customers;
-			path = BaseViewController/Customers;
-			sourceTree = "<group>";
-		};
-		5A0058581ACEBD1E007AF362 /* addCustomer */ = {
-			isa = PBXGroup;
-			children = (
-				5A0058591ACEBD1E007AF362 /* addCustomerViewController.h */,
-				5A00585A1ACEBD1E007AF362 /* addCustomerViewController.m */,
-				5A00585B1ACEBD1E007AF362 /* addCustomerViewController.xib */,
-			);
-			path = addCustomer;
-			sourceTree = "<group>";
-		};
-		5A00585C1ACEBD1E007AF362 /* BatchAddCustomers */ = {
-			isa = PBXGroup;
-			children = (
-				5A00585D1ACEBD1E007AF362 /* BatchAddViewController.h */,
-				5A00585E1ACEBD1E007AF362 /* BatchAddViewController.m */,
-				5A00585F1ACEBD1E007AF362 /* BatchAddViewController.xib */,
-				5A0058601ACEBD1E007AF362 /* batchCell.h */,
-				5A0058611ACEBD1E007AF362 /* batchCell.m */,
-				5A0058621ACEBD1E007AF362 /* batchCell.xib */,
-				5A0058631ACEBD1E007AF362 /* batchModel.h */,
-				5A0058641ACEBD1E007AF362 /* batchModel.m */,
-			);
-			path = BatchAddCustomers;
-			sourceTree = "<group>";
-		};
-		5A0058681ACEBD1E007AF362 /* customerDetail */ = {
-			isa = PBXGroup;
-			children = (
-				636085271AEE3A4600C0E1A1 /* Customer.storyboard */,
-				5A0058691ACEBD1E007AF362 /* CustomerDetailViewController.h */,
-				5A00586A1ACEBD1E007AF362 /* CustomerDetailViewController.m */,
-				5A00586C1ACEBD1E007AF362 /* EditCustomerDetailViewController.h */,
-				5A00586D1ACEBD1E007AF362 /* EditCustomerDetailViewController.m */,
-			);
-			path = customerDetail;
-			sourceTree = "<group>";
-		};
-		5A00586F1ACEBD1E007AF362 /* customerOrders */ = {
-			isa = PBXGroup;
-			children = (
-				5A0058701ACEBD1E007AF362 /* CustomerOrdersUIViewController.h */,
-				5A0058711ACEBD1E007AF362 /* CustomerOrdersUIViewController.m */,
-				5A0058721ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib */,
-			);
-			path = customerOrders;
-			sourceTree = "<group>";
-		};
-		5A0058781ACEBD1E007AF362 /* remond */ = {
-			isa = PBXGroup;
-			children = (
-				5A0058791ACEBD1E007AF362 /* addRemond */,
-				5A00587D1ACEBD1E007AF362 /* RemindDetail */,
-				5A0058811ACEBD1E007AF362 /* remondModel.h */,
-				5A0058821ACEBD1E007AF362 /* remondModel.m */,
-				5A0058831ACEBD1E007AF362 /* remondTableViewCell.h */,
-				5A0058841ACEBD1E007AF362 /* remondTableViewCell.m */,
-				5A0058851ACEBD1E007AF362 /* remondTableViewCell.xib */,
-				5A0058861ACEBD1E007AF362 /* remondViewController.h */,
-				5A0058871ACEBD1E007AF362 /* remondViewController.m */,
-				5A0058881ACEBD1E007AF362 /* remondViewController.xib */,
-			);
-			path = remond;
-			sourceTree = "<group>";
-		};
-		5A0058791ACEBD1E007AF362 /* addRemond */ = {
-			isa = PBXGroup;
-			children = (
-				5AA483CE1AEA4135002C046C /* AddRemind.storyboard */,
-				5AA483D01AEA4345002C046C /* AddRemindViewController.h */,
-				5AA483D11AEA4345002C046C /* AddRemindViewController.m */,
-			);
-			path = addRemond;
-			sourceTree = "<group>";
-		};
-		5A00587D1ACEBD1E007AF362 /* RemindDetail */ = {
-			isa = PBXGroup;
-			children = (
-				5A00587E1ACEBD1E007AF362 /* RemindDetailViewController.h */,
-				5A00587F1ACEBD1E007AF362 /* RemindDetailViewController.m */,
-				5A0058801ACEBD1E007AF362 /* RemindDetailViewController.xib */,
-			);
-			path = RemindDetail;
-			sourceTree = "<group>";
-		};
 		5A076E7B1ACD89DA0077611C /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -1710,6 +1605,110 @@
 			path = Guide;
 			sourceTree = "<group>";
 		};
+		6384E8031AFC67210074AEFE /* Customers */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8041AFC67210074AEFE /* addCustomer */,
+				6384E8081AFC67210074AEFE /* BatchAddCustomers */,
+				6384E8111AFC67210074AEFE /* CustomCell.h */,
+				6384E8121AFC67210074AEFE /* CustomCell.m */,
+				6384E8131AFC67210074AEFE /* CustomCell.xib */,
+				6384E8141AFC67210074AEFE /* customerDetail */,
+				6384E81A1AFC67210074AEFE /* customerOrders */,
+				6384E81E1AFC67210074AEFE /* Customers.h */,
+				6384E81F1AFC67210074AEFE /* Customers.m */,
+				6384E8201AFC67210074AEFE /* Customers.xib */,
+				6384E8211AFC67210074AEFE /* CustomModel.h */,
+				6384E8221AFC67210074AEFE /* CustomModel.m */,
+				6384E8231AFC67210074AEFE /* remond */,
+			);
+			path = Customers;
+			sourceTree = "<group>";
+		};
+		6384E8041AFC67210074AEFE /* addCustomer */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8051AFC67210074AEFE /* addCustomerViewController.h */,
+				6384E8061AFC67210074AEFE /* addCustomerViewController.m */,
+				6384E8071AFC67210074AEFE /* addCustomerViewController.xib */,
+			);
+			path = addCustomer;
+			sourceTree = "<group>";
+		};
+		6384E8081AFC67210074AEFE /* BatchAddCustomers */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8091AFC67210074AEFE /* BatchAddViewController.h */,
+				6384E80A1AFC67210074AEFE /* BatchAddViewController.m */,
+				6384E80B1AFC67210074AEFE /* BatchAddViewController.xib */,
+				6384E80C1AFC67210074AEFE /* batchCell.h */,
+				6384E80D1AFC67210074AEFE /* batchCell.m */,
+				6384E80E1AFC67210074AEFE /* batchCell.xib */,
+				6384E80F1AFC67210074AEFE /* batchModel.h */,
+				6384E8101AFC67210074AEFE /* batchModel.m */,
+			);
+			path = BatchAddCustomers;
+			sourceTree = "<group>";
+		};
+		6384E8141AFC67210074AEFE /* customerDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8151AFC67210074AEFE /* Customer.storyboard */,
+				6384E8161AFC67210074AEFE /* CustomerDetailViewController.h */,
+				6384E8171AFC67210074AEFE /* CustomerDetailViewController.m */,
+				6384E8181AFC67210074AEFE /* EditCustomerDetailViewController.h */,
+				6384E8191AFC67210074AEFE /* EditCustomerDetailViewController.m */,
+			);
+			path = customerDetail;
+			sourceTree = "<group>";
+		};
+		6384E81A1AFC67210074AEFE /* customerOrders */ = {
+			isa = PBXGroup;
+			children = (
+				6384E81B1AFC67210074AEFE /* CustomerOrdersUIViewController.h */,
+				6384E81C1AFC67210074AEFE /* CustomerOrdersUIViewController.m */,
+				6384E81D1AFC67210074AEFE /* CustomerOrdersUIViewController.xib */,
+			);
+			path = customerOrders;
+			sourceTree = "<group>";
+		};
+		6384E8231AFC67210074AEFE /* remond */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8241AFC67210074AEFE /* addRemond */,
+				6384E8281AFC67210074AEFE /* RemindDetail */,
+				6384E82C1AFC67210074AEFE /* remondModel.h */,
+				6384E82D1AFC67210074AEFE /* remondModel.m */,
+				6384E82E1AFC67210074AEFE /* remondTableViewCell.h */,
+				6384E82F1AFC67210074AEFE /* remondTableViewCell.m */,
+				6384E8301AFC67210074AEFE /* remondTableViewCell.xib */,
+				6384E8311AFC67210074AEFE /* remondViewController.h */,
+				6384E8321AFC67210074AEFE /* remondViewController.m */,
+				6384E8331AFC67210074AEFE /* remondViewController.xib */,
+			);
+			path = remond;
+			sourceTree = "<group>";
+		};
+		6384E8241AFC67210074AEFE /* addRemond */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8251AFC67210074AEFE /* AddRemind.storyboard */,
+				6384E8261AFC67210074AEFE /* AddRemindViewController.h */,
+				6384E8271AFC67210074AEFE /* AddRemindViewController.m */,
+			);
+			path = addRemond;
+			sourceTree = "<group>";
+		};
+		6384E8281AFC67210074AEFE /* RemindDetail */ = {
+			isa = PBXGroup;
+			children = (
+				6384E8291AFC67210074AEFE /* RemindDetailViewController.h */,
+				6384E82A1AFC67210074AEFE /* RemindDetailViewController.m */,
+				6384E82B1AFC67210074AEFE /* RemindDetailViewController.xib */,
+			);
+			path = RemindDetail;
+			sourceTree = "<group>";
+		};
 		6389CE021AB7F9DC00A8326E /* ImageTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -1783,6 +1782,7 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
+				6384E8031AFC67210074AEFE /* Customers */,
 				6384E7561AFB786F0074AEFE /* Guide */,
 				636C8B511AC2E1420097CAE9 /* ShareSDK */,
 				5AB7C9811ACBC9C700217CAC /* CustomView */,
@@ -1796,7 +1796,6 @@
 				5A52FBC71ACEBF220076DAE6 /* Me */,
 				5A52FBF41ACEBF220076DAE6 /* Orders */,
 				632613081AB1C16E003AC2DA /* Tool */,
-				5A0058571ACEBD1E007AF362 /* Customers */,
 				5A076E951ACD8B270077611C /* ShouKebao */,
 				63D31E4E1AB143D00043B3CA /* Images.xcassets */,
 				63D31E501AB143D00043B3CA /* LaunchScreen.xib */,
@@ -1971,14 +1970,17 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6384E84B1AFC67210074AEFE /* remondTableViewCell.xib in Resources */,
+				6384E83C1AFC67210074AEFE /* CustomCell.xib in Resources */,
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
-				636085281AEE3A4600C0E1A1 /* Customer.storyboard in Resources */,
 				5A5B1AD61AFA220E00B6E16B /* ChildCell.xib in Resources */,
-				5A00588E1ACEBD1E007AF362 /* batchCell.xib in Resources */,
-				5A0058A31ACEBD1E007AF362 /* remondViewController.xib in Resources */,
+				6384E83D1AFC67210074AEFE /* Customer.storyboard in Resources */,
 				5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */,
+				6384E8481AFC67210074AEFE /* RemindDetailViewController.xib in Resources */,
+				6384E8451AFC67210074AEFE /* AddRemind.storyboard in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
+				6384E84D1AFC67210074AEFE /* remondViewController.xib in Resources */,
 				63B8F5441AF2218900A162DC /* message.wav in Resources */,
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
 				5A52FC471ACEBF220076DAE6 /* FootView.xib in Resources */,
@@ -1990,42 +1992,39 @@
 				5A52FC4B1ACEBF220076DAE6 /* ProductCell.xib in Resources */,
 				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
-				5A00588A1ACEBD1E007AF362 /* addCustomerViewController.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
 				5A52FC6B1ACEBF220076DAE6 /* Safe.storyboard in Resources */,
 				63B8C6FA1ACE8EB000328C8C /* messageCenterViewController.xib in Resources */,
 				5A52FC531ACEBF220076DAE6 /* rightCell2.xib in Resources */,
 				5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */,
+				6384E8371AFC67210074AEFE /* BatchAddViewController.xib in Resources */,
 				63D31E4F1AB143D00043B3CA /* Images.xcassets in Resources */,
 				5A52FC5F1ACEBF220076DAE6 /* Auth.storyboard in Resources */,
+				6384E8391AFC67210074AEFE /* batchCell.xib in Resources */,
 				5A52FC5C1ACEBF220076DAE6 /* SearchProductViewController.xib in Resources */,
 				5A52FC6E1ACEBF220076DAE6 /* Me.storyboard in Resources */,
 				5A52FC5E1ACEBF220076DAE6 /* StationSelect.xib in Resources */,
-				5A0058911ACEBD1E007AF362 /* CustomCell.xib in Resources */,
 				5A52FC781ACEBF220076DAE6 /* SosHead.xib in Resources */,
 				5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */,
-				5AA483CF1AEA4135002C046C /* AddRemind.storyboard in Resources */,
 				636C8B731AC2E1420097CAE9 /* Resource.bundle in Resources */,
+				6384E8411AFC67210074AEFE /* CustomerOrdersUIViewController.xib in Resources */,
 				63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */,
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
-				5A0058991ACEBD1E007AF362 /* Customers.xib in Resources */,
 				632EDEAE1AC9009000EE98FC /* PushConfig.plist in Resources */,
 				6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */,
 				5A076EA81ACD8B270077611C /* StoreViewController.xib in Resources */,
 				636C8B791AC2E1420097CAE9 /* ShareSDKFlatShareViewUI.bundle in Resources */,
+				6384E8431AFC67210074AEFE /* Customers.xib in Resources */,
 				5A52FC3E1ACEBF220076DAE6 /* leftCell.xib in Resources */,
 				636C8B761AC2E1420097CAE9 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
-				5A00589E1ACEBD1E007AF362 /* RemindDetailViewController.xib in Resources */,
 				5A52FC4D1ACEBF220076DAE6 /* ProductList.xib in Resources */,
 				636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */,
-				5A0058A11ACEBD1E007AF362 /* remondTableViewCell.xib in Resources */,
+				6384E8351AFC67210074AEFE /* addCustomerViewController.xib in Resources */,
 				5A52FC591ACEBF220076DAE6 /* rightCell3.xib in Resources */,
 				636C8B721AC2E1420097CAE9 /* ShareSDKLocalizable.strings in Resources */,
 				5A52FC881ACEBF220076DAE6 /* ContactView.xib in Resources */,
-				5A0058971ACEBD1E007AF362 /* CustomerOrdersUIViewController.xib in Resources */,
 				6384E75B1AFB786F0074AEFE /* GuideViewController.xib in Resources */,
 				5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */,
-				5A00588C1ACEBD1E007AF362 /* BatchAddViewController.xib in Resources */,
 				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
 				5A52FC8A1ACEBF220076DAE6 /* DetailView.xib in Resources */,
 			);
@@ -2073,8 +2072,10 @@
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
 				5A52FC5B1ACEBF220076DAE6 /* SearchProductViewController.m in Sources */,
 				63D31E441AB143D00043B3CA /* main.m in Sources */,
+				6384E84A1AFC67210074AEFE /* remondTableViewCell.m in Sources */,
 				5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */,
 				633263D91AB851590021553B /* AFURLResponseSerialization.m in Sources */,
+				6384E8401AFC67210074AEFE /* CustomerOrdersUIViewController.m in Sources */,
 				5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */,
 				5A52FC441ACEBF220076DAE6 /* ConditionSelectViewController.m in Sources */,
 				6326131F1AB1C175003AC2DA /* UIScrollView+MJExtension.m in Sources */,
@@ -2086,7 +2087,7 @@
 				632BFFF81AB92A3A003B15AD /* SDWebImageDownloader.m in Sources */,
 				636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */,
 				5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */,
-				5A00589F1ACEBD1E007AF362 /* remondModel.m in Sources */,
+				6384E84C1AFC67210074AEFE /* remondViewController.m in Sources */,
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				5A52FC7E1ACEBF220076DAE6 /* SuggestViewController.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
@@ -2095,10 +2096,7 @@
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				63B8C6F91ACE8EB000328C8C /* messageCenterViewController.m in Sources */,
 				5A52FC901ACEBF220076DAE6 /* OrderCell.m in Sources */,
-				5A0058A21ACEBD1E007AF362 /* remondViewController.m in Sources */,
 				5ABA4F601AD7B26E004AA8F6 /* NSDate+Category.m in Sources */,
-				5A00589D1ACEBD1E007AF362 /* RemindDetailViewController.m in Sources */,
-				5A00588F1ACEBD1E007AF362 /* batchModel.m in Sources */,
 				5A52FC851ACEBF220076DAE6 /* Orders.m in Sources */,
 				632BFFFA1AB92A3A003B15AD /* SDWebImageManager.m in Sources */,
 				5A52FC701ACEBF220076DAE6 /* Organization.m in Sources */,
@@ -2118,17 +2116,19 @@
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,
 				5ABA4F611AD7B26E004AA8F6 /* NSDateFormatter+Category.m in Sources */,
 				5A82161C1AD3843B009388DA /* HomeList.m in Sources */,
+				6384E8421AFC67210074AEFE /* Customers.m in Sources */,
 				5A60FC7A1AE0FC6D00CDAC4B /* ArrowBtn.m in Sources */,
+				6384E8471AFC67210074AEFE /* RemindDetailViewController.m in Sources */,
 				5A61657C1AE771C700641837 /* QuanViewController.m in Sources */,
 				6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */,
+				6384E8441AFC67210074AEFE /* CustomModel.m in Sources */,
+				6384E8461AFC67210074AEFE /* AddRemindViewController.m in Sources */,
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
 				5A6165821AE79AEF00641837 /* NullContentView.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
-				5AA483D21AEA4345002C046C /* AddRemindViewController.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
 				5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */,
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
-				5A0058901ACEBD1E007AF362 /* CustomCell.m in Sources */,
 				632B00021AB92A3A003B15AD /* UIView+WebCacheOperation.m in Sources */,
 				5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */,
 				632BFFC31AB91FB1003B15AD /* StrToDic.m in Sources */,
@@ -2136,11 +2136,11 @@
 				845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */,
 				5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */,
 				5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */,
+				6384E8361AFC67210074AEFE /* BatchAddViewController.m in Sources */,
 				5A52FC481ACEBF220076DAE6 /* MinMaxPriceSelectViewController.m in Sources */,
 				5A6DAE6D1AE8C23000B814C3 /* LoginCell.m in Sources */,
 				5A52FC741ACEBF220076DAE6 /* MeButtonView.m in Sources */,
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
-				5A0058A01ACEBD1E007AF362 /* remondTableViewCell.m in Sources */,
 				5A52FC771ACEBF220076DAE6 /* ProductHistoryCell.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
 				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
@@ -2149,44 +2149,46 @@
 				5A52FC501ACEBF220076DAE6 /* rightCell.m in Sources */,
 				5A52FC8F1ACEBF220076DAE6 /* LinkButton.m in Sources */,
 				5A52FC561ACEBF220076DAE6 /* HeaderView.m in Sources */,
+				6384E83A1AFC67210074AEFE /* batchModel.m in Sources */,
 				5A52FC791ACEBF220076DAE6 /* MyListViewController.m in Sources */,
 				633263D71AB851590021553B /* AFURLConnectionOperation.m in Sources */,
 				8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */,
+				6384E8341AFC67210074AEFE /* addCustomerViewController.m in Sources */,
 				63D31E911AB16EC30043B3CA /* WMNavigationController.m in Sources */,
 				6326131E1AB1C175003AC2DA /* MJRefreshHeaderView.m in Sources */,
 				5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */,
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
-				5A0058891ACEBD1E007AF362 /* addCustomerViewController.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
 				5A52FC4C1ACEBF220076DAE6 /* ProductList.m in Sources */,
 				5A52FC6D1ACEBF220076DAE6 /* Me.m in Sources */,
 				5A076EA71ACD8B270077611C /* StoreViewController.m in Sources */,
-				5A00588D1ACEBD1E007AF362 /* batchCell.m in Sources */,
 				63B8C7061ACE9C3F00328C8C /* messageDetailViewController.m in Sources */,
 				5A076EA31ACD8B270077611C /* ShouKeBao.m in Sources */,
 				632BFFF71AB92A3A003B15AD /* SDWebImageDecoder.m in Sources */,
-				5A0058981ACEBD1E007AF362 /* Customers.m in Sources */,
+				6384E83B1AFC67210074AEFE /* CustomCell.m in Sources */,
 				5A52FC581ACEBF220076DAE6 /* rightCell3.m in Sources */,
 				5A5B1AD41AFA218000B6E16B /* ChildCell.m in Sources */,
 				632B00011AB92A3A003B15AD /* UIImageView+WebCache.m in Sources */,
 				632613271AB2AF04003AC2DA /* PGCategoryView.m in Sources */,
+				6384E83F1AFC67210074AEFE /* EditCustomerDetailViewController.m in Sources */,
 				5A52FC821ACEBF220076DAE6 /* OrderDetailViewController.m in Sources */,
-				5A0058921ACEBD1E007AF362 /* CustomerDetailViewController.m in Sources */,
 				8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */,
 				5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */,
 				632BFFFF1AB92A3A003B15AD /* UIImage+WebP.m in Sources */,
 				5A9C640B1AEE1CBA00F48BDF /* RegisterViewController.m in Sources */,
 				5A076CA11ACD24050077611C /* CityViewController.m in Sources */,
-				5A00588B1ACEBD1E007AF362 /* BatchAddViewController.m in Sources */,
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
 				5A52FC7A1ACEBF220076DAE6 /* MyOrgViewController.m in Sources */,
+				6384E8491AFC67210074AEFE /* remondModel.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
 				6384E75A1AFB786F0074AEFE /* GuideViewController.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
+				6384E8381AFC67210074AEFE /* batchCell.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
+				6384E83E1AFC67210074AEFE /* CustomerDetailViewController.m in Sources */,
 				5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */,
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
 				5A52FC601ACEBF220076DAE6 /* BindPhoneViewController.m in Sources */,
@@ -2206,12 +2208,10 @@
 				633263D31AB851590021553B /* AFHTTPRequestOperationManager.m in Sources */,
 				633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */,
 				5A52FC4A1ACEBF220076DAE6 /* ProductCell.m in Sources */,
-				5A00589A1ACEBD1E007AF362 /* CustomModel.m in Sources */,
 				5A52FC401ACEBF220076DAE6 /* ProduceDetailViewController.m in Sources */,
 				632BFFF41AB92A3A003B15AD /* NSData+ImageContentType.m in Sources */,
 				632BFFFE1AB92A3A003B15AD /* UIImage+MultiFormat.m in Sources */,
 				632B00001AB92A3A003B15AD /* UIImageView+HighlightedWebCache.m in Sources */,
-				5A0058941ACEBD1E007AF362 /* EditCustomerDetailViewController.m in Sources */,
 				5A52FC5D1ACEBF220076DAE6 /* StationSelect.m in Sources */,
 				5A52FC7C1ACEBF220076DAE6 /* PersonSettingViewController.m in Sources */,
 				5A52FC721ACEBF220076DAE6 /* Trader.m in Sources */,
@@ -2221,7 +2221,6 @@
 				636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */,
 				632BFFD01AB91FD3003B15AD /* NSString+Base64Util.m in Sources */,
 				632BFFF61AB92A3A003B15AD /* SDWebImageCompat.m in Sources */,
-				5A0058961ACEBD1E007AF362 /* CustomerOrdersUIViewController.m in Sources */,
 				5A52FC3B1ACEBF220076DAE6 /* FindProduct.m in Sources */,
 				5A52FC841ACEBF220076DAE6 /* OrderModel.m in Sources */,
 			);
@@ -2384,7 +2383,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc1e49a1-6b86-4d6d-bd64-4f59a5f6e2bf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2414,7 +2413,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "dc1e49a1-6b86-4d6d-bd64-4f59a5f6e2bf";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

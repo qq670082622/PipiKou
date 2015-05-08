@@ -16,6 +16,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *userOders;
 
 @property(nonatomic,strong) CustomModel *model;
+//@property (weak, nonatomic) IBOutlet UIButton *callingBtn;
+
+- (IBAction)callAction:(id)sender;
+
+
+
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

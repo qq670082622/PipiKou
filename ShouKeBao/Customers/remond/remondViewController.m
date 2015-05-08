@@ -7,10 +7,13 @@
 //
 
 #import "remondViewController.h"
-#import "addRemondViewController.h"
+#import "AddRemindViewController.h"
 #import "IWHttpTool.h"
 #import "RemindDetailViewController.h"
-@interface remondViewController ()<UITableViewDataSource,UITableViewDelegate>
+#import "WriteFileManager.h"
+#import "CustomModel.h"
+
+@interface remondViewController ()<UITableViewDataSource,UITableViewDelegate,AddRemindViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
 - (IBAction)addRemond:(id)sender;
@@ -20,6 +23,7 @@
 - (IBAction)deletAction:(id)sender;
 
 @property (nonatomic,assign) BOOL isEditing;
+@property (strong, nonatomic) IBOutlet UIView *footView;
 
 @end
 
@@ -27,18 +31,42 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+    self.title = @"设置提醒";
+    
+   [self loadData];
     [self setUpRightButton];
+    self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
+    
+    UIView *footView = [[[NSBundle mainBundle] loadNibNamed:@"remondViewController" owner:self options:nil] lastObject];
+    self.table.tableFooterView = footView;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-
+    NSIndexPath *selected = [self.table indexPathForSelectedRow];
+    if(selected) [self.table deselectRowAtIndexPath:selected animated:NO];
+   
     [super viewWillAppear:animated];
-    self.table.rowHeight = 78;
+    self.table.rowHeight = 62;
 
-     [self loadData];
+    
+    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
     
 }
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {
     
@@ -80,12 +108,18 @@
     [dic setObject:self.ID forKey:@"CustomerID"];
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerRemindList" params:dic success:^(id json) {
         NSLog(@"提醒列表json is %@",json);
-       // [self.dataArr removeAllObjects];
+        [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerRemindList"]){
             remondModel *model = [remondModel modalWithDict:dic];
+            model.name = self.customModel.Name;
+            model.phone = self.customModel.Mobile;
             [self.dataArr addObject:model];
         }
         [self.table reloadData];
+        
+        // 保存添加的提醒
+        [WriteFileManager saveData:self.dataArr name:@"remindData"];
+        
     } failure:^(NSError *error) {
         NSLog(@"客户提醒列表请求错误 %@",error);
     }];
@@ -105,20 +139,36 @@
     }
     return _editArr;
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 0.01f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 10.0f;
+}
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
 }
-
+- (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     remondModel *model = _dataArr[indexPath.row];
+   
     if (self.table.editing == YES) {
-       
+    
         [self.editArr addObject:model];
       
     }else if (self.table.editing == NO){
+        
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
         remondDetail.time = model.RemindTime;
         remondDetail.note = model.Content;
@@ -128,6 +178,8 @@
     
     NSLog(@"--------editArr is %@--------indexpath.row's model is %@---",_editArr,_dataArr[indexPath.row]);
 }
+
+
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     remondModel *model = _dataArr[indexPath.row];
@@ -141,15 +193,20 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
+
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-return     self.dataArr.count;
+
+    return     self.dataArr.count;
 }
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     remondTableViewCell *cell = [remondTableViewCell cellWithTableView:tableView];
@@ -157,16 +214,41 @@ return     self.dataArr.count;
     return cell;
 
 }
+
 - (IBAction)addRemond:(id)sender {
     
-    addRemondViewController *add = [[addRemondViewController alloc] init];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"AddRemind" bundle:nil];
+    AddRemindViewController *add = [sb instantiateViewControllerWithIdentifier:@"addRemind"];
     add.ID = self.ID;
+    add.delegate = self;
     [self.navigationController pushViewController:add animated:YES];
     
 }
+
+
+#pragma mark- AddRemindViewControllerDelegate
+-(void)ringToRefreshRemind
+{
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"更新中...";
+    [hudView show:YES];
+    [self loadData];
+    hudView.labelText = @"更新成功";
+    [hudView hide:YES afterDelay:1];
+    [self.table reloadData];
+   
+}
+
+
 - (IBAction)deletAction:(id)sender {
     NSLog(@"_editArr is %@",_editArr);
-   
+    if (self.editArr.count == 0) {
+        [self.table setEditing:NO animated:YES ];
+        self.subView.hidden = NO;
+        self.navigationItem.rightBarButtonItem.title = @"编辑";
+        self.isEditing = NO;
+    }else if (self.editArr.count>0){
+    
     NSMutableArray *arr = [NSMutableArray array];
     for (int i = 0; i<self.editArr.count; i++) {
         remondModel *model = _editArr[i];
@@ -184,6 +266,7 @@ return     self.dataArr.count;
             [self.dataArr removeAllObjects];
             for(NSDictionary *dic in  json[@"CustomerRemindList"]){
                 remondModel  *model = [remondModel modalWithDict:dic];
+                
                 [self.dataArr addObject:model];
             }
             [self.table reloadData];
@@ -200,4 +283,7 @@ return     self.dataArr.count;
     }
     
     }
+}
+
+
 @end
