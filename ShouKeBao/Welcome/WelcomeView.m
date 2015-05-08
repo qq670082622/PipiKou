@@ -152,10 +152,6 @@
         self.alpha = 0;
     } completion:^(BOOL finished) {
         [self removeFromSuperview];
-        // 保存欢迎信息
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def setObject:@"1" forKey:@"isFirst"];
-        [def synchronize];
     }];
 }
 

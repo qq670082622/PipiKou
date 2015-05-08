@@ -611,8 +611,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
         
     }
     else {
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        NSString *mobile = [def objectForKey:@"ServerMobile"];
+        NSString *mobile = [UserInfo shareUser].sosMobile;
         if (!mobile) {
             return;
         }

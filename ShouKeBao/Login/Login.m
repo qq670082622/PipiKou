@@ -43,6 +43,7 @@
     [super viewDidLoad];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.tableView.contentInset = UIEdgeInsetsZero;
+    self.tableView.scrollEnabled = NO;
     
     // 基本设置
     [self viewConfig];

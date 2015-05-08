@@ -178,8 +178,7 @@
 // 长按打电话
 - (void)buttonViewLongPressToCall
 {
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *mobile = [def objectForKey:@"ServerMobile"];
+    NSString *mobile = [UserInfo shareUser].sosMobile;
     if (!mobile) {
         return;
     }
