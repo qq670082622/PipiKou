@@ -50,13 +50,13 @@
 #pragma -mark private
 -(void)back
 {
-    if (self.webUrlArr.count >2) {
+    if (self.webUrlArr.count >1) {
         
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
         [self.webUrlArr removeLastObject];
     }
     
-    else if (self.webUrlArr.count == 2) {
+    else if (self.webUrlArr.count == 1) {
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -87,16 +87,26 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *rightStr = request.URL.absoluteString;
+//    NSString *rightStr = request.URL.absoluteString;
+//    
+//    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
+//        
+//        [self.webUrlArr addObject:rightStr];
+//    }
+//    NSLog(@"\narr count is %lu  \n arr is %@\n",self.webUrlArr.count,_webUrlArr);
+    
+    return YES;
+    
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    NSString *rightStr = webView.request.URL.absoluteString;
     
     if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
         
         [self.webUrlArr addObject:rightStr];
     }
     NSLog(@"\narr count is %lu  \n arr is %@\n",self.webUrlArr.count,_webUrlArr);
-    
-    return YES;
-    
-}
 
+}
 @end
