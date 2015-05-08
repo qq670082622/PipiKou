@@ -299,7 +299,7 @@
         [self.shareArr addObject:json[@"ShareInfo"]];
         
         if (![json[@"PageType"] isEqualToString:@"2"]) {
-            self.needTimer = [NSMutableString stringWithFormat:@"0"];
+         
             [self.timer invalidate];
             
             self.checkCheapBtnOutlet.hidden = YES;
@@ -308,7 +308,12 @@
             self.title = @"店铺详情";
         }
         else if ([json[@"PageType"] isEqualToString:@"2"]){
-            self.needTimer = [NSMutableString stringWithFormat:@"1"];
+            
+         //定时器来调js方法
+            NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+            self.timer = timer;
+            [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+           
             self.checkCheapBtnOutlet.hidden = NO;
             self.btnLine.hidden = NO;
             self.title = @"产品详情";
@@ -360,11 +365,12 @@
         NSLog(@"分享请求数据失败，原因：%@",error);
     }];
 
-    if ([_needTimer  isEqual: @"1"]) {
-        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
-        self.timer = timer;
-        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    }
+    
+//    if ([_needTimer  isEqual: @"1"]) {
+//        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+//        self.timer = timer;
+//        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+//    }
    
 
    
