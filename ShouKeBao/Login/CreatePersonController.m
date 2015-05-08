@@ -11,7 +11,7 @@
 #import "LoginTool.h"
 #import "MBProgressHUD+MJ.h"
 
-@interface CreatePersonController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface CreatePersonController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) NSArray *dataSource;
 
@@ -135,6 +135,7 @@
     iconView.layer.cornerRadius = 59;
     iconView.layer.masksToBounds = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(upLoadUserHead:)];
+    tap.delegate = self;
     [iconView addGestureRecognizer:tap];
     [cover addSubview:iconView];
     self.userIcon = iconView;
@@ -351,6 +352,16 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.view endEditing:YES];
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if ([touch.view isKindOfClass:[UITableView class]]) {
+        return NO;
+    }else{
+        return YES;
+    }
 }
 
 #pragma mark - UIActionSheetDelegate

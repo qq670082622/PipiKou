@@ -39,6 +39,8 @@
 
 @property (nonatomic,copy) NSString *pushMode; // 0关闭免打扰 1开启免打扰
 
+@property (nonatomic,copy) NSString *sosMobile; // 专属客服电话
+
 + (instancetype)userInfoWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

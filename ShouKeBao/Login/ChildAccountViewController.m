@@ -169,6 +169,11 @@
                 NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
                 [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
                 
+                // 保存是否第一次做登录流程
+                NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+                [def setObject:@"1" forKey:@"isFirst"];
+                [def synchronize];
+                
                 // 跳转主界面
                 AppDelegate *app = [UIApplication sharedApplication].delegate;
                 [app setTabbarRoot];

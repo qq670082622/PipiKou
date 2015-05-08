@@ -50,6 +50,7 @@ static UserInfo *user;
         self.userName = muta[@"ShowName"];
         self.LoginAvatar = muta[@"LoginAvatar"];
         self.pushMode = muta[@"DisturbSwitch"];
+        self.sosMobile = muta[@"Reinforcements"][@"Mobile"];
     }
     return self;
 }
