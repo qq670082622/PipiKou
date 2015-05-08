@@ -85,7 +85,8 @@
     an1.type = @"rippleEffect";
     an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
     an1.duration = 2;
-    [self.guideImageView.layer addAnimation:an1 forKey:nil];        [self.guideView removeFromSuperview];
+    [self.guideImageView.layer addAnimation:an1 forKey:nil];
+    [self.guideView removeFromSuperview];
        NSLog(@"被店家－－－－－－－－－－－－－indexi is %d－－",_guideIndex);
     
 }
