@@ -149,6 +149,11 @@
     CGFloat searchW = self.view.frame.size.width - station.frame.size.width - 25;
     UIButton *search = [[UIButton alloc] initWithFrame:CGRectMake(searchX, 5, searchW, 30)];
     [search setBackgroundImage:[UIImage imageNamed:@"shousuochanpin"] forState:UIControlStateNormal];
+    [search setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
+    [search setTitle:@"查找产品" forState:UIControlStateNormal];
+    [search setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    search.titleLabel.font = [UIFont systemFontOfSize:12];
+    search.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
     [search addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
     [cover addSubview:search];
     

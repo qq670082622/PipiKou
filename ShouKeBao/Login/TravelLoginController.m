@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"登录旅行社账号";
+    self.title = @"登录旅行社平台";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.loginBtn.layer.cornerRadius = 3;
     self.loginBtn.layer.masksToBounds = YES;
@@ -90,6 +90,7 @@
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
             [def setObject:self.accountField.text forKey:UserInfoKeyAccount];
+            [def setObject:self.passwordField.text forKey:UserInfoKeyPassword];
             [def synchronize];
             
             if (self.isChangeUser) {

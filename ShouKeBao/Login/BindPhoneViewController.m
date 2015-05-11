@@ -46,7 +46,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"绑定手机";
+    self.title = @"绑定安全手机";
     self.imageBg1.image = self.imageBg2.image = [UIImage resizedImageWithName:@"bg_white"];
     self.nextBtn.layer.cornerRadius = 3;
     self.nextBtn.layer.masksToBounds = YES;
@@ -162,6 +162,14 @@
             phonePwd.isForget = self.isForget;
             phonePwd.phoneNum = self.phoneNum.text;
             [self.navigationController pushViewController:phonePwd animated:YES];
+            
+            // 跳转到选择分销人
+//            if (self.isForget) {
+//                [self.navigationController popToRootViewControllerAnimated:YES];
+//            }else{
+//                ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//                [self.navigationController pushViewController:child animated:YES];
+//            }
             
         }else{
             [MBProgressHUD showError:json[@"ErrorMsg"]];

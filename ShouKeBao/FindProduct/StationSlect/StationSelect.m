@@ -10,6 +10,8 @@
 #import "IWHttpTool.h"
 #import "APService.h"
 #import "WriteFileManager.h"
+#import "UserInfo.h"
+
 @interface StationSelect ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
@@ -43,7 +45,7 @@
     
 }
 
--(void)back
+- (void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -99,18 +101,15 @@
    [accountDefaults setObject:_stationNum forKey:@"Substation"];
     [accountDefaults setObject:_stationName forKey:@"SubstationName"];
     [accountDefaults synchronize];
+    
+    [self.table reloadData];
+    
     [self.delegate notifiToReloadData];
     NSString *normal = @"substation_";
     [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationNum]] callbackSelector:nil object:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
 
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-   
 }
 
 
@@ -124,7 +123,13 @@
         }
     cell.textLabel.text = _dataArr[indexPath.row][@"Text"];
     
-   
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *currentStation = [def objectForKey:UserInfoKeySubstation];
+    if ([_dataArr[indexPath.row][@"Value"] isEqualToString:currentStation]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
    
     //    _dataArr[indexPath.row][@"Value"] 分站代号 int型
     return cell;

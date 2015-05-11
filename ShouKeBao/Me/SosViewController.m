@@ -10,6 +10,9 @@
 #import "MeHttpTool.h"
 #import "Server.h"
 #import "UIImageView+WebCache.h"
+#import "AppDelegate.h"
+#import "MLPhotoBrowserSignleViewController.h"
+#import "UIImage+MLBrowserPhotoImageForBundle.h"
 
 @interface SosViewController () <UIScrollViewDelegate>
 
@@ -51,6 +54,13 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    // 点击联系电话lab也可以直接打电话
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneLabTap:)];
+    [self.phoneLav addGestureRecognizer:tap];
+    
+    // 点击邮件地址 发送邮件
+    UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sendEmail:)];
+    [self.emailLab addGestureRecognizer:emailTap];
 }
 
 -(void)back
@@ -94,6 +104,7 @@
     }];
 }
 
+#pragma mark - private
 - (void)setHead
 {
     CGFloat gap = self.view.frame.size.width * 0.0625;
@@ -103,15 +114,18 @@
     
     // 头像
     UIImageView *headIcon = [[UIImageView alloc] initWithFrame:CGRectMake(gap, 64, 100, 100)];
+    headIcon.userInteractionEnabled = YES;
     headIcon.contentMode = UIViewContentModeScaleAspectFill;
     headIcon.layer.cornerRadius = 5;
     headIcon.layer.masksToBounds = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(checkHeadIcon:)];
+    [headIcon addGestureRecognizer:tap];
     [view addSubview:headIcon];
     self.iconView = headIcon;
     
     CGFloat aX = CGRectGetMaxX(headIcon.frame) + gap;
     UILabel *a = [[UILabel alloc] initWithFrame:CGRectMake(aX, headIcon.frame.origin.y, 150, gap)];
-    a.text = @"您的专属客服经理";
+    a.text = @"您的专属客户经理";
     a.font = [UIFont systemFontOfSize:13];
     [view addSubview:a];
     
@@ -124,16 +138,20 @@
     self.tableView.tableHeaderView = view;
 }
 
-// 打电话联系客服
-- (IBAction)callServer:(UIButton *)sender
+/**
+ *  显示头像
+ */
+- (void)checkHeadIcon:(UITapGestureRecognizer *)ges
 {
-    if (!self.server.Mobile) {
-        return;
-    }
-    NSString *phone = [NSString stringWithFormat:@"tel://%@",self.server.Mobile];
-    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+//    [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
+//    [FSPhotoView showImageWithSenderView:self.iconView completion:^{
+//        [[UIApplication sharedApplication] setStatusBarHidden:NO withAnimation:UIStatusBarAnimationSlide];
+//    }];
+    MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
+    [browserVc showHeadPortrait:self.iconView originUrl:nil];
 }
 
+#pragma mark - qq联系
 // qq联系客服
 - (IBAction)callByQq:(UIButton *)sender
 {
@@ -155,6 +173,48 @@
         return YES;
     }
     else return NO;
+}
+
+#pragma mark - 拨打电话
+// 打电话联系客服
+- (IBAction)callServer:(UIButton *)sender
+{
+    [self phoneCall];
+}
+
+/**
+ *  点击lab打电话
+ */
+- (void)phoneLabTap:(UITapGestureRecognizer *)ges
+{
+    if (ges.state == UIGestureRecognizerStateEnded) {
+        
+        if (self.phoneLav.text.length) {
+            [self phoneCall];
+        }
+    }
+}
+
+/**
+ *  拨打电话
+ */
+- (void)phoneCall
+{
+    if (!self.server.Mobile) {
+        return;
+    }
+    NSString *phone = [NSString stringWithFormat:@"tel://%@",self.server.Mobile];
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+}
+
+#pragma mark - 发送邮件
+/**
+ *  点击邮箱地址触发事件
+ */
+- (void)sendEmail:(UITapGestureRecognizer *)ges
+{
+    NSString *url = [NSString stringWithFormat:@"mailto:%@",self.emailLab.text];
+    [[UIApplication sharedApplication] openURL: [NSURL URLWithString: url]];
 }
 
 #pragma mark - UIScrollViewDelegate

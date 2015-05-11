@@ -228,7 +228,7 @@
     
     // 第三组的第一行
     if (indexPath.section == 2 && indexPath.row == 0) {
-        cell.detailTextLabel.text = @"晚上11点至早上8点将不会有消息推送";
+        cell.detailTextLabel.text = @"23时至次日8时将不会有消息";
         
         // 添加一个开关
         UISwitch *btn = [[UISwitch alloc] init];

@@ -135,7 +135,7 @@
     UIButton *change = [[UIButton alloc] initWithFrame:CGRectMake(changeX, 30, changeW, 30)];
     [change setTitle:@"切换账号" forState:UIControlStateNormal];
     change.titleLabel.font = [UIFont systemFontOfSize:13];
-    [change setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [change setTitleColor:[UIColor colorWithRed:66/255.0 green:99/255.0 blue:166/255.0 alpha:1] forState:UIControlStateNormal];
     [change setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
     [change addTarget:self action:@selector(changeUser:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:change];
@@ -148,7 +148,7 @@
     UIButton *forget = [[UIButton alloc] initWithFrame:CGRectMake(forgetX, 0, forgetW, 40)];
     forget.titleLabel.font = [UIFont systemFontOfSize:13];
     [forget setTitle:@"忘记密码?" forState:UIControlStateNormal];
-    [forget setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
+    [forget setTitleColor:[UIColor colorWithRed:66/255.0 green:99/255.0 blue:166/255.0 alpha:1] forState:UIControlStateNormal];
     [forget setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
     [forget addTarget:self action:@selector(forgetPassword:) forControlEvents:UIControlEventTouchUpInside];
     [cover addSubview:forget];
@@ -255,7 +255,6 @@
     } failure:^(NSError *error) {
         
     }];
-    
 }
 
 #pragma mark - 切换用户
