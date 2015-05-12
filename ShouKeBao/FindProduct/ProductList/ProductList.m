@@ -987,6 +987,7 @@
             conditionVCTile = _subDataArr1[indexPath.row];
             
            
+            
             [Lotuseed onEvent: @"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
        
         }else if (indexPath.section == 1){

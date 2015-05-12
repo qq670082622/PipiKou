@@ -595,7 +595,10 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 - (IBAction)changeStation:(id)sender {
     
     [Lotuseed onEvent:@"page1ChangeStation"];
-    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
+   
+    StationSelect *stationSelect = [[StationSelect alloc] init];
+
+    [self.navigationController pushViewController:stationSelect animated:YES];
 }
 
 - (IBAction)phoneToService:(id)sender
