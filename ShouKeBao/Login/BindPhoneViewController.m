@@ -146,6 +146,31 @@
 
 - (void)goNext
 {
+    if (self.isForget) {
+        
+        // 设置密码的流程
+        [self setPhonePwdRequest];
+    }else{
+        
+        // 绑定手机的流程
+        [self bindPhoneRequest];
+    }
+}
+
+/*
+    触碰退出编辑
+*/
+- (void)tapHandle:(UITapGestureRecognizer *)ges
+{
+    [self.view endEditing:YES];
+}
+
+#pragma mark - request
+/**
+ *  忘记密码要设置的时候用这个请求
+ */
+- (void)setPhonePwdRequest
+{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NSDictionary *param = @{@"Mobile":self.phoneNum.text,
                             @"Captche":self.code.text,
@@ -155,21 +180,19 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
-//
-            // 去设置手机独立密码
+
+            // 保存AppUserID
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+            [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            [def synchronize];
+            
+            // 去更改手机独立密码
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
             SetPhonePwdViewController *phonePwd = [sb instantiateViewControllerWithIdentifier:@"phonePwd"];
             phonePwd.isForget = self.isForget;
             phonePwd.phoneNum = self.phoneNum.text;
             [self.navigationController pushViewController:phonePwd animated:YES];
-            
-            // 跳转到选择分销人
-//            if (self.isForget) {
-//                [self.navigationController popToRootViewControllerAnimated:YES];
-//            }else{
-//                ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//                [self.navigationController pushViewController:child animated:YES];
-//            }
             
         }else{
             [MBProgressHUD showError:json[@"ErrorMsg"]];
@@ -179,12 +202,37 @@
     }];
 }
 
-/*
-    触碰退出编辑
-*/
-- (void)tapHandle:(UITapGestureRecognizer *)ges
+/**
+ *  第一次绑定手机的请求
+ */
+- (void)bindPhoneRequest
 {
-    [self.view endEditing:YES];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NSDictionary *param = @{@"Mobile":self.phoneNum.text,
+                            @"Captche":self.code.text,
+                            @"Type":@"3"};
+    [LoginTool bindMobileAndCreateUserWithParam:param success:^(id json) {
+        NSLog(@"---%@",json);
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        
+        if ([json[@"IsSuccess"] integerValue] == 1) {
+            
+            // 保存AppUserID
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+            [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            [def synchronize];
+            
+            // 跳转到选择分销人
+            ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            [self.navigationController pushViewController:child animated:YES];
+            
+        }else{
+            [MBProgressHUD showError:json[@"ErrorMsg"]];
+        }
+    } failure:^(NSError *error) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    }];
 }
 
 #pragma mark - tableviewdelegate

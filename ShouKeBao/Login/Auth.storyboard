@@ -373,31 +373,31 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon0" translatesAutoresizingMaskIntoConstraints="NO" id="sBT-6d-PKF">
                                                     <rect key="frame" x="25" y="22" width="20" height="20"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="PkT-B9-2EI"/>
-                                                        <constraint firstAttribute="width" constant="20" id="hXR-Ap-LBk"/>
+                                                        <constraint firstAttribute="width" constant="20" id="Lor-o0-r2q"/>
                                                     </constraints>
                                                 </imageView>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写旅行社账号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="daM-28-EK2">
                                                     <rect key="frame" x="53" y="17" width="280" height="30"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="30" id="2xy-rK-fYX"/>
-                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
                                                 </textField>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="daM-28-EK2" firstAttribute="leading" secondItem="sBT-6d-PKF" secondAttribute="trailing" constant="8" id="11R-09-wBo"/>
-                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="top" secondItem="daM-28-EK2" secondAttribute="bottom" constant="-40" id="5YS-UC-O5z"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="LPA-tf-9Xt" secondAttribute="trailing" constant="7" id="Aeh-b9-KtY"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="LPA-tf-9Xt" secondAttribute="bottom" id="Gu4-hM-cub"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="LPA-tf-9Xt" secondAttribute="trailing" constant="7" id="Iyz-Uh-DtV"/>
-                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="top" secondItem="Kio-u0-2zK" secondAttribute="topMargin" constant="-1" id="Zta-mC-ig5"/>
-                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="leading" secondItem="Kio-u0-2zK" secondAttribute="leadingMargin" constant="7" id="kvE-m1-sJc"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="daM-28-EK2" secondAttribute="trailing" constant="34" id="ovQ-5U-fRR"/>
-                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="leading" secondItem="sBT-6d-PKF" secondAttribute="trailing" constant="-30" id="qfY-2i-sBF"/>
-                                                <constraint firstItem="sBT-6d-PKF" firstAttribute="top" secondItem="LPA-tf-9Xt" secondAttribute="bottom" constant="-35" id="xxO-QA-nkc"/>
-                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="leading" secondItem="Kio-u0-2zK" secondAttribute="leadingMargin" constant="7" id="zve-wx-jCw"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="bottom" secondItem="Kio-u0-2zK" secondAttribute="bottomMargin" id="4o0-Nt-ac8"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="centerY" secondItem="Kio-u0-2zK" secondAttribute="centerY" id="5xX-qg-hmL"/>
+                                                <constraint firstItem="sBT-6d-PKF" firstAttribute="centerY" secondItem="LPA-tf-9Xt" secondAttribute="centerY" id="8Om-eu-69R"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="daM-28-EK2" secondAttribute="trailing" constant="34" id="SAW-xQ-XdC"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="top" secondItem="Kio-u0-2zK" secondAttribute="topMargin" constant="-1" id="SzJ-hp-whL"/>
+                                                <constraint firstItem="sBT-6d-PKF" firstAttribute="centerY" secondItem="daM-28-EK2" secondAttribute="centerY" id="TbT-lx-EJL"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="leading" secondItem="Kio-u0-2zK" secondAttribute="leadingMargin" constant="7" id="aDO-Iz-Tkj"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="LPA-tf-9Xt" secondAttribute="trailing" constant="7" id="bkN-jK-OZW"/>
+                                                <constraint firstItem="sBT-6d-PKF" firstAttribute="top" secondItem="Kio-u0-2zK" secondAttribute="topMargin" constant="14" id="bzx-J1-qWb"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="bottom" secondItem="Kio-u0-2zK" secondAttribute="bottomMargin" id="eFx-eW-1Ok"/>
+                                                <constraint firstItem="sBT-6d-PKF" firstAttribute="leading" secondItem="Kio-u0-2zK" secondAttribute="leadingMargin" constant="17" id="eTW-XF-c2K"/>
+                                                <constraint firstItem="daM-28-EK2" firstAttribute="top" secondItem="Kio-u0-2zK" secondAttribute="topMargin" constant="9" id="g8X-GG-Pw6"/>
+                                                <constraint firstItem="daM-28-EK2" firstAttribute="leading" secondItem="sBT-6d-PKF" secondAttribute="trailing" constant="8" symbolic="YES" id="jQo-hG-U99"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="leading" secondItem="Kio-u0-2zK" secondAttribute="leadingMargin" constant="7" id="nFE-Xn-yHj"/>
+                                                <constraint firstItem="LPA-tf-9Xt" firstAttribute="trailing" secondItem="Kio-u0-2zK" secondAttribute="trailingMargin" constant="-7" id="t8y-po-FdF"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -515,7 +515,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="cZz-aL-XlT"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ep6-tV-Doj">
@@ -549,7 +549,7 @@
                                                         <constraint firstAttribute="height" constant="21" id="TWa-UT-O4K"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="lc7-JA-wvB">
@@ -582,7 +582,7 @@
                                                         <constraint firstAttribute="width" constant="52" id="vod-qg-f3l"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="8bS-tm-WRj">
@@ -624,7 +624,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="65" sectionHeaderHeight="10" sectionFooterHeight="10" id="FoQ-lw-gxO">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
                             <tableViewSection id="Snu-wR-Jub">
                                 <cells>

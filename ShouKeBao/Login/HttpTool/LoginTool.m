@@ -286,4 +286,44 @@
     }];
 }
 
+/**
+ *  绑定手机第二种逻辑
+ */
++ (void)bindMobileAndCreateUserWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/BindMobileAndCreateUser" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
+/**
+ *  设置手机密码第二种逻辑
+ */
++ (void)setLoginPasswordWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Business/SetLoginPassword" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
+
 @end

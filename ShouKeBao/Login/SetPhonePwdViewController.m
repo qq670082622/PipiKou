@@ -72,6 +72,51 @@
 #pragma mark - 创建手机独立密码
 - (IBAction)createAction:(UIButton *)sender
 {
+    if ([self.passwordField.text isEqualToString:self.confirmField.text]) {
+        NSDictionary *param = @{@"Mobile":self.phoneNum,
+                                @"Password":self.passwordField.text,
+                                };
+        
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [LoginTool bindPhonePwdWithParam:param success:^(id json) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
+            NSLog(@"---------  %@",json);
+            
+            if ([json[@"IsSuccess"] integerValue] == 1) {
+                
+                // 保存AppUserID
+                NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+                
+                // 如果设置了该密码 就把该密码作为登录密码 而不是旅行社密码
+                [def setObject:self.passwordField.text forKey:UserInfoKeyPassword];
+                [def synchronize];
+                
+                // 跳转
+//                if (self.isForget) {
+//                    [self.navigationController popToRootViewControllerAnimated:YES];
+//                }else{
+//                    ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//                    [self.navigationController pushViewController:child animated:YES];
+//                }
+                [self.navigationController popToRootViewControllerAnimated:YES];
+            }else{
+                [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        }];
+    }else{
+        [MBProgressHUD showError:@"两次输入密码不一致" toView:self.view];
+    }
+}
+
+/**
+ *  备用接口 防止又要改回来
+ */
+- (void)bak
+{
     NSDictionary *param = @{@"Mobile":self.phoneNum,
                             @"Password":self.passwordField.text,
                             @"PasswordConfirm":self.confirmField.text};
