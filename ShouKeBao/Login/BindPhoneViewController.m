@@ -56,6 +56,9 @@
     // 设置头部图标
 //    [self setupHeader];
     self.phoneNum.text = @"11064808256";
+    if (self.isForget) {
+        self.phoneNum.enabled = NO;
+    }
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
     [self.view addGestureRecognizer:tap];

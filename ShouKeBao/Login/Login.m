@@ -59,6 +59,8 @@
 {
     [super viewWillAppear:animated];
   
+    self.nameLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyPoneNum];
+    
     self.navigationController.navigationBar.hidden = YES;
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
 }
@@ -198,7 +200,6 @@
     UILabel *nameLab = [[UILabel alloc] initWithFrame:CGRectMake((self.view.frame.size.width - 200) * 0.5, nameY, 200, 20)];
     nameLab.textColor = [UIColor blackColor];
     nameLab.font = [UIFont systemFontOfSize:17];
-    nameLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyPoneNum];
     nameLab.textAlignment = NSTextAlignmentCenter;
     self.nameLab = nameLab;
     [cover addSubview:nameLab];
