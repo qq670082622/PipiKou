@@ -76,12 +76,12 @@
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104440028"
-                           appSecret:@"2ANfew5nXyU5HOcz"
+    [ShareSDK connectQZoneWithAppKey:@"1104542403"
+                           appSecret:@"zOYB51wNKimtVaBg"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104440028"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104542403"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    

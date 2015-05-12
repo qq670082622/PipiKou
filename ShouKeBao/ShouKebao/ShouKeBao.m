@@ -320,7 +320,7 @@
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
         
         self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
-        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@次",muta[@"VisitorCount"]];
+        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@人",muta[@"VisitorCount"]];
 
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];

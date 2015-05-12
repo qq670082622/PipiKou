@@ -217,6 +217,7 @@
 
 -(void)loadDataSource
 {
+    self.imageViewWhenIsNull.hidden = YES;
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
