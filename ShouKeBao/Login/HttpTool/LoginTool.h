@@ -66,4 +66,9 @@
  */
 + (void)uploadHeadWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
+/**
+ *  绑定手机第二种逻辑
+ */
++ (void)bindMobileAndCreateUserWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
 @end
