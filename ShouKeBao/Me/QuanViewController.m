@@ -9,7 +9,7 @@
 #import "QuanViewController.h"
 #import "MeHttpTool.h"
 #import "UINavigationController+SGProgress.h"
-
+#import "Lotuseed.h"
 @interface QuanViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
@@ -36,7 +36,17 @@
     
 
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"quanFuBao"];
+    
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"quanFuBao"];
+}
 // 先一个个页面设置吧 以后再搞一起的
 - (void)setNav
 {

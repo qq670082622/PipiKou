@@ -7,7 +7,7 @@
 //
 
 #import "ButtonDetailViewController.h"
-
+#import "Lotuseed.h"
 @interface ButtonDetailViewController()
 
 @property (nonatomic,strong) UIWebView *webView;
@@ -41,7 +41,16 @@
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
    }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"orderOperation"];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"orderOperation"];
+}
 #pragma -mark private
 -(void)back
 {

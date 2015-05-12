@@ -11,6 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
+#import "Lotuseed.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
@@ -70,10 +71,15 @@
 }
 
 #pragma  -mark VC Life
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"Store"];
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   
+    [Lotuseed onPageViewEnd:@"Store"];
 }
 
 #pragma -mark getter

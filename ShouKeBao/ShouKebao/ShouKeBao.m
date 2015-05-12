@@ -45,7 +45,7 @@
 #import "UserInfo.h"
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
-
+#import "Lotuseed.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
@@ -588,11 +588,13 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
+    [Lotuseed onEvent:@"page1ClickToStore"];
     [self.navigationController pushViewController:store animated:YES];
 }
 
 - (IBAction)changeStation:(id)sender {
     
+    [Lotuseed onEvent:@"page1ChangeStation"];
     [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
 }
 
@@ -600,6 +602,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
+    [Lotuseed onEvent:@"page1ClickToSos"];
     [self.navigationController pushViewController:sos animated:YES];
     
 }
@@ -616,13 +619,14 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
             return;
         }
         NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
+        [Lotuseed onEvent:@"page1Tap3sToSos"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
     }
 }
 
 - (IBAction)search:(id)sender
 {
-
+    [Lotuseed onEvent:@"Page1Search"];
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
     
@@ -667,6 +671,7 @@ NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                             }];
     
     [self showAlert];
+    [Lotuseed onEvent:@"page1ShareStore"];
     
 }
 
@@ -724,7 +729,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
     }
-
+    [Lotuseed onEvent:@"page1ClickToMessageCenter"];
     [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }
@@ -781,7 +786,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         detail.url = order.LinkUrl;
         detail.title = @"订单详情";
         [self.navigationController pushViewController:detail animated:YES];
-        
+        [Lotuseed onEvent:@"page1ClickToOrderDetail"];
     }else if([model.model isKindOfClass:[Recommend class]]){
         
         RecommendViewController *rec = [[RecommendViewController alloc] init];
@@ -789,6 +794,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
         // 刷新下 隐藏红点
         self.recommendCount = 0;
+        [Lotuseed onEvent:@"page1ClickTorecommend"];
+
         [tableView reloadData];
     }else{
         remondModel *r = model.model;
@@ -797,6 +804,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         remondDetail.note = r.Content;
         remondDetail.remindId = r.ID;
         remondDetail.delegate = self;
+        [Lotuseed onEvent:@"page1ClickToRemondDetail"];
+
         [self.navigationController pushViewController:remondDetail animated:YES];
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

@@ -30,6 +30,7 @@
 #import "UIImage+QD.h"
 #import "ArrowBtn.h"
 #import "NullContentView.h"
+#import "Lotuseed.h"
 
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
@@ -309,6 +310,7 @@
     [cover addSubview:self.dressView];
     [self.view.window addSubview:cover];
     
+    [Lotuseed onEvent:@"page3ClickToScreening"];
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
     }];
@@ -641,6 +643,7 @@
     OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detail.url = order.DetailLinkUrl;
     detail.title = @"订单详情";
+    [Lotuseed onEvent:@"page3ClickToOrderDetail"];
     [self.navigationController pushViewController:detail animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

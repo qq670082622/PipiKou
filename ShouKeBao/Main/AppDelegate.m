@@ -71,23 +71,7 @@
     [Lotuseed setCrashReportEnabled:YES];  //是否提交程序异常报告
     [Lotuseed startWithAppKey:@"H0lJ7jv5jIbpcqi4tfJ4"];  //必须添加的接口调用
     
-    //页面停留统计
-//    - (void)viewWillAppear:(BOOL)animated {
-//        
-//        [super viewWillAppear:animated];
-//        
-//        [Lotuseed onPageViewBegin:@"PageOne"];
-//    }
-//    - (void)viewWillDisappear:(BOOL)animated {
-//        
-//        [super viewWillDisappear:animated];
-//        
-//        [Lotuseed onPageViewEnd:@"PageOne"];
-//    }
-//自定义事件
-//    + (void)onEvent:(NSString *)eventID;
-//+ (void)onEvent:(NSString *)eventID label:(NSString *)label;
-//    + (void)onEvent:(NSString *)eventID attributes:(NSDictionary *)dic;
+
 
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey

@@ -13,6 +13,7 @@
 #import "HomeHttpTool.h"
 #import "WriteFileManager.h"
 #import "IWHttpTool.h"
+#import "Lotuseed.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
@@ -138,6 +139,7 @@
     messageDetail.messageTitle = model.title;
 
     self.isRead = indexPath.row;
+    [Lotuseed onEvent:@"messageCenterClickToMessageDetail"];
     [self.navigationController pushViewController:messageDetail animated:YES];
     
 }

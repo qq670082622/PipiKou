@@ -15,7 +15,7 @@
 #import "ProductHistoryCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "ProduceDetailViewController.h"
-
+#import "Lotuseed.h"
 #define pageSize 10
 
 @interface MyListViewController ()<MGSwipeTableCellDelegate>
@@ -42,7 +42,16 @@
     
     [self.tableView headerBeginRefreshing];
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"HistoryList"];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"HistoryList"];
+}
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {

@@ -8,7 +8,7 @@
 
 #import "OrderDetailViewController.h"
 #import "OrderModel.h"
-
+#import "Lotuseed.h"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
@@ -45,6 +45,17 @@
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
    
     
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"orderDetail"];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"orderDetail"];
 }
 
 #pragma -mark private
