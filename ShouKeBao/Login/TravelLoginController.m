@@ -94,9 +94,11 @@
             [def synchronize];
             
             if (self.isChangeUser) {
+                
                 ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:child animated:YES];
             }else{
+                
                 // 成功后 继续绑定手机
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
                 BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
