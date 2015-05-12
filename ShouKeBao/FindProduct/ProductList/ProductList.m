@@ -25,7 +25,8 @@
 #import "WMAnimations.h"
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
-//#import "MobClick.h"
+#import "Lotuseed.h"
+
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -948,9 +949,8 @@
        
         NSString *productName = model.Name;
        
-       // [MobClick event:@"productlistSelectProduct" attributes:@{@"productName":productName}];
-      //  [MobClick event:@"productlistSelectProduct2" attributes:@{@"productName":productName}];
-
+      
+        [Lotuseed onEvent:@"productlistSelectProduct" attributes:@{@"productName":productName}];
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
        
         detail.produceUrl = productUrl;
@@ -986,12 +986,14 @@
        
             conditionVCTile = _subDataArr1[indexPath.row];
             
-            //[MobClick event:@"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
+           
+            
+            [Lotuseed onEvent: @"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
        
         }else if (indexPath.section == 1){
          
             conditionVCTile = _subDataArr2[indexPath.row];
-            //[MobClick event:@"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
+           [Lotuseed onEvent: @"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile}];
             
 
         }
@@ -1629,12 +1631,8 @@
 
 - (IBAction)subDone:(id)sender {
    
-  //  [self.dataArr removeAllObjects];
-   // [self recommond];
-   
-    // [self loadDataSource];
-   // [MobClick event:@"productlistScreening"];
-    
+
+    [Lotuseed onEvent:@"productlistScreeningDone"];
     [self initPull];
     [self editButtons];
     
@@ -1665,8 +1663,7 @@
 
 
 - (IBAction)subMinMax:(id)sender {
-    //[MobClick event:@"prodcutlistPrice"];
-    
+  
     MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
    
     mm.delegate = self;

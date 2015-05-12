@@ -12,5 +12,6 @@
 -(void)notifiToReloadData;
 @end
 @interface StationSelect : SKViewController
+
 @property (weak,nonatomic) id<notifi>delegate;
 @end

@@ -24,7 +24,7 @@
 #import "MeHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "WelcomeView.h"
-
+#import "Lotuseed.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -92,6 +92,8 @@
 // 设置固定时间段免打扰
 - (void)changePushMode:(UISwitch *)modeSwitch
 {
+    [Lotuseed onEvent:@"page5DisturbSwitch" attributes:@{@"value":[NSString stringWithFormat:@"%d",modeSwitch.on]}];
+   
     NSDictionary *param = @{@"DisturbSwitch":[NSString stringWithFormat:@"%d",modeSwitch.on]};
     [MeHttpTool setDisturbSwitchWithParam:param success:^(id json) {
         NSLog(@"json   %@",json);
@@ -139,6 +141,7 @@
         OrgSettingViewController *org = [sb instantiateViewControllerWithIdentifier:@"OrgSetting"];
         [self.navigationController pushViewController:org animated:YES];
     }
+    [Lotuseed onEvent:@"page5MeSetting"];
 }
 
 // 点击头像上传照片
@@ -155,18 +158,21 @@
         case 0:{
             MyListViewController *col = [[MyListViewController alloc] init];
             col.listType = collectionType;
+             [Lotuseed onEvent:@"page5MeCollection"];
             [self.navigationController pushViewController:col animated:YES];
             break;
         }
         case 1:{ // 我的浏览
             MyListViewController *pre = [[MyListViewController alloc] init];
             pre.listType = previewType;
+             [Lotuseed onEvent:@"page5MeHadSeen"];
             [self.navigationController pushViewController:pre animated:YES];
             break;
         }
         case 2:{ // 搬救兵
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
             SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
+             [Lotuseed onEvent:@"page5Sos"];
             [self.navigationController pushViewController:sos animated:YES];
             break;
         }
@@ -183,6 +189,7 @@
         return;
     }
     NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
+     [Lotuseed onEvent:@"page5Tap3sToSos"];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
 
@@ -256,6 +263,7 @@
 //                break;
 //            }
             case 1:{
+                 [Lotuseed onEvent:@"page5AboutLvYouQuan"];
                 UIWindow *window = [UIApplication sharedApplication].delegate.window;
                 WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
                 welceome.alpha = 0;
@@ -287,6 +295,7 @@
             }
         }else{
             // 第二组 单个 账号安全
+             [Lotuseed onEvent:@"page5AccountSafe"];
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
             SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
             safe.isPerson = self.isPerson;
@@ -355,6 +364,7 @@
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];
     [def synchronize];
     
+ [Lotuseed onEvent:@"page5ChangeIcon"];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

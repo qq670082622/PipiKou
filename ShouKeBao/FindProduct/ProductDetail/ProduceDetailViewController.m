@@ -10,6 +10,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
+#import "Lotuseed.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ProduceDetailViewController ()<UIWebViewDelegate>
 
@@ -60,6 +61,17 @@
     }
    // [self Guide];
 
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"productDetail"];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"productDetail"];
 }
 
 //第一次开机引导

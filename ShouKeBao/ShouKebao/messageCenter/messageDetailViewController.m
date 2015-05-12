@@ -9,6 +9,7 @@
 #import "messageDetailViewController.h"
 #import "HomeHttpTool.h"
 #import "NSDate+Category.h"
+#import "Lotuseed.h"
 @interface messageDetailViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *messgeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *time;
@@ -44,7 +45,16 @@
     self.navigationItem.leftBarButtonItem= leftItem;
 
 }
-
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [Lotuseed onPageViewBegin:@"messageDetail"];
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"messageDetail"];
+}
 
 -(void)back
 {

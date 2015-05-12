@@ -119,7 +119,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
-        //cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+       
         }
     cell.textLabel.text = _dataArr[indexPath.row][@"Text"];
     

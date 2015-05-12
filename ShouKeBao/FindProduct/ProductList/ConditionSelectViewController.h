@@ -17,5 +17,6 @@
 @property (strong , nonatomic) NSArray *dataArr1;
 @property (strong , nonatomic) NSArray *superViewSelectIndexPath;//格式[1,1] (前面代表section，后面代表row)
 @property (strong , nonatomic) NSDictionary *conditionDic;
+@property (nonatomic,copy) NSString *selectConditionName;
 @property (nonatomic,weak) id<passValue> delegate;
 @end
