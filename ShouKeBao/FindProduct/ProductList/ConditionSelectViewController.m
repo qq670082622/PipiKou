@@ -12,7 +12,7 @@
 @property (nonatomic,copy)NSMutableString *passValue;
 @property (nonatomic,copy)NSMutableString *selectKey;
 @property (nonatomic,copy)NSMutableString *selectValue;
-
+@property (nonatomic,copy) NSMutableDictionary *conditionSelectDiction;
 @end
 
 @implementation ConditionSelectViewController
@@ -32,6 +32,8 @@
     self.navigationItem.leftBarButtonItem= leftItem;
  
     self.table.tableFooterView = [[UIView alloc] init];
+    
+    NSLog(@"------------当前页面选择的条件为%@--------------------------",[self.conditionSelectDiction objectForKey:self.title]);
     
 }
 
@@ -90,6 +92,18 @@
         return _dataArr1;
 }
 
+-(NSMutableDictionary *)conditionSelectDiction
+{
+    if (_conditionSelectDiction == nil) {
+   
+        self.conditionSelectDiction = [NSMutableDictionary dictionary];
+        
+        _conditionSelectDiction = [[WriteFileManager WMreadData:@"conditionSelect"] firstObject];
+    }
+   
+    return _conditionSelectDiction;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,18 +120,33 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-static NSString *cellID = @"Cell";
+
+    static NSString *cellID = @"Cell";
+    
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    
     if (cell == nil) {
+       
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        
+
         UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 1, 280, 35)];
+        
         NSLog(@"----------- dataArr1 is %@-----------",_dataArr1);
+        
         label1.text = _dataArr1[indexPath.row][@"Text"];
         
        
+       
+        if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[self.conditionSelectDiction objectForKey:self.title]]) {
+          
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-      //  NSString *value = _dataArr1[indexPath.row][@"Value"];//选项的searchID;
+        }else{
+        
+            cell.accessoryType = UITableViewCellAccessoryNone;
+        }
+       
+        //  NSString *value = _dataArr1[indexPath.row][@"Value"];//选项的searchID;
         
         label1.font = [UIFont systemFontOfSize:13.0];
         
@@ -142,12 +171,19 @@ static NSString *cellID = @"Cell";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray *keys = [self.conditionDic allKeys];
-    self.selectKey  = [keys objectAtIndex:0];//条件名称
+    self.selectKey  = [keys objectAtIndex:0];//条件返回的键名
     
     self.passValue = _dataArr1[indexPath.row][@"Value"];//取得的value
    
     self.selectValue = _dataArr1[indexPath.row][@"Text"];//取得的value的名称
-  
+   
+    //储存选择的键值对，便于下次进入时显示
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString *title = self.title;
+    [dic setObject:_selectValue forKey:title];
+       [WriteFileManager WMsaveData:[NSMutableArray arrayWithObject:dic] name:@"conditionSelect"];
+    
+    //改变post的key名
     [self changeSelectKey];
       NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
 //    [self.delegate passKey:key andValue:value andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:selectValue];

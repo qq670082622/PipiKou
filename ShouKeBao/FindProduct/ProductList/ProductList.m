@@ -181,6 +181,7 @@
     
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
+    [WriteFileManager saveData:[NSMutableArray arrayWithObject:[NSMutableDictionary dictionaryWithObject:@"选择的名称" forKey:@"选择条件的名称"]] name:@"conditionSelect"];
 }
 
 
