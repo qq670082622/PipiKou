@@ -121,7 +121,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
        
         }
-       NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    cell.textLabel.text = _dataArr[indexPath.row][@"Text"];
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *currentStation = [def objectForKey:UserInfoKeySubstation];
     if ([_dataArr[indexPath.row][@"Value"] isEqualToString:currentStation]) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
