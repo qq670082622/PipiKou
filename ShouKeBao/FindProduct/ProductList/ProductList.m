@@ -26,8 +26,8 @@
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
 #import "Lotuseed.h"
-
-@interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice>
+#import "ChooseDayViewController.h"
+@interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 
@@ -66,6 +66,9 @@
 @property (weak , nonatomic) UIButton *subTableSectionBtn;
 @property (copy,nonatomic) NSMutableString *jiafan;
 @property (copy,nonatomic) NSMutableString *jishi;
+@property(copy,nonatomic) NSMutableString *goDateStart;
+@property(copy,nonatomic) NSMutableString *goDateEnd;
+
 @property (weak, nonatomic) IBOutlet UIView *subSubView;
 @property (weak,nonatomic) UIView *coverView;
 
@@ -394,7 +397,30 @@
     }
 }
 
-
+#pragma mark - ChooseDayViewControllerDelegate
+- (void)finishChoosedTimeArr:(NSArray *)timeArr andType:(timeType)type
+{
+    self.coverView.hidden = NO;
+    if (type == timePick) {
+        self.goDateStart = timeArr[0];
+        self.goDateEnd = timeArr[1];
+       // self.dressView.goDateText = [NSString stringWithFormat:@"%@~%@",self.goDateStart,self.goDateEnd];
+           }else{
+               self.goDateStart = timeArr[0];
+               self.goDateEnd = timeArr[1];
+       // self.createDateStart = timeArr[0];
+       // self.createDateEnd = timeArr[1];
+       // self.dressView.createDateText = [NSString stringWithFormat:@"%@~%@",self.createDateStart,self.createDateEnd];
+    }
+    [self.conditionDic setObject:_goDateStart forKey:@"StartDate"];
+    [self.conditionDic setObject:_goDateEnd forKey:@"EndDate"];
+    [self.subTable reloadData];
+}
+- (void)backToDress
+{
+    self.coverView.hidden = NO;
+    
+}
 
 -(void)initPull
 {
@@ -963,7 +989,15 @@
     }
    
     if (tableView.tag == 2) {
-        
+        if (indexPath.section == 0 && indexPath.row == 1) {
+            ChooseDayViewController *choose = [[ChooseDayViewController alloc]init];
+            choose.delegate = self;
+            
+            self.coverView.hidden = YES;
+            [self.navigationController pushViewController:choose animated:YES];
+        }else if (!(indexPath.section == 0 && indexPath.row == 1)){
+       
+            
         NSInteger a = (5*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
     
         //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
@@ -1005,6 +1039,7 @@
         self.coverView.hidden = YES;
        
         [self.navigationController pushViewController:conditionVC animated:YES];
+    }
     }
     
 }
@@ -1058,17 +1093,24 @@
         }
        
        if (indexPath.section == 0) {
-          
            cell.textLabel.font = [UIFont systemFontOfSize:15];
-          
+           
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr1[indexPath.row]];
-          
-          cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
-         
-           cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
-          
-           cell.detailTextLabel.textColor = [UIColor orangeColor];
-     
+           
+           cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+           
+          cell.detailTextLabel.textColor = [UIColor orangeColor];
+           if (indexPath.row != 1) {
+             cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+               }else if (indexPath.row == 1){
+                   if (_goDateEnd.length>2) {
+                       cell.detailTextLabel.text = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
+                   }else if (_goDateEnd.length<=2){
+                    cell.detailTextLabel.text = @"";
+                   }
+                   
+           }
+           
        }else {
           
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
@@ -1618,6 +1660,9 @@
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
     
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
+    
+    self.goDateStart = [NSMutableString stringWithFormat:@""];
+    self.goDateEnd = [NSMutableString stringWithFormat:@""];
     
     [self.subTable reloadData];
     
