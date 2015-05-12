@@ -272,24 +272,30 @@
 
 - (IBAction)search
 {
-    if (![self.tableDataArr containsObject:self.inputView.text]) {
-        [self.tableDataArr addObject:self.inputView.text];
-        
-        if (self.tableDataArr.count > 6) {
-            [self.tableDataArr removeObjectAtIndex:0];
+    if (self.inputView.text.length>2) {
+        if (![self.tableDataArr containsObject:self.inputView.text]) {
+            [self.tableDataArr addObject:self.inputView.text];
+            
+            if (self.tableDataArr.count > 6) {
+                [self.tableDataArr removeObjectAtIndex:0];
+            }
+            
+            
+            [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+            
+            
         }
         
-        
-        [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
-        
-
-    }
-    
         ProductList *list = [[ProductList alloc] init];
-    list.pushedSearchK = self.inputView.text;
-    self.table.tableFooterView.hidden = NO;
-    
-    [self.navigationController pushViewController:list animated:YES];
+        list.pushedSearchK = self.inputView.text;
+        self.table.tableFooterView.hidden = NO;
+        
+        [self.navigationController pushViewController:list animated:YES];
+    }else if (self.inputView.text.length<=2){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"❌警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+   
 }
 
 
