@@ -467,7 +467,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         self.hotIcon = img;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(34, 0, 60, 50);
+        btn.frame = CGRectMake(37, 0, 60, 50);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
