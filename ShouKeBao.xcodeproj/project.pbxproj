@@ -148,6 +148,7 @@
 		5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */; };
 		5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */; };
 		5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */; };
+		5AD891DE1B02FD4200D3A392 /* UIViewController+HUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AD891DD1B02FD4200D3A392 /* UIViewController+HUD.m */; };
 		5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */; };
 		5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A151ADB604C00B0E0E5 /* DayDetail.m */; };
 		5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */; };
@@ -553,6 +554,8 @@
 		5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HomeBase.m; sourceTree = "<group>"; };
 		5ABA4F671AD7E5CD004AA8F6 /* RecommendCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecommendCell.h; sourceTree = "<group>"; };
 		5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecommendCell.m; sourceTree = "<group>"; };
+		5AD891DC1B02FD4200D3A392 /* UIViewController+HUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+HUD.h"; sourceTree = "<group>"; };
+		5AD891DD1B02FD4200D3A392 /* UIViewController+HUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+HUD.m"; sourceTree = "<group>"; };
 		5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailCell.h; sourceTree = "<group>"; };
 		5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetailCell.m; sourceTree = "<group>"; };
 		5AED0A141ADB604C00B0E0E5 /* DayDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetail.h; sourceTree = "<group>"; };
@@ -880,6 +883,8 @@
 		5A52FB371ACEBF220076DAE6 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				5AD891DC1B02FD4200D3A392 /* UIViewController+HUD.h */,
+				5AD891DD1B02FD4200D3A392 /* UIViewController+HUD.m */,
 				5A61657D1AE7791F00641837 /* UINavigationController+SGProgress.h */,
 				5A61657E1AE7791F00641837 /* UINavigationController+SGProgress.m */,
 				5A52FB6A1ACEBF220076DAE6 /* NSMutableDictionary+QD.h */,
@@ -2136,6 +2141,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5AD891DE1B02FD4200D3A392 /* UIViewController+HUD.m in Sources */,
 				5A944D231B00BC780004DE89 /* MLPhotoBrowserDatas.m in Sources */,
 				633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */,
 				633263D51AB851590021553B /* AFNetworkReachabilityManager.m in Sources */,
@@ -2465,8 +2471,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2487,7 +2493,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "87d8d2a0-57e2-4319-9375-891dd949477a";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2497,8 +2503,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Zhiqi Pan (T57JX79ZUJ)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2518,7 +2524,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "87d8d2a0-57e2-4319-9375-891dd949477a";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -2540,7 +2546,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "87d8d2a0-57e2-4319-9375-891dd949477a";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Debug;
@@ -2558,7 +2564,7 @@
 				INFOPLIST_FILE = ShouKeBaoTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "87d8d2a0-57e2-4319-9375-891dd949477a";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShouKeBao.app/ShouKeBao";
 			};
 			name = Release;

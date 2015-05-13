@@ -11,7 +11,7 @@
 
 @protocol AreaViewControllerDelegate <NSObject>
 
-- (void)didSelectAreaWithValue:(NSDictionary *)value Type:(areaType)type;
+- (void)didSelectAreaWithValue:(NSDictionary *)value Type:(areaType)type atIndex:(NSInteger)index isSelected:(BOOL)isSelected;
 
 @end
 
@@ -22,6 +22,10 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
 @property (nonatomic,strong) NSDictionary *param;
+
+@property (nonatomic,assign) NSInteger chooseIndex;
+
+@property (nonatomic,copy) NSDictionary *chooseDic;
 
 @property (nonatomic,weak) id<AreaViewControllerDelegate> delegate;
 

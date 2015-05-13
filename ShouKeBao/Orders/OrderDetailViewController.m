@@ -38,7 +38,7 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
-    
+    self.navigationItem.leftBarButtonItem.enabled = NO;
     
     [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
@@ -61,18 +61,25 @@
 #pragma -mark private
 -(void)back
 {
-    if (self.webUrlArr.count >1) {
-        
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-        [self.webUrlArr removeLastObject];
+//    if (self.webUrlArr.count >1) {
+//        
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
+//        [self.webUrlArr removeLastObject];
+//    }
+//    
+//    else if (self.webUrlArr.count == 1) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+//    
+//    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+    if ([self.webView canGoBack]){
+        [self.webView goBack];
     }
-    
-    else if (self.webUrlArr.count == 1) {
+    else
+    {
         [self.navigationController popViewControllerAnimated:YES];
+        
     }
-    
-    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
-
 }
 
 #pragma -mark getter
@@ -118,6 +125,6 @@
         [self.webUrlArr addObject:rightStr];
     }
     NSLog(@"\narr count is %lu  \n arr is %@\n",self.webUrlArr.count,_webUrlArr);
-
+    self.navigationItem.leftBarButtonItem.enabled = YES;
 }
 @end

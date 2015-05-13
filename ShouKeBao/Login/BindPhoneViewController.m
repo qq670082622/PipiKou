@@ -197,6 +197,7 @@
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
             SetPhonePwdViewController *phonePwd = [sb instantiateViewControllerWithIdentifier:@"phonePwd"];
             phonePwd.isForget = self.isForget;
+            phonePwd.isModefyPwd = self.isModefyPwd;
             phonePwd.phoneNum = self.phoneNum.text;
             [self.navigationController pushViewController:phonePwd animated:YES];
             

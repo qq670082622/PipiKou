@@ -76,6 +76,7 @@
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
         BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
         bind.isForget = YES;
+        bind.isModefyPwd = YES;
         [self.navigationController pushViewController:bind animated:YES];
 
     }else if(indexPath.section == 2){

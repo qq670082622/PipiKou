@@ -11,7 +11,7 @@
 
 @interface AreaViewController ()
 
-@property (nonatomic,copy) NSDictionary *chooseDic;
+@property (nonatomic,assign) BOOL isSeleted;
 
 @end
 
@@ -21,7 +21,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
-    
+    self.isSeleted = NO;
     
     [self configure];
     
@@ -32,8 +32,8 @@
 {
     [super viewWillDisappear:animated];
     
-    if (_delegate && [_delegate respondsToSelector:@selector(didSelectAreaWithValue:Type:)]) {
-        [_delegate didSelectAreaWithValue:self.chooseDic Type:self.type];
+    if (_delegate && [_delegate respondsToSelector:@selector(didSelectAreaWithValue:Type:atIndex:isSelected:)]) {
+        [_delegate didSelectAreaWithValue:self.chooseDic Type:self.type atIndex:self.chooseIndex isSelected:self.isSeleted];
     }
 }
 
@@ -115,6 +115,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     cell.textLabel.text = self.dataSource[indexPath.row][@"Text"];
+    
+    if (indexPath.row == self.chooseIndex) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+    
     return cell;
 }
 
@@ -123,6 +128,8 @@
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     self.chooseDic = self.dataSource[indexPath.row];
+    self.chooseIndex = indexPath.row;
+    self.isSeleted = YES;
     [self.navigationController popViewControllerAnimated:YES];
 }
 
