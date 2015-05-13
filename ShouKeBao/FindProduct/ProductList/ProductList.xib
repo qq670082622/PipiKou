@@ -7,6 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductList">
             <connections>
+                <outlet property="backToTopBtn" destination="Iwc-oK-KvS" id="z6V-X0-vln"/>
                 <outlet property="cheapOutlet" destination="kib-3W-YwQ" id="Y4A-0l-eup"/>
                 <outlet property="commondOutlet" destination="HuI-cE-kBC" id="LYf-ib-EdL"/>
                 <outlet property="jiafanSwitch" destination="Ifm-XW-AOn" id="mGa-bY-9ml"/>
@@ -93,6 +94,17 @@
                         <outlet property="delegate" destination="-1" id="BwW-5C-Uys"/>
                     </connections>
                 </tableView>
+                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iwc-oK-KvS">
+                    <rect key="frame" x="245" y="400" width="48" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                    <state key="normal" backgroundImage="toTop">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="backToTop:" destination="-1" eventType="touchUpInside" id="sqc-VV-2WL"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -260,6 +272,7 @@
     </objects>
     <resources>
         <image name="backArrowLeft" width="11" height="11"/>
+        <image name="toTop" width="48" height="48"/>
         <image name="xiangyou" width="20" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">

@@ -19,8 +19,10 @@
 
     // Configure the view for the selected state
 }
+
 +(instancetype)cellWithTableView:(UITableView *)tableView
-{ static NSString *cellID = @"cellaaaa";
+{
+    static NSString *cellID = @"cellaaaa";
     leftCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[[NSBundle mainBundle] loadNibNamed:@"leftCell" owner:nil options:nil] lastObject];
@@ -31,6 +33,12 @@
        
     }
     return cell;
+}
+-(void)layoutSubviews
+{
+    if ([self.name.text  isEqual: @"东南亚、南亚"]) {
+        self.name.frame = CGRectMake(40, 0, 50, 50);
+    }
 }
 
 -(void)setModal:(leftModal *)modal

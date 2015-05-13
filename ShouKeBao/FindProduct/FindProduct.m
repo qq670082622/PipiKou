@@ -19,52 +19,38 @@
 #import "StationSelect.h"
 #import "IWHttpTool.h"
 #import "StrToDic.h"
-#import "MJRefresh.h"//
+#import "MJRefresh.h"
 #import "MBProgressHUD+MJ.h"
 #import "SearchProductViewController.h"
 #import "WMAnimations.h"
 #import "ResizeImage.h"
 #import "UIImageView+WebCache.h"
 #import "Lotuseed.h"
-//#import "MobClick.h"
+
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
 @property (weak, nonatomic) IBOutlet UIView *line;
 - (IBAction)stationSelect:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
-
-
-
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
-
 - (IBAction)search:(id)sender;
 @property (weak, nonatomic) IBOutlet UITableView *leftTable;
 @property (weak, nonatomic) IBOutlet UITableView *rightTable;
-
-
 @property (strong,nonatomic) NSMutableArray *leftTableArr;
 @property(strong,nonatomic)NSArray *leftNormoalIconArr;
 @property(strong,nonatomic)NSArray *leftSelectIconArr;
-
 @property(strong,nonatomic)NSMutableArray *rightTableArr;
 @property(copy,nonatomic) NSMutableString *row;
-
-
 @property (weak, nonatomic) IBOutlet UITableView *rightTable2;
 @property (strong, nonatomic) NSMutableArray *rightMoreArr;
 @property (strong , nonatomic) NSMutableArray *rightMoreSearchID;//rightTbale2的searchKey
 @property(copy,nonatomic) NSMutableString *table2Row;
-
 @property (weak, nonatomic) IBOutlet UITableView *hotTable;
-
 @property (strong, nonatomic) NSMutableArray *hotArr;
 @property (strong , nonatomic) NSMutableDictionary *hotArrDic;
 @property (strong, nonatomic) NSMutableArray *hotSectionArr;
-
 @property (strong, nonatomic) NSMutableArray *hotNumberOfSectionArr;//section内有多少个row
-
-
 @property (weak,nonatomic) UIView *subHotView;
 @property (weak, nonatomic)  UIImageView *hotIcon;
 @property (weak, nonatomic)  UIButton *hotBtn;
@@ -87,8 +73,6 @@
     self.hotTable.dataSource = self;
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
-//    self.leftNormoalIconArr = [NSArray arrayWithObjects:@"APPfeiji",@"APPyoulun",@"APPdaxiang",@"APPshanzi",@"APPconglinhaidao",@"APPstatue",@"APPgangaoyou",@"APPzhoubian",@"APPmap", nil];
-//    self.leftSelectIconArr = [NSArray arrayWithObjects:@"APPfeiji2",@"APPyoulun2.png",@"APPdaxiang2",@"APPshanzi2",@"APPconglinhaidao2",@"APPstatue2",@"APPgangaoyou2",@"APPzhoubian2",@"APPmap2",nil];
   self.isHot = YES;
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
  
@@ -190,6 +174,7 @@
     }];
 }
 
+
 - (void)loadDataSourceRight
 {
     int selectRow = [self.row intValue];
@@ -220,6 +205,8 @@
         NSLog(@"左侧栏请求错误！～～～error is ~~~~~~~~~%@",error);
     }];
 }
+
+
 
 - (void)loadDataSourceRight2
 {
@@ -297,6 +284,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     [hudView hide:YES];
 }
 
+
+
 #pragma mark - private
 -(void)iniHeaderRight
 {
@@ -327,6 +316,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     self.hotTable.footerRefreshingText = @"正在刷新";
 }
 
+
+
 -(void)rightheadRefresh
 {//上拉刷新,一般在此方法内添加刷新内容
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
@@ -335,6 +326,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
        [self.rightTable headerEndRefreshing];
       });
 }
+
+
 
 -(void)rightfootRefresh
 {//下拉刷新
@@ -346,6 +339,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     });
 }
 
+
+
 - (IBAction)stationSelect:(id)sender {
    // [MobClick event:@"changeStationInPageTwo"];
     [Lotuseed onEvent:@"page2ChangeStation"];
@@ -354,6 +349,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     [self.navigationController pushViewController:station animated:YES];
 }
 
+
+
 - (IBAction)search:(id)sender {
     
     //[MobClick event:@"searchInpageTwo"];
@@ -361,9 +358,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
+
+
 -(void)setLeftTableHeader{
 
 }
+
+
 - (void)hotBtnClick:(id)sender {
    // [MobClick event:@"remmondClick"];
     [Lotuseed onEvent:@"page2ClickRecommend"];
@@ -392,7 +393,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return _leftTableArr;
 }
-     
+
+
 -(NSMutableArray *)rightTableArr
     {
         if (_rightTableArr == nil) {
@@ -401,6 +403,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         return _rightTableArr;
     }
 
+
 - (NSMutableArray *)rightMoreArr
 {
     if (!_rightMoreArr) {
@@ -408,6 +411,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return _rightMoreArr;
 }
+
+
 - (NSMutableArray *)hotArr
 {
     if (!_hotArr) {
@@ -428,6 +433,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }];
 }
 
+
 #pragma mark - tableviewdatasource&& tableviewdelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -444,6 +450,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     return 0;
 }
 
+
 -(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if(tableView.tag == 1){
@@ -454,13 +461,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         line.backgroundColor = [UIColor colorWithRed:184/255.f green:186/255.f blue:191/255.f alpha:1];
         
         UIImageView *img = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"APPhot2"] ];
-       img.frame = CGRectMake(16, 16, 18, 18);
+       img.frame = CGRectMake(10, 16, 18, 18);
         UIGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hotBtnClick:)];
         [img addGestureRecognizer:tap];
         self.hotIcon = img;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
-        btn.frame = CGRectMake(32, 0, 60, 50);
+        btn.frame = CGRectMake(34, 0, 60, 50);
 [btn setTitle:@"热门推荐" forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:12];
@@ -503,6 +510,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     return 0;
 }
 
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
@@ -516,6 +525,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return 0;
 }
+
+
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
    if (tableView.tag == 4) {
@@ -524,6 +536,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return 1;
 }
+
+
 -(NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 4) {
@@ -548,6 +562,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     return 0;
 }
+
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
@@ -585,25 +601,24 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     }
     
     if (tableView.tag == 2) {
+      
         rightModal2 *model = self.rightTableArr[indexPath.row];
-       // [MobClick event:@"clickRightTable" attributes:@{@"name":model.title}];
-        [Lotuseed onEvent:@"page2ClickRightTable" attributes:@{@"name":model.Name}];
-    self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
+              [Lotuseed onEvent:@"page2ClickRightTable" attributes:@{@"name":model.Name}];
+    
+        self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"-----------tableSelectRow is %@--------",_table2Row);
         [UIView animateWithDuration:0.3 animations:^{
             self.rightTable2.alpha = 1;
             self.rightTable.alpha = 0;
             self.blackView.alpha = 0.5;
             self.rightTable2.frame = self.hotTable.frame;
-       
-        }];
+       }];
        
         [self loadDataSourceRight2];
+    
     }
     if (tableView.tag ==3 ) {
-    rightModal3 *model = self.rightMoreArr[indexPath.row];
-    //[MobClick event:@"clickRightTable2" attributes:@{@"name":model.Name}];
-        [Lotuseed onEvent:@"page2RightTable2Click" attributes:@{@"name":model.Name}];
+   
         rightModal3 *modal3 = _rightMoreArr[indexPath.row];
         NSString *key = modal3.searchKey;
         NSString *title = modal3.Name;
@@ -612,8 +627,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         list.pushedSearchK = key;
         list.title = title;
         
-//      MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//        hudView.labelText = @"加载中...";
+        [Lotuseed onEvent:@"page2RightTable2Click" attributes:@{@"name":modal3.Name}];
+
         
         [self.navigationController pushViewController:list animated:YES];
     }
@@ -622,13 +637,14 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         rightModal *model =  _hotArr[indexPath.section][indexPath.row];
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
-       // [MobClick event:@"clickRecommendName" attributes:@{@"recommendName":model.rightDescrip}];
+       
         [Lotuseed onEvent:@"page2ClickRecommend" attributes:@{@"name":model.rightDescrip}];
         [self.navigationController pushViewController:detail animated:YES];
     }
 
  [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
 }
+
 
 
 - (void)deselect
@@ -641,6 +657,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
      [self.hotTable deselectRowAtIndexPath:[self.hotTable indexPathForSelectedRow] animated:YES];
     
 }
+
+
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [[UITableViewCell alloc] init];
@@ -649,14 +668,16 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         leftModal *model = self.leftTableArr[indexPath.row];
         cell.modal = model;
         [cell.icon sd_setImageWithURL:[NSURL URLWithString:model.MaxIcon]];
+
         
-        if (indexPath.row == [self.row intValue] && self.isHot == NO){//&& self.hotIcon.image == [UIImage imageNamed:@"APPhot"]) {
+        if (indexPath.row == [self.row intValue] && self.isHot == NO){
+            
             cell.name.textColor = [UIColor orangeColor];
             [cell.icon sd_setImageWithURL:[NSURL URLWithString:model.MaxIconFocus]];
             cell.contentView.backgroundColor = [UIColor whiteColor];
         }
         return cell;
-    }else if(tableView.tag == 2) {//if (tableView.tag == 2 && ([_row intValue] != 0)){
+    }else if(tableView.tag == 2) {
         
     rightCell2 *cell = [rightCell2 cellWithTableView:tableView];
         cell.modal = [self.rightTableArr objectAtIndex:indexPath.row];

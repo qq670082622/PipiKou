@@ -12,6 +12,7 @@
                 <outlet property="conditionLine" destination="JzP-XY-h4A" id="e7d-qD-SHs"/>
                 <outlet property="historyTable" destination="tQq-UU-4wX" id="21r-HT-p7S"/>
                 <outlet property="historyView" destination="L1Y-OC-Wif" id="lbh-Uk-nbz"/>
+                <outlet property="imageViewWhenIsNull" destination="t6A-DR-fU3" id="WTN-1U-ykR"/>
                 <outlet property="searchCustomerBtnOutlet" destination="MwM-Ev-SlL" id="O2F-jD-ar5"/>
                 <outlet property="searchTextField" destination="Cmx-lG-vdB" id="BoE-3e-PK2"/>
                 <outlet property="subView" destination="frt-01-EIa" id="dlI-DF-O1s"/>
@@ -195,6 +196,10 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="t6A-DR-fU3">
+                    <rect key="frame" x="80" y="100" width="160" height="200"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="0.92684659090909094" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -202,6 +207,7 @@
         </view>
     </objects>
     <resources>
+        <image name="content_null" width="177" height="213"/>
         <image name="fdjBtn" width="13" height="13"/>
         <image name="tianjiayonghu" width="129" height="89"/>
     </resources>

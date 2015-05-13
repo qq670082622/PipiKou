@@ -8,7 +8,7 @@
 
 #import "EditCustomerDetailViewController.h"
 #import "IWHttpTool.h"
-@interface EditCustomerDetailViewController ()<UITextFieldDelegate,UITextViewDelegate>
+@interface EditCustomerDetailViewController ()<UITextFieldDelegate,UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *tele;
 @property (weak, nonatomic) IBOutlet UITextField *wechat;
@@ -51,6 +51,20 @@
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.name resignFirstResponder];
+    
+    [self.tele resignFirstResponder];
+    
+    [self.wechat resignFirstResponder];
+    
+    [self.QQ resignFirstResponder];
+    
+    [self.note resignFirstResponder];
+
 }
 
 -(void)hideKey
