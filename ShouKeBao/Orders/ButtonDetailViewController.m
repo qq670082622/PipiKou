@@ -51,11 +51,12 @@
     [super viewWillDisappear:animated];
     [Lotuseed onPageViewEnd:@"orderOperation"];
 }
+
 #pragma -mark private
 -(void)back
 {
     NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
-    if ([isFade integerValue] == 0){
+    if (isFade.length && [isFade integerValue] == 0){
         // 这个地方上面的js方法自动处理
     }else{
         if ([self.webView canGoBack]){
@@ -67,8 +68,6 @@
         }
     }
 }
-
-
 
 #pragma -mark getter
 - (UIWebView *)webView
@@ -91,14 +90,6 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-//
-//    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
-//        
-//        [self.webUrlArr addObject:rightStr];
-//    }
-//    
-//     NSLog(@"------------------\narr count is %lu  \n arr is %@\n--------",self.webUrlArr.count,_webUrlArr);
-    
     return YES;
     
 }
