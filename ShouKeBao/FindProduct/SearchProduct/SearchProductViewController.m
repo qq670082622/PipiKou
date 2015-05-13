@@ -272,7 +272,8 @@
 
 - (IBAction)search
 {
-    if (self.inputView.text.length>=1) {
+   
+    if (self.inputView.text.length>=1 && ![self.inputView.text hasPrefix:@" "]) {
         if (![self.tableDataArr containsObject:self.inputView.text]) {
             [self.tableDataArr addObject:self.inputView.text];
             
@@ -291,8 +292,11 @@
         self.table.tableFooterView.hidden = NO;
         
         [self.navigationController pushViewController:list animated:YES];
-    }else if (self.inputView.text.length<1){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"❌警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+    }else if (self.inputView.text.length<1 ){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }else if ([self.inputView.text hasPrefix:@" "]){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
     }
    
