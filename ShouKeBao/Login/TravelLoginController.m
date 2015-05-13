@@ -52,8 +52,8 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountFieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.accountField];
     
-    self.accountField.text = @"huangfuyuhan@pipikou.com";
-    self.passwordField.text = @"123456";
+//    self.accountField.text = @"huangfuyuhan@pipikou.com";
+//    self.passwordField.text = @"123456";
 }
 
 - (void)dealloc

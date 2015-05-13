@@ -55,7 +55,7 @@
     
     // 设置头部图标
 //    [self setupHeader];
-    self.phoneNum.text = @"11064808256";
+//    self.phoneNum.text = @"11064808256";
     
     // 如果忘记密码的话就把 
     if (self.isForget) {
@@ -101,15 +101,15 @@
 {
     if (self.phoneNum.text.length) {
         
-//        NSDictionary *param = @{@"Mobile" :self.phoneNum.text,
-//                                @"Type":@"3"};
-//        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        [LoginTool getCodeWithParam:param success:^(id json) {
-//            NSLog(@"---%@",json);
-//            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-//            
-//            if ([json[@"IsSuccess"] integerValue] == 1) {
-//
+        NSDictionary *param = @{@"Mobile" :self.phoneNum.text,
+                                @"Type":@"3"};
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        [LoginTool getCodeWithParam:param success:^(id json) {
+            NSLog(@"---%@",json);
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            
+            if ([json[@"IsSuccess"] integerValue] == 1) {
+
                 [MBProgressHUD showSuccess:@"短信发送成功"];
         
                 self.count = 60;
@@ -118,13 +118,13 @@
                 [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
                 
                 self.nextBtn.enabled = YES;
-//            }else{
-//                [MBProgressHUD showError:json[@"ErrorMsg"]];
-//            }
-//            
-//        } failure:^(NSError *error) {
-//            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-//        }];
+            }else{
+                [MBProgressHUD showError:json[@"ErrorMsg"]];
+            }
+            
+        } failure:^(NSError *error) {
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        }];
     }
 }
 
