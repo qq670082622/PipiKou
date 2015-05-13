@@ -324,6 +324,8 @@
     imgv.contentMode = UIViewContentModeScaleAspectFit;
     imgv.image = [UIImage imageNamed:@"content_null"];
     [self.view addSubview:imgv];
+    
+    [self.pageCountBtn setTitle:@"没有产品" forState:UIControlStateNormal];
    // self.navigationItem.rightBarButtonItem = nil;
 }
 
