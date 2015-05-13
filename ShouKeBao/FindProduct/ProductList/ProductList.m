@@ -49,6 +49,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *backToTopBtn;
 - (IBAction)backToTop:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
 
 //@property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -985,6 +986,10 @@
     }else if (self.table.contentOffset.y <300){
         self.backToTopBtn.hidden = YES;
     }
+    
+    NSInteger count = self.table.contentOffset.y/136;
+    
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,[_page integerValue]*10] forState:UIControlStateNormal];
 }
 
 
