@@ -158,6 +158,7 @@
     self.pageIndex = 1;
     [self loadDataSource];
 }
+
 -(void)footRefresh
 {
     self.pageIndex ++;

@@ -280,7 +280,7 @@
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad" enablesReturnKeyAutomatically="YES"/>
                                                 </textField>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon1" translatesAutoresizingMaskIntoConstraints="NO" id="uhe-uf-y7X">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="test_icon" translatesAutoresizingMaskIntoConstraints="NO" id="uhe-uf-y7X">
                                                     <rect key="frame" x="25" y="23" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="ut1-OE-7GT"/>
@@ -370,7 +370,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LPA-tf-9Xt">
                                                     <rect key="frame" x="15" y="7" width="345" height="50"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon0" translatesAutoresizingMaskIntoConstraints="NO" id="sBT-6d-PKF">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="travel_icon" translatesAutoresizingMaskIntoConstraints="NO" id="sBT-6d-PKF">
                                                     <rect key="frame" x="25" y="22" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="Lor-o0-r2q"/>
@@ -410,7 +410,7 @@
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cQt-Pu-5M8">
                                                     <rect key="frame" x="15" y="7" width="345" height="50"/>
                                                 </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon0" translatesAutoresizingMaskIntoConstraints="NO" id="7Xk-vJ-0Dc">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="login_icon1" translatesAutoresizingMaskIntoConstraints="NO" id="7Xk-vJ-0Dc">
                                                     <rect key="frame" x="25" y="22" width="20" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="20" id="9cs-SO-mF9"/>
@@ -756,8 +756,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="login_icon0" width="50" height="57"/>
         <image name="login_icon1" width="50" height="57"/>
-        <image name="phone_icon" width="50" height="57"/>
+        <image name="phone_icon" width="20" height="20"/>
+        <image name="test_icon" width="20" height="20"/>
+        <image name="travel_icon" width="20" height="20"/>
     </resources>
 </document>

@@ -7,12 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "phone_icon.png"
+      "filename" : "travel_icon@x2.png"
     },
     {
       "idiom" : "universal",
       "scale" : "3x",
-      "filename" : "phone_icon@x3.png"
+      "filename" : "travel@x3.png"
     }
   ],
   "info" : {

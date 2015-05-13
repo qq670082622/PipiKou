@@ -56,7 +56,10 @@
     // 设置头部图标
 //    [self setupHeader];
     self.phoneNum.text = @"11064808256";
+    
+    // 如果忘记密码的话就把 
     if (self.isForget) {
+        self.phoneNum.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyPoneNum];
         self.phoneNum.enabled = NO;
     }
     
@@ -194,6 +197,7 @@
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
             SetPhonePwdViewController *phonePwd = [sb instantiateViewControllerWithIdentifier:@"phonePwd"];
             phonePwd.isForget = self.isForget;
+            phonePwd.isModefyPwd = self.isModefyPwd;
             phonePwd.phoneNum = self.phoneNum.text;
             [self.navigationController pushViewController:phonePwd animated:YES];
             

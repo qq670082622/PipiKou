@@ -11,6 +11,7 @@
 #import "ModifyPwdViewController.h"
 #import "AppDelegate.h"
 #import "UserInfo.h"
+#import "BindPhoneViewController.h"
 
 @interface SafeSettingViewController()<UIAlertViewDelegate>
 
@@ -40,7 +41,7 @@
     
     self.title = @"账号安全设置";
     
-    self.accountLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyAccount];
+    self.accountLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyPoneNum];
     
     [self setNav];
 }
@@ -68,9 +69,15 @@
 {
     if (indexPath.section == 1) {
         
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
-        ModifyPwdViewController *modify = [sb instantiateViewControllerWithIdentifier:@"ModifyPwd"];
-        [self.navigationController pushViewController:modify animated:YES];
+//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
+//        ModifyPwdViewController *modify = [sb instantiateViewControllerWithIdentifier:@"ModifyPwd"];
+//        [self.navigationController pushViewController:modify animated:YES];
+        
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
+        BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
+        bind.isForget = YES;
+        bind.isModefyPwd = YES;
+        [self.navigationController pushViewController:bind animated:YES];
 
     }else if(indexPath.section == 2){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定退出登录吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
@@ -82,9 +89,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    if (self.isPerson && section == 1) {
-        return 0.01f;
-    }
+//    if (self.isPerson && section == 1) {
+//        return 0.01f;
+//    }
     return 10.0f;
 }
 
@@ -95,12 +102,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.isPerson && indexPath.section == 1) {
-        self.ganTan.hidden = YES;
-        self.setPwdLab.hidden = YES;
-        self.setPwdCell.accessoryType = UITableViewCellAccessoryNone;
-        return 0;
-    }
+//    if (self.isPerson && indexPath.section == 1) {
+//        self.ganTan.hidden = YES;
+//        self.setPwdLab.hidden = YES;
+//        self.setPwdCell.accessoryType = UITableViewCellAccessoryNone;
+//        return 0;
+//    }
     return 55;
 }
 

@@ -54,17 +54,19 @@
 #pragma -mark private
 -(void)back
 {
-//    if (self.webUrlArr.count >1) {
-//        
-//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-//        [self.webUrlArr removeLastObject];
-//    }
-//    
-//    else if (self.webUrlArr.count == 1) {
-        [self.navigationController popViewControllerAnimated:YES];
-    //}
-    
-    
+    NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
+    if ([isFade integerValue] == 1){
+        // 这个地方上面的js方法自动处理
+    }else{
+        if ([self.webView canGoBack]){
+            [self.webView goBack];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
+    }
 }
 
 
@@ -90,8 +92,9 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-//    NSString *rightStr = request.URL.absoluteString;
-//    
+    NSString *rightStr = request.URL.absoluteString;
+    
+//
 //    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
 //        
 //        [self.webUrlArr addObject:rightStr];

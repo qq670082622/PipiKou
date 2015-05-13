@@ -12,6 +12,7 @@
 #import "LoginTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "UserInfo.h"
+#import "AppDelegate.h"
 
 @interface SetPhonePwdViewController () <UIScrollViewDelegate>
 
@@ -99,7 +100,15 @@
 //                    ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
 //                    [self.navigationController pushViewController:child animated:YES];
 //                }
-                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                // 如果是安全设置修改密码
+                if (self.isModefyPwd) {
+                    AppDelegate *app = [UIApplication sharedApplication].delegate;
+                    [app setLoginRoot];
+                }else{
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }
+                
             }else{
                 [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
             }

@@ -64,6 +64,10 @@
 @property (nonatomic,strong) NSDictionary *firstValue;// 选择大区以后获取值
 @property (nonatomic,strong) NSDictionary *secondValue;// 选择二级区获取的值
 @property (nonatomic,strong) NSDictionary *thirdValue;// 三级选择
+// 区域选择的数字
+@property (nonatomic,assign) NSInteger firstIndex;
+@property (nonatomic,assign) NSInteger secondIndex;
+@property (nonatomic,assign) NSInteger thirdIndex;
 
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -678,6 +682,7 @@
     [window addSubview:cover];
     
     [cover addSubview:self.detailView];
+    
     // 取出模型
     OrderModel *order = self.dataArr[index];
     self.detailView.data = order.SKBOrder;
@@ -710,11 +715,15 @@
     area.delegate = self;
     
     if (type == firstArea){
+        // 选择大区
         self.cover.hidden = YES;
         area.type = firstArea;
         area.dataSource = self.firstAreaData;
         area.title = @"大区";
+        area.chooseIndex = self.firstIndex;
+        area.chooseDic = self.firstValue;
         [self.navigationController pushViewController:area animated:YES];
+        
     }else if (type == secondArea){
         if (self.firstValue && ![self.firstValue[@"Value"] isEqualToString:@"0"]) {
             // 获取二级列表
@@ -723,6 +732,8 @@
             area.type = secondArea;
             area.param = param;
             area.title = @"线路区域";
+            area.chooseIndex = self.secondIndex;
+            area.chooseDic = self.secondValue;
             [self.navigationController pushViewController:area animated:YES];
         }
     }else{// 点击三级区域
@@ -733,6 +744,8 @@
             area.type = thirdArea;
             area.param = param;
             area.title = @"国家/省份";
+            area.chooseIndex = self.thirdIndex;
+            area.chooseDic = self.thirdValue;
             [self.navigationController pushViewController:area animated:YES];
         }
     }
@@ -766,7 +779,6 @@
 - (void)backToDress
 {
     self.cover.hidden = NO;
-    
 }
 
 #pragma mark - Notification
@@ -831,23 +843,36 @@
 
 #pragma mark - AreaViewControllerDelegate
 // 选择之后把值返回过来
-- (void)didSelectAreaWithValue:(NSDictionary *)value Type:(areaType)type
+- (void)didSelectAreaWithValue:(NSDictionary *)value Type:(areaType)type atIndex:(NSInteger)index isSelected:(BOOL)isSelected
 {
     if (type == firstArea) {
         self.firstValue = value;
         self.dressView.firstText = value[@"Text"];
+        self.firstIndex = index;
+        if (index == 0) {
+            self.secondValue = nil;
+            self.thirdValue = nil;
+            self.dressView.secondText = nil;
+            self.dressView.thirdText = nil;
+        }
     }else if(type == secondArea){
         self.secondValue = value;
         self.dressView.secondText = value[@"Text"];
+        self.secondIndex = index;
     }else{
         self.thirdValue = value;
         self.dressView.thirdText = value[@"Text"];
+        self.thirdIndex = index;
     }
     [UIView animateWithDuration:0.3 animations:^{
         self.cover.hidden = NO;
     }];
     
-    [self.dressView.tableView reloadData];
+    // 如果有选择过再刷新
+    if (isSelected) {
+        [self.dressView.tableView reloadData];
+    }
+    
 }
 
 #pragma mark - UISearchBarDelegate

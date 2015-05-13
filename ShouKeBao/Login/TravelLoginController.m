@@ -33,7 +33,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"登录旅行社平台";
+    self.title = @"登录旅游圈平台";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.loginBtn.layer.cornerRadius = 3;
     self.loginBtn.layer.masksToBounds = YES;
@@ -94,9 +94,11 @@
             [def synchronize];
             
             if (self.isChangeUser) {
+                
                 ChildAccountViewController *child = [[ChildAccountViewController alloc] initWithStyle:UITableViewStyleGrouped];
                 [self.navigationController pushViewController:child animated:YES];
             }else{
+                
                 // 成功后 继续绑定手机
                 UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
                 BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];

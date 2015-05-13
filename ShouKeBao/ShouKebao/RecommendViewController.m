@@ -18,6 +18,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
 #import "ProduceDetailViewController.h"
+#import "UIViewController+HUD.h"
 
 #define pageSize @"10"
 
@@ -41,19 +42,23 @@
     [super viewDidLoad];
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
+    self.tableView.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.pageIndex = 1;
     
     //下啦刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
     
+    // 上啦加载更多
+    [self.tableView addFooterWithTarget:self action:@selector(footRefresh)];
+    
     //设置文字
     self.tableView.headerPullToRefreshText = @"下拉刷新";
     self.tableView.headerRefreshingText = @"正在刷新中";
+    self.tableView.footerPullToRefreshText = @"加载更多";
+    self.tableView.footerRefreshingText = @"加载中";
     
     [self setNav];
-    
-    [self setupFoot];
     
     [self loadDataSource];
 }
@@ -70,10 +75,12 @@
 #pragma mark - private
 - (void)loadDataSource
 {
+    [self showHudInView:self.view hint:@"正在加载中"];
     NSDictionary *param = @{@"PageSize":pageSize,
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex]};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
+        [self hideHud];
         if (json) {
             NSLog(@"aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
@@ -160,21 +167,6 @@
     [self.view addSubview:cover];
 }
 
-- (void)setupFoot
-{
-    // 加载更多
-    UIButton *more = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 50)];
-    [more setTitle:@"查看更多产品" forState:UIControlStateNormal];
-    [more setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
-    [more addTarget:self action:@selector(loadMore:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
-    sep.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
-    [more addSubview:sep];
-    
-    self.tableView.tableFooterView = more;
-}
-
 // 选择分站
 - (void)selectStation:(UIButton *)sender
 {
@@ -198,7 +190,7 @@
 }
 
 // 加载更多
-- (void)loadMore:(UIButton *)sender
+- (void)footRefresh
 {
     self.isRefresh = NO;
     self.pageIndex ++;
