@@ -72,13 +72,18 @@
 //    }
 //    
 //    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
-    if ([self.webView canGoBack]){
-        [self.webView goBack];
-    }
-    else
-    {
-        [self.navigationController popViewControllerAnimated:YES];
-        
+    NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
+    if ([isFade integerValue] == 1){
+        // 这个地方上面的js方法自动处理
+    }else{
+        if ([self.webView canGoBack]){
+            [self.webView goBack];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+            
+        }
     }
 }
 

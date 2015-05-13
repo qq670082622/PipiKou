@@ -60,6 +60,8 @@
     
     [self setNav];
     
+    // 第一次加载的时候显示这个hud
+    [self showHudInView:self.view hint:@"正在加载中"];
     [self loadDataSource];
 }
 
@@ -75,12 +77,13 @@
 #pragma mark - private
 - (void)loadDataSource
 {
-    [self showHudInView:self.view hint:@"正在加载中"];
     NSDictionary *param = @{@"PageSize":pageSize,
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex]};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
         [self hideHud];
+        
         if (json) {
             NSLog(@"aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];

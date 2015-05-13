@@ -562,6 +562,7 @@
     if (!_searchDisplay) {
         _searchDisplay = [[SKSearckDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
         _searchDisplay.delegate = self;
+        _searchDisplay.searchResultsTableView.backgroundColor = [UIColor clearColor];
         _searchDisplay.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     }
     return _searchDisplay;
@@ -915,7 +916,8 @@
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    self.searchKeyWord = searchText;
+    NSString *trimStr = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.searchKeyWord = trimStr;
 }
 
 - (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
@@ -925,27 +927,30 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    [searchBar endEditing:YES];
-    
-    NSMutableArray *tmp = [NSMutableArray array];
-    
-    // 先取出原来的记录
-    NSArray *arr = [WriteFileManager readFielWithName:@"historysearch"];
-    [tmp addObjectsFromArray:arr];
-    
-    // 再加上新的搜索记录
-    [tmp addObject:self.searchKeyWord];
-    
-    // 判断超出了6个的话把最早的去掉
-    if (tmp.count > historyCount) {
-        [tmp removeObjectAtIndex:0];
-    }
-    
-    // 并保存
-    [WriteFileManager saveFileWithArray:tmp Name:@"historysearch"];
-    
     [self.searchDisplayController setActive:NO animated:YES];
-    [self.tableView headerBeginRefreshing];
+    
+    if (self.searchKeyWord.length) {
+        [searchBar endEditing:YES];
+        
+        NSMutableArray *tmp = [NSMutableArray array];
+        
+        // 先取出原来的记录
+        NSArray *arr = [WriteFileManager readFielWithName:@"historysearch"];
+        [tmp addObjectsFromArray:arr];
+        
+        // 再加上新的搜索记录
+        [tmp addObject:self.searchKeyWord];
+        
+        // 判断超出了6个的话把最早的去掉
+        if (tmp.count > historyCount) {
+            [tmp removeObjectAtIndex:0];
+        }
+        
+        // 并保存
+        [WriteFileManager saveFileWithArray:tmp Name:@"historysearch"];
+        
+        [self.tableView headerBeginRefreshing];
+    }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
@@ -1000,6 +1005,12 @@
     }else{
         self.searchBar.placeholder = searchDefaultPlaceholder;
     }
+}
+
+// 眼神好的人测试 就需要这个代码了~~ 哈哈哈
+- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
+{
+    tableView.hidden = YES;
 }
 
 @end

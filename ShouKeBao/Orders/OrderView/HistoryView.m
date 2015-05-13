@@ -130,4 +130,9 @@
     self.clearBtn.hidden = YES;
 }
 
+- (void)dealloc
+{
+    NSLog(@"im die");
+}
+
 @end
