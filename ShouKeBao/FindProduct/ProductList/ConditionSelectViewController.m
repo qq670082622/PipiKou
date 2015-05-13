@@ -35,6 +35,8 @@
     
     NSLog(@"------------当前页面选择的条件为%@--------------------------",[self.conditionSelectDiction objectForKey:self.title]);
     
+    [self conditionSelectDiction];
+    
 }
 
 -(void)changeSelectKey
@@ -94,12 +96,12 @@
 
 -(NSMutableDictionary *)conditionSelectDiction
 {
-    if (_conditionSelectDiction == nil) {
+   // if (_conditionSelectDiction == nil) {
    
         self.conditionSelectDiction = [NSMutableDictionary dictionary];
         
         _conditionSelectDiction = [[WriteFileManager WMreadData:@"conditionSelect"] firstObject];
-    }
+   // }
    
     return _conditionSelectDiction;
 }

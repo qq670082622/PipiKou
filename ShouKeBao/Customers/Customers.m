@@ -37,7 +37,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
 @property (nonatomic,strong) NSMutableArray *historyArr;
 @property (weak, nonatomic) IBOutlet UIView *conditionLine;
-@property (weak,nonatomic) UIImageView *imageViewWhenIsNull;
+@property (weak,nonatomic) IBOutlet UIImageView *imageViewWhenIsNull;
 @end
 
 @implementation Customers
@@ -59,8 +59,8 @@
     self.table.delegate = self;
     self.table.dataSource = self;
     self.table.rowHeight = 64;
-    //[self loadDataSource];
-    [self customerRightBarItem];
+    
+   
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -79,6 +79,8 @@
     [self.conditionLine addSubview:lineOn];
     
     self.table.tableFooterView = [[UIView alloc] init];
+    
+     [self customerRightBarItem];
   
 }
 #pragma  -mark batchAdd delegate
@@ -106,18 +108,15 @@
     
     
 }
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    [self.imageViewWhenIsNull removeFromSuperview];
-}
+//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    [self.imageViewWhenIsNull removeFromSuperview];
+//}
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
   
-    [self loadDataSource];
-   
-    
     [self initPull];
     
     
@@ -165,6 +164,8 @@
       
     }
 }
+
+#pragma -mark geeter
 
 -(NSMutableArray *)dataArr
 {
@@ -217,7 +218,7 @@
 
 -(void)loadDataSource
 {
-    self.imageViewWhenIsNull.hidden = YES;
+    
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
@@ -239,10 +240,11 @@
         }
                [self.table reloadData];
         if (_dataArr.count==0) {
-            [self addANewFootViewWhenHaveNoProduct];
+            
+           self.imageViewWhenIsNull.hidden = NO ;
         }else if (_dataArr.count>0){
-            self.imageViewWhenIsNull.hidden = NO;
-
+            self.imageViewWhenIsNull.hidden = YES ;
+          
         }
 //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window]
 //    animated:YES];
@@ -252,18 +254,7 @@
     }];
 
    }
-#pragma  mark 没有产品时嵌图
--(void)addANewFootViewWhenHaveNoProduct
-{
-    CGFloat wid = self.view.frame.size.width;
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake((wid-200)/2, 100, 200, 200)];
-    imgv.contentMode = UIViewContentModeScaleAspectFit;
-    imgv.image = [UIImage imageNamed:@"content_null"];
-    [self.view addSubview:imgv];
-    self.imageViewWhenIsNull = imgv;
-    self.imageViewWhenIsNull.hidden = NO;
-    self.navigationItem.rightBarButtonItem = nil;
-}
+
 
 
 
@@ -418,9 +409,9 @@
         }
         [self.table reloadData];
         if (self.dataArr.count == 0) {
-           [self addANewFootViewWhenHaveNoProduct];
+           self.imageViewWhenIsNull.hidden = NO;
         }else if (self.dataArr.count >0){
-            self.imageViewWhenIsNull.hidden = NO;
+            self.imageViewWhenIsNull.hidden = YES;
         }
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
@@ -555,11 +546,11 @@
     self.searchCustomerBtnOutlet.hidden = NO;
     self.searchTextField.text = @"";
     [self.searchTextField resignFirstResponder];
-    if (self.dataArr.count > 0) {
-        self.imageViewWhenIsNull.hidden = YES;
-    }else if (self.dataArr.count == 0){
-        self.imageViewWhenIsNull.hidden = NO;
-   }
+//    if (self.dataArr.count > 0) {
+//        self.imageViewWhenIsNull.hidden = YES;
+//    }else if (self.dataArr.count == 0){
+//        self.imageViewWhenIsNull.hidden = NO;
+//   }
  
     [UIView animateWithDuration:0.3 animations:^{
         

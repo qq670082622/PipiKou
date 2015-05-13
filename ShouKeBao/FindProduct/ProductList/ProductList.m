@@ -46,6 +46,11 @@
 - (IBAction)jishiSwitchAction:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UIButton *priceBtnOutlet;
+
+@property (weak, nonatomic) IBOutlet UIButton *backToTopBtn;
+- (IBAction)backToTop:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
+
 //@property (weak, nonatomic) IBOutlet UIView *blackView;
 
 //@property (copy , nonatomic) NSMutableString *ProductSortingType;//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
@@ -319,6 +324,8 @@
     imgv.contentMode = UIViewContentModeScaleAspectFit;
     imgv.image = [UIImage imageNamed:@"content_null"];
     [self.view addSubview:imgv];
+    
+    [self.pageCountBtn setTitle:@"没有产品" forState:UIControlStateNormal];
    // self.navigationItem.rightBarButtonItem = nil;
 }
 
@@ -931,16 +938,27 @@
     if ([_turn isEqualToString:@"Off"]) {
       
         self.turn = [NSMutableString stringWithString:@"On"];
+       
     }
     else
     
         self.turn = [NSMutableString stringWithString:@"Off"];
   
     [self.subTable reloadData];
+    [self scrollTableToFoot:YES];
 }
 
-
-
+//自动滚动到最底部
+- (void)scrollTableToFoot:(BOOL)animated {
+    NSInteger s = [self.subTable numberOfSections];
+    if (s<1) return;
+    NSInteger r = [self.subTable numberOfRowsInSection:s-1];
+    if (r<1) return;
+    
+    NSIndexPath *ip = [NSIndexPath indexPathForRow:r-1 inSection:s-1];
+    
+    [self.subTable scrollToRowAtIndexPath:ip atScrollPosition:UITableViewScrollPositionBottom animated:animated];
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -962,8 +980,19 @@
     }
     return 0;
 }
-
-
+//控制返回顶部按钮的隐藏和显示
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.table.contentOffset.y>300) {
+        self.backToTopBtn.hidden = NO;
+    }else if (self.table.contentOffset.y <300){
+        self.backToTopBtn.hidden = YES;
+    }
+    
+    NSInteger count = self.table.contentOffset.y/136;
+    
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,[_page integerValue]*10] forState:UIControlStateNormal];
+}
 
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1835,4 +1864,8 @@
 
 
 
+- (IBAction)backToTop:(id)sender {
+
+[self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
 @end

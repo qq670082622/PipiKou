@@ -267,15 +267,7 @@
         //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
     }
     
-//    else if ([message[0] isEqualToString:@"noticeType"]){
-//      
-//        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-//        int valueCount = [barButton.badgeValue intValue];
-//        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
-//        
-//        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-//
-//    }
+
 }
 
 
