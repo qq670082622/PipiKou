@@ -498,7 +498,7 @@
     [dic setObject:type forKey:@"ProductSortingType"];
     [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
-   // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+    NSLog(@"-------page2 请求的 dic  is %@-----",dic);
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         NSLog(@"----------更多按钮返回json is %@--------------",json);
         NSArray *arr = json[@"ProductList"];
@@ -1656,6 +1656,7 @@
     //self.blackView.alpha = 0;
    
     [self editButtons];
+    self.commondOutlet.selected = YES;
     [self initPull];
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -1667,6 +1668,7 @@
     }];
 
     // [self loadDataSourceWithCondition];
+    
     
    }
 
