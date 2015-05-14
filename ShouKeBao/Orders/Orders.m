@@ -851,12 +851,13 @@
         self.firstValue = value;
         self.dressView.firstText = value[@"Text"];
         self.firstIndex = index;
-        if (index == 0) {
-            self.secondValue = nil;
-            self.thirdValue = nil;
-            self.dressView.secondText = nil;
-            self.dressView.thirdText = nil;
-        }
+        
+        // 每次选过大区都要清空一次
+        self.secondValue = nil;
+        self.thirdValue = nil;
+        self.dressView.secondText = nil;
+        self.dressView.thirdText = nil;
+        
     }else if(type == secondArea){
         self.secondValue = value;
         self.dressView.secondText = value[@"Text"];
