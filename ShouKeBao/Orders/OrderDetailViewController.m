@@ -9,11 +9,11 @@
 #import "OrderDetailViewController.h"
 #import "OrderModel.h"
 #import "Lotuseed.h"
+#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
-@property (nonatomic,assign) int webLoadCount;
-@property (nonatomic,strong) NSMutableArray *webUrlArr;
+
 @end
 
 @implementation OrderDetailViewController
@@ -61,17 +61,6 @@
 #pragma -mark private
 -(void)back
 {
-//    if (self.webUrlArr.count >1) {
-//        
-//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-//        [self.webUrlArr removeLastObject];
-//    }
-//    
-//    else if (self.webUrlArr.count == 1) {
-//        [self.navigationController popViewControllerAnimated:YES];
-//    }
-//    
-//    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
     NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
     if ([isFade integerValue] == 1){
         // 这个地方上面的js方法自动处理
@@ -96,13 +85,6 @@
     return _webView;
 }
 
--(NSMutableArray *)webUrlArr
-{
-    if (_webUrlArr == nil) {
-        self.webUrlArr = [NSMutableArray array];
-    }
-    return _webUrlArr;
-}
 
 
 
@@ -110,26 +92,20 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-//    NSString *rightStr = request.URL.absoluteString;
-//    
-//    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
-//        
-//        [self.webUrlArr addObject:rightStr];
-//    }
-//    NSLog(@"\narr count is %lu  \n arr is %@\n",self.webUrlArr.count,_webUrlArr);
-    
+    NSString *rightUrl = request.URL.absoluteString;
+    NSRange range = [rightUrl rangeOfString:urlSuffix];
+    if (range.location == NSNotFound) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+    }else{
+        return YES;
+    }
+    NSLog(@"----------right url is %@ ----------",rightUrl);
     return YES;
     
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *rightStr = webView.request.URL.absoluteString;
-    
-    if (![rightStr isEqualToString:[_webUrlArr lastObject]]) {
-        
-        [self.webUrlArr addObject:rightStr];
-    }
-    NSLog(@"\narr count is %lu  \n arr is %@\n",self.webUrlArr.count,_webUrlArr);
+   
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
 @end

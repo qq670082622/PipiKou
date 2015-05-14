@@ -64,16 +64,9 @@
 #pragma -mark private
 -(void)back
 {
-//    if (self.webUrlArr.count >2) {
-//        
-//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-//        [self.webUrlArr removeLastObject];
-//    }
-//    
-//    else if (self.webUrlArr.count == 2) {
+
         [self.navigationController popViewControllerAnimated:YES];
-   // }
-    
+   
     
 }
 
@@ -89,13 +82,6 @@
     return _webView;
 }
 
--(NSMutableArray *)webUrlArr
-{
-    if (_webUrlArr == nil) {
-        self.webUrlArr = [NSMutableArray array];
-    }
-    return _webUrlArr;
-}
 
 -(NSString *)linkUrl
 {
@@ -124,14 +110,7 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *rightStr = request.URL.absoluteString;
-    
-    if (![rightStr isEqualToString:[self.webUrlArr lastObject]]) {
-        
-        [self.webUrlArr addObject:rightStr];
-    }
-          NSLog(@"\narr.count is %lu \n    arr is %@\n",self.webUrlArr.count,_webUrlArr);
-    
+       
     return YES;
     
 }

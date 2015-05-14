@@ -144,7 +144,7 @@
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-[self Guide];
+
 }
 
 
