@@ -144,7 +144,7 @@
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-//[self Guide];
+[self Guide];
 }
 
 
@@ -489,8 +489,11 @@
     an1.duration = 2;
     [self.guideImageView.layer addAnimation:an1 forKey:nil];
     
-    if (self.guideIndex == 4) {
+    if (self.guideIndex == 3) {
+        
         [self.guideView removeFromSuperview];
+        
+       
     }
 
     
