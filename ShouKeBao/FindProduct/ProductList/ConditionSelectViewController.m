@@ -12,7 +12,7 @@
 @property (nonatomic,copy)NSMutableString *passValue;
 @property (nonatomic,copy)NSMutableString *selectKey;
 @property (nonatomic,copy)NSMutableString *selectValue;
-@property (nonatomic,copy) NSMutableDictionary *conditionSelectDiction;
+@property (nonatomic,strong) NSMutableArray *conditionSelectArr;//(arr内为一个字典)
 @end
 
 @implementation ConditionSelectViewController
@@ -33,9 +33,9 @@
  
     self.table.tableFooterView = [[UIView alloc] init];
     
-    NSLog(@"------------当前页面选择的条件为%@--------------------------",[self.conditionSelectDiction objectForKey:self.title]);
+    NSLog(@"------------当前页面选择的条件为%@--------------------------",[[self.conditionSelectArr firstObject] objectForKey:self.title]);
     
-    [self conditionSelectDiction];
+    self.conditionSelectArr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"conditionSelect"]];
     
 }
 
@@ -94,17 +94,7 @@
         return _dataArr1;
 }
 
--(NSMutableDictionary *)conditionSelectDiction
-{
-   // if (_conditionSelectDiction == nil) {
-   
-        self.conditionSelectDiction = [NSMutableDictionary dictionary];
-        
-        _conditionSelectDiction = [[WriteFileManager WMreadData:@"conditionSelect"] firstObject];
-   // }
-   
-    return _conditionSelectDiction;
-}
+
 
 
 - (void)didReceiveMemoryWarning {
@@ -137,15 +127,20 @@
         
         label1.text = _dataArr1[indexPath.row][@"Text"];
         
-       
-       
-        if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[self.conditionSelectDiction objectForKey:self.title]]) {
+     
+        NSLog(@"读取的arr is %@ 对比的箭名%@",_conditionSelectArr,[[_conditionSelectArr firstObject] objectForKey:self.title]);
+        
+        if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]]) {
           
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
         }else{
         
             cell.accessoryType = UITableViewCellAccessoryNone;
+            if (indexPath.row == 0) {
+                cell.accessoryType = UITableViewCellAccessoryCheckmark;
+
+            }
         }
        
         //  NSString *value = _dataArr1[indexPath.row][@"Value"];//选项的searchID;
@@ -180,15 +175,26 @@
     self.selectValue = _dataArr1[indexPath.row][@"Text"];//取得的value的名称
    
     //储存选择的键值对，便于下次进入时显示
-  //  NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+   
     NSString *title = self.title;
-    [self.conditionSelectDiction setObject:_selectValue forKey:title];
-       [WriteFileManager WMsaveData:[NSMutableArray arrayWithObject:_conditionSelectDiction] name:@"conditionSelect"];
+//    NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"conditionSelect"]];
+
+    NSMutableDictionary *dicNew = [NSMutableDictionary dictionary];
+         for(NSMutableDictionary *dic in self.conditionSelectArr){
+        dicNew = dic;
+    }
+    [dicNew setObject:_selectValue forKey:title];
+    [self.conditionSelectArr removeAllObjects];
+    [self.conditionSelectArr addObject:dicNew];
+
+    NSLog(@"---------储存的选择的条件字典为%@---arr is %@----",dicNew,_conditionSelectArr);
+   
+       [WriteFileManager WMsaveData:_conditionSelectArr name:@"conditionSelect"];
     
     //改变post的key名
     [self changeSelectKey];
       NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
-//    [self.delegate passKey:key andValue:value andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:selectValue];
+
     
     [self.navigationController popViewControllerAnimated:YES];
 }

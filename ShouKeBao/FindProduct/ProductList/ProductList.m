@@ -186,7 +186,9 @@
     
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
-    [WriteFileManager saveData:[NSMutableArray arrayWithObject:[NSMutableDictionary dictionaryWithObject:@"选择的名称" forKey:@"选择条件的名称"]] name:@"conditionSelect"];
+   
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
+    [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
 }
 
 
@@ -1140,16 +1142,21 @@
            
           cell.detailTextLabel.textColor = [UIColor orangeColor];
            if (indexPath.row != 1) {
-             cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
-               }else if (indexPath.row == 1){
+                           cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+               
+           }else if (indexPath.row == 1){
                    if (_goDateEnd.length>2) {
                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
                    }else if (_goDateEnd.length<=2){
-                    cell.detailTextLabel.text = @"";
+                    cell.detailTextLabel.text = @"不限";
                    }
                    
            }
-           
+           NSString *detailStr = self.subIndicateDataArr1[indexPath.row];
+           if (detailStr.length<2) {
+               cell.detailTextLabel.text = @"不限";
+           }
+
        }else {
           
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
@@ -1159,9 +1166,17 @@
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
           
            cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+           
+           NSString *detailStr = self.subIndicateDataArr2[indexPath.row];
+           if (detailStr.length>=2) {
+               cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
+
+           }
           
-           cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
-          
+           NSString *detailStr2 = self.subIndicateDataArr2[indexPath.row];
+           if (detailStr2.length<2) {
+               cell.detailTextLabel.text = @"不限";
+           }
            cell.detailTextLabel.textColor = [UIColor orangeColor];
 
        }
