@@ -466,9 +466,7 @@
 -(void)headerPull
 {
     [self loadDataSource];
-    [self.table headerEndRefreshing];
-    
-    
+   
 }
 
 
@@ -609,7 +607,7 @@
            
            
             [self.table reloadData];
-     
+      [self.table headerEndRefreshing];
         }
         
     } failure:^(NSError *error) {
@@ -1668,7 +1666,9 @@
    
     [self editButtons];
     self.commondOutlet.selected = YES;
-    [self initPull];
+    [self initPullForResetAndCancel];
+    
+    
     [UIView animateWithDuration:0.3 animations:^{
         
         self.subView.transform = CGAffineTransformIdentity;
@@ -1683,7 +1683,19 @@
     
    }
 
+-(void)initPullForResetAndCancel
+{
+    //上啦刷新
+    [self.table addFooterWithTarget:self action:@selector(footLoad)];
+    //设置文字
+    self.table.footerPullToRefreshText = @"加载更多";
+    self.table.footerRefreshingText = @"正在刷新";
+    //下拉
+    [self.table addHeaderWithTarget:self action:@selector(headerPull)];
+    self.table.headerPullToRefreshText =@"刷新内容";
+    self.table.headerRefreshingText = @"正在刷新";
 
+}
 
 - (IBAction)subReset:(id)sender {
 
@@ -1710,7 +1722,7 @@
     [self.subTable reloadData];
     
     
-    [self initPull];
+    [self initPullForResetAndCancel];
     
 }
 
