@@ -9,6 +9,7 @@
 #import "addCustomerViewController.h"
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "StrToDic.h"
 @interface addCustomerViewController ()<UITextFieldDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *tele;
@@ -131,6 +132,8 @@
         
         NSMutableDictionary *secondDic = [NSMutableDictionary dictionary];
         [secondDic setObject:arr forKey:@"CustomerList"];
+       
+        NSLog(@"-----------添加客户的发送json包是%@----------",[StrToDic jsonStringWithDicL:secondDic]);
         
         [IWHttpTool WMpostWithURL:@"/Customer/CreateCustomerList" params:secondDic success:^(id json) {
             NSLog(@"----创建单个客户成功 %@------",json);

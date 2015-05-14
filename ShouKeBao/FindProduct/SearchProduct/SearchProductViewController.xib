@@ -37,9 +37,9 @@
                                 <outlet property="delegate" destination="-1" id="xUc-Sb-NTJ"/>
                             </connections>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vJp-Vs-sxq">
-                            <rect key="frame" x="265" y="17" width="13" height="13"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="vJp-Vs-sxq">
+                            <rect key="frame" x="250" y="6" width="30" height="35"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             <state key="normal" image="fdjBtn">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -48,7 +48,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="2LC-OG-jYj">
-                            <rect key="frame" x="278" y="10" width="30" height="30"/>
+                            <rect key="frame" x="278" y="0.0" width="40" height="47"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                             <state key="normal" title="搜索">
@@ -61,7 +61,7 @@
                         </button>
                         <view contentMode="scaleToFill" id="Grb-6G-vzv">
                             <rect key="frame" x="250" y="8" width="1" height="31"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
                             <color key="backgroundColor" red="0.59965093085106391" green="0.59965093085106391" blue="0.59965093085106391" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <view contentMode="scaleToFill" id="yBv-BS-RVz" userLabel="subLine">

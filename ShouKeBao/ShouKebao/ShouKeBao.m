@@ -356,6 +356,8 @@
 {
     [super viewWillAppear:animated];
     
+    [Lotuseed onPageViewBegin:@"page1"];
+    
     [self getNotifiList];
     
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
@@ -370,7 +372,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [Lotuseed onPageViewEnd:@"page1Click"];
 }
 
 #pragma mark - getter

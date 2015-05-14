@@ -180,10 +180,10 @@
     self.selectValue = _dataArr1[indexPath.row][@"Text"];//取得的value的名称
    
     //储存选择的键值对，便于下次进入时显示
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+  //  NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     NSString *title = self.title;
-    [dic setObject:_selectValue forKey:title];
-       [WriteFileManager WMsaveData:[NSMutableArray arrayWithObject:dic] name:@"conditionSelect"];
+    [self.conditionSelectDiction setObject:_selectValue forKey:title];
+       [WriteFileManager WMsaveData:[NSMutableArray arrayWithObject:_conditionSelectDiction] name:@"conditionSelect"];
     
     //改变post的key名
     [self changeSelectKey];

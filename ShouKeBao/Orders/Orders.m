@@ -151,6 +151,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [Lotuseed onEvent:@"page3Click"];
 }
 
 - (void)dealloc

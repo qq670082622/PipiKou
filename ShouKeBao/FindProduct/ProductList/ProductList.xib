@@ -96,7 +96,7 @@
                     </connections>
                 </tableView>
                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iwc-oK-KvS">
-                    <rect key="frame" x="245" y="400" width="48" height="48"/>
+                    <rect key="frame" x="245" y="420" width="48" height="48"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
                     <state key="normal" backgroundImage="toTop">
                         <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -107,7 +107,7 @@
                     </connections>
                 </button>
                 <button opaque="NO" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fBx-zn-n6z">
-                    <rect key="frame" x="124" y="428" width="73" height="20"/>
+                    <rect key="frame" x="124" y="448" width="73" height="20"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="11"/>
                     <state key="normal" title="12/200" backgroundImage="pageCount">
@@ -180,7 +180,7 @@
                     <color key="backgroundColor" red="0.90980392156862744" green="0.91764705882352937" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="khc-Qx-xwZ">
-                    <rect key="frame" x="15" y="123" width="243" height="22"/>
+                    <rect key="frame" x="15" y="123" width="280" height="22"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="价格区间       ">

@@ -387,7 +387,12 @@
        
         [self.conditionDic setObject:min forKey:@"MinPrice"];
         [self.conditionDic setObject:max forKey:@"MaxPrice"];
-        [self.priceBtnOutlet setTitle:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max] forState:UIControlStateNormal];
+        
+        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max]];
+        
+        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(5, attriString.length - 5)];
+        [self.priceBtnOutlet setAttributedTitle:attriString forState:UIControlStateNormal];
+       
         NSArray *priceData = [NSArray arrayWithObjects:min,max,self.priceBtnOutlet.titleLabel.text ,nil];
         [WriteFileManager saveData:priceData name:@"priceData"];
 
@@ -461,9 +466,7 @@
 -(void)headerPull
 {
     [self loadDataSource];
-    [self.table headerEndRefreshing];
-    
-    
+   
 }
 
 
@@ -563,7 +566,7 @@
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
     [dic setObject:@"0" forKey:@"ProductSortingType"];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
-    
+    NSLog(@"--------------productList json is %@-----------",[StrToDic jsonStringWithDicL:dic] );
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         
         NSLog(@"--------------json[condition is  %@------------]",json);
@@ -604,7 +607,7 @@
            
            
             [self.table reloadData];
-     
+      [self.table headerEndRefreshing];
         }
         
     } failure:^(NSError *error) {
@@ -980,7 +983,7 @@
     }
     return 0;
 }
-//控制返回顶部按钮的隐藏和显示
+#pragma -mark -  控制返回顶部按钮的隐藏和显示
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.table.contentOffset.y>300) {
@@ -989,9 +992,15 @@
         self.backToTopBtn.hidden = YES;
     }
     
-    NSInteger count = self.table.contentOffset.y/136;
+    NSInteger count = self.table.contentOffset.y/1360;
     
-    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,[_page integerValue]*10] forState:UIControlStateNormal];
+    long pageCount;
+    if ([_page integerValue] <= 1) {
+        pageCount = 1;
+    }else if ([_page integerValue] > 1){
+        pageCount = [_page integerValue] - 1;
+    }
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,pageCount ] forState:UIControlStateNormal];
 }
 
 
@@ -1657,7 +1666,9 @@
    
     [self editButtons];
     self.commondOutlet.selected = YES;
-    [self initPull];
+    [self initPullForResetAndCancel];
+    
+    
     [UIView animateWithDuration:0.3 animations:^{
         
         self.subView.transform = CGAffineTransformIdentity;
@@ -1672,7 +1683,19 @@
     
    }
 
+-(void)initPullForResetAndCancel
+{
+    //上啦刷新
+    [self.table addFooterWithTarget:self action:@selector(footLoad)];
+    //设置文字
+    self.table.footerPullToRefreshText = @"加载更多";
+    self.table.footerRefreshingText = @"正在刷新";
+    //下拉
+    [self.table addHeaderWithTarget:self action:@selector(headerPull)];
+    self.table.headerPullToRefreshText =@"刷新内容";
+    self.table.headerRefreshingText = @"正在刷新";
 
+}
 
 - (IBAction)subReset:(id)sender {
 
@@ -1699,7 +1722,7 @@
     [self.subTable reloadData];
     
     
-    [self initPull];
+    [self initPullForResetAndCancel];
     
 }
 

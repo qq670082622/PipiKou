@@ -65,7 +65,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [Lotuseed onEvent:@"page5Click"];
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
