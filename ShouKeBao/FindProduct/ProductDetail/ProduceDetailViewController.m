@@ -16,8 +16,6 @@
 
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
 
-@property (nonatomic,assign) int webLoadCount;
-@property (nonatomic,strong) NSMutableArray *webUrlArr;
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
@@ -103,27 +101,19 @@
     
 }
 
--(NSMutableArray *)webUrlArr
-{
-    if (_webUrlArr == nil) {
-        self.webUrlArr = [NSMutableArray array];
-    }
-    return _webUrlArr;
-}
 
 -(void)back
 {
     
-    if (self.webUrlArr.count >2) {
+    if ([_webView canGoBack]) {
         
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-            [self.webUrlArr removeLastObject];
+        [self.webView goBack];
    }
-    else if (self.webUrlArr.count == 2) {
+    else  {
         [self.navigationController popViewControllerAnimated:YES];
     }
     
-    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
+   
 
 }
 
@@ -153,13 +143,17 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *rightStr = request.URL.absoluteString;
-    if (![rightStr isEqual:[self.webUrlArr lastObject]]) {
-        [self.webUrlArr addObject:rightStr];
+    NSString *rightUrl = request.URL.absoluteString;
+    NSRange range = [rightUrl rangeOfString:urlSuffix];
+    if (range.location == NSNotFound) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+    }else{
+        return YES;
     }
-    
-    NSLog(@"\n-----arr is   %@\n",_webUrlArr);
-       return YES;
+    NSLog(@"----------right url is %@ ----------",rightUrl);
+    return YES;
+
+          return YES;
 }
 
 -(void)showAlert

@@ -32,8 +32,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *fanBtn;
 @property (weak, nonatomic) IBOutlet UIButton *quanBtn;
 
-@property (nonatomic,assign) int webLoadCount;
-@property (nonatomic,strong) NSMutableArray *webUrlArr;
 
 @property (nonatomic , strong) NSTimer *timer;
 @property (nonatomic,copy) NSMutableString *needTimer;
@@ -83,13 +81,7 @@
 }
 
 #pragma -mark getter
--(NSMutableArray *)webUrlArr
-{
-    if (_webUrlArr == nil) {
-        self.webUrlArr = [NSMutableArray array];
-    }
-    return _webUrlArr;
-}
+
 
 -(NSMutableArray *)shareArr
 {
@@ -144,17 +136,13 @@
 
 -(void)back
 {
-    if (self.webUrlArr.count >1) {
-       
-            [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc] initWithString:[self.webUrlArr objectAtIndex:self.webUrlArr.count - 2]]]];
-            [self.webUrlArr removeLastObject];
-        }
-    
-    else if (self.webUrlArr.count == 1) {
-        [self.navigationController popViewControllerAnimated:YES];
+
+    if ([_webView canGoBack]) {
+        [self.webView goBack];
+    }else{
+    [self.navigationController popViewControllerAnimated:YES];
     }
     
-    NSLog(@"返回后arr.count is %lu",(unsigned long)self.webUrlArr.count);
 }
 
 
@@ -191,105 +179,22 @@
 #pragma -mark webviewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-//    NSString *rightStr = request.URL.absoluteString;
-//    if (![rightStr isEqual:[self.webUrlArr lastObject]]) {
-//        [self.webUrlArr addObject:rightStr];
-//    }
-//    
-//    
-//    
-//    NSLog(@"\narr.count is %lu ,\n arr is %@\n",self.webUrlArr.count,_webUrlArr);
-//    
-//    NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
-//    NSLog(@"---------------------result is %@-------------------------",result);
-//    
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    
-//       [dic setObject:rightStr forKey:@"PageUrl"];
-//    
-//    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-//        NSLog(@"-----分享返回数据json is %@------",json);
-//       
-//        [self.shareArr removeAllObjects];
-//        [self.shareArr addObject:json[@"ShareInfo"]];
-//
-//        if (![json[@"PageType"] isEqualToString:@"2"]) {
-//            self.needTimer = [NSMutableString stringWithFormat:@"0"];
-//             [self.timer invalidate];
-//            
-//            self.checkCheapBtnOutlet.hidden = YES;
-//           self.blackView.alpha = 0;
-//            self.btnLine.hidden = YES;
-//            self.title = @"店铺详情";
-//        }
-//        else if ([json[@"PageType"] isEqualToString:@"2"]){
-//            self.needTimer = [NSMutableString stringWithFormat:@"1"];
-//          self.checkCheapBtnOutlet.hidden = NO;
-//            self.btnLine.hidden = NO;
-//            self.title = @"产品详情";
-//            NSMutableString *productID = [NSMutableString string];
-//            productID = json[@"ProductID"];
-//            NSMutableDictionary *dic =[NSMutableDictionary dictionary];
-//            [dic setObject:productID forKey:@"ProductID"];
-//            [IWHttpTool WMpostWithURL:@"/Product/GetProductByID" params:dic success:^(id json) {
-//                NSLog(@"产品详情json is %@",json);
-//                NSString *personPrice = json[@"Product"][@"PersonPrice"];
-//                if ([personPrice intValue] >0) {
-//                  
-//                    self.cheapPrice.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonPeerPrice"]];
-//                    self.profit.text = [NSString stringWithFormat:@"￥%@",json[@"Product"][@"PersonProfit"]];
-//                    
-//                    if ([json[@"Product"][@"PersonBackPrice"]  isEqual: @"0"]) {
-//                        //self.jiafan.hidden = YES;
-//                        self.fanBtn.hidden = YES;
-//                    }else if (![json[@"Product"]  isEqual: @"0"]){
-//                        self.fanBtn.hidden = NO;
-//                        [self.fanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonBackPrice"]] forState:UIControlStateNormal];
-//
-//                    }
-//                    
-//                    if ([json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]) {
-//
-//                        self.quanBtn.hidden = YES;
-//                    }else if (![json[@"Product"][@"PersonCashCoupon"] isEqualToString:@"0"]){
-//                        self.quanBtn.hidden = NO;
-//                        [self.quanBtn setTitle:[NSString stringWithFormat:@"        ￥%@",json[@"Product"][@"PersonCashCoupon"]] forState:UIControlStateNormal];
-//
-//                    }
-//                
-//                }else if ([personPrice intValue]<1){
-//                    self.btnLine.hidden = NO;
-//                    self.checkCheapBtnOutlet.hidden = YES;
-//                    self.blackView.hidden = YES;
-//                    self.offLineLabel.hidden = NO;
-//                }
-//
-//                
-//                
-//            } failure:^(NSError *error) {
-//                NSLog(@"同行价网络请求失败,%@",error);
-//            }];
-//        }
-//        
-//    } failure:^(NSError *error) {
-//        NSLog(@"分享请求数据失败，原因：%@",error);
-//    }];
-    
+    NSString *rightUrl = request.URL.absoluteString;
+    NSRange range = [rightUrl rangeOfString:urlSuffix];
+    if (range.location == NSNotFound) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+    }else{
+        return YES;
+    }
+    NSLog(@"----------right url is %@ ----------",rightUrl);
     return YES;
 }
 //
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"-----------webview.string is %@",webView.request.URL.absoluteString);
-    NSString *rightStr = webView.request.URL.absoluteString;
-    if (![rightStr isEqual:[self.webUrlArr lastObject]]) {
-        [self.webUrlArr addObject:rightStr];
-    }
-    
-    
-    
-    NSLog(@"\narr.count is %lu ,\n arr is %@\n",self.webUrlArr.count,_webUrlArr);
+       NSString *rightStr = webView.request.URL.absoluteString;
+        
     
     NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
     NSLog(@"---------------------result is %@-------------------------",result);
@@ -371,12 +276,7 @@
         NSLog(@"分享请求数据失败，原因：%@",error);
     }];
 
-    
-//    if ([_needTimer  isEqual: @"1"]) {
-//        NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
-//        self.timer = timer;
-//        [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-//    }
+
    
 
    

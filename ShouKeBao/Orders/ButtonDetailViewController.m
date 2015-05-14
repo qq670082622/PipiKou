@@ -8,6 +8,7 @@
 
 #import "ButtonDetailViewController.h"
 #import "Lotuseed.h"
+#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ButtonDetailViewController()
 
 @property (nonatomic,strong) UIWebView *webView;
@@ -78,20 +79,21 @@
     return _webView;
 }
 
--(NSMutableArray *)webUrlArr
-{
-    if (_webUrlArr == nil) {
-        self.webUrlArr = [NSMutableArray array];
-    }
-    return _webUrlArr;
-}
+
 
 
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    NSString *rightUrl = request.URL.absoluteString;
+    NSRange range = [rightUrl rangeOfString:urlSuffix];
+    if (range.location == NSNotFound) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+    }else{
+        return YES;
+    }
+    NSLog(@"----------right url is %@ ----------",rightUrl);
     return YES;
-    
 }
 
 @end
