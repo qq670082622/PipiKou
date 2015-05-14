@@ -223,7 +223,7 @@
     an1.duration = 2;
     [self.guideImageView.layer addAnimation:an1 forKey:nil];
     
-    if (self.guideIndex == 3) {
+    if (self.guideIndex == 2) {
         [self.guideView removeFromSuperview];
     }
     
