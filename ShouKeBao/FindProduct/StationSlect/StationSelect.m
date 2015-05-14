@@ -65,7 +65,7 @@
 }
 
 
--(void)loadDataSource
+- (void)loadDataSource
 {
     
     [IWHttpTool WMpostWithURL:@"/Product/GetSubstation" params:nil success:^(id json) {
@@ -98,7 +98,7 @@
     
       //储存substation
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-   [accountDefaults setObject:_stationNum forKey:@"Substation"];
+   [accountDefaults setObject:_stationNum forKey:UserInfoKeySubstation];
     [accountDefaults setObject:_stationName forKey:@"SubstationName"];
     [accountDefaults synchronize];
     

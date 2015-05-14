@@ -238,7 +238,9 @@
             [UserInfo userInfoWithDict:json];
             
             // 保存分站
-            [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
+            if (![def objectForKey:UserInfoKeySubstation]) {
+                [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
+            }
             [def synchronize];
             
             // 给用户打上jpush标签

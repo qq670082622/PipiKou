@@ -208,7 +208,6 @@
     }
 }
 
-
 #pragma -mark 声音
 -(void)getVoice{
    
@@ -219,7 +218,6 @@
     
     AudioServicesPlaySystemSound (messageSound);
 }
-
 
 #pragma  - mark程序在前台时远程推送处理函数
 -(void)dealPushForeground:(NSNotification *)noti
@@ -360,14 +358,13 @@
     
     [self getNotifiList];
     
-NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
         [self.stationName setTitle:subStationName forState:UIControlStateNormal];
-    }else if (!subStationName){
+    }else{
         [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
     }
-    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
