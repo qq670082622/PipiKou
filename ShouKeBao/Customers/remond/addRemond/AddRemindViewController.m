@@ -11,7 +11,7 @@
 #import "StrToDic.h"
 #import "MBProgressHUD+MJ.h"
 
-@interface AddRemindViewController () <UIScrollViewDelegate,UIGestureRecognizerDelegate>
+@interface AddRemindViewController () <UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *descript;
 
@@ -172,6 +172,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 1) {
+        
+        [self.descript resignFirstResponder];
         
         if (!_datePicker) {
             [self.view addSubview:self.datePicker];

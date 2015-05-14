@@ -120,11 +120,11 @@
     
     EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
     edit.ID = self.ID;
-    edit.QQStr = self.QQStr;
-    edit.wechatStr = self.weChatStr;
-    edit.noteStr = self.noteStr;
-    edit.teleStr = self.teleStr;
-    edit.nameStr = self.userNameStr;
+    edit.QQStr = self.QQ.text;
+    edit.wechatStr = self.weChat.text;
+    edit.noteStr = self.note.text;
+    edit.teleStr = self.tele.text;
+    edit.nameStr = self.userName.text;
     edit.delegate = self;
     [self.navigationController pushViewController:edit animated:YES];
 }
@@ -155,7 +155,7 @@
 
 - (IBAction)deleteCustomer:(id)sender {
     
-    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"确定删除" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
+    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"您确定要删除吗？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
     [sheet showInView:self.view];
     
   }

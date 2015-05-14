@@ -387,7 +387,12 @@
        
         [self.conditionDic setObject:min forKey:@"MinPrice"];
         [self.conditionDic setObject:max forKey:@"MaxPrice"];
-        [self.priceBtnOutlet setTitle:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max] forState:UIControlStateNormal];
+        
+        NSMutableAttributedString *attriString = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"价格区间：%@元－%@元",min,max]];
+        
+        [attriString addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(5, attriString.length - 5)];
+        [self.priceBtnOutlet setAttributedTitle:attriString forState:UIControlStateNormal];
+       
         NSArray *priceData = [NSArray arrayWithObjects:min,max,self.priceBtnOutlet.titleLabel.text ,nil];
         [WriteFileManager saveData:priceData name:@"priceData"];
 
@@ -563,7 +568,7 @@
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
     [dic setObject:@"0" forKey:@"ProductSortingType"];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
-    
+    NSLog(@"--------------productList json is %@-----------",[StrToDic jsonStringWithDicL:dic] );
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         
         NSLog(@"--------------json[condition is  %@------------]",json);
@@ -980,7 +985,7 @@
     }
     return 0;
 }
-//控制返回顶部按钮的隐藏和显示
+#pragma -mark -  控制返回顶部按钮的隐藏和显示
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.table.contentOffset.y>300) {
@@ -989,9 +994,15 @@
         self.backToTopBtn.hidden = YES;
     }
     
-    NSInteger count = self.table.contentOffset.y/136;
+    NSInteger count = self.table.contentOffset.y/1360;
     
-    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,[_page integerValue]*10] forState:UIControlStateNormal];
+    long pageCount;
+    if ([_page integerValue] <= 1) {
+        pageCount = 1;
+    }else if ([_page integerValue] > 1){
+        pageCount = [_page integerValue] - 1;
+    }
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,pageCount ] forState:UIControlStateNormal];
 }
 
 

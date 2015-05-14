@@ -17,6 +17,7 @@
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
+#import "Lotuseed.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -116,7 +117,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-  
+    [Lotuseed onEvent:@"page4Click"];
+    self.subView.hidden = YES;
     [self initPull];
     
     
@@ -193,6 +195,7 @@
 }
 
 - (IBAction)addNewUser:(id)sender {
+    [Lotuseed onEvent:@"addNewCustomer"];
     self.subView.hidden = YES;
     addCustomerViewController *add = [[addCustomerViewController alloc] init];
     [self.navigationController pushViewController:add animated:YES];
@@ -200,6 +203,7 @@
 }
 
 - (IBAction)importUser:(id)sender {
+    [Lotuseed onEvent:@"batchCustomers"];
     NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
     if ([systemVersion intValue]<8.0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -520,6 +524,7 @@
         }];
         
    }else if (self.subView.hidden == YES){
+       [Lotuseed onEvent:@"CustomerSearch"];
        self.imageViewWhenIsNull.hidden = YES;
     self.searchTextField.hidden = NO;
     self.cancelSearchOutlet.hidden = NO;

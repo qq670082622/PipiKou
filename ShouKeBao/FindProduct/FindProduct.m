@@ -114,7 +114,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [Lotuseed onEvent:@"page2Click"];
    
     
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];

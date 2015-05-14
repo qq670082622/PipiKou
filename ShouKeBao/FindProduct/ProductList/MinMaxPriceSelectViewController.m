@@ -58,8 +58,29 @@
 
 - (IBAction)save:(id)sender {
    // [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
+    BOOL minBool = [self isPureInt:self.minPrice.text];
+    BOOL maxBool = [self isPureInt:self.maxPrice.text];
+    if (minBool  && maxBool) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else if(!minBool || !maxBool ){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您的输入并非纯数字，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+        self.minPrice.text = @"";
+        self.maxPrice.text = @"";
+    }
+        
     
-    [self.navigationController popViewControllerAnimated:YES];
+}
+#pragma  - mark 判断字符串内容是否为纯数字
+- (BOOL)isPureInt:(NSString*)string{
+    
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    
+    int val;
+    
+    return[scan scanInt:&val] && [scan isAtEnd];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated

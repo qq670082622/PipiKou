@@ -15,6 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MJRefresh.h"
 #import "NSArray+QD.h"
+#import "Lotuseed.h"
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -80,7 +81,7 @@
 {
     [super viewWillAppear:animated];
    
-    
+    [Lotuseed onPageViewBegin:@"searchProduct"];
     [self.table addFooterWithTarget:self action:@selector(pullTable)];
     //设置文字
     self.table.footerPullToRefreshText = @"上拉刷新";
@@ -90,6 +91,13 @@
         [self.table footerEndRefreshing];
     
     
+}
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [Lotuseed onPageViewEnd:@"searchProduct"];
+     [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
 }
 
 -(void)pullTable
@@ -261,13 +269,7 @@
 }
 
 
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    
-    [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
-    
-}
+
 
 
 - (IBAction)search
@@ -293,11 +295,47 @@
         
         [self.navigationController pushViewController:list animated:YES];
     }else if (self.inputView.text.length<1 ){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+//        [alert show];
+        self.inputView.text = @"推荐";
+        if (![self.tableDataArr containsObject:self.inputView.text]) {
+            [self.tableDataArr addObject:self.inputView.text];
+            
+            if (self.tableDataArr.count > 6) {
+                [self.tableDataArr removeObjectAtIndex:0];
+            }
+            
+            
+            [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+            
+            
+        }
+        
+        ProductList *list = [[ProductList alloc] init];
+        list.pushedSearchK = self.inputView.text;
+        self.table.tableFooterView.hidden = NO;
+        
+        [self.navigationController pushViewController:list animated:YES];
+
     }else if ([self.inputView.text hasPrefix:@" "]){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+//        [alert show];
+        self.inputView.text = @"推荐";
+        if (![self.tableDataArr containsObject:self.inputView.text]) {
+            [self.tableDataArr addObject:self.inputView.text];
+            
+            if (self.tableDataArr.count > 6) {
+                [self.tableDataArr removeObjectAtIndex:0];
+            }
+            
+        [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
+            
+            }
+        ProductList *list = [[ProductList alloc] init];
+        list.pushedSearchK = self.inputView.text;
+        self.table.tableFooterView.hidden = NO;
+        
+        [self.navigationController pushViewController:list animated:YES];
     }
    
 }

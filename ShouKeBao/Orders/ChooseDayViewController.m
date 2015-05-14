@@ -104,11 +104,16 @@
 // 重置选择
 - (void)resetChoose:(UIButton *)sender
 {
-    self.start = nil;
-    self.end = nil;
-    NSArray *tmp = @[@"最早时间",@"最晚时间"];
-    self.dataSource = [NSMutableArray arrayWithArray:tmp];
-    [self.tableView reloadData];
+    if (_start) {
+        self.start = nil;
+        self.end = nil;
+        NSArray *tmp = @[@"最早时间",@"最晚时间"];
+        self.dataSource = [NSMutableArray arrayWithArray:tmp];
+        [self.tableView reloadData];
+    }else if (!_start) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉,您还没选择时间" message:@"请您选择时间" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }
 }
 
 // 确认选择
