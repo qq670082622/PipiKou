@@ -171,6 +171,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [Lotuseed onPageViewBegin:@"productList"];
     NSIndexPath *selected = [self.subTable indexPathForSelectedRow];
     if(selected) [self.subTable deselectRowAtIndexPath:selected animated:NO];
     
@@ -183,13 +185,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"productList"];
     
-    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
-    [WriteFileManager saveData:priceData name:@"priceData"];
-   
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
-    [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
-}
+   }
 
 
 
@@ -235,6 +233,13 @@
 }
 -(void)back
 {
+    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
+    [WriteFileManager saveData:priceData name:@"priceData"];
+
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
+    [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -593,8 +598,8 @@
             [conArr addObject:dic];
         }
         
-        
-        _conditionArr = conArr;//装载筛选条件数据
+        [self.conditionArr removeAllObjects];
+        self.conditionArr = conArr;//装载筛选条件数据
         
         NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
 
@@ -1208,6 +1213,7 @@
 // 收藏按钮点击
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
+    [Lotuseed onEvent:@"productIsFavorite"];
     NSIndexPath *indexPath = [self.table indexPathForCell:cell];
     
     NSLog(@"------%@",indexPath);

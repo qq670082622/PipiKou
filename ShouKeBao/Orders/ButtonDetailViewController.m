@@ -8,8 +8,9 @@
 
 #import "ButtonDetailViewController.h"
 #import "Lotuseed.h"
+#import "MBProgressHUD+MJ.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
-@interface ButtonDetailViewController()
+@interface ButtonDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
 @property (nonatomic,assign) int webLoadCount;
@@ -90,10 +91,26 @@
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
+        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+        
+        hudView.labelText = @"拼命加载中...";
+        
+        [hudView show:YES];
+
         return YES;
     }
     NSLog(@"----------right url is %@ ----------",rightUrl);
+    
     return YES;
+}
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+    
+    //[MBProgressHUD showSuccess:@"加载完成"];
+    //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+  
 }
 
 @end

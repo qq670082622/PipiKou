@@ -12,6 +12,7 @@
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
 #import "Lotuseed.h"
+#import "MBProgressHUD+MJ.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
@@ -179,20 +180,28 @@
 #pragma -mark webviewDelegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+   
     NSString *rightUrl = request.URL.absoluteString;
     NSRange range = [rightUrl rangeOfString:urlSuffix];
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
+        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+        
+        hudView.labelText = @"拼命加载中...";
+        
+        [hudView show:YES];
+
         return YES;
     }
-    NSLog(@"----------right url is %@ ----------",rightUrl);
+       NSLog(@"----------right url is %@ ----------",rightUrl);
     return YES;
 }
 //
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+     [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
        NSString *rightStr = webView.request.URL.absoluteString;
         
     
