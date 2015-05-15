@@ -186,6 +186,7 @@
 {
     [super viewWillDisappear:animated];
     [Lotuseed onPageViewEnd:@"productList"];
+    [Lotuseed onEvent:@"productListBack"];
     
    }
 
@@ -1264,7 +1265,8 @@
 
 
 - (IBAction)recommond{//推荐
-   
+    [Lotuseed onEvent:@"productListSortRemind"];
+    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
@@ -1496,7 +1498,7 @@
    }
     
     [hudView hide:YES];
-
+    [Lotuseed onEvent:@"productListSortprofits" attributes:@{@"type":self.profitOutlet.currentTitle}];
     }
 
 
@@ -1672,6 +1674,8 @@
         }];
 
     }
+    [Lotuseed onEvent:@"productListSortCheapPrice" attributes:@{@"type":self.cheapOutlet.currentTitle}];
+    
     [hudView hide:YES];
 }
 

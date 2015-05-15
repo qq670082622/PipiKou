@@ -13,7 +13,7 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "CustomModel.h"
-
+#import "Lotuseed.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
@@ -116,6 +116,8 @@
 }
 -(void)EditCustomerDetail
 {
+    [Lotuseed onEvent:@"EditCustomerDetail"];
+    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     
     EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
@@ -128,6 +130,7 @@
     edit.delegate = self;
     [self.navigationController pushViewController:edit animated:YES];
 }
+
 #pragma -mark 编辑用户资料后通知更新
 -(void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note
 {
@@ -146,6 +149,8 @@
 
 
 - (IBAction)remond:(id)sender {
+    
+    [Lotuseed onEvent:@"ClickCustomerRemind"];
     
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
@@ -173,6 +178,9 @@
             NSLog(@"删除客户信息成功%@",json);
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
+            
+            [Lotuseed onEvent:@"deleteCustomer"];
+        
         } failure:^(NSError *error) {
             NSLog(@"删除客户请求失败%@",error);
         }];

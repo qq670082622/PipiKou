@@ -166,6 +166,9 @@
 
 - (IBAction)checkCheapPrice{
     if (self.checkCheapBtnOutlet.selected == NO) {
+      
+        [Lotuseed onEvent:@"productDetailCheckCheapPrice"];
+        
         [self.checkCheapBtnOutlet setSelected:YES];
         self.subView.hidden = NO;
         self.blackView.alpha = 0.5;

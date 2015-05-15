@@ -219,6 +219,8 @@
 // 收藏按钮点击
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
+    
+    [Lotuseed onEvent:@"cancleFavorite"];
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
     ProductModal *model = self.dataSource[indexPath.row];
