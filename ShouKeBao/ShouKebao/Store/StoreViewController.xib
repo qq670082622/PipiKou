@@ -11,6 +11,7 @@
                 <outlet property="btnLine" destination="ra8-GL-M8a" id="QlX-Ua-cAK"/>
                 <outlet property="cheapPrice" destination="buy-uC-D80" id="pLh-JC-5OD"/>
                 <outlet property="checkCheapBtnOutlet" destination="RCV-vP-AOt" id="wDO-c0-u8I"/>
+                <outlet property="coverView" destination="tG0-Gx-2oj" id="SeJ-c9-TN1"/>
                 <outlet property="fanBtn" destination="0pD-fa-R4c" id="pUF-96-Rwq"/>
                 <outlet property="offLineLabel" destination="kWr-c3-Fv2" id="0W6-lG-S0r"/>
                 <outlet property="profit" destination="v51-WF-wlW" id="I0Y-pu-h8j"/>
@@ -133,6 +134,11 @@
                         </label>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
+                <view hidden="YES" alpha="0.55000000000000004" contentMode="scaleToFill" id="tG0-Gx-2oj">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                 </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

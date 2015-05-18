@@ -13,6 +13,7 @@
 #import "AppDelegate.h"
 #import "Lotuseed.h"
 #import "MBProgressHUD+MJ.h"
+#import "YYAnimationIndicator.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
@@ -32,10 +33,13 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *fanBtn;
 @property (weak, nonatomic) IBOutlet UIButton *quanBtn;
+@property (weak, nonatomic) IBOutlet UIView *coverView;
 
 
 @property (nonatomic , strong) NSTimer *timer;
 @property (nonatomic,copy) NSMutableString *needTimer;
+
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 
 @implementation StoreViewController
@@ -62,6 +66,14 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapBlackViewToHideIt)];
     tap.delegate = self;
     [self.blackView addGestureRecognizer:tap];
+    
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 40;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 40;
+    
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 80, 80)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    [self.view addSubview:_indicator];
+
     
      [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
@@ -189,11 +201,13 @@
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
-        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-        
-        hudView.labelText = @"拼命加载中...";
-        
-        [hudView show:YES];
+        self.coverView.hidden = NO;
+        [_indicator startAnimation];
+//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        
+//        hudView.labelText = @"拼命加载中...";
+//        
+//        [hudView show:YES];
 
         return YES;
     }
@@ -204,7 +218,9 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-     [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+//     [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+    [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+    self.coverView.hidden = YES;
        NSString *rightStr = webView.request.URL.absoluteString;
         
     

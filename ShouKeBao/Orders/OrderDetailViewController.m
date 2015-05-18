@@ -10,11 +10,12 @@
 #import "OrderModel.h"
 #import "Lotuseed.h"
 #import "MBProgressHUD+MJ.h"
+#import "YYAnimationIndicator.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) UIWebView *webView;
-
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 
 @implementation OrderDetailViewController
@@ -22,6 +23,15 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 40;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 40;
+    
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 80, 80)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    [self.view addSubview:_indicator];
+
     
     [self.view addSubview:self.webView];
     
@@ -98,11 +108,12 @@
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
-        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-        
-        hudView.labelText = @"拼命加载中...";
-        
-        [hudView show:YES];
+         [_indicator startAnimation];
+//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        
+//        hudView.labelText = @"拼命加载中...";
+//        
+//        [hudView show:YES];
         return YES;
     }
     NSLog(@"----------right url is %@ ----------",rightUrl);
@@ -112,7 +123,8 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+//    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     
    // [MBProgressHUD showSuccess:@"加载完成"];
