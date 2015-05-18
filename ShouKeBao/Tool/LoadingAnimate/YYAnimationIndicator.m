@@ -35,7 +35,7 @@
         Infolabel = [[UILabel alloc]initWithFrame:CGRectMake(0, frame.size.height-20, frame.size.width, 20)];
         Infolabel.backgroundColor = [UIColor clearColor];
         Infolabel.textAlignment = NSTextAlignmentCenter;
-        Infolabel.textColor = [UIColor colorWithRed:84.0/255 green:86./255 blue:212./255 alpha:1];
+        Infolabel.textColor = [UIColor colorWithRed:175.0/255 green:175./255 blue:175./255 alpha:1];
         Infolabel.font = [UIFont fontWithName:@"ChalkboardSE-Bold" size:14.0f];
         [self addSubview:Infolabel];
         self.layer.hidden = YES;

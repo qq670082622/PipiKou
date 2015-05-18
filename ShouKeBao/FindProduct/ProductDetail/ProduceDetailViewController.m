@@ -29,10 +29,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 40;
-    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 40;
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
     
-    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 80, 80)];
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
     [_indicator setLoadText:@"拼命加载中..."];
     [self.view addSubview:_indicator];
 
