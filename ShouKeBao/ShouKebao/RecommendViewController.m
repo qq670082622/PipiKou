@@ -19,7 +19,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "ProduceDetailViewController.h"
 #import "UIViewController+HUD.h"
-
+#import "YYAnimationIndicator.h"
 #define pageSize @"10"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
@@ -33,7 +33,7 @@
 @property (nonatomic,assign) BOOL isRefresh;
 
 @property (nonatomic,copy) NSString *totalCount;
-
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 
 @implementation RecommendViewController
@@ -60,8 +60,18 @@
     
     [self setNav];
     
+    
     // 第一次加载的时候显示这个hud
-    [self showHudInView:self.view hint:@"正在加载中"];
+  //  [self showHudInView:self.view hint:@"正在加载中"];
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
+    
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    [self.view addSubview:_indicator];
+    [self.view bringSubviewToFront:_indicator];
+
+     [_indicator startAnimation];
     [self loadDataSource];
 }
 
@@ -72,6 +82,8 @@
     self.view.window.backgroundColor = [UIColor clearColor];
     
     [self setupHead];
+  
+   
 }
 
 #pragma mark - private
@@ -82,9 +94,8 @@
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
-        [self hideHud];
-        
-        if (json) {
+       // [self hideHud];
+              if (json) {
             NSLog(@"aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
             if (self.isRefresh) {
@@ -96,6 +107,8 @@
                 [self.dataSource addObject:detail];
             }
             [self.tableView reloadData];
+                  [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
+
         }
     } failure:^(NSError *error) {
         

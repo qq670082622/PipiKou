@@ -11,20 +11,31 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "Lotuseed.h"
+#import "YYAnimationIndicator.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ProduceDetailViewController ()<UIWebViewDelegate>
 
+@property (weak, nonatomic) IBOutlet UIView *coverView;
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
 
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 
 @implementation ProduceDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
+    
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    [self.view addSubview:_indicator];
+
     self.title = @"产品详情";
        NSLog(@"--------link is %@ ",_produceUrl);
     
@@ -148,11 +159,14 @@
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
-        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
         
-        hudView.labelText = @"拼命加载中...";
-        
-        [hudView show:YES];
+        self.coverView.hidden = NO;
+        [_indicator startAnimation];
+//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        
+//        hudView.labelText = @"拼命加载中...";
+//        
+//        [hudView show:YES];
         return YES;
     }
    
@@ -179,7 +193,9 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+    self.coverView.hidden = YES;
+     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+//    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
     
 
    // [MBProgressHUD showSuccess:@"加载完成"];

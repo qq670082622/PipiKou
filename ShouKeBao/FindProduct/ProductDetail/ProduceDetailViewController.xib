@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6751" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6736"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProduceDetailViewController">
             <connections>
+                <outlet property="coverView" destination="erd-BL-4Ij" id="C50-uL-orj"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
                 <outlet property="webView" destination="Bri-0F-yj1" id="P2K-bA-MRX"/>
             </connections>
@@ -23,13 +24,21 @@
                         <outlet property="delegate" destination="-1" id="R0n-A1-mCR"/>
                     </connections>
                 </webView>
+                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="erd-BL-4Ij">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="Bri-0F-yj1" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="6vp-4N-jW2"/>
-                <constraint firstAttribute="trailing" secondItem="Bri-0F-yj1" secondAttribute="trailing" id="KuL-wP-KoN"/>
-                <constraint firstAttribute="bottom" secondItem="Bri-0F-yj1" secondAttribute="bottom" id="Ydi-Us-XBS"/>
-                <constraint firstItem="Bri-0F-yj1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="qTT-cH-eus"/>
+                <constraint firstAttribute="trailing" secondItem="erd-BL-4Ij" secondAttribute="trailing" id="CFI-QJ-WPl"/>
+                <constraint firstItem="Bri-0F-yj1" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="F2E-BD-JKD"/>
+                <constraint firstItem="erd-BL-4Ij" firstAttribute="top" secondItem="Bri-0F-yj1" secondAttribute="top" id="Ggw-24-dJe"/>
+                <constraint firstItem="Bri-0F-yj1" firstAttribute="trailing" secondItem="erd-BL-4Ij" secondAttribute="trailing" id="Ni1-cI-Das"/>
+                <constraint firstItem="Bri-0F-yj1" firstAttribute="leading" secondItem="erd-BL-4Ij" secondAttribute="leading" id="kvH-Ch-fy6"/>
+                <constraint firstAttribute="bottom" secondItem="Bri-0F-yj1" secondAttribute="bottom" id="nIl-F4-yRV"/>
+                <constraint firstItem="Bri-0F-yj1" firstAttribute="bottom" secondItem="erd-BL-4Ij" secondAttribute="bottom" id="ruP-Lc-LyI"/>
+                <constraint firstItem="erd-BL-4Ij" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="wHY-MC-4rs"/>
             </constraints>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
         </view>
