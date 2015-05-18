@@ -304,6 +304,7 @@
 // 点击筛选
 - (void)selectAction
 {
+    [Lotuseed onEvent:@"OrderSelectClickAction"];
     UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dressTapHandle:)];
@@ -418,6 +419,7 @@
  */
 - (void)removeMenu:(UITapGestureRecognizer *)ges
 {
+    [Lotuseed onEvent:@"deleteOrder"];
     [self removeMenuFunc];
 }
 
@@ -575,6 +577,7 @@
  */
 - (void)menuDidSelectLeftBtn:(UIButton *)leftBtn
 {
+    
     CGFloat menuX = self.view.frame.size.width * 0.25 - 30;
     CGRect frame = CGRectMake(menuX, 153, 135, 45 * 6);
     [self createMenuWithSelectedIndex:self.LselectedIndex frame:frame dataSource:self.chooseTime direct:0];
@@ -601,6 +604,7 @@
         [self removeMenuFunc];
         self.LselectedIndex = indexPath.row;
         [self.tableView headerBeginRefreshing];
+        [Lotuseed onEvent:@"orderClickLeftTimeMenu" attributes:@{@"name":_choosedTime}];
     }else{// 状态筛选
          NSString *title = menu.dataSource[indexPath.row][@"Text"];
         self.menuButton.rightBtn.text = title;
@@ -608,6 +612,7 @@
         self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
         [self removeMenuFunc];
         self.RselectedIndex = indexPath.row;
+         [Lotuseed onEvent:@"orderClickRightStatusMenu" attributes:@{@"name":_chooseStatus}];
         [self.tableView headerBeginRefreshing];
     }
 }
@@ -929,6 +934,8 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    [Lotuseed onEvent:@"orderSearch"];
+    
     [self.searchDisplayController setActive:NO animated:YES];
     
     if (self.searchKeyWord.length) {

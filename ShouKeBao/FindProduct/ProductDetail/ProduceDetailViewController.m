@@ -110,11 +110,10 @@
         [self.webView goBack];
    }
     else  {
+        [Lotuseed onEvent:@"productDetailBack"];
         [self.navigationController popViewControllerAnimated:YES];
     }
     
-   
-
 }
 
 
@@ -143,18 +142,24 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+   
     NSString *rightUrl = request.URL.absoluteString;
     NSRange range = [rightUrl rangeOfString:urlSuffix];
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
+        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+        
+        hudView.labelText = @"拼命加载中...";
+        
+        [hudView show:YES];
         return YES;
     }
+   
     NSLog(@"----------right url is %@ ----------",rightUrl);
     return YES;
 
-          return YES;
-}
+       }
 
 -(void)showAlert
 {
@@ -174,6 +179,11 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+    
+
+   // [MBProgressHUD showSuccess:@"加载完成"];
+    //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
  NSString *rightUrl = webView.request.URL.absoluteString;
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -220,7 +230,7 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    
+                                    [Lotuseed onEvent:@"productDetailShareSuccess"];
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];

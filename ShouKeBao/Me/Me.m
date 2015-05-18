@@ -276,7 +276,7 @@
                 break;
             }
             case 2:{
-                
+                [Lotuseed onEvent:@"page5TalkApp"];
                 break;
             }
             default:

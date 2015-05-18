@@ -276,12 +276,12 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     
 
         [self.hotTable reloadData];
-    
+    [hudView hide:YES];
 } failure:^(NSError *error) {
     NSLog(@"-----------hot json 请求失败，原因：%@",error);
 }];
 
-    [hudView hide:YES];
+    
 }
 
 

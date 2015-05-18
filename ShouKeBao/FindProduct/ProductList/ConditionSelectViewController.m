@@ -12,14 +12,16 @@
 @property (nonatomic,copy)NSMutableString *passValue;
 @property (nonatomic,copy)NSMutableString *selectKey;
 @property (nonatomic,copy)NSMutableString *selectValue;
-@property (nonatomic,copy) NSMutableDictionary *conditionSelectDiction;
+@property (nonatomic,strong) NSMutableArray *conditionSelectArr;//(arr内为一个字典)
+@property (nonatomic,assign) BOOL rowHeight70;
 @end
 
 @implementation ConditionSelectViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+ 
+    [self loadDataSource];
     self.navigationController.title = self.conditionTitle;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
@@ -33,9 +35,9 @@
  
     self.table.tableFooterView = [[UIView alloc] init];
     
-    NSLog(@"------------当前页面选择的条件为%@--------------------------",[self.conditionSelectDiction objectForKey:self.title]);
-    
-    [self conditionSelectDiction];
+   // NSLog(@"------------当前页面选择的条件为%@--------------------------",[[self.conditionSelectArr firstObject] objectForKey:self.title]);
+    [self.conditionSelectArr removeAllObjects];
+    self.conditionSelectArr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"conditionSelect"]];
     
 }
 
@@ -77,33 +79,37 @@
 }
 
 
--(NSArray *)dataArr1
+-(NSMutableArray *)dataArr1
 {
-    NSLog(@"选择列表的数据是%@----",_conditionDic);
     if (_dataArr1 == nil) {
-        NSMutableArray *arr = [NSMutableArray array];
+        self.dataArr1 = [NSMutableArray array];
+    }
+    return _dataArr1;
+     }
+
+-(void)loadDataSource
+{
+    NSLog(@"------------选择列表的数据是%@----",_conditionDic);
+           NSMutableArray *arr = [NSMutableArray array];
         NSArray *keys = [self.conditionDic allKeys];
         
         NSString *firstKey = [keys objectAtIndex:0];
-        
+        if ([firstKey isEqualToString:@"Supplier"]) {
+            self.table.rowHeight = 70;
+            self.rowHeight70 = YES;
+            
+        }
+        // NSLog(@"------------firstKey is %@-----------",firstKey);
         for(NSDictionary *dic in self.conditionDic[firstKey] ){
             [arr addObject:dic];
-            }
+        }
+    [self.dataArr1 removeAllObjects];
         _dataArr1 = arr;
-    }
-        return _dataArr1;
-}
+    [self.table reloadData];
+        //NSLog(@"arr count is %lu",[arr count]);
+    
+    // NSLog(@"------------arr is %@ count is %lu-----------",_dataArr1,(unsigned long)[_dataArr1 count]);
 
--(NSMutableDictionary *)conditionSelectDiction
-{
-   // if (_conditionSelectDiction == nil) {
-   
-        self.conditionSelectDiction = [NSMutableDictionary dictionary];
-        
-        _conditionSelectDiction = [[WriteFileManager WMreadData:@"conditionSelect"] firstObject];
-   // }
-   
-    return _conditionSelectDiction;
 }
 
 
@@ -123,40 +129,51 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    static NSString *cellID = @"Cell";
+    static NSString *cellID = @"ConditionCell";
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     if (cell == nil) {
        
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-
-        UILabel *label1 = [[UILabel alloc] initWithFrame:CGRectMake(15, 1, 280, 35)];
+        //labelText
+        UILabel *label1 = [[UILabel alloc] init];
+        CGFloat wid = self.view.frame.size.width*(32/28);
         
-        NSLog(@"----------- dataArr1 is %@-----------",_dataArr1);
+        if (self.rowHeight70 == YES) {
+            
+            label1.frame =  CGRectMake(15, 5, wid, 60);
+            
+        }else{
+            
+            label1.frame = CGRectMake(15, 5, wid, 30);
+        }
+        
+        label1.numberOfLines = 0;
+        // NSLog(@"----------- dataArr1 is %@-----------",_dataArr1);
         
         label1.text = _dataArr1[indexPath.row][@"Text"];
-        
-       
-       
-        if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[self.conditionSelectDiction objectForKey:self.title]]) {
-          
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
-        }else{
-        
-            cell.accessoryType = UITableViewCellAccessoryNone;
-        }
-       
-        //  NSString *value = _dataArr1[indexPath.row][@"Value"];//选项的searchID;
-        
         label1.font = [UIFont systemFontOfSize:13.0];
         
-       [cell.contentView addSubview:label1];
+        [cell.contentView addSubview:label1];
         
-    }
-    
-    return cell;
+       //以选中标示
+        NSLog(@"读取的arr is %@ 对比的箭名%@",_conditionSelectArr,[[_conditionSelectArr firstObject] objectForKey:self.title]);
+        NSString *conditionStr = [[_conditionSelectArr firstObject] objectForKey:self.title];
+      
+        if (!conditionStr) {
+            [[_conditionSelectArr firstObject] setObject:@"不限" forKey:self.title];
+        }
+       
+        if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]] ) {
+            
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+            
+        }
+        
+        }
+   
+return cell;
 }
 
 
@@ -180,16 +197,27 @@
     self.selectValue = _dataArr1[indexPath.row][@"Text"];//取得的value的名称
    
     //储存选择的键值对，便于下次进入时显示
-  //  NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+   
     NSString *title = self.title;
-    [self.conditionSelectDiction setObject:_selectValue forKey:title];
-       [WriteFileManager WMsaveData:[NSMutableArray arrayWithObject:_conditionSelectDiction] name:@"conditionSelect"];
+//    NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"conditionSelect"]];
+
+    NSMutableDictionary *dicNew = [NSMutableDictionary dictionary];
+         for(NSMutableDictionary *dic in self.conditionSelectArr){
+        dicNew = dic;
+    }
+    [dicNew setObject:_selectValue forKey:title];
+    [self.conditionSelectArr removeAllObjects];
+    [self.conditionSelectArr addObject:dicNew];
+
+   // NSLog(@"---------储存的选择的条件字典为%@---arr is %@----",dicNew,_conditionSelectArr);
+   
+       [WriteFileManager WMsaveData:_conditionSelectArr name:@"conditionSelect"];
     
     //改变post的key名
     [self changeSelectKey];
-      NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
-//    [self.delegate passKey:key andValue:value andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:selectValue];
-    
+    //  NSLog(@"---------------selectKey is %@ , passValue is %@ , selectValue is %@--------",_selectKey,_passValue,_selectValue);
+
+   // [self.table reloadData];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

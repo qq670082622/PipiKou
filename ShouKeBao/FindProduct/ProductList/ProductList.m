@@ -171,6 +171,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [Lotuseed onPageViewBegin:@"productList"];
     NSIndexPath *selected = [self.subTable indexPathForSelectedRow];
     if(selected) [self.subTable deselectRowAtIndexPath:selected animated:NO];
     
@@ -183,11 +185,10 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [Lotuseed onPageViewEnd:@"productList"];
+    [Lotuseed onEvent:@"productListBack"];
     
-    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
-    [WriteFileManager saveData:priceData name:@"priceData"];
-    [WriteFileManager saveData:[NSMutableArray arrayWithObject:[NSMutableDictionary dictionaryWithObject:@"选择的名称" forKey:@"选择条件的名称"]] name:@"conditionSelect"];
-}
+   }
 
 
 
@@ -233,6 +234,13 @@
 }
 -(void)back
 {
+    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
+    [WriteFileManager saveData:priceData name:@"priceData"];
+
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
+    [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -591,8 +599,8 @@
             [conArr addObject:dic];
         }
         
-        
-        _conditionArr = conArr;//装载筛选条件数据
+        [self.conditionArr removeAllObjects];
+        self.conditionArr = conArr;//装载筛选条件数据
         
         NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
 
@@ -1140,16 +1148,21 @@
            
           cell.detailTextLabel.textColor = [UIColor orangeColor];
            if (indexPath.row != 1) {
-             cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
-               }else if (indexPath.row == 1){
+                           cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+               
+           }else if (indexPath.row == 1){
                    if (_goDateEnd.length>2) {
                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
                    }else if (_goDateEnd.length<=2){
-                    cell.detailTextLabel.text = @"";
+                    cell.detailTextLabel.text = @"不限";
                    }
                    
            }
-           
+           NSString *detailStr = self.subIndicateDataArr1[indexPath.row];
+           if (detailStr.length<2) {
+               cell.detailTextLabel.text = @"不限";
+           }
+
        }else {
           
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
@@ -1159,9 +1172,17 @@
            cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
           
            cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
+           
+           NSString *detailStr = self.subIndicateDataArr2[indexPath.row];
+           if (detailStr.length>=2) {
+               cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
+
+           }
           
-           cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
-          
+           NSString *detailStr2 = self.subIndicateDataArr2[indexPath.row];
+           if (detailStr2.length<2) {
+               cell.detailTextLabel.text = @"不限";
+           }
            cell.detailTextLabel.textColor = [UIColor orangeColor];
 
        }
@@ -1193,6 +1214,7 @@
 // 收藏按钮点击
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
+    [Lotuseed onEvent:@"productIsFavorite"];
     NSIndexPath *indexPath = [self.table indexPathForCell:cell];
     
     NSLog(@"------%@",indexPath);
@@ -1243,7 +1265,8 @@
 
 
 - (IBAction)recommond{//推荐
-   
+    [Lotuseed onEvent:@"productListSortRemind"];
+    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
@@ -1475,7 +1498,7 @@
    }
     
     [hudView hide:YES];
-
+    [Lotuseed onEvent:@"productListSortprofits" attributes:@{@"type":self.profitOutlet.currentTitle}];
     }
 
 
@@ -1651,6 +1674,8 @@
         }];
 
     }
+    [Lotuseed onEvent:@"productListSortCheapPrice" attributes:@{@"type":self.cheapOutlet.currentTitle}];
+    
     [hudView hide:YES];
 }
 

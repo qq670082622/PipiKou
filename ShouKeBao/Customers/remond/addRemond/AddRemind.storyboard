@@ -94,7 +94,7 @@
                             </tableViewSection>
                             <tableViewSection id="N9c-cl-dgt">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="uNY-y7-niV">
+                                    <tableViewCell hidden="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="50" id="uNY-y7-niV">
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="uNY-y7-niV" id="KYk-qf-dNy">
                                             <autoresizingMask key="autoresizingMask"/>
