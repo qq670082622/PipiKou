@@ -193,6 +193,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    self.coverView.hidden = YES;
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 //    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
     
