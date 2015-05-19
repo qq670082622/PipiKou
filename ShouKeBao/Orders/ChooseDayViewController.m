@@ -9,10 +9,11 @@
 #import "ChooseDayViewController.h"
 #import "CalendarViewController.h"
 #import "WMNavigationController.h"
-
+#import "WMAnimations.h"
 @interface ChooseDayViewController ()<CalendarViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
+@property (nonatomic,strong) NSMutableArray *buttonsArr;//按钮数据
 
 @property (nonatomic,weak) UIButton *confirm;// 确认按钮
 
@@ -23,6 +24,7 @@
 
 @property (nonatomic,copy) NSString *end;
 
+@property (nonatomic,assign) NSInteger rowHeightInSetionZero;
 @end
 
 @implementation ChooseDayViewController
@@ -31,15 +33,39 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
+    self.tableView.tableHeaderView = [[UIView alloc] init];
     self.title = @"选择日期";
     
     NSArray *tmp = @[@"最早时间",@"最晚时间"];
     self.dataSource = [NSMutableArray arrayWithArray:tmp];
     
+    
     [self setFoot];
     
     [self setNav];
+    
+    if ([_needMonth isEqualToString:@"1"]) {
+        [self getMonths];
+    }
 }
+
+
+-(void)getMonths
+{
+    NSArray *keys = [self.buttons allKeys];
+    
+    NSString *firstKey = [keys objectAtIndex:0];
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for(NSDictionary *dic in self.buttons[firstKey]){
+        [arr addObject:dic];
+    }
+    self.buttonsArr = arr;
+    [self setHeader];
+
+    NSLog(@"---------------arr is %@------------",arr);
+}
+
 
 - (void)viewWillDisappear:(BOOL)animated
 {
@@ -47,7 +73,15 @@
 
 }
 
+
 #pragma mark - getter
+-(NSMutableArray *)buttonsArr
+{
+    if (_buttons == nil) {
+        self.buttonsArr = [NSMutableArray array];
+    }
+    return _buttonsArr;
+}
 
 
 #pragma mark - private
@@ -64,6 +98,7 @@
     self.navigationItem.leftBarButtonItem= leftItem;
 }
 
+
 -(void)back
 {
     if (_delegate && [_delegate respondsToSelector:@selector(backToDress)]) {
@@ -71,6 +106,7 @@
     }
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 - (void)setFoot
 {
@@ -101,6 +137,7 @@
     self.tableView.tableFooterView = cover;
 }
 
+
 // 重置选择
 - (void)resetChoose:(UIButton *)sender
 {
@@ -115,6 +152,7 @@
         [alert show];
     }
 }
+
 
 // 确认选择
 - (void)confirmDate:(UIButton *)sender
@@ -134,11 +172,133 @@
     }
 }
 
+
+
 #pragma mark - tableviewdatasource
+//-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+//{
+//    return _rowHeightInSetionZero ;
+//}
+
+-(void)setHeader
+{
+    
+    CGFloat screenWid = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat btnW = (screenWid-120)/3;
+    CGFloat btnH = 35;
+    CGFloat   marginX = (screenWid - 3*btnW)/4;
+    CGFloat marginY = 15;
+    
+    NSLog(@"self.buttonsArrclount is %lu , buttonsArr is %@",(unsigned long)self.buttonsArr.count,_buttonsArr);
+    UIView *sectionView = [[UIView alloc] init];
+    for (int i = 0 ; i<self.buttonsArr.count;i++) {
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+        btn.backgroundColor = [UIColor whiteColor];
+        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:btn.layer andBorderColor:[UIColor colorWithRed:210/255.f green:210/255.f blue:210/255.f alpha:1] andBorderWidth:1 andNeedShadow:NO];
+        [btn setTitle:[NSString stringWithFormat:@"%@",self.buttonsArr[i][@"Text"]] forState:UIControlStateNormal];
+        int row = i/3;
+        int col = i%3;
+        CGFloat btnX = marginX + col*(marginX + btnW);
+        CGFloat btnY = marginY + row*(marginY + btnH);
+        btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+      //  [sectionView addSubview:btn];
+        
+        [btn addTarget:self action:@selector(monthSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+        [btn setTag:i];
+        [sectionView addSubview:btn];
+        if (i == self.buttonsArr.count - 1) {
+            CGFloat maxY = btn.frame.origin.y+50;
+            self.rowHeightInSetionZero = maxY;
+            NSLog(@"------------------rowHeight is %ld-------------",(long)_rowHeightInSetionZero);
+          sectionView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _rowHeightInSetionZero);
+            sectionView.backgroundColor = [UIColor colorWithRed:245/255.f green:245/255.f blue:245/255.f alpha:1];
+            
+            self.tableView.tableHeaderView = sectionView;
+            [self.tableView reloadData];
+        }
+       
+        
+      }
+   
+
+}
+
+-(void)monthSelectAction:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    NSString *selectName = self.buttonsArr[btn.tag][@"Text"];
+    NSString *selectValue = self.buttonsArr[btn.tag][@"Value"];
+    NSLog(@"selectname is %@ value is %@",selectName,selectValue);
+    [self.delegate passTheButtonValue:selectValue andName:selectName];
+    
+    [self back];
+}
+
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//   // if([self.needMonth isEqualToString:@"1"]){
+//        UIView *sectionView = [[UIView alloc] init];
+//        sectionView.backgroundColor = [UIColor lightGrayColor];
+//    
+//    CGFloat screenWid = [[UIScreen mainScreen] bounds].size.width;
+//    CGFloat btnW = (screenWid-120)/3;
+//    CGFloat btnH = 35;
+//    CGFloat   marginX = 3*btnW/4;
+//    CGFloat marginY = 15;
+//    
+//    NSLog(@"self.buttonsArrclount is %lu , buttonsArr is %@",(unsigned long)self.buttonsArr.count,_buttonsArr);
+//    
+//        for (int i = 0 ; i<self.buttonsArr.count;i++) {
+//        UIButton *btn = [UIButton buttonWithType:UIButtonTypeSystem];
+//        [btn setTitle:[NSString stringWithFormat:@"%@",self.buttonsArr[i][@"Text"]] forState:UIControlStateNormal];
+//        int row = i/3;
+//        int col = i%3;
+//        CGFloat btnX = marginX + col*(marginX + btnW);
+//        CGFloat btnY = marginY + row*(marginY + btnH);
+//        btn.frame = CGRectMake(btnX, btnY, btnW, btnH);
+//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        [sectionView addSubview:btn];
+//        
+//        [btn addTarget:self action:@selector(monthSelectAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [btn setTag:i];
+//        if (i == self.buttonsArr.count - 1) {
+//            CGFloat maxY = btn.frame.origin.y+50;
+//            self.rowHeightInSetionZero = maxY;
+//            NSLog(@"------------------rowHeight is %ld-------------",(long)_rowHeightInSetionZero);
+//        }
+//            sectionView.frame = CGRectMake(0, 0, self.view.bounds.size.width, _rowHeightInSetionZero);
+//     //   WithFrame:CGRectMake(0, 0, self.view.bounds.size.width, _rowHeightInSetionZero)];
+//
+//        
+//   }
+//        return sectionView;
+//   // }
+//   // return 0;
+//
+//}
+//
+//
+
+
+
+
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+           return 1;
+}
+
+
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataSource.count;
+    
+        return self.dataSource.count;
+    
 }
+
+
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -149,11 +309,12 @@
         
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    
-    cell.textLabel.text = self.dataSource[indexPath.row];
+       cell.textLabel.text = self.dataSource[indexPath.row];
     
     return cell;
 }
+
+
 
 #pragma mark - tableviewdelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -170,6 +331,8 @@
     WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:calendar];
     [self presentViewController:nav animated:YES completion:nil];
 }
+
+
 
 #pragma mark - CalendarViewControllerDelegate
 - (void)didSelectedDateStr:(NSString *)dateStr atIndex:(NSInteger)index date:(NSDate *)date

@@ -63,7 +63,7 @@
 
 @property (strong, nonatomic) UITableView *tableView;
 @property (nonatomic,strong) NSMutableArray *dataSource;// 列表内容的数组
-
+@property (nonatomic,strong) NSMutableArray *stationDataSource;
 @property (weak, nonatomic) IBOutlet UIView *upView;
 @property (weak, nonatomic) IBOutlet UIButton *stationName;
 //@property (nonatomic,copy) NSMutableString *messageCount;
@@ -293,6 +293,31 @@
    
 }
 
+-(void)getStationName
+{
+    //确定分站
+    [IWHttpTool WMpostWithURL:@"/Product/GetSubstation" params:nil success:^(id json) {
+        NSLog(@"------获取分站信息%@-------",json);
+        [self.stationDataSource removeAllObjects];
+        
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        NSString *currentStation = [def objectForKey:UserInfoKeySubstation];
+        
+        for(NSDictionary *dic in json[@"Substation"]){
+            //[self.stationDataSource addObject:dic];
+            if ([currentStation isEqualToString:dic[@"Value"]]) {
+                [self.stationName setTitle:[NSString stringWithFormat:@"%@",dic[@"Text"]] forState:UIControlStateNormal];
+            }
+        }
+        
+        
+    } failure:^(NSError *error) {
+        NSLog(@"获取分站信息请求失败，原因：%@",error);
+    }];
+    
+
+}
+
 - (void)getUserInformation
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
@@ -323,6 +348,7 @@
     } failure:^(NSError *error) {
         NSLog(@"首页个人消息汇总失败%@",error);
     }];
+    
     
     [hudView hide:YES];
 }
@@ -367,6 +393,8 @@
     }else{
         [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
     }
+    
+    [self getStationName];
 }
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -396,6 +424,14 @@
         _dataSource = [NSMutableArray array];
     }
     return _dataSource;
+}
+
+-(NSMutableArray *)stationDataSource
+{
+    if (_stationDataSource == nil) {
+        self.stationDataSource = [NSMutableArray array];
+    }
+    return _stationDataSource;
 }
 
 
