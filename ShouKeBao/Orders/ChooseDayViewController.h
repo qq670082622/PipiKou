@@ -15,6 +15,8 @@
 
 - (void)backToDress;
 
+-(void)passTheButtonValue:(NSString *)value andName:(NSString *)name;
+
 @end
 
 @interface ChooseDayViewController : SKTableViewController
@@ -23,4 +25,6 @@
 
 @property (nonatomic,weak) id<ChooseDayViewControllerDelegate> delegate;
 
+@property (nonatomic,copy) NSString *needMonth;
+@property (nonatomic,strong) NSDictionary *buttons;
 @end

@@ -80,7 +80,7 @@
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
-
+@property(nonatomic,copy) NSMutableString *month;
 @end
 
 @implementation ProductList
@@ -442,6 +442,15 @@
     self.coverView.hidden = NO;
     
 }
+
+-(void)passTheButtonValue:(NSString *)value andName:(NSString *)name
+{
+    self.coverView.hidden = NO;
+    [self.conditionDic setObject:value forKey:@"GoDate"];
+    self.month = [NSMutableString stringWithFormat:@"%@",name];
+    NSLog(@"-----------------productList 获得的name is %@ value is %@",name,value);
+      [self.subTable reloadData];
+   }
 
 -(void)initPull
 {
@@ -1040,6 +1049,10 @@
             ChooseDayViewController *choose = [[ChooseDayViewController alloc]init];
             choose.delegate = self;
             
+            NSInteger a = (5*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
+            NSDictionary *conditionDic = _conditionArr[a];
+            choose.buttons = conditionDic;
+            choose.needMonth = @"1";
             self.coverView.hidden = YES;
             [self.navigationController pushViewController:choose animated:YES];
         }else if (!(indexPath.section == 0 && indexPath.row == 1)){
@@ -1147,22 +1160,27 @@
            cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
            
           cell.detailTextLabel.textColor = [UIColor orangeColor];
+         
            if (indexPath.row != 1) {
-                           cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                
+               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+               NSString *detailStr = self.subIndicateDataArr1[indexPath.row];
+               if (detailStr.length) {
+                   cell.detailTextLabel.text = @"不限";
+               }
+
            }else if (indexPath.row == 1){
-                   if (_goDateEnd.length>2) {
+                   if (_goDateEnd.length>3) {
                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
                    }else if (_goDateEnd.length<=2){
                     cell.detailTextLabel.text = @"不限";
                    }
-                   
+               if (_month.length>1) {
+                   cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",_month];
+               }
+               
            }
-           NSString *detailStr = self.subIndicateDataArr1[indexPath.row];
-           if (detailStr.length<2) {
-               cell.detailTextLabel.text = @"不限";
-           }
-
+          
        }else {
           
            cell.textLabel.text = [NSString stringWithFormat:@"%@",self.subDataArr2[indexPath.row]];
@@ -1743,7 +1761,7 @@
     
     self.goDateStart = [NSMutableString stringWithFormat:@""];
     self.goDateEnd = [NSMutableString stringWithFormat:@""];
-    
+    self.month = [NSMutableString stringWithFormat:@""];
     [self.subTable reloadData];
     
     
