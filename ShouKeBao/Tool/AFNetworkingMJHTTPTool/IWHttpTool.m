@@ -45,10 +45,12 @@
     // 取出两个id
     NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
     NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
+    NSString *appUserId = [accoutDefault objectForKey:UserInfoKeyAppUserID];
     
-    // 判断这两个是否空
+    // 判断这三个个是否空
     [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
     [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    [tmp setObject:appUserId ? appUserId : @"" forKey:@"AppUserID"];
     
     // 取出logintype
     NSString *loginType = [accoutDefault objectForKey:UserInfoKeyLoginType];
@@ -172,10 +174,12 @@
     // 取出两个id
     NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
     NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
+    NSString *appUserId = [accoutDefault objectForKey:UserInfoKeyAppUserID];
     
-    // 判断这两个是否空
+    // 判断这三个个是否空
     [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
     [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    [tmp setObject:appUserId ? appUserId : @"" forKey:@"AppUserID"];
     
     // 取出logintype
     NSString *loginType = [accoutDefault objectForKey:UserInfoKeyLoginType];
