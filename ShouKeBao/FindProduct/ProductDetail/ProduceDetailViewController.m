@@ -11,6 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "Lotuseed.h"
+#import "SubstationParttern.h"
 #import "YYAnimationIndicator.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ProduceDetailViewController ()<UIWebViewDelegate>
@@ -121,7 +122,8 @@
         [self.webView goBack];
    }
     else  {
-        [Lotuseed onEvent:@"productDetailBack"];
+        SubstationParttern *par = [SubstationParttern sharedStationName];
+        [Lotuseed onEvent:@"productDetailBack" attributes:@{@"stationName":par.stationName}];
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -246,7 +248,8 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    [Lotuseed onEvent:@"productDetailShareSuccess"];
+                                    SubstationParttern *par = [SubstationParttern sharedStationName];
+                                    [Lotuseed onEvent:@"productDetailShareSuccess" attributes:@{@"stationName":par.stationName}];
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];

@@ -16,6 +16,7 @@
 #import "MJRefresh.h"
 #import "NSArray+QD.h"
 #import "Lotuseed.h"
+#import "SubstationParttern.h"
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -313,6 +314,8 @@
         
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
+        SubstationParttern *par = [SubstationParttern sharedStationName];
+        [Lotuseed onEvent:@"searchKey" attributes:@{@"searchKey":self.inputView.text,@"stationName":par.stationName}];
         self.table.tableFooterView.hidden = NO;
         
         [self.navigationController pushViewController:list animated:YES];

@@ -12,7 +12,8 @@
 #import "RemindDetailViewController.h"
 #import "WriteFileManager.h"
 #import "CustomModel.h"
-
+#import "Lotuseed.h"
+#import "SubstationParttern.h"
 @interface remondViewController ()<UITableViewDataSource,UITableViewDelegate,AddRemindViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
@@ -80,6 +81,8 @@
 }
 -(void)EditCustomerDetail
 {
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"editCustomerRemind" attributes:@{@"stationName":par.stationName}];
     if (self.subView.hidden == NO && !self.isEditing) {
         self.subView.hidden = YES;
         self.deleBtn.hidden = NO;
@@ -221,6 +224,8 @@
     AddRemindViewController *add = [sb instantiateViewControllerWithIdentifier:@"addRemind"];
     add.ID = self.ID;
     add.delegate = self;
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"addCustomerRemind" attributes:@{@"stationName":par.stationName}];
     [self.navigationController pushViewController:add animated:YES];
     
 }
@@ -276,6 +281,8 @@
         }];
         
         [self.table setEditing:NO animated:YES];
+        SubstationParttern *par = [SubstationParttern sharedStationName];
+        [Lotuseed onEvent:@"deleteCustomerRemind" attributes:@{@"stationName":par.stationName}];
         [self.table reloadData];
 
     }else if (!arr){
