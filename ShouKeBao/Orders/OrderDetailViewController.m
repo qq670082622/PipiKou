@@ -75,7 +75,7 @@
 -(void)back
 {
     NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
-    if ([isFade integerValue] == 1){
+    if (isFade.length && [isFade integerValue] == 0){
         // 这个地方上面的js方法自动处理
     }else{
         if ([self.webView canGoBack]){
