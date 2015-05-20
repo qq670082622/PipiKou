@@ -10,7 +10,8 @@
 #import "IWHttpTool.h"
 #import "StrToDic.h"
 #import "MBProgressHUD+MJ.h"
-
+#import "Lotuseed.h"
+#import "SubstationParttern.h"
 @interface AddRemindViewController () <UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *descript;
@@ -101,6 +102,8 @@
 
 // 完成
 - (void)complete {
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"hasAddedCustomerRemind" attributes:@{@"stationName":par.stationName}];
     [self requestComplete];
 }
 

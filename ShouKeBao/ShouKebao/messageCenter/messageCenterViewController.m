@@ -14,6 +14,7 @@
 #import "WriteFileManager.h"
 #import "IWHttpTool.h"
 #import "Lotuseed.h"
+#import "SubstationParttern.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
@@ -139,7 +140,8 @@
     messageDetail.messageTitle = model.title;
 
     self.isRead = indexPath.row;
-    [Lotuseed onEvent:@"messageCenterClickToMessageDetail"];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"messageCenterClickToMessageDetail" attributes:@{@"subStationName":par.stationName}];
     [self.navigationController pushViewController:messageDetail animated:YES];
     
 }

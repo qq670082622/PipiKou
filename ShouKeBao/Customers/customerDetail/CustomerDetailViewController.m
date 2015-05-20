@@ -14,6 +14,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "CustomModel.h"
 #import "Lotuseed.h"
+#import "SubstationParttern.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
@@ -116,7 +117,8 @@
 }
 -(void)EditCustomerDetail
 {
-    [Lotuseed onEvent:@"EditCustomerDetail"];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"EditCustomerDetail" attributes:@{@"stationName":par.stationName}];
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     
@@ -149,8 +151,8 @@
 
 
 - (IBAction)remond:(id)sender {
-    
-    [Lotuseed onEvent:@"ClickCustomerRemind"];
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"ClickCustomerRemind" attributes:@{@"stationName":par.stationName}];
     
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
@@ -178,8 +180,8 @@
             NSLog(@"删除客户信息成功%@",json);
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
-            
-            [Lotuseed onEvent:@"deleteCustomer"];
+             SubstationParttern *par = [SubstationParttern sharedStationName];
+            [Lotuseed onEvent:@"deleteCustomer" attributes:@{@"stationName":par.stationName}];
         
         } failure:^(NSError *error) {
             NSLog(@"删除客户请求失败%@",error);

@@ -206,6 +206,7 @@
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
 		6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */; };
+		6364A9B31B0B19BE0099705B /* SubstationParttern.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9B21B0B19BE0099705B /* SubstationParttern.m */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
 		636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B541AC2E1420097CAE9 /* QQConnection.framework */; };
 		636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */; };
@@ -664,6 +665,8 @@
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
 		6364A9AE1B098CA00099705B /* YYAnimationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimationIndicator.h; sourceTree = "<group>"; };
 		6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimationIndicator.m; sourceTree = "<group>"; };
+		6364A9B11B0B19BE0099705B /* SubstationParttern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstationParttern.h; sourceTree = "<group>"; };
+		6364A9B21B0B19BE0099705B /* SubstationParttern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstationParttern.m; sourceTree = "<group>"; };
 		636C8B531AC2E1420097CAE9 /* CopyConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CopyConnection.framework; sourceTree = "<group>"; };
 		636C8B541AC2E1420097CAE9 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -1081,6 +1084,8 @@
 				5A52FBC11ACEBF220076DAE6 /* UserInfo.m */,
 				5A4965CB1AD4F30E00233E5E /* Business.h */,
 				5A4965CC1AD4F30E00233E5E /* Business.m */,
+				6364A9B11B0B19BE0099705B /* SubstationParttern.h */,
+				6364A9B21B0B19BE0099705B /* SubstationParttern.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2174,6 +2179,7 @@
 				5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */,
 				6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */,
 				5A52FC861ACEBF220076DAE6 /* OrderTool.m in Sources */,
+				6364A9B31B0B19BE0099705B /* SubstationParttern.m in Sources */,
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
 				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
 				5A6996161AF8A5F2002EDD91 /* BackTableViewControllerController.m in Sources */,
