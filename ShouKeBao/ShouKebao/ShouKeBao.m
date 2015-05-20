@@ -88,10 +88,7 @@
     
     [super viewDidLoad];
     
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [APService setBadge:0];
-    
-    self.userIcon.layer.masksToBounds = YES;
+   self.userIcon.layer.masksToBounds = YES;
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
@@ -153,8 +150,6 @@
 -(void)dealPushBackGround:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [APService setBadge:0];
     
     [self loadContentDataSource];
     [self  getUserInformation];
@@ -224,9 +219,7 @@
 -(void)dealPushForeground:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    [APService setBadge:0];
-    
+   
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
@@ -237,6 +230,7 @@
     [self getVoice];
     //if ([self.tabBarItem.badgeValue intValue]>5) {
          self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
   //  }
    
 
@@ -768,9 +762,11 @@
     BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
    
 self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [barButton.badgeValue intValue]];
+    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
    
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
      SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page1ClickToMessageCenter" attributes:@{@"stationName":par.stationName}];
@@ -822,6 +818,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
 
     if ([model.model isKindOfClass:[HomeList class]]) {
