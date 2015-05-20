@@ -248,7 +248,8 @@
      */
     [self.jiafanBtn setTitle:[NSString stringWithFormat:@"    ￥%@",modal.PersonBackPrice] forState:UIControlStateNormal];
     [self.quanBtn setTitle:[NSString stringWithFormat:  @"    ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
-    [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发",modal.StartCityName] forState:UIControlStateNormal];
+    [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发地",modal.StartCityName] forState:UIControlStateNormal];
+    [self.ShanDianBtn sizeToFit];
     
     self.isFlash = [modal.IsComfirmStockNow integerValue];
     [self setNeedsLayout];
