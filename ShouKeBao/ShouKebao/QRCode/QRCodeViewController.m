@@ -10,12 +10,11 @@
 #import <AVFoundation/AVFoundation.h>
 #import "URLOpenFromQRCodeViewController.h"
 #import "WMAnimations.h"
-@interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate>
+#import "ProduceDetailViewController.h"
+@interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
-@property (weak, nonatomic) IBOutlet UIButton *startBtn;
-- (IBAction)startStopReading:(id)sender;
-- (IBAction)openUrl:(id)sender;
+
 
 
 
@@ -39,7 +38,18 @@
    self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.startBtn.layer andBorderColor:[UIColor blackColor] andBorderWidth:1 andNeedShadow:YES];
+    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
+    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+    
+    //CGFloat screenW = self.view.bounds.size.width;
+  //  CGFloat screenH = self.view.bounds.size.height;
+   
+    self.viewPreview.frame = CGRectMake(0, 0, screenW, screenH);
+    
+    [self startReading];
+    
+    [self openUrl];
+    
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -51,6 +61,7 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
 }
+
 
 -(void)back
 {
@@ -90,19 +101,33 @@
     [_videoPreviewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
     //8.设置图层的frame
     [_videoPreviewLayer setFrame:_viewPreview.layer.bounds];
+    //[_videoPreviewLayer setFrame:self.view.frame];
     //9.将图层添加到预览view的图层上
     [_viewPreview.layer addSublayer:_videoPreviewLayer];
     //10.设置扫描范围
     captureMetadataOutput.rectOfInterest = CGRectMake(0.2f, 0.2f, 0.8f, 0.8f);
+
     //10.1.扫描框
-    _boxView = [[UIView alloc] initWithFrame:CGRectMake(_viewPreview.bounds.size.width * 0.2f, _viewPreview.bounds.size.height * 0.2f, _viewPreview.bounds.size.width - _viewPreview.bounds.size.width * 0.4f, _viewPreview.bounds.size.height - _viewPreview.bounds.size.height * 0.4f)];
-    _boxView.layer.borderColor = [UIColor greenColor].CGColor;
+    CGFloat boxX = _viewPreview.bounds.size.width * 0.1f;
+    CGFloat wid = _viewPreview.bounds.size.width*0.8f;
+    _boxView = [[UIView alloc] initWithFrame:CGRectMake(boxX, _viewPreview.bounds.size.height/2 - wid/2, wid, wid)];
+    _boxView.layer.borderColor = [UIColor whiteColor].CGColor;
     _boxView.layer.borderWidth = 1.0f;
     [_viewPreview addSubview:_boxView];
+    //提示label
+    UILabel *lab = [[UILabel alloc]initWithFrame:CGRectMake(boxX, CGRectGetMaxY(_boxView.frame), wid, 30)];
+    lab.text = @"请将二维码/条形码放入框内，可自动进行扫描";
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:11];
+    lab.textColor = [UIColor whiteColor];
+    [_viewPreview addSubview:lab];
     //10.2.扫描线
     _scanLayer = [[CALayer alloc] init];
-    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, 1);
-    _scanLayer.backgroundColor = [UIColor brownColor].CGColor;
+    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, 1.5);
+    _scanLayer.backgroundColor = [UIColor blueColor].CGColor;
+    _scanLayer.shadowColor = [UIColor blueColor].CGColor;
+    _scanLayer.shadowOffset = CGSizeMake(3, 3);
+    _scanLayer.shadowOpacity = 0.5;
     [_boxView.layer addSublayer:_scanLayer];
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];
     [timer fire];
@@ -135,46 +160,63 @@
 - (void)moveScanLayer:(NSTimer *)timer
 {
     CGRect frame = _scanLayer.frame;
-    if (_boxView.frame.size.height < _scanLayer.frame.origin.y) {
+    if (_boxView.frame.size.height < _scanLayer.frame.origin.y+25) {
         frame.origin.y = 0;
         _scanLayer.frame = frame;
     }else{
-        frame.origin.y += 5;
+        frame.origin.y += 25;
         [UIView animateWithDuration:0.1 animations:^{
             _scanLayer.frame = frame;
         }];
     }
 }
-//实现开始和停止方法
-- (IBAction)startStopReading:(id)sender {
-    if (!_isReading) {
-        if ([self startReading]) {
-            [_startBtn setTitle:@"停止扫描" forState:UIControlStateNormal];
-            // [_lblStatus setText:@"Scanning for QR Code"];
-        }
-    }
-    else{
-        [self stopReading];
-        [_startBtn setTitle:@"开始扫描!" forState:UIControlStateNormal];
-    }
-    _isReading = !_isReading;
-}
+////实现开始和停止方法
+//- (void)startStopReading{
+//    if (!_isReading) {
+//        if ([self startReading]) {
+//            [_startBtn setTitle:@"停止扫描" forState:UIControlStateNormal];
+//            // [_lblStatus setText:@"Scanning for QR Code"];
+//        }
+//    }
+//    else{
+//        [self stopReading];
+//        [_startBtn setTitle:@"开始扫描!" forState:UIControlStateNormal];
+//    }
+//    _isReading = !_isReading;
+//}
 
-- (IBAction)openUrl:(id)sender {
-    URLOpenFromQRCodeViewController *QRcodeWeb = [[URLOpenFromQRCodeViewController alloc] init];
-    QRcodeWeb.url = self.lblStatus.text;
-    [self.navigationController pushViewController:QRcodeWeb animated:YES ];
-    
-    NSLog(@"打开了网页:%@",_lblStatus.text);
-}
+- (void)openUrl {
+    if (self.lblStatus.text.length>3) {
+        NSRange range = [self.lblStatus.text rangeOfString:@"lvyouquan"];
+        if (range.location == NSNotFound) {
+            URLOpenFromQRCodeViewController *QRcodeWeb = [[URLOpenFromQRCodeViewController alloc] init];
+            QRcodeWeb.delegate = self;
+            QRcodeWeb.url = self.lblStatus.text;
+            [self.navigationController pushViewController:QRcodeWeb animated:YES ];
+            
+            NSLog(@"打开了网页:%@",_lblStatus.text);
+
+        }else{
+            ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+            detail.produceUrl = self.lblStatus.text;
+            [self.navigationController pushViewController:detail animated:YES];
+        }
+       
+    }
+  }
+
 -(void)stopReading{
     [_captureSession stopRunning];
     _captureSession = nil;
     [_scanLayer removeFromSuperlayer];
     [_videoPreviewLayer removeFromSuperlayer];
+    [self openUrl];
 }
 
-
+-(void)refresh
+{
+    [self startReading];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

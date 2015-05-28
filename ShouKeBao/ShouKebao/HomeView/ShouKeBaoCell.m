@@ -61,10 +61,18 @@
     [self.contentView addSubview:timeLab];
     self.timeLab = timeLab;
     
+    //出发时间
+    UILabel *goDate = [[UILabel alloc] init];
+    goDate.textColor = [UIColor grayColor];
+    goDate.textAlignment = NSTextAlignmentLeft;
+    goDate.font = [UIFont systemFontOfSize:13];
+    [self.contentView addSubview:goDate];
+    self.goDate = goDate;
 
     // 左边待定内容
     UILabel *leftLab = [[UILabel alloc] init];
     leftLab.font = [UIFont boldSystemFontOfSize:15];
+    leftLab.textColor = [UIColor redColor];
     [self.contentView addSubview:leftLab];
     self.leftLab = leftLab;
     
@@ -85,6 +93,14 @@
     detailLab.numberOfLines = 0;
     [self.contentView addSubview:detailLab];
     self.detailLab = detailLab;
+    
+    //编号
+    UILabel *codeLab = [[UILabel alloc] init];
+    codeLab.font = [UIFont systemFontOfSize:12];
+    codeLab.textAlignment = NSTextAlignmentLeft;
+    codeLab.textColor = [UIColor colorWithRed:13/255.0 green:122/255.0 blue:1 alpha:1];
+    [self.contentView addSubview:codeLab];
+    self.codeLab = codeLab;
 }
 
 - (void)layoutSubviews
@@ -104,20 +120,28 @@
     CGFloat timeX = CGRectGetMaxX(self.titleLab.frame) + gap;
     self.timeLab.frame = CGRectMake(timeX, gap, titleW, 20);
     
-    // 左边待定内容
-    CGFloat leftY = CGRectGetMaxY(self.titleLab.frame) + gap/2;
-    CGFloat leftW = 60;
-    self.leftLab.frame = CGRectMake(titleX, leftY, leftW, 15);
+// 右边待定内容(订单人数)
+    CGFloat rightX = screenW/2;
+    CGFloat rightW = rightX - gap;
+    CGFloat rightY = CGRectGetMaxY(self.timeLab.frame);
+    self.rightLab.frame = CGRectMake(rightX, rightY, rightW, 15);
     
-    // 右边待定内容
-    CGFloat rightX = CGRectGetMaxX(self.leftLab.frame) + gap;
-    CGFloat rightW = (screenW - iconW - gap * 4) - leftW;
-    self.rightLab.frame = CGRectMake(rightX, leftY, rightW, 15);
+      //出发时间
+    self.goDate.frame = CGRectMake(titleX, rightY, screenW*2/3, 15);
     
     // 详情
-    CGFloat detailY = CGRectGetMaxY(self.leftLab.frame) + gap/2;
+    CGFloat detailY = CGRectGetMaxY(self.rightLab.frame);
     CGFloat detailW = screenW - iconW - gap * 3;
     self.detailLab.frame = CGRectMake(titleX, detailY, detailW, 40);
+    
+    //编号
+    CGFloat codeY = CGRectGetMaxY(self.detailLab.frame);
+    self.codeLab.frame = CGRectMake(titleX, codeY, rightW, 15);
+    
+    // 左边待定内容(订单价格)
+    CGFloat priceX = screenW - 60 - gap;
+    CGFloat priceW = 60;
+    self.leftLab.frame = CGRectMake(priceX, codeY, priceW, 15);
 }
 
 - (void)setModel:(HomeList *)model
@@ -129,10 +153,12 @@
         self.iconView.image = [UIImage imageNamed:@"zhike"];
         // 右边待定内容
         self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
-    }else{
+    }
+    
+    else{
         self.iconView.image = [UIImage imageNamed:@"dingdanyue"];
-        // 右边待定内容
-        self.rightLab.text = model.OrderCode;
+      
+         self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
     }
     
     // 标题
@@ -146,6 +172,7 @@
     self.leftLab.text = model.Price;
     
     // 右边待定内容
+    self.codeLab.text = model.OrderCode;
     
     // 详情
     self.detailLab.text = model.ProductName;

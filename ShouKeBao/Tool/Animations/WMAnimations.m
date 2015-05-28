@@ -9,19 +9,21 @@
 #import "WMAnimations.h"
 
 @implementation WMAnimations
-+ (void)WMAnimationToMoveWithTableLayer:(CALayer *)layer andFromPiont:(CGPoint *)fromPoint ToPoint:(CGPoint *)toPoint
++ (void)WMAnimationToMoveWithTableLayer:(CALayer *)layer andFromPiont:(CGPoint )fromPoint ToPoint:(CGPoint )toPoint
 {
      CABasicAnimation *theAnimation;
     theAnimation=[CABasicAnimation animationWithKeyPath:@"position"];
     
-theAnimation.fromValue=[NSValue valueWithCGPoint:*fromPoint];
-    theAnimation.toValue=[NSValue valueWithCGPoint:*toPoint];
+theAnimation.fromValue=[NSValue valueWithCGPoint:fromPoint];
+    theAnimation.toValue=[NSValue valueWithCGPoint:toPoint];
     
     
-    theAnimation.duration=0.8;
+    theAnimation.duration=0.2;
     
     
-    theAnimation.autoreverses = NO;
+    //theAnimation.autoreverses = YES;
+    theAnimation.removedOnCompletion = NO;
+    theAnimation.fillMode = kCAFillModeForwards;
     [layer addAnimation:theAnimation forKey:@"move"];
 }
 

@@ -40,10 +40,12 @@
     self = [super init];
     if (self) {
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:dict];
-        
+       
+      
         self.Count = muta[@"Count"];
         self.CreatedDate = muta[@"CreatedDate"];
         self.Price = muta[@"Price"];
+        self.photosArr = [NSArray arrayWithObjects:@"1mg",@"2mg",@"3mg",@"2mg", nil];
     }
     return self;
 }
@@ -52,5 +54,8 @@
 {
     return [NSString stringWithFormat:@"￥%@",_Price];
 }
+
+
+
 
 @end

@@ -21,12 +21,16 @@
 @property (nonatomic,weak) UILabel *titleLab;
 // 时间
 @property (nonatomic,weak) UILabel *timeLab;
+//出发时间
+@property (nonatomic,weak) UILabel *goDate;
 // 左边待定内容
 @property (nonatomic,weak) UILabel *leftLab;
-// 右边待定内容
+// 右边待定内容 人数
 @property (nonatomic,weak) UILabel *rightLab;
 // 详情
 @property (nonatomic,weak) UILabel *detailLab;
+//编号
+@property (nonatomic,weak) UILabel *codeLab;
 
 @property (nonatomic,strong) HomeList *model;
 

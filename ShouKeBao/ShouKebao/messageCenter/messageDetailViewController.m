@@ -10,12 +10,13 @@
 #import "HomeHttpTool.h"
 #import "NSDate+Category.h"
 #import "Lotuseed.h"
-@interface messageDetailViewController ()
+#import "YYAnimationIndicator.h"
+@interface messageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *messgeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 
 @property (weak, nonatomic) IBOutlet UIWebView *web;
-
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 
 @implementation messageDetailViewController
@@ -23,6 +24,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    [self.view addSubview:_indicator];
+
     
     [self.web scalesPageToFit];
     [self.web.scrollView setShowsVerticalScrollIndicator:NO];
@@ -69,6 +77,18 @@
     
 }
 
+-(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+     [_indicator startAnimation];
+    return YES;
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView
+{
+    [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
+   
+    
+}
 -(void)loadData{
 
     self.messgeTitle.text = self.title;

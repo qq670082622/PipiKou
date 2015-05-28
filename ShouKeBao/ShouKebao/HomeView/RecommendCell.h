@@ -17,6 +17,22 @@
 
 @property (nonatomic,weak) UIImageView *redTip;// 红点
 
+@property (nonatomic,assign) CGFloat cellHeight;
+
+//@property (nonatomic,weak) UIImageView *imgV1;
+//
+//@property (nonatomic,weak) UIImageView *imgV2;
+//
+//@property (nonatomic,weak) UIImageView *imgV3;
+@property(nonatomic,weak) UIView *imgSuperView;
+
+@property (nonatomic,weak) UIView *line;
+
+@property (nonatomic,weak) UILabel *bottomLab;
+@property (nonatomic,weak) UILabel *bottomLab2;
+
+
+
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

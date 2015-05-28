@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-@interface QRCodeViewController : UIViewController
+#import "SKViewController.h"
+@interface QRCodeViewController : SKViewController
 
 @end

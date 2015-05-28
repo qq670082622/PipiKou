@@ -38,6 +38,7 @@
     self.iconView.image = [UIImage imageNamed:@"tixing"];
     
     self.titleLab.text = @"提醒通知";
+    self.timeLab.textColor = [UIColor blueColor];
     
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[remind.RemindTime doubleValue]];
     self.timeLab.text = [createDate formattedTime];

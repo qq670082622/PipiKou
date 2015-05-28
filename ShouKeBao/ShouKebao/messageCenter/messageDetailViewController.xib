@@ -30,6 +30,9 @@
                         <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ND9-6t-560">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            <connections>
+                                <outlet property="delegate" destination="-1" id="KjW-fz-McZ"/>
+                            </connections>
                         </webView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5m5-Nd-F02" userLabel="messageTitle">
                             <rect key="frame" x="0.0" y="0.0" width="1" height="1"/>
@@ -38,7 +41,7 @@
                                 <constraint firstAttribute="height" constant="1" id="nqr-9U-UUq"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>

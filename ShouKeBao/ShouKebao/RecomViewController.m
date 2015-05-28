@@ -1,0 +1,210 @@
+//
+//  RecomViewController.m
+//  ShouKeBao
+//
+//  Created by 吴铭 on 15/5/25.
+//  Copyright (c) 2015年 shouKeBao. All rights reserved.
+//
+
+#import "RecomViewController.h"
+#import "TodayViewController.h"
+#import "YesterdayViewController.h"
+#import "RecentlyViewController.h"
+#import "StationSelect.h"
+#import "SearchProductViewController.h"
+#import "WMAnimations.h"
+@interface RecomViewController ()
+
+- (IBAction)todayAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *todayBtnOutlet;
+
+- (IBAction)yesterdayAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *yesterdayBtnOutlet;
+
+- (IBAction)recentlyAction:(id)sender;
+@property (weak, nonatomic) IBOutlet UIButton *recentlyBtnOutlet;
+
+@property (weak, nonatomic) IBOutlet UIView *moveLine;
+@property (nonatomic,assign) CGPoint normalPoint;
+
+@property (weak, nonatomic) IBOutlet UIView *controllerView;
+
+@property (strong,nonatomic) UIBarButtonItem *leftItem;
+@property (strong,nonatomic) UIBarButtonItem *rightItem;
+
+@property(nonatomic,strong) TodayViewController *todayVC;
+@property(nonatomic,strong) YesterdayViewController *yesterdayVC;
+@property(nonatomic,strong) RecentlyViewController *recentlyVC;
+@end
+
+@implementation RecomViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self.todayBtnOutlet setSelected:YES];
+    [self.view addSubview:self.todayVC.view];
+    
+    CGFloat lineFromX = self.moveLine.center.x;
+    CGFloat lineFromY = self.moveLine.center.y;
+    self.normalPoint = CGPointMake(lineFromX, lineFromY);
+
+  
+    
+    self.title = @"今日推荐";
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+    
+}
+
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    searchBtn.frame = CGRectMake(0, 0, 15, 15);
+  //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill];
+    [searchBtn setBackgroundImage:[UIImage imageNamed:@"fdjForNav"] forState:UIControlStateNormal];
+    [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBtn];
+    
+    UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    stationBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    stationBtn.frame = CGRectMake(25, 0, 50, 30);
+    [stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *stationName = [def objectForKey:@"SubstationName"];
+    [stationBtn setTitle:[NSString stringWithFormat:@"%@﹀",stationName]  forState:UIControlStateNormal];
+    UIBarButtonItem *stationItem = [[UIBarButtonItem alloc] initWithCustomView:stationBtn];
+   
+   
+      self.leftItem = searchItem;
+    self.rightItem = stationItem;
+    
+    
+    [self.navigationItem setRightBarButtonItems:@[searchItem,stationItem] animated:YES];
+}
+-(void)changeStation
+{
+    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
+}
+
+-(void)searchAction
+{
+    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+-(TodayViewController *)todayVC
+{
+    if (_todayVC == nil) {
+        self.todayVC = [[TodayViewController alloc] init];
+        [self addChildViewController:_todayVC];
+        self.todayVC.view.frame = self.controllerView.frame;
+    }
+    return _todayVC;
+}
+
+-(YesterdayViewController *)yesterdayVC
+{
+    if (_yesterdayVC == nil) {
+        self.yesterdayVC = [[YesterdayViewController alloc] init];
+        [self addChildViewController:_yesterdayVC];
+        self.yesterdayVC.view.frame = self.controllerView.frame;
+    }
+    return _yesterdayVC;
+}
+
+-(RecentlyViewController *)recentlyVC
+{
+    if (_recentlyVC == nil) {
+        self.recentlyVC = [[RecentlyViewController alloc] init];
+        [self addChildViewController:_recentlyVC];
+        self.recentlyVC.view.frame = self.controllerView.frame;
+    }
+    return _recentlyVC;
+}
+
+- (IBAction)todayAction:(id)sender {
+    
+    [self.view addSubview:self.todayVC.view];
+    [self.todayBtnOutlet setSelected:YES];
+    
+    [self.yesterdayBtnOutlet setSelected:NO];
+    [self.recentlyBtnOutlet setSelected:NO];
+    [self.yesterdayVC.view removeFromSuperview];
+    [self.recentlyVC.view removeFromSuperview];
+    
+    self.title = @"今日推荐";
+   
+
+    CGFloat lineToX = self.todayBtnOutlet.frame.size.width/2;
+    CGFloat lineToY = CGRectGetMaxY(self.todayBtnOutlet.frame)+1;
+   CGPoint to = CGPointMake(lineToX,lineToY);
+   
+    [WMAnimations WMAnimationToMoveWithTableLayer:self.moveLine.layer andFromPiont:self.normalPoint ToPoint:to];
+   
+     self.normalPoint = to;
+    NSLog(@"from:%@------to:%@",NSStringFromCGPoint(self.normalPoint),NSStringFromCGPoint(to));
+    
+    
+}
+
+- (IBAction)yesterdayAction:(id)sender {
+    [self.view addSubview:self.yesterdayVC.view];
+     [self.yesterdayBtnOutlet setSelected:YES];
+    [self.todayBtnOutlet setSelected:NO];
+    [self.recentlyBtnOutlet setSelected:NO];
+    
+    [self.todayVC.view removeFromSuperview];
+    [self.recentlyVC.view removeFromSuperview];
+    
+    self.title = @"昨日推荐";
+    
+    
+    CGFloat lineToX = self.yesterdayBtnOutlet.frame.origin.x + self.yesterdayBtnOutlet.frame.size.width/2;
+    CGFloat lineToY = CGRectGetMaxY(self.yesterdayBtnOutlet.frame)+1;
+    CGPoint from =  self.normalPoint;
+    CGPoint to = CGPointMake(lineToX,lineToY);
+    [WMAnimations WMAnimationToMoveWithTableLayer:self.moveLine.layer andFromPiont:from ToPoint:to];
+    
+    self.normalPoint = to;
+ NSLog(@"from:%@------to:%@",NSStringFromCGPoint(from),NSStringFromCGPoint(to));
+}
+
+- (IBAction)recentlyAction:(id)sender {
+    [self.view addSubview:self.recentlyVC.view];
+    [self.recentlyBtnOutlet setSelected:YES];
+    [self.todayBtnOutlet setSelected:NO];
+    [self.yesterdayBtnOutlet setSelected:NO];
+    [self.todayVC.view removeFromSuperview];
+    [self.yesterdayVC.view removeFromSuperview];
+    
+    self.title = @"最近推荐";
+    
+    
+    CGFloat lineToX = self.recentlyBtnOutlet.frame.origin.x + self.recentlyBtnOutlet.frame.size.width/2;
+    CGFloat lineToY = CGRectGetMaxY(self.recentlyBtnOutlet.frame)+1;
+    CGPoint from = self.normalPoint;
+    CGPoint to = CGPointMake(lineToX,lineToY);
+    [WMAnimations WMAnimationToMoveWithTableLayer:self.moveLine.layer andFromPiont:from ToPoint:to];
+   
+    self.normalPoint = to;
+     NSLog(@"from:%@------to:%@",NSStringFromCGPoint(from),NSStringFromCGPoint(to));
+
+}
+@end

@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@protocol notifiQRCodeToRefresh<NSObject>
+-(void)refresh;
+@end
 @interface URLOpenFromQRCodeViewController : UIViewController
 @property (nonatomic,copy) NSString *url;
+@property(nonatomic,weak) id<notifiQRCodeToRefresh>delegate;
 @end

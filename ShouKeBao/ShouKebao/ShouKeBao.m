@@ -47,6 +47,7 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
+#import "RecomViewController.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
@@ -109,7 +110,7 @@
     }
     
     [self customLeftBarItem];
-   // [self customRightBarItem];
+    [self customRightBarItem];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
     [self.upView addGestureRecognizer:tap];
@@ -653,6 +654,7 @@
             return;
         }
         NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
+        NSLog(@"----------------手机号码%@------------------",phone);
          SubstationParttern *par = [SubstationParttern sharedStationName];
         [Lotuseed onEvent:@"page1Tap3sToSos" attributes:@{@"stationName":par.stationName}];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
@@ -777,6 +779,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
 -(void)codeAction
 {
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"QRCodeClicked" attributes:@{@"stationName":par.stationName}];
+   
     [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
 }
 
@@ -801,6 +806,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
         // 如果没有数据的话就隐藏这个红点
         cell.redTip.hidden = !(self.recommendCount > 0);
+        
         return cell;
     }else{
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
@@ -831,7 +837,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [Lotuseed onEvent:@"page1ClickToOrderDetail" attributes:@{@"stationName":par.stationName}];
     }else if([model.model isKindOfClass:[Recommend class]]){
         
-        RecommendViewController *rec = [[RecommendViewController alloc] init];
+       // RecommendViewController *rec = [[RecommendViewController alloc] init];
+        RecomViewController *rec = [[RecomViewController alloc] init];
         [self.navigationController pushViewController:rec animated:YES];
         
         // 刷新下 隐藏红点
@@ -872,9 +879,27 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     HomeBase *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[Recommend class]]) {
-        return 90;
+        Recommend *rmodel = model.model;
+        NSUInteger count = rmodel.photosArr.count;
+       
+        CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+        double radious = screenH/667;
+        NSLog(@"-----------------radious is %.3f---------",radious);
+        if ( count == 2 || count == 3) {
+       
+                    
+
+                    return 165*radious;
+                    
+        }else if (count == 4 || count == 5 || count == 6){
+            return 260*radious;
+        }else{
+        
+            return 350*radious;
+        }
+        
     }else{
-        return 105;
+        return 110;
     }
 }
 

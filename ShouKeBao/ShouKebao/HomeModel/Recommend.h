@@ -16,6 +16,10 @@
 
 @property (nonatomic,copy) NSString *Price;
 
+@property (nonatomic,strong) NSArray *photosArr;
+
+
+
 + (instancetype)recommendWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

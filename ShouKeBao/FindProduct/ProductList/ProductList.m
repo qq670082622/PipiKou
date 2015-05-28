@@ -82,6 +82,9 @@
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
 @property(nonatomic,copy) NSMutableString *month;
+
+@property (weak, nonatomic) IBOutlet UIView *noProductView;
+
 @end
 
 @implementation ProductList
@@ -326,18 +329,7 @@
 
 
 
-#pragma  mark 没有产品时嵌图
--(void)addANewFootViewWhenHaveNoProduct
-{
-    CGFloat wid = self.view.frame.size.width;
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake((wid-200)/2, 100, 200, 200)];
-    imgv.contentMode = UIViewContentModeScaleAspectFit;
-    imgv.image = [UIImage imageNamed:@"content_null"];
-    [self.view addSubview:imgv];
-    
-    [self.pageCountBtn setTitle:@"没有产品" forState:UIControlStateNormal];
-   // self.navigationItem.rightBarButtonItem = nil;
-}
+
 
 
 
@@ -593,10 +585,12 @@
         NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         [self.dataArr removeAllObjects];
         if (arr.count==0) {
-            [self addANewFootViewWhenHaveNoProduct];
-          //  self.table.tableFooterView.hidden = YES;
+            self.noProductView.hidden = NO;
+            [self.pageCountBtn setTitle:@"没有产品" forState:UIControlStateNormal];
+
         }else if (arr.count>0){
          //self.table.tableFooterView.hidden = YES;
+            self.noProductView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
