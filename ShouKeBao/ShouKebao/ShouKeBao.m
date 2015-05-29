@@ -48,6 +48,7 @@
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
 #import "RecomViewController.h"
+#import "ScanningViewController.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
@@ -132,11 +133,11 @@
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];
-     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
     
-    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
-    [appIsBack setObject:@"no" forKey:@"appIsBack"];
-    [appIsBack synchronize];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
+    
+//    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+//    NSString *isBack = [appIsBack objectForKey:@"appIsBack"];
     
      NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
     NSString *SKBGuide = [guiDefault objectForKey:@"SKBGuide"];
@@ -229,10 +230,10 @@
     [self  getUserInformation];
   
     [self getVoice];
-    //if ([self.tabBarItem.badgeValue intValue]>5) {
+   
          self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
     [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
-  //  }
+  
    
 
     if ([message[0] isEqualToString:@"orderId"]) {//订单消息
@@ -671,8 +672,42 @@
    
 }
 
+-(void)addAlert
+{
+    
+    
+    // 获取到现在应用中存在几个window，ios是可以多窗口的
+    
+    NSArray *windowArray = [UIApplication sharedApplication].windows;
+    
+    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
+    
+    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
+    
+    // 以下就是不停的寻找子视图，修改要修改的
+    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat labY;
+    if (screenH == 667) {
+          labY = 260;
+    }else if (screenH == 568){
+        labY = 160;
+    }else if (screenH == 480){
+        labY = 180;
+    }else if (screenH == 736){
+        labY = 440;
+    }
+   
+         CGFloat labW = self.view.bounds.size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.textColor = [UIColor blackColor];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:12];
+    [actionWindow addSubview:lab];
+}
 - (IBAction)add:(id)sender
 {
+   
 //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
                                        defaultContent:self.shareDic[@"Desc"]
@@ -708,26 +743,11 @@
                                 }
                             }];
     
-    [self showAlert];
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page1ShareStore" attributes:@{@"stationName":par.stationName}];
+     [self addAlert];
+   
     
 }
 
--(void)showAlert
-{
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [accountDefaults stringForKey:@"shareCount"];
-    
-    if ([account intValue]<3){
-        
-        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
-        [accountDefaults setObject:newCount forKey:@"shareCount"];
-        
-        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
-    }
-}
 
 -(void)customLeftBarItem
 {
@@ -749,7 +769,7 @@
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 20, 20)];;
     [btn addTarget:self action:@selector(codeAction) forControlEvents:UIControlEventTouchUpInside];
-    [btn setImage:[UIImage imageNamed:@"erweima"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"itemsaomiao"] forState:UIControlStateNormal];
    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
     
@@ -782,7 +802,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"QRCodeClicked" attributes:@{@"stationName":par.stationName}];
    
-    [self.navigationController pushViewController:[[QRCodeViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:[[ScanningViewController alloc] init] animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -887,13 +907,26 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         NSLog(@"-----------------radious is %.3f---------",radious);
         if ( count == 2 || count == 3) {
        
-                    
+            if (screenH == 480) {
+                return 165*radious+25;
+            }
 
                     return 165*radious;
                     
         }else if (count == 4 || count == 5 || count == 6){
+          
+            if (screenH == 480) {
+               
+                return 260*radious+25;
+            }
             return 260*radious;
+            
         }else{
+            
+            if (screenH == 480) {
+                return 350*radious+25;
+            }
+
         
             return 350*radious;
         }

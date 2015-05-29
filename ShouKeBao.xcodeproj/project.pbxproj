@@ -205,6 +205,14 @@
 		633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263CF1AB851590021553B /* AFURLSessionManager.m */; };
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
+		635E70A81B1806E8008EFEB6 /* ScanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70A61B1806E8008EFEB6 /* ScanningViewController.m */; };
+		635E70A91B1806E8008EFEB6 /* ScanningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */; };
+		635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70AC1B180763008EFEB6 /* V8HorizontalPickerView.m */; };
+		635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70B01B180F87008EFEB6 /* PersonIDViewController.m */; };
+		635E70B31B180F87008EFEB6 /* PersonIDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70B11B180F87008EFEB6 /* PersonIDViewController.xib */; };
+		635E70BC1B182C68008EFEB6 /* QRHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */; };
+		635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */; };
+		635E70C01B185B39008EFEB6 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BF1B185B39008EFEB6 /* CardTableViewController.m */; };
 		6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */; };
 		6364A9B31B0B19BE0099705B /* SubstationParttern.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9B21B0B19BE0099705B /* SubstationParttern.m */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
@@ -689,6 +697,20 @@
 		633263D11AB851590021553B /* IWHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHttpTool.m; sourceTree = "<group>"; };
 		6359441E1ADBA9D9004F0035 /* textStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textStyle.h; sourceTree = "<group>"; };
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
+		635E70A51B1806E8008EFEB6 /* ScanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanningViewController.h; sourceTree = "<group>"; };
+		635E70A61B1806E8008EFEB6 /* ScanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanningViewController.m; sourceTree = "<group>"; };
+		635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanningViewController.xib; sourceTree = "<group>"; };
+		635E70AB1B180763008EFEB6 /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerView.h; sourceTree = "<group>"; };
+		635E70AC1B180763008EFEB6 /* V8HorizontalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V8HorizontalPickerView.m; sourceTree = "<group>"; };
+		635E70AD1B180763008EFEB6 /* V8HorizontalPickerViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerViewProtocol.h; sourceTree = "<group>"; };
+		635E70AF1B180F87008EFEB6 /* PersonIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonIDViewController.h; sourceTree = "<group>"; };
+		635E70B01B180F87008EFEB6 /* PersonIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonIDViewController.m; sourceTree = "<group>"; };
+		635E70B11B180F87008EFEB6 /* PersonIDViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonIDViewController.xib; sourceTree = "<group>"; };
+		635E70B91B182C68008EFEB6 /* QRHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRHistoryViewController.h; sourceTree = "<group>"; };
+		635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRHistoryViewController.m; sourceTree = "<group>"; };
+		635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRHistoryViewController.xib; sourceTree = "<group>"; };
+		635E70BE1B185B38008EFEB6 /* CardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewController.h; sourceTree = "<group>"; };
+		635E70BF1B185B39008EFEB6 /* CardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewController.m; sourceTree = "<group>"; };
 		6364A9AE1B098CA00099705B /* YYAnimationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimationIndicator.h; sourceTree = "<group>"; };
 		6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimationIndicator.m; sourceTree = "<group>"; };
 		6364A9B11B0B19BE0099705B /* SubstationParttern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstationParttern.h; sourceTree = "<group>"; };
@@ -1508,6 +1530,7 @@
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				635E70AA1B180763008EFEB6 /* scrollLib */,
 				63F1A1931B14250E00DE9867 /* MJExtension */,
 				6364A9AD1B098CA00099705B /* LoadingAnimate */,
 				5A944D2D1B00BDAF0004DE89 /* DACircularProgress */,
@@ -1703,6 +1726,16 @@
 			path = textStyle;
 			sourceTree = "<group>";
 		};
+		635E70AA1B180763008EFEB6 /* scrollLib */ = {
+			isa = PBXGroup;
+			children = (
+				635E70AB1B180763008EFEB6 /* V8HorizontalPickerView.h */,
+				635E70AC1B180763008EFEB6 /* V8HorizontalPickerView.m */,
+				635E70AD1B180763008EFEB6 /* V8HorizontalPickerViewProtocol.h */,
+			);
+			path = scrollLib;
+			sourceTree = "<group>";
+		};
 		6364A9AD1B098CA00099705B /* LoadingAnimate */ = {
 			isa = PBXGroup;
 			children = (
@@ -1825,6 +1858,17 @@
 				63B8C6AD1ACE688C00328C8C /* URLOpenFromQRCodeViewController.h */,
 				63B8C6AE1ACE688C00328C8C /* URLOpenFromQRCodeViewController.m */,
 				63B8C6AF1ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib */,
+				635E70A51B1806E8008EFEB6 /* ScanningViewController.h */,
+				635E70A61B1806E8008EFEB6 /* ScanningViewController.m */,
+				635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */,
+				635E70AF1B180F87008EFEB6 /* PersonIDViewController.h */,
+				635E70B01B180F87008EFEB6 /* PersonIDViewController.m */,
+				635E70B11B180F87008EFEB6 /* PersonIDViewController.xib */,
+				635E70B91B182C68008EFEB6 /* QRHistoryViewController.h */,
+				635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */,
+				635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */,
+				635E70BE1B185B38008EFEB6 /* CardTableViewController.h */,
+				635E70BF1B185B39008EFEB6 /* CardTableViewController.m */,
 			);
 			path = QRCode;
 			sourceTree = "<group>";
@@ -2237,10 +2281,12 @@
 				63E034571AFC995300BD714A /* remondViewController.xib in Resources */,
 				63B8F5441AF2218900A162DC /* message.wav in Resources */,
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
+				635E70B31B180F87008EFEB6 /* PersonIDViewController.xib in Resources */,
 				5A52FC471ACEBF220076DAE6 /* FootView.xib in Resources */,
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
+				635E70A91B1806E8008EFEB6 /* ScanningViewController.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
 				5A52FC491ACEBF220076DAE6 /* MinMaxPriceSelectViewController.xib in Resources */,
 				5A52FC4B1ACEBF220076DAE6 /* ProductCell.xib in Resources */,
@@ -2284,6 +2330,7 @@
 				5A52FC881ACEBF220076DAE6 /* ContactView.xib in Resources */,
 				5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */,
 				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
+				635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */,
 				5A52FC8A1ACEBF220076DAE6 /* DetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2363,6 +2410,7 @@
 				63E034561AFC995300BD714A /* remondViewController.m in Sources */,
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				5A52FC7E1ACEBF220076DAE6 /* SuggestViewController.m in Sources */,
+				635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
 				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
@@ -2408,6 +2456,7 @@
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
 				5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */,
+				635E70A81B1806E8008EFEB6 /* ScanningViewController.m in Sources */,
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
 				632B00021AB92A3A003B15AD /* UIView+WebCacheOperation.m in Sources */,
 				5AA176D91AE4A146003F7875 /* DressFooter.m in Sources */,
@@ -2464,7 +2513,9 @@
 				5A076CA11ACD24050077611C /* CityViewController.m in Sources */,
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
 				5A52FC7A1ACEBF220076DAE6 /* MyOrgViewController.m in Sources */,
+				635E70BC1B182C68008EFEB6 /* QRHistoryViewController.m in Sources */,
 				63E034531AFC995300BD714A /* remondModel.m in Sources */,
+				635E70C01B185B39008EFEB6 /* CardTableViewController.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				63E034421AFC995300BD714A /* batchCell.m in Sources */,
@@ -2489,6 +2540,7 @@
 				5A944D261B00BC780004DE89 /* MLPhotoBrowserSignleViewController.m in Sources */,
 				5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */,
 				5A52FC551ACEBF220076DAE6 /* rightModal2.m in Sources */,
+				635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */,
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
 				5A944D251B00BC780004DE89 /* UIImage+MLBrowserPhotoImageForBundle.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,

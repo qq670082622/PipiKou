@@ -158,12 +158,7 @@
     
     NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
     
-    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
-    
-    NSString *result = [appIsBack stringForKey:@"appIsBack"];
-    
-    if ([result  isEqualToString: @"yes"]) {
-        if (orderUri.length>4) {
+         if (orderUri.length>4) {
             NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
             NSMutableArray *arr = [NSMutableArray array];
             [arr addObject:@"orderId"];
@@ -207,53 +202,9 @@
             
         }
         
-    }else if ([result  isEqualToString: @"no"]){
-        if (orderUri.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"orderId"];
-            [arr addObject:orderId];
-            [arr addObject:orderUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-        }
-        if (remindContent.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"remind"];
-            [arr addObject:remindTime];
-            [arr addObject:remindContent];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        if ([recommond isEqualToString:@"123"]) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"recommond"];
-            [arr addObject:recommond];
-            [arr addObject:@"123"];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        if (productId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"productId"];
-            [arr addObject:productId];
-            [arr addObject:productUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-        }
-        if (messageId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"messageId"];
-            [arr addObject:messageId];
-            [arr addObject:messageUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
+    
         
-        
-    }
+
     
 
     // IOS 7 Support Required
@@ -287,153 +238,14 @@
     [APService registerDeviceToken:deviceToken];
 }
 
-//jpush推送代码notification 处理函数一律切换到下面函数，后台推送代码也在此函数中调用。
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    
-    //    新订单消息推送//    orderId（订单Id）  //
-    // NSString *newOrderID = [userInfo valueForKey:@"orderId"];
-    // NSString *newOrderUri = [userInfo valueForKey:@"orderUri"];
-    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
-    NSString *orderId = [userInfo valueForKey:@"orderId"];
-    NSString *orderUri = [userInfo valueForKey:@"orderUri"];
-    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //    客户提示消息推送//    userId（用户Id）
-    NSString *remindTime = [userInfo valueForKey:@"remindTime"];
-    NSString *remindContent = [userInfo valueForKey:@"remindContent"];
-    //NSString *customerUri = [userInfo valueForKey:<#(NSString *)#>]
-    
-    //    精品推荐消息推送//    点击进入精品推荐页面，无附加字段
-    NSString  *recommond = [userInfo valueForKey:@"recommond"];
-    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //    新线路推荐消息推送//    productId（产品Id）
-    NSString *productUri = [userInfo valueForKey:@"productUri"];
-    NSString *productId = [userInfo valueForKey:@"productId"];
-    //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //    系统\公告消息推送//    messageId（消息Id）
-    NSString *messageId = [userInfo valueForKey:@"messageId"];
-    NSString *messageUri = [userInfo valueForKey:@"messageUri"];
-    
-    //客户消息提醒
-  //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    
-    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
-    
-    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
-    
-    NSString *result = [appIsBack stringForKey:@"appIsBack"];
 
-    if ([result  isEqualToString: @"yes"]) {
-        if (orderUri.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"orderId"];
-            [arr addObject:orderId];
-            [arr addObject:orderUri];
-            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-        }
-        if (remindContent.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"remind"];
-            [arr addObject:remindTime];
-            [arr addObject:remindContent];
-            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-            
-        }
-        if ([recommond isEqualToString:@"123"]) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"recommond"];
-            [arr addObject:recommond];
-            [arr addObject:@"123"];
-            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-            
-        }
-        if (productId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"productId"];
-            [arr addObject:productId];
-            [arr addObject:productUri];
-            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-        }
-        if (messageId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"messageId"];
-            [arr addObject:messageId];
-            [arr addObject:messageUri];
-            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-            
-        }
-        
-    }else if ([result  isEqualToString: @"no"]){
-        if (orderUri.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"orderId"];
-            [arr addObject:orderId];
-            [arr addObject:orderUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-        }
-        if (remindContent.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"remind"];
-            [arr addObject:remindTime];
-            [arr addObject:remindContent];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        if ([recommond isEqualToString:@"123"]) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"recommond"];
-            [arr addObject:recommond];
-            [arr addObject:@"123"];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        if (productId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"productId"];
-            [arr addObject:productId];
-            [arr addObject:productUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-        }
-        if (messageId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"messageId"];
-            [arr addObject:messageId];
-            [arr addObject:messageUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        
-        
-    }
-    
-    
-     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-   
-    // IOS 7 Support Required
-    [APService handleRemoteNotification:userInfo];
-    
-    completionHandler(UIBackgroundFetchResultNewData);
-    
-}
-
+#pragma -mark is true!~~
+//此为应用程序在后台，点击后会被调用
+//若应用程序在前期，会直接调用
+//若应用程序为关闭状态则调用：didFinishLaunchingWithOptions方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
+    
     //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
     NSString *orderId = [userInfo valueForKey:@"orderId"];
     NSString *orderUri = [userInfo valueForKey:@"orderUri"];
@@ -464,13 +276,7 @@
     NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
     
     
-    
-    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
-    
-    NSString *result = [appIsBack stringForKey:@"appIsBack"];
-
-    if ([result  isEqualToString: @"yes"]) {
-        if (orderUri.length>4) {
+           if (orderUri.length>4) {
             NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
             NSMutableArray *arr = [NSMutableArray array];
             [arr addObject:@"orderId"];
@@ -514,58 +320,9 @@
             
         }
         
-    }else if ([result  isEqualToString: @"no"]){
-        if (orderUri.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"orderId"];
-            [arr addObject:orderId];
-            [arr addObject:orderUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-        }
-        if (remindContent.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"remind"];
-            [arr addObject:remindTime];
-            [arr addObject:remindContent];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        if ([recommond isEqualToString:@"123"]) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"recommond"];
-            [arr addObject:recommond];
-            [arr addObject:@"123"];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        if (productId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"productId"];
-            [arr addObject:productId];
-            [arr addObject:productUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-        }
-        if (messageId.length>4) {
-            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-            NSMutableArray *arr = [NSMutableArray array];
-            [arr addObject:@"messageId"];
-            [arr addObject:messageId];
-            [arr addObject:messageUri];
-            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
-            
-        }
-        
-        
-    }
     
-    
-   
-    [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-// Required
+        
+        // Required
     [APService handleRemoteNotification:userInfo];
 }
 
@@ -576,6 +333,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self ];
     
 }
+
 
 
 #pragma weChat
@@ -688,12 +446,12 @@
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {//进入后台
     
-    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+//    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+//    
+//    [appIsBack setObject:@"yes" forKey:@"appIsBack"];
+//     
+//     [appIsBack synchronize];
     
-    [appIsBack setObject:@"yes" forKey:@"appIsBack"];
-     
-     [appIsBack synchronize];
-     
 __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
         [application endBackgroundTask:task];
     }];
@@ -737,9 +495,155 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     return YES;
 }
 
+
+//jpush推送代码notification 处理函数一律切换到下面函数，后台推送代码也在此函数中调用。
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
+{
+    
+    
+    //    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
+    //    NSString *orderId = [userInfo valueForKey:@"orderId"];
+    //    NSString *orderUri = [userInfo valueForKey:@"orderUri"];
+    //    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    //
+    //    //    客户提示消息推送//    userId（用户Id）
+    //    NSString *remindTime = [userInfo valueForKey:@"remindTime"];
+    //    NSString *remindContent = [userInfo valueForKey:@"remindContent"];
+    //    //NSString *customerUri = [userInfo valueForKey:<#(NSString *)#>]
+    //
+    //    //    精品推荐消息推送//    点击进入精品推荐页面，无附加字段
+    //    NSString  *recommond = [userInfo valueForKey:@"recommond"];
+    //    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    //
+    //    //    新线路推荐消息推送//    productId（产品Id）
+    //    NSString *productUri = [userInfo valueForKey:@"productUri"];
+    //    NSString *productId = [userInfo valueForKey:@"productId"];
+    //    //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    //
+    //    //    系统\公告消息推送//    messageId（消息Id）
+    //    NSString *messageId = [userInfo valueForKey:@"messageId"];
+    //    NSString *messageUri = [userInfo valueForKey:@"messageUri"];
+    //
+    //    //客户消息提醒
+    //  //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    //
+    //
+    //    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
+    //
+    //    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+    //
+    //    NSString *result = [appIsBack stringForKey:@"appIsBack"];
+    //
+    //    if ([result  isEqualToString: @"yes"]) {
+    //        if (orderUri.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"orderId"];
+    //            [arr addObject:orderId];
+    //            [arr addObject:orderUri];
+    //            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+    //        }
+    //        if (remindContent.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"remind"];
+    //            [arr addObject:remindTime];
+    //            [arr addObject:remindContent];
+    //            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+    //
+    //        }
+    //        if ([recommond isEqualToString:@"123"]) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"recommond"];
+    //            [arr addObject:recommond];
+    //            [arr addObject:@"123"];
+    //            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+    //
+    //        }
+    //        if (productId.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"productId"];
+    //            [arr addObject:productId];
+    //            [arr addObject:productUri];
+    //            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+    //        }
+    //        if (messageId.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"messageId"];
+    //            [arr addObject:messageId];
+    //            [arr addObject:messageUri];
+    //            [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+    //
+    //        }
+    //
+    //    }else if ([result  isEqualToString: @"no"]){
+    //        if (orderUri.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"orderId"];
+    //            [arr addObject:orderId];
+    //            [arr addObject:orderUri];
+    //            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
+    //        }
+    //        if (remindContent.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"remind"];
+    //            [arr addObject:remindTime];
+    //            [arr addObject:remindContent];
+    //            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
+    //
+    //        }
+    //        if ([recommond isEqualToString:@"123"]) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"recommond"];
+    //            [arr addObject:recommond];
+    //            [arr addObject:@"123"];
+    //            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
+    //
+    //        }
+    //        if (productId.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"productId"];
+    //            [arr addObject:productId];
+    //            [arr addObject:productUri];
+    //            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
+    //        }
+    //        if (messageId.length>4) {
+    //            NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    //            NSMutableArray *arr = [NSMutableArray array];
+    //            [arr addObject:@"messageId"];
+    //            [arr addObject:messageId];
+    //            [arr addObject:messageUri];
+    //            [defaultCenter postNotificationName:@"pushWithForeground" object:arr];
+    //            
+    //        }
+    //        
+    //        
+    //    }
+    //    
+    //    
+    //     [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    //   
+    //    // IOS 7 Support Required
+    //    [APService handleRemoteNotification:userInfo];
+    //    
+    //    completionHandler(UIBackgroundFetchResultNewData);
+    
+}
+
+
 - (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
-    //self.isEnterBackGround = NO;
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+    
+    [appIsBack setObject:@"no" forKey:@"appIsBack"];
+    
+    [appIsBack synchronize];    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

@@ -22,6 +22,7 @@
     [super viewDidLoad];
  
     [self loadDataSource];
+   
     self.navigationController.title = self.conditionTitle;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     

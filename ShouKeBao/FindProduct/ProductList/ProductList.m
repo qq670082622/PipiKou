@@ -365,6 +365,7 @@
             self.subIndicateDataArr2[a] = selectValue;
         }
          self.coverView.hidden = NO;
+        NSLog(@"subindicateArr 1 :------------%@------------- 2:%@--------------- ",_subIndicateDataArr1,_subIndicateDataArr2);
         [self.subTable reloadData];
         //[self loadDataSourceWithCondition];
 
@@ -1160,15 +1161,7 @@
            
           cell.detailTextLabel.textColor = [UIColor orangeColor];
          
-           if (indexPath.row != 1) {
-               
-               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
-               NSString *detailStr = self.subIndicateDataArr1[indexPath.row];
-               if (detailStr.length) {
-                   cell.detailTextLabel.text = @"不限";
-               }
-
-           }else if (indexPath.row == 1){
+           if (indexPath.row == 1){
                    if (_goDateEnd.length>3) {
                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
                    }else if (_goDateEnd.length<=2){
@@ -1178,7 +1171,16 @@
                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",_month];
                }
                
-           }
+           } else if (indexPath.row != 1) {
+               
+               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+                NSString *detailStr = self.subIndicateDataArr1[indexPath.row];
+               if (!detailStr.length || [detailStr isEqualToString:@" "]) {
+                   cell.detailTextLabel.text = @"不限";
+               }else{
+              cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
+               }
+                          }
           
        }else {
           
@@ -1192,15 +1194,17 @@
            
            NSString *detailStr = self.subIndicateDataArr2[indexPath.row];
            if (detailStr.length>=2) {
+               
                cell.detailTextLabel.text = self.subIndicateDataArr2[indexPath.row];
-
+               
            }
-          
+           
            NSString *detailStr2 = self.subIndicateDataArr2[indexPath.row];
            if (detailStr2.length<2) {
                cell.detailTextLabel.text = @"不限";
            }
-           cell.detailTextLabel.textColor = [UIColor orangeColor];
+
+               cell.detailTextLabel.textColor = [UIColor orangeColor];
 
        }
        return cell;

@@ -38,13 +38,12 @@
    self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
-    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
-    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
     
-    //CGFloat screenW = self.view.bounds.size.width;
-  //  CGFloat screenH = self.view.bounds.size.height;
-   
-    self.viewPreview.frame = CGRectMake(0, 0, screenW, screenH);
+    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+       CGFloat viewH = screenH - 157;
+    
+    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
     
     [self startReading];
     
@@ -122,12 +121,12 @@
     lab.textColor = [UIColor whiteColor];
     [_viewPreview addSubview:lab];
     //10.2.扫描线
+   
     _scanLayer = [[CALayer alloc] init];
-    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, 1.5);
-    _scanLayer.backgroundColor = [UIColor blueColor].CGColor;
-    _scanLayer.shadowColor = [UIColor blueColor].CGColor;
-    _scanLayer.shadowOffset = CGSizeMake(3, 3);
-    _scanLayer.shadowOpacity = 0.5;
+    _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, 8);
+    _scanLayer.contents = (id)[UIImage imageNamed:@"widLine"].CGImage;
+
+ 
     [_boxView.layer addSublayer:_scanLayer];
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];
     [timer fire];

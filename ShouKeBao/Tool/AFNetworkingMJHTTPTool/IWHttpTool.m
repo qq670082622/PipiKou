@@ -210,11 +210,62 @@
 
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
+    
+    NSString *normalURL = kWebTestHost;
+    NSString *overStr = [normalURL stringByAppendingString:url];
+    
+    //组dic
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    NSString *mobileID = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    //ClientSource 0其他，无需
+    
+    NSUserDefaults *accoutDefault=[NSUserDefaults standardUserDefaults];
+    NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
+    NSLog(@"---------subStation is %@-------",subStation);
+    
+    // 基本参数
+    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+    [tmp setObject:@"1" forKey:@"MobileType"];
+    [tmp setObject:currentVersion forKey:@"MobileVersion"];
+    [tmp setObject:mobileID forKey:@"MobileID"];
+    
+    // 分区设置
+    if (subStation) {
+        [tmp setObject:subStation forKey:@"Substation"];
+    }else if (!subStation){
+        [tmp setObject:@"10" forKey:@"Substation"];
+        //  [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
+    }
+    
+    // 取出两个id
+    NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
+    NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
+    NSString *appUserId = [accoutDefault objectForKey:UserInfoKeyAppUserID];
+    
+    // 判断这三个个是否空
+    [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
+    [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    [tmp setObject:appUserId ? appUserId : @"" forKey:@"AppUserID"];
+    
+    // 取出logintype
+    NSString *loginType = [accoutDefault objectForKey:UserInfoKeyLoginType];
+    [tmp setObject:loginType ? loginType : @"0" forKey:@"LoginType"];
+    
+    // 拼接所有参数
+    [tmp addEntriesFromDictionary:params];
+    
+    NSLog(@"-------url:%@",overStr);
+    NSLog(@"~~~~~~~param:%@",tmp);
+    
+
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
-    
+
+    mgr.requestSerializer = [AFJSONRequestSerializer serializer];
+
     // 2.发送请求
-    [mgr POST:url parameters:params constructingBodyWithBlock:^(id<AFMultipartFormData> totalFormData) {
+    [mgr POST:url parameters:tmp constructingBodyWithBlock:^(id<AFMultipartFormData> totalFormData) {
         for (IWFormData *formData in formDataArray) {
             [totalFormData appendPartWithFileData:formData.data name:formData.name fileName:formData.filename mimeType:formData.mimeType];
         }

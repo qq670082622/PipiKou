@@ -129,7 +129,7 @@
     
     [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
     
-    [button addTarget:self action:@selector(showAlert) forControlEvents:UIControlEventTouchUpInside];
+   
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
@@ -160,20 +160,6 @@
 
 
 
--(void)showAlert
-{
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [accountDefaults stringForKey:@"shareCount"];
-    
-    if ([account intValue]<3){
-        
-        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
-        [accountDefaults setObject:newCount forKey:@"shareCount"];
-        
-        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
-    }
-}
 
 
 - (IBAction)checkCheapPrice{
@@ -326,6 +312,39 @@
 
 
 
+-(void)addAlert
+{
+    
+    
+    // 获取到现在应用中存在几个window，ios是可以多窗口的
+    
+    NSArray *windowArray = [UIApplication sharedApplication].windows;
+    
+    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
+    
+    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
+    
+    // 以下就是不停的寻找子视图，修改要修改的
+    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat labY;
+    if (screenH == 667) {
+        labY = 260;
+    }else if (screenH == 568){
+        labY = 160;
+    }else if (screenH == 480){
+        labY = 180;
+    }else if (screenH == 736){
+        labY = 440;
+    }
+    
+    CGFloat labW = self.view.bounds.size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.textColor = [UIColor blackColor];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:12];
+    [actionWindow addSubview:lab];
+}
 
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
@@ -369,6 +388,7 @@
                                 }
                             }];
     NSLog(@"--------------分享出去的url is %@--------------",shareDic[@"Url"]);
+    [self addAlert];
     
 }
 

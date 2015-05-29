@@ -145,7 +145,7 @@
     [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
     
     [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
-    [button addTarget:self action:@selector(showAlert) forControlEvents:UIControlEventTouchUpInside];
+    
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
@@ -164,11 +164,7 @@
         
         self.coverView.hidden = NO;
         [_indicator startAnimation];
-//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//        
-//        hudView.labelText = @"拼命加载中...";
-//        
-//        [hudView show:YES];
+
         return YES;
     }
    
@@ -177,31 +173,13 @@
 
        }
 
--(void)showAlert
-{
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [accountDefaults stringForKey:@"shareCount"];
-    
-    if ([account intValue]<3){
-        
-        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
-        [accountDefaults setObject:newCount forKey:@"shareCount"];
-        
-        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
-    }
 
-}
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     self.coverView.hidden = YES;
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
-//    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
 
-   // [MBProgressHUD showSuccess:@"加载完成"];
-    //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
  NSString *rightUrl = webView.request.URL.absoluteString;
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
@@ -220,6 +198,41 @@
     }];
 
 }
+
+-(void)addAlert
+{
+    
+    
+    // 获取到现在应用中存在几个window，ios是可以多窗口的
+    
+    NSArray *windowArray = [UIApplication sharedApplication].windows;
+    
+    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
+    
+    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
+    
+    // 以下就是不停的寻找子视图，修改要修改的
+    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat labY;
+    if (screenH == 667) {
+        labY = 260;
+    }else if (screenH == 568){
+        labY = 160;
+    }else if (screenH == 480){
+        labY = 180;
+    }else if (screenH == 736){
+        labY = 440;
+    }
+    
+    CGFloat labW = self.view.bounds.size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.textColor = [UIColor blackColor];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:12];
+    [actionWindow addSubview:lab];
+}
+
 
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
@@ -262,43 +275,7 @@
                                 }
                             }];
 
-    
-//  //构造分享内容
-//    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
-//                                       defaultContent:@"旅游圈，匹匹扣"
-//                                                image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
-//                                                title:self.shareInfo[@"Title"]
-//                                                  url:self.shareInfo[@"Url"]
-//                                          description:self.shareInfo[@"Desc"]
-//                                            mediaType:SSPublishContentMediaTypeNews];
-//    //创建弹出菜单容器
-//    id<ISSContainer> container = [ShareSDK container];
-//    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
-//    
-//    //弹出分享菜单
-//    [ShareSDK showShareActionSheet:container
-//                         shareList:nil
-//                           content:publishContent
-//                     statusBarTips:YES
-//                       authOptions:nil
-//                      shareOptions:nil
-//                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-//                                
-//                                if (state == SSResponseStateSuccess)
-//                                {
-//                                    
-//                                   [MBProgressHUD showSuccess:@"分享成功"];
-//                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-//                                        [MBProgressHUD hideHUD];
-//                                    });
-//
-//                                }
-//                                else if (state == SSResponseStateFail)
-//                                {
-//                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
-//                                }
-//                            }];
-//    
+    [self addAlert];
     
     }
 

@@ -22,7 +22,7 @@
 #import "WMNavigationController.h"
 #import "BindPhoneViewController.h"
 #import "TravelLoginController.h"
-
+#import "ScanningViewController.h"
 @interface Login () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -118,7 +118,7 @@
     // 注册用户按钮
     CGFloat newW = 80;
     CGFloat newH = 30;
-    CGFloat newX = (self.view.frame.size.width - newW) * 0.5;
+    CGFloat newX = 50;
     CGFloat newY = screenRect.size.height - newH - 10;
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
     new.layer.cornerRadius = 15;
@@ -130,6 +130,20 @@
     [new setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [new setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
     [self.view addSubview:new];
+    
+    //证照神器
+    CGFloat cardX = self.view.frame.size.width - 80 - newX;
+    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY, newW, newH)];
+    card.layer.cornerRadius = 15;
+    card.layer.masksToBounds = YES;
+    [card addTarget:self action:@selector(Card:) forControlEvents:UIControlEventTouchUpInside];
+    [card setTitle:@"证件神器" forState:UIControlStateNormal];
+    card.titleLabel.font = [UIFont systemFontOfSize:13];
+    [card setBackgroundColor:[UIColor whiteColor]];
+    [card setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [card setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [self.view addSubview:card];
+
     
     // 切换用户按钮
     CGFloat changeW = 80;
@@ -169,7 +183,12 @@
     WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:reg];
     [self presentViewController:nav animated:YES completion:nil];
 }
-
+//跳转证件页面
+-(void)Card:(UIButton *)btn
+{
+   
+    [self.navigationController pushViewController:[[ScanningViewController alloc] init] animated:YES];
+}
 // 设置头部
 - (void)setupHeader
 {

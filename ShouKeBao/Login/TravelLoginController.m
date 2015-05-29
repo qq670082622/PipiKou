@@ -13,7 +13,10 @@
 #import "LoginTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "UserInfo.h"
-
+#import "RegisterViewController.h"
+#import "WMNavigationController.h"
+#import "ScanningViewController.h"
+#import "WMAnimations.h"
 @interface TravelLoginController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -26,6 +29,13 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
+@property (weak, nonatomic) IBOutlet UIButton *getNewUser;
+
+@property (weak, nonatomic) IBOutlet UIButton *cardBtn;
+
+
+-(IBAction)Card;
+-(IBAction)registerUser;
 @end
 
 @implementation TravelLoginController
@@ -33,6 +43,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [ WMAnimations WMAnimationMakeBoarderWithLayer:self.getNewUser.layer andBorderColor:[UIColor grayColor] andBorderWidth:1 andNeedShadow:NO];
+    [ WMAnimations WMAnimationMakeBoarderWithLayer:self.cardBtn.layer andBorderColor:[UIColor grayColor] andBorderWidth:1 andNeedShadow:NO];
+
     self.title = @"登录旅游圈平台";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.loginBtn.layer.cornerRadius = 3;
@@ -52,10 +65,31 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(accountFieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.accountField];
     
-//    self.accountField.text = @"huangfuyuhan@pipikou.com";
+   
+
+    //    self.accountField.text = @"huangfuyuhan@pipikou.com";
 //    self.passwordField.text = @"123456";
 }
 
+
+
+/**
+ *  跳转注册页面
+ */
+- (void)registerUser
+{
+    //self.isModal = YES;
+    
+    RegisterViewController *reg = [[RegisterViewController alloc] init];
+    WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:reg];
+    [self presentViewController:nav animated:YES completion:nil];
+}
+//跳转证件页面
+-(void)Card
+{
+    
+    [self.navigationController pushViewController:[[ScanningViewController alloc] init] animated:YES];
+}
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
