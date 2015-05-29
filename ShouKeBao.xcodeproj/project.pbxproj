@@ -213,6 +213,7 @@
 		635E70BC1B182C68008EFEB6 /* QRHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */; };
 		635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */; };
 		635E70C01B185B39008EFEB6 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BF1B185B39008EFEB6 /* CardTableViewController.m */; };
+		635E70C31B1872AD008EFEB6 /* userIDTableviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */; };
 		6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */; };
 		6364A9B31B0B19BE0099705B /* SubstationParttern.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9B21B0B19BE0099705B /* SubstationParttern.m */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
@@ -711,6 +712,8 @@
 		635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRHistoryViewController.xib; sourceTree = "<group>"; };
 		635E70BE1B185B38008EFEB6 /* CardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewController.h; sourceTree = "<group>"; };
 		635E70BF1B185B39008EFEB6 /* CardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewController.m; sourceTree = "<group>"; };
+		635E70C11B1872AD008EFEB6 /* userIDTableviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userIDTableviewController.h; sourceTree = "<group>"; };
+		635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userIDTableviewController.m; sourceTree = "<group>"; };
 		6364A9AE1B098CA00099705B /* YYAnimationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimationIndicator.h; sourceTree = "<group>"; };
 		6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimationIndicator.m; sourceTree = "<group>"; };
 		6364A9B11B0B19BE0099705B /* SubstationParttern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstationParttern.h; sourceTree = "<group>"; };
@@ -1869,6 +1872,8 @@
 				635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */,
 				635E70BE1B185B38008EFEB6 /* CardTableViewController.h */,
 				635E70BF1B185B39008EFEB6 /* CardTableViewController.m */,
+				635E70C11B1872AD008EFEB6 /* userIDTableviewController.h */,
+				635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */,
 			);
 			path = QRCode;
 			sourceTree = "<group>";
@@ -2490,6 +2495,7 @@
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
+				635E70C31B1872AD008EFEB6 /* userIDTableviewController.m in Sources */,
 				5A52FC4C1ACEBF220076DAE6 /* ProductList.m in Sources */,
 				5A52FC6D1ACEBF220076DAE6 /* Me.m in Sources */,
 				5A076EA71ACD8B270077611C /* StoreViewController.m in Sources */,

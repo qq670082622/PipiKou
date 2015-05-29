@@ -12,6 +12,7 @@
 #import "CardTableViewController.h"
 //#import "PassPortViewController.h"
 #import "QRHistoryViewController.h"
+#import "userIDTableviewController.h"
 @interface ScanningViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
@@ -66,9 +67,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
-    self.timer = timer;
- [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+   
     [self addGes];
  
 }
@@ -100,33 +99,37 @@
 
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
     
+   
     //如果往左滑
     
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
        
-       // NSLog(@"左划");
-        //NSLog(@"滑动前selectIndex is  %ld---------",(long)_selectIndex);
-
-        self.selectIndex += 1;
-        if (_selectIndex>2) {
-            self.selectIndex = 2;
+      
+        if (_selectIndex == 2) {
+            return;
+        }else{
+            _selectIndex +=1;
         }
+
+        NSLog(@"----index is %ld------",(long)_selectIndex);
+        
         [self.pickerView scrollToElement:_selectIndex animated:YES];
        
-        //NSLog(@"滑动后selectIndex is  %ld---------",(long)_selectIndex);
+       
     
     }else if (recognizer.direction==UISwipeGestureRecognizerDirectionRight)
     //往右划
     {
-       // NSLog(@"滑动前selectIndex is  %ld---------",(long)_selectIndex);
-
-        self.selectIndex -= 1;
-        if (_selectIndex<0) {
-            self.selectIndex = 0;
+       
+         if (_selectIndex == 0) {
+            return;
+        }else{
+            _selectIndex -=1;
         }
+        NSLog(@"----index is %ld------",(long)_selectIndex);
+
   [self.pickerView scrollToElement:_selectIndex animated:YES];
-       //  NSLog(@"滑动后selectIndex is  %ld---------",(long)_selectIndex);
-       // NSLog(@"右划");
+       
     }
 
 }
@@ -134,6 +137,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+    // [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    self.timer = timer;
+
     [self.view bringSubviewToFront:self.controlView];
     [self.pickerView scrollToElement:0 animated:YES];
     self.selectIndex = 0;
@@ -351,6 +358,11 @@
 - (IBAction)leftAction:(id)sender {
     if (_canClick == YES) {
         [self LocalPhoto];
+        
+        [self.pickerView scrollToElement:0 animated:YES];
+        self.selectIndex = 0;
+        [self.personIDVC.view removeFromSuperview];
+        [self.view addSubview:self.QRCodevc.view];
     }
     
 }
@@ -359,12 +371,38 @@
     if (_canClick == YES) {
         
         [self.navigationController pushViewController:[[QRHistoryViewController alloc] init] animated:YES];
+        
+        [self.pickerView scrollToElement:0 animated:YES];
+        self.selectIndex = 0;
+        [self.personIDVC.view removeFromSuperview];
+        [self.view addSubview:self.QRCodevc.view];
     }
   
 }
+
 - (IBAction)midAction:(id)sender {
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-    CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
-    [self.navigationController pushViewController:card animated:YES];
+//    NSInteger selectIndex = (long)self.pickerView.currentSelectedIndex;
+//    
+//    self.selectIndex = selectIndex;
+//    
+//    self.selectedStr = [NSMutableString stringWithFormat:@"%@", self.pickerData[selectIndex]];
+   NSLog(@"----selectStr is %@----",_selectedStr);
+    if (_canClick == YES) {
+    
+        if([self.selectedStr isEqualToString:@"身份证"]){
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+        userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
+        [self.navigationController pushViewController:card animated:YES];
+    }
+        else if([self.selectedStr isEqualToString:@"护照"]){
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+        CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
+        [self.navigationController pushViewController:card animated:YES];
+    }
+        [self.pickerView scrollToElement:0 animated:YES];
+        self.selectIndex = 0;
+        [self.personIDVC.view removeFromSuperview];
+        [self.view addSubview:self.QRCodevc.view];
+    }
 }
 @end
