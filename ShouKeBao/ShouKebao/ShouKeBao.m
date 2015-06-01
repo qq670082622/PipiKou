@@ -145,8 +145,25 @@
         [self Guide];
     }
 
+   // [self test];
 }
 
+-(void)test
+{
+    NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"testCard"], 1.0);
+    NSString *imageStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+    [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
+        NSLog(@"------图片--图片---json is %@----图片----",json);
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(50, 80, 320, 400)];
+        lab.backgroundColor = [UIColor redColor];
+        lab.text = [NSString stringWithFormat:@"生日%@\n证件号码%@\n民族%@\n性别%@\n姓名%@",json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]];
+        lab.numberOfLines = 0;
+        [self.view.window addSubview:lab];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"----图片-eeror is %@------图片------",error) ;
+    }];
+}
 
 #pragma  - mark程序在后台时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
@@ -442,7 +459,7 @@
     NSDictionary *param = @{};// 基本参数即可
     
     [HomeHttpTool getIndexContentWithParam:param success:^(id json) {
-        NSLog(@"----%@",json);
+        NSLog(@"------------------------新接口是%@---------------------",json);
         
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
             
@@ -454,6 +471,12 @@
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 // 添加精品推荐 如果有推荐的话
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
+                    [HomeHttpTool getRecommendProductListWithParam:@{@"DateRangeType":@"1"} success:^(id recommendJson) {
+                        NSLog(@"-------------今日推荐新接口数据是:%@--------------",recommendJson);
+                    } failure:^(NSError *error) {
+                        
+                    }];
+                    
                     Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
                     HomeBase *base = [[HomeBase alloc] init];
                     base.time = recommend.CreatedDate;

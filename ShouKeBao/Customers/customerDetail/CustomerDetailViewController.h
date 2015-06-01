@@ -21,10 +21,38 @@
 @property (weak, nonatomic) IBOutlet UILabel *tele;
 @property (nonatomic,copy) NSString *weChatStr;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
+@property (weak, nonatomic) IBOutlet UILabel *passPortId;
+@property (weak, nonatomic) IBOutlet UILabel *userMessageID;
+
+@property (weak, nonatomic) IBOutlet UILabel *bornDay;
+
+@property (weak, nonatomic) IBOutlet UILabel *countryID;
+@property (weak, nonatomic) IBOutlet UILabel *nationalID;
+@property (weak, nonatomic) IBOutlet UILabel *pasportStartDay;
+@property (weak, nonatomic) IBOutlet UILabel *pasportAddress;
+@property (weak, nonatomic) IBOutlet UILabel *pasportInUseDay;
+@property (weak, nonatomic) IBOutlet UILabel *livingAddress;
+- (IBAction)attachmentAction:(id)sender;//附件
+
+
+
+
+
 @property (nonatomic,copy) NSString *QQStr;
 @property (nonatomic,copy) NSString *noteStr;
 @property (nonatomic,copy) NSString *teleStr;
 @property (nonatomic,copy) NSString *userNameStr;
+@property (nonatomic,copy) NSString *passPortIdStr;
+@property (nonatomic,copy) NSString *userMessageIDStr;
+
+@property (nonatomic,copy) NSString *bornDayStr;
+
+@property (nonatomic,copy) NSString *countryIDStr;
+@property (nonatomic,copy) NSString *nationalIDStr;
+@property (nonatomic,copy) NSString *pasportStartDayStr;
+@property (nonatomic,copy) NSString *pasportAddressStr;
+@property (nonatomic,copy) NSString *pasportInUseDayStr;
+@property (nonatomic,copy) NSString *livingAddressStr;
 @property (nonatomic,strong) CustomModel *customMoel;
 
 - (IBAction)remond:(id)sender;

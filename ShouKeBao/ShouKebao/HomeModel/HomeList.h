@@ -18,6 +18,9 @@
  *  创建时间
  */
 @property (nonatomic,copy) NSString *CreatedDate;
+//出发日期
+@property (nonatomic,copy) NSString *GoDate;
+
 /**
  *  id
  */

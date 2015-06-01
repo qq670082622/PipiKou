@@ -204,4 +204,6 @@
     return 10.0f;
 }
 
+- (IBAction)attachmentAction:(id)sender {
+}
 @end

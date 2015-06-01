@@ -15,6 +15,7 @@
     
     [aCoder encodeObject:self.ChildCount forKey:@"ChildCount"];
     [aCoder encodeObject:self.CreatedDate forKey:@"CreatedDate"];
+    [aCoder encodeObject:self.GoDate forKey:@"GoDate"];
     [aCoder encodeObject:self.ID forKey:@"ID"];
     [aCoder encodeObject:self.IsSKBOrder forKey:@"IsSKBOrder"];
     [aCoder encodeObject:self.OrderCode forKey:@"OrderCode"];
@@ -31,6 +32,7 @@
     if (self == [super init]) {
         self.ChildCount =  [aDecoder decodeObjectForKey:@"ChildCount"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
+        self.GoDate = [aDecoder decodeObjectForKey:@"GoDate"];
         self.ID =  [aDecoder decodeObjectForKey:@"ID"];
         self.IsSKBOrder =  [aDecoder decodeObjectForKey:@"IsSKBOrder"];
         self.OrderCode =  [aDecoder decodeObjectForKey:@"OrderCode"];
@@ -57,6 +59,7 @@
 
         self.ChildCount = muta[@"ChildCount"];
         self.CreatedDate = muta[@"CreatedDate"];
+        self.GoDate = muta[@"GoDate"];
         self.ID = muta[@"ID"];
         self.IsSKBOrder = muta[@"IsSKBOrder"];
         self.OrderCode = muta[@"OrderCode"];

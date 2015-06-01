@@ -164,6 +164,10 @@
     // 标题
     self.titleLab.text = model.ShowType;
     
+    //GoDate
+    NSDate *goDate = [NSDate dateWithTimeIntervalSince1970:[model.GoDate doubleValue]];
+    self.goDate.text = [goDate formattedTime];
+    
     // 时间
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];

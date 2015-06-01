@@ -33,6 +33,6 @@
 /**
  *  获取今日推荐产品信息列表
  */
-+ (void)getRecommendProductListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
++ (void)getRecommendProductListWithParam:(NSDictionary *)param success:(void (^)(id recommendJson))success failure:(void (^)(NSError *error))failure;
 
 @end

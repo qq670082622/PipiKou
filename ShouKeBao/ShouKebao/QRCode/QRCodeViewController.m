@@ -11,6 +11,7 @@
 #import "URLOpenFromQRCodeViewController.h"
 #import "WMAnimations.h"
 #import "ProduceDetailViewController.h"
+#import "ScanningViewController.h"
 @interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
@@ -21,7 +22,7 @@
 @property (strong, nonatomic) UIView *boxView;
 @property (nonatomic) BOOL isReading;
 @property (strong, nonatomic) CALayer *scanLayer;
-
+@property (strong,nonatomic) NSTimer *timer;
 -(BOOL)startReading;
 -(void)stopReading;
 
@@ -38,34 +39,37 @@
    self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
-    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
+   
     
-    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
-       CGFloat viewH = screenH - 157;
-    
-    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
-    
-    [self startReading];
+   
     
     [self openUrl];
     
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-    
+//    NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(listenNeedLoad) userInfo:nil repeats:YES];
+//    self.timer = time;
+//    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 
-
--(void)back
+-(void)listenNeedLoad
 {
-    [self.navigationController popViewControllerAnimated:YES];
+//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+//    NSString *result = [def objectForKey:@"needLoad"];
+//    if ([result isEqualToString:@"1"]) {
+//    [self stopReading];
+//    }
+    
 }
+-(void)viewWillAppear:(BOOL)animated
+{ CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
+    
+    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat viewH = screenH - 157;
+    
+    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
+    [super viewWillAppear:animated];
+    [self startReading];
+}
+
 
 
 //实现startReading方法（这可就是重点咯）

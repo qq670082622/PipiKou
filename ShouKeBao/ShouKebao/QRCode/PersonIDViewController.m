@@ -7,7 +7,8 @@
 //
 
 #import "PersonIDViewController.h"
-
+#import "ScanningViewController.h"
+#import <AVFoundation/AVFoundation.h>
 @interface PersonIDViewController ()
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 
@@ -16,11 +17,20 @@
 @property (weak, nonatomic) IBOutlet UILabel *warningLab1;
 @property (weak, nonatomic) IBOutlet UILabel *warningLab2;
 
+@property (weak, nonatomic) IBOutlet UIView *loadingView;
+
+//@property (weak, nonatomic) IBOutlet UIImageView *photoImageview;
 @property (weak,nonatomic) UIImageView *line;
 @property (nonatomic) BOOL isReading;
 @property (strong, nonatomic) CALayer *scanLayer;
 @property (nonatomic,strong) NSTimer *timer;
 @property (nonatomic,assign) BOOL changeLab;
+//----------------------------------------
+@property (nonatomic, strong) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+
+
+//拍照按钮
 -(BOOL)startReading;
 -(void)stopReading;
 
@@ -31,9 +41,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-  
+ 
+   
 }
+
 
 -(void)setLoading
 {
@@ -50,8 +61,21 @@
     self.timer = time;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
+
 -(void)runTheLine:(NSTimer *)timer
 {
+    //定时事件1
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *result = [def objectForKey:@"needLoad"];
+    if ([result isEqualToString:@"1"]) {
+        self.boxView.hidden = YES;
+        self.loadingView.hidden = NO;
+    }else if([result isEqualToString:@"0"]){
+        self.boxView.hidden = NO;
+        self.loadingView.hidden = YES;
+    }
+
+    //定时事件2
     if (_changeLab == YES) {
         self.warningLab1.hidden = NO;
         self.warningLab2.hidden = YES;
@@ -88,17 +112,17 @@
    
     
 }
-//打开相机
--(void)takePhoto
-{
 
-}
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+//    [def setObject:@"0" forKey:@"needLoad"];
+//    [def synchronize];
     [self.line removeFromSuperview];
-    [self takePhoto];
-    [self setLoading];
+       [self setLoading];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {

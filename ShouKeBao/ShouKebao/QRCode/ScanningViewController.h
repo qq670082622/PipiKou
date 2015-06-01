@@ -10,6 +10,7 @@
 #import "SKViewController.h"
 #import "V8HorizontalPickerView.h"
 @class V8HorizontalPickerView;
+
 @interface ScanningViewController : SKViewController<V8HorizontalPickerViewDelegate, V8HorizontalPickerViewDataSource,UIScrollViewDelegate>
 
 

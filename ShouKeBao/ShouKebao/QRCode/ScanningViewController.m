@@ -13,7 +13,11 @@
 //#import "PassPortViewController.h"
 #import "QRHistoryViewController.h"
 #import "userIDTableviewController.h"
-@interface ScanningViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate>
+#import <AVFoundation/AVFoundation.h>
+#import "ResizeImage.h"
+#import "IWHttpTool.h"
+
+@interface ScanningViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
 //@property (nonatomic,strong)PassPortViewController *passPortVC;
@@ -35,12 +39,18 @@
 @property (nonatomic,assign) NSInteger selectIndex;
 @property (nonatomic,assign) BOOL canClick;
 @property(nonatomic,copy) NSMutableString *filePath;
+//---------
+@property (nonatomic, strong) AVCaptureSession *session;
+@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+@property (weak, nonatomic) IBOutlet UIImageView *photoImg;
+
 @end
 
 @implementation ScanningViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+  
     self.pickerData = [NSArray arrayWithObjects:@"二维码",@"身份证",@"护照", nil];
     CGFloat pickX = [[UIScreen mainScreen] bounds].size.width/2 - 125;
     CGFloat pickW = 250;
@@ -69,7 +79,11 @@
     
    
     [self addGes];
- 
+    
+  
+    [self.pickerView scrollToElement:0 animated:YES];
+    self.selectIndex = 0;
+    
 }
 
 
@@ -99,14 +113,16 @@
 
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
     
-   
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"0" forKey:@"needLoad"];
+    [def synchronize];
     //如果往左滑
     
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
-       
+        [self getCamera];
       
         if (_selectIndex == 2) {
-            return;
+           
         }else{
             _selectIndex +=1;
         }
@@ -122,8 +138,10 @@
     {
        
          if (_selectIndex == 0) {
-            return;
-        }else{
+             [self.previewLayer removeFromSuperlayer];
+                    }else{
+                        [self getCamera];
+
             _selectIndex -=1;
         }
         NSLog(@"----index is %ld------",(long)_selectIndex);
@@ -142,14 +160,56 @@
     self.timer = timer;
 
     [self.view bringSubviewToFront:self.controlView];
-    [self.pickerView scrollToElement:0 animated:YES];
-    self.selectIndex = 0;
+   
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.timer invalidate];
 }
+//打开相机
+-(void)getCamera
+{
+    // 1. 实例化拍摄设备
+    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
+    
+    // 2. 设置输入设备
+    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
+    
+    // 3. 设置元数据输出
+    // 3.1 实例化拍摄元数据输出
+    AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
+    // 3.3 设置输出数据代理
+    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
+    
+    // 4. 添加拍摄会话
+    // 4.1 实例化拍摄会话
+    AVCaptureSession *session = [[AVCaptureSession alloc] init];
+    // 4.2 添加会话输入
+    [session addInput:input];
+    // 4.3 添加会话输出
+    [session addOutput:output];
+    // 4.3 设置输出数据类型，需要将元数据输出添加到会话后，才能指定元数据类型，否则会报错
+    [output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
+    
+    self.session = session;
+    
+    // 5. 视频预览图层
+    // 5.1 实例化预览图层, 传递_session是为了告诉图层将来显示什么内容
+    AVCaptureVideoPreviewLayer *preview = [AVCaptureVideoPreviewLayer layerWithSession:_session];
+    
+    preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
+    preview.frame = self.audioView.bounds;
+    // 5.2 将图层插入当前视图
+     [self.photoImg.layer insertSublayer:preview atIndex:100];
+    
+    self.previewLayer = preview;
+    
+    // 6. 启动会话
+    [_session startRunning];
+    
+}
+
 #pragma -mark scroviewDelegate
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
@@ -178,17 +238,22 @@
         [self.view bringSubviewToFront:self.controlView];
                 self.title = @"二维码扫描";
         [self setTreeBtnImagesWithNo];
+        
+        
                     }else if ([_selectedStr isEqualToString:@"身份证"]){
                 [self.QRCodevc.view removeFromSuperview];
                 //[self.passPortVC.view removeFromSuperview];
                 [self.view addSubview:self.personIDVC.view];
                 self.title = @"身份证扫描";
-                        [self setTreeBtnImagesWithYes];
+                        
+                       [self setTreeBtnImagesWithYes];
             }else{
                 [self.QRCodevc.view removeFromSuperview];
                 //[self.personIDVC.view removeFromSuperview];
                 //[self.view addSubview:self.passPortVC.view];
                 self.title = @"护照扫描";
+               
+
                     [self setTreeBtnImagesWithYes];
             }
     
@@ -203,6 +268,7 @@
 }
 -(void)setTreeBtnImagesWithYes
 {
+       
     [self.leftBtnOutlet setImage:[UIImage imageNamed:@"QRPhotos"] forState:UIControlStateNormal];
     [self.rightBtnOutlet setImage:[UIImage imageNamed:@"QRHistory"] forState:UIControlStateNormal];
     [self.midOutlet setImage:[UIImage imageNamed:@"midBtn"] forState:UIControlStateNormal];
@@ -254,93 +320,44 @@
     }
     return _personIDVC;
 }
-//-(PassPortViewController *)passPortVC
-//{
-//    if (_passPortVC == nil) {
-//        self.passPortVC = [[PassPortViewController alloc] init];
-//        
-//        self.passPortVC.view.frame = self.audioView.frame;
-//        [self addChildViewController:_passPortVC];
-//    }
-//    return _passPortVC;
-//}
 
-//打开本地相册
--(void)LocalPhoto
-{
-    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-    
-    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
-    picker.delegate = self;
-    //设置选择后的图片可被编辑
-    picker.allowsEditing = YES;
-    [self presentModalViewController:picker animated:YES];
-    
+
+
+
+
+-(void)openAlbum{
+    UIImagePickerController *album = [[UIImagePickerController alloc] init];
+    album.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    album.delegate = self;
+    [self presentViewController:album animated:YES completion:nil];
+
 }
-
-//当选择一张图片后进入这里
--(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
-
+#pragma -mark pickerViewDelegate
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
-    NSString *type = [info objectForKey:UIImagePickerControllerMediaType];
-    
-    //当选择的类型是图片
-    if ([type isEqualToString:@"public.image"])
-    {
-        //先把图片转成NSData
-        UIImage* image = [info objectForKey:@"UIImagePickerControllerOriginalImage"];
-        NSData *data;
-        if (UIImagePNGRepresentation(image) == nil)
-        {
-            data = UIImageJPEGRepresentation(image, 1.0);
-        }
-        else
-        {
-            data = UIImagePNGRepresentation(image);
-        }
-        
-        //图片保存的路径
-        //这里将图片放在沙盒的documents文件夹中
-        NSString * DocumentsPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        
-        //文件管理器
-        NSFileManager *fileManager = [NSFileManager defaultManager];
-        
-        //把刚刚图片转换的data对象拷贝至沙盒中 并保存为image.png
-        [fileManager createDirectoryAtPath:DocumentsPath withIntermediateDirectories:YES attributes:nil error:nil];
-        [fileManager createFileAtPath:[DocumentsPath stringByAppendingString:@"/image.png"] contents:data attributes:nil];
-        
-        //得到选择后沙盒中图片的完整路径
-     NSString    *filePath = [[NSString alloc]initWithFormat:@"%@%@",DocumentsPath,  @"/image.png"];
-        self.filePath = [NSMutableString stringWithString:filePath];
-        //关闭相册界面
-        [picker dismissModalViewControllerAnimated:YES];
-        
-        //创建一个选择后图片的小图标放在下方
-        //类似微薄选择图后的效果
-        UIImageView *smallimage = [[UIImageView alloc] initWithFrame:
-                                    CGRectMake(50, 120, 40, 40)] ;
-        
-        smallimage.image = image;
-        //加在视图中
-        [self.view addSubview:smallimage];
-        
-    }
-    
-}
-
-- (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
-{
-    NSLog(@"您取消了选择图片");
-    [picker dismissModalViewControllerAnimated:YES];
-}
-
--(void)sendInfo
-{
-    NSLog(@"图片的路径是：%@", _filePath);
+    [picker dismissViewControllerAnimated:YES completion:nil];
     
    
+    UIImage *selectImage = info[UIImagePickerControllerOriginalImage];
+    [self.previewLayer removeFromSuperlayer];//放弃上次拍照的留照
+
+    CALayer *imageLayer = [CALayer layer];
+    imageLayer.frame = self.photoImg.bounds;
+
+    imageLayer.contents = (id)selectImage.CGImage;
+ 
+    [self.photoImg.layer insertSublayer:imageLayer atIndex:100];
+    self.photoImg.contentMode = UIViewContentModeScaleAspectFill;
+   // self.photoImg.image = [ResizeImage reSizeImage:selectImage toSize:self.photoImg.frame.size];
+  
+    [self.previewLayer removeFromSuperlayer];
+    [self.session stopRunning];
+//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+//    [def setObject:@"1" forKey:@"needLoad"];
+//    [def synchronize];
+    [self midAction:nil];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -354,15 +371,15 @@
 }
 
 
-
+//左右按钮事件
 - (IBAction)leftAction:(id)sender {
     if (_canClick == YES) {
-        [self LocalPhoto];
+        [self openAlbum];
         
-        [self.pickerView scrollToElement:0 animated:YES];
-        self.selectIndex = 0;
-        [self.personIDVC.view removeFromSuperview];
-        [self.view addSubview:self.QRCodevc.view];
+       // [self.pickerView scrollToElement:0 animated:YES];
+       // self.selectIndex = 0;
+       // [self.personIDVC.view removeFromSuperview];
+       // [self.view addSubview:self.QRCodevc.view];
     }
     
 }
@@ -381,28 +398,67 @@
 }
 
 - (IBAction)midAction:(id)sender {
-//    NSInteger selectIndex = (long)self.pickerView.currentSelectedIndex;
-//    
-//    self.selectIndex = selectIndex;
-//    
-//    self.selectedStr = [NSMutableString stringWithFormat:@"%@", self.pickerData[selectIndex]];
+
    NSLog(@"----selectStr is %@----",_selectedStr);
     if (_canClick == YES) {
-    
+       
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        [def setObject:@"1" forKey:@"needLoad"];
+        [def synchronize];
+        // 2. 删除预览图层
+       
+        self.photoImg.image = [self imageFromView:self.audioView];
+              [self.session stopRunning];
+        //[self.previewLayer removeFromSuperlayer];
+        
         if([self.selectedStr isEqualToString:@"身份证"]){
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-        userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
-        [self.navigationController pushViewController:card animated:YES];
+//            if (self.photoImg.image) {
+//                NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
+//                NSString *imageStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
+//                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
+//                    NSLog(@"------图片--图片---json is %@----图片----",json);
+//                    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(50, 80, 320, 400)];
+//                    lab.backgroundColor = [UIColor redColor];
+//                    lab.text = [NSString stringWithFormat:@"生日%@\n证件号码%@\n民族%@\n性别%@\n姓名%@",json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]];
+//                    lab.numberOfLines = 0;
+//                    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(50, 80, 220,220)];
+//                    imgv.image = self.photoImg.image;
+//                    [self.view.window addSubview:lab];
+//                    [self.view.window addSubview:imgv];
+//                    
+//                } failure:^(NSError *error) {
+//                    NSLog(@"----图片-eeror is %@------图片------",error) ;
+//                }];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+                             userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
+                             [self.navigationController pushViewController:card animated:YES];
+                        });
+
+            }else if([self.selectedStr isEqualToString:@"护照"]){
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+                        CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
+                        [self.navigationController pushViewController:card animated:YES];
+
+            });
+            
     }
-        else if([self.selectedStr isEqualToString:@"护照"]){
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-        CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
-        [self.navigationController pushViewController:card animated:YES];
+//        [self.pickerView scrollToElement:0 animated:YES];
+//        self.selectIndex = 0;
+//        [self.personIDVC.view removeFromSuperview];
+//        [self.view addSubview:self.QRCodevc.view];
     }
-        [self.pickerView scrollToElement:0 animated:YES];
-        self.selectIndex = 0;
-        [self.personIDVC.view removeFromSuperview];
-        [self.view addSubview:self.QRCodevc.view];
-    }
+}
+
+- (UIImage *)imageFromView: (UIView *) theView
+{
+    
+    UIGraphicsBeginImageContext(theView.frame.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [theView.layer renderInContext:context];
+    UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return theImage;
 }
 @end

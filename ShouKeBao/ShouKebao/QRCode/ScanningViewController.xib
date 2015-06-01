@@ -12,6 +12,7 @@
                 <outlet property="indicat" destination="9xf-hU-Ww7" id="Co3-yk-s4i"/>
                 <outlet property="leftBtnOutlet" destination="eFq-88-dTU" id="ukU-6g-lf4"/>
                 <outlet property="midOutlet" destination="b5v-X1-zYl" id="2zL-tu-8VF"/>
+                <outlet property="photoImg" destination="uVp-6p-iVl" id="9eq-UG-2N8"/>
                 <outlet property="rightBtnOutlet" destination="IGD-I9-Dtr" id="mEx-DQ-Dfl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -73,6 +74,10 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="uVp-6p-iVl">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="387"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                </imageView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>

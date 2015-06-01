@@ -17,6 +17,19 @@
 @property (nonatomic,copy) NSString *QQCode;
 @property (nonatomic,copy) NSString *Remark;
 @property (nonatomic,copy) NSString *WeiXinCode;
+
+//@property (nonatomic,copy) NSString *passPortIdStr;
+//@property (nonatomic,copy) NSString *userMessageIDStr;
+//
+//@property (nonatomic,copy) NSString *bornDayStr;
+//
+//@property (nonatomic,copy) NSString *countryIDStr;
+//@property (nonatomic,copy) NSString *nationalIDStr;
+//@property (nonatomic,copy) NSString *pasportStartDayStr;
+//@property (nonatomic,copy) NSString *pasportAddressStr;
+//@property (nonatomic,copy) NSString *pasportInUseDayStr;
+//@property (nonatomic,copy) NSString *livingAddressStr;
+
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end
