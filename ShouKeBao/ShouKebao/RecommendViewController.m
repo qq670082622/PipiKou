@@ -58,7 +58,7 @@
     self.tableView.footerPullToRefreshText = @"加载更多";
     self.tableView.footerRefreshingText = @"加载中";
     
-    [self setNav];
+  //  [self setNav];
     
     
     // 第一次加载的时候显示这个hud
@@ -81,7 +81,7 @@
     
     self.view.window.backgroundColor = [UIColor clearColor];
     
-    [self setupHead];
+   // [self setupHead];
   
    
 }
@@ -90,7 +90,8 @@
 - (void)loadDataSource
 {
     NSDictionary *param = @{@"PageSize":pageSize,
-                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex]};
+                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+                            @"DateRangeType":@"1"};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
@@ -126,76 +127,76 @@
     }
 }
 
-- (void)setNav
-{
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-    
-    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 40, 40)];
-    back.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
-    [back setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(backToHome) forControlEvents:UIControlEventTouchUpInside];
-    [cover addSubview:back];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cover];
-}
+//- (void)setNav
+//{
+//    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
+//    
+//    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 40, 40)];
+//    back.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
+//    [back setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    [back addTarget:self action:@selector(backToHome) forControlEvents:UIControlEventTouchUpInside];
+//    [cover addSubview:back];
+//    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cover];
+//}
+//
+//- (void)backToHome
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
 
-- (void)backToHome
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+//- (void)setupHead
+//{
+//    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
+//    cover.backgroundColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
+//    
+//    // 选择分站按钮
+//    UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 75, 30)];
+//    station.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
+//    [station setBackgroundImage:[UIImage imageNamed:@"dizhi"] forState:UIControlStateNormal];
+//    [station addTarget:self action:@selector(selectStation:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    // 取出储存的分站
+//    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+//    NSString *subStationName = [udf stringForKey:@"SubstationName"];
+//    [station setTitle:subStationName forState:UIControlStateNormal];
+//    if (![subStationName isKindOfClass:[NSNull class]]) {
+//        [station setTitle:@"上海" forState:UIControlStateNormal];
+//    }
+//    
+//    [station setTitleColor:[UIColor colorWithRed:91/255.0 green:155/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
+//    station.titleLabel.font = [UIFont systemFontOfSize:12];
+//    [cover addSubview:station];
+//    
+//    // 搜索按钮
+//    CGFloat searchX = CGRectGetMaxX(station.frame) + 5;
+//    CGFloat searchW = self.view.frame.size.width - station.frame.size.width - 25;
+//    UIButton *search = [[UIButton alloc] initWithFrame:CGRectMake(searchX, 5, searchW, 30)];
+//    [search setBackgroundImage:[UIImage imageNamed:@"shousuochanpin"] forState:UIControlStateNormal];
+//    [search setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
+//    [search setTitle:@"查找产品" forState:UIControlStateNormal];
+//    [search setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+//    search.titleLabel.font = [UIFont systemFontOfSize:12];
+//    search.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
+//    [search addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
+//    [cover addSubview:search];
+//    
+//    [self.view addSubview:cover];
+//}
 
-- (void)setupHead
-{
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
-    cover.backgroundColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-    
-    // 选择分站按钮
-    UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 75, 30)];
-    station.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
-    [station setBackgroundImage:[UIImage imageNamed:@"dizhi"] forState:UIControlStateNormal];
-    [station addTarget:self action:@selector(selectStation:) forControlEvents:UIControlEventTouchUpInside];
-    
-    // 取出储存的分站
-    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
-    NSString *subStationName = [udf stringForKey:@"SubstationName"];
-    [station setTitle:subStationName forState:UIControlStateNormal];
-    if (![subStationName isKindOfClass:[NSNull class]]) {
-        [station setTitle:@"上海" forState:UIControlStateNormal];
-    }
-    
-    [station setTitleColor:[UIColor colorWithRed:91/255.0 green:155/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
-    station.titleLabel.font = [UIFont systemFontOfSize:12];
-    [cover addSubview:station];
-    
-    // 搜索按钮
-    CGFloat searchX = CGRectGetMaxX(station.frame) + 5;
-    CGFloat searchW = self.view.frame.size.width - station.frame.size.width - 25;
-    UIButton *search = [[UIButton alloc] initWithFrame:CGRectMake(searchX, 5, searchW, 30)];
-    [search setBackgroundImage:[UIImage imageNamed:@"shousuochanpin"] forState:UIControlStateNormal];
-    [search setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
-    [search setTitle:@"查找产品" forState:UIControlStateNormal];
-    [search setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    search.titleLabel.font = [UIFont systemFontOfSize:12];
-    search.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
-    [search addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
-    [cover addSubview:search];
-    
-    [self.view addSubview:cover];
-}
-
-// 选择分站
-- (void)selectStation:(UIButton *)sender
-{
-    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
-}
-
-// 搜索
-- (void)goSearch:(UIButton *)sender
-{
-    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
-    
-    [self.navigationController pushViewController:searchVC animated:YES];
-}
+//// 选择分站
+//- (void)selectStation:(UIButton *)sender
+//{
+//    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
+//}
+//
+//// 搜索
+//- (void)goSearch:(UIButton *)sender
+//{
+//    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
+//    
+//    [self.navigationController pushViewController:searchVC animated:YES];
+//}
 
 // 刷新列表
 - (void)headRefresh
@@ -254,7 +255,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, self.view.frame.size.width, self.view.frame.size.height - 104)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.rowHeight = 80;
@@ -348,20 +349,43 @@
                                 }
                             }];
 
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *account = [accountDefaults stringForKey:@"shareCount"];
-    
-    if ([account intValue]<3){
-        
-        NSString *newCount =  [NSString stringWithFormat:@"%d",[account intValue]+1];
-        [accountDefaults setObject:newCount forKey:@"shareCount"];
-        
-        UIAlertView *alert =  [[UIAlertView alloc] initWithTitle:@"分享产品" message:@"您分享出去的产品对外只显示门市价" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
-    }
-
+    [self addAlert];
     
     return YES;
 }
+-(void)addAlert
+{
+    
+    
+    // 获取到现在应用中存在几个window，ios是可以多窗口的
+    
+    NSArray *windowArray = [UIApplication sharedApplication].windows;
+    
+    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
+    
+    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
+    
+    // 以下就是不停的寻找子视图，修改要修改的
+    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat labY;
+    if (screenH == 667) {
+        labY = 260;
+    }else if (screenH == 568){
+        labY = 160;
+    }else if (screenH == 480){
+        labY = 180;
+    }else if (screenH == 736){
+        labY = 440;
+    }
+    
+    CGFloat labW = self.view.bounds.size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.textColor = [UIColor blackColor];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:12];
+    [actionWindow addSubview:lab];
+}
+
 
 @end

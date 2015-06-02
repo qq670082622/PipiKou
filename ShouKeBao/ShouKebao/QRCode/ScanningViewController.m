@@ -50,8 +50,21 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  
-    self.pickerData = [NSArray arrayWithObjects:@"二维码",@"身份证",@"护照", nil];
+    if (!self.isLogin) {
+        
+        
+        self.pickerData = [NSArray arrayWithObjects:@"身份证",@"护照", nil];
+        
+        
+        [self getCamera];
+        
+    
+
+    }else if(self.isLogin){
+        self.pickerData = [NSArray arrayWithObjects:@"二维码",@"身份证",@"护照", nil];
+    }
+ 
+    
     CGFloat pickX = [[UIScreen mainScreen] bounds].size.width/2 - 125;
     CGFloat pickW = 250;
     CGFloat pickY = 0;
@@ -63,10 +76,28 @@
     self.pickerView.textColor   = [UIColor colorWithRed:147/255.f green:198/255.f blue:228/255.f alpha:1];
     self.pickerView.selectionPoint = CGPointMake(self.pickerView.frame.size.width/2, 0);
   
-    self.title = @"二维码扫描";
+    if (!self.isLogin) {
+        self.title = @"身份证扫描";
+        [self.pickerView scrollToElement:1 animated:YES];
+        self.selectIndex = 1;
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+            [self.pickerView scrollToElement:0 animated:YES];
+            self.selectIndex = 0;
+        });
+
+        
+    }else if(self.isLogin){
+        
+        self.title = @"二维码扫描";
+         [self.view addSubview:self.QRCodevc.view];
+        [self.pickerView scrollToElement:0 animated:YES];
+        self.selectIndex = 0;
+    }
+
+    
     [self.controlView addSubview:_pickerView];
     
-    [self.view addSubview:self.QRCodevc.view];
+   
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -81,8 +112,7 @@
     [self addGes];
     
   
-    [self.pickerView scrollToElement:0 animated:YES];
-    self.selectIndex = 0;
+   
     
 }
 
@@ -116,14 +146,58 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:@"0" forKey:@"needLoad"];
     [def synchronize];
+    if (!self.isLogin) {
+        //如果往左滑
+        
+        if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
+            
+            if (_selectIndex == 0) {
+                
+                _selectIndex = 1;
+
+            }
+           else if (_selectIndex == 1) {
+             
+            }else{
+                            }
+            
+            NSLog(@"----index is %ld------",(long)_selectIndex);
+            
+            [self.pickerView scrollToElement:_selectIndex animated:YES];
+            
+            
+            
+        }else if (recognizer.direction==UISwipeGestureRecognizerDirectionRight)
+            //往右划
+        {
+            
+            if (_selectIndex == 0) {
+                //[self.previewLayer removeFromSuperlayer];
+            }else{
+                //[self getCamera];
+                
+                _selectIndex = 0;
+            }
+            NSLog(@"----index is %ld------",(long)_selectIndex);
+            
+            [self.pickerView scrollToElement:_selectIndex animated:YES];
+            
+        }
+
+ 
+    
+    }else if (self.isLogin){
     //如果往左滑
     
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
-        [self getCamera];
+        if (_selectIndex == 0) {
+            [self getCamera];
+             _selectIndex +=1;
+        }
+        
       
-        if (_selectIndex == 2) {
-           
-        }else{
+       else if(_selectIndex == 1){
+            
             _selectIndex +=1;
         }
 
@@ -137,24 +211,29 @@
     //往右划
     {
        
-         if (_selectIndex == 0) {
+         if (_selectIndex == 1) {
+             
              [self.previewLayer removeFromSuperlayer];
-                    }else{
-                        [self getCamera];
+             [self.session stopRunning];
+             _selectIndex -=1;
+         }else if(_selectIndex == 2){
+             
 
             _selectIndex -=1;
         }
+        
         NSLog(@"----index is %ld------",(long)_selectIndex);
 
   [self.pickerView scrollToElement:_selectIndex animated:YES];
        
     }
-
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+   
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
     // [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     self.timer = timer;
@@ -199,7 +278,11 @@
     AVCaptureVideoPreviewLayer *preview = [AVCaptureVideoPreviewLayer layerWithSession:_session];
     
     preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
-    preview.frame = self.audioView.bounds;
+   
+    CGFloat previewW = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat previewH = [[UIScreen mainScreen] bounds].size.height - 94;
+    preview.frame = CGRectMake(0, 0, previewW, previewH);
+//    preview.frame = self.audioView.bounds;
     // 5.2 将图层插入当前视图
      [self.photoImg.layer insertSublayer:preview atIndex:100];
     
@@ -302,6 +385,7 @@
 
 
 #pragma -mark getter
+
 -(QRCodeViewController *)QRCodevc
 {
     if (_QRCodevc == nil) {
@@ -349,13 +433,12 @@
  
     [self.photoImg.layer insertSublayer:imageLayer atIndex:100];
     self.photoImg.contentMode = UIViewContentModeScaleAspectFill;
-   // self.photoImg.image = [ResizeImage reSizeImage:selectImage toSize:self.photoImg.frame.size];
+ 
   
     [self.previewLayer removeFromSuperlayer];
     [self.session stopRunning];
-//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-//    [def setObject:@"1" forKey:@"needLoad"];
-//    [def synchronize];
+
+
     [self midAction:nil];
 
 }
@@ -376,10 +459,7 @@
     if (_canClick == YES) {
         [self openAlbum];
         
-       // [self.pickerView scrollToElement:0 animated:YES];
-       // self.selectIndex = 0;
-       // [self.personIDVC.view removeFromSuperview];
-       // [self.view addSubview:self.QRCodevc.view];
+   
     }
     
 }
@@ -388,11 +468,8 @@
     if (_canClick == YES) {
         
         [self.navigationController pushViewController:[[QRHistoryViewController alloc] init] animated:YES];
-        
-        [self.pickerView scrollToElement:0 animated:YES];
-        self.selectIndex = 0;
-        [self.personIDVC.view removeFromSuperview];
-        [self.view addSubview:self.QRCodevc.view];
+        [self ifPush];
+
     }
   
 }
@@ -401,7 +478,9 @@
 
    NSLog(@"----selectStr is %@----",_selectedStr);
     if (_canClick == YES) {
-       
+        
+        [self getVoice];
+        
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
         [def setObject:@"1" forKey:@"needLoad"];
         [def synchronize];
@@ -433,6 +512,8 @@
                             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
                              userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
                              [self.navigationController pushViewController:card animated:YES];
+                                      
+                                        [self ifPush];
                         });
 
             }else if([self.selectedStr isEqualToString:@"护照"]){
@@ -440,15 +521,23 @@
                             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
                         CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
                         [self.navigationController pushViewController:card animated:YES];
+                [self ifPush];
 
             });
             
     }
-//        [self.pickerView scrollToElement:0 animated:YES];
-//        self.selectIndex = 0;
-//        [self.personIDVC.view removeFromSuperview];
-//        [self.view addSubview:self.QRCodevc.view];
+
     }
+}
+
+-(void)ifPush
+{
+  [self.previewLayer removeFromSuperlayer];
+    [self getCamera];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"0" forKey:@"needLoad"];
+    [def synchronize];
+    
 }
 
 - (UIImage *)imageFromView: (UIView *) theView
@@ -460,5 +549,16 @@
     UIImage *theImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return theImage;
+}
+
+#pragma -mark 声音
+-(void)getVoice{
+    
+    //添加提示音
+    SystemSoundID messageSound;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"caremaCut" ofType:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
+    
+    AudioServicesPlaySystemSound (messageSound);
 }
 @end

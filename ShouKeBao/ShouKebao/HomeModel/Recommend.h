@@ -16,7 +16,7 @@
 
 @property (nonatomic,copy) NSString *Price;
 
-@property (nonatomic,strong) NSArray *photosArr;
+@property (nonatomic,strong) NSArray *RecommendIndexProductList;
 
 
 

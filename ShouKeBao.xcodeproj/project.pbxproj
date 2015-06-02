@@ -244,6 +244,7 @@
 		636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B901AC2E6860097CAE9 /* MBProgressHUD+MJ.m */; };
 		636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */; };
 		636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */; };
+		637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */ = {isa = PBXBuildFile; fileRef = 637EA9CE1B1DB76A00E5AC22 /* caremaCut.wav */; };
 		6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6389CE041AB7F9F600A8326E /* ResizeImage.m */; };
 		63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */; };
 		63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */; };
@@ -751,6 +752,7 @@
 		636C8B911AC2E6860097CAE9 /* MBProgressHUD.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MBProgressHUD.bundle; sourceTree = "<group>"; };
 		636C8B921AC2E6860097CAE9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		637EA9CE1B1DB76A00E5AC22 /* caremaCut.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = caremaCut.wav; sourceTree = "<group>"; };
 		6389CE031AB7F9F600A8326E /* ResizeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImage.h; sourceTree = "<group>"; };
 		6389CE041AB7F9F600A8326E /* ResizeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeImage.m; sourceTree = "<group>"; };
 		63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -1953,6 +1955,7 @@
 		63D31E411AB143D00043B3CA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				637EA9CE1B1DB76A00E5AC22 /* caremaCut.wav */,
 				63F7A67B1B15BA7500D8D654 /* music.mp3 */,
 				63B8F5431AF2218800A162DC /* message.wav */,
 				5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */,
@@ -2286,6 +2289,7 @@
 				63E034571AFC995300BD714A /* remondViewController.xib in Resources */,
 				63B8F5441AF2218900A162DC /* message.wav in Resources */,
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
+				637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */,
 				635E70B31B180F87008EFEB6 /* PersonIDViewController.xib in Resources */,
 				5A52FC471ACEBF220076DAE6 /* FootView.xib in Resources */,
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,

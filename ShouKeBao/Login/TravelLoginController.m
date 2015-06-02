@@ -16,7 +16,7 @@
 #import "RegisterViewController.h"
 #import "WMNavigationController.h"
 #import "ScanningViewController.h"
-#import "WMAnimations.h"
+
 @interface TravelLoginController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -29,22 +29,21 @@
 
 @property (weak, nonatomic) IBOutlet UITextField *passwordField;
 
-@property (weak, nonatomic) IBOutlet UIButton *getNewUser;
+//@property (weak, nonatomic) IBOutlet UIButton *getNewUser;
+//
+//@property (weak, nonatomic) IBOutlet UIButton *cardBtn;
 
-@property (weak, nonatomic) IBOutlet UIButton *cardBtn;
 
-
--(IBAction)Card;
--(IBAction)registerUser;
+//-(IBAction)Card;
+//-(IBAction)registerUser;
 @end
 
 @implementation TravelLoginController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [ WMAnimations WMAnimationMakeBoarderWithLayer:self.getNewUser.layer andBorderColor:[UIColor grayColor] andBorderWidth:1 andNeedShadow:NO];
-    [ WMAnimations WMAnimationMakeBoarderWithLayer:self.cardBtn.layer andBorderColor:[UIColor grayColor] andBorderWidth:1 andNeedShadow:NO];
+    [self setOtherBtn];
+  
 
     self.title = @"登录旅游圈平台";
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
@@ -71,7 +70,53 @@
 //    self.passwordField.text = @"123456";
 }
 
-
+- (void)setOtherBtn
+{
+    CGRect screenRect = [UIScreen mainScreen].bounds;
+    
+    // 注册用户按钮
+    
+    CGFloat newW = 30;
+    CGFloat newH = 30;
+    CGFloat newX = 50;
+    CGFloat newY = screenRect.size.height - newH - 35 - 64;
+    UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
+    [new addTarget:self action:@selector(registerUser) forControlEvents:UIControlEventTouchUpInside];
+    
+    [new setBackgroundColor:[UIColor clearColor]];
+    [new setBackgroundImage:[UIImage imageNamed:@"newUserImage"] forState:UIControlStateNormal];
+    new.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UILabel *labNew = [[UILabel alloc] initWithFrame:CGRectMake(newX-15, CGRectGetMaxY(new.frame), 60, 20)];
+    labNew.text = @"新用户";
+    labNew.font = [UIFont systemFontOfSize:13];
+    labNew.textColor = [UIColor grayColor];
+    labNew.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:labNew];
+    [self.view addSubview:new];
+    
+    //分割线
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(screenRect.size.width/2, newY, 0.5, 35)];
+    line.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:line];
+    //证照神器
+    CGFloat cardX = self.view.frame.size.width - 60 - newX;
+    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY-20, newW+10, newH+20)];
+    [card addTarget:self action:@selector(Card) forControlEvents:UIControlEventTouchUpInside];
+    [card setBackgroundColor:[UIColor clearColor]];
+    [card setBackgroundImage:[UIImage imageNamed:@"cardDigital"] forState:UIControlStateNormal];
+    card.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UILabel *labCard = [[UILabel alloc] initWithFrame:CGRectMake(cardX-10, CGRectGetMaxY(card.frame), 60, 20)];
+    labCard.text = @"证照神器";
+    labCard.font = [UIFont systemFontOfSize:13];
+    labCard.textColor = [UIColor blueColor];
+    labCard.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:labCard];
+    
+    [self.view addSubview:card];
+    
+}
 
 /**
  *  跳转注册页面
@@ -87,8 +132,9 @@
 //跳转证件页面
 -(void)Card
 {
-    
-    [self.navigationController pushViewController:[[ScanningViewController alloc] init] animated:YES];
+    ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isLogin = NO;
+    [self.navigationController pushViewController:scan animated:YES];
 }
 - (void)dealloc
 {

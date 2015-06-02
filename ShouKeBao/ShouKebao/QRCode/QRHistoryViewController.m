@@ -94,39 +94,40 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-static NSString *cellID = @"QRCell";
+static NSString *cellID = @"QRHistoryCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 35, 35)];
+        [cell.contentView addSubview:imgV];
+        if (indexPath.row%2 == 0) {
+            imgV.image = [UIImage imageNamed:@"passPort"];
+        }else{
+            imgV.image = [UIImage imageNamed:@"IDInform"];
+        }
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame)+10, 10, 200, 20)];
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont systemFontOfSize:15];
+        label.textAlignment = NSTextAlignmentLeft;
+        label.text = self.dataArr[indexPath.row][@"name"];
+        [cell.contentView addSubview:label];
+        
+        UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.origin.x, CGRectGetMaxY(label.frame)+10, 200, 20)];
+        codeLab.textColor = [UIColor grayColor];
+        codeLab.font = [UIFont systemFontOfSize:12];
+        codeLab.textAlignment = NSTextAlignmentLeft;
+        codeLab.text = self.dataArr[indexPath.row][@"cardNum"];
+        [cell.contentView addSubview:codeLab];
+        
+        UILabel *creatLab = [[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-130, codeLab.frame.origin.y, 130, 20)];
+        creatLab.textColor = [UIColor grayColor];
+        creatLab.font = [UIFont systemFontOfSize:13];
+        creatLab.textAlignment = NSTextAlignmentRight;
+        creatLab.text = self.dataArr[indexPath.row][@"creatTime"];
+        [cell.contentView addSubview:creatLab];
     }
-    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 35, 35)];
-    [cell.contentView addSubview:imgV];
-    if (indexPath.row%2 == 0) {
-        imgV.image = [UIImage imageNamed:@"passPort"];
-    }else{
-        imgV.image = [UIImage imageNamed:@"IDInform"];
-    }
-    
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame)+10, 10, 200, 20)];
-    label.textColor = [UIColor blackColor];
-    label.font = [UIFont systemFontOfSize:15];
-    label.textAlignment = NSTextAlignmentLeft;
-    label.text = self.dataArr[indexPath.row][@"name"];
-    [cell.contentView addSubview:label];
-    
-    UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.origin.x, CGRectGetMaxY(label.frame)+10, 200, 20)];
-    codeLab.textColor = [UIColor grayColor];
-    codeLab.font = [UIFont systemFontOfSize:12];
-    codeLab.textAlignment = NSTextAlignmentLeft;
-    codeLab.text = self.dataArr[indexPath.row][@"cardNum"];
-    [cell.contentView addSubview:codeLab];
-    
-    UILabel *creatLab = [[UILabel alloc] initWithFrame:CGRectMake(cell.contentView.frame.size.width-130, codeLab.frame.origin.y, 130, 20)];
-    creatLab.textColor = [UIColor grayColor];
-    creatLab.font = [UIFont systemFontOfSize:13];
-    creatLab.textAlignment = NSTextAlignmentRight;
-    creatLab.text = self.dataArr[indexPath.row][@"creatTime"];
-    [cell.contentView addSubview:creatLab];
+  
 
     return cell;
 }

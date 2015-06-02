@@ -93,4 +93,82 @@ theAnimation.fromValue=[NSValue valueWithCGPoint:fromPoint];
 
 
 }
+
++ (void)wmPaoMaDengWithView:(UIView *)view andMovePointW:(CGFloat)ponitWidth  andMidDuration:(double)duration
+{//view:在哪个图片上转，移动点的宽，一个动画的持续时间，（默认创建80个移动点）
+    
+    CGFloat viewW = view.frame.size.width;
+    CGFloat viewH = view.frame.size.height;
+    
+    CAKeyframeAnimation *an = [CAKeyframeAnimation animation];//绕指定路径走
+    an.keyPath = @"position";
+    NSValue *v = [NSValue valueWithCGPoint:CGPointMake(0, 0)];
+    NSValue *v1 = [NSValue valueWithCGPoint:CGPointMake(viewW - ponitWidth, 0)];
+    NSValue *v2 = [NSValue valueWithCGPoint:CGPointMake(viewW - ponitWidth,viewH - ponitWidth)];
+    NSValue *v3 = [NSValue valueWithCGPoint:CGPointMake(0,viewH - ponitWidth)];
+    NSValue *v4 = [NSValue valueWithCGPoint:CGPointMake(0,0)];
+    an.values = @[v,v1,v2,v3,v4];//动画值的数组
+    //an.duration = duration;
+    an.repeatCount = MAXFLOAT;
+    
+    for (int i = 0; i<80; i++) {
+        UIView *view1 = [[UIView alloc] initWithFrame:CGRectMake(0, 0, ponitWidth, ponitWidth)];
+        view1.backgroundColor = [UIColor colorWithRed:((arc4random() % 250) + 1)/250.f green:((arc4random() % 250) + 1)/250.f blue:((arc4random() % 250) + 1)/250.f alpha:1];
+        
+        view1.layer.anchorPoint = CGPointZero;
+        view1.layer.cornerRadius = ponitWidth;
+        view1.layer.masksToBounds = YES;
+        an.duration =duration+i*0.1;
+        
+               [view1.layer addAnimation:an forKey:nil];
+        
+        [view addSubview:view1];
+        
+    }
+    
+}
+
++(void)WMChuckViewWithView:(UIView *)view fromValue:(id)fromValue toValue:(id)toValue duration:(double)duration
+{
+    // toValue is @0.8f
+    
+    //animation 闪图
+    CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
+    animation.fromValue = fromValue;
+    animation.toValue = toValue;
+    animation.duration = duration;
+    animation.repeatCount = MAXFLOAT;
+    animation.autoreverses = NO;//是否变回原来的属性
+    view.layer.shadowColor = [UIColor lightGrayColor].CGColor;
+    view.layer.shadowOffset = CGSizeMake(7, 7);
+    view.layer.shadowOpacity = 0.7;
+    [view.layer addAnimation:animation forKey:@"scale"];
+    
+    
+}
+
+//震动
++(void)WMShakeWithView:(UIView *)view
+{
+    CABasicAnimation *theAnimation;
+    
+    theAnimation=[CABasicAnimation animationWithKeyPath:@"position"];
+    
+    // set the fromValue and toValue to the appropriate points
+    CGFloat shakeWid = view.center.x;
+    CGFloat shakeheit = view.center.y;
+    
+    theAnimation.fromValue=[NSValue valueWithCGPoint:CGPointMake(shakeWid-5,shakeheit)];
+    theAnimation.toValue=[NSValue valueWithCGPoint:CGPointMake(shakeWid+5,shakeheit)];
+    
+    // set the duration to 3.0 seconds
+    theAnimation.duration=0.05;
+    theAnimation.repeatCount = MAXFLOAT;
+    
+    // set a custom timing function
+    //theAnimation.timingFunction=[CAMediaTimingFunction functionWithControlPoints:0.25f :0.1f :0.25f :1.0f];
+    theAnimation.autoreverses = YES;
+    [view.layer addAnimation:theAnimation forKey:@"move"];
+    
+}
 @end

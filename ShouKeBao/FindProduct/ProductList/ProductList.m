@@ -581,7 +581,7 @@
     NSLog(@"--------------productList json is %@-----------",[StrToDic jsonStringWithDicL:dic] );
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         
-        NSLog(@"--------------json[condition is  %@------------]",json);
+        NSLog(@"--------------productList is   %@------------]",json);
         NSArray *arr = json[@"ProductList"];
         NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         [self.dataArr removeAllObjects];

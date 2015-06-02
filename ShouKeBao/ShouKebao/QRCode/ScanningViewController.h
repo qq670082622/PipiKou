@@ -12,6 +12,6 @@
 @class V8HorizontalPickerView;
 
 @interface ScanningViewController : SKViewController<V8HorizontalPickerViewDelegate, V8HorizontalPickerViewDataSource,UIScrollViewDelegate>
-
+@property (nonatomic,assign) BOOL isLogin;
 
 @end

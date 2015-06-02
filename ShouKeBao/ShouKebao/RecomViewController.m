@@ -13,6 +13,7 @@
 #import "StationSelect.h"
 #import "SearchProductViewController.h"
 #import "WMAnimations.h"
+#import "RecommendViewController.h"
 @interface RecomViewController ()
 
 - (IBAction)todayAction:(id)sender;
@@ -32,9 +33,10 @@
 @property (strong,nonatomic) UIBarButtonItem *leftItem;
 @property (strong,nonatomic) UIBarButtonItem *rightItem;
 
-@property(nonatomic,strong) TodayViewController *todayVC;
+//@property(nonatomic,strong) TodayViewController *todayVC;
 @property(nonatomic,strong) YesterdayViewController *yesterdayVC;
 @property(nonatomic,strong) RecentlyViewController *recentlyVC;
+@property (nonatomic,strong) RecommendViewController *todayVC;
 @end
 
 @implementation RecomViewController
@@ -109,10 +111,10 @@
     // Dispose of any resources that can be recreated.
 }
 
--(TodayViewController *)todayVC
+-(RecommendViewController *)todayVC
 {
     if (_todayVC == nil) {
-        self.todayVC = [[TodayViewController alloc] init];
+        self.todayVC = [[RecommendViewController alloc] init];
         [self addChildViewController:_todayVC];
         self.todayVC.view.frame = self.controllerView.frame;
     }

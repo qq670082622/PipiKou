@@ -16,6 +16,7 @@
     [aCoder encodeObject:self.Count forKey:@"Count"];
     [aCoder encodeObject:self.CreatedDate forKey:@"CreatedDate"];
     [aCoder encodeObject:self.Price forKey:@"Price"];
+    [aCoder encodeObject:self.RecommendIndexProductList forKey:@"RecommendIndexProductList"];
 }
 
 
@@ -25,6 +26,7 @@
         self.Count =  [aDecoder decodeObjectForKey:@"Count"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
         self.Price = [aDecoder decodeObjectForKey:@"Price"];
+        self.RecommendIndexProductList = [aDecoder decodeObjectForKey:@"RecommendIndexProductList"];
     }
     
     return self;
@@ -45,7 +47,7 @@
         self.Count = muta[@"Count"];
         self.CreatedDate = muta[@"CreatedDate"];
         self.Price = muta[@"Price"];
-        self.photosArr = [NSArray arrayWithObjects:@"1mg",@"2mg",@"3mg",@"2mg", nil];
+        self.RecommendIndexProductList = muta[@"RecommendIndexProductList"];
     }
     return self;
 }

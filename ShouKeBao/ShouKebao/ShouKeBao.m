@@ -144,8 +144,13 @@
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [self.tableView reloadData];
+        
+    });
 
    // [self test];
+    
 }
 
 -(void)test
@@ -471,11 +476,11 @@
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 // 添加精品推荐 如果有推荐的话
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
-                    [HomeHttpTool getRecommendProductListWithParam:@{@"DateRangeType":@"1"} success:^(id recommendJson) {
-                        NSLog(@"-------------今日推荐新接口数据是:%@--------------",recommendJson);
-                    } failure:^(NSError *error) {
-                        
-                    }];
+//                    [HomeHttpTool getRecommendProductListWithParam:@{@"DateRangeType":@"1"} success:^(id recommendJson) {
+//                        NSLog(@"-------------今日推荐新接口数据是:%@--------------",recommendJson);
+//                    } failure:^(NSError *error) {
+//                        
+//                    }];
                     
                     Recommend *recommend = [Recommend recommendWithDict:json[@"RecommendProduct"]];
                     HomeBase *base = [[HomeBase alloc] init];
@@ -825,7 +830,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"QRCodeClicked" attributes:@{@"stationName":par.stationName}];
    
-    [self.navigationController pushViewController:[[ScanningViewController alloc] init] animated:YES];
+    ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isLogin = YES;
+    [self.navigationController pushViewController:scan animated:YES];
 }
 
 #pragma mark - UITableViewDataSource
@@ -840,11 +847,24 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     if ([model.model isKindOfClass:[HomeList class]]) {
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
+        if (indexPath.row%2 == 0) {
+            [WMAnimations WMShakeWithView:cell.contentView];
+        }else{
+          [WMAnimations WMChuckViewWithView:cell.contentView fromValue:@0.8f toValue:@1.0f duration:0.3];
+        }
+        
+        
+        
+        
+        
         cell.model = model.model;
         
         return cell;
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        
+        [WMAnimations wmPaoMaDengWithView:cell.contentView andMovePointW:15 andMidDuration:1];
+        
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
@@ -923,7 +943,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     if ([model.model isKindOfClass:[Recommend class]]) {
         Recommend *rmodel = model.model;
-        NSUInteger count = rmodel.photosArr.count;
+        NSUInteger count = rmodel.RecommendIndexProductList.count;
        
         CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
         double radious = screenH/667;

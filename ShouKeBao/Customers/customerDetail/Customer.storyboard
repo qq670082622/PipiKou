@@ -972,15 +972,15 @@
                             </tableViewSection>
                             <tableViewSection id="nYP-Zh-pfL">
                                 <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="Xug-sd-xlc">
-                                        <rect key="frame" x="0.0" y="355" width="320" height="60"/>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="80" id="Xug-sd-xlc">
+                                        <rect key="frame" x="0.0" y="355" width="320" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Xug-sd-xlc" id="wxc-WR-ZaV">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="地址：黑龙江省铁岭镇寡妇屯光棍组191号3栋B1" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="j3B-Lu-LKx">
-                                                    <rect key="frame" x="32" y="9" width="268" height="50"/>
+                                                    <rect key="frame" x="32" y="9" width="268" height="70"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
@@ -996,7 +996,7 @@
                             <tableViewSection id="PM9-6f-BmU">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="6eF-yv-TKn">
-                                        <rect key="frame" x="0.0" y="435" width="320" height="60"/>
+                                        <rect key="frame" x="0.0" y="455" width="320" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6eF-yv-TKn" id="d8R-92-3oL">
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="60"/>

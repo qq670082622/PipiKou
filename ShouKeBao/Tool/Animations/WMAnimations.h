@@ -16,4 +16,11 @@
 + (void)WMAnimationMakeBoarderWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(float)borderWid andNeedShadow:(BOOL)needShow;//给view增加边框
 
 + (void)WMAnimationMakeBoarderNoCornerRadiosWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(int)borderWid andNeedShadow:(BOOL)needShow;//给view增加边框
+
+
++ (void)wmPaoMaDengWithView:(UIView *)view andMovePointW:(CGFloat)ponitWidth  andMidDuration:(double)duration;//跑马灯
+
++(void)WMChuckViewWithView:(UIView *)view fromValue:(id)fromValue toValue:(id)toValue duration:(double)duration;//闪图
+
++(void)WMShakeWithView:(UIView *)view;//震动
 @end

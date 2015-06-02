@@ -116,32 +116,45 @@
     CGRect screenRect = [UIScreen mainScreen].bounds;
     
     // 注册用户按钮
-    CGFloat newW = 80;
+
+    CGFloat newW = 30;
     CGFloat newH = 30;
     CGFloat newX = 50;
-    CGFloat newY = screenRect.size.height - newH - 10;
+    CGFloat newY = screenRect.size.height - newH - 35;
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
-    new.layer.cornerRadius = 15;
-    new.layer.masksToBounds = YES;
-    [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
-    [new setTitle:@"新用户" forState:UIControlStateNormal];
-    new.titleLabel.font = [UIFont systemFontOfSize:13];
-    [new setBackgroundColor:[UIColor whiteColor]];
-    [new setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [new setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+  [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
+   
+    [new setBackgroundColor:[UIColor clearColor]];
+    [new setBackgroundImage:[UIImage imageNamed:@"newUserImage"] forState:UIControlStateNormal];
+    new.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UILabel *labNew = [[UILabel alloc] initWithFrame:CGRectMake(newX-15, CGRectGetMaxY(new.frame), 60, 20)];
+    labNew.text = @"新用户";
+    labNew.font = [UIFont systemFontOfSize:13];
+    labNew.textColor = [UIColor grayColor];
+    labNew.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:labNew];
     [self.view addSubview:new];
     
+    //分割线
+    UIView *line = [[UIView alloc] initWithFrame:CGRectMake(screenRect.size.width/2, newY, 0.5, 35)];
+    line.backgroundColor = [UIColor grayColor];
+    [self.view addSubview:line];
     //证照神器
-    CGFloat cardX = self.view.frame.size.width - 80 - newX;
-    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY, newW, newH)];
-    card.layer.cornerRadius = 15;
-    card.layer.masksToBounds = YES;
+    CGFloat cardX = self.view.frame.size.width - 60 - newX;
+    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY-20, newW+10, newH+20)];
     [card addTarget:self action:@selector(Card:) forControlEvents:UIControlEventTouchUpInside];
-    [card setTitle:@"证件神器" forState:UIControlStateNormal];
-    card.titleLabel.font = [UIFont systemFontOfSize:13];
-    [card setBackgroundColor:[UIColor whiteColor]];
-    [card setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    [card setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [card setBackgroundColor:[UIColor clearColor]];
+    [card setBackgroundImage:[UIImage imageNamed:@"cardDigital"] forState:UIControlStateNormal];
+  card.contentMode = UIViewContentModeScaleAspectFill;
+    
+    UILabel *labCard = [[UILabel alloc] initWithFrame:CGRectMake(cardX-10, CGRectGetMaxY(card.frame), 60, 20)];
+    labCard.text = @"证照神器";
+    labCard.font = [UIFont systemFontOfSize:13];
+    labCard.textColor = [UIColor blueColor];
+    labCard.textAlignment = NSTextAlignmentCenter;
+    [self.view addSubview:labCard];
+
     [self.view addSubview:card];
 
     
@@ -186,8 +199,10 @@
 //跳转证件页面
 -(void)Card:(UIButton *)btn
 {
+    ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isLogin = NO;
    
-    [self.navigationController pushViewController:[[ScanningViewController alloc] init] animated:YES];
+    [self.navigationController pushViewController:scan animated:YES];
 }
 // 设置头部
 - (void)setupHeader

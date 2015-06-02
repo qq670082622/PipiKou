@@ -185,6 +185,7 @@
     [dic setObject:model.Type forKey:@"NavigationType"];
        [self.rightTableArr removeAllObjects];
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
+        NSLog(@"-------------dataSourceRight json is %@-----------------",json);
 
         
         [self.rightTable headerEndRefreshing];
@@ -212,7 +213,7 @@
 - (void)loadDataSourceRight2
 {
     int selectRow = [self.table2Row intValue];
-    NSLog(@"---------selectRow 转化为int 后为%d-------------",selectRow);
+   // NSLog(@"---------selectRow 转化为int 后为%d-------------",selectRow);
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 
     NSString *searchID = _rightMoreSearchID[selectRow];
@@ -221,7 +222,7 @@
   
     [self.rightMoreArr removeAllObjects];
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
-       
+        NSLog(@"-------------dataSource2 json is %@-----------------",json);
             [self.rightMoreArr removeAllObjects];
         for(NSDictionary *dic in json[@"NavigationChildList"] ){
             rightModal3 *modal = [rightModal3 modalWithDict:dic];
