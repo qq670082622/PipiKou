@@ -7,7 +7,7 @@
 //
 
 #import "RecomViewController.h"
-#import "TodayViewController.h"
+
 #import "YesterdayViewController.h"
 #import "RecentlyViewController.h"
 #import "StationSelect.h"
@@ -37,6 +37,7 @@
 @property(nonatomic,strong) YesterdayViewController *yesterdayVC;
 @property(nonatomic,strong) RecentlyViewController *recentlyVC;
 @property (nonatomic,strong) RecommendViewController *todayVC;
+@property(nonatomic,assign) NSInteger selectIndex;
 @end
 
 @implementation RecomViewController
@@ -63,11 +64,63 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    self.selectIndex = 0;
+    [self addGes];
+   
 }
 
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)addGes
+{
+    UISwipeGestureRecognizer *recognizerLeft;
+    recognizerLeft = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    
+    [recognizerLeft setDirection:(UISwipeGestureRecognizerDirectionLeft)];
+    
+    [self.view addGestureRecognizer:recognizerLeft];
+    
+    UISwipeGestureRecognizer *recognizerRight;
+    recognizerRight = [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(handleSwipeFrom:)];
+    
+    [recognizerRight setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    
+    [self.view addGestureRecognizer:recognizerRight];
+    
+    
+}
+
+-(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
+    
+        //如果往左滑
+        
+        if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
+            if (self.selectIndex == 0 ) {
+                [self yesterdayAction:nil];
+                self.selectIndex = 1;
+            }else if (self.selectIndex == 1){
+                [self recentlyAction:nil];
+                self.selectIndex = 2;
+            }
+            
+            
+            
+        }else if (recognizer.direction==UISwipeGestureRecognizerDirectionRight)
+            //往右划
+        {
+            if (self.selectIndex == 2) {
+                [self yesterdayAction:nil];
+                self.selectIndex = 1;
+            }else if (self.selectIndex == 1){
+                [self todayAction:nil];
+                self.selectIndex = 0;
+            }
+            
+                  }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -142,7 +195,7 @@
 }
 
 - (IBAction)todayAction:(id)sender {
-    
+    self.selectIndex = 0;
     [self.view addSubview:self.todayVC.view];
     [self.todayBtnOutlet setSelected:YES];
     
@@ -167,6 +220,7 @@
 }
 
 - (IBAction)yesterdayAction:(id)sender {
+    self.selectIndex = 1;
     [self.view addSubview:self.yesterdayVC.view];
      [self.yesterdayBtnOutlet setSelected:YES];
     [self.todayBtnOutlet setSelected:NO];
@@ -189,6 +243,7 @@
 }
 
 - (IBAction)recentlyAction:(id)sender {
+    self.selectIndex = 2;
     [self.view addSubview:self.recentlyVC.view];
     [self.recentlyBtnOutlet setSelected:YES];
     [self.todayBtnOutlet setSelected:NO];

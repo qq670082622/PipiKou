@@ -61,7 +61,7 @@
     [tmp addEntriesFromDictionary:params];
    
     NSLog(@"-------url:%@",overStr);
-    NSLog(@"~~~~~~~param:%@",tmp);
+    NSLog(@"~~~~~~~~~~~~~~~~~~param:%@~~~~~~~~~~~~~~~~~~",[StrToDic jsonStringWithDicL:tmp]);
     
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
@@ -79,6 +79,76 @@
           }
       }];
 }
+
+
++ (void)postForRecommendWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure{
+    NSString *normalURL = formalRUL;
+    NSString *overStr = [normalURL stringByAppendingString:url];
+    
+    //组dic
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    NSString *mobileID = [[UIDevice currentDevice].identifierForVendor UUIDString];
+    //ClientSource 0其他，无需
+    
+    NSUserDefaults *accoutDefault=[NSUserDefaults standardUserDefaults];
+    NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
+    NSLog(@"---------subStation is %@-------",subStation);
+    
+    // 基本参数
+    NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
+    [tmp setObject:@"1" forKey:@"MobileType"];
+    [tmp setObject:currentVersion forKey:@"MobileVersion"];
+    [tmp setObject:mobileID forKey:@"MobileID"];
+    
+    // 分区设置
+    if (subStation) {
+        [tmp setObject:subStation forKey:@"Substation"];
+    }else if (!subStation){
+        [tmp setObject:@"10" forKey:@"Substation"];
+        //  [APService setTags:[NSSet setWithObject:@"substation_10"] callbackSelector:nil object:nil];
+    }
+    
+    // 取出两个id
+    NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
+    NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
+    NSString *appUserId = [accoutDefault objectForKey:UserInfoKeyAppUserID];
+    
+    // 判断这三个个是否空
+    [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
+    [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
+    [tmp setObject:appUserId ? appUserId : @"" forKey:@"AppUserID"];
+    
+    // 取出logintype
+    NSString *loginType = [accoutDefault objectForKey:UserInfoKeyLoginType];
+    [tmp setObject:loginType ? loginType : @"0" forKey:@"LoginType"];
+    
+    // 拼接所有参数
+    [tmp addEntriesFromDictionary:params];
+    
+    NSLog(@"-------url:%@",overStr);
+    NSLog(@"~~~~~~~~~~~~~~~~~~param:%@~~~~~~~~~~~~~~~~~~",[StrToDic jsonStringWithDicL:tmp]);
+    
+    // 1.创建请求管理对象
+    AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
+    mgr.requestSerializer = [AFJSONRequestSerializer serializer];
+    
+    [mgr POST:overStr parameters:tmp
+      success:^(AFHTTPRequestOperation *operation, id responseObject) {
+          
+          if (success) {
+              success(responseObject);
+          }
+      } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+          if (failure) {
+              failure(error);
+          }
+      }];
+
+}
+
+
+
 
 + (void)WMpostWithURL:(NSString *)url params:(NSMutableDictionary *)params success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
@@ -190,7 +260,8 @@
     [tmp addEntriesFromDictionary:params];
     
     NSLog(@"-------url:%@",overStr);
-    NSLog(@"~~~~~~~param:%@",tmp);
+    NSLog(@"~~~~~~~~~~~~~~~~~~param:%@~~~~~~~~~~~~~~~~~~",[StrToDic jsonStringWithDicL:tmp]);
+
     
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];

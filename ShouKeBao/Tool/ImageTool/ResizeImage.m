@@ -40,4 +40,6 @@ UIImage *new = [normal resizableImageWithCapInsets:UIEdgeInsetsMake(heith, wid, 
     UIGraphicsEndImageContext();
     return scaledImage;
 }
+
+
 @end

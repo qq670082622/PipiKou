@@ -15,6 +15,7 @@
 #import "CustomModel.h"
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
+#import "attachmentViewController.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
@@ -205,5 +206,8 @@
 }
 
 - (IBAction)attachmentAction:(id)sender {
+    attachmentViewController *att = [[attachmentViewController alloc] init];
+    [self.navigationController pushViewController:att animated:YES];
+    
 }
 @end

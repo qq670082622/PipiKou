@@ -114,9 +114,9 @@
    
     self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
-    self.subDataArr1 = [NSArray arrayWithObjects:@"出发城市      ",@"出发日期      ",@"行程天数      ",@"游览线路      ",@"供应商      ", nil];//5
+    self.subDataArr1 = [NSArray arrayWithObjects:@"目的地      ",@"出发城市      ",@"出发日期      ",@"行程天数      ",@"游览线路      ",@"供应商      ", nil];//6
     self.subDataArr2 = [NSArray arrayWithObjects:@"主题推荐      ",@"酒店类型      ",@"出行方式      ",@"邮轮公司      ", nil];//4
-    self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
+    self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ", nil];
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
     self.turn = [NSMutableString stringWithFormat:@"Off"];
 
@@ -600,7 +600,8 @@
                 }
         
         NSMutableArray *conArr = [NSMutableArray array];
-        
+        NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
+        [conArr addObject:dicNew];
         for(NSDictionary *dic in json[@"ProductConditionList"] ){
             [conArr addObject:dic];
         }
@@ -817,7 +818,22 @@
 }
 
 
-
+//-(UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+//{
+//    if(tableView.tag == 2){
+//        if (section == 1) {
+//            UIView *headView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 50)];
+//            headView.backgroundColor = [UIColor whiteColor];
+//            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//            btn.frame = CGRectMake(15, 10, 40, 30);
+//            btn.titleLabel.font = [UIFont systemFontOfSize:14];
+//            [btn setTitle:@"目的地" forState:UIControlStateNormal];
+//            [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//            
+//        }
+//    
+//    }
+//}
 
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
@@ -1042,20 +1058,20 @@
     }
    
     if (tableView.tag == 2) {
-        if (indexPath.section == 0 && indexPath.row == 1) {
+        if (indexPath.section == 0 && indexPath.row == 2) {
             ChooseDayViewController *choose = [[ChooseDayViewController alloc]init];
             choose.delegate = self;
             
-            NSInteger a = (5*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
+            NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
             NSDictionary *conditionDic = _conditionArr[a];
             choose.buttons = conditionDic;
             choose.needMonth = @"1";
             self.coverView.hidden = YES;
             [self.navigationController pushViewController:choose animated:YES];
-        }else if (!(indexPath.section == 0 && indexPath.row == 1)){
+        }else if (!(indexPath.section == 0 && indexPath.row == 2)){
        
             
-        NSInteger a = (5*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
+        NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
     
         //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
        NSDictionary *conditionDic = _conditionArr[a];
@@ -1161,7 +1177,7 @@
            
           cell.detailTextLabel.textColor = [UIColor orangeColor];
          
-           if (indexPath.row == 1){
+           if (indexPath.row == 2){
                    if (_goDateEnd.length>3) {
                        cell.detailTextLabel.text = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
                    }else if (_goDateEnd.length<=2){
@@ -1171,7 +1187,7 @@
                    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@",_month];
                }
                
-           } else if (indexPath.row != 1) {
+           } else if (indexPath.row != 2) {
                
                cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                 NSString *detailStr = self.subIndicateDataArr1[indexPath.row];

@@ -20,9 +20,11 @@
 #import "ProduceDetailViewController.h"
 #import "UIViewController+HUD.h"
 #import "YYAnimationIndicator.h"
+#import "WMAnimations.h"
+
 #define pageSize @"10"
 
-@interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate>
+@interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) UITableView *tableView;
 
@@ -34,17 +36,27 @@
 
 @property (nonatomic,copy) NSString *totalCount;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
+@property (nonatomic,strong) NSMutableDictionary *tagDic;
+
 @end
 
 @implementation RecommendViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *st = [def objectForKey:@"markStr"];;
+    self.markUrl  = [def objectForKey:@"markStr"];
+     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
+    
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.pageIndex = 1;
+    
     
     //下啦刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -73,6 +85,14 @@
 
      [_indicator startAnimation];
     [self loadDataSource];
+    
+   
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [self.tableView reloadData];
+        
+    });
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -86,6 +106,7 @@
    
 }
 
+
 #pragma mark - private
 - (void)loadDataSource
 {
@@ -93,7 +114,7 @@
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                             @"DateRangeType":@"1"};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
-        [self.tableView headerEndRefreshing];
+               [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
        // [self hideHud];
               if (json) {
@@ -244,6 +265,7 @@
 }
 
 #pragma mark - getter
+
 - (NSMutableArray *)dataSource
 {
     if (!_dataSource) {
@@ -252,19 +274,32 @@
     return _dataSource;
 }
 
+-(NSMutableDictionary *)tagDic
+{
+    if (_tagDic == nil) {
+        self.tagDic = [NSMutableDictionary dictionary];
+    }
+    return _tagDic;
+}
 - (UITableView *)tableView
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.rowHeight = 80;
-        _tableView.separatorInset = UIEdgeInsetsZero;
+        //_tableView.rowHeight = 80;
+       // _tableView.separatorInset = UIEdgeInsetsZero;
     }
     return _tableView;
 }
 
 #pragma mark - UITableViewDataSource
+
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    
+}
+
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
@@ -272,23 +307,60 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView];
-    cell.delegate = self;
-    
+    DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
+   
+
     DayDetail *detail = self.dataSource[indexPath.row];
     cell.detail = detail;
+ 
+        [cell.descripBtn setTag:indexPath.row];
+    [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([detail.PicUrl isEqualToString:_markUrl]) {
+        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor cyanColor] andBorderWidth:3 andNeedShadow:normal];
+    }
+    if (indexPath.row == 2) {
+        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor cyanColor] andBorderWidth:3 andNeedShadow:normal];
+
+           }
+ 
     
     return cell;
 }
 
+-(void)changeHeight:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+ 
+  NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
+  
+    if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
+        [self.tagDic setObject:@"0" forKey:tag];
+    }else{
+        [self.tagDic setObject:@"1" forKey:tag];}
+    [_tableView beginUpdates];
+    [_tableView endUpdates];
+
+}
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     DayDetail *detail = self.dataSource[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
-    web.produceUrl = detail.linkUrl;
+    web.produceUrl = detail.LinkUrl;
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
+    if ([tag isEqualToString:@"1"]) {
+        return 320;
+    }else{
+          return 195;
+    }
+    
 }
 
 #pragma mark - MGSwipeTableCellDelegate

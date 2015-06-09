@@ -143,6 +143,10 @@
         
          UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[self.photosArr firstObject]]];
         imgv.frame = CGRectMake(0, 0, IMGw, IMGH);
+        imgv.userInteractionEnabled = YES;
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
+        [imgv addGestureRecognizer:tap];
+
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/3)];
         backView.backgroundColor = [UIColor blackColor];
@@ -177,6 +181,11 @@
             
             UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.photosArr[i]]];
             imgv.frame = CGRectMake(imgvX, imgvY, imgW, imgW);
+            imgv.userInteractionEnabled = YES;
+
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
+            [imgv addGestureRecognizer:tap];
+
             
             UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, imgW*2/3, imgW, imgW/3)];
             backView.backgroundColor = [UIColor blackColor];
@@ -211,6 +220,7 @@
 
 -(void)tapIMG:(UIGestureRecognizer *)sender
 {
+    
     int selectTag  = (int)sender.view.tag;
     NSArray *arr =  self.imgSuperView.subviews;
     NSMutableArray *tagArr = [NSMutableArray array];
@@ -228,9 +238,22 @@
     }
     
     int yesInt = [[selectArr firstObject] intValue];
-     NSLog(@"正确的匹配排第%d",yesInt);
+    
     //取当前arr中的picUrl为标示
     NSString *markStr = self.photosArr[yesInt][@"PicUrl"];
+     NSLog(@"点击了排第%d个，它的picurl is %@",yesInt,markStr);
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:markStr forKey:@"markStr"];
+    [def synchronize];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter postNotificationName:@"notifiToPushToRecommed" object:nil];
+}
+
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+
 }
 
 

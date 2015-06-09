@@ -24,6 +24,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二代身份证";
+    //4 0
+    self.nameLab.text = [NSString stringWithFormat:@"    姓名：%@",_UserName];
+    //self.sexLab.text = _sex;
+    self.nationalLab.text = [NSString stringWithFormat:@"    民族：%@",_Nation];
+    self.cardNum.text = [NSString stringWithFormat:@"    身份证号码：%@",_cardNumber];
+    self.bornLab.text = [NSString stringWithFormat:@"    生日：%@",_birthDay];
+    self.addressLab.text = [NSString stringWithFormat:@"    地址：%@",_address];
+    //    @property(nonatomic,copy) NSString *address;
+    //    @property(nonatomic,copy) NSString *birthDay;
+    //    @property(nonatomic,copy) NSString *cardNumber;
+    //    @property(nonatomic,copy) NSString *Nation;
+    //    @property(nonatomic,copy) NSString *sex;
+    //    @property(nonatomic,copy) NSString *UserName;
+
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];

@@ -12,4 +12,5 @@
 @interface ProductList : SKViewController//<passValue>
 @property (nonatomic,copy) NSString *pushedSearchK;
 //@property (nonatomic,copy) NSString *productTitle;
+@property(nonatomic,strong) NSMutableArray *pushedArr;
 @end

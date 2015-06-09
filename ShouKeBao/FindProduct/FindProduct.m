@@ -27,6 +27,8 @@
 #import "UIImageView+WebCache.h"
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
+
+#import "newModel.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -55,6 +57,8 @@
 @property (weak, nonatomic)  UIImageView *hotIcon;
 @property (weak, nonatomic)  UIButton *hotBtn;
 @property (assign,nonatomic) BOOL isHot;
+
+@property (nonatomic,strong) NSMutableArray *pushArr;
 @end
 
 @implementation FindProduct
@@ -150,7 +154,7 @@
     hudView.labelText = @"加载中...";
     
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationType" params:nil success:^(id json) {
-        NSLog(@"-------------------left json is %@----------",json);
+    //    NSLog(@"-------------------left json is %@----------",json);
         
         [self.leftTableArr removeAllObjects];
         for(NSDictionary *dic in json[@"NavigationTypeList"]){
@@ -168,7 +172,7 @@
             [self loadDataSourceRight];
         });
         
-        NSLog(@"~~~~~~~~~~~leftArr is %@~~~~~~~~~~",_leftTableArr);
+      //  NSLog(@"~~~~~~~~~~~leftArr is %@~~~~~~~~~~",_leftTableArr);
     
     } failure:^(NSError *error) {
         NSLog(@"左侧栏请求错误！～～～error is ~~~~~~~~~%@",error);
@@ -185,7 +189,7 @@
     [dic setObject:model.Type forKey:@"NavigationType"];
        [self.rightTableArr removeAllObjects];
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
-        NSLog(@"-------------dataSourceRight json is %@-----------------",json);
+       // NSLog(@"-------------dataSourceRight json is %@-----------------",json);
 
         
         [self.rightTable headerEndRefreshing];
@@ -221,13 +225,18 @@
 
   
     [self.rightMoreArr removeAllObjects];
+    
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
-        NSLog(@"-------------dataSource2 json is %@-----------------",json);
-            [self.rightMoreArr removeAllObjects];
+       
+        NSLog(@"-----------------------dataSource2 json is %@-----------------",json);
+        
+        [self.rightMoreArr removeAllObjects];
+     
         for(NSDictionary *dic in json[@"NavigationChildList"] ){
             rightModal3 *modal = [rightModal3 modalWithDict:dic];
-      
             [self.rightMoreArr addObject:modal];
+       // newModel *model = [newModel modalWithDict:dic];
+           // [self.pushArr addObject:model];
         }
         
             [self.rightTable2 reloadData];
@@ -248,7 +257,7 @@
     [hudView show:YES];
     
 [IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
-    NSLog(@"---------热卖返回json is %@--------",json);
+   // NSLog(@"---------热卖返回json is %@--------",json);
    [self.hotArr removeAllObjects];
     
    // [self.hotSectionArr removeAllObjects];
@@ -270,7 +279,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
          [self.hotArr addObject:tmp];
         }//获得热卖总数组
     
-    NSLog(@"------------hotarr------------------%@",self.hotArr);
+   // NSLog(@"------------hotarr------------------%@",self.hotArr);
 
     for (int i = 0 ; i<self.hotArr.count; i++) {
         [self.hotArrDic setObject:self.hotArr[i] forKey:self.hotSectionArr[i]];
@@ -424,6 +433,14 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         _hotArr = [NSMutableArray array];
     }
     return _hotArr;
+}
+
+-(NSMutableArray *)pushArr
+{
+    if (_pushArr == nil) {
+        self.pushArr = [NSMutableArray array];
+    }
+    return _pushArr;
 }
 
 
@@ -614,14 +631,71 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     
         self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"-----------tableSelectRow is %@--------",_table2Row);
-        [UIView animateWithDuration:0.3 animations:^{
-            self.rightTable2.alpha = 1;
-            self.rightTable.alpha = 0;
-            self.blackView.alpha = 0.5;
-            self.rightTable2.frame = self.hotTable.frame;
-       }];
+//        [UIView animateWithDuration:0.3 animations:^{
+//            self.rightTable2.alpha = 1;
+//            self.rightTable.alpha = 0;
+//            self.blackView.alpha = 0.5;
+//            self.rightTable2.frame = self.hotTable.frame;
+//       }];
+    //--------------
+        int selectRow = [self.table2Row intValue];
+        // NSLog(@"---------selectRow 转化为int 后为%d-------------",selectRow);
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        
+        NSString *searchID = _rightMoreSearchID[selectRow];
+        [dic setObject:searchID forKey:@"NavigationMainID"];
+        
+        
+        [self.rightMoreArr removeAllObjects];
+        
+        [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
+            
+            NSLog(@"-----------------------dataSource2 json is %@-----------------",json);
+            
+            [self.rightMoreArr removeAllObjects];
+            
+            for(NSDictionary *dic in json[@"NavigationChildList"] ){
+                rightModal3 *modal = [rightModal3 modalWithDict:dic];
+                [self.rightMoreArr addObject:modal];
+                
+                NSMutableDictionary *dicNew = [NSMutableDictionary dictionary];
+
+                [dicNew setObject:dic[@"Name"] forKey:@"Text"];
+                [dicNew setObject:dic[@"SearchKey"] forKey:@"Value"];
+                [self.pushArr addObject:dicNew];
+            }
+             //NSLog(@"------------ first object is %@,rightarr is %@",[self.rightMoreArr firstObject],_rightMoreArr);
+                            rightModal3 *modal3 = [self.rightMoreArr firstObject];
+                    NSString *key = modal3.searchKey;
+                    NSString *title = modal3.Name;
+                    NSLog(@" key is ~~` ~%@``````````------",key);
+                    ProductList *list = [[ProductList alloc] init];
+                    list.pushedSearchK = key;
+                    list.title = title;
+                    list.pushedArr = _pushArr;
+            
+                    
+                    [self.navigationController pushViewController:list animated:YES];
+          //  [self.rightTable2 reloadData];
+          
+        } failure:^(NSError *error) {
+            NSLog(@"右侧栏子栏rightTable3 请求错误！～～～error is ~~~~~~~~~%@",error);
+        }];
+
+        //[self loadDataSourceRight2];
        
-        [self loadDataSourceRight2];
+//                rightModal3 *modal3 = [self.rightMoreArr firstObject];
+//        NSString *key = modal3.searchKey;
+//        NSString *title = modal3.Name;
+//        NSLog(@" key is ~~` ~%@``````````------",key);
+//        ProductList *list = [[ProductList alloc] init];
+//        list.pushedSearchK = key;
+//        list.title = title;
+//        list.pushedArr = _pushArr;
+//        
+//        
+//        [self.navigationController pushViewController:list animated:YES];
+//
     
     }
     if (tableView.tag ==3 ) {

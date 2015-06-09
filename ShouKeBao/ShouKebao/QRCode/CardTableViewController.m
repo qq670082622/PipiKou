@@ -28,6 +28,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"护照";
+    
+    self.nameLab.text = [NSString stringWithFormat:@"    姓名：%@",_nameLabStr];
+    self.sexLab.text = [NSString stringWithFormat:@"    性别：%@",_sexLabStr];
+    self.countryLab.text = [NSString stringWithFormat:@"    国级：%@",_countryLabStr];
+    self.cardNum.text = [NSString stringWithFormat:@"    护照编号：%@",_cardNumStr];
+    self.bornLab.text = [NSString stringWithFormat:@"    生日：%@",_bornLabStr];
+    self.startDayLab.text = [NSString stringWithFormat:@"    签证日期：%@",_startDayLabStr];
+    self.startPointLab.text = [NSString stringWithFormat:@"    签发地：%@",_startPointLabStr];
+    self.effectiveLab.text = [NSString stringWithFormat:@"    有效期：%@",_effectiveLabStr];
+    
+    
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.sexLab,self.countryLab,self.cardNum,self.bornLab,self.startDayLab,self.startPointLab,self.effectiveLab, nil]];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor blueColor] andBorderWidth:0.5 andNeedShadow:NO];
     

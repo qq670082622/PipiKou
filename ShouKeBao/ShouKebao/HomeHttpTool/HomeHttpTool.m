@@ -101,7 +101,7 @@
 + (void)getRecommendProductListWithParam:(NSDictionary *)param success:(void (^)(id recommendJson))success failure:(void (^)(NSError *error))failure
 {
     
-    [IWHttpTool postWithURL:@"Home/GetRecommendProductList" params:param success:^(id recommendJson) {
+    [IWHttpTool postForRecommendWithURL:@"Home/GetRecommendProductList" params:param success:^(id recommendJson) {
         
         if (success) {
             success(recommendJson);

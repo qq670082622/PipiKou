@@ -144,24 +144,23 @@
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [self.tableView reloadData];
-        
-    });
-
-   // [self test];
-    
+   
+  //  [self test];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
 }
 
 -(void)test
 {
-    NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"testCard"], 1.0);
-    NSString *imageStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-    [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
+   
+
+    NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"testCard.JPG"], 1.0);
+    NSString *imageStr = [data base64EncodedStringWithOptions:0];
+    [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"3"}  success:^(id json) {
         NSLog(@"------图片--图片---json is %@----图片----",json);
         UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(50, 80, 320, 400)];
         lab.backgroundColor = [UIColor redColor];
-        lab.text = [NSString stringWithFormat:@"生日%@\n证件号码%@\n民族%@\n性别%@\n姓名%@",json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]];
+        lab.text = [NSString stringWithFormat:@"%@",json];
+        //lab.text = [NSString stringWithFormat:@"生日%@\n证件号码%@\n民族%@\n性别%@\n姓名%@",json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]];
         lab.numberOfLines = 0;
         [self.view.window addSubview:lab];
         
@@ -629,13 +628,15 @@
 {
     // 排序
     NSArray *tmp = [self.dataSource sortedArrayUsingComparator:^NSComparisonResult(HomeBase *obj1, HomeBase *obj2) {
-        if ([obj1.time integerValue] > [obj2.time integerValue]) {
+        
+      
+     if ([obj1.time integerValue] > [obj2.time integerValue]) {
             return NSOrderedAscending;
         }
         if ([obj1.time integerValue] < [obj2.time integerValue]) {
             return NSOrderedDescending;
         }
-        return NSOrderedSame;
+                return NSOrderedSame;
     }];
     
     // 排序好的数组替换数据源数组
@@ -761,7 +762,12 @@
                                     
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                        [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                                                                    } failure:^(NSError *error) {
+                                            
+                                        }];
                                         [MBProgressHUD hideHUD];
+
                                     });
                                     
                                 }
@@ -847,23 +853,13 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     if ([model.model isKindOfClass:[HomeList class]]) {
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
-        if (indexPath.row%2 == 0) {
-            [WMAnimations WMShakeWithView:cell.contentView];
-        }else{
-          [WMAnimations WMChuckViewWithView:cell.contentView fromValue:@0.8f toValue:@1.0f duration:0.3];
-        }
-        
-        
-        
-        
-        
+       
         cell.model = model.model;
         
         return cell;
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         
-        [WMAnimations wmPaoMaDengWithView:cell.contentView andMovePointW:15 andMidDuration:1];
         
         cell.recommend = model.model;
         
@@ -899,18 +895,10 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
          SubstationParttern *par = [SubstationParttern sharedStationName];
         [Lotuseed onEvent:@"page1ClickToOrderDetail" attributes:@{@"stationName":par.stationName}];
     }else if([model.model isKindOfClass:[Recommend class]]){
-        
+        [self nitifiToPushRecommendListWithUrl];
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
-        RecomViewController *rec = [[RecomViewController alloc] init];
-        [self.navigationController pushViewController:rec animated:YES];
         
-        // 刷新下 隐藏红点
-        self.recommendCount = 0;
-         SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page1ClickTorecommend" attributes:@{@"stationName":par.stationName}];
-
-        [tableView reloadData];
-    }else{
+    }else{//客户提醒
         remondModel *r = model.model;
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
         remondDetail.time = r.RemindTime;
@@ -924,6 +912,30 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+#pragma -mark 从recommendcell传过来的通知方法,避免uiimageview的tao对cell的点击冲突
+-(void)pushToRecommendList
+{
+    [self nitifiToPushRecommendListWithUrl];
+}
+
+-(void)nitifiToPushRecommendListWithUrl
+{
+    RecomViewController *rec = [[RecomViewController alloc] init];
+   
+    
+    
+    [self.navigationController pushViewController:rec animated:YES];
+    
+    // 刷新下 隐藏红点
+    self.recommendCount = 0;
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"page1ClickTorecommend" attributes:@{@"stationName":par.stationName}];
+    
+    [_tableView reloadData];
+
+}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {

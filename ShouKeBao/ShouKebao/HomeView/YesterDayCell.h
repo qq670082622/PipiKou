@@ -31,9 +31,21 @@
 
 @property (nonatomic,weak) UIView *sep;// 线条
 
-@property (strong, nonatomic) yesterDayModel *modal;
+
 
 @property (nonatomic,assign) BOOL isHistory;
+
+
+
+@property (nonatomic,weak) UILabel *goDateLab;//出发lab
+@property (nonatomic,weak) UIButton *shareBtn;//分享按钮
+
+
+
+
+
+
+@property (strong, nonatomic) yesterDayModel *modal;
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 

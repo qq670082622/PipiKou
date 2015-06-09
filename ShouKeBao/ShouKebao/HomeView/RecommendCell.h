@@ -11,7 +11,9 @@
 
 @class Recommend;
 
+
 @interface RecommendCell : ShouKeBaoCell
+
 
 @property (nonatomic,strong) Recommend *recommend;
 

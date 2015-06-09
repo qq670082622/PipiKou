@@ -8,9 +8,14 @@
 
 #import "YesterDayCell.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+QD.h"
 #import "textStyle.h"
 #import "UIImage+QD.h"
-#define  gap 10
+#import "NSDate+Category.h"
+#import <ShareSDK/ShareSDK.h>
+#import "MBProgressHUD+MJ.h"
+#import "IWHttpTool.h"
+#define gap 10
 @implementation YesterDayCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
@@ -37,18 +42,6 @@
 
 - (void)setup
 {
-    // 历史浏览的内容
-    UILabel *time = [[UILabel alloc] init];
-    time.textAlignment = NSTextAlignmentRight;
-    time.font = [UIFont systemFontOfSize:12];
-    [self.contentView addSubview:time];
-    self.time = time;
-    
-    UIView *sep = [[UIView alloc] init];
-    sep.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.1];
-    [self.contentView addSubview:sep];
-    self.sep = sep;
-    
     // 与历史浏览无关的
     UILabel *title = [[UILabel alloc] init];
     title.numberOfLines = 0;
@@ -117,12 +110,24 @@
     flash.image = [UIImage imageNamed:@"sandian"];
     [self.contentView addSubview:flash];
     self.flash = flash;
+    //
     
-    //分割线
-    //    UIView *line = [[UIView alloc] init];
-    //    line.backgroundColor = [UIColor colorWithRed:170/255.f green:170/255.f blue:170/255.f alpha:1];
-    //    [self.contentView addSubview:line];
-    //    self.line = line;
+    
+    
+    
+    
+    UILabel *goLab = [[UILabel alloc] init];
+    goLab.textColor = [UIColor grayColor];
+    goLab.font = [UIFont systemFontOfSize:11];
+    goLab.textAlignment = NSTextAlignmentLeft;
+    [self.contentView addSubview:goLab];
+    self.goDateLab = goLab;
+    
+    UIButton *btn = [[UIButton alloc] init];
+    btn.titleLabel.font = [UIFont systemFontOfSize:11];
+    [btn setImage:[UIImage imageNamed:@"fenxianglan"] forState:UIControlStateNormal];
+    [self.contentView addSubview:btn];
+    self.shareBtn = btn;
 }
 
 - (void)layoutSubviews
@@ -191,6 +196,73 @@
     
     //分割线
     //    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);
+    //描述view
+    CGFloat bttomY = CGRectGetMaxY(self.icon.frame) + gap;
+    CGFloat bttomX = gap;
+   
+   
+    //出发日期
+   
+    self.goDateLab.frame = CGRectMake(bttomX, bttomY, 200, 15);
+    //分享按钮
+    CGFloat shareX = screenW - 120 - gap;
+    CGFloat shareW = 120;
+    self.shareBtn.frame = CGRectMake(shareX, bttomY, shareW, 15);
+    //self.shareBtn.contentMode = UIViewContentModeScaleAspectFill;
+    [self.shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 65)];
+    [self.shareBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -20)];
+    
+    
+   
+    [self.shareBtn addTarget:self action:@selector(shareIt) forControlEvents:UIControlEventTouchUpInside];
+    
+}
+
+
+-(void)shareIt
+{
+    NSDictionary *tmp = _modal.ShareInfo;
+    //构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
+                                       defaultContent:tmp[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:tmp[@"Pic"]]
+                                                title:tmp[@"Title"]
+                                                  url:tmp[@"Url"]                                          description:tmp[@"Desc"]
+                                            mediaType:SSPublishContentMediaTypeNews];
+    //创建弹出菜单容器
+    id<ISSContainer> container = [ShareSDK container];
+    //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
+    
+    //弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:nil
+                      shareOptions:nil
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                    } failure:^(NSError *error) {
+                                        
+                                    }];
+
+                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                        [MBProgressHUD hideHUD];
+                                    });
+                                    
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }
+                            }];
+    
+    [self addAlert];
+    
 }
 
 - (void)setModal:(yesterDayModel *)modal
@@ -205,6 +277,11 @@
     
     // 历史时间
     self.time.text = [NSString stringWithFormat:@"浏览时间: %@",modal.HistoryViewTime];
+    
+    //出发时间
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[modal.LastScheduleDate doubleValue]];
+    self.goDateLab.text = [createDate formattedTime];
+    
     
     self.fanIsZero = [modal.PersonBackPrice integerValue];
     self.quanIsZero = [modal.PersonCashCoupon integerValue];
@@ -248,12 +325,62 @@
     if ([modal.StartCityName isEqualToString:@"不限"]) {
         [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发地",modal.StartCityName] forState:UIControlStateNormal];
     }
+    
     [self.ShanDianBtn sizeToFit];
     
     self.isFlash = [modal.IsComfirmStockNow integerValue];
+    
+    
+    
+    [self.shareBtn setTitle:@"分享给客户" forState:UIControlStateNormal];
+    [self.shareBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self setNeedsLayout];
     
     
     
 }
+
+- (CGSize)sizeWithText:(NSString *)text
+{
+    NSMutableDictionary *attrs = [NSMutableDictionary dictionary];
+    CGFloat maxW = [[UIScreen mainScreen] bounds].size.width;
+    CGSize maxSize = CGSizeMake(maxW, MAXFLOAT);
+    return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
+    
+}
+
+-(void)addAlert
+{
+    
+    
+    // 获取到现在应用中存在几个window，ios是可以多窗口的
+    
+    NSArray *windowArray = [UIApplication sharedApplication].windows;
+    
+    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
+    
+    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
+    
+    // 以下就是不停的寻找子视图，修改要修改的
+    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat labY;
+    if (screenH == 667) {
+        labY = 260;
+    }else if (screenH == 568){
+        labY = 160;
+    }else if (screenH == 480){
+        labY = 180;
+    }else if (screenH == 736){
+        labY = 440;
+    }
+    
+    CGFloat labW = [[UIScreen mainScreen] bounds].size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.textColor = [UIColor blackColor];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:12];
+    [actionWindow addSubview:lab];
+}
+
 @end

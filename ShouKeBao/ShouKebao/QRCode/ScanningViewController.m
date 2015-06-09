@@ -16,8 +16,10 @@
 #import <AVFoundation/AVFoundation.h>
 #import "ResizeImage.h"
 #import "IWHttpTool.h"
-
-@interface ScanningViewController ()<UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate>
+#import "LLSimpleCamera.h"
+#import "ResizeImage.h"
+#import "MBProgressHUD+MJ.h"
+@interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
 //@property (nonatomic,strong)PassPortViewController *passPortVC;
@@ -40,9 +42,17 @@
 @property (nonatomic,assign) BOOL canClick;
 @property(nonatomic,copy) NSMutableString *filePath;
 //---------
-@property (nonatomic, strong) AVCaptureSession *session;
-@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+//@property (nonatomic, strong) AVCaptureSession *session;
+//@property (nonatomic, strong) AVCaptureVideoPreviewLayer *previewLayer;
+
 @property (weak, nonatomic) IBOutlet UIImageView *photoImg;
+
+//---------------lib
+@property (strong, nonatomic) LLSimpleCamera *camera;
+
+@property (strong, nonatomic) UIButton *snapButton;
+
+@property(nonatomic,assign) BOOL cameraInUse;
 
 @end
 
@@ -50,14 +60,30 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+  
+    self.camera = [[LLSimpleCamera alloc] initWithQuality:CameraQualityPhoto];
+    
+    // attach to the view and assign a delegate
+    [self.camera attachToViewController:self withDelegate:self];
+    CGFloat cameraW = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat cameraH = [[UIScreen mainScreen] bounds].size.height - 94;
+    self.camera.view.frame = CGRectMake(0, 0, cameraW, cameraH);
+    self.camera.fixOrientationAfterCapture = NO;
+    //self.snapButton = self.midOutlet;
+   
+    
+    
+    
+    
     if (!self.isLogin) {
         
         
         self.pickerData = [NSArray arrayWithObjects:@"身份证",@"护照", nil];
         
         
-        [self getCamera];
-        
+      //  [self getCamera];
+         [self.camera start];
     
 
     }else if(self.isLogin){
@@ -191,7 +217,8 @@
     
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
         if (_selectIndex == 0) {
-            [self getCamera];
+        
+             [self.camera start];
              _selectIndex +=1;
         }
         
@@ -213,8 +240,8 @@
        
          if (_selectIndex == 1) {
              
-             [self.previewLayer removeFromSuperlayer];
-             [self.session stopRunning];
+            
+             [self.camera stop];
              _selectIndex -=1;
          }else if(_selectIndex == 2){
              
@@ -233,7 +260,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-   
+   [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
     // [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     self.timer = timer;
@@ -246,63 +274,23 @@
     [super viewWillDisappear:animated];
     [self.timer invalidate];
 }
-//打开相机
--(void)getCamera
+
+
+
+
+
+-(void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index
 {
-    // 1. 实例化拍摄设备
-    AVCaptureDevice *device = [AVCaptureDevice defaultDeviceWithMediaType:AVMediaTypeVideo];
-    
-    // 2. 设置输入设备
-    AVCaptureDeviceInput *input = [AVCaptureDeviceInput deviceInputWithDevice:device error:nil];
-    
-    // 3. 设置元数据输出
-    // 3.1 实例化拍摄元数据输出
-    AVCaptureMetadataOutput *output = [[AVCaptureMetadataOutput alloc] init];
-    // 3.3 设置输出数据代理
-    [output setMetadataObjectsDelegate:self queue:dispatch_get_main_queue()];
-    
-    // 4. 添加拍摄会话
-    // 4.1 实例化拍摄会话
-    AVCaptureSession *session = [[AVCaptureSession alloc] init];
-    // 4.2 添加会话输入
-    [session addInput:input];
-    // 4.3 添加会话输出
-    [session addOutput:output];
-    // 4.3 设置输出数据类型，需要将元数据输出添加到会话后，才能指定元数据类型，否则会报错
-    [output setMetadataObjectTypes:@[AVMetadataObjectTypeQRCode]];
-    
-    self.session = session;
-    
-    // 5. 视频预览图层
-    // 5.1 实例化预览图层, 传递_session是为了告诉图层将来显示什么内容
-    AVCaptureVideoPreviewLayer *preview = [AVCaptureVideoPreviewLayer layerWithSession:_session];
-    
-    preview.videoGravity = AVLayerVideoGravityResizeAspectFill;
-   
-    CGFloat previewW = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat previewH = [[UIScreen mainScreen] bounds].size.height - 94;
-    preview.frame = CGRectMake(0, 0, previewW, previewH);
-//    preview.frame = self.audioView.bounds;
-    // 5.2 将图层插入当前视图
-     [self.photoImg.layer insertSublayer:preview atIndex:100];
-    
-    self.previewLayer = preview;
-    
-    // 6. 启动会话
-    [_session startRunning];
-    
+//    if (index == 1 &&_selectIndex == 0) {
+//        [self.QRCodevc.view removeFromSuperview];
+//        [self.view addSubview: self.personIDVC.view];
+//        [self.camera start];
+//    }else if (index == 0 &&_selectIndex == 1){
+//        [self.camera stop];
+//        [self.personIDVC.view removeFromSuperview];
+//        [self.view addSubview:self.QRCodevc.view];
+//    }
 }
-
-#pragma -mark scroviewDelegate
-
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-
-{
-    NSLog(@"-------%ld---------",(long)self.pickerView.currentSelectedIndex);
-    
-
-}
-
 #pragma -mark pickerViewDelegate
 -(void)hideButn:(NSTimer*)timer
 {
@@ -321,12 +309,17 @@
         [self.view bringSubviewToFront:self.controlView];
                 self.title = @"二维码扫描";
         [self setTreeBtnImagesWithNo];
-        
+        if (self.camera.isStart == YES) {
+            [self.camera stop];
+        }
         
                     }else if ([_selectedStr isEqualToString:@"身份证"]){
                 [self.QRCodevc.view removeFromSuperview];
                 //[self.passPortVC.view removeFromSuperview];
                 [self.view addSubview:self.personIDVC.view];
+                        if (self.camera.isStart == NO && _cameraInUse == NO) {
+                            [self.camera start];
+                        }
                 self.title = @"身份证扫描";
                         
                        [self setTreeBtnImagesWithYes];
@@ -358,15 +351,14 @@
     self.canClick = YES;
 }
 
-- (void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index {
 
-    
-}
 
 - (NSInteger)numberOfElementsInHorizontalPickerView:(V8HorizontalPickerView *)picker {
-    
+    if (!_isLogin) {
+        return 2;
+    }else {
     return 3;
-    
+    }
 }
 
 - (NSString *)horizontalPickerView:(V8HorizontalPickerView *)picker titleForElementAtIndex:(NSInteger)index {
@@ -377,11 +369,19 @@
 
 - (NSInteger) horizontalPickerView:(V8HorizontalPickerView *)picker widthForElementAtIndex:(NSInteger)index {
     
+    //wid =250
+    if (self.pickerData.count == 3) {
+        return 70.f;
+    }else{
     
-  return 70.f; // 20px padding on each side
+        return 100.f;
+    }
+   // 20px padding on each side
     
 }
-
+- (UIInterfaceOrientation) preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationPortrait;
+}
 
 
 #pragma -mark getter
@@ -416,31 +416,53 @@
     [self presentViewController:album animated:YES completion:nil];
 
 }
-#pragma -mark pickerViewDelegate
+#pragma -mark pickerViewDelegate//相册选择照片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
     
     [picker dismissViewControllerAnimated:YES completion:nil];
-    
+    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"正在拼命识别";
    
     UIImage *selectImage = info[UIImagePickerControllerOriginalImage];
-    [self.previewLayer removeFromSuperlayer];//放弃上次拍照的留照
-
-    CALayer *imageLayer = [CALayer layer];
-    imageLayer.frame = self.photoImg.bounds;
-
-    imageLayer.contents = (id)selectImage.CGImage;
- 
-    [self.photoImg.layer insertSublayer:imageLayer atIndex:100];
+    [self getImage:selectImage];
+   
+    
     self.photoImg.contentMode = UIViewContentModeScaleAspectFill;
- 
-  
-    [self.previewLayer removeFromSuperlayer];
-    [self.session stopRunning];
+    [self.camera stop];
+    self.camera.view.hidden = YES;
+    [self loadData];
 
+}
+//图片上传之前的处理
+-(void)getImage:(UIImage *)normal
+{
+    double wideRadious = 500/normal.size.width;//只定500宽，不定高
+  UIImage *resizeImage = [ResizeImage reSizeImage:normal toSize:CGSizeMake(500, normal.size.height*wideRadious)];
+     NSData *imageData = UIImageJPEGRepresentation(resizeImage,1);
+    long kb = [imageData length]/1024;
+    if (kb<280) {
+        self.photoImg.image = resizeImage;
+    }else{
+         double radious = kb/280;
+        NSData *imageDataNew = UIImageJPEGRepresentation(resizeImage, radious);
+        UIImage *imageNew = [UIImage imageWithData:imageDataNew];
+        self.photoImg.image = imageNew;
+    }
+   
+}
+//相机得到照片
+- (void)cameraViewController:(LLSimpleCamera *)cameraVC didCaptureImage:(UIImage *)image {
+    
+    // we should stop the camera, since we don't need it anymore. We will open a new vc.
+    [self.camera stop];
+    
+    [self getImage:image];
+    
+    self.photoImg.contentMode = UIViewContentModeScaleAspectFill;
 
-    [self midAction:nil];
-
+    [self  loadData];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -458,7 +480,7 @@
 - (IBAction)leftAction:(id)sender {
     if (_canClick == YES) {
         [self openAlbum];
-        
+      //  [self.camera stop];
    
     }
     
@@ -478,62 +500,98 @@
 
    NSLog(@"----selectStr is %@----",_selectedStr);
     if (_canClick == YES) {
-        
-        [self getVoice];
-        
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def setObject:@"1" forKey:@"needLoad"];
-        [def synchronize];
-        // 2. 删除预览图层
        
-        self.photoImg.image = [self imageFromView:self.audioView];
-              [self.session stopRunning];
-        //[self.previewLayer removeFromSuperlayer];
+        //[MBProgressHUD showHUDAddedTo:self.controlView animated:YES];
+        self.cameraInUse = YES;
+               [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"正在拼命识别";
         
-        if([self.selectedStr isEqualToString:@"身份证"]){
-//            if (self.photoImg.image) {
-//                NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
-//                NSString *imageStr = [[NSString alloc] initWithData:data encoding:NSASCIIStringEncoding];
-//                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
-//                    NSLog(@"------图片--图片---json is %@----图片----",json);
-//                    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(50, 80, 320, 400)];
-//                    lab.backgroundColor = [UIColor redColor];
-//                    lab.text = [NSString stringWithFormat:@"生日%@\n证件号码%@\n民族%@\n性别%@\n姓名%@",json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]];
-//                    lab.numberOfLines = 0;
-//                    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(50, 80, 220,220)];
-//                    imgv.image = self.photoImg.image;
-//                    [self.view.window addSubview:lab];
-//                    [self.view.window addSubview:imgv];
-//                    
-//                } failure:^(NSError *error) {
-//                    NSLog(@"----图片-eeror is %@------图片------",error) ;
-//                }];
-                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-                             userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
-                             [self.navigationController pushViewController:card animated:YES];
-                                      
-                                        [self ifPush];
-                        });
+        [hud show:YES];
 
-            }else if([self.selectedStr isEqualToString:@"护照"]){
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-                        CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
-                        [self.navigationController pushViewController:card animated:YES];
-                [self ifPush];
+        [self.camera capture];
+            [self getVoice];
 
-            });
+     
+        
+        //[self loadData];
+        // 2. 删除预览图层
+        
+        
+        
+        
+
+    }
+    }
+
+-(void)loadData
+{
+      NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"1" forKey:@"needLoad"];
+    [def synchronize];
+    
+    if([self.selectedStr isEqualToString:@"身份证"]){
+        
+                        NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
+                        NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
+                            NSLog(@"------图片--图片---json is %@----图片----",json);
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+                userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
+                            card.UserName = json[@"UserName"];
+                            card.address = json[@"Address"];
+                            card.birthDay = json[@"BirthDay"];
+                            card.cardNumber = json[@"CardNum"];
+                            card.Nation = json[@"Nation"];
+                            card.sex = json[@"Sex"];
+                            [self.navigationController pushViewController:card animated:YES];
+        
+                                                                    [self ifPush];
+        
+                            } failure:^(NSError *error) {
+                            NSLog(@"----图片-eeror is %@------图片------",error) ;
+                            }];
+        
+        
+    }else if([self.selectedStr isEqualToString:@"护照"]){
+        
+        NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
+        NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"4"}  success:^(id json) {
+            NSLog(@"------图片--图片---json is %@----图片----",json);
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+            CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
             
+            card.nameLabStr = json[@"UserName"];
+            card.sexLabStr = json[@"Sex"];
+            card.countryLabStr = json[@"Nationality"];
+            card.cardNumStr = json[@"PassportNum"];
+            card.bornLabStr = json[@"BirthDay"];
+            card.startDayLabStr = json[@"ValidStartDate"];
+            card.startPointLabStr = json[@"ValidAddress"];
+            card.effectiveLabStr = json[@"ValidEndDate"];
+            
+            [self.navigationController pushViewController:card animated:YES];
+            
+            
+            
+            [self ifPush];
+            
+        } failure:^(NSError *error) {
+            NSLog(@"----图片-eeror is %@------图片------",error) ;
+            
+        }];
+        
+        
     }
+    
+  
 
-    }
 }
 
 -(void)ifPush
 {
-  [self.previewLayer removeFromSuperlayer];
-    [self getCamera];
+    self.camera.view.hidden = NO;
+    [self.camera start];
+    self.cameraInUse = NO;
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:@"0" forKey:@"needLoad"];
     [def synchronize];
@@ -550,6 +608,16 @@
     UIGraphicsEndImageContext();
     return theImage;
 }
+//获取当前屏幕图片
+- (UIImage *)getSnapshotImage {
+    UIGraphicsBeginImageContextWithOptions(CGSizeMake(CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)), NO, 1);
+    [self.view drawViewHierarchyInRect:CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)) afterScreenUpdates:NO];
+    UIImage *snapshot = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return snapshot;
+}
+
+
 
 #pragma -mark 声音
 -(void)getVoice{

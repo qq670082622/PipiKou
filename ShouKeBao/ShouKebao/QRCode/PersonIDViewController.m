@@ -9,6 +9,7 @@
 #import "PersonIDViewController.h"
 #import "ScanningViewController.h"
 #import <AVFoundation/AVFoundation.h>
+
 @interface PersonIDViewController ()
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 
@@ -76,17 +77,17 @@
     }
 
     //定时事件2
-    if (_changeLab == YES) {
-        self.warningLab1.hidden = NO;
-        self.warningLab2.hidden = YES;
-       
-        self.changeLab = NO;
-    }else if (_changeLab == NO){
-        self.warningLab1.hidden = YES;
-        self.warningLab2.hidden = NO;
-
-        self.changeLab = YES;
-    }
+//    if (_changeLab == YES) {
+//        self.warningLab1.hidden = NO;
+//        self.warningLab2.hidden = YES;
+//       
+//        self.changeLab = NO;
+//    }else if (_changeLab == NO){
+//        self.warningLab1.hidden = YES;
+//        self.warningLab2.hidden = NO;
+//
+//        self.changeLab = YES;
+//    }
 
     [UIView animateWithDuration:0.1 animations:^{
         self.line.transform = CGAffineTransformMakeTranslation(-10, 0);
@@ -121,12 +122,15 @@
 //    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 //    [def setObject:@"0" forKey:@"needLoad"];
 //    [def synchronize];
+    
+  
     [self.line removeFromSuperview];
        [self setLoading];
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
     [self.timer invalidate];
 }
 
