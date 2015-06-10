@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-               BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+               BuildableName = "ShouKeBao.app"
                BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
                ReferencedContainer = "container:ShouKeBao.xcodeproj">
             </BuildableReference>
@@ -57,7 +57,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-            BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+            BuildableName = "ShouKeBao.app"
             BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
             ReferencedContainer = "container:ShouKeBao.xcodeproj">
          </BuildableReference>
@@ -77,7 +77,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-            BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+            BuildableName = "ShouKeBao.app"
             BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
             ReferencedContainer = "container:ShouKeBao.xcodeproj">
          </BuildableReference>
@@ -96,7 +96,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "63D31E3D1AB143D00043B3CA"
-            BuildableName = "&#x65c5;&#x6e38;&#x5708;.app"
+            BuildableName = "ShouKeBao.app"
             BlueprintName = "&#x65c5;&#x6e38;&#x5708;"
             ReferencedContainer = "container:ShouKeBao.xcodeproj">
          </BuildableReference>

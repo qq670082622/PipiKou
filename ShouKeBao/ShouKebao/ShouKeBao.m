@@ -145,29 +145,11 @@
         [self Guide];
     }
    
-  //  [self test];
+  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
 }
 
--(void)test
-{
-   
 
-    NSData *data = UIImageJPEGRepresentation([UIImage imageNamed:@"testCard.JPG"], 1.0);
-    NSString *imageStr = [data base64EncodedStringWithOptions:0];
-    [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"3"}  success:^(id json) {
-        NSLog(@"------图片--图片---json is %@----图片----",json);
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(50, 80, 320, 400)];
-        lab.backgroundColor = [UIColor redColor];
-        lab.text = [NSString stringWithFormat:@"%@",json];
-        //lab.text = [NSString stringWithFormat:@"生日%@\n证件号码%@\n民族%@\n性别%@\n姓名%@",json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]];
-        lab.numberOfLines = 0;
-        [self.view.window addSubview:lab];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"----图片-eeror is %@------图片------",error) ;
-    }];
-}
 
 #pragma  - mark程序在后台时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti

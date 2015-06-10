@@ -193,7 +193,8 @@
     [Lotuseed onPageViewEnd:@"productList"];
     [Lotuseed onEvent:@"productListBack" attributes:@{@"stationName":par.stationName}];
     
-   }
+    [self.pushedArr removeAllObjects];
+}
 
 
 
@@ -281,15 +282,31 @@
 {
     if (_jishi == nil) {
                     self.jishi = [NSMutableString stringWithFormat:@"1"];
-    }else if (_jishi && self.jishiSwitch.on == YES){
-      self.jishi = [NSMutableString stringWithFormat:@"1"];
-    }else if (_jishi && self.jishiSwitch.on == NO){
-     self.jishi = [NSMutableString stringWithFormat:@"0"];
     }
     return _jishi
     ;
 }
+-(void)changeJishi
+{
+     if (_jishi && self.jishiSwitch.on == YES){
+        self.jishi = [NSMutableString stringWithFormat:@"1"];
+    }else if (_jishi && self.jishiSwitch.on == NO){
+        self.jishi = [NSMutableString stringWithFormat:@"0"];
+    }
 
+    
+}
+-(void)changeJiaFan
+{
+    if (_jiafan && self.jiafanSwitch.on == YES){
+        self.jiafan = [NSMutableString stringWithFormat:@"1"];
+        
+    }else if (_jiafan && self.jiafanSwitch.on == NO){
+        self.jiafan = [NSMutableString stringWithFormat:@"0"];
+        
+    }
+
+}
 
 -(NSMutableString *)jiafan
 {
@@ -297,12 +314,6 @@
    
             self.jiafan = [NSMutableString stringWithFormat:@"1"];
       
-    }else if (_jiafan && self.jiafanSwitch.on == YES){
-        self.jiafan = [NSMutableString stringWithFormat:@"1"];
-
-    }else if (_jiafan && self.jiafanSwitch.on == NO){
-        self.jiafan = [NSMutableString stringWithFormat:@"0"];
-
     }
     return _jiafan;
 }
@@ -582,6 +593,7 @@
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
         
         NSLog(@"--------------productList is   %@------------]",json);
+       
         NSArray *arr = json[@"ProductList"];
         NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         [self.dataArr removeAllObjects];
@@ -600,9 +612,12 @@
                 }
         
         NSMutableArray *conArr = [NSMutableArray array];
-        NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
-        [conArr addObject:dicNew];
-        for(NSDictionary *dic in json[@"ProductConditionList"] ){
+        if (_pushedArr){
+            NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
+            [conArr addObject:dicNew];
+
+        }
+               for(NSDictionary *dic in json[@"ProductConditionList"] ){
             [conArr addObject:dic];
         }
         
@@ -1674,9 +1689,9 @@
         
         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
         
-        [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
+        [dic setObject:[self jishi ] forKey:@"IsComfirmStockNow"];
         
-        [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
+        [dic setObject:[self jiafan ] forKey:@"IsPersonBackPrice"];
 
        // [dic setObject:@"10" forKey:@"Substation"];
         [dic setObject:@"10" forKey:@"PageSize"];
@@ -1778,11 +1793,13 @@
     [WriteFileManager saveData:priceData name:@"priceData"];
 
     [self.jishiSwitch setOn:YES];
-    [self jishi];
+    //[self jishi];
+    self.jishi = [NSMutableString stringWithFormat:@"1"];
+    self.jiafan = [NSMutableString stringWithFormat:@"1"];
     [self.jiafanSwitch setOn:YES];
-    [self jiafan];
+    //[self jiafan];
     
-    self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ", nil];
+    self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ", nil];
     
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
     
@@ -1929,7 +1946,7 @@
 
 
 - (IBAction)jiafanSwitchAction:(id)sender {
-    [self jiafan];
+    [self changeJiaFan];
   
 //    BOOL isOn = [self.jiafanSwitch isOn];
 //    if (isOn) {
@@ -1944,7 +1961,7 @@
 }
 
 - (IBAction)jishiSwitchAction:(id)sender {
-    [self jishi];
+    [self changeJishi];
 //    BOOL isOn = [self.jishiSwitch isOn];
 //    if (isOn) {
 //        self.jiafanSwitch.on = NO;
