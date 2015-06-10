@@ -26,6 +26,7 @@
 #import "WelcomeView.h"
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
+#import "FeedBcakViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -47,7 +48,7 @@
     
     self.tableView.rowHeight = 50;
     
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"关于旅游圈",@"评价旅游圈"]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",@"评价旅游圈"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -94,9 +95,9 @@
 // 设置固定时间段免打扰
 - (void)changePushMode:(UISwitch *)modeSwitch
 {
-     SubstationParttern *par = [SubstationParttern sharedStationName];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page5DisturbSwitch" attributes:@{@"value":[NSString stringWithFormat:@"%d",modeSwitch.on],@"stationName":par.stationName}];
-   
+    
     NSDictionary *param = @{@"DisturbSwitch":[NSString stringWithFormat:@"%d",modeSwitch.on]};
     [MeHttpTool setDisturbSwitchWithParam:param success:^(id json) {
         NSLog(@"json   %@",json);
@@ -144,21 +145,21 @@
         OrgSettingViewController *org = [sb instantiateViewControllerWithIdentifier:@"OrgSetting"];
         [self.navigationController pushViewController:org animated:YES];
     }
-     SubstationParttern *par = [SubstationParttern sharedStationName];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page5MeSetting" attributes:@{@"stationName":par.stationName}];
 }
 
 // 点击头像上传照片
 - (void)didClickHeadIcon
 {
-//    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
-//    [sheet showInView:self.view.window];
+    //    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
+    //    [sheet showInView:self.view.window];
 }
 
 #pragma mark - MeButtonViewDelegate
 - (void)buttonViewSelectedWithIndex:(NSInteger)index
 {
-     SubstationParttern *par = [SubstationParttern sharedStationName];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
     switch (index) {// 我的收藏
         case 0:{
             MyListViewController *col = [[MyListViewController alloc] init];
@@ -196,7 +197,7 @@
     
     NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
     
-     SubstationParttern *par = [SubstationParttern sharedStationName];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page5Tap3sToSos" attributes:@{@"stationName":par.stationName}];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
@@ -258,7 +259,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
-     SubstationParttern *par = [SubstationParttern sharedStationName];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
     // 下面的四个
     if (indexPath.section == 2) {
         switch (indexPath.row) {
@@ -266,12 +267,18 @@
                 
                 break;
             }
-//            case 1:{
-//                SuggestViewController *suggest = [sb instantiateViewControllerWithIdentifier:@"Suggest"];
-//                [self.navigationController pushViewController:suggest animated:YES];
-//                break;
-//            }
+                //            case 1:{
+                //                SuggestViewController *suggest = [sb instantiateViewControllerWithIdentifier:@"Suggest"];
+                //                [self.navigationController pushViewController:suggest animated:YES];
+                //                break;
+                //            }
             case 1:{
+                FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
+                [self.navigationController pushViewController:feedBackVC animated:YES];
+                break;
+            }
+                
+            case 2:{
                 [Lotuseed onEvent:@"page5AboutLvYouQuan" attributes:@{@"stationName":par.stationName}];
                 UIWindow *window = [UIApplication sharedApplication].delegate.window;
                 WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
@@ -284,7 +291,7 @@
                 
                 break;
             }
-            case 2:{
+            case 3:{
                 [Lotuseed onEvent:@"page5TalkApp" attributes:@{@"stationName":par.stationName}];
                 break;
             }
@@ -325,9 +332,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-//    if (!self.isPerson && section == 0 ) {
-//        return 0.01f;
-//    }
+    //    if (!self.isPerson && section == 0 ) {
+    //        return 0.01f;
+    //    }
     return 8.0f;
 }
 
@@ -373,7 +380,7 @@
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];
     [def synchronize];
     
-     SubstationParttern *par = [SubstationParttern sharedStationName];
+    SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page5ChangeIcon" attributes:@{@"stationName":par.stationName}];
     [picker dismissViewControllerAnimated:YES completion:nil];
 }

@@ -322,6 +322,7 @@
 		63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1A81B14250E00DE9867 /* NSObject+MJKeyValue.m */; };
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
+		79C2272A1B27CF93001EE081 /* FeedBcakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C227291B27CF93001EE081 /* FeedBcakViewController.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
 		8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC601AC2567E00F28E1A /* MGSwipeTableCell.m */; };
 		845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514E81ABFFAD900D588A7 /* SKTableViewController.m */; };
@@ -789,7 +790,7 @@
 		63CE06051B203D44008B98B0 /* LLSimpleCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSimpleCamera.m; sourceTree = "<group>"; };
 		63CE06061B203D44008B98B0 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
 		63CE06071B203D44008B98B0 /* UIImage+FixOrientation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+FixOrientation.m"; sourceTree = "<group>"; };
-		63D31E3E1AB143D00043B3CA /* 旅游圈.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "旅游圈.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63D31E3E1AB143D00043B3CA /* ShouKeBao.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ShouKeBao.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		63D31E421AB143D00043B3CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63D31E431AB143D00043B3CA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		63D31E4E1AB143D00043B3CA /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -885,6 +886,8 @@
 		63F1A1A91B14250E00DE9867 /* NSObject+MJMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJMember.h"; sourceTree = "<group>"; };
 		63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		79C227281B27CF93001EE081 /* FeedBcakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBcakViewController.h; sourceTree = "<group>"; };
+		79C227291B27CF93001EE081 /* FeedBcakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBcakViewController.m; sourceTree = "<group>"; };
 		8448BC5D1AC2567E00F28E1A /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
 		8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		8448BC5F1AC2567E00F28E1A /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
@@ -1219,6 +1222,8 @@
 				5A52FBF11ACEBF220076DAE6 /* SosViewController.m */,
 				5A52FBF21ACEBF220076DAE6 /* SuggestViewController.h */,
 				5A52FBF31ACEBF220076DAE6 /* SuggestViewController.m */,
+				79C227281B27CF93001EE081 /* FeedBcakViewController.h */,
+				79C227291B27CF93001EE081 /* FeedBcakViewController.m */,
 				5A61657A1AE771C700641837 /* QuanViewController.h */,
 				5A61657B1AE771C700641837 /* QuanViewController.m */,
 			);
@@ -1944,7 +1949,7 @@
 		63D31E3F1AB143D00043B3CA /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				63D31E3E1AB143D00043B3CA /* 旅游圈.app */,
+				63D31E3E1AB143D00043B3CA /* ShouKeBao.app */,
 				63D31E571AB143D00043B3CA /* ShouKeBaoTests.xctest */,
 			);
 			name = Products;
@@ -2228,7 +2233,7 @@
 			);
 			name = "旅游圈";
 			productName = ShouKeBao;
-			productReference = 63D31E3E1AB143D00043B3CA /* 旅游圈.app */;
+			productReference = 63D31E3E1AB143D00043B3CA /* ShouKeBao.app */;
 			productType = "com.apple.product-type.application";
 		};
 		63D31E561AB143D00043B3CA /* ShouKeBaoTests */ = {
@@ -2422,6 +2427,7 @@
 				63D31E441AB143D00043B3CA /* main.m in Sources */,
 				63E034541AFC995300BD714A /* remondTableViewCell.m in Sources */,
 				5AB7257E1AD664610044B318 /* HomeHttpTool.m in Sources */,
+				79C2272A1B27CF93001EE081 /* FeedBcakViewController.m in Sources */,
 				633263D91AB851590021553B /* AFURLResponseSerialization.m in Sources */,
 				63E0344A1AFC995300BD714A /* CustomerOrdersUIViewController.m in Sources */,
 				5ABA4F691AD7E5CD004AA8F6 /* RecommendCell.m in Sources */,
@@ -2764,7 +2770,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 				);
 				ONLY_ACTIVE_ARCH = YES;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ShouKeBao;
 				PROVISIONING_PROFILE = "f0c4a74a-90a8-4eb5-b7ca-3bbd7fb5ebb7";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2795,7 +2801,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 				);
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = ShouKeBao;
 				PROVISIONING_PROFILE = "f0c4a74a-90a8-4eb5-b7ca-3bbd7fb5ebb7";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
