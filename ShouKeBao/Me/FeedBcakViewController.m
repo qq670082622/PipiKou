@@ -74,7 +74,7 @@
     [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan2.png"] forState:UIControlStateNormal];
     [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai.png"] forState:UIControlStateNormal];
     [UIView animateWithDuration:0.5 animations:^{
-        self.submitBT.alpha = 00;
+        self.submitBT.alpha = 0;
         self.suggestTextView.alpha = 0;
         self.pleaseholderLabel.alpha = 0;
     }];

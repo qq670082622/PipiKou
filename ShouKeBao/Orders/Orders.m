@@ -637,7 +637,6 @@
     cell.delegate = self;
     cell.orderDelegate = self;
     cell.indexPath = indexPath;
-    
     // 取出模型
     OrderModel *order = self.dataArr[indexPath.section];
 

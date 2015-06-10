@@ -120,7 +120,6 @@
 - (void)loadWithUrl:(NSString *)url
 {
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
-    
     [self.webView loadRequest:request];
 }
 
