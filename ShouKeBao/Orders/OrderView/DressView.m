@@ -109,6 +109,13 @@
 {
     static NSString *ID = @"orderdresscell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//    if (indexPath.row) {
+//        <#statements#>
+//    }
+//  NSDictionary * dic = [[NSUserDefaults standardUserDefaults]objectForKey:@"isConformDic"];
+//    if (indexPath.row == 0 && [dic[@"startData"]isEqualToString:@"1"]) {
+//        cell.detailTextLabel.textColor = [UIColor orangeColor];
+//    }
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -119,7 +126,17 @@
     if ((indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 0) {
         if (indexPath.section == 0) {
             cell.detailTextLabel.text = self.goDateText;
+            if (![self.goDateText isEqualToString:@"不限"]) {
+                cell.detailTextLabel.textColor = [UIColor orangeColor];
+            }else{
+                cell.detailTextLabel.textColor = [UIColor grayColor];
+            }
         }else{
+            if (![self.createDateText isEqualToString:@"不限"]) {
+                cell.detailTextLabel.textColor = [UIColor orangeColor];
+            }else{
+                cell.detailTextLabel.textColor = [UIColor grayColor];
+            }
             cell.detailTextLabel.text = self.createDateText;
         }
         
@@ -128,6 +145,12 @@
             case 1:{
                 if (!self.firstText.length) {
                     self.firstText = @"全部";
+                }
+                if (![self.firstText isEqualToString:@"全部"]) {
+                    cell.detailTextLabel.textColor = [UIColor orangeColor];
+                }else{
+                    cell.detailTextLabel.textColor = [UIColor grayColor];
+
                 }
                 cell.detailTextLabel.text = self.firstText;
                 break;
@@ -138,6 +161,12 @@
                 }else{
                     cell.textLabel.textColor = [UIColor blackColor];
                 }
+                if (![self.secondText isEqualToString:@""]) {
+                    cell.detailTextLabel.textColor = [UIColor orangeColor];
+                }else{
+                    cell.detailTextLabel.textColor = [UIColor grayColor];
+
+                }
                 cell.detailTextLabel.text = self.secondText;
                 break;
             }
@@ -146,6 +175,12 @@
                     cell.textLabel.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1];
                 }else{
                     cell.textLabel.textColor = [UIColor blackColor];
+                }
+                if (![self.secondText isEqualToString:@""]) {
+                    cell.detailTextLabel.textColor = [UIColor orangeColor];
+                }else{
+                    cell.detailTextLabel.textColor = [UIColor grayColor];
+
                 }
                 cell.detailTextLabel.text = self.thirdText;
                 break;
