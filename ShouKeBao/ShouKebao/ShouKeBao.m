@@ -719,12 +719,16 @@
     }
    
          CGFloat labW = self.view.bounds.size.width;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
     lab.text = @"您分享出去的内容对外只显示门市价";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:12];
     [actionWindow addSubview:lab];
+    [UIView animateWithDuration:0.4 animations:^{
+        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+    }];
+    self.warningLab = lab;
 }
 - (IBAction)add:(id)sender
 {
@@ -751,7 +755,7 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    
+                                    [self.warningLab removeFromSuperview];
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
@@ -765,7 +769,10 @@
                                 }
                                 else if (state == SSResponseStateFail)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }else if (state == SSResponseStateCancel){
+                                    [self.warningLab removeFromSuperview];
                                 }
                             }];
     

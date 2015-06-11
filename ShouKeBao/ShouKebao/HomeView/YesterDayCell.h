@@ -49,4 +49,7 @@
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
+
+
+@property(nonatomic,weak) UILabel *warningLab;
 @end

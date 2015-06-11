@@ -1212,6 +1212,14 @@
               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                }
                           }
+           
+           NSRange range = [cell.detailTextLabel.text rangeOfString:@"不限"];
+           if( range.location == NSNotFound){
+               cell.detailTextLabel.textColor = [UIColor orangeColor];
+           }else{
+               cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+           }
+
           
        }else {
           
@@ -1234,8 +1242,14 @@
            if (detailStr2.length<2) {
                cell.detailTextLabel.text = @"不限";
            }
-
-               cell.detailTextLabel.textColor = [UIColor orangeColor];
+          
+           NSRange range = [cell.detailTextLabel.text rangeOfString:@"不限"];
+           if( range.location == NSNotFound){
+           cell.detailTextLabel.textColor = [UIColor orangeColor];
+           }else{
+           cell.detailTextLabel.textColor = [UIColor lightGrayColor];
+           }
+           
 
        }
        return cell;

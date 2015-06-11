@@ -30,7 +30,7 @@
 //@property (weak, nonatomic) UILabel *aPriceLab;
 //
 //@property (weak, nonatomic) UILabel *bPriceLab;
-
+@property(nonatomic,weak) UILabel *warningLab;
 @end
 
 @implementation DayDetailCell
@@ -422,6 +422,7 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
@@ -435,7 +436,10 @@
                                 }
                                 else if (state == SSResponseStateFail)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }else if (state == SSResponseStateCancel){
+                                    [self.warningLab removeFromSuperview];
                                 }
                             }];
     
@@ -581,12 +585,17 @@
     }
     
     CGFloat labW = [[UIScreen mainScreen] bounds].size.width;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
     lab.text = @"您分享出去的内容对外只显示门市价";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:12];
     [actionWindow addSubview:lab];
+    [UIView animateWithDuration:0.4 animations:^{
+        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+    }];
+    self.warningLab = lab;
+
 }
 
 
