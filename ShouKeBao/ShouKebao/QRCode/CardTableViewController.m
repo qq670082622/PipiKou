@@ -8,17 +8,34 @@
 
 #import "CardTableViewController.h"
 #import "WMAnimations.h"
-@interface CardTableViewController ()
+@interface CardTableViewController ()<UITextFieldDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
+@property (weak, nonatomic) IBOutlet UITextField *nameText;
+
 @property (weak, nonatomic) IBOutlet UILabel *sexLab;
+@property (weak, nonatomic) IBOutlet UITextField *sexText;
+
 @property (weak, nonatomic) IBOutlet UILabel *countryLab;
+@property (weak, nonatomic) IBOutlet UITextField *countryText;
+
 @property (weak, nonatomic) IBOutlet UILabel *cardNum;
+@property (weak, nonatomic) IBOutlet UITextField *cardNumText;
+
 @property (weak, nonatomic) IBOutlet UILabel *bornLab;
+@property (weak, nonatomic) IBOutlet UITextField *bornText;
+
 @property (weak, nonatomic) IBOutlet UILabel *startDayLab;
+@property (weak, nonatomic) IBOutlet UITextField *startDayText;
+
 @property (weak, nonatomic) IBOutlet UILabel *startPointLab;
+@property (weak, nonatomic) IBOutlet UITextField *startPointText;
+
 @property (weak, nonatomic) IBOutlet UILabel *effectiveLab;
+@property (weak, nonatomic) IBOutlet UITextField *effectiveText;
+
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+
 - (IBAction)save:(id)sender;
 
 @end
@@ -29,14 +46,14 @@
     [super viewDidLoad];
     self.title = @"护照";
     
-    self.nameLab.text = [NSString stringWithFormat:@"    姓名：%@",_nameLabStr];
-    self.sexLab.text = [NSString stringWithFormat:@"    性别：%@",_sexLabStr];
-    self.countryLab.text = [NSString stringWithFormat:@"    国级：%@",_countryLabStr];
-    self.cardNum.text = [NSString stringWithFormat:@"    护照编号：%@",_cardNumStr];
-    self.bornLab.text = [NSString stringWithFormat:@"    生日：%@",_bornLabStr];
-    self.startDayLab.text = [NSString stringWithFormat:@"    签证日期：%@",_startDayLabStr];
-    self.startPointLab.text = [NSString stringWithFormat:@"    签发地：%@",_startPointLabStr];
-    self.effectiveLab.text = [NSString stringWithFormat:@"    有效期：%@",_effectiveLabStr];
+    self.nameText.text = _nameLabStr;
+    self.sexText.text = _sexLabStr;
+    self.countryText.text = _countryLabStr;
+    self.cardNumText.text = _cardNumStr;
+    self.bornText.text = _bornLabStr;
+    self.startDayText.text = _startDayLabStr;
+    self.startPointText.text = _startPointLabStr;
+    self.effectiveText.text = _effectiveLabStr;
     
     
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.sexLab,self.countryLab,self.cardNum,self.bornLab,self.startDayLab,self.startPointLab,self.effectiveLab, nil]];
@@ -59,6 +76,18 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.nameText resignFirstResponder];
+    [self.sexText resignFirstResponder];
+    [self.countryText resignFirstResponder];
+    [self.cardNumText resignFirstResponder];
+    [self.bornText resignFirstResponder];
+    [self.startDayText resignFirstResponder];
+    [self.startPointText resignFirstResponder];
+    [self.effectiveText resignFirstResponder];
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

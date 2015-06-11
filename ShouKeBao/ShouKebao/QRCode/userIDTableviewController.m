@@ -8,12 +8,22 @@
 
 #import "userIDTableviewController.h"
 #import "WMAnimations.h"
-@interface userIDTableviewController ()
+@interface userIDTableviewController ()<UITextFieldDelegate, UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
+@property (weak, nonatomic) IBOutlet UITextField *nameText;
+
 @property (weak, nonatomic) IBOutlet UILabel *cardNum;
+@property (weak, nonatomic) IBOutlet UITextField *cardText;
+
 @property (weak, nonatomic) IBOutlet UILabel *bornLab;
+@property (weak, nonatomic) IBOutlet UITextField *bornText;
+
 @property (weak, nonatomic) IBOutlet UILabel *nationalLab;
+@property (weak, nonatomic) IBOutlet UITextField *nationalText;
+
 @property (weak, nonatomic) IBOutlet UILabel *addressLab;
+
+@property (weak, nonatomic) IBOutlet UITextView *addressText;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 - (IBAction)save:(id)sender;
 
@@ -25,12 +35,13 @@
     [super viewDidLoad];
     self.title = @"二代身份证";
     //4 0
-    self.nameLab.text = [NSString stringWithFormat:@"    姓名：%@",_UserName];
+    self.nameText.text = [NSString stringWithFormat:@"    姓名：%@",_UserName];
+    
     //self.sexLab.text = _sex;
-    self.nationalLab.text = [NSString stringWithFormat:@"    民族：%@",_Nation];
-    self.cardNum.text = [NSString stringWithFormat:@"    身份证号码：%@",_cardNumber];
-    self.bornLab.text = [NSString stringWithFormat:@"    生日：%@",_birthDay];
-    self.addressLab.text = [NSString stringWithFormat:@"    地址：%@",_address];
+    self.nationalText.text = [NSString stringWithFormat:@"    民族：%@",_Nation];
+    self.cardText.text = [NSString stringWithFormat:@"    身份证号码：%@",_cardNumber];
+    self.bornText.text = [NSString stringWithFormat:@"    生日：%@",_birthDay];
+    self.addressText.text = [NSString stringWithFormat:@"    地址：%@",_address];
     //    @property(nonatomic,copy) NSString *address;
     //    @property(nonatomic,copy) NSString *birthDay;
     //    @property(nonatomic,copy) NSString *cardNumber;
@@ -66,6 +77,14 @@
         
         [WMAnimations WMAnimationMakeBoarderWithLayer:lab.layer andBorderColor:[UIColor grayColor] andBorderWidth:0.5 andNeedShadow:NO];
     }
+}
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.nameText resignFirstResponder];
+    [self.bornText resignFirstResponder];
+    [self.cardText resignFirstResponder];
+    [self.nationalText resignFirstResponder];
+    [self.addressText resignFirstResponder];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
