@@ -56,13 +56,15 @@
         }
         
         self.FollowPerson = dict[@"FollowPerson"];
-
+        
+        //获取OrderId用于再次请求后台数据；
+        self.OrderId = dict[@"OrderId"];
         // 返回底部按钮组
         for (NSDictionary *dic in dict[@"ButtonList"]) {
             ButtonList *btn = [ButtonList buttonListWithDict:dic];
             [self.buttonList addObject:btn];
         }
-        NSLog(@"-----%@",dict[@"ButtonList"]);
+        NSLog(@"-----%@*******",dict[@"OrderId"]);
     }
     return self;
 }

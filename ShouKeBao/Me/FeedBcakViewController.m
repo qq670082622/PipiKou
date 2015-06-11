@@ -7,6 +7,7 @@
 //
 
 #import "FeedBcakViewController.h"
+#import "MeHttpTool.h"
 #define K_bounds [UIScreen mainScreen].bounds
 #define K_left 30
 #define K_between 30
@@ -23,6 +24,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *goodBT_H;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *badBT_H;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *badBT_W;
+@property (nonatomic, assign) BOOL isGood;
 @end
 
 @implementation FeedBcakViewController
@@ -48,6 +50,16 @@
     self.badBT_W.constant  = (K_bounds.size.width - K_left * 2) / 2.0;
     [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan.png"] forState:UIControlStateNormal];
     [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai.png"] forState:UIControlStateNormal];
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"feedBackIsGood"]) {
+        [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan2.png"] forState:UIControlStateNormal];
+    }else{
+        [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai2.png"] forState:UIControlStateNormal];
+        [UIView animateWithDuration:0.5 animations:^{
+            self.submitBT.alpha = 1.0;
+            self.suggestTextView.alpha = 1.0;
+            self.pleaseholderLabel.alpha = 1.0;
+        }];
+    }
 }
 - (IBAction)submitSuggest:(UIButton *)sender {
     [self.suggestTextView resignFirstResponder];
@@ -55,32 +67,36 @@
         UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！啥都不写这算啥" delegate:nil cancelButtonTitle:@"再来" otherButtonTitles:nil];
         [alert show];
     }else{
-        UIView *thinksView = [[UIView alloc]initWithFrame:K_bounds];
-        [self.view addSubview:thinksView];
-        UIImageView *thinksFace = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, K_bounds.size.width - 200, K_bounds.size.width - 200)];
-        thinksView.backgroundColor = [UIColor whiteColor];
-        thinksFace.image = [UIImage imageNamed:@"xiaolian.png"];
-        UILabel *thinksLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, CGRectGetMaxY(thinksFace.frame) + 5, K_bounds.size.width - 100, 80)];
-        thinksLabel.font = [UIFont systemFontOfSize:18];
-        thinksLabel.textAlignment = NSTextAlignmentCenter;
-        thinksLabel.text = @"感谢您的反馈！";
-        [self.view addSubview:thinksFace];
-        [self.view addSubview:thinksLabel];
+        [self makeThinkView];
     }
   
 }
+- (void)makeThinkView{
+    UIView *thinksView = [[UIView alloc]initWithFrame:K_bounds];
+    [self.view addSubview:thinksView];
+    UIImageView *thinksFace = [[UIImageView alloc]initWithFrame:CGRectMake(100, 100, K_bounds.size.width - 200, K_bounds.size.width - 200)];
+    thinksView.backgroundColor = [UIColor whiteColor];
+    thinksFace.image = [UIImage imageNamed:@"xiaolian.png"];
+    UILabel *thinksLabel = [[UILabel alloc]initWithFrame:CGRectMake(50, CGRectGetMaxY(thinksFace.frame) + 5, K_bounds.size.width - 100, 80)];
+    thinksLabel.font = [UIFont systemFontOfSize:18];
+    thinksLabel.textAlignment = NSTextAlignmentCenter;
+    thinksLabel.text = @"感谢您的反馈！";
+    [self.view addSubview:thinksFace];
+    [self.view addSubview:thinksLabel];
+}
 - (IBAction)goodClick:(UIButton *)sender {
+    self.isGood = YES;
     [self.suggestTextView resignFirstResponder];
-    [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan2.png"] forState:UIControlStateNormal];
-    [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai.png"] forState:UIControlStateNormal];
     [UIView animateWithDuration:0.5 animations:^{
         self.submitBT.alpha = 0;
         self.suggestTextView.alpha = 0;
         self.pleaseholderLabel.alpha = 0;
+    } completion:^(BOOL finished) {
+        [self makeThinkView];
     }];
- 
 }
 - (IBAction)badClick:(UIButton *)sender {
+    self.isGood = NO;
     [self.suggestTextView resignFirstResponder];
     [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan.png"] forState:UIControlStateNormal];
     [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai2.png"] forState:UIControlStateNormal];
@@ -106,7 +122,14 @@
     self.pleaseholderLabel.alpha = 0;
     return YES;
 }
-
+- (void)viewWillDisappear:(BOOL)animated{
+    NSString * goodOrBad = self.isGood ? @"1" : @"0";
+    [[NSUserDefaults standardUserDefaults]setBool:self.isGood forKey:@"feedBackIsGood"];
+    NSDictionary *param = @{@"CommentResult":goodOrBad, @"CommentContent":self.suggestTextView.text};
+    [MeHttpTool feedBackWithParam:param success:^(id json) {
+    } failure:^(NSError *error) {
+    }];
+}
 
 /*
 #pragma mark - Navigation

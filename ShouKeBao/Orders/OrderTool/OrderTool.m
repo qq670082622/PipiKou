@@ -31,13 +31,30 @@
         
     }];
 }
+/**
+ *  根据OrderId获取订单详情
+ */
++ (void)getOrderDetailWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    [IWHttpTool postWithURL:@"Order/GetOrderDetail" params:param success:^(id json) {
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+
+}
 
 /**
  *  获取订单搜索条件
  */
 + (void)getOrderConditionWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
-    
     [IWHttpTool postWithURL:@"Order/GetOrderCondition" params:param success:^(id json){
         
         if (success) {

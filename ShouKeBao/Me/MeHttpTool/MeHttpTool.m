@@ -235,5 +235,23 @@
         
     }];
 }
+/**
+ *  反馈
+ */
+
++ (void)feedBackWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    [IWHttpTool postWithURL:@"Business/CommentFeedback" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+                if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
 
 @end

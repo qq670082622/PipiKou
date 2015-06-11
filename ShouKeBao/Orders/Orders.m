@@ -695,7 +695,8 @@
     
     // 取出模型
     OrderModel *order = self.dataArr[index];
-    self.detailView.data = order.SKBOrder;
+//    self.detailView.data = order.SKBOrder;
+    self.detailView.orderId = order.OrderId;
 }
 
 #pragma mark - MGSwipeTableCellDelegate

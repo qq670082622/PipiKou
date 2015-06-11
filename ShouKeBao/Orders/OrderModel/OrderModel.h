@@ -49,6 +49,8 @@
 
 @property (nonatomic,strong) NSDictionary *FollowPerson;
 
+@property (nonatomic, strong) NSString * OrderId;
+
 + (instancetype)orderModelWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

@@ -11,5 +11,5 @@
 @interface DetailView : UIView
 
 @property (nonatomic,strong) NSDictionary *data;
-
+@property (nonatomic, strong) NSString * orderId;
 @end
