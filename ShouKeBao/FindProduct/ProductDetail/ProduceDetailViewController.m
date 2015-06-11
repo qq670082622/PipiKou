@@ -253,7 +253,8 @@
                                                   url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
 
-
+[publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",_shareInfo[@"Tile"],_shareInfo[@"Desc"]] image:nil];
+    
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];

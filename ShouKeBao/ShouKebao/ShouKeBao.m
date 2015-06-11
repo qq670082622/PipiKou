@@ -695,16 +695,10 @@
 
 -(void)addAlert
 {
-    
-    
     // 获取到现在应用中存在几个window，ios是可以多窗口的
-    
     NSArray *windowArray = [UIApplication sharedApplication].windows;
-    
     // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
-    
     UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
-    
     // 以下就是不停的寻找子视图，修改要修改的
     CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
     CGFloat labY;
@@ -718,7 +712,8 @@
         labY = 440;
     }
    
-         CGFloat labW = self.view.bounds.size.width;
+    
+    CGFloat labW = self.view.bounds.size.width;
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
     lab.text = @"您分享出去的内容对外只显示门市价";
     lab.textColor = [UIColor blackColor];
@@ -728,8 +723,11 @@
     [UIView animateWithDuration:0.4 animations:^{
         lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
     }];
+    
     self.warningLab = lab;
+
 }
+
 - (IBAction)add:(id)sender
 {
    
@@ -740,6 +738,7 @@
                                                 title:self.shareDic[@"Title"]
                                                   url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",_shareDic[@"Tile"],_shareDic[@"Desc"]] image:nil];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
@@ -756,12 +755,16 @@
                                 if (state == SSResponseStateSuccess)
                                 {
                                     [self.warningLab removeFromSuperview];
+                                    
                                     [MBProgressHUD showSuccess:@"分享成功"];
+                                    
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                       
                                         [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
                                                                                     } failure:^(NSError *error) {
                                             
                                         }];
+                                    
                                         [MBProgressHUD hideHUD];
 
                                     });
@@ -770,8 +773,10 @@
                                 else if (state == SSResponseStateFail)
                                 {
                                     [self.warningLab removeFromSuperview];
+                                    
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }else if (state == SSResponseStateCancel){
+                                  
                                     [self.warningLab removeFromSuperview];
                                 }
                             }];
@@ -840,11 +845,13 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     [self.navigationController pushViewController:scan animated:YES];
 }
 
+
 #pragma mark - UITableViewDataSource
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return self.dataSource.count;
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -873,6 +880,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         return cell;
     }
 }
+
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -912,23 +920,24 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
 #pragma -mark 从recommendcell传过来的通知方法,避免uiimageview的tao对cell的点击冲突
 -(void)pushToRecommendList
 {
     [self nitifiToPushRecommendListWithUrl];
 }
 
+
 -(void)nitifiToPushRecommendListWithUrl
 {
     RecomViewController *rec = [[RecomViewController alloc] init];
-   
-    
-    
-    [self.navigationController pushViewController:rec animated:YES];
+   [self.navigationController pushViewController:rec animated:YES];
     
     // 刷新下 隐藏红点
     self.recommendCount = 0;
+   
     SubstationParttern *par = [SubstationParttern sharedStationName];
+    
     [Lotuseed onEvent:@"page1ClickTorecommend" attributes:@{@"stationName":par.stationName}];
     
     [_tableView reloadData];
@@ -941,27 +950,37 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     return 5.0;
 }
 
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     UIView *view = [[UIView alloc] init];
+    
     view.backgroundColor = [UIColor clearColor];
+    
     return view;
 }
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeBase *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[Recommend class]]) {
+        
         Recommend *rmodel = model.model;
+        
         NSUInteger count = rmodel.RecommendIndexProductList.count;
        
         CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+        
         double radious = screenH/667;
+        
         NSLog(@"-----------------radious is %.3f---------",radious);
+        
         if ( count == 2 || count == 3) {
        
             if (screenH == 480) {
+                
                 return 165*radious+25;
             }
 
@@ -973,11 +992,13 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
                
                 return 260*radious+25;
             }
+           
             return 260*radious;
             
         }else{
             
             if (screenH == 480) {
+               
                 return 350*radious+25;
             }
 
@@ -986,6 +1007,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         }
         
     }else{
+        
         return 110;
     }
 }
@@ -1004,13 +1026,18 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
         // 保存隐藏的模型
         HomeBase *base = self.dataSource[indexPath.row];
+       
         NSArray *tmp = [WriteFileManager readData:@"hideData"];
+        
         NSMutableArray *muta = [NSMutableArray arrayWithArray:tmp];
+        
         [muta addObject:base];
+        
         [WriteFileManager saveData:muta name:@"hideData"];
         
         // 删除这行
         [self.dataSource removeObjectAtIndex:indexPath.row];
+        
         [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
     }
 }
@@ -1025,9 +1052,13 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 {
     // 去除所有的提醒 重新添加 目前不能一个个加
     NSMutableArray *tmp = self.dataSource.copy;
+  
     for (int i = 0; i < tmp.count; i ++) {
+    
         HomeBase *base = tmp[i];
+        
         if ([base.model isKindOfClass:[remondModel class]]) {
+        
             [self.dataSource removeObject:base];
         }
     }
