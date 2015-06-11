@@ -125,6 +125,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
     NSString * goodOrBad = self.isGood ? @"1" : @"0";
     [[NSUserDefaults standardUserDefaults]setBool:self.isGood forKey:@"feedBackIsGood"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     NSDictionary *param = @{@"CommentResult":goodOrBad, @"CommentContent":self.suggestTextView.text};
     [MeHttpTool feedBackWithParam:param success:^(id json) {
     } failure:^(NSError *error) {
