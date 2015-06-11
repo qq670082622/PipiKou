@@ -367,6 +367,7 @@
                                                 title:shareDic[@"Title"]
                                                   url:shareDic[@"Url"]                                          description:shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",shareDic[@"Tile"],shareDic[@"Desc"]] image:nil];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];

@@ -229,6 +229,8 @@
                                                 title:tmp[@"Title"]
                                                   url:tmp[@"Url"]                                          description:tmp[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+    
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",tmp[@"Tile"],tmp[@"Desc"]] image:nil];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
