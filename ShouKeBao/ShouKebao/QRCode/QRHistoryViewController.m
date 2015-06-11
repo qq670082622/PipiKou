@@ -178,8 +178,10 @@ static NSString *cellID = @"QRHistoryCell";
 
 
 - (IBAction)deleteAction:(id)sender {
+    
 }
 
 - (IBAction)saveToCustom:(id)sender {
+    
 }
 @end

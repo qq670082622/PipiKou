@@ -72,8 +72,6 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
-    
     for (int i = 0; i < self.subviews.count; i ++) {
         MeButton *btn = self.subviews[i];
         

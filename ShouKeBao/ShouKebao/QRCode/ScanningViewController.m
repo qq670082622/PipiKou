@@ -54,6 +54,8 @@
 
 @property(nonatomic,assign) BOOL cameraInUse;
 
+@property (nonatomic, assign) BOOL isChange;
+
 @end
 
 @implementation ScanningViewController
@@ -71,10 +73,7 @@
     self.camera.view.frame = CGRectMake(0, 0, cameraW, cameraH);
     self.camera.fixOrientationAfterCapture = NO;
     //self.snapButton = self.midOutlet;
-   
-    
-    
-    
+//    [self addObserver:self forKeyPath:@"selectIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
     
     if (!self.isLogin) {
         
@@ -166,9 +165,15 @@
 
     
 }
-
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+//    self.isChange = YES;
+//    NSLog(@"%d", self.isChange);
+//}
+//- (void)isChangeYet{
+//    self.isChange = YES;
+//}
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
-    
+    self.isChange = YES;
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:@"0" forKey:@"needLoad"];
     [def synchronize];
@@ -314,9 +319,18 @@
         }
         
                     }else if ([_selectedStr isEqualToString:@"身份证"]){
-                [self.QRCodevc.view removeFromSuperview];
                 //[self.passPortVC.view removeFromSuperview];
-                [self.view addSubview:self.personIDVC.view];
+                        NSLog(@"%d", self.isChange);
+                        if (self.isChange) {
+                            self.personIDVC.view.alpha = 0;
+                            [self.view addSubview:self.personIDVC.view];
+                            [UIView animateWithDuration:0.5   animations:^{
+                                self.QRCodevc.view.alpha = 0;
+                                self.personIDVC.view.alpha = 1.0;
+                            } completion:^(BOOL finished) {
+                                [self.QRCodevc.view removeFromSuperview];
+                            }];
+                        }
                         if (self.camera.isStart == NO && _cameraInUse == NO) {
                             [self.camera start];
                         }
@@ -333,7 +347,8 @@
                     [self setTreeBtnImagesWithYes];
             }
     
-
+    self.isChange = NO;
+    NSLog(@"%d222", self.isChange);
 }
 -(void)setTreeBtnImagesWithNo
 {
