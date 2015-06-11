@@ -60,11 +60,20 @@
    // [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
     BOOL minBool = [self isPureInt:self.minPrice.text];
     BOOL maxBool = [self isPureInt:self.maxPrice.text];
-    if (minBool  && maxBool) {
+    long minPrice = [self.minPrice.text longLongValue];
+    long maxPrice = [self.maxPrice.text longLongValue];
+    BOOL minBiger = minPrice>maxPrice;
+    
+    if (minBool  && maxBool && !minBiger) {
         [self.navigationController popViewControllerAnimated:YES];
     }
     else if(!minBool || !maxBool ){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您的输入并非纯数字，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+        self.minPrice.text = @"";
+        self.maxPrice.text = @"";
+    }else if (minBiger){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您输入的最小价格大于最大价格，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
         self.minPrice.text = @"";
         self.maxPrice.text = @"";

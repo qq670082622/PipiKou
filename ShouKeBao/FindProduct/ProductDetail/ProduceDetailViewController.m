@@ -189,8 +189,9 @@
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         
         NSLog(@"-----分享返回数据json is %@------",json);
-        
-        self.shareInfo = json[@"ShareInfo"];
+      NSString *str =  self.shareInfo[@"Desc"];
+        if(str.length<2){
+            self.shareInfo = json[@"ShareInfo"];}
     } failure:^(NSError *error) {
         
         NSLog(@"分享请求数据失败，原因：%@",error);

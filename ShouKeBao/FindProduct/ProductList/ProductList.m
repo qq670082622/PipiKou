@@ -193,8 +193,7 @@
     [Lotuseed onPageViewEnd:@"productList"];
     [Lotuseed onEvent:@"productListBack" attributes:@{@"stationName":par.stationName}];
     
-    [self.pushedArr removeAllObjects];
-}
+   }
 
 
 
@@ -243,7 +242,8 @@
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
 
-    
+    [self.pushedArr removeAllObjects];
+
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
     [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
 
