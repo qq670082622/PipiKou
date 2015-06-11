@@ -40,6 +40,8 @@
 @property (nonatomic,copy) NSMutableString *needTimer;
 
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
+
+@property(nonatomic,weak) UILabel *warningLab;
 @end
 
 @implementation StoreViewController
@@ -338,12 +340,17 @@
     }
     
     CGFloat labW = self.view.bounds.size.width;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
     lab.text = @"您分享出去的内容对外只显示门市价";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:12];
     [actionWindow addSubview:lab];
+    [UIView animateWithDuration:0.4 animations:^{
+        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+    }];
+    self.warningLab = lab;
+
 }
 
 #pragma 筛选navitem
@@ -375,6 +382,7 @@
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
@@ -389,7 +397,10 @@
                                 }
                                 else if (state == SSResponseStateFail)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }else if (state == SSResponseStateCancel){
+                                    [self.warningLab removeFromSuperview];
                                 }
                             }];
     NSLog(@"--------------分享出去的url is %@--------------",shareDic[@"Url"]);

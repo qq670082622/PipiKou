@@ -23,6 +23,8 @@
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
+
+@property(nonatomic,weak) UILabel *warningLab;
 @end
 
 @implementation ProduceDetailViewController
@@ -225,13 +227,18 @@
         labY = 440;
     }
     
-    CGFloat labW = self.view.bounds.size.width;
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, labY, labW, 30)];
+    CGFloat labW = [[UIScreen mainScreen] bounds].size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
     lab.text = @"您分享出去的内容对外只显示门市价";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:12];
     [actionWindow addSubview:lab];
+    [UIView animateWithDuration:0.4 animations:^{
+        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+    }];
+    self.warningLab = lab;
+
 }
 
 
@@ -262,6 +269,7 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     SubstationParttern *par = [SubstationParttern sharedStationName];
                                     [Lotuseed onEvent:@"productDetailShareSuccess" attributes:@{@"stationName":par.stationName}];
                                     
@@ -278,7 +286,10 @@
                                 }
                                 else if (state == SSResponseStateFail)
                                 {
+                                    [self.warningLab removeFromSuperview];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }else if (state == SSResponseStateCancel){
+                                [self.warningLab removeFromSuperview];
                                 }
                             }];
 
