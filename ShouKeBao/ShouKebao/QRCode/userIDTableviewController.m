@@ -35,13 +35,13 @@
     [super viewDidLoad];
     self.title = @"二代身份证";
     //4 0
-    self.nameText.text = [NSString stringWithFormat:@"    姓名：%@",_UserName];
+    self.nameText.text = _UserName;
     
     //self.sexLab.text = _sex;
-    self.nationalText.text = [NSString stringWithFormat:@"    民族：%@",_Nation];
-    self.cardText.text = [NSString stringWithFormat:@"    身份证号码：%@",_cardNumber];
-    self.bornText.text = [NSString stringWithFormat:@"    生日：%@",_birthDay];
-    self.addressText.text = [NSString stringWithFormat:@"    地址：%@",_address];
+    self.nationalText.text = _Nation;
+    self.cardText.text = _cardNumber;
+    self.bornText.text = _birthDay;
+    self.addressText.text = _address;
     //    @property(nonatomic,copy) NSString *address;
     //    @property(nonatomic,copy) NSString *birthDay;
     //    @property(nonatomic,copy) NSString *cardNumber;

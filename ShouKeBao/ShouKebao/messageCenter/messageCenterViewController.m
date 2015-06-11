@@ -15,13 +15,14 @@
 #import "IWHttpTool.h"
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
+#import "WriteFileManager.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic,strong) NSMutableArray *deleteArr;
 @property (nonatomic,strong) NSMutableArray *isReadArr;
 
-@property (nonatomic,assign) NSInteger isRead;
+//@property (nonatomic,assign) NSInteger isRead;
 @end
 
 @implementation messageCenterViewController
@@ -44,6 +45,8 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
     self.table.tableFooterView = [[UIView alloc] init];
+    
+    
     
 }
 -(void)toReferesh
@@ -127,7 +130,13 @@
         [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
         }
 }
-
+-(NSMutableArray *)isReadArr
+{
+    if (_isReadArr == nil) {
+        self.isReadArr = [NSMutableArray array];
+    }
+    return _isReadArr;
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -139,7 +148,16 @@
     messageDetail.createDate = model.CreatedDate;
     messageDetail.messageTitle = model.title;
 
-    self.isRead = indexPath.row;
+    
+    
+    [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
+    NSString *idStr = [NSString stringWithString:model.ID];
+   
+    if (![_isReadArr containsObject:idStr]) {
+        [self.isReadArr addObject:idStr];
+        [WriteFileManager WMsaveData:_isReadArr name:@"messageRead"];
+    }
+    
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"messageCenterClickToMessageDetail" attributes:@{@"subStationName":par.stationName}];
     [self.navigationController pushViewController:messageDetail animated:YES];
@@ -163,12 +181,12 @@
     messageModel *model = _dataArr[indexPath.row];
     
     cell.model = model;
-    
-//    if (indexPath.row == _isRead) {
-//    
-//        cell.hongdian.hidden = YES;
-//    }
-//    
+   [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
+    if ([self.isReadArr containsObject:model.ID]) {
+        cell.hongdian.hidden = YES;
+    }else if(![self.isReadArr containsObject:model.ID]){
+        cell.hongdian.hidden = NO;
+    }
     return cell;
 }
 

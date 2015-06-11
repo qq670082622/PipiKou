@@ -15,4 +15,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *time;
 @property (strong,nonatomic) messageModel *model;
 +(instancetype)cellWithTableView:(UITableView *)tableView;
+@property(nonatomic,strong) NSMutableArray *isReadArr;
 @end

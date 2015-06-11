@@ -82,6 +82,8 @@
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
+
+@property(nonatomic,strong) NSMutableArray *isReadArr;
 @end
 
 @implementation ShouKeBao
@@ -367,9 +369,10 @@
        
 
         int count = 0;
+        [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
         for (int i = 0; i<arr.count; i++) {
             NSDictionary *dic = arr[i];
-            if ([dic[@"IsRead"] isEqualToString:@"0"]) {
+            if (![_isReadArr containsObject:dic[@"ID"]]) {
                 count += 1;
             }
         }
@@ -408,6 +411,13 @@
 }
 
 #pragma mark - getter
+-(NSMutableArray *)isReadArr
+{
+    if (_isReadArr == nil) {
+        self.isReadArr = [NSMutableArray array];
+    }
+    return _isReadArr;
+}
 - (UITableView *)tableView
 {
     if (!_tableView) {

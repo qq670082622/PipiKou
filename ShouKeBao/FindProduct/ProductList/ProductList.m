@@ -503,15 +503,15 @@
         type = @"0";
     }
     if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↑"]) {
-        type = @"1";
+        type = @"2";
     }else if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↓"]){
-    type = @"2";
+    type = @"1";
     }
     if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↑"]) {
-        type = @"3";
+        type = @"4";
     }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行 ↓"])
     {
-    type = @"4";
+    type = @"3";
     }
     
     

@@ -8,7 +8,7 @@
 
 #import "messageCell.h"
 #import "NSDate+Category.h"
-
+#import "WriteFileManager.h"
 @implementation messageCell
 
 - (void)awakeFromNib {
@@ -39,10 +39,18 @@
 
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
     self.time.text = [createDate formattedTime];
-    
-    if ([model.IsRead isEqualToString:@"0"]) {
+   
+    [self.isReadArr addObjectsFromArray:[WriteFileManager readData:@"messageRead"]];
+    if (![_isReadArr containsObject:model.ID]) {
         self.hongdian.hidden = NO;
     }
     
+}
+-(NSMutableArray *)isReadArr
+{
+    if (_isReadArr == nil) {
+        self.isReadArr = [NSMutableArray array];
+        }
+    return _isReadArr;
 }
 @end

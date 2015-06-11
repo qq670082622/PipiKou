@@ -41,5 +41,30 @@ UIImage *new = [normal resizableImageWithCapInsets:UIEdgeInsetsMake(heith, wid, 
     return scaledImage;
 }
 
++ (UIImage *)colorControlWithImage:(UIImage *)image brightness:(CGFloat)bright contrast:(CGFloat)contrast saturation:(CGFloat)saturation
+{
+    if (!image) return nil;
+    
+    CIImage *input = [CIImage imageWithCGImage:image.CGImage];
+    CIFilter *filter = [CIFilter filterWithName:@"CIColorControls"];
+    [filter setValue:input forKey:kCIInputImageKey];
+    //[filter setValue:@(bright) forKey:@"inputBrightness"];
+    //[filter setValue:@(contrast) forKey:@"inputContrast"];
+    [filter setValue:@(saturation) forKey:@"inputSaturation"];
+    
+    
+    CIImage *newCIImage = [filter outputImage];
+    EAGLContext *glContext = [[EAGLContext alloc] initWithAPI:kEAGLRenderingAPIOpenGLES2];
+    if (!glContext) {
+        NSLog(@"Failed to create ES context");
+    }
+    CIContext  *context = [CIContext contextWithEAGLContext:glContext];
+    CGImageRef cgimg = [context createCGImage:newCIImage fromRect:[newCIImage extent]];
+    UIImage *uiimage = [UIImage imageWithCGImage:cgimg];
+    CGImageRelease(cgimg);
+    
+    return uiimage;
+    
+}
 
 @end

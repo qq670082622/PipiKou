@@ -275,6 +275,13 @@
 
 - (IBAction)search
 {
+    NSMutableDictionary *dicNew = [NSMutableDictionary dictionary];
+    
+    [dicNew setObject:@"暂无" forKey:@"Text"];
+    [dicNew setObject:@"暂无" forKey:@"Value"];
+    NSMutableArray *pushArr = [NSMutableArray array];
+    [pushArr addObject:dicNew];
+
    
     if (self.inputView.text.length>=1 && ![self.inputView.text hasPrefix:@" "]) {
         if (![self.tableDataArr containsObject:self.inputView.text]) {
@@ -289,8 +296,8 @@
             
             
         }
-        
-        ProductList *list = [[ProductList alloc] init];
+               ProductList *list = [[ProductList alloc] init];
+        list.pushedArr = pushArr;
         list.pushedSearchK = self.inputView.text;
         self.table.tableFooterView.hidden = NO;
         
@@ -314,6 +321,7 @@
         
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
+         list.pushedArr = pushArr;
         SubstationParttern *par = [SubstationParttern sharedStationName];
         [Lotuseed onEvent:@"searchKey" attributes:@{@"searchKey":self.inputView.text,@"stationName":par.stationName}];
         self.table.tableFooterView.hidden = NO;
@@ -335,6 +343,7 @@
             
             }
         ProductList *list = [[ProductList alloc] init];
+         list.pushedArr = pushArr;
         list.pushedSearchK = self.inputView.text;
         self.table.tableFooterView.hidden = NO;
         

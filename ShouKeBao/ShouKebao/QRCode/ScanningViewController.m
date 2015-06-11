@@ -54,7 +54,7 @@
 
 @property(nonatomic,assign) BOOL cameraInUse;
 
-@property (nonatomic, assign) BOOL isChange;
+
 
 @end
 
@@ -115,6 +115,8 @@
         
         self.title = @"二维码扫描";
          [self.view addSubview:self.QRCodevc.view];
+//        [self.view addSubview:self.personIDVC.view];
+//        [self.personIDVC.view removeFromSuperview];
         [self.pickerView scrollToElement:0 animated:YES];
         self.selectIndex = 0;
     }
@@ -173,7 +175,7 @@
 //    self.isChange = YES;
 //}
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
-    self.isChange = YES;
+   
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:@"0" forKey:@"needLoad"];
     [def synchronize];
@@ -203,9 +205,8 @@
         {
             
             if (_selectIndex == 0) {
-                //[self.previewLayer removeFromSuperlayer];
+               
             }else{
-                //[self getCamera];
                 
                 _selectIndex = 0;
             }
@@ -223,7 +224,8 @@
     if(recognizer.direction==UISwipeGestureRecognizerDirectionLeft) {
         if (_selectIndex == 0) {
         
-             [self.camera start];
+            // [self.camera start];
+            
              _selectIndex +=1;
         }
         
@@ -246,7 +248,7 @@
          if (_selectIndex == 1) {
              
             
-             [self.camera stop];
+             //[self.camera stop];
              _selectIndex -=1;
          }else if(_selectIndex == 2){
              
@@ -282,7 +284,25 @@
 
 
 
+-(void)switchQRCodeAndCamera:(NSString *)camera  andQRD:(NSString *)qrd
+{//切换由：1切换到0
+    if ([camera isEqualToString:@"1"]) {
+        [UIView animateWithDuration:1.25 animations:^{
+            self.QRCodevc.view.alpha = 0;
+           
+            self.QRCodevc.view.alpha = 1;
+        }];
 
+    }
+    if ([qrd isEqualToString:@"1"]) {
+        [UIView animateWithDuration:1.25 animations:^{
+            self.personIDVC.view.alpha = 0;
+            
+            self.personIDVC.view.alpha = 1;
+        }];
+    }
+   
+}
 
 -(void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index
 {
@@ -308,48 +328,47 @@
    
     
     if ([_selectedStr  isEqual: @"二维码"]) {
-                [self.personIDVC.view removeFromSuperview];
-                //[self.passPortVC.view removeFromSuperview];
-                [self.view addSubview:self.QRCodevc.view];
-        [self.view bringSubviewToFront:self.controlView];
+        
+        [self.personIDVC.view removeFromSuperview];
+        if (self.camera.isStart == YES) {
+            [self.view addSubview:self.QRCodevc.view];
+           [self switchQRCodeAndCamera:@"1" andQRD:@""];
+            [self.camera stop];
+           
+        }
+      [self.view bringSubviewToFront:self.controlView];
                 self.title = @"二维码扫描";
         [self setTreeBtnImagesWithNo];
-        if (self.camera.isStart == YES) {
-            [self.camera stop];
-        }
         
-                    }else if ([_selectedStr isEqualToString:@"身份证"]){
-                //[self.passPortVC.view removeFromSuperview];
-                        NSLog(@"%d", self.isChange);
-                        if (self.isChange) {
-                            self.personIDVC.view.alpha = 0;
-                            [self.view addSubview:self.personIDVC.view];
-                            [UIView animateWithDuration:0.5   animations:^{
-                                self.QRCodevc.view.alpha = 0;
-                                self.personIDVC.view.alpha = 1.0;
-                            } completion:^(BOOL finished) {
-                                [self.QRCodevc.view removeFromSuperview];
-                            }];
-                        }
-                        if (self.camera.isStart == NO && _cameraInUse == NO) {
+        }else if ([_selectedStr isEqualToString:@"身份证"]){
+           
+            [self.QRCodevc.view removeFromSuperview];
+        if (self.camera.isStart == NO && _cameraInUse == NO) {
+                [self.view addSubview:self.personIDVC.view];
+                             [self switchQRCodeAndCamera:@"" andQRD:@"1"];
                             [self.camera start];
-                        }
-                self.title = @"身份证扫描";
-                        
-                       [self setTreeBtnImagesWithYes];
+                }
+                 self.title = @"身份证扫描";
+                        [self setTreeBtnImagesWithYes];
+            
             }else{
+                
                 [self.QRCodevc.view removeFromSuperview];
-                //[self.personIDVC.view removeFromSuperview];
-                //[self.view addSubview:self.passPortVC.view];
-                self.title = @"护照扫描";
-               
-
-                    [self setTreeBtnImagesWithYes];
+            if (self.camera.isStart == NO && _cameraInUse == NO) {
+                     [self.view addSubview:self.personIDVC.view];
+                    [self switchQRCodeAndCamera:@"" andQRD:@"1"];
+               [self.camera start];
+                                   }
+                   self.title = @"护照扫描";
+               [self setTreeBtnImagesWithYes];
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             }
     
-    self.isChange = NO;
-    NSLog(@"%d222", self.isChange);
+   
 }
+
+
+
 -(void)setTreeBtnImagesWithNo
 {
     [self.leftBtnOutlet setImage:[UIImage imageNamed:@"QRPhotosNo"] forState:UIControlStateNormal];
@@ -357,6 +376,8 @@
     [self.midOutlet setImage:[UIImage imageNamed:@"midBtnNo"] forState:UIControlStateNormal];
     self.canClick = NO;
 }
+
+
 -(void)setTreeBtnImagesWithYes
 {
        
@@ -410,6 +431,8 @@
     }
     return _QRCodevc;
 }
+
+
 -(PersonIDViewController *)personIDVC
 {
     if (_personIDVC == nil) {
@@ -425,12 +448,14 @@
 
 
 -(void)openAlbum{
+    
     UIImagePickerController *album = [[UIImagePickerController alloc] init];
     album.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     album.delegate = self;
     [self presentViewController:album animated:YES completion:nil];
 
 }
+
 #pragma -mark pickerViewDelegate//相册选择照片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
@@ -450,18 +475,22 @@
     [self loadData];
 
 }
+
 //图片上传之前的处理
--(void)getImage:(UIImage *)normal
+-(void)getImage:(UIImage *)normalImage
 {
+    UIImage *normal = [ResizeImage colorControlWithImage:normalImage brightness:0.3 contrast:0.3 saturation:0.0];//将图片变黑白
+    
     double wideRadious = 500/normal.size.width;//只定500宽，不定高
-  UIImage *resizeImage = [ResizeImage reSizeImage:normal toSize:CGSizeMake(500, normal.size.height*wideRadious)];
+  UIImage *resizeImage = [ResizeImage reSizeImage:normal toSize:CGSizeMake(500, normal.size.height*wideRadious)];//裁减尺寸
+    
      NSData *imageData = UIImageJPEGRepresentation(resizeImage,1);
-    long kb = [imageData length]/1024;
+    long kb = [imageData length]/1024;//计算大小
     if (kb<280) {
         self.photoImg.image = resizeImage;
     }else{
          double radious = kb/280;
-        NSData *imageDataNew = UIImageJPEGRepresentation(resizeImage, radious);
+        NSData *imageDataNew = UIImageJPEGRepresentation(resizeImage, radious);//改变大小
         UIImage *imageNew = [UIImage imageWithData:imageDataNew];
         self.photoImg.image = imageNew;
     }
