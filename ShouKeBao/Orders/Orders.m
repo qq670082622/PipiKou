@@ -313,6 +313,12 @@
     [cover addGestureRecognizer:tap];
     self.cover = cover;
     
+    //设置这些是否已经被选中
+    NSDictionary * dic = @{@"startData": @"0", @"area":@"0", @"lineArea":@"0", @"country":@"0", @"listTime": @"0"};
+    [[NSUserDefaults standardUserDefaults]setObject:dic forKey:@"isConformDic"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
+
+    
     // 筛选视图
     [cover addSubview:self.dressView];
     [self.view.window addSubview:cover];
@@ -526,6 +532,7 @@
 - (DressView *)dressView
 {
     if (!_dressView) {
+
         CGFloat W = self.view.frame.size.width * 0.8;
         _dressView = [[DressView alloc] initWithFrame:CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height)];
         _dressView.delegate = self;
