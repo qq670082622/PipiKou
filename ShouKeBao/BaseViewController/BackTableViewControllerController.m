@@ -24,6 +24,7 @@
     [self setNav];
 }
 
+
 - (void)setNav
 {
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -36,6 +37,7 @@
     
     self.navigationItem.leftBarButtonItem = leftItem;
 }
+
 
 -(void)back
 {

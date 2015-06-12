@@ -116,6 +116,7 @@
     [self customRightBarItem];
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushToStore)];
+   
     [self.upView addGestureRecognizer:tap];
     
     // 加载主列表数据
@@ -211,6 +212,7 @@
     }
 }
 
+
 #pragma -mark 声音
 -(void)getVoice{
    
@@ -221,6 +223,7 @@
     
     AudioServicesPlaySystemSound (messageSound);
 }
+
 
 #pragma  - mark程序在前台时远程推送处理函数
 -(void)dealPushForeground:(NSNotification *)noti
@@ -288,12 +291,14 @@
     return _shareDic;
 }
 
+
 #pragma -mark massegeCenterDelegate
 -(void)refreshSKBMessgaeCount:(int)count
 {
     [self getNotifiList];
    
 }
+
 
 -(void)getStationName
 {
@@ -322,6 +327,7 @@
     
 
 }
+
 
 - (void)getUserInformation
 {
@@ -358,6 +364,8 @@
     [hudView hide:YES];
 }
 
+
+
 - (void)getNotifiList
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
@@ -384,6 +392,7 @@
 
 }
 
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -404,11 +413,13 @@
     [self getStationName];
 }
 
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [Lotuseed onPageViewEnd:@"page1Click"];
 }
+
 
 #pragma mark - getter
 -(NSMutableArray *)isReadArr
@@ -418,6 +429,8 @@
     }
     return _isReadArr;
 }
+
+
 - (UITableView *)tableView
 {
     if (!_tableView) {
@@ -432,6 +445,7 @@
     return _tableView;
 }
 
+
 - (NSMutableArray *)dataSource
 {
     if (!_dataSource) {
@@ -439,6 +453,7 @@
     }
     return _dataSource;
 }
+
 
 -(NSMutableArray *)stationDataSource
 {
@@ -532,6 +547,7 @@
     [self.guideView addSubview:_guideImageView];
     [[[UIApplication sharedApplication].delegate window] addSubview:_guideView];
 }
+
 -(void)click
 {
         self.guideIndex++;
