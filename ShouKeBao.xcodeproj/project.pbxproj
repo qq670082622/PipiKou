@@ -323,6 +323,7 @@
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		79C2272A1B27CF93001EE081 /* FeedBcakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C227291B27CF93001EE081 /* FeedBcakViewController.m */; };
+		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
 		8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC601AC2567E00F28E1A /* MGSwipeTableCell.m */; };
 		845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514E81ABFFAD900D588A7 /* SKTableViewController.m */; };
@@ -888,6 +889,8 @@
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		79C227281B27CF93001EE081 /* FeedBcakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBcakViewController.h; sourceTree = "<group>"; };
 		79C227291B27CF93001EE081 /* FeedBcakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBcakViewController.m; sourceTree = "<group>"; };
+		79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeseWebView.h; sourceTree = "<group>"; };
+		79D8D8201B2ACF2900AE4464 /* BeseWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeseWebView.m; sourceTree = "<group>"; };
 		8448BC5D1AC2567E00F28E1A /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
 		8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGSwipeButton.m; sourceTree = "<group>"; };
 		8448BC5F1AC2567E00F28E1A /* MGSwipeTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeTableCell.h; sourceTree = "<group>"; };
@@ -2203,6 +2206,8 @@
 				5A076CA01ACD24050077611C /* CityViewController.m */,
 				5A6996141AF8A5F2002EDD91 /* BackTableViewControllerController.h */,
 				5A6996151AF8A5F2002EDD91 /* BackTableViewControllerController.m */,
+				79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */,
+				79D8D8201B2ACF2900AE4464 /* BeseWebView.m */,
 			);
 			path = BaseViewController;
 			sourceTree = "<group>";
@@ -2602,6 +2607,7 @@
 				63B8C6F41ACE8D9900328C8C /* BBBadgeBarButtonItem.m in Sources */,
 				633263D61AB851590021553B /* AFSecurityPolicy.m in Sources */,
 				5A52FC621ACEBF220076DAE6 /* LoginTool.m in Sources */,
+				79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */,
 				63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */,
 				63F1A1AC1B14250E00DE9867 /* MJConst.m in Sources */,
 				636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */,

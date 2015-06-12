@@ -1215,7 +1215,7 @@
                                     <action selector="badClick:" destination="hto-2z-Z4E" eventType="touchUpInside" id="j0i-Tg-Z6H"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请简要描述你的意见和建议" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzq-hp-VYh">
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请输入您的意见" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mzq-hp-VYh">
                                 <rect key="frame" x="16" y="116" width="288" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="d9H-MA-x5r"/>

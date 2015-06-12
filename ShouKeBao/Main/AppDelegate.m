@@ -29,6 +29,10 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    
+    
+    
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
@@ -44,6 +48,13 @@
     return YES;
 }
 
+//设置请求userAgent
++ (void)initialize {
+    // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F69(appskb_v10_ios)", @"UserAgent", nil];
+    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+}
+ 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];

@@ -34,6 +34,17 @@
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
+//    NSString *oldAgent = [self.webView stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
+//    NSLog(@"old agent :%@", oldAgent);
+//    
+//    //add my info to the new agent
+//    NSString *newAgent = [oldAgent stringByAppendingString:@"(appskb_v10_ios)"];
+//    NSLog(@"new agent :%@", newAgent);
+//    
+//    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
+//    
+//    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
+    
 
 }
 -(void)viewWillAppear:(BOOL)animated
@@ -100,6 +111,7 @@
             [self loadWithUrl:json[@"QFBLinkUrl"]];
             self.linkUrl = json[@"QFBLinkUrl"];
             [self.webUrlArr addObject:_linkUrl];
+            NSLog(@"%@++++++", self.webUrlArr);
             self.webLoadCount = 1;
         }
     }failure:^(NSError *error){
@@ -119,6 +131,7 @@
 #pragma mark - loadWebView
 - (void)loadWithUrl:(NSString *)url
 {
+//    url = @"http://www.myie9.com/useragent/";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
 }
