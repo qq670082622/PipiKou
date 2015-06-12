@@ -313,11 +313,6 @@
     [cover addGestureRecognizer:tap];
     self.cover = cover;
     
-    //设置这些是否已经被选中
-    NSDictionary * dic = @{@"startData": @"0", @"area":@"0", @"lineArea":@"0", @"country":@"0", @"listTime": @"0"};
-    [[NSUserDefaults standardUserDefaults]setObject:dic forKey:@"isConformDic"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
-
     
     // 筛选视图
     [cover addSubview:self.dressView];
@@ -341,10 +336,10 @@
 }
 
 -(void)iniHeader
-{    //下啦刷新
+{    //下拉刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
     
-    //上啦刷新
+    //上拉刷新
     [self.tableView addFooterWithTarget:self action:@selector(footRefresh)];
     //设置文字
     self.tableView.headerPullToRefreshText = @"下拉刷新";

@@ -19,6 +19,7 @@
 #import "NSArray+QD.h"
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
+#import "NSString+QD.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -264,8 +265,31 @@
    }
 
 
-
-
+//- (NSMutableArray *)arraySordByArray:(NSMutableArray *)array{
+//    NSArray *array2 = [array sortedArrayUsingComparator:
+//                       
+//                       ^NSComparisonResult(CustomModel *obj1, CustomModel *obj2) {
+//                           
+//                           // 先按照姓排序
+//                           
+//                           NSComparisonResult result = [obj1.lastname compare:obj2.lastname];
+//                           
+//                           // 如果有相同的姓，就比较名字
+//                           
+//                           if (result == NSOrderedSame) {  
+//                               
+//                               result = [obj1.firstname compare:obj2.firstname];  
+//                               
+//                           }  
+//                           
+//                           
+//                           
+//                           return result;  
+//                           
+//                       }];
+//return <#expression#>
+//}
+//
 -(void)loadHistoryArr
 {
 //    
@@ -415,6 +439,7 @@
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
+
         [self.table reloadData];
         if (self.dataArr.count == 0) {
            self.imageViewWhenIsNull.hidden = NO;
@@ -476,7 +501,6 @@
 
 
 - (IBAction)wordOrderAction:(id)sender {
-    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"加载中...";
     [hudView show:YES];

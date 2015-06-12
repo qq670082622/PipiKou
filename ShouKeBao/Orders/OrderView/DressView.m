@@ -109,13 +109,6 @@
 {
     static NSString *ID = @"orderdresscell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//    if (indexPath.row) {
-//        <#statements#>
-//    }
-//  NSDictionary * dic = [[NSUserDefaults standardUserDefaults]objectForKey:@"isConformDic"];
-//    if (indexPath.row == 0 && [dic[@"startData"]isEqualToString:@"1"]) {
-//        cell.detailTextLabel.textColor = [UIColor orangeColor];
-//    }
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:ID];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;

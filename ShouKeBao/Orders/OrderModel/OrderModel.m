@@ -64,7 +64,6 @@
             ButtonList *btn = [ButtonList buttonListWithDict:dic];
             [self.buttonList addObject:btn];
         }
-        NSLog(@"-----%@*******",dict[@"OrderId"]);
     }
     return self;
 }

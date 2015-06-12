@@ -1187,22 +1187,6 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP5-mO-Wys">
-                                <rect key="frame" x="14" y="281" width="286" height="47"/>
-                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="47" id="Zmy-tr-pYN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="确认提交">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="submitSuggest:" destination="hto-2z-Z4E" eventType="touchUpInside" id="WYQ-l2-IbT"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="d05-Nl-cF8">
                                 <rect key="frame" x="16" y="39" width="131" height="55.5"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1240,18 +1224,34 @@
                                 <color key="textColor" red="0.29803922770000002" green="0.29803922770000002" blue="0.29803922770000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eP5-mO-Wys">
+                                <rect key="frame" x="16" y="287" width="286" height="47"/>
+                                <color key="backgroundColor" red="1" green="0.50196081400000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="47" id="Zmy-tr-pYN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="确认提交">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="submitSuggest:" destination="hto-2z-Z4E" eventType="touchUpInside" id="WYQ-l2-IbT"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="u32-G3-dwY" firstAttribute="leading" secondItem="I1z-Qb-Kb3" secondAttribute="leadingMargin" constant="-3" id="3pT-Vb-Ngl"/>
                             <constraint firstItem="u32-G3-dwY" firstAttribute="trailing" secondItem="I1z-Qb-Kb3" secondAttribute="trailingMargin" constant="3" id="A9Q-Ob-hKe"/>
-                            <constraint firstItem="eP5-mO-Wys" firstAttribute="leading" secondItem="I1z-Qb-Kb3" secondAttribute="leadingMargin" constant="-2" id="AoK-BJ-pok"/>
+                            <constraint firstItem="eP5-mO-Wys" firstAttribute="leading" secondItem="I1z-Qb-Kb3" secondAttribute="leadingMargin" id="AoK-BJ-pok"/>
                             <constraint firstItem="d05-Nl-cF8" firstAttribute="top" secondItem="8h2-DC-Vyx" secondAttribute="bottom" constant="8" id="Klx-bw-TdF"/>
+                            <constraint firstItem="eP5-mO-Wys" firstAttribute="top" secondItem="u32-G3-dwY" secondAttribute="bottom" constant="29" id="QoP-eo-FTP"/>
                             <constraint firstItem="u32-G3-dwY" firstAttribute="top" secondItem="d05-Nl-cF8" secondAttribute="bottom" constant="16.5" id="RaW-Wu-6Ih"/>
                             <constraint firstItem="8h2-DC-Vyx" firstAttribute="top" secondItem="I1z-Qb-Kb3" secondAttribute="topMargin" constant="5" id="U6K-wi-6nc"/>
-                            <constraint firstItem="Xfq-sl-4WR" firstAttribute="top" secondItem="eP5-mO-Wys" secondAttribute="bottom" constant="240" id="Uf7-Vh-f6T"/>
                             <constraint firstItem="d05-Nl-cF8" firstAttribute="leading" secondItem="I1z-Qb-Kb3" secondAttribute="leadingMargin" id="UnV-a1-QCU"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="eP5-mO-Wys" secondAttribute="trailing" constant="4" id="aNv-Dp-zKT"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="eP5-mO-Wys" secondAttribute="trailing" constant="2" id="aNv-Dp-zKT"/>
                             <constraint firstItem="1gX-LU-Vge" firstAttribute="trailing" secondItem="I1z-Qb-Kb3" secondAttribute="trailingMargin" id="aec-9h-eCd"/>
                             <constraint firstItem="8h2-DC-Vyx" firstAttribute="trailing" secondItem="I1z-Qb-Kb3" secondAttribute="trailingMargin" id="bXS-XP-2Ce"/>
                             <constraint firstItem="1gX-LU-Vge" firstAttribute="top" secondItem="8h2-DC-Vyx" secondAttribute="bottom" constant="7" id="jkz-bY-iaE"/>

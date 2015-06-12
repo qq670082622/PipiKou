@@ -466,7 +466,9 @@
                 
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 // 添加精品推荐 如果有推荐的话
+                NSLog(@"**%@******************************************************************", json[@"RecommendProduct"][@"Count"]);
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
+                    
 //                    [HomeHttpTool getRecommendProductListWithParam:@{@"DateRangeType":@"1"} success:^(id recommendJson) {
 //                        NSLog(@"-------------今日推荐新接口数据是:%@--------------",recommendJson);
 //                    } failure:^(NSError *error) {

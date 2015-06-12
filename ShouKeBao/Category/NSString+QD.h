@@ -12,5 +12,7 @@
 @interface NSString (QD)
 
 + (CGSize)textSizeWithText:(NSString *)text font:(UIFont *)font maxSize:(CGSize)maxSize;
+- (NSString *)pinYin;
+- (NSString *)firstCharactor;
 
 @end

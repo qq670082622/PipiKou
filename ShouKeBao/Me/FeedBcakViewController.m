@@ -48,18 +48,21 @@
     self.title = @"意见反馈";
     self.goodBT_W.constant  = (K_bounds.size.width - K_left * 2) / 2.0;
     self.badBT_W.constant  = (K_bounds.size.width - K_left * 2) / 2.0;
-    [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan.png"] forState:UIControlStateNormal];
+    self.goodBT_H.constant = self.goodBT_W.constant * 117.0 / 330.0;
+    self.badBT_H.constant = self.badBT_W.constant * 117.0 / 330.0;
+
+    [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan2.png"] forState:UIControlStateNormal];
     [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai.png"] forState:UIControlStateNormal];
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"feedBackIsGood"]) {
-        [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan2.png"] forState:UIControlStateNormal];
-    }else{
-        [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai2.png"] forState:UIControlStateNormal];
-        [UIView animateWithDuration:0.5 animations:^{
-            self.submitBT.alpha = 1.0;
-            self.suggestTextView.alpha = 1.0;
-            self.pleaseholderLabel.alpha = 1.0;
-        }];
-    }
+//    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"feedBackIsGood"]) {
+//        [self.goodBT setBackgroundImage:[UIImage imageNamed:@"zan2.png"] forState:UIControlStateNormal];
+//    }else{
+//        [self.badBT setBackgroundImage:[UIImage imageNamed:@"cai2.png"] forState:UIControlStateNormal];
+//        [UIView animateWithDuration:0.5 animations:^{
+//            self.submitBT.alpha = 1.0;
+//            self.suggestTextView.alpha = 1.0;
+//            self.pleaseholderLabel.alpha = 1.0;
+//        }];
+//    }
 }
 - (IBAction)submitSuggest:(UIButton *)sender {
     [self.suggestTextView resignFirstResponder];
@@ -87,13 +90,13 @@
 - (IBAction)goodClick:(UIButton *)sender {
     self.isGood = YES;
     [self.suggestTextView resignFirstResponder];
-    [UIView animateWithDuration:0.5 animations:^{
-        self.submitBT.alpha = 0;
-        self.suggestTextView.alpha = 0;
-        self.pleaseholderLabel.alpha = 0;
-    } completion:^(BOOL finished) {
+//    [UIView animateWithDuration:0.5 animations:^{
+//        self.submitBT.alpha = 0;
+//        self.suggestTextView.alpha = 0;
+//        self.pleaseholderLabel.alpha = 0;
+//    } completion:^(BOOL finished) {
         [self makeThinkView];
-    }];
+//    }];
 }
 - (IBAction)badClick:(UIButton *)sender {
     self.isGood = NO;

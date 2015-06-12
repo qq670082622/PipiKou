@@ -193,7 +193,9 @@
         NSLog(@"-----分享返回数据json is %@------",json);
       NSString *str =  self.shareInfo[@"Desc"];
         if(str.length<2){
-            self.shareInfo = json[@"ShareInfo"];}
+            self.shareInfo = json[@"ShareInfo"];
+            NSLog(@"%@99999", self.shareInfo);
+        }
     } failure:^(NSError *error) {
         
         NSLog(@"分享请求数据失败，原因：%@",error);
@@ -234,8 +236,12 @@
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:12];
     [actionWindow addSubview:lab];
-    [UIView animateWithDuration:0.4 animations:^{
-        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+    [UIView animateWithDuration:0.38 animations:^{
+        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH - 8);
+    } completion:^(BOOL finished) {
+        [UIView animateWithDuration:0.17 animations:^{
+            lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+        }];
     }];
     self.warningLab = lab;
 
@@ -253,7 +259,7 @@
                                                   url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
 
-[publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",_shareInfo[@"Tile"],_shareInfo[@"Desc"]] image:nil];
+[publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
     
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -267,10 +273,10 @@
                        authOptions:nil
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-                                
+                                [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    [self.warningLab removeFromSuperview];
+//                                    [self.warningLab removeFromSuperview];
                                     SubstationParttern *par = [SubstationParttern sharedStationName];
                                     [Lotuseed onEvent:@"productDetailShareSuccess" attributes:@{@"stationName":par.stationName}];
                                     
@@ -279,7 +285,7 @@
                                         
                                     }];
 
-                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    [MBProgressHUD showSuccess:@"成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];
                                     });
@@ -287,10 +293,10 @@
                                 }
                                 else if (state == SSResponseStateFail)
                                 {
-                                    [self.warningLab removeFromSuperview];
+//                                    [self.warningLab removeFromSuperview];
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }else if (state == SSResponseStateCancel){
-                                [self.warningLab removeFromSuperview];
+//                                [self.warningLab removeFromSuperview];
                                 }
                             }];
 
