@@ -22,6 +22,7 @@
     return array;
 }
 
+
 + (NSArray *)readFielWithName:(NSString *)name
 {
     NSString *docPath =  NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
@@ -32,6 +33,8 @@
     NSArray *data = [NSArray arrayWithContentsOfFile:filePath];
     return data;
 }
+
+
 //-----wm
 + (NSMutableArray *)WMsaveData:(NSMutableArray *)array name:(NSString *)name{
   
@@ -46,6 +49,7 @@
 
 }
 
+
 + (NSMutableArray *)WMreadData:(NSString *)name{
     NSString *docPath =  NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)[0];
     
@@ -56,6 +60,7 @@
     return data;
 
 }
+
 
 //-------wm
 
@@ -73,6 +78,8 @@
     return array;
 }
 
+
+
 + (NSArray *)readData:(NSString *)name
 {
     NSString *docPath =  NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES)[0];
@@ -84,6 +91,8 @@
    
     return arr;
 }
+
+
 
 // 保存图片
 + (BOOL)saveImageToCacheDir:(NSString *)directoryPath image:(UIImage *)image imageName:(NSString *)imageName imageType:(NSString *)imageType
@@ -109,6 +118,8 @@
     }
     return isSaved;
 }
+
+
 
 // 读取图片
 + (NSData *)loadImageData:(NSString *)directoryPath imageName:(NSString *)imageName
