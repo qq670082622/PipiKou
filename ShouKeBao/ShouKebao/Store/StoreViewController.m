@@ -184,29 +184,25 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
    
-    NSString *rightUrl = request.URL.absoluteString;
-    NSRange range = [rightUrl rangeOfString:urlSuffix];
-    if (range.location == NSNotFound) {
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
-    }else{
+//    NSString *rightUrl = request.URL.absoluteString;
+//    NSRange range = [rightUrl rangeOfString:urlSuffix];
+//    if (range.location == NSNotFound) {
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+//    }else{
         self.coverView.hidden = NO;
         [_indicator startAnimation];
-//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//        
-//        hudView.labelText = @"拼命加载中...";
-//        
-//        [hudView show:YES];
 
         return YES;
-    }
-       NSLog(@"----------right url is %@ ----------",rightUrl);
+   // }
+    
+ 
     return YES;
 }
 //
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-//     [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
+
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     self.coverView.hidden = YES;
        NSString *rightStr = webView.request.URL.absoluteString;
@@ -221,10 +217,15 @@
     
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
-        
-        [self.shareArr removeAllObjects];
-        [self.shareArr addObject:json[@"ShareInfo"]];
-        
+      //检测当前页面是否有分享内容，有则刷新分享内容，没有则保留上级页面分享内容
+        NSDictionary *dicTest = json[@"ShareInfo"];
+        NSString *testStr = dicTest[@"Title"];
+        if (testStr.length>2) {
+            [self.shareArr removeAllObjects];
+            [self.shareArr addObject:json[@"ShareInfo"]];
+        }
+       
+        //判断当前页面是否为产品详情页，是则弹出查看同行价，不是则隐藏同行价按钮
         if (![json[@"PageType"] isEqualToString:@"2"]) {
          
             [self.timer invalidate];
