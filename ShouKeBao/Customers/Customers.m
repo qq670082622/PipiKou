@@ -41,12 +41,18 @@
 @property (nonatomic,strong) NSMutableArray *historyArr;
 @property (weak, nonatomic) IBOutlet UIView *conditionLine;
 @property (weak,nonatomic) IBOutlet UIImageView *imageViewWhenIsNull;
+@property (weak, nonatomic) IBOutlet UIButton *addNew;
+@property (weak, nonatomic) IBOutlet UIButton *importUser;
+
+
 @end
 
 @implementation Customers
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
+    [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
 [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];

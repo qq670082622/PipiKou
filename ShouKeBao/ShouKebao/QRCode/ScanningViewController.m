@@ -108,6 +108,8 @@
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
             [self.pickerView scrollToElement:0 animated:YES];
             self.selectIndex = 0;
+            [self.view addSubview:self.personIDVC.view];
+            [self setTreeBtnImagesWithYes];
         });
 
         
@@ -264,9 +266,13 @@
     }
 }
 
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self defaultToNotifiQRDStartRunning];
+    
    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
@@ -276,6 +282,9 @@
     [self.view bringSubviewToFront:self.controlView];
    
 }
+
+
+
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -285,37 +294,34 @@
 
 
 -(void)switchQRCodeAndCamera:(NSString *)camera  andQRD:(NSString *)qrd
-{//切换由：1切换到0
-    if ([camera isEqualToString:@"1"]) {
-        [UIView animateWithDuration:1.25 animations:^{
-            self.QRCodevc.view.alpha = 0;
-           
-            self.QRCodevc.view.alpha = 1;
-        }];
-
-    }
-    if ([qrd isEqualToString:@"1"]) {
-        [UIView animateWithDuration:1.25 animations:^{
-            self.personIDVC.view.alpha = 0;
-            
-            self.personIDVC.view.alpha = 1;
-        }];
-    }
-   
+{
+    
 }
+
 
 -(void)horizontalPickerView:(V8HorizontalPickerView *)picker didSelectElementAtIndex:(NSInteger)index
 {
-//    if (index == 1 &&_selectIndex == 0) {
-//        [self.QRCodevc.view removeFromSuperview];
-//        [self.view addSubview: self.personIDVC.view];
-//        [self.camera start];
-//    }else if (index == 0 &&_selectIndex == 1){
-//        [self.camera stop];
-//        [self.personIDVC.view removeFromSuperview];
-//        [self.view addSubview:self.QRCodevc.view];
-//    }
+
 }
+
+
+
+-(void)defaultToNotifiQRDToStopRunning
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"no" forKey:@"captureBool"];
+    [def synchronize];
+}
+
+
+-(void)defaultToNotifiQRDStartRunning
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"yes" forKey:@"captureBool"];
+    [def synchronize];
+}
+
+
 #pragma -mark pickerViewDelegate
 -(void)hideButn:(NSTimer*)timer
 {
@@ -324,45 +330,86 @@
      self.selectIndex = selectIndex;
     
     self.selectedStr = [NSMutableString stringWithFormat:@"%@", self.pickerData[selectIndex]];
-   //  NSLog(@"选择的value is %@",_selectedStr);
-   
-    
-    if ([_selectedStr  isEqual: @"二维码"]) {
-        
-        [self.personIDVC.view removeFromSuperview];
-        if (self.camera.isStart == YES) {
-            [self.view addSubview:self.QRCodevc.view];
-           [self switchQRCodeAndCamera:@"1" andQRD:@""];
-            [self.camera stop];
-           
-        }
-      [self.view bringSubviewToFront:self.controlView];
-                self.title = @"二维码扫描";
-        [self setTreeBtnImagesWithNo];
-        
-        }else if ([_selectedStr isEqualToString:@"身份证"]){
-           
-            [self.QRCodevc.view removeFromSuperview];
-        if (self.camera.isStart == NO && _cameraInUse == NO) {
-                [self.view addSubview:self.personIDVC.view];
-                             [self switchQRCodeAndCamera:@"" andQRD:@"1"];
-                            [self.camera start];
-                }
-                 self.title = @"身份证扫描";
-                        [self setTreeBtnImagesWithYes];
+    if (_isLogin) {
+        if ([_selectedStr  isEqual: @"二维码"]) {
             
-            }else{
+            if (self.camera.isStart == YES) {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [self defaultToNotifiQRDStartRunning];
+                [UIView animateWithDuration:1 animations:^{
+                    self.personIDVC.view.alpha = 0;
+                    self.QRCodevc.view.alpha = 0;
+                    [self.personIDVC.view removeFromSuperview];
+                    [self.view addSubview:self.QRCodevc.view];
+                    self.personIDVC.view.alpha = 1;
+                    self.QRCodevc.view.alpha = 1;
+                }];
+               
                 
-                [self.QRCodevc.view removeFromSuperview];
-            if (self.camera.isStart == NO && _cameraInUse == NO) {
-                     [self.view addSubview:self.personIDVC.view];
-                    [self switchQRCodeAndCamera:@"" andQRD:@"1"];
-               [self.camera start];
-                                   }
-                   self.title = @"护照扫描";
-               [self setTreeBtnImagesWithYes];
+                [self.camera stop];
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                [self.view bringSubviewToFront:self.controlView];
+                self.title = @"二维码扫描";
+                [self setTreeBtnImagesWithNo];
+                
             }
+            
+        }else if ([_selectedStr isEqualToString:@"身份证"]){
+            
+            if (self.camera.isStart == NO && _cameraInUse == NO) {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [self defaultToNotifiQRDToStopRunning];
+                [UIView animateWithDuration:1 animations:^{
+                    self.personIDVC.view.alpha = 0;
+                    self.QRCodevc.view.alpha = 0;
+                    [self.QRCodevc.view removeFromSuperview];
+                    [self.view addSubview:self.personIDVC.view];
+                    self.personIDVC.view.alpha = 1;
+                    self.QRCodevc.view.alpha = 1;
+                }];
+               
+                
+                [self.camera start];
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                
+                self.title = @"身份证扫描";
+                [self setTreeBtnImagesWithYes];
+                
+            }
+            
+        }else{
+            
+            if (self.camera.isStart == NO && _cameraInUse == NO) {
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                [self defaultToNotifiQRDToStopRunning];
+                
+                [UIView animateWithDuration:1 animations:^{
+                    self.personIDVC.view.alpha = 0;
+                    self.QRCodevc.view.alpha = 0;
+                    [self.QRCodevc.view removeFromSuperview];
+                    [self.view addSubview:self.personIDVC.view];
+                    self.personIDVC.view.alpha = 1;
+                    self.QRCodevc.view.alpha = 1;
+                }];
+                [self.camera start];
+                [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+                
+                
+                self.title = @"护照扫描";
+                [self setTreeBtnImagesWithYes];
+                
+            }
+            
+        }
+  
+    }else if (!_isLogin){
+        if ([_selectedStr isEqualToString:@"身份证"]) {
+            self.title = @"身份证扫描";
+        }else if ([_selectedStr isEqualToString:@"护照"]){
+        self.title = @"护照扫描";
+        }
+        
+    }
     
    
 }
@@ -579,15 +626,16 @@
                         NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
                         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
                             NSLog(@"------图片--图片---json is %@----图片----",json);
-                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-                userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
-                            card.UserName = json[@"UserName"];
-                            card.address = json[@"Address"];
-                            card.birthDay = json[@"BirthDay"];
-                            card.cardNumber = json[@"CardNum"];
-                            card.Nation = json[@"Nation"];
-                            card.sex = json[@"Sex"];
-                            [self.navigationController pushViewController:card animated:YES];
+                            [self getTestLabWithJson:json];
+//                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+//                userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
+//                            card.UserName = json[@"UserName"];
+//                            card.address = json[@"Address"];
+//                            card.birthDay = json[@"BirthDay"];
+//                            card.cardNumber = json[@"CardNum"];
+//                            card.Nation = json[@"Nation"];
+//                            card.sex = json[@"Sex"];
+//                            [self.navigationController pushViewController:card animated:YES];
         
                                                                     [self ifPush];
         
@@ -601,6 +649,7 @@
         NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"4"}  success:^(id json) {
             NSLog(@"------图片--图片---json is %@----图片----",json);
+           // [self getTestLabWithJson:json];
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
             
@@ -631,6 +680,18 @@
 
 }
 
+-(void)getTestLabWithJson:(id)json
+{
+    UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+    testLab.backgroundColor = [UIColor whiteColor];
+    testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\njson is %@----errorMSG is %@",json,json[@"ErrorMsg"]];
+    testLab.numberOfLines = 0;
+    [self.view.window addSubview:testLab];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [testLab removeFromSuperview];
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+    });
+}
 -(void)ifPush
 {
     self.camera.view.hidden = NO;

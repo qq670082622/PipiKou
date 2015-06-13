@@ -85,6 +85,8 @@
 
 @property (weak, nonatomic) IBOutlet UIView *noProductView;
 
+
+@property(weak,nonatomic) UILabel *noProductWarnLab;
 @end
 
 @implementation ProductList
@@ -498,20 +500,22 @@
 -(void)footLoad
 {//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
+    [self.noProductWarnLab removeFromSuperview];
+    
     NSString *type = [NSString string];
     if (self.commondOutlet.selected == YES) {
         type = @"0";
     }
     if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↑"]) {
-        type = @"2";
+        type = @"1";
     }else if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↓"]){
-    type = @"1";
+    type = @"2";
     }
     if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↑"]) {
-        type = @"4";
-    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行 ↓"])
+        type = @"3";
+    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↓"])
     {
-    type = @"3";
+    type = @"4";
     }
     
     
@@ -535,12 +539,13 @@
             label.textAlignment = NSTextAlignmentCenter;
             
             self.table.tableFooterView = label;
-            
+            self.noProductWarnLab = label;
         }else if (arr.count>0){
          // self.table.tableFooterView.hidden = YES;
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
+                //self.table.tableFooterView.hidden = YES;
             }
             
             [self.table reloadData];
@@ -577,6 +582,24 @@
 
 - (void)loadDataSource
 {
+    //推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
+    //同行价（从低往高）:”3,同行价（从高往低）:"4"
+    NSString *type = [NSString string];
+    if (self.commondOutlet.selected == YES) {
+        type = @"0";
+    }
+    if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↑"]) {
+        type = @"1";
+    }else if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↓"]){
+        type = @"2";
+    }
+    if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↑"]) {
+        type = @"3";
+    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↓"])
+    {
+        type = @"4";
+    }
+
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
     self.page = [NSMutableString stringWithFormat:@"1"];
@@ -587,7 +610,7 @@
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
     
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
-    [dic setObject:@"0" forKey:@"ProductSortingType"];
+    [dic setObject:type forKey:@"ProductSortingType"];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
     NSLog(@"--------------productList json is %@-----------",[StrToDic jsonStringWithDicL:dic] );
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
@@ -1333,6 +1356,12 @@
 
 
 - (IBAction)recommond{//推荐
+    
+   
+       // [self backToTop:nil];
+    
+    
+    
     SubstationParttern *par = [SubstationParttern sharedStationName];
 
     [Lotuseed onEvent:@"productListSortRemind" attributes:@{@"stationName":par.stationName}];
@@ -1371,7 +1400,7 @@
     [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
    // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
-    
+    //[self backToTop:nil];
         [self.dataArr removeAllObjects];//移除
       
         NSMutableArray *dicArr = [NSMutableArray array];
@@ -1388,10 +1417,10 @@
        
         
         [self.table reloadData];
-       
+       [self backToTop:nil];
         NSString *page = [NSString stringWithFormat:@"%@",_page];
       
-        self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+        self.page = [NSMutableString stringWithFormat:@"%d",2];
       //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
     } failure:^(NSError *error) {
       
@@ -1409,13 +1438,18 @@
 
 - (IBAction)profits {//利润2,1
     
+   
+        //[self backToTop:nil];
+   
+    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
     
     [hudView show:YES];
     
-   
+  // [self backToTop:nil];
+    
     if (self.profitOutlet.selected == NO) {
        
         [self.profitOutlet setSelected:YES];
@@ -1437,7 +1471,7 @@
       
         [dic setObject:@1 forKey:@"PageIndex"];
       
-        [dic setObject:@"2" forKey:@"ProductSortingType"];
+        [dic setObject:@"1" forKey:@"ProductSortingType"];
         //[self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
       
@@ -1459,10 +1493,10 @@
             
             
             [self.table reloadData];
-         
+         [self backToTop:nil];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
            
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+            self.page = [NSMutableString stringWithFormat:@"%d",2];
           //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
          
@@ -1487,7 +1521,7 @@
        
         [dic setObject:@1 forKey:@"PageIndex"];
       
-        [dic setObject:@"1" forKey:@"ProductSortingType"];
+        [dic setObject:@"2" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"1"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
        // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
@@ -1507,10 +1541,11 @@
             
             
             [self.table reloadData];
-           
+           [self backToTop:nil];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
            
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+            self.page = [NSMutableString stringWithFormat:@"%d",2];
+
             //NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
         
@@ -1534,7 +1569,7 @@
        
         [dic setObject:@1 forKey:@"PageIndex"];
        
-        [dic setObject:@"2" forKey:@"ProductSortingType"];
+        [dic setObject:@"1" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
       //  NSLog(@"-------page2 请求的 dic  is %@-----",dic);
@@ -1555,10 +1590,11 @@
             
             
             [self.table reloadData];
-           
+           [self backToTop:nil];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
           
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+            self.page = [NSMutableString stringWithFormat:@"%d",2];
+
           //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
           
@@ -1579,6 +1615,11 @@
 
 - (IBAction)cheapPrice:(id)sender {//同行价4,3
    
+  // dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
+  //  dispatch_sync(que, ^{
+       // [self backToTop:nil];
+ //   });
+    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
@@ -1586,7 +1627,7 @@
     [hudView show:YES];
     
 
-    
+   // [self backToTop:nil];
     if (self.cheapOutlet.selected == NO) {
        
         [self.cheapOutlet setSelected:YES];
@@ -1609,7 +1650,7 @@
         
         [dic setObject:@1 forKey:@"PageIndex"];
         
-        [dic setObject:@"4" forKey:@"ProductSortingType"];
+        [dic setObject:@"3" forKey:@"ProductSortingType"];
      //   [self ProductSortingTypeWith:@"4"];
         
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1632,10 +1673,11 @@
             
             
             [self.table reloadData];
-            
+            [self backToTop:nil];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+            self.page = [NSMutableString stringWithFormat:@"%d",2];
+
           //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
           
@@ -1662,7 +1704,7 @@
         
         [dic setObject:@1 forKey:@"PageIndex"];
         
-        [dic setObject:@"3" forKey:@"ProductSortingType"];
+        [dic setObject:@"4" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"3"];
         
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1685,10 +1727,10 @@
             
             
             [self.table reloadData];
-            
+            [self backToTop:nil];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+            self.page = [NSMutableString stringWithFormat:@"%d",2];
          //   NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
          
@@ -1712,7 +1754,7 @@
         
         [dic setObject:@1 forKey:@"PageIndex"];
         
-        [dic setObject:@"4" forKey:@"ProductSortingType"];
+        [dic setObject:@"3" forKey:@"ProductSortingType"];
        // [self ProductSortingTypeWith:@"4"];
         
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1735,10 +1777,11 @@
             
             
             [self.table reloadData];
-            
+            [self backToTop:nil];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             
-            self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+            self.page = [NSMutableString stringWithFormat:@"%d",2];
+
          //   NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
         } failure:^(NSError *error) {
             

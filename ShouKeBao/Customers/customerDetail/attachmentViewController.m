@@ -7,6 +7,7 @@
 //
 
 #import "attachmentViewController.h"
+#import "MLPhotoBrowserSignleViewController.h"
 @interface attachmentViewController ()
 @property (nonatomic ,strong) NSMutableArray *dataSource;
 @property(nonatomic , assign) BOOL isEditing;
@@ -42,7 +43,7 @@
     UIView *back = [[UIView alloc] initWithFrame:CGRectMake(0, 0, screenW, screenH)];
     back.backgroundColor = [UIColor blackColor];
     
-    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(0, 100,screenW, 400)];
+    UIImageView *imgv = [[UIImageView alloc] initWithFrame:CGRectMake(screenW/2, screenH/2,0, 0)];
     [back addSubview:imgv];
     imgv.userInteractionEnabled = YES;
     self.imageSuperView = back;
@@ -223,11 +224,18 @@
     int yesInt = [[selectArr firstObject] intValue];//当前被选中的index为几
     NSLog(@"被选中的是第%d个",yesInt);
     
-    self.imageSuperView.hidden = NO;
+   // self.imageSuperView.hidden = NO;
     if (yesInt == 0) {
         self.imgV.image = [UIImage imageNamed:self.dataSource[0]];
+        MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
+        [browserVc showHeadPortrait:self.imgV originUrl:nil];
+
     }else if (yesInt != 0){
         self.imgV.image = [UIImage imageNamed:self.dataSource[yesInt - 1]];
+        MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
+        [browserVc showHeadPortrait:self.imgV originUrl:nil];
+        
+
     }
     }
 

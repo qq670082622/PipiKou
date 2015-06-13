@@ -102,10 +102,11 @@
         }
         // NSLog(@"------------firstKey is %@-----------",firstKey);
         for(NSDictionary *dic in self.conditionDic[firstKey] ){
-            [arr addObject:dic];
+                               [arr addObject:dic];
+            
         }
     [self.dataArr1 removeAllObjects];
-        _dataArr1 = arr;
+         _dataArr1 = arr;
     [self.table reloadData];
         //NSLog(@"arr count is %lu",[arr count]);
     
@@ -130,13 +131,13 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
-    static NSString *cellID = @"ConditionCell";
+    //static NSString *cellID = [NSString stringWithFormat:@"conditionCell%ld",(long)indexPath.row];
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"conditionCell%ld",(long)indexPath.row]];
     
     if (cell == nil) {
        
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"conditionCell%ld",(long)indexPath.row]];
         //labelText
         UILabel *label1 = [[UILabel alloc] init];
         CGFloat wid = self.view.frame.size.width*(32/28);
@@ -155,22 +156,24 @@
         
         label1.text = _dataArr1[indexPath.row][@"Text"];
         label1.font = [UIFont systemFontOfSize:13.0];
+    [cell.contentView addSubview:label1];
+    }
+    
+    
+    
+    //以选中标示
+    NSLog(@"读取的arr is %@ 对比的箭名%@",_conditionSelectArr,[[_conditionSelectArr firstObject] objectForKey:self.title]);
+    NSString *conditionStr = [[_conditionSelectArr firstObject] objectForKey:self.title];
+    
+    if (!conditionStr) {
+        [[_conditionSelectArr firstObject] setObject:@"不限" forKey:self.title];
+    }
+    
+    if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]] ) {
         
-        [cell.contentView addSubview:label1];
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
         
-       //以选中标示
-        NSLog(@"读取的arr is %@ 对比的箭名%@",_conditionSelectArr,[[_conditionSelectArr firstObject] objectForKey:self.title]);
-        NSString *conditionStr = [[_conditionSelectArr firstObject] objectForKey:self.title];
-      
-        if (!conditionStr) {
-            [[_conditionSelectArr firstObject] setObject:@"不限" forKey:self.title];
-        }
-       
-        if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]] ) {
-            
-            cell.accessoryType = UITableViewCellAccessoryCheckmark;
-            
-        }
+
         
         }
    

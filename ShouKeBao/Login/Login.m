@@ -116,21 +116,22 @@
     CGRect screenRect = [UIScreen mainScreen].bounds;
     
     // 注册用户按钮
-
-    CGFloat newW = 30;
-    CGFloat newH = 30;
+    
+    CGFloat newW = 20;
+    CGFloat newH = 20;
     CGFloat newX = 50;
-    CGFloat newY = screenRect.size.height - newH - 35;
+    CGFloat newY = screenRect.size.height - newH - 35 ;
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
-  [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
-   
+    [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
+    
     [new setBackgroundColor:[UIColor clearColor]];
     [new setBackgroundImage:[UIImage imageNamed:@"newUserImage"] forState:UIControlStateNormal];
     new.contentMode = UIViewContentModeScaleAspectFill;
     
-    UILabel *labNew = [[UILabel alloc] initWithFrame:CGRectMake(newX-15, CGRectGetMaxY(new.frame), 60, 20)];
+    CGFloat newBtnCenterX = new.center.x;
+    UILabel *labNew = [[UILabel alloc] initWithFrame:CGRectMake(newBtnCenterX-20, CGRectGetMaxY(new.frame), 40, 20)];
     labNew.text = @"新用户";
-    labNew.font = [UIFont systemFontOfSize:13];
+    labNew.font = [UIFont systemFontOfSize:11];
     labNew.textColor = [UIColor grayColor];
     labNew.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:labNew];
@@ -141,20 +142,21 @@
     line.backgroundColor = [UIColor grayColor];
     [self.view addSubview:line];
     //证照神器
-    CGFloat cardX = self.view.frame.size.width - 60 - newX;
-    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY-20, newW+10, newH+20)];
+    CGFloat cardX = self.view.frame.size.width - 50 - newW - 5;
+    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY - 8, newW + 5, newH + 10)];
     [card addTarget:self action:@selector(Card:) forControlEvents:UIControlEventTouchUpInside];
     [card setBackgroundColor:[UIColor clearColor]];
     [card setBackgroundImage:[UIImage imageNamed:@"cardDigital"] forState:UIControlStateNormal];
-  card.contentMode = UIViewContentModeScaleAspectFill;
+    card.contentMode = UIViewContentModeScaleAspectFill;
     
-    UILabel *labCard = [[UILabel alloc] initWithFrame:CGRectMake(cardX-10, CGRectGetMaxY(card.frame), 60, 20)];
+    CGFloat cardCenterX = card.center.x;
+    UILabel *labCard = [[UILabel alloc] initWithFrame:CGRectMake(cardCenterX-25, CGRectGetMaxY(card.frame), 50, 20)];
     labCard.text = @"证照神器";
-    labCard.font = [UIFont systemFontOfSize:13];
+    labCard.font = [UIFont systemFontOfSize:11];
     labCard.textColor = [UIColor blueColor];
     labCard.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:labCard];
-
+    
     [self.view addSubview:card];
 
     

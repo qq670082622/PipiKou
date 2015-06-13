@@ -1,18 +1,20 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Customers">
             <connections>
+                <outlet property="addNew" destination="dHi-5W-Zvu" id="Nlb-DT-OAh"/>
                 <outlet property="batchCustomerBtn" destination="nhR-tZ-9Ut" id="XVW-q8-1eq"/>
                 <outlet property="cancelSearchOutlet" destination="Ag8-T2-2ax" id="s33-S9-mM3"/>
                 <outlet property="conditionLine" destination="JzP-XY-h4A" id="e7d-qD-SHs"/>
                 <outlet property="historyTable" destination="tQq-UU-4wX" id="21r-HT-p7S"/>
                 <outlet property="historyView" destination="L1Y-OC-Wif" id="lbh-Uk-nbz"/>
                 <outlet property="imageViewWhenIsNull" destination="t6A-DR-fU3" id="WTN-1U-ykR"/>
+                <outlet property="importUser" destination="nhR-tZ-9Ut" id="JTQ-ra-xHT"/>
                 <outlet property="searchCustomerBtnOutlet" destination="MwM-Ev-SlL" id="O2F-jD-ar5"/>
                 <outlet property="searchTextField" destination="Cmx-lG-vdB" id="BoE-3e-PK2"/>
                 <outlet property="subView" destination="frt-01-EIa" id="dlI-DF-O1s"/>
@@ -108,10 +110,12 @@
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         </imageView>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="dHi-5W-Zvu" userLabel="addNewUser">
-                            <rect key="frame" x="0.0" y="12" width="130" height="33"/>
+                            <rect key="frame" x="30" y="12" width="100" height="35"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                            <state key="normal">
-                                <color key="titleColor" red="0.16078431904315948" green="0.94117653369903564" blue="0.18039216101169586" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="backgroundColor" red="0.0" green="0.33860721420128181" blue="0.96367082774798929" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="添加新客户">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>
@@ -119,10 +123,12 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="nhR-tZ-9Ut" userLabel="importUser">
-                            <rect key="frame" x="0.0" y="46" width="130" height="44"/>
+                            <rect key="frame" x="30" y="48" width="100" height="36"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                            <state key="normal">
-                                <color key="titleColor" red="0.16078431900000001" green="0.94117653369999998" blue="0.180392161" alpha="1" colorSpace="deviceRGB"/>
+                            <color key="backgroundColor" red="0.0" green="0.35294117647058826" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <state key="normal" title="批量导入客户">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
                             <connections>

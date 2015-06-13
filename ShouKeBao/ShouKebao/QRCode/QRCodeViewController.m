@@ -48,6 +48,14 @@
 //    NSTimer *time = [NSTimer scheduledTimerWithTimeInterval:0.1 target:self selector:@selector(listenNeedLoad) userInfo:nil repeats:YES];
 //    self.timer = time;
 //    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
+    
+    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat viewH = screenH - 157;
+    
+    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
+    [self startReading];
 }
 
 -(void)listenNeedLoad
@@ -59,16 +67,13 @@
 //    }
     
 }
+
 -(void)viewWillAppear:(BOOL)animated
-{ CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
+{
     
-    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
-    CGFloat viewH = screenH - 157;
-    
-    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
+
     [super viewWillAppear:animated];
-    [self startReading];
-}
+  }
 
 
 
@@ -172,6 +177,14 @@
             _scanLayer.frame = frame;
         }];
     }
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *bo = [def objectForKey:@"captureBool"];
+    if ([bo isEqualToString:@"yes"]) {
+        [self.captureSession startRunning];
+    }else if ([bo isEqualToString:@"no"]){
+        [self.captureSession stopRunning];
+    }
 }
 ////实现开始和停止方法
 //- (void)startStopReading{
@@ -206,6 +219,12 @@
         }
        
     }
+    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
+    
+    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat viewH = screenH - 157;
+    
+    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
   }
 
 -(void)stopReading{

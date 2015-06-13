@@ -158,21 +158,18 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
    
-    NSString *rightUrl = request.URL.absoluteString;
-    NSRange range = [rightUrl rangeOfString:urlSuffix];
-    if (range.location == NSNotFound) {
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
-    }else{
-        
+//    NSString *rightUrl = request.URL.absoluteString;
+//    NSRange range = [rightUrl rangeOfString:urlSuffix];
+//    if (range.location == NSNotFound) {
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+//    }else{
+    
         self.coverView.hidden = NO;
         [_indicator startAnimation];
 
         return YES;
-    }
-   
-    NSLog(@"----------right url is %@ ----------",rightUrl);
-    return YES;
-
+    //}
+  
        }
 
 

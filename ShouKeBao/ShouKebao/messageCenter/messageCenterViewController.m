@@ -49,6 +49,9 @@
     
     
 }
+
+
+
 -(void)toReferesh
 {
 //    [self loadDataSource];
@@ -56,11 +59,16 @@
 //    NSLog(@"代理重新刷新");
 }
 
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [self loadDataSource];
 }
+
+
+
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -103,6 +111,7 @@
     // Dispose of any resources that can be recreated.
 }
 
+
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath      //当在Cell上滑动时会调用此函数
 {
     return  UITableViewCellEditingStyleDelete;
@@ -121,15 +130,21 @@
         [self.dataArr removeObjectAtIndex:[indexPath row]];
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:model.ID forKey:@"ActivitiesNoticeID"];
-        [IWHttpTool WMpostWithURL:@"/Home/DeleteActivitiesNotice" params:dic success:^(id json) {
+        
+        [IWHttpTool WMpostWithURL:@"Home/DeleteActivitiesNotice" params:dic success:^(id json) {
+          
             NSLog(@"删除单个信息成功，返回信息json ：%@",json);
+             [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
+       
         } failure:^(NSError *error) {
             NSLog(@"删除单个信息失败，返回消息error %@",error);
         }];
         
-        [tableView deleteRowsAtIndexPaths:[NSArray arrayWithObjects:indexPath, nil] withRowAnimation:UITableViewRowAnimationTop];
+       
         }
 }
+
+
 -(NSMutableArray *)isReadArr
 {
     if (_isReadArr == nil) {
@@ -154,12 +169,15 @@
     NSString *idStr = [NSString stringWithString:model.ID];
    
     if (![_isReadArr containsObject:idStr]) {
+       
         [self.isReadArr addObject:idStr];
+        
         [WriteFileManager WMsaveData:_isReadArr name:@"messageRead"];
     }
     
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"messageCenterClickToMessageDetail" attributes:@{@"subStationName":par.stationName}];
+    
     [self.navigationController pushViewController:messageDetail animated:YES];
     
 }
@@ -181,12 +199,19 @@
     messageModel *model = _dataArr[indexPath.row];
     
     cell.model = model;
+    
    [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
+    
     if ([self.isReadArr containsObject:model.ID]) {
+    
         cell.hongdian.hidden = YES;
+    
     }else if(![self.isReadArr containsObject:model.ID]){
+    
         cell.hongdian.hidden = NO;
+    
     }
+    
     return cell;
 }
 
