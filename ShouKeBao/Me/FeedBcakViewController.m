@@ -8,12 +8,13 @@
 
 #import "FeedBcakViewController.h"
 #import "MeHttpTool.h"
+#import "TimeTool.h"
 #define K_bounds [UIScreen mainScreen].bounds
 #define K_left 30
 #define K_between 30
 #define K_top 60
 #define BGColor(A, B, C) [UIColor colorWithRed:A / 255.0 green:B / 255.0 blue:C / 255.0 alpha:1.0]
-
+#define K_timeIntertraval 3600
 @interface FeedBcakViewController ()<UITextViewDelegate>
 @property (strong, nonatomic) IBOutlet UITextView *suggestTextView;
 @property (strong, nonatomic) IBOutlet UILabel *pleaseholderLabel;
@@ -33,6 +34,7 @@
     [super viewDidLoad];
     [self fitScreen];
     [self setNav];
+    [self setGestureRecognizer];
     // Do any additional setup after loading the view.
 }
 
@@ -64,16 +66,6 @@
 //        }];
 //    }
 }
-- (IBAction)submitSuggest:(UIButton *)sender {
-    [self.suggestTextView resignFirstResponder];
-    if ([self.suggestTextView.text isEqualToString:@""]) {
-        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！啥都不写这算啥" delegate:nil cancelButtonTitle:@"再来" otherButtonTitles:nil];
-        [alert show];
-    }else{
-        [self makeThinkView];
-    }
-  
-}
 - (void)makeThinkView{
     UIView *thinksView = [[UIView alloc]initWithFrame:K_bounds];
     [self.view addSubview:thinksView];
@@ -87,16 +79,17 @@
     [self.view addSubview:thinksFace];
     [self.view addSubview:thinksLabel];
 }
+
+#pragma mark - doButtonClick
 - (IBAction)goodClick:(UIButton *)sender {
     self.isGood = YES;
     [self.suggestTextView resignFirstResponder];
-//    [UIView animateWithDuration:0.5 animations:^{
-//        self.submitBT.alpha = 0;
-//        self.suggestTextView.alpha = 0;
-//        self.pleaseholderLabel.alpha = 0;
-//    } completion:^(BOOL finished) {
+    BOOL isCanClick = [TimeTool isBeyondTimeInterVal:K_timeIntertraval sinceTime:[self getLastTimeInterVal]];
+    if (isCanClick) {
         [self makeThinkView];
-//    }];
+    }else{
+        [self showTimeAlert];
+    }
 }
 - (IBAction)badClick:(UIButton *)sender {
     self.isGood = NO;
@@ -109,6 +102,33 @@
         self.pleaseholderLabel.alpha = 1.0;
     }];
 }
+
+- (IBAction)submitSuggest:(UIButton *)sender {
+    [self.suggestTextView resignFirstResponder];
+
+    BOOL isCanClick = [TimeTool isBeyondTimeInterVal:K_timeIntertraval sinceTime:[self getLastTimeInterVal]];
+    if (isCanClick) {
+        
+        if ([self.suggestTextView.text isEqualToString:@""]) {
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！啥都不写这算啥" delegate:nil cancelButtonTitle:@"再来" otherButtonTitles:nil];
+            [alert show];
+        }else{
+            [self makeThinkView];
+        }
+
+    }else{
+        [self showTimeAlert];
+    }
+    
+}
+- (NSTimeInterval)getLastTimeInterVal{
+    NSLog(@"%faaa", [[[NSUserDefaults standardUserDefaults]objectForKey:@"lastClickTime"] doubleValue]);
+ return [[[NSUserDefaults standardUserDefaults]objectForKey:@"lastClickTime"] doubleValue];
+}
+- (void)showTimeAlert{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！您的意见很宝贵，一个小时之后才能再次提交" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+}
 - (void)setNav
 {
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
@@ -120,14 +140,29 @@
 - (void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)setGestureRecognizer{
+    UITapGestureRecognizer *tapg = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    [self.view addGestureRecognizer:tapg];
+}
+- (void)tap{
+    [self.suggestTextView resignFirstResponder];
+}
+
 #pragma mark - UITextViewDelegate
+
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
     self.pleaseholderLabel.alpha = 0;
     return YES;
 }
+
+#pragma mark - ViewAppear
+
 - (void)viewWillDisappear:(BOOL)animated{
     NSString * goodOrBad = self.isGood ? @"1" : @"0";
-    [[NSUserDefaults standardUserDefaults]setBool:self.isGood forKey:@"feedBackIsGood"];
+    //纪录提交时间
+    NSTimeInterval nowTime = [TimeTool getNowTime];
+    [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",nowTime] forKey:@"lastClickTime"];
     [[NSUserDefaults standardUserDefaults]synchronize];
     NSDictionary *param = @{@"CommentResult":goodOrBad, @"CommentContent":self.suggestTextView.text};
     [MeHttpTool feedBackWithParam:param success:^(id json) {
