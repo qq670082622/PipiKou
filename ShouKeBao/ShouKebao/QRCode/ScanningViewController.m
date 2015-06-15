@@ -19,7 +19,10 @@
 #import "LLSimpleCamera.h"
 #import "ResizeImage.h"
 #import "MBProgressHUD+MJ.h"
-@interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate>
+#import "personIdModel.h"
+#import "WriteFileManager.h"
+#import "StrToDic.h"
+@interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
 //@property (nonatomic,strong)PassPortViewController *passPortVC;
@@ -53,6 +56,11 @@
 @property (strong, nonatomic) UIButton *snapButton;
 
 @property(nonatomic,assign) BOOL cameraInUse;
+
+
+@property(nonatomic,strong)NSMutableArray  *writeFilePersonIdArr;
+//@property(nonatomic,strong)NSMutableArray *writeFilePassportArr;
+
 
 
 
@@ -110,6 +118,7 @@
             self.selectIndex = 0;
             [self.view addSubview:self.personIDVC.view];
             [self setTreeBtnImagesWithYes];
+             [self.camera start];
         });
 
         
@@ -148,6 +157,8 @@
 
 -(void)back
 {
+    [self.timer invalidate];
+
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -229,12 +240,14 @@
             // [self.camera start];
             
              _selectIndex +=1;
+            self.title = @"身份证扫描";
         }
         
       
        else if(_selectIndex == 1){
             
             _selectIndex +=1;
+           self.title = @"护照扫描";
         }
 
         NSLog(@"----index is %ld------",(long)_selectIndex);
@@ -256,6 +269,7 @@
              
 
             _selectIndex -=1;
+             self.title = @"身份证扫描";
         }
         
         NSLog(@"----index is %ld------",(long)_selectIndex);
@@ -280,6 +294,15 @@
     self.timer = timer;
 
     [self.view bringSubviewToFront:self.controlView];
+    if (!_isLogin) {
+         [self ifPush];
+    }
+//    if (_isLogin) {
+//        if ((self.selectIndex == 1) || (self.selectIndex == 2)) {
+//            [self ifPush];
+//        }
+//    }
+   
    
 }
 
@@ -288,8 +311,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.timer invalidate];
-}
+    }
 
 
 
@@ -376,7 +398,8 @@
                 [self setTreeBtnImagesWithYes];
                 
             }
-            
+             // [self ifPush];
+             self.title = @"身份证扫描";
         }else{
             
             if (self.camera.isStart == NO && _cameraInUse == NO) {
@@ -399,7 +422,8 @@
                 [self setTreeBtnImagesWithYes];
                 
             }
-            
+              //[self ifPush];
+             self.title = @"护照扫描";
         }
   
     }else if (!_isLogin){
@@ -490,7 +514,20 @@
     return _personIDVC;
 }
 
-
+//-(NSMutableArray *)writeFilePassportArr
+//{
+//    if (_writeFilePassportArr == nil) {
+//        self.writeFilePassportArr = [NSMutableArray array];
+//    }
+//    return _writeFilePassportArr;
+//}
+//-(NSMutableArray *)writeFilePersonIdArr
+//{
+//    if (_writeFilePersonIdArr == nil) {
+//        self.writeFilePersonIdArr = [NSMutableArray array];
+//    }
+//    return _writeFilePersonIdArr;
+//}
 
 
 
@@ -605,7 +642,7 @@
 
      
         
-        //[self loadData];
+     //在相机出load   [self loadData];
         // 2. 删除预览图层
         
         
@@ -620,26 +657,33 @@
       NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:@"1" forKey:@"needLoad"];
     [def synchronize];
-    
+//    if (self.photoImg.image == nil) {
+//        self.photoImg.image = [UIImage imageNamed:@"testCaed"];
+//    }
     if([self.selectedStr isEqualToString:@"身份证"]){
-        
-                        NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
+                                       NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
                         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
                             NSLog(@"------图片--图片---json is %@----图片----",json);
-                            [self getTestLabWithJson:json];
-//                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-//                userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
-//                            card.UserName = json[@"UserName"];
-//                            card.address = json[@"Address"];
-//                            card.birthDay = json[@"BirthDay"];
-//                            card.cardNumber = json[@"CardNum"];
-//                            card.Nation = json[@"Nation"];
-//                            card.sex = json[@"Sex"];
-//                            [self.navigationController pushViewController:card animated:YES];
-        
-                                                                    [self ifPush];
-        
-                            } failure:^(NSError *error) {
+                            //[self getTestLabWithJson:json];
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+                                
+                            userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
+                                card.UserName = json[@"UserName"];
+                                card.address = json[@"Address"];
+                                card.birthDay = json[@"BirthDay"];
+                                card.cardNumber = json[@"CardNum"];
+                                card.Nation = json[@"Nation"];
+                                card.sex = json[@"Sex"];
+                            card.json = json;
+                            
+                            card.delegate = self;
+                                [self.navigationController pushViewController:card animated:YES];
+                            //[self saveScanningWithDic:json andType:@"personId"];
+
+                             //   [self ifPush];
+                            
+                        } failure:^(NSError *error) {
+                        
                             NSLog(@"----图片-eeror is %@------图片------",error) ;
                             }];
         
@@ -649,7 +693,9 @@
         NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"4"}  success:^(id json) {
             NSLog(@"------图片--图片---json is %@----图片----",json);
-           // [self getTestLabWithJson:json];
+   
+
+            
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
             
@@ -661,12 +707,11 @@
             card.startDayLabStr = json[@"ValidStartDate"];
             card.startPointLabStr = json[@"ValidAddress"];
             card.effectiveLabStr = json[@"ValidEndDate"];
-            
+            card.json = json;
+            card.delegate = self;
             [self.navigationController pushViewController:card animated:YES];
-            
-            
-            
-            [self ifPush];
+            // [self saveScanningWithDic:json andType:@"passport"];
+           // [self ifPush];
             
         } failure:^(NSError *error) {
             NSLog(@"----图片-eeror is %@------图片------",error) ;
@@ -679,7 +724,7 @@
   
 
 }
-
+//测试后台返回用
 -(void)getTestLabWithJson:(id)json
 {
     UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
@@ -687,16 +732,24 @@
     testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\njson is %@----errorMSG is %@",json,json[@"ErrorMsg"]];
     testLab.numberOfLines = 0;
     [self.view.window addSubview:testLab];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(8.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [testLab removeFromSuperview];
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     });
 }
+
+
+
+
+
+
 -(void)ifPush
 {
     self.camera.view.hidden = NO;
-    [self.camera start];
+        self.camera.isStart = NO;
     self.cameraInUse = NO;
+    [self.camera start];
+
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:@"0" forKey:@"needLoad"];
     [def synchronize];
@@ -734,4 +787,20 @@
     
     AudioServicesPlaySystemSound (messageSound);
 }
+#pragma -mark回调刷新，让相机跑动起来
+-(void)toIfPush
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [self ifPush];
+    });
+   
+}
+
+-(void)toIfPush2
+{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [self ifPush];
+    });
+}
+
 @end

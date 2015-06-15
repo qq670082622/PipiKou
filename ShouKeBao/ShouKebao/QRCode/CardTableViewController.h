@@ -7,7 +7,13 @@
 //
 
 #import "SKTableViewController.h"
+#import "personIdModel.h"
+//@class personIdModel;
+@protocol toIfPush <NSObject>
 
+-(void)toIfPush;
+
+@end
 @interface CardTableViewController : SKTableViewController
 @property (copy, nonatomic) NSString *nameLabStr;
 @property (copy, nonatomic) NSString *sexLabStr;
@@ -17,4 +23,8 @@
 @property (copy, nonatomic) NSString *startDayLabStr;
 @property (copy, nonatomic) NSString *startPointLabStr;
 @property (copy, nonatomic) NSString *effectiveLabStr;
+
+@property(nonatomic,strong) NSDictionary *json;
+@property(nonatomic,strong)personIdModel *model;
+@property(weak,nonatomic) id<toIfPush>delegate;
 @end
