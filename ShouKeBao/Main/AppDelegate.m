@@ -654,7 +654,9 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     
     [appIsBack setObject:@"no" forKey:@"appIsBack"];
     
-    [appIsBack synchronize];    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+    [appIsBack synchronize];
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
+// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {

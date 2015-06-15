@@ -13,8 +13,9 @@
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
 #import "YYAnimationIndicator.h"
+#import "BeseWebView.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
-@interface ProduceDetailViewController ()<UIWebViewDelegate>
+@interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
@@ -44,7 +45,8 @@
     
    // NSString *newUrl = [self.produceUrl stringByAppendingString:urlSuffix];
    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor:) name:@"stopIndictor" object:nil];
+
 
     
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
@@ -65,6 +67,7 @@
      [self.webView scalesPageToFit];
      [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
+    [self fitWebView];
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     NSString *productDetailGuide = [guideDefault objectForKey:@"productDetailGuide"];
@@ -74,7 +77,36 @@
    // [self Guide];
 
 }
+- (void)stopIndictor:(NSNotification *)noty
+{
+//    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！欢迎回来" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//    [alert show];
+    if ([_webView canGoBack] && self.indicator.isAnimating) {
+        [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+        [self.webView goBack];
+    }
+}
+//再次返回程序的时候， 弹出对话框；
+#pragma mark - UIAlertViewDelegate
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    if ([_webView canGoBack] && self.indicator.isAnimating) {
+//        [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+//        [self.webView goBack];
+//    }
+//}
 
+
+- (void)fitWebView{
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, -80, [UIScreen mainScreen].bounds.size.width, 70)];
+    label.textAlignment = NSTextAlignmentCenter;
+    label.text = @"网页由 www.lvyouquan.cn 提供";
+    //51  157 190
+    self.webView.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
+    label.font = [UIFont systemFontOfSize:18];
+    label.textColor = [UIColor grayColor];
+    [self.webView.scrollView addSubview:label];
+
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -171,7 +203,6 @@
     //}
   
        }
-
 
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView

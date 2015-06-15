@@ -9,10 +9,11 @@
 #import "ButtonDetailViewController.h"
 #import "Lotuseed.h"
 #import "MBProgressHUD+MJ.h"
+#import "BeseWebView.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ButtonDetailViewController()<UIWebViewDelegate>
 
-@property (nonatomic,strong) UIWebView *webView;
+@property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
 @end
@@ -75,7 +76,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
+        _webView = [[BeseWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64)];
     }
     return _webView;
 }

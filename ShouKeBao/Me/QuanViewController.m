@@ -10,9 +10,11 @@
 #import "MeHttpTool.h"
 #import "UINavigationController+SGProgress.h"
 #import "Lotuseed.h"
+#import "BeseWebView.h"
+#import "SubstationParttern.h"
 @interface QuanViewController () <UIWebViewDelegate>
 
-@property (nonatomic,strong) UIWebView *webView;
+@property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
 @property (nonatomic,copy) NSString *linkUrl;
@@ -25,7 +27,13 @@
     // Do any additional setup after loading the view.
     self.title = @"圈付宝";
     [self setNav];
-    
+//    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.text = @"版权所有  盗版必究";
+//    label.font = [UIFont systemFontOfSize:20];
+//    [self.view addSubview:label];
+//    [self.view sendSubviewToBack:label];
+
     [self.view addSubview:self.webView];
     
     [self loadDataSource];
@@ -75,9 +83,16 @@
 #pragma -mark private
 -(void)back
 {
-
-        [self.navigationController popViewControllerAnimated:YES];
-   
+    
+        if ([_webView canGoBack]) {
+            
+            [self.webView goBack];
+        }
+        else  {
+            SubstationParttern *par = [SubstationParttern sharedStationName];
+            [Lotuseed onEvent:@"quanFuBaoBack" attributes:@{@"stationName":par.stationName}];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     
 }
 
@@ -86,7 +101,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] init];
+        _webView = [[BeseWebView alloc] init];
         _webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 64);
         _webView.delegate = self;
     }

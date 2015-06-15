@@ -37,6 +37,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"修改资料";
     [self setNav];
     
@@ -89,7 +90,7 @@
 
 - (void)submit
 {
-    
+    NSLog(@"444444");
     NSDictionary *param = @{@"Busienss" : @{@"ID":self.org.ID,
                                             @"Name":self.comanyName.text,
                                             @"Address":self.address.text,
@@ -101,7 +102,6 @@
                                             @"Desc":self.remark.text}
                             };
     [MeHttpTool setBusinessWithParam:param success:^(id json) {
-        NSLog(@"------%@",json);
         if ([json[@"IsSuccess"] integerValue] == 1) {
             
             [self.navigationController popViewControllerAnimated:YES];
