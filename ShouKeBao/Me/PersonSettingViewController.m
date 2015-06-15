@@ -100,7 +100,7 @@
                                               @"Desc":self.remark.text}
                             };
     [MeHttpTool setDistributionWithParam:param success:^(id json) {
-        NSLog(@"-----%@",json);
+        NSLog(@"-----%@——————————————————————",json);
         if ([json[@"IsSuccess"] integerValue] == 1) {
             [self.navigationController popViewControllerAnimated:YES];
         }

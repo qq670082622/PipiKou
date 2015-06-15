@@ -17,13 +17,22 @@
     // Drawing code
 }
 */
-- (NSString *)changeUserAgent{
-    BOOL shutDownUserAgent = YES;
-    NSString *oldAgent = [self stringByEvaluatingJavaScriptFromString:@"navigator.userAgent"];
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleVersion"];
-    NSString *package = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleIdentifier"];
-    NSString *ext = [[package componentsSeparatedByString:@"."] lastObject];
-    NSString *myAgent = [NSString stringWithFormat:@" %@/%@", ext, version];
-    return myAgent;
+- (instancetype)init
+{
+    self = [super init];
+    if (self) {
+        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, -80, [UIScreen mainScreen].bounds.size.width, 70)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"网页由 www.lvyouquan.cn 提供";
+        //53  161 191
+        self.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
+        label.font = [UIFont systemFontOfSize:18];
+        label.textColor = [UIColor grayColor];
+        [self.scrollView addSubview:label];
+    }
+    return self;
 }
+
+
+
 @end

@@ -72,7 +72,6 @@
                 }
                 // 如果没有开通收客宝
                 self.isOpenSkb = [json[@"IsOpenSkb"] integerValue];
-                
                 // 刷新
                 [self.tableView reloadData];
             }

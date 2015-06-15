@@ -92,7 +92,6 @@
     [self.view addGestureRecognizer:tap];
     
     if (self.autoLoginFailed) {// 如果自动登录失败
-        
     }
 }
 

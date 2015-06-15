@@ -10,6 +10,5 @@
 
 @interface BeseWebView : UIWebView
 
-@property (nonatomic, assign)NSString * app_ios_skb_v1_0;
 
 @end

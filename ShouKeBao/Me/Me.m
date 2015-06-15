@@ -106,7 +106,6 @@
             [MBProgressHUD showError:@"设置失败"];
         }
     } failure:^(NSError *error) {
-        
     }];
 }
 
@@ -293,6 +292,12 @@
             }
             case 3:{
                 [Lotuseed onEvent:@"page5TalkApp" attributes:@{@"stationName":par.stationName}];
+                UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"需要发布之后, 才能到appstore评分" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
+//                NSString *str = [NSString stringWithFormat:
+//                                 @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",
+//                                 587767923];
+//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
                 break;
             }
             default:

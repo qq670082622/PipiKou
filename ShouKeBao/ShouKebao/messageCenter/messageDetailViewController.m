@@ -11,11 +11,12 @@
 #import "NSDate+Category.h"
 #import "Lotuseed.h"
 #import "YYAnimationIndicator.h"
+#import "BeseWebView.h"
 @interface messageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *messgeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *time;
 
-@property (weak, nonatomic) IBOutlet UIWebView *web;
+@property (weak, nonatomic) IBOutlet BeseWebView *web;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 

@@ -11,10 +11,11 @@
 #import "Lotuseed.h"
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
+#import "BeseWebView.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
-@property (nonatomic,strong) UIWebView *webView;
+@property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @end
 
@@ -36,7 +37,6 @@
     
     [self.webView loadRequest:request];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
@@ -93,7 +93,7 @@
 - (UIWebView *)webView
 {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44)];
+        _webView = [[BeseWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44)];
     }
     return _webView;
 }
