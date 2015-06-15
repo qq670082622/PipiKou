@@ -217,6 +217,15 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="20" sectionFooterHeight="180" id="Z2O-XY-6US" userLabel="setUpTable">
+                    <rect key="frame" x="0.0" y="59" width="320" height="431"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="vlH-FM-pLR"/>
+                        <outlet property="delegate" destination="-1" id="0Bf-bk-J0y"/>
+                    </connections>
+                </tableView>
                 <view contentMode="scaleToFill" id="smc-2r-Ams">
                     <rect key="frame" x="0.0" y="51" width="320" height="8"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -234,15 +243,6 @@
                     </subviews>
                     <color key="backgroundColor" red="0.90980392156862744" green="0.91764705882352937" blue="0.92156862745098034" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="50" sectionHeaderHeight="20" sectionFooterHeight="180" id="Z2O-XY-6US" userLabel="setUpTable">
-                    <rect key="frame" x="0.0" y="59" width="320" height="431"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    <connections>
-                        <outlet property="dataSource" destination="-1" id="vlH-FM-pLR"/>
-                        <outlet property="delegate" destination="-1" id="0Bf-bk-J0y"/>
-                    </connections>
-                </tableView>
                 <view contentMode="scaleToFill" id="1gb-cJ-bfB">
                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>

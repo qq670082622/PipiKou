@@ -23,7 +23,7 @@
 @property(nonatomic,copy) NSString *sex;
 @property(nonatomic,copy) NSString *UserName;
 @property(nonatomic,strong)personIdModel *model;
-@property(nonatomic,strong) NSDictionary *json;
+//@property(nonatomic,strong) NSDictionary *json;
 
 @property(nonatomic,weak) id<toIfPush2>delegate;
 

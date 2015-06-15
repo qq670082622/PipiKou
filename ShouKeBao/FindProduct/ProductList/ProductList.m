@@ -184,7 +184,8 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
     line.backgroundColor = [UIColor colorWithRed:175/255.f green:175/255.f blue:175/255.f alpha:1];
      self.table.tableFooterView = line;
-}
+   
+  }
 
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -249,6 +250,7 @@
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
     [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
 
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -347,8 +349,13 @@
 
 
 -(void)clickPush
-{
-    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+{NSDictionary *dic = [NSDictionary dictionary];
+    dic = [_pushedArr firstObject];
+    if ([dic[@"Text"] isEqualToString:@"暂无"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+    }
 }
 
 
@@ -699,6 +706,11 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
+        NSString *str = [_pushedArr firstObject][@"Text"];
+        if ([str isEqualToString:@"暂无"]) {
+            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
+
+        }
     }];
     
     NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
@@ -835,6 +847,7 @@
         if (section == 0) {
             NSLog(@"-------%lu",(unsigned long)_subDataArr1.count);
             return _subDataArr1.count;
+         //   return _isFromSearch?_subDataArr1.count-1:_subDataArr1.count ;
         }
         if (section == 1 && [_turn isEqualToString:@"On" ]) {
             NSLog(@"-------%lu",(unsigned long)_subDataArr2.count);
@@ -1234,6 +1247,15 @@
                }else{
               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                }
+               
+               if (indexPath.row == 0 && _isFromSearch == YES) { //当是从搜索进来时,掩盖第一个cell
+                   UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+                   coverView.backgroundColor = [UIColor whiteColor];
+                   [cell.contentView addSubview:coverView];
+                   cell.accessoryType = UITableViewCellAccessoryNone;
+                   cell.detailTextLabel.text = @"";
+               }
+               
                           }
            
            NSRange range = [cell.detailTextLabel.text rangeOfString:@"不限"];

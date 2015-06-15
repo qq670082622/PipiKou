@@ -13,4 +13,5 @@
 @property (nonatomic,copy) NSString *pushedSearchK;
 //@property (nonatomic,copy) NSString *productTitle;
 @property(nonatomic,strong) NSMutableArray *pushedArr;
+@property(nonatomic,assign) BOOL isFromSearch;
 @end
