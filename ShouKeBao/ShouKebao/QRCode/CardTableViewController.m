@@ -8,6 +8,8 @@
 
 #import "CardTableViewController.h"
 #import "WMAnimations.h"
+#import "WriteFileManager.h"
+#import "StrToDic.h"
 @interface CardTableViewController ()<UITextFieldDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
@@ -38,7 +40,7 @@
 
 - (IBAction)save:(id)sender;
 
-
+@property(nonatomic,strong) NSMutableArray *scanningArr;
 
 @end
 
@@ -48,6 +50,31 @@
     [super viewDidLoad];
     self.title = @"护照";
     
+    if (_model) {
+        
+//        card.nameLabStr = json[@"UserName"];
+//        card.sexLabStr = json[@"Sex"];
+//        card.countryLabStr = json[@"Nationality"];
+//        card.cardNumStr = json[@"PassportNum"];
+//        card.bornLabStr = json[@"BirthDay"];
+//        card.startDayLabStr = json[@"ValidStartDate"];
+//        card.startPointLabStr = json[@"ValidAddress"];
+//        card.effectiveLabStr = json[@"ValidEndDate"];
+        
+        self.nameText.text = _model.UserName;
+        self.sexText.text = _model.Sex;
+        self.countryText.text = _model.Nationality;
+        self.cardNumText.text = _model.PassportNum;
+        self.bornText.text = _model.BirthDay;
+        self.startDayText.text = _model.ValidStartDate;
+        self.startPointText.text = _model.ValidAddress;
+        self.effectiveText.text = _model.ValidEndDate;
+    }else{
+        
+        if (_json) {
+            [self saveScanningWithDic:_json andType:@"passport"];
+        }
+
     self.nameText.text = _nameLabStr;
     self.sexText.text = _sexLabStr;
     self.countryText.text = _countryLabStr;
@@ -56,7 +83,8 @@
     self.startDayText.text = _startDayLabStr;
     self.startPointText.text = _startPointLabStr;
     self.effectiveText.text = _effectiveLabStr;
-    
+             
+    }
     
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.sexLab,self.countryLab,self.cardNum,self.bornLab,self.startDayLab,self.startPointLab,self.effectiveLab, nil]];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor blueColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -74,8 +102,37 @@
 }
 
 -(void)back
-{
+{[self.delegate toIfPush];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+
+//生成后马上保存到本地
+-(void)saveScanningWithDic:(NSDictionary *)dic andType:(NSString *)type
+{
+    if (dic[@"UserName"]) {
+        NSMutableDictionary *muDic = [NSMutableDictionary dictionary];
+        NSDate *date = [NSDate date];
+        NSString *dateStr = [StrToDic stringFromDate:date];
+        [muDic setObject:dateStr forKey:@"createTime"];
+        [muDic setObject:type forKey:@"type"];
+        [muDic addEntriesFromDictionary:dic];
+        
+        
+        //        UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+        //        testLab.backgroundColor = [UIColor whiteColor];
+        //        //testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\n字典是 is %@----",muDic];
+        //        testLab.numberOfLines = 0;
+        //        [self.view.window addSubview:testLab];
+        
+        
+        
+        personIdModel *model = [personIdModel modelWithDict:muDic];
+        NSMutableArray *modelArr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"scanning"]];
+        [modelArr addObject:model];
+        [WriteFileManager WMsaveData:modelArr name:@"scanning"];
+        
+    }
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -89,6 +146,14 @@
     [self.startPointText resignFirstResponder];
     [self.effectiveText resignFirstResponder];
     
+}
+
+-(NSMutableArray *)scanningArr
+{
+    if (_scanningArr == nil) {
+        self.scanningArr = [NSMutableArray array];
+    }
+    return _scanningArr;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -106,7 +171,7 @@
 }
 
 - (IBAction)save:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"等接口" message:@"别慌" delegate:self cancelButtonTitle:@"🐶遵命，吴爷" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"等接口" message:@"别慌" delegate:self cancelButtonTitle:@"yes" otherButtonTitles: nil];
     [alert show];
 }
 @end

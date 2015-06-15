@@ -369,7 +369,7 @@
                                                   url:shareDic[@"Url"]                                          description:shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
    
-    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",shareDic[@"Tile"],shareDic[@"Desc"]] image:nil];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@,%@",shareDic[@"Tile"],shareDic[@"Desc"],shareDic[@"Url"]] image:nil];
     
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -384,6 +384,8 @@
                        authOptions:nil
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                [self.warningLab removeFromSuperview];
+
                                 if (state == SSResponseStateSuccess)
                                 {
                                     [self.warningLab removeFromSuperview];

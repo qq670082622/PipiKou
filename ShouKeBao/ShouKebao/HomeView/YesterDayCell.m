@@ -230,7 +230,7 @@
                                                   url:tmp[@"Url"]                                          description:tmp[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     
-    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@",tmp[@"Tile"],tmp[@"Desc"]] image:nil];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@ ,  %@",tmp[@"Tile"],tmp[@"Desc"],tmp[@"Url"]] image:nil];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
@@ -243,7 +243,7 @@
                        authOptions:nil
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-                                
+                                [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
                                     [self.warningLab removeFromSuperview];

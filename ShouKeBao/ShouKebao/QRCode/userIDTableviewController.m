@@ -8,6 +8,8 @@
 
 #import "userIDTableviewController.h"
 #import "WMAnimations.h"
+#import "StrToDic.h"
+#import "WriteFileManager.h"
 @interface userIDTableviewController ()<UITextFieldDelegate, UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
@@ -27,6 +29,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 - (IBAction)save:(id)sender;
 
+@property(nonatomic,strong) NSMutableArray *scanningArr;
 @end
 
 @implementation userIDTableviewController
@@ -34,21 +37,59 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二代身份证";
-    //4 0
-    self.nameText.text = _UserName;
+       //4 0
+//    card.UserName = json[@"UserName"];
+//    card.address = json[@"Address"];
+//    card.birthDay = json[@"BirthDay"];
+//    card.cardNumber = json[@"CardNum"];
+//    card.Nation = json[@"Nation"];
+//    card.sex = json[@"Sex"];
+
+    if(_model){
+        self.nameText.text = _model.UserName;
+        self.nationalText.text = _model.Nation;
+        self.cardText.text = _model.CardNum;
+        self.bornText.text = _model.BirthDay;
+        self.addressText.text = _model.Address;
     
-    //self.sexLab.text = _sex;
+    }else{
+       
+       //     [self saveScanningWithDic:_json andType:@"personId"];
+        
+        
+       
+
+    self.nameText.text = _UserName;
     self.nationalText.text = _Nation;
     self.cardText.text = _cardNumber;
     self.bornText.text = _birthDay;
-    self.addressText.text = _address;
-    //    @property(nonatomic,copy) NSString *address;
-    //    @property(nonatomic,copy) NSString *birthDay;
-    //    @property(nonatomic,copy) NSString *cardNumber;
-    //    @property(nonatomic,copy) NSString *Nation;
-    //    @property(nonatomic,copy) NSString *sex;
-    //    @property(nonatomic,copy) NSString *UserName;
+        self.addressText.text = _address;
+        
+      //  [self saveScanningWithDic:_json andType:@"personId"];
+        
+//        NSMutableDictionary *muDic = [NSMutableDictionary dictionary];
+//        NSDate *date = [NSDate date];
+//        NSString *dateStr = [StrToDic stringFromDate:date];
+//        [muDic setObject:dateStr forKey:@"createTime"];
+//        [muDic setObject:@"personId" forKey:@"type"];
+//        [muDic addEntriesFromDictionary:_json];
+//        
+//        personIdModel *model = [personIdModel modelWithDict:muDic];
+//        NSMutableArray *modelArr = [NSMutableArray arrayWithArray:[WriteFileManager readFielWithName:@"scanning"]];
+//        [modelArr addObject:model];
+//        [WriteFileManager saveFileWithArray:modelArr Name:@"scanning"];
+//        
+//        UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+//        testLab.backgroundColor = [UIColor whiteColor];
+//        testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\n字典是 is %@----",modelArr];
+//        testLab.numberOfLines = 0;
+//        [self.view.window addSubview:testLab];
+//        self.addressText.text = [NSString stringWithFormat:@"储存前的arr is %@／储存后arr is%@",modelArr,[WriteFileManager readFielWithName:@"scanning"]];
 
+        
+    }
+    
+    
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -66,9 +107,35 @@
 
 -(void)back
 {
+    [self.delegate toIfPush2];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+//生成后马上保存到本地
+-(void)saveScanningWithDic:(NSDictionary *)dic andType:(NSString *)type
+{
+    
+    
+           NSMutableDictionary *muDic = [NSMutableDictionary dictionary];
+        NSDate *date = [NSDate date];
+        NSString *dateStr = [StrToDic stringFromDate:date];
+        [muDic setObject:dateStr forKey:@"createTime"];
+        [muDic setObject:type forKey:@"type"];
+        [muDic addEntriesFromDictionary:dic];
+        
+        personIdModel *model = [personIdModel modelWithDict:muDic];
+        NSMutableArray *modelArr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"scanning"]];
+        [modelArr addObject:model];
+        [WriteFileManager WMsaveData:modelArr name:@"scanning"];
+        
+        UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+        testLab.backgroundColor = [UIColor whiteColor];
+        testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\n字典是 is %@----",modelArr];
+        testLab.numberOfLines = 0;
+        [self.view.window addSubview:testLab];
+    self.addressText.text = [NSString stringWithFormat:@"%@",[WriteFileManager WMreadData:@"scanning"]];
+    
+}
 -(void)animationWithLabs:(NSArray *)arr
 {
     for (int i = 0; i<arr.count; i++) {
@@ -102,7 +169,7 @@
 */
 
 - (IBAction)save:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"等接口" message:@"别慌" delegate:self cancelButtonTitle:@"🐶遵命，吴爷" otherButtonTitles: nil];
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"等接口" message:@"别慌" delegate:self cancelButtonTitle:@"yes" otherButtonTitles: nil];
     [alert show];
 }
 @end
