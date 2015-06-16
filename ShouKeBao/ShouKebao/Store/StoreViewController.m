@@ -14,6 +14,7 @@
 #import "Lotuseed.h"
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
+#import "WMAnimations.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
@@ -50,7 +51,10 @@
     [super viewDidLoad];
     self.title = @"店铺详情";
        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
-  
+    
+    [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
+    
+ 
     [self.webView loadRequest:request];
     [self customRightBarItem];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];

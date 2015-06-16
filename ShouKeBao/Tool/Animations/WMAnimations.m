@@ -171,4 +171,18 @@ theAnimation.fromValue=[NSValue valueWithCGPoint:fromPoint];
     [view.layer addAnimation:theAnimation forKey:@"move"];
     
 }
+
++(void)WMNewWebWithScrollView:(UIScrollView *)scroll
+{
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, -70, [[UIScreen mainScreen] bounds].size.width, 30)];
+    lab.text = @"网页由 www.lvyouquan.cn 提供";
+    lab.textColor = [UIColor lightGrayColor];
+    lab.font = [UIFont systemFontOfSize:12];
+    lab.textAlignment = NSTextAlignmentCenter;
+   scroll.backgroundColor = [UIColor colorWithRed:45/255.f green:49/255.f blue:48/255.f alpha:1];
+    
+    [scroll addSubview:lab];
+    
+
+}
 @end
