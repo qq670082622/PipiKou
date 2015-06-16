@@ -87,6 +87,8 @@
 
 
 @property(weak,nonatomic) UILabel *noProductWarnLab;
+
+@property(nonatomic,assign) BOOL subDoneToFreshCommendBtn;
 @end
 
 @implementation ProductList
@@ -184,7 +186,8 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
     line.backgroundColor = [UIColor colorWithRed:175/255.f green:175/255.f blue:175/255.f alpha:1];
      self.table.tableFooterView = line;
-}
+   
+  }
 
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -249,6 +252,7 @@
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
     [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
 
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -347,8 +351,13 @@
 
 
 -(void)clickPush
-{
-    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+{NSDictionary *dic = [NSDictionary dictionary];
+    dic = [_pushedArr firstObject];
+    if ([dic[@"Text"] isEqualToString:@"暂无"]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else{
+        [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+    }
 }
 
 
@@ -361,8 +370,7 @@
    // self.conditionDic = [NSMutableDictionary dictionary];
     
     if (value) {
-   
-        [self.conditionDic setObject:value forKey:key];
+               [self.conditionDic setObject:value forKey:key];
         
         NSLog(@"-------------传过来的key is %@------------",key);
         if ([selectIndexPath[0]isEqualToString:@"0"]) {
@@ -520,7 +528,7 @@
     
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
+   
   //  [dic setObject:@"10" forKey:@"Substation"];
     [dic setObject:@"10" forKey:@"PageSize"];
     [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -528,9 +536,10 @@
     [dic setObject:type forKey:@"ProductSortingType"];
     [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
-    NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
+    NSLog(@"-----------------footLoad 请求的 dic  is %@-----------------",dic);
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
-        NSLog(@"----------更多按钮返回json is %@--------------",json);
+        NSLog(@"----------footLoad返回json is %@--------------",json);
         NSArray *arr = json[@"ProductList"];
         if (arr.count == 0) {
             UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 20)];
@@ -610,15 +619,18 @@
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
     
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
+
     [dic setObject:type forKey:@"ProductSortingType"];
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
-    NSLog(@"--------------productList json is %@-----------",[StrToDic jsonStringWithDicL:dic] );
-    [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
+    
+    
+    NSLog(@"--------------productList load dic  is %@--------------",[StrToDic jsonStringWithDicL:dic] );
+    [IWHttpTool WMpostWithURL:@"Product/GetProductList" params:dic success:^(id json) {
         
-        NSLog(@"--------------productList is   %@------------]",json);
+        NSLog(@"--------------productList load json is   %@------------]",json);
        
         NSArray *arr = json[@"ProductList"];
-        NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
+       // NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         [self.dataArr removeAllObjects];
         if (arr.count==0) {
             self.noProductView.hidden = NO;
@@ -647,7 +659,7 @@
         [self.conditionArr removeAllObjects];
         self.conditionArr = conArr;//装载筛选条件数据
         
-        NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
+        //NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
 
         
 //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
@@ -660,6 +672,7 @@
            
            
             [self.table reloadData];
+            [self.subTable reloadData];
       [self.table headerEndRefreshing];
         }
         
@@ -699,6 +712,11 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
+        NSString *str = [_pushedArr firstObject][@"Text"];
+        if ([str isEqualToString:@"暂无"]) {
+            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
+
+        }
     }];
     
     NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
@@ -835,6 +853,7 @@
         if (section == 0) {
             NSLog(@"-------%lu",(unsigned long)_subDataArr1.count);
             return _subDataArr1.count;
+         //   return _isFromSearch?_subDataArr1.count-1:_subDataArr1.count ;
         }
         if (section == 1 && [_turn isEqualToString:@"On" ]) {
             NSLog(@"-------%lu",(unsigned long)_subDataArr2.count);
@@ -1234,6 +1253,15 @@
                }else{
               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                }
+               
+               if (indexPath.row == 0 && _isFromSearch == YES) { //当是从搜索进来时,掩盖第一个cell
+                   UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+                   coverView.backgroundColor = [UIColor whiteColor];
+                   [cell.contentView addSubview:coverView];
+                   cell.accessoryType = UITableViewCellAccessoryNone;
+                   cell.detailTextLabel.text = @"";
+               }
+               
                           }
            
            NSRange range = [cell.detailTextLabel.text rangeOfString:@"不限"];
@@ -1878,21 +1906,22 @@
     SubstationParttern *par = [SubstationParttern sharedStationName];
 
     [Lotuseed onEvent:@"productlistScreeningDone" attributes:@{@"stationName":par.stationName}];
-    [self initPull];
-    [self editButtons];
+  
+   
+    // [self editButtons];//重新确认按钮状态
     
-    
+    //让推荐按钮被选中
     [UIView animateWithDuration:0.3 animations:^{
-    
+        
         self.subView.transform = CGAffineTransformIdentity;
-    
+        
     } completion:^(BOOL finished) {
-    
+        
         [self.coverView removeFromSuperview];
         
         // [_dressView removeFromSuperview];
         
-        [self recommond];
+       // [self recommond];
         
         [self.commondOutlet setSelected:YES];
         
@@ -1900,7 +1929,12 @@
         
         self.cheapOutlet.selected = NO;
     }];
-
+   
+    [self.commondOutlet setSelected:YES];
+    [self initPull];
+    
+    
+ 
 
 
 }
@@ -2033,7 +2067,7 @@
 }
 
 
-
+//让table回到顶部
 - (IBAction)backToTop:(id)sender {
 
 [self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];

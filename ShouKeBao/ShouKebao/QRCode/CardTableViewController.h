@@ -24,7 +24,7 @@
 @property (copy, nonatomic) NSString *startPointLabStr;
 @property (copy, nonatomic) NSString *effectiveLabStr;
 
-@property(nonatomic,strong) NSDictionary *json;
+//@property(nonatomic,strong) NSDictionary *json;
 @property(nonatomic,strong)personIdModel *model;
 @property(weak,nonatomic) id<toIfPush>delegate;
 @end

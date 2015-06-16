@@ -71,10 +71,7 @@
         self.effectiveText.text = _model.ValidEndDate;
     }else{
         
-        if (_json) {
-            [self saveScanningWithDic:_json andType:@"passport"];
-        }
-
+      
     self.nameText.text = _nameLabStr;
     self.sexText.text = _sexLabStr;
     self.countryText.text = _countryLabStr;

@@ -674,7 +674,7 @@
                                 card.cardNumber = json[@"CardNum"];
                                 card.Nation = json[@"Nation"];
                                 card.sex = json[@"Sex"];
-                            card.json = json;
+                           // card.json = json;
                             
                             card.delegate = self;
                                 [self.navigationController pushViewController:card animated:YES];
@@ -707,7 +707,7 @@
             card.startDayLabStr = json[@"ValidStartDate"];
             card.startPointLabStr = json[@"ValidAddress"];
             card.effectiveLabStr = json[@"ValidEndDate"];
-            card.json = json;
+          //  card.json = json;
             card.delegate = self;
             [self.navigationController pushViewController:card animated:YES];
             // [self saveScanningWithDic:json andType:@"passport"];

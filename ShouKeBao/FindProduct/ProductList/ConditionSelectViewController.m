@@ -68,6 +68,10 @@
     else if ([_selectKey isEqualToString:@"CruiseShipCompany"]){
         
         self.selectKey = [NSMutableString stringWithFormat:@"CruiseShipCompanyID"];
+    
+    }else if ([_selectKey isEqualToString:@"destination"]){
+       
+        self.selectKey = [NSMutableString stringWithFormat:@"SearchKey"];
     }
 
 }
