@@ -67,7 +67,7 @@
      [self.webView scalesPageToFit];
      [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self fitWebView];
+//    [self fitWebView];
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     NSString *productDetailGuide = [guideDefault objectForKey:@"productDetailGuide"];
@@ -96,17 +96,17 @@
 //}
 
 
-- (void)fitWebView{
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, -80, [UIScreen mainScreen].bounds.size.width, 70)];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.text = @"网页由 www.lvyouquan.cn 提供";
-    //51  157 190
-    self.webView.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
-    label.font = [UIFont systemFontOfSize:18];
-    label.textColor = [UIColor grayColor];
-    [self.webView.scrollView addSubview:label];
-
-}
+//- (void)fitWebView{
+//    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, -80, [UIScreen mainScreen].bounds.size.width, 70)];
+//    label.textAlignment = NSTextAlignmentCenter;
+//    label.text = @"网页由 www.lvyouquan.cn 提供";
+//    //51  157 190
+//    self.webView.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
+//    label.font = [UIFont systemFontOfSize:18];
+//    label.textColor = [UIColor grayColor];
+//    [self.webView.scrollView addSubview:label];
+//
+//}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];

@@ -26,7 +26,7 @@
         label.text = @"网页由 www.lvyouquan.cn 提供";
         //53  161 191
         self.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
-        label.font = [UIFont systemFontOfSize:18];
+        label.font = [UIFont systemFontOfSize:12];
         label.textColor = [UIColor grayColor];
         [self.scrollView addSubview:label];
     }
@@ -40,7 +40,7 @@
         label.text = @"网页由 www.lvyouquan.cn 提供";
         //53  161 191
         self.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
-        label.font = [UIFont systemFontOfSize:18];
+        label.font = [UIFont systemFontOfSize:12];
         label.textColor = [UIColor grayColor];
         [self.scrollView addSubview:label];
     }

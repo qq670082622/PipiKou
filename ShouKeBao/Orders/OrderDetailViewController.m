@@ -45,7 +45,6 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     self.navigationItem.leftBarButtonItem.enabled = NO;
-    
     [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];

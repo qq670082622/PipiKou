@@ -130,18 +130,15 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSLog(@"aaa");
     self.rightButton.hidden = YES;
-    NSLog(@"http://mtest.lvyouquan.cn/Order/CustomerSelect/");
     [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
-    NSString *title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    //获取界面的
+//    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+//    NSString *title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
     BOOL isNeedBtn = [[self.webView stringByEvaluatingJavaScriptFromString:@"isShowSaveButtonForApp()"]intValue];
-    NSLog(@"%d", isNeedBtn);
     if (isNeedBtn) {
         self.rightButton.hidden = NO;
     }
-    NSLog(@"55%@, 33%@++++++++++++", currentURL, title );
 
     
     //[MBProgressHUD showSuccess:@"加载完成"];
