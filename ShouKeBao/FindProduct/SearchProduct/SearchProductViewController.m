@@ -306,8 +306,8 @@
     }else if (self.inputView.text.length<1 ){
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
 //        [alert show];
-       // self.inputView.text = @"推荐";
-        self.inputView.text = self.btn1.currentTitle;
+        self.inputView.text = @"推荐";
+      //  self.inputView.text = self.btn1.currentTitle;
         if (![self.tableDataArr containsObject:self.inputView.text]) {
             [self.tableDataArr addObject:self.inputView.text];
             
@@ -334,9 +334,9 @@
     }else if ([self.inputView.text hasPrefix:@" "]){
 //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"警告" message:@"您的输入内容有误" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
 //        [alert show];
-       // self.inputView.text = @"推荐";
+        self.inputView.text = @"推荐";
         
-         self.inputView.text = self.btn1.currentTitle;
+         //self.inputView.text = self.btn1.currentTitle;
         if (![self.tableDataArr containsObject:self.inputView.text]) {
             [self.tableDataArr addObject:self.inputView.text];
             

@@ -89,6 +89,8 @@
 @property(weak,nonatomic) UILabel *noProductWarnLab;
 
 @property(nonatomic,assign) BOOL subDoneToFreshCommendBtn;
+
+@property(nonatomic,assign) long productCount;
 @end
 
 @implementation ProductList
@@ -643,8 +645,11 @@
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
             }
-
-                }
+            NSString *str = json[@"TotalCount"];
+            self.productCount = [str longLongValue];
+           
+            
+        }
         
         NSMutableArray *conArr = [NSMutableArray array];
         if (_pushedArr){
@@ -1080,14 +1085,17 @@
     }
     
     NSInteger count = self.table.contentOffset.y/1360;
-    
-    long pageCount;
-    if ([_page integerValue] <= 1) {
-        pageCount = 1;
-    }else if ([_page integerValue] > 1){
-        pageCount = [_page integerValue] - 1;
+    int totalCount = (int)self.productCount/10;
+    if (self.productCount%10>0) {//如果／10还有余数总页码＋1
+        totalCount++;
     }
-    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%ld",count+1,pageCount ] forState:UIControlStateNormal];
+//    long pageCount;
+//    if ([_page integerValue] <= 1) {
+//        pageCount = 1;
+//    }else if ([_page integerValue] > 1){
+//        pageCount = [_page integerValue] - 1;
+//    }
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount ] forState:UIControlStateNormal];
 }
 
 

@@ -20,7 +20,7 @@
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
 #import "NSString+QD.h"
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
@@ -43,7 +43,7 @@
 @property (weak,nonatomic) IBOutlet UIImageView *imageViewWhenIsNull;
 @property (weak, nonatomic) IBOutlet UIButton *addNew;
 @property (weak, nonatomic) IBOutlet UIButton *importUser;
-
+@property(nonatomic,copy) NSMutableString *searchK;
 
 @end
 
@@ -90,12 +90,9 @@
     self.table.tableFooterView = [[UIView alloc] init];
     
      [self customerRightBarItem];
+    
+     [self initPull];
   
-}
-#pragma  -mark batchAdd delegate
--(void)referesh
-{
-    [self loadDataSource];
 }
 -(void)initPull
 {
@@ -112,6 +109,7 @@
 {
 //    self.imageViewWhenIsNull.hidden = YES;
 //     self.imageViewWhenIsNull.hidden = YES;
+    self.searchK = [NSMutableString stringWithFormat:@""];
     [self loadDataSource];
         [self.table headerEndRefreshing];
     
@@ -128,7 +126,7 @@
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page4Click" attributes:@{@"stationName":par.stationName}];
     self.subView.hidden = YES;
-    [self initPull];
+   
     
     
     }
@@ -208,8 +206,19 @@
     [Lotuseed onEvent:@"addNewCustomer" attributes:@{@"stationName":par.stationName}];
     self.subView.hidden = YES;
     addCustomerViewController *add = [[addCustomerViewController alloc] init];
+    add.delegate = self;
     [self.navigationController pushViewController:add animated:YES];
     
+}
+#pragma -mark 添加客户成功后的代理方法（刷新列表）
+-(void)toRefereshCustomers
+{
+    [self initPull];
+}
+#pragma  -mark batchAdd delegate
+-(void)referesh
+{
+    [self initPull];
 }
 
 - (IBAction)importUser:(id)sender {
@@ -238,6 +247,9 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"500" forKey:@"PageSize"];
+    if (_searchK.length>0) {
+        [dic setObject:_searchK forKey:@"SearchKey"];
+    }
    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     NSString *sortType = [accountDefaults stringForKey:@"sortType"];
     if (sortType) {
@@ -437,6 +449,7 @@
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
    [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
+    self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
        
         NSLog(@"------管客户搜索结果的json is %@-------",json);
