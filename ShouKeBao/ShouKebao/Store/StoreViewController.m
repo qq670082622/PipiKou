@@ -317,14 +317,10 @@
 
 -(void)addAlert
 {
-    
-    
     // 获取到现在应用中存在几个window，ios是可以多窗口的
-    
     NSArray *windowArray = [UIApplication sharedApplication].windows;
     
     // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
-    
     UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
     
     // 以下就是不停的寻找子视图，修改要修改的
@@ -351,15 +347,12 @@
         lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
     }];
     self.warningLab = lab;
-
 }
 
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
-   
-   
-    NSDictionary *shareDic = [NSDictionary dictionary];
+   NSDictionary *shareDic = [NSDictionary dictionary];
         shareDic = [self.shareArr lastObject];
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
@@ -375,8 +368,7 @@
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
     
-    
-   //弹出分享菜单
+    //弹出分享菜单
     [ShareSDK showShareActionSheet:container
                          shareList:nil
                            content:publishContent
@@ -409,7 +401,9 @@
                                     [self.warningLab removeFromSuperview];
                                 }
                             }];
+    
     NSLog(@"--------------分享出去的url is %@--------------",shareDic[@"Url"]);
+    
     [self addAlert];
     
 }
