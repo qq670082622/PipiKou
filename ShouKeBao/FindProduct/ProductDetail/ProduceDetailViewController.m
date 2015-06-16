@@ -13,7 +13,8 @@
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
 #import "YYAnimationIndicator.h"
-#import "BeseWebView.h"
+//#import "BeseWebView.h"
+#import "WMAnimations.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
@@ -33,9 +34,13 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    
+     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
+    
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
-    
+   
+   
     self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
     [_indicator setLoadText:@"拼命加载中..."];
     [self.view addSubview:_indicator];
@@ -67,7 +72,7 @@
      [self.webView scalesPageToFit];
      [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
-    [self fitWebView];
+   // [self fitWebView];
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     NSString *productDetailGuide = [guideDefault objectForKey:@"productDetailGuide"];

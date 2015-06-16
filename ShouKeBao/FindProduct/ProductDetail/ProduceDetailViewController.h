@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
-@class BeseWebView;
+#import "BeseWebView.h"
+//@class BeseWebView;
 @interface ProduceDetailViewController : SKViewController
-@property (weak, nonatomic) IBOutlet BeseWebView *webView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
+ 
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;
 @end

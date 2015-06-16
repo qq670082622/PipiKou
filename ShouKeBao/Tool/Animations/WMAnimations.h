@@ -23,4 +23,6 @@
 +(void)WMChuckViewWithView:(UIView *)view fromValue:(id)fromValue toValue:(id)toValue duration:(double)duration;//闪图
 
 +(void)WMShakeWithView:(UIView *)view;//震动
+
++(void)WMNewWebWithScrollView:(UIScrollView *)scroll;
 @end
