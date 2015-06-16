@@ -10,7 +10,7 @@
 #import "MeHttpTool.h"
 #import "Trader.h"
 #import "CityViewController.h"
-@interface PersonSettingViewController ()<UITextFieldDelegate>
+@interface PersonSettingViewController ()<CityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
 
@@ -30,7 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *femaleBtn;
 
-@property (strong, nonatomic) IBOutlet UITextField *place;
+@property (strong, nonatomic) IBOutlet UIButton *place;
 @end
 
 @implementation PersonSettingViewController
@@ -61,6 +61,13 @@
     
     sender.selected = !sender.selected;
 }
+- (IBAction)chosesCity:(UIButton *)sender {
+    CityViewController * cityVC = [[CityViewController alloc]init];
+    cityVC.delegate = self;
+    [self presentViewController:cityVC animated:YES completion:^{
+        
+    }];
+}
 
 #pragma mark - loadDataSource
 - (void)loadDataSource
@@ -76,7 +83,7 @@
             self.phone.text = self.trader.Mobile;
             self.wechat.text = self.trader.WeiXinCode;
             self.remark.text = self.trader.Desc;
-            self.place.delegate = self;
+//            self.place.titleLabel.text = self.trader.City;
             if ([self.trader.Sex integerValue] == 1) {
                 self.maleBtn.selected = YES;
             }else{
@@ -99,7 +106,9 @@
                                               @"Signature":self.sign.text,
                                               @"Mobile":self.phone.text,
                                               @"WeiXinCode":self.wechat.text,
-                                              @"Desc":self.remark.text}
+                                              @"Desc":self.remark.text,
+//                                              @"City":self.place.titleLabel.text
+                                              }
                             };
     [MeHttpTool setDistributionWithParam:param success:^(id json) {
         NSLog(@"-----%@——————————————————————",json);
@@ -110,19 +119,10 @@
         
     }];
 }
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
-    [self.place resignFirstResponder];
-//    CityViewController * cityVC = [[CityViewController alloc]init];
-//    [self.navigationController pushViewController:cityVC animated:YES];
-
-    return YES;
+#pragma mark - CityViewControllerDelegate
+- (void)didSelectedWithCity:(NSString *)city{
+    self.place.titleLabel.text = city;
 }
--(void)viewWillAppear:(BOOL)animated{
-    NSLog(@"aa");
-    [super viewWillAppear:animated];
-
-}
-
 - (void)setNav
 {
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];

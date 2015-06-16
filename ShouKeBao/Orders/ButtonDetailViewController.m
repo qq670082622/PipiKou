@@ -16,6 +16,7 @@
 @property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
+@property (nonatomic,strong) UIButton * rightButton;
 @end
 
 @implementation ButtonDetailViewController
@@ -29,6 +30,7 @@
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.linkUrl]];
     
     [self.webView loadRequest:request];
+    self.webView.delegate = self;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -39,11 +41,29 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
+    if (_isWriteVisitorsInfo) {
+        [self setRightBtn];
+    }
+    
+    
     [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
    }
+
+- (void)setRightBtn{
+    self.rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40,20)];
+    [self.rightButton setTitle:@"确定" forState:UIControlStateNormal];
+    self.rightButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.rightButton addTarget:self action:@selector(writeVisitorsInfoWebViewGoBack) forControlEvents:UIControlEventTouchUpInside];
+//    rightBtn.highlighted = YES;
+//    rightBtn.showsTouchWhenHighlighted = YES;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    self.rightButton.hidden = YES;
+
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -56,9 +76,13 @@
 }
 
 #pragma -mark private
+- (void)writeVisitorsInfoWebViewGoBack{
+    NSLog(@"aa");
+   NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"]);
+}
 -(void)back
 {
-    NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
+    NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp()"];
     if (isFade.length && [isFade integerValue] == 0){
         // 这个地方上面的js方法自动处理
     }else{
@@ -100,14 +124,25 @@
 
         return YES;
     }
-    NSLog(@"----------right url is %@ ----------",rightUrl);
+//    NSLog(@"----------right url is %@ ----------",rightUrl);
     
     return YES;
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    NSLog(@"aaa");
+    self.rightButton.hidden = YES;
+    NSLog(@"http://mtest.lvyouquan.cn/Order/CustomerSelect/");
     [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
+    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+    NSString *title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    BOOL isNeedBtn = [[self.webView stringByEvaluatingJavaScriptFromString:@"isShowSaveButtonForApp()"]intValue];
+    NSLog(@"%d", isNeedBtn);
+    if (isNeedBtn) {
+        self.rightButton.hidden = NO;
+    }
+    NSLog(@"55%@, 33%@++++++++++++", currentURL, title );
+
     
     //[MBProgressHUD showSuccess:@"加载完成"];
     //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];

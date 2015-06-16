@@ -10,6 +10,11 @@
 
 @interface Trader : NSObject
 /**
+ *  城市
+ */
+@property (nonatomic,copy) NSString *City;
+
+/**
  *  地址
  */
 @property (nonatomic,copy) NSString *Address;

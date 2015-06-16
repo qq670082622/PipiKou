@@ -844,6 +844,9 @@
     ButtonDetailViewController *detail = [[ButtonDetailViewController alloc] init];
     detail.linkUrl = url;
     detail.title = title;
+    if ([detail.title isEqualToString:@"填写游客信息"]) {
+        detail.isWriteVisitorsInfo = YES;
+    }
     [self.navigationController pushViewController:detail animated:YES];
 }
 

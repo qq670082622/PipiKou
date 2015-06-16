@@ -89,13 +89,17 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.navigationController popViewControllerAnimated:YES];
     
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectedWithCity:)]) {
         [_delegate didSelectedWithCity:self.province[indexPath.row]];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+//    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+
 }
 
 @end

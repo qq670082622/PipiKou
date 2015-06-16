@@ -152,7 +152,8 @@
 #pragma mark - UITextViewDelegate
 
 - (BOOL)textViewShouldBeginEditing:(UITextView *)textView{
-    self.pleaseholderLabel.alpha = 0;
+//    self.pleaseholderLabel.alpha = 0;
+    [self.pleaseholderLabel removeFromSuperview];
     return YES;
 }
 
