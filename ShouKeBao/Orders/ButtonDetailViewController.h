@@ -11,5 +11,5 @@
 @interface ButtonDetailViewController : SKViewController
 
 @property (nonatomic,copy) NSString *linkUrl;
-
+@property (nonatomic, assign)BOOL isWriteVisitorsInfo;
 @end
