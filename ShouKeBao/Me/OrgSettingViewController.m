@@ -11,7 +11,7 @@
 #import "MeHttpTool.h"
 #import "Organization.h"
 
-@interface OrgSettingViewController () <UIScrollViewDelegate>
+@interface OrgSettingViewController () <UIScrollViewDelegate, CityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *comanyName;
 
@@ -112,17 +112,17 @@
 }
 
 #pragma mark - tableviewdelegate
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-//{
-//    if (indexPath.section == 0 && indexPath.row == 1) {
-//        NSLog(@"----");
-//        CityViewController *city = [[CityViewController alloc] init];
-//        city.delegate = self;
-//        [self.navigationController pushViewController:city animated:YES];
-//    }
-//    
-//    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row == 1) {
+        NSLog(@"----");
+        CityViewController *city = [[CityViewController alloc] init];
+        city.delegate = self;
+        [self.navigationController pushViewController:city animated:YES];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -131,9 +131,9 @@
 }
 
 #pragma mark - CityViewControllerDelegate
-//- (void)didSelectedWithCity:(NSString *)city
-//{
+- (void)didSelectedWithCity:(NSString *)city
+{
 //    self.place.text = city;
-//}
+}
 
 @end

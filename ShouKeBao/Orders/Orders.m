@@ -654,7 +654,7 @@
 {
     // 取出模型
     OrderModel *order = self.dataArr[indexPath.section];
-    
+    NSLog(@"%@22%@", order.StateText, order.DetailLinkUrl);
     OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detail.url = order.DetailLinkUrl;
     detail.title = @"订单详情";
@@ -961,7 +961,6 @@
         if (tmp.count > historyCount) {
             [tmp removeObjectAtIndex:0];
         }
-        
         // 并保存
         [WriteFileManager saveFileWithArray:tmp Name:@"historysearch"];
         

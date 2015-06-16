@@ -204,7 +204,7 @@
         _rightMoreSearchID = searchKeyArr;//取出子大区的key
       
    
-        self.rightTable.scrollEnabled = YES;
+//        self.rightTable.scrollEnabled = YES;
             [self.rightTable reloadData];
       
     } failure:^(NSError *error) {
@@ -285,7 +285,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         [self.hotArrDic setObject:self.hotArr[i] forKey:self.hotSectionArr[i]];
     }
     
-    self.hotTable.scrollEnabled = YES;
+//    self.hotTable.scrollEnabled = YES;
         [self.hotTable reloadData];
     [hudView hide:YES];
 } failure:^(NSError *error) {
@@ -380,7 +380,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 - (void)hotBtnClick:(id)sender {
    // [MobClick event:@"remmondClick"];
-    self.rightTable.scrollEnabled = NO;
+//    self.rightTable.scrollEnabled = NO;
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page2ClickRecommend" attributes:@{@"stationName":par.stationName}];
     self.row = nil;
@@ -394,7 +394,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         self.hotTable.alpha = 1;
         self.hotIcon.image = [UIImage imageNamed:@"APPhot2"];
     } completion:^(BOOL finished) {
-        self.hotTable.scrollEnabled = YES;
+//        self.hotTable.scrollEnabled = YES;
     }];
     
 }
@@ -591,8 +591,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.rightTable.scrollEnabled = NO;
-    self.hotTable.scrollEnabled = NO;
+//    self.rightTable.scrollEnabled = NO;
+//    self.hotTable.scrollEnabled = NO;
     if (tableView.tag == 1) {
         leftModal *model = self.leftTableArr[indexPath.row];
        // [MobClick event:@"leftTableClick" attributes:@{@"name":model.Name}];

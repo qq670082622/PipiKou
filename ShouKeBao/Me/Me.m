@@ -117,7 +117,10 @@
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
         _meheader.isPerson = self.isPerson;
-        _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
+        if (!self.isPerson) {
+            _meheader.personType.hidden = YES;
+        }
+        _meheader.personType.text = self.isPerson ? @"我的旅行社" : @"";
     }
     return _meheader;
 }

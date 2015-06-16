@@ -9,8 +9,8 @@
 #import "PersonSettingViewController.h"
 #import "MeHttpTool.h"
 #import "Trader.h"
-
-@interface PersonSettingViewController ()
+#import "CityViewController.h"
+@interface PersonSettingViewController ()<UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
 
@@ -30,6 +30,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *femaleBtn;
 
+@property (strong, nonatomic) IBOutlet UITextField *place;
 @end
 
 @implementation PersonSettingViewController
@@ -75,6 +76,7 @@
             self.phone.text = self.trader.Mobile;
             self.wechat.text = self.trader.WeiXinCode;
             self.remark.text = self.trader.Desc;
+            self.place.delegate = self;
             if ([self.trader.Sex integerValue] == 1) {
                 self.maleBtn.selected = YES;
             }else{
@@ -107,6 +109,18 @@
     } failure:^(NSError *error) {
         
     }];
+}
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField{
+    [self.place resignFirstResponder];
+//    CityViewController * cityVC = [[CityViewController alloc]init];
+//    [self.navigationController pushViewController:cityVC animated:YES];
+
+    return YES;
+}
+-(void)viewWillAppear:(BOOL)animated{
+    NSLog(@"aa");
+    [super viewWillAppear:animated];
+
 }
 
 - (void)setNav

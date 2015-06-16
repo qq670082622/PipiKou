@@ -314,6 +314,7 @@
                         <outlet property="maleBtn" destination="Hh5-qi-oxD" id="opc-ff-Asl"/>
                         <outlet property="nickName" destination="wAM-Hu-bfK" id="wAa-lx-Ckk"/>
                         <outlet property="phone" destination="Da5-2Q-uNb" id="efk-Ta-xtg"/>
+                        <outlet property="place" destination="atf-CD-9OP" id="yKN-89-dkR"/>
                         <outlet property="remark" destination="gsW-pP-iHq" id="buZ-PG-ckO"/>
                         <outlet property="sign" destination="5aJ-Up-FGB" id="eGi-f5-Xgc"/>
                         <outlet property="wechat" destination="a71-jk-I6q" id="RTi-CL-hRe"/>
