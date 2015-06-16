@@ -21,28 +21,27 @@
 {
     self = [super init];
     if (self) {
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, -80, [UIScreen mainScreen].bounds.size.width, 70)];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = @"网页由 www.lvyouquan.cn 提供";
-        //53  161 191
-        self.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
-        label.font = [UIFont systemFontOfSize:12];
-        label.textColor = [UIColor grayColor];
-        [self.scrollView addSubview:label];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, -70, [[UIScreen mainScreen] bounds].size.width, 30)];
+        lab.text = @"网页由 www.lvyouquan.cn 提供";
+        lab.textColor = [UIColor lightGrayColor];
+        lab.font = [UIFont systemFontOfSize:12];
+        lab.textAlignment = NSTextAlignmentCenter;
+        self.scrollView.backgroundColor = [UIColor colorWithRed:45/255.f green:49/255.f blue:48/255.f alpha:1];
+        [self.scrollView addSubview:lab];
     }
     return self;
 }
 -(instancetype)initWithFrame:(CGRect)frame{
     self = [super initWithFrame:frame];
     if (self) {
-        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, -80, [UIScreen mainScreen].bounds.size.width, 70)];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = @"网页由 www.lvyouquan.cn 提供";
-        //53  161 191
-        self.scrollView.backgroundColor = [UIColor colorWithRed:53/ 255.0 green:161 / 255.0 blue:191 / 255.0 alpha:1.0];
-        label.font = [UIFont systemFontOfSize:12];
-        label.textColor = [UIColor grayColor];
-        [self.scrollView addSubview:label];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, -70, [[UIScreen mainScreen] bounds].size.width, 30)];
+        lab.text = @"网页由 www.lvyouquan.cn 提供";
+        lab.textColor = [UIColor lightGrayColor];
+        lab.font = [UIFont systemFontOfSize:12];
+        lab.textAlignment = NSTextAlignmentCenter;
+        self.scrollView.backgroundColor = [UIColor colorWithRed:45/255.f green:49/255.f blue:48/255.f alpha:1];
+        [self.scrollView addSubview:lab];
+        
     }
     return self;
 }
