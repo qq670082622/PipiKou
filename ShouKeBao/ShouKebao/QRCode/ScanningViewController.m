@@ -285,7 +285,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self defaultToNotifiQRDStartRunning];
+   // [self defaultToNotifiQRDStartRunning];
     
    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
