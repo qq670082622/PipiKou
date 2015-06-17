@@ -181,7 +181,7 @@
     
     if ([currentDate compare:date8]==NSOrderedDescending && [currentDate compare:date23]==NSOrderedAscending)
     {
-        NSLog(@"该时间在 %d:00-%d:00 之间！", fromHour, toHour);
+        NSLog(@"该时间在 %ld:00-%ld:00 之间！", fromHour, toHour);
         return YES;
     }
     return NO;
@@ -196,11 +196,11 @@
     //获取当前时间
     NSDate *currentDate = [NSDate date];
     NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
+//    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
     
     NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
     
-    currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    NSDateComponents *currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
     
     //设置当天的某个点
     NSDateComponents *resultComps = [[NSDateComponents alloc] init];

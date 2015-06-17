@@ -17,6 +17,7 @@
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
 @property (nonatomic,strong) UIButton * rightButton;
+@property (nonatomic,assign) BOOL isSave;
 @end
 
 @implementation ButtonDetailViewController
@@ -41,9 +42,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    if (_isWriteVisitorsInfo) {
-        [self setRightBtn];
-    }
+    [self setRightBtn];
     
     
     [self.webView scalesPageToFit];
@@ -77,8 +76,9 @@
 
 #pragma -mark private
 - (void)writeVisitorsInfoWebViewGoBack{
-    NSLog(@"aa");
-   NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"]);
+    self.isSave = YES;
+    [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"];
+//    [self.webView goBack];
 }
 -(void)back
 {
@@ -139,8 +139,13 @@
     if (isNeedBtn) {
         self.rightButton.hidden = NO;
     }
-
-    
+    if (self.isSave) {
+//        NSLog(@"%ld", self.webView.pageCount);
+        [self.webView goBack];
+        [self.webView goBack];
+//        [self.webView goBackPageNum:1];
+    }
+    self.isSave = NO;
     //[MBProgressHUD showSuccess:@"加载完成"];
     //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
   

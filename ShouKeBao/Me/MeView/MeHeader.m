@@ -16,6 +16,7 @@
     if (self) {
         UIImageView *headIcon = [[UIImageView alloc] init];
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickHead:)];
+        headIcon.userInteractionEnabled = YES;
         [headIcon addGestureRecognizer:tap];
         headIcon.layer.masksToBounds = YES;
         headIcon.layer.borderWidth = 3;
@@ -81,6 +82,7 @@
 
 - (void)clickHead:(UITapGestureRecognizer *)ges
 {
+    NSLog(@"aa");
     if (_delegate && [_delegate respondsToSelector:@selector(didClickHeadIcon)]) {
         [_delegate didClickHeadIcon];
     }

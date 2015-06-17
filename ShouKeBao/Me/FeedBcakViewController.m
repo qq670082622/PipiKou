@@ -160,6 +160,7 @@
 #pragma mark - ViewAppear
 
 - (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
     NSString * goodOrBad = self.isGood ? @"1" : @"0";
     //纪录提交时间
     NSTimeInterval nowTime = [TimeTool getNowTime];

@@ -27,6 +27,7 @@
 #import "Lotuseed.h"
 #import "SubstationParttern.h"
 #import "FeedBcakViewController.h"
+#import "ResizeImage.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -154,8 +155,8 @@
 // 点击头像上传照片
 - (void)didClickHeadIcon
 {
-    //    UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
-    //    [sheet showInView:self.view.window];
+//        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
+//        [sheet showInView:self.view.window];
 }
 
 #pragma mark - MeButtonViewDelegate
@@ -380,14 +381,19 @@
 #pragma mark - UIImagePickerControllerDelegate
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    if (picker.sourceType == UIImagePickerControllerSourceTypeCamera)
+    {
+        //        UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+    }
     NSLog(@"----%@",info);
     UIImage *image = info[@"UIImagePickerControllerEditedImage"];
-    self.meheader.headIcon.image = image;
+    UIImage * newImage = [ResizeImage reSizeImage:image toSize:CGSizeMake(120, 120)];
+    self.meheader.headIcon.image = newImage;
+    
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];
     [def synchronize];
-    
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page5ChangeIcon" attributes:@{@"stationName":par.stationName}];
     [picker dismissViewControllerAnimated:YES completion:nil];
