@@ -82,6 +82,7 @@
         }
         else
         {
+            
             [self.navigationController popViewControllerAnimated:YES];
             
         }
@@ -93,6 +94,7 @@
 {
     if (!_webView) {
         _webView = [[BeseWebView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 44)];
+//        _webView.scrollView.bounces = NO;
     }
     return _webView;
 }
@@ -130,9 +132,6 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
-    NSString *title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    NSLog(@"%@777%@", currentURL, title);
 
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 //    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];

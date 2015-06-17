@@ -10,5 +10,5 @@
 
 @interface BeseWebView : UIWebView
 
-
+-(void)goBackPageNum:(NSInteger)pageNum;
 @end

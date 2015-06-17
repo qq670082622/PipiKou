@@ -46,5 +46,9 @@
     return self;
 }
 
-
+-(void)goBackPageNum:(NSInteger)pageNum{
+    for (int i = 0 ; i < self.pageCount - 2; i++) {
+        [self goBack];
+    }
+}
 @end
