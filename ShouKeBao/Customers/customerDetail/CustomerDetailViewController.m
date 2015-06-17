@@ -83,6 +83,9 @@
 //    return YES;
 //    
 //}
+
+
+
 -(void)setSubViews{
         self.QQ.text = self.QQStr;
     self.weChat.text = self.weChatStr;
@@ -91,6 +94,9 @@
     self.userName.text = self.userNameStr;
     
 }
+
+
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -104,6 +110,8 @@
 //        [self.navigationController pushViewController:orders animated:NO];
 //    }
 //}
+
+
 -(void)customerRightBarItem
 {
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
@@ -116,6 +124,8 @@
     
     self.navigationItem.rightBarButtonItem= barItem;
 }
+
+
 -(void)EditCustomerDetail
 {
     SubstationParttern *par = [SubstationParttern sharedStationName];
@@ -145,6 +155,8 @@
     self.userName.text = name;
     
 }
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -161,12 +173,15 @@
     [self.navigationController pushViewController:remond animated:YES];
 }
 
+
 - (IBAction)deleteCustomer:(id)sender {
     
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"您确定要删除吗？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
     [sheet showInView:self.view];
     
   }
+
+
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
@@ -195,15 +210,18 @@
     }
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 0.01f;
 }
 
+
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 10.0f;
 }
+
 
 - (IBAction)attachmentAction:(id)sender {
     attachmentViewController *att = [[attachmentViewController alloc] init];
