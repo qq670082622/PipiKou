@@ -70,12 +70,17 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    
-
     [super viewWillAppear:animated];
-  }
+  
+    [self.captureSession startRunning];//当QR被父vc remove时候关闭识别，当被添加的时候打开识别
 
+}
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+       [self.captureSession stopRunning];
+}
 
 //实现startReading方法（这可就是重点咯）
 - (BOOL)startReading {
@@ -178,13 +183,7 @@
         }];
     }
     
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *bo = [def objectForKey:@"captureBool"];
-    if ([bo isEqualToString:@"yes"]) {
-        [self.captureSession startRunning];
-    }else if ([bo isEqualToString:@"no"]){
-        [self.captureSession stopRunning];
-    }
+
 }
 ////实现开始和停止方法
 //- (void)startStopReading{
@@ -244,14 +243,6 @@
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

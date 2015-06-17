@@ -285,7 +285,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self defaultToNotifiQRDStartRunning];
+   // [self defaultToNotifiQRDStartRunning];
     
    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
@@ -328,20 +328,6 @@
 
 
 
--(void)defaultToNotifiQRDToStopRunning
-{
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    [def setObject:@"no" forKey:@"captureBool"];
-    [def synchronize];
-}
-
-
--(void)defaultToNotifiQRDStartRunning
-{
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    [def setObject:@"yes" forKey:@"captureBool"];
-    [def synchronize];
-}
 
 
 #pragma -mark pickerViewDelegate
@@ -355,12 +341,16 @@
     if (_isLogin) {
         if ([_selectedStr  isEqual: @"二维码"]) {
             
-            if (self.camera.isStart == YES) {
+            if (self.camera.isStart == YES || self.cameraInUse == YES) {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                [self defaultToNotifiQRDStartRunning];
+               // [self defaultToNotifiQRDStartRunning];
                 [UIView animateWithDuration:1 animations:^{
                     self.personIDVC.view.alpha = 0;
                     self.QRCodevc.view.alpha = 0;
+                    
+                    [self.camera stop];
+                    self.cameraInUse = NO;
+                    
                     [self.personIDVC.view removeFromSuperview];
                     [self.view addSubview:self.QRCodevc.view];
                     self.personIDVC.view.alpha = 1;
@@ -368,19 +358,20 @@
                 }];
                
                 
-                [self.camera stop];
+               
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 [self.view bringSubviewToFront:self.controlView];
                 self.title = @"二维码扫描";
                 [self setTreeBtnImagesWithNo];
                 
             }
-            
+          
+
         }else if ([_selectedStr isEqualToString:@"身份证"]){
             
             if (self.camera.isStart == NO && _cameraInUse == NO) {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                [self defaultToNotifiQRDToStopRunning];
+                
                 [UIView animateWithDuration:1 animations:^{
                     self.personIDVC.view.alpha = 0;
                     self.QRCodevc.view.alpha = 0;
@@ -392,21 +383,20 @@
                
                 
                 [self.camera start];
+                self.cameraInUse = YES;
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 
                 self.title = @"身份证扫描";
                 [self setTreeBtnImagesWithYes];
                 
             }
-             // [self ifPush];
+         
              self.title = @"身份证扫描";
         }else{
             
             if (self.camera.isStart == NO && _cameraInUse == NO) {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                [self defaultToNotifiQRDToStopRunning];
-                
-                [UIView animateWithDuration:1 animations:^{
+               [UIView animateWithDuration:1 animations:^{
                     self.personIDVC.view.alpha = 0;
                     self.QRCodevc.view.alpha = 0;
                     [self.QRCodevc.view removeFromSuperview];
@@ -415,6 +405,7 @@
                     self.QRCodevc.view.alpha = 1;
                 }];
                 [self.camera start];
+                self.cameraInUse = YES;
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 
                 
@@ -746,8 +737,8 @@
 -(void)ifPush
 {
     self.camera.view.hidden = NO;
-        self.camera.isStart = NO;
-    self.cameraInUse = NO;
+        self.camera.isStart = YES;
+    self.cameraInUse = YES;
     [self.camera start];
 
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
