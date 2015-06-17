@@ -104,12 +104,18 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
     NSString *rightUrl = request.URL.absoluteString;
     NSRange range = [rightUrl rangeOfString:urlSuffix];
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
+
+        if ([rightUrl containsString:@"tel:"]) {
+            
+        }else{
          [_indicator startAnimation];
+        }
 //        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
 //        
 //        hudView.labelText = @"拼命加载中...";
@@ -124,6 +130,10 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    NSString *currentURL = [webView stringByEvaluatingJavaScriptFromString:@"document.location.href"];
+    NSString *title = [self.webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    NSLog(@"%@777%@", currentURL, title);
+
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 //    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
     
