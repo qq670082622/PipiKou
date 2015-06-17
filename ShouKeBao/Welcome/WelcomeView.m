@@ -9,7 +9,8 @@
 #import "WelcomeView.h"
 #import "WelcomePageControl.h"
 
-#define WelcomeImageCount 4
+#define WelcomeImageCount 5
+
 // 2.获得RGB颜色
 #define IWColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 // 4.不同屏幕尺寸
@@ -82,9 +83,9 @@
         UIImageView *imageView = [[UIImageView alloc] init];
         
         // 设置图片
-        NSString *name4 = [NSString stringWithFormat:@"welcome_%d-4s", index];
-        NSString *name5 = [NSString stringWithFormat:@"welcome_%d-5s",index];
-        NSString *name6 = [NSString stringWithFormat:@"welcome_%d",index];
+        NSString *name4 = [NSString stringWithFormat:@"w%d-4s", index];
+        NSString *name5 = [NSString stringWithFormat:@"w%d-5s",index];
+        NSString *name6 = [NSString stringWithFormat:@"w%d",index];
         
         if (foureSize) {
             imageView.image = [UIImage imageNamed:name4];
