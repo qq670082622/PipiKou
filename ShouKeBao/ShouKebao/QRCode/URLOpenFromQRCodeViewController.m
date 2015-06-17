@@ -8,6 +8,7 @@
 
 #import "URLOpenFromQRCodeViewController.h"
 #import "YYAnimationIndicator.h"
+#import "WMAnimations.h"
 @interface URLOpenFromQRCodeViewController ()<UIWebViewDelegate>
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (weak, nonatomic) IBOutlet UIWebView *web;
@@ -18,6 +19,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"二维码网页";
+    
+    [WMAnimations WMNewWebWithScrollView:self.web.scrollView];
+    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.url]];
     [self.web loadRequest:request];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
