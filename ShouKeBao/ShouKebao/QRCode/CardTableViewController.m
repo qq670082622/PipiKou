@@ -10,6 +10,7 @@
 #import "WMAnimations.h"
 #import "WriteFileManager.h"
 #import "StrToDic.h"
+#import "IWHttpTool.h"
 @interface CardTableViewController ()<UITextFieldDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
@@ -49,27 +50,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"护照";
-    
-    if (_model) {
-        
-//        card.nameLabStr = json[@"UserName"];
-//        card.sexLabStr = json[@"Sex"];
-//        card.countryLabStr = json[@"Nationality"];
-//        card.cardNumStr = json[@"PassportNum"];
-//        card.bornLabStr = json[@"BirthDay"];
-//        card.startDayLabStr = json[@"ValidStartDate"];
-//        card.startPointLabStr = json[@"ValidAddress"];
-//        card.effectiveLabStr = json[@"ValidEndDate"];
-        
-        self.nameText.text = _model.UserName;
-        self.sexText.text = _model.Sex;
-        self.countryText.text = _model.Nationality;
-        self.cardNumText.text = _model.PassportNum;
-        self.bornText.text = _model.BirthDay;
-        self.startDayText.text = _model.ValidStartDate;
-        self.startPointText.text = _model.ValidAddress;
-        self.effectiveText.text = _model.ValidEndDate;
-    }else{
+   //如果是扫描直接进来
         
       
     self.nameText.text = _nameLabStr;
@@ -81,7 +62,7 @@
     self.startPointText.text = _startPointLabStr;
     self.effectiveText.text = _effectiveLabStr;
              
-    }
+    
     
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.sexLab,self.countryLab,self.cardNum,self.bornLab,self.startDayLab,self.startPointLab,self.effectiveLab, nil]];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor blueColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -104,7 +85,7 @@
 }
 
 
-//生成后马上保存到本地
+//生成后马上保存到本地.--------已作废
 -(void)saveScanningWithDic:(NSDictionary *)dic andType:(NSString *)type
 {
     if (dic[@"UserName"]) {
@@ -168,7 +149,32 @@
 }
 
 - (IBAction)save:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"等接口" message:@"别慌" delegate:self cancelButtonTitle:@"yes" otherButtonTitles: nil];
-    [alert show];
-}
+    
+    if (_isLogin) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
+        [dic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+        
+        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
+            NSLog(@"批量导入客户成功 返回json is %@",json);
+//            
+//            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
+//            testLab.backgroundColor = [UIColor whiteColor];
+//            testLab.font = [UIFont systemFontOfSize:8];
+//            testLab.text = [NSString stringWithFormat:@"保存记录返回的JSON IS %@",json];
+//            testLab.numberOfLines = 0;
+//            [self.view.window addSubview:testLab];
+            [self.saveBtn setTitle:@"已保存" forState:UIControlStateNormal];
+            [self.saveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+            self.saveBtn.userInteractionEnabled = NO;
+        } failure:^(NSError *error) {
+            NSLog(@"批量导入客户失败，返回error is %@",error);
+        }];
+
+    }//else if (!_isLogin){
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"保存成功" message:@"已成功提取信息，您可以方便地在“我的客户中”查看和编辑" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+        [alert show];
+
+   // }
+   
+   }
 @end

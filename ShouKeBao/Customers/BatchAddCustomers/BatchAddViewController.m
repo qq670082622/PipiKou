@@ -96,6 +96,14 @@
 }
 -(void )loadData
 {
+        // 判断是否授权成功
+        if(ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized)
+        {
+            // 授权失败直接返回
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"授权失败" message:@"请检查您是否对“旅游圈”通讯录的访问权限进行授权" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+            [alert show];
+        }
+
     ABAddressBookRef addressBooks = nil;
 
     addressBooks = ABAddressBookCreateWithOptions(NULL, NULL);
@@ -132,6 +140,7 @@
             } else {
             if ((__bridge id)abLastName != nil)
                 {
+                    // nameString = (__bridge NSString *)abFullName;
                 nameString = [NSString stringWithFormat:@"%@ %@", nameString, lastNameString];
                 }}
         
@@ -179,6 +188,8 @@
         [self.dataArr addObject:addressBooks];
             
         }
+    
+   
 }
 
 
