@@ -202,7 +202,7 @@
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
     if ([rightUrl containsString:@"tel:"]) {
-        
+        [self.webView reload];
     }else{
         [_indicator startAnimation];
     }

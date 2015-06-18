@@ -115,7 +115,7 @@
     }else{
 
         if ([rightUrl containsString:@"tel:"]) {
-            [self.webView loadRequest:self.request];
+//            [self.webView loadRequest:self.request];
         }else{
          [_indicator startAnimation];
         }
