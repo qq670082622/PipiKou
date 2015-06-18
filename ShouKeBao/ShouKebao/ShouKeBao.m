@@ -481,7 +481,7 @@
                 
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 // 添加精品推荐 如果有推荐的话
-//                if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
+                if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
                 
 //                    [HomeHttpTool getRecommendProductListWithParam:@{@"DateRangeType":@"1"} success:^(id recommendJson) {
 //                        NSLog(@"-------------今日推荐新接口数据是:%@--------------",recommendJson);
@@ -495,7 +495,7 @@
                     base.model = recommend;
                     base.idStr = @"recommend";
                     [self.dataSource addObject:base];
-//                }
+                }
                 
                 // 添加订单
                 for (NSDictionary *dic in json[@"OrderList"]) {
