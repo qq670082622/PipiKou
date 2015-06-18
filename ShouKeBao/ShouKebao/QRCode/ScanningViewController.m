@@ -512,13 +512,13 @@
 //    }
 //    return _writeFilePassportArr;
 //}
-//-(NSMutableArray *)writeFilePersonIdArr
-//{
-//    if (_writeFilePersonIdArr == nil) {
-//        self.writeFilePersonIdArr = [NSMutableArray array];
-//    }
-//    return _writeFilePersonIdArr;
-//}
+-(NSMutableArray *)writeFilePersonIdArr
+{
+    if (_writeFilePersonIdArr == nil) {
+        self.writeFilePersonIdArr = [NSMutableArray array];
+    }
+    return _writeFilePersonIdArr;
+}
 
 
 
@@ -607,8 +607,9 @@
 
 - (IBAction)rightAction:(id)sender {
     if (_canClick == YES) {
-        
-        [self.navigationController pushViewController:[[QRHistoryViewController alloc] init] animated:YES];
+        QRHistoryViewController *hi = [[QRHistoryViewController alloc] init];
+        hi.isLogin = _isLogin;
+        [self.navigationController pushViewController:hi animated:YES];
         [self ifPush];
 
     }
@@ -655,23 +656,26 @@
                                        NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
                         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
                             NSLog(@"------图片--图片---json is %@----图片----",json);
-                            //[self getTestLabWithJson:json];
-                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-                                
-                            userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
-                                card.UserName = json[@"UserName"];
-                                card.address = json[@"Address"];
-                                card.birthDay = json[@"BirthDay"];
-                                card.cardNumber = json[@"CardNum"];
-                                card.Nation = json[@"Nation"];
-                                card.sex = json[@"Sex"];
-                           // card.json = json;
                             
+                          //  [self getTestLabWithJson:json];
+                            
+                            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+                userIDTableviewController *card = [sb instantiateViewControllerWithIdentifier:@"userID"];
+                                card.UserName = json[@"CredentialsPicRecord"][@"UserName"];
+                                card.address = json[@"CredentialsPicRecord"][@"Address"];
+                                card.birthDay = json[@"CredentialsPicRecord"][@"BirthDay"];
+                                card.cardNumber = (NSString *)json[@"CredentialsPicRecord"][@"CardNum"];
+                                card.Nationality = json[@"CredentialsPicRecord"][@"Nationality"];
+                                card.sex = json[@"CredentialsPicRecord"][@"Sex"];
+                            card.RecordId = json[@"CredentialsPicRecord"][@"RecordId"];
+                          
+                            card.isLogin = _isLogin;
                             card.delegate = self;
+                            
+                            if (!_isLogin) {//未登录时保存记录
+                                [self saveRecordWithJson:json];
+                            }
                                 [self.navigationController pushViewController:card animated:YES];
-                            //[self saveScanningWithDic:json andType:@"personId"];
-
-                             //   [self ifPush];
                             
                         } failure:^(NSError *error) {
                         
@@ -685,23 +689,29 @@
         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"4"}  success:^(id json) {
             NSLog(@"------图片--图片---json is %@----图片----",json);
    
-
+           // [self getTestLabWithJson:json];
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
             
-            card.nameLabStr = json[@"UserName"];
-            card.sexLabStr = json[@"Sex"];
-            card.countryLabStr = json[@"Nationality"];
-            card.cardNumStr = json[@"PassportNum"];
-            card.bornLabStr = json[@"BirthDay"];
-            card.startDayLabStr = json[@"ValidStartDate"];
-            card.startPointLabStr = json[@"ValidAddress"];
-            card.effectiveLabStr = json[@"ValidEndDate"];
-          //  card.json = json;
+            card.nameLabStr = json[@"CredentialsPicRecord"][@"UserName"];
+            card.sexLabStr = json[@"CredentialsPicRecord"][@"Sex"];
+            //card.countryLabStr = json[@"CredentialsPicRecord"][@"Country"];//后面接口更新后要把国籍还回来
+            card.countryLabStr = json[@"CredentialsPicRecord"][@"Nationality"];
+
+            card.cardNumStr = json[@"CredentialsPicRecord"][@"PassportNum"];
+            card.bornLabStr = json[@"CredentialsPicRecord"][@"BirthDay"];
+            card.startDayLabStr = json[@"CredentialsPicRecord"][@"ValidStartDate"];
+            card.startPointLabStr = json[@"CredentialsPicRecord"][@"ValidAddress"];
+            card.effectiveLabStr = json[@"CredentialsPicRecord"][@"ValidEndDate"];
+            card.RecordId = json[@"CredentialsPicRecord"][@"RecordId"];
+            card.isLogin = _isLogin;
+
             card.delegate = self;
+            
+            if (!_isLogin) {//未登录时保存记录
+                [self saveRecordWithJson:json];
+            }
             [self.navigationController pushViewController:card animated:YES];
-            // [self saveScanningWithDic:json andType:@"passport"];
-           // [self ifPush];
             
         } failure:^(NSError *error) {
             NSLog(@"----图片-eeror is %@------图片------",error) ;
@@ -714,13 +724,78 @@
   
 
 }
+//未登录时候保存记录，登录后同步
+-(void)saveRecordWithJson:(NSDictionary *)diction
+{
+//    @property (nonatomic,copy) NSString *UserName;
+//    @property (nonatomic,copy) NSString *Address;
+//    @property (nonatomic,copy) NSString *BirthDay;
+//    @property (nonatomic,copy) NSString *CardNum;
+//    @property (nonatomic,copy) NSString *Nation;//民族
+//    @property (nonatomic,copy) NSString *Sex;
+
+//    @property (nonatomic,copy) NSString *type;
+//    @property(nonatomic,copy) NSString *Country;//国家
+//    @property(nonatomic,copy) NSString *PassportNum;//护照号
+//    @property(nonatomic,copy) NSString *ValidStartDate;
+//    @property(nonatomic,copy) NSString *ValidAddress;
+//    @property(nonatomic,copy) NSString *ValidEndDate;
+//    @property (nonatomic,copy) NSString *PicUrl;
+//    @property (nonatomic,copy) NSString *ModifyDate;//修改日期
+//    @property (nonatomic,copy) NSString *RecordId;//纪录ID
+    
+    
+    [self.writeFilePersonIdArr addObjectsFromArray:[WriteFileManager readData:@"record"]];
+          NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+   
+    NSDictionary *json = diction[@"CredentialsPicRecord"];
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"UserName"] forKey:@"UserName"];
+    
+   [StrToDic setValueWhenIsNull:dic andValue:json[@"Address"] forKey:@"Address"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"BirthDay"] forKey:@"BirthDay"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"CardNum"] forKey:@"CardNum"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"Nationality"] forKey:@"Nationality"];
+   
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"Sex"] forKey:@"Sex"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"Country"] forKey:@"Country"];
+  
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"PassportNum"] forKey:@"PassportNum"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"ValidStartDate"] forKey:@"ValidStartDate"];
+   
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"ValidAddress"] forKey:@"ValidAddress"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"ValidEndDate"] forKey:@"ValidEndDate"];
+    
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"PicUrl"] forKey:@"PicUrl"];
+   
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"ModifyDate"] forKey:@"ModifyDate"];
+  
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"RecordId"] forKey:@"RecordId"];
+    
+    [self.writeFilePersonIdArr addObject:dic];
+    [WriteFileManager saveData:_writeFilePersonIdArr name:@"record"];
+ 
+//        UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
+//    testLab.backgroundColor = [UIColor whiteColor];
+//    testLab.font = [UIFont systemFontOfSize:8];
+//    testLab.text = [NSString stringWithFormat:@"%@",[WriteFileManager readData:@"record"]];
+//    testLab.numberOfLines = 0;
+//    [self.view.window addSubview:testLab];
+
+}
 //测试后台返回用
 -(void)getTestLabWithJson:(id)json
 {
-    UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+    UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
     testLab.backgroundColor = [UIColor whiteColor];
-    testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\njson is %@----errorMSG is %@",json,json[@"ErrorMsg"]];
+    testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\njson is %@-",json];
     testLab.numberOfLines = 0;
+    testLab.font = [UIFont systemFontOfSize:8];
     [self.view.window addSubview:testLab];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(200.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [testLab removeFromSuperview];

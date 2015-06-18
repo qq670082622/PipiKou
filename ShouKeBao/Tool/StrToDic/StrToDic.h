@@ -15,4 +15,6 @@
 +(NSString *)jsonStringWithDicL:(NSDictionary *)dic;//将字典转化成string
 +(NSDictionary *)dictWithArry:(NSArray *)array;
 + (NSString *)stringFromDate:(NSDate *)date;
+
++(void)setValueWhenIsNull:(NSMutableDictionary *)dic andValue:(NSString *)value forKey:(NSString *)key;
 @end

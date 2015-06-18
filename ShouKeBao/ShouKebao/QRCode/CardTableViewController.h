@@ -23,8 +23,9 @@
 @property (copy, nonatomic) NSString *startDayLabStr;
 @property (copy, nonatomic) NSString *startPointLabStr;
 @property (copy, nonatomic) NSString *effectiveLabStr;
+@property (copy,nonatomic) NSString *RecordId;
 
-//@property(nonatomic,strong) NSDictionary *json;
-@property(nonatomic,strong)personIdModel *model;
+
+@property(nonatomic,assign) BOOL isLogin;
 @property(weak,nonatomic) id<toIfPush>delegate;
 @end

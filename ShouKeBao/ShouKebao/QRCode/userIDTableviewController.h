@@ -19,11 +19,13 @@
 @property(nonatomic,copy) NSString *address;
 @property(nonatomic,copy) NSString *birthDay;
 @property(nonatomic,copy) NSString *cardNumber;
-@property(nonatomic,copy) NSString *Nation;
+@property(nonatomic,copy) NSString *Nationality;
 @property(nonatomic,copy) NSString *sex;
 @property(nonatomic,copy) NSString *UserName;
-@property(nonatomic,strong)personIdModel *model;
-//@property(nonatomic,strong) NSDictionary *json;
+@property (copy,nonatomic) NSString *RecordId;
+
+@property(nonatomic,assign) BOOL isLogin;
+
 
 @property(nonatomic,weak) id<toIfPush2>delegate;
 

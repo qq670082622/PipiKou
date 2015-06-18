@@ -82,4 +82,16 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
 }
 
 
++(void)setValueWhenIsNull:(NSMutableDictionary *)dic andValue:(NSString *)value forKey:(NSString *)key
+{
+    if (value) {
+    
+        [dic setObject:value forKey:key];
+    
+    }else if ([value isKindOfClass:[NSNull class]]){
+        
+        [dic setObject:@"" forKey:key];
+    }
+}
+
 @end

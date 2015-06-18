@@ -10,4 +10,5 @@
 #import "SKViewController.h"
 @interface QRHistoryViewController : SKViewController
 @property (nonatomic,strong) NSMutableArray *dataArr;
+@property(nonatomic,assign) BOOL isLogin;
 @end

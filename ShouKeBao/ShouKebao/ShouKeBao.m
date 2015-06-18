@@ -92,7 +92,11 @@
     
     [super viewDidLoad];
     
-   self.userIcon.layer.masksToBounds = YES;
+       
+    [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
+    [ self postWithNotLoginRecord2];//上传未登录时保存的客户
+    
+    self.userIcon.layer.masksToBounds = YES;
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
@@ -1085,6 +1089,65 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     [self sortDataSource];
     [self.tableView reloadData];
+}
+
+
+#pragma mark - 登录成功时，将未登录时保存的记录传给后台来同步扫描记录
+-(void)postwithNotLoginRecord
+{
+   NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
+   
+    
+    if (arr.count>0) {
+    
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:arr forKey:@"CredentialsPicRecordList"];
+        
+[IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+            NSLog(@"上传record成功");
+//                                        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//                                        testLab.backgroundColor = [UIColor whiteColor];
+//                                        testLab.font = [UIFont systemFontOfSize:8];
+//                                        testLab.text = [NSString stringWithFormat:@"dic is %@/------/json is %@-------",dic,json];
+//                                        testLab.numberOfLines = 0;
+//                                        [self.view.window addSubview:testLab];
+
+                    NSArray *new = [NSArray array];
+            [WriteFileManager saveData:new name:@"record"];
+        } failure:^(NSError *error) {
+            NSLog(@"上传record失败");
+        }];
+    
+    }
+    [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [MBProgressHUD hideHUD];
+    });
+
+  
+}
+
+-(void)postWithNotLoginRecord2//未登录时添加的客户
+{
+    NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"recoder2"]];//未登录时储存的客户;
+   
+    if (arr.count>0) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:arr forKey:@"RecordIds"];
+        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
+            NSLog(@"批量导入客户成功 返回json is %@",json);
+            
+            
+        } failure:^(NSError *error) {
+            NSLog(@"批量导入客户失败，返回error is %@",error);
+        }];
+}
+    [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        [MBProgressHUD hideHUD];
+    });
+
+   
 }
 
 @end
