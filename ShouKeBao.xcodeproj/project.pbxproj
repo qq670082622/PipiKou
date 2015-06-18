@@ -285,7 +285,6 @@
 		63E034451AFC995300BD714A /* CustomCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E0341C1AFC995300BD714A /* CustomCell.m */; };
 		63E034461AFC995300BD714A /* CustomCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E0341D1AFC995300BD714A /* CustomCell.xib */; };
 		63E034471AFC995300BD714A /* Customer.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 63E0341F1AFC995300BD714A /* Customer.storyboard */; };
-		63E034481AFC995300BD714A /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E034211AFC995300BD714A /* CustomerDetailViewController.m */; };
 		63E034491AFC995300BD714A /* EditCustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E034231AFC995300BD714A /* EditCustomerDetailViewController.m */; };
 		63E0344A1AFC995300BD714A /* CustomerOrdersUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63E034261AFC995300BD714A /* CustomerOrdersUIViewController.m */; };
 		63E0344B1AFC995300BD714A /* CustomerOrdersUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63E034271AFC995300BD714A /* CustomerOrdersUIViewController.xib */; };
@@ -323,6 +322,7 @@
 		63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1A81B14250E00DE9867 /* NSObject+MJKeyValue.m */; };
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
+		79A8C5401B32DED300922CEA /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A8C53F1B32DED300922CEA /* CustomerDetailViewController.m */; };
 		79C2272A1B27CF93001EE081 /* FeedBcakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C227291B27CF93001EE081 /* FeedBcakViewController.m */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EE91671B2BCDE2008C8935 /* TimeTool.m */; };
@@ -824,7 +824,6 @@
 		63E0341D1AFC995300BD714A /* CustomCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomCell.xib; sourceTree = "<group>"; };
 		63E0341F1AFC995300BD714A /* Customer.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Customer.storyboard; sourceTree = "<group>"; };
 		63E034201AFC995300BD714A /* CustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDetailViewController.h; sourceTree = "<group>"; };
-		63E034211AFC995300BD714A /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
 		63E034221AFC995300BD714A /* EditCustomerDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditCustomerDetailViewController.h; sourceTree = "<group>"; };
 		63E034231AFC995300BD714A /* EditCustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditCustomerDetailViewController.m; sourceTree = "<group>"; };
 		63E034251AFC995300BD714A /* CustomerOrdersUIViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerOrdersUIViewController.h; sourceTree = "<group>"; };
@@ -890,6 +889,7 @@
 		63F1A1A91B14250E00DE9867 /* NSObject+MJMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJMember.h"; sourceTree = "<group>"; };
 		63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		79A8C53F1B32DED300922CEA /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
 		79C227281B27CF93001EE081 /* FeedBcakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBcakViewController.h; sourceTree = "<group>"; };
 		79C227291B27CF93001EE081 /* FeedBcakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBcakViewController.m; sourceTree = "<group>"; };
 		79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeseWebView.h; sourceTree = "<group>"; };
@@ -2086,7 +2086,7 @@
 			children = (
 				63E0341F1AFC995300BD714A /* Customer.storyboard */,
 				63E034201AFC995300BD714A /* CustomerDetailViewController.h */,
-				63E034211AFC995300BD714A /* CustomerDetailViewController.m */,
+				79A8C53F1B32DED300922CEA /* CustomerDetailViewController.m */,
 				63E034221AFC995300BD714A /* EditCustomerDetailViewController.h */,
 				63E034231AFC995300BD714A /* EditCustomerDetailViewController.m */,
 				63AE28961B21975800BDB8C1 /* attachmentViewController.h */,
@@ -2533,6 +2533,7 @@
 				5A52FC741ACEBF220076DAE6 /* MeButtonView.m in Sources */,
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
 				5A52FC771ACEBF220076DAE6 /* ProductHistoryCell.m in Sources */,
+				79A8C5401B32DED300922CEA /* CustomerDetailViewController.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
 				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
 				845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */,
@@ -2587,7 +2588,6 @@
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
 				5A944D2A1B00BC780004DE89 /* MLPhotoBrowserPhotoScrollView.m in Sources */,
-				63E034481AFC995300BD714A /* CustomerDetailViewController.m in Sources */,
 				5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */,
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
 				5A52FC601ACEBF220076DAE6 /* BindPhoneViewController.m in Sources */,
