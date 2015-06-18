@@ -113,6 +113,10 @@
     NSDictionary *param = @{@"PageSize":pageSize,
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                             @"DateRangeType":@"1"};
+//    NSDictionary *param = @{@"PageSize":pageSize,
+//                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+//                            @"DateRangeType":@"1"};
+
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
                [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];

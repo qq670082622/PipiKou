@@ -694,7 +694,12 @@
     [window addSubview:cover];
     
     [cover addSubview:self.detailView];
-    
+//    [UIView animateWithDuration:0.4 animations:^{
+//        _detailView.bounds = CGRectMake(0, 0, self.view.frame.size.width * 0.8, 272);
+//    } completion:^(BOOL finished) {
+//        
+//    }];
+
     // 取出模型
     OrderModel *order = self.dataArr[index];
 //    self.detailView.data = order.SKBOrder;

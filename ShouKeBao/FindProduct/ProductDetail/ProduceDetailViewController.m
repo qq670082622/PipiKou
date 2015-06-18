@@ -285,6 +285,7 @@
 -(void)shareIt:(id)sender
 {
     //构造分享内容
+//    NSString * str = [NSString stringWithFormat:@"%@%@%@", self.shareInfo[@"Title"], self.shareInfo[@"Desc"], self.shareInfo[@"Url"]];
     id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
@@ -293,7 +294,7 @@
                                             mediaType:SSPublishContentMediaTypeNews];
 
 [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
-    
+    NSLog(@"%@444", self.shareInfo);
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];

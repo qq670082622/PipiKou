@@ -13,8 +13,7 @@
 {
      CABasicAnimation *theAnimation;
     theAnimation=[CABasicAnimation animationWithKeyPath:@"position"];
-    
-theAnimation.fromValue=[NSValue valueWithCGPoint:fromPoint];
+    theAnimation.fromValue=[NSValue valueWithCGPoint:fromPoint];
     theAnimation.toValue=[NSValue valueWithCGPoint:toPoint];
     
     

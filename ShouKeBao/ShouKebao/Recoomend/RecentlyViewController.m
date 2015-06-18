@@ -112,7 +112,6 @@
             if (self.isRefresh) {
                 [self.dataArr removeAllObjects];
             }
-            
             for (NSDictionary *dic in json[@"ProductList"]) {
                 recentlyModel *model = [recentlyModel modalWithDict:dic];
                 [self.dataArr addObject:model];
@@ -202,8 +201,6 @@
     if (_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↓"]) {
         
                    [self.priceBtn setTitle:@"价格↑" forState:UIControlStateNormal];
-            
-            
     }else if(_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↑"]){
         
         [self.priceBtn setTitle:@"价格↓" forState:UIControlStateNormal];
@@ -211,7 +208,7 @@
     else if (_priceBtn.selected == NO){
         
         [self.priceBtn setSelected:YES];
-        
+
     }
     
   
@@ -243,8 +240,6 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 153;
-    
-    
 }
 
 @end

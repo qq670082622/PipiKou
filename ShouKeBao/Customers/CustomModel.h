@@ -17,7 +17,17 @@
 @property (nonatomic,copy) NSString *QQCode;
 @property (nonatomic,copy) NSString *Remark;
 @property (nonatomic,copy) NSString *WeiXinCode;
-
+@property (nonatomic,copy) NSString *PicUrl;
+@property (nonatomic,copy) NSString *Nationality;
+@property (nonatomic,copy) NSString *BirthDay;
+@property (nonatomic,copy) NSString *ValidStartDate;
+@property (nonatomic,copy) NSString *ValidAddress;
+@property (nonatomic,copy) NSString *CardNum;
+@property (nonatomic,copy) NSString *ValidEndDate;
+@property (nonatomic,copy) NSString *Address;
+@property (nonatomic,copy) NSString *Sex;
+@property (nonatomic,copy) NSString *Country;
+@property (nonatomic,copy) NSString *PassportNum;
 //@property (nonatomic,copy) NSString *passPortIdStr;
 //@property (nonatomic,copy) NSString *userMessageIDStr;
 //

@@ -302,7 +302,7 @@
     
     // 状态描述
     self.statusDes.text = model.StateText;
-    NSLog(@"%@33333333", model.StateText);
+    NSLog(@"%@33333333%@22222222%@", model.StateText, model.DetailLinkUrl, model.Code);
     self.statusDes.textColor = model.StateTextColor;
     
     // 先清空再添加

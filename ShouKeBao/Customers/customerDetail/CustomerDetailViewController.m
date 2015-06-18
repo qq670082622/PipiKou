@@ -83,6 +83,18 @@
 //    return YES;
 //    
 //}
+//@property (weak, nonatomic) IBOutlet UILabel *passPortId;
+//@property (weak, nonatomic) IBOutlet UILabel *userMessageID;
+//
+//@property (weak, nonatomic) IBOutlet UILabel *bornDay;
+//
+//@property (weak, nonatomic) IBOutlet UILabel *countryID;
+//@property (weak, nonatomic) IBOutlet UILabel *nationalID;
+//@property (weak, nonatomic) IBOutlet UILabel *pasportStartDay;
+//@property (weak, nonatomic) IBOutlet UILabel *pasportAddress;
+//@property (weak, nonatomic) IBOutlet UILabel *pasportInUseDay;
+//@property (weak, nonatomic) IBOutlet UILabel *livingAddress;
+
 -(void)setSubViews{
         self.QQ.text = self.QQStr;
     self.weChat.text = self.weChatStr;
@@ -90,6 +102,16 @@
     self.note.text = self.noteStr;
     self.userName.text = self.userNameStr;
     
+    
+    self.passPortId.text = self.customMoel.PassportNum;
+    self.userMessageID.text = self.customMoel.CardNum;
+    self.bornDay.text = self.customMoel.BirthDay;
+    self.countryID.text = self.customMoel.Country;
+    self.nationalID.text = self.customMoel.Nationality;
+    self.pasportStartDay.text = self.customMoel.ValidStartDate;
+    self.pasportAddress.text  = self.customMoel.ValidAddress;
+    self.pasportInUseDay.text = self.customMoel.ValidEndDate;
+    self.livingAddress.text = self.customMoel.Address;
 }
 -(void)viewWillAppear:(BOOL)animated
 {
