@@ -200,10 +200,13 @@
 //    if (range.location == NSNotFound) {
 //        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
 //    }else{
-    
-        self.coverView.hidden = NO;
+    NSString *rightUrl = request.URL.absoluteString;
+    if ([rightUrl containsString:@"tel:"]) {
+    }else{
         [_indicator startAnimation];
+    }
 
+        self.coverView.hidden = NO;
         return YES;
     //}
   
