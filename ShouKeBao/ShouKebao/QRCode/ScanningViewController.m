@@ -686,7 +686,6 @@
             NSLog(@"------图片--图片---json is %@----图片----",json);
    
 
-            
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
             

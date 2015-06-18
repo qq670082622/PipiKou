@@ -28,6 +28,7 @@
 #import "SubstationParttern.h"
 #import "FeedBcakViewController.h"
 #import "ResizeImage.h"
+#import "IWHttpTool.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -389,8 +390,14 @@
     UIImage *image = info[@"UIImagePickerControllerEditedImage"];
     UIImage * newImage = [ResizeImage reSizeImage:image toSize:CGSizeMake(120, 120)];
     self.meheader.headIcon.image = newImage;
+    NSData *data = UIImageJPEGRepresentation(newImage, 1.0);
+    NSString *imageStr = [data base64EncodedStringWithOptions:0];
     
-    
+    [IWHttpTool postWithURL:@"/File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@1:@2} success:^(id json) {
+        NSLog(@"%@*******", json);
+    } failure:^(NSError * error) {
+        
+    }];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];
     [def synchronize];
