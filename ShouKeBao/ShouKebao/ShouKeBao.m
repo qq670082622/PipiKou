@@ -1114,16 +1114,17 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
                     NSArray *new = [NSArray array];
             [WriteFileManager saveData:new name:@"record"];
-        } failure:^(NSError *error) {
-            NSLog(@"上传record失败");
-        }];
-    
-    }
     [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
     });
 
+        } failure:^(NSError *error) {
+            NSLog(@"上传record失败");
+        }];
+    
+    }
+   
   
 }
 
@@ -1137,16 +1138,16 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
             
-            
+            [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                [MBProgressHUD hideHUD];
+            });
+
         } failure:^(NSError *error) {
             NSLog(@"批量导入客户失败，返回error is %@",error);
         }];
 }
-    [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [MBProgressHUD hideHUD];
-    });
-
+   
    
 }
 
