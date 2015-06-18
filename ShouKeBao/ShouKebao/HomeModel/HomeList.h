@@ -52,6 +52,8 @@
 
 @property (nonatomic,copy) NSString *LinkUrl;
 
+@property(nonatomic,copy) NSString *OrderState;
+
 + (instancetype)homeListWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

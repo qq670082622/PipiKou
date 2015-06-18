@@ -202,6 +202,7 @@
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
     if ([rightUrl containsString:@"tel:"]) {
+        
     }else{
         [_indicator startAnimation];
     }
