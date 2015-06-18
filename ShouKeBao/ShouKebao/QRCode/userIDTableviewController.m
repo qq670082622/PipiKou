@@ -157,7 +157,10 @@
 //            testLab.numberOfLines = 0;
 //            [self.view.window addSubview:testLab];
             
-            
+            [self.saveBtn setTitle:@"已保存" forState:UIControlStateNormal];
+            [self.saveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+            self.saveBtn.userInteractionEnabled = NO;
+
         } failure:^(NSError *error) {
             NSLog(@"批量导入客户失败，返回error is %@",error);
         }];
