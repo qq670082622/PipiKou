@@ -17,6 +17,7 @@
 
 @property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
+@property (nonatomic, strong)NSURLRequest * request;
 @end
 
 @implementation OrderDetailViewController
@@ -33,9 +34,9 @@
     
     self.webView.delegate = self;
     
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
+    self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     
-    [self.webView loadRequest:request];
+    [self.webView loadRequest:self.request];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
@@ -114,7 +115,7 @@
     }else{
 
         if ([rightUrl containsString:@"tel:"]) {
-            [self.webView reload];
+            [self.webView loadRequest:self.request];
         }else{
          [_indicator startAnimation];
         }
