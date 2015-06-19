@@ -297,7 +297,9 @@
             
         }
                ProductList *list = [[ProductList alloc] init];
-        list.pushedArr = pushArr;
+        
+        //list.pushedArr = pushArr;
+       
         list.pushedSearchK = self.inputView.text;
         self.table.tableFooterView.hidden = NO;
         
@@ -323,7 +325,9 @@
         
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
-         list.pushedArr = pushArr;
+        
+        //list.pushedArr = pushArr;
+       
         SubstationParttern *par = [SubstationParttern sharedStationName];
         [Lotuseed onEvent:@"searchKey" attributes:@{@"searchKey":self.inputView.text,@"stationName":par.stationName}];
         self.table.tableFooterView.hidden = NO;
@@ -348,7 +352,9 @@
             
             }
         ProductList *list = [[ProductList alloc] init];
-         list.pushedArr = pushArr;
+        
+        //list.pushedArr = pushArr;
+       
         list.pushedSearchK = self.inputView.text;
         self.table.tableFooterView.hidden = NO;
        

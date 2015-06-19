@@ -312,7 +312,9 @@
     }
     
     if (model.buttonList.count) {
-        for (ButtonList *btn in model.buttonList) {
+//        for (ButtonList *btn in model.buttonList) {
+        for (int i = (int)model.buttonList.count-1;i > -1; i--) {
+            ButtonList * btn = [model.buttonList objectAtIndex:i];
             LinkButton *b = [[LinkButton alloc] init];
             b.titleLabel.font = [UIFont systemFontOfSize:14];
             [b setTitle:btn.text forState:UIControlStateNormal];

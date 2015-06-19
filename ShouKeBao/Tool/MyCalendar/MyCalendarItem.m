@@ -200,10 +200,10 @@
 {
     btn.enabled = NO;
     [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-    if (self.isOrderTime) {
-        btn.enabled = YES;
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    }
+//    if (self.isOrderTime) {
+//        btn.enabled = YES;
+//        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//    }
 
 }
 

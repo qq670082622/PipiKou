@@ -652,13 +652,23 @@
         }
         
         NSMutableArray *conArr = [NSMutableArray array];
-        if (_pushedArr){
+        if (!_isFromSearch){
             NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
             [conArr addObject:dicNew];
+            for(NSDictionary *dic in json[@"ProductConditionList"] ){
+                [conArr addObject:dic];
+                }
 
-        }
-               for(NSDictionary *dic in json[@"ProductConditionList"] ){
-            [conArr addObject:dic];
+        }else{
+            for(NSDictionary *dic in json[@"ProductConditionList"] ){
+                [conArr addObject:dic];
+            }
+         NSDictionary *dic2 = [conArr lastObject];//取出被小宝放在最后面的destination
+            [conArr removeAllObjects];
+            [conArr addObject:dic2];//将destination加在头部
+            for(NSDictionary *dic in json[@"ProductConditionList"] ){
+                [conArr addObject:dic];
+            }//将其余的条件添加进来
         }
         
         [self.conditionArr removeAllObjects];
@@ -717,11 +727,13 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
-        NSString *str = [_pushedArr firstObject][@"Text"];
-        if ([str isEqualToString:@"暂无"]) {
-            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
-
-        }
+       
+//        NSString *str = [_pushedArr firstObject][@"Text"];
+//        if ([str isEqualToString:@"暂无"]) {
+//            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
+//
+//        }
+   
     }];
     
     NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
@@ -1262,13 +1274,13 @@
               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                }
                
-               if (indexPath.row == 0 && _isFromSearch == YES) { //当是从搜索进来时,掩盖第一个cell
-                   UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-                   coverView.backgroundColor = [UIColor whiteColor];
-                   [cell.contentView addSubview:coverView];
-                   cell.accessoryType = UITableViewCellAccessoryNone;
-                   cell.detailTextLabel.text = @"";
-               }
+//               if (indexPath.row == 0 && _isFromSearch == YES) { //当是从搜索进来时,掩盖第一个cell
+//                   UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+//                   coverView.backgroundColor = [UIColor whiteColor];
+//                   [cell.contentView addSubview:coverView];
+//                   cell.accessoryType = UITableViewCellAccessoryNone;
+//                   cell.detailTextLabel.text = @"";
+//               }
                
                           }
            

@@ -668,7 +668,7 @@
                                 card.Nationality = json[@"CredentialsPicRecord"][@"Nationality"];
                                 card.sex = json[@"CredentialsPicRecord"][@"Sex"];
                             card.RecordId = json[@"CredentialsPicRecord"][@"RecordId"];
-                          
+                           
                             card.isLogin = _isLogin;
                             card.delegate = self;
                             
@@ -777,6 +777,7 @@
   
     [StrToDic setValueWhenIsNull:dic andValue:json[@"RecordId"] forKey:@"RecordId"];
     
+    [StrToDic setValueWhenIsNull:dic andValue:json[@"RecordType"] forKey:@"RecordType"];
     [self.writeFilePersonIdArr addObject:dic];
     [WriteFileManager saveData:_writeFilePersonIdArr name:@"record"];
  
