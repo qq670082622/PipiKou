@@ -24,6 +24,8 @@
 
 @property (nonatomic,strong) NSDate *goDate;
 
+@property (nonatomic,assign)BOOL isOrdersTime;
+
 @property (nonatomic,weak) id<CalendarViewControllerDelegate> delegate;
 
 @end

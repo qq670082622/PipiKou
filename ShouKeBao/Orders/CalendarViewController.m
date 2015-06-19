@@ -86,9 +86,18 @@
         [weekBg addSubview:week];
     }
     
+    
+    
+    
     // today month
     MyCalendarItem *calendarView = [[MyCalendarItem alloc] init];
+    if (self.isOrdersTime) {
+        calendarView.isOrderTime = YES;
+    }
     calendarView.frame = CGRectMake(0, CGRectGetMaxY(weekBg.frame), self.view.frame.size.width, viewH);
+    if (self.isOrdersTime) {
+        calendarView.frame = CGRectMake(0, CGRectGetMaxY(weekBg.frame) + 4*viewH, self.view.frame.size.width, viewH);
+    }
     [scroll addSubview:calendarView];
     
     calendarView.date = [NSDate date];
@@ -115,11 +124,17 @@
         MyCalendarItem *ca = [[MyCalendarItem alloc] init];
         
         CGFloat caY = calendarView.frame.origin.y + viewH * (i + 1);
+        if (self.isOrdersTime) {
+            caY = calendarView.frame.origin.y - viewH * (i + 1);
+        }
         ca.frame = CGRectMake(0, caY, self.view.frame.size.width, viewH);
         
         NSDate *date = [NSDate date];
         NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
         dateComponents.month = + (i + 1);
+        if (self.isOrdersTime) {
+            dateComponents.month = - (i + 1);
+        }
         NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
         ca.date = newDate;
         

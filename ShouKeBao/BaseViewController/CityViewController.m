@@ -7,13 +7,12 @@
 //
 
 #import "CityViewController.h"
-
+#import "CityPlistTool.h"
 @interface CityViewController ()
 
 @property (nonatomic,strong) NSArray *province;
 @property (nonatomic,strong) NSArray *city;
 @property (nonatomic,strong) NSArray *district;
-
 @end
 
 @implementation CityViewController
@@ -21,11 +20,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
+    NSLog(@"####%@", [CityPlistTool getCityWithProvince:@"江苏省"]);
     NSBundle *bundle = [NSBundle mainBundle];
     NSString *plistPath = [bundle pathForResource:@"area" ofType:@"plist"];
     NSDictionary *areaDic = [[NSDictionary alloc] initWithContentsOfFile:plistPath];
-    
     NSArray *components = [areaDic allKeys];
     NSArray *sortedArray = [components sortedArrayUsingComparator: ^(id obj1, id obj2) {
         
@@ -82,6 +80,11 @@
         
     }
     cell.textLabel.text = self.province[indexPath.row];
+    if ([self.province[indexPath.row] isEqualToString:self.selectedCityName]) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }else{
+        cell.accessoryType = UITableViewCellAccessoryNone;
+    }
     return cell;
 }
 
@@ -89,12 +92,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+    self.selectedCityName = self.province[indexPath.row];
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectedWithCity:)]) {
         [_delegate didSelectedWithCity:self.province[indexPath.row]];
     }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView reloadData];
 //    [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:^{
         

@@ -64,6 +64,7 @@
 - (IBAction)chosesCity:(UIButton *)sender {
     CityViewController * cityVC = [[CityViewController alloc]init];
     cityVC.delegate = self;
+    cityVC.selectedCityName = self.place.titleLabel.text;
     [self presentViewController:cityVC animated:YES completion:^{
         
     }];

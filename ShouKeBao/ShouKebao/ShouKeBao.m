@@ -484,6 +484,7 @@
                 [self.dataSource removeAllObjects];
                 
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
+                NSLog(@"%ld$$$$", self.recommendCount);
                 // 添加精品推荐 如果有推荐的话
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
                 
@@ -887,7 +888,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         
-        
+//        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点

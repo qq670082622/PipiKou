@@ -25,4 +25,7 @@
 +(void)WMShakeWithView:(UIView *)view;//震动
 
 +(void)WMNewWebWithScrollView:(UIScrollView *)scroll;
+
++(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
+                     withRightStr:(NSString *)str;
 @end

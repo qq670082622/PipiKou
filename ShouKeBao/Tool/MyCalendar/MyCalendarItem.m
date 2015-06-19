@@ -200,17 +200,30 @@
 {
     btn.enabled = NO;
     [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    if (self.isOrderTime) {
+        btn.enabled = YES;
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)setStyle_BeforeToday:(UIButton *)btn
 {
     btn.enabled = NO;
     [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    if (self.isOrderTime) {
+        btn.enabled = YES;
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    }
+
 }
 
 - (void)setStyle_Today:(UIButton *)btn
 {
     btn.enabled = NO;
+    if (self.isOrderTime) {
+        btn.enabled = YES;
+    }
     [btn setTitle:@"今天" forState:UIControlStateNormal];
     [btn setTitleColor:[UIColor colorWithRed:19/255.0 green:143/255.0 blue:221/255.0 alpha:1] forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:16];
@@ -222,6 +235,11 @@
 {
     btn.enabled = YES;
     [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    if (self.isOrderTime) {
+        btn.enabled = NO;
+        [btn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+    }
+
 }
 
 
