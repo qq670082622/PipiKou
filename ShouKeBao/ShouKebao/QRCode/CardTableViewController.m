@@ -154,12 +154,35 @@
 - (IBAction)save:(id)sender {
     
     if (_isLogin) {
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
-        [dic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
-        
-        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
+       
+       NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.nameText.text forKey:@"UserName"];
+        [dic setObject:self.sexText.text forKey:@"Sex"];
+        [dic setObject:self.countryText.text forKey:@"Country"];
+        [dic setObject:self.cardNumText.text forKey:@"PassportNum"];
+        [dic setObject:self.startDayText.text forKey:@"ValidStartDate"];
+        [dic setObject:self.bornText.text forKey:@"BirthDay"];
+        [dic setObject:self.startPointText.text forKey:@"ValidAddress"];
+        [dic setObject:self.effectiveText.text forKey:@"ValidEndDate"];
+        [dic setObject:_RecordId forKey:@"RecordId"];
+        [dic setObject:@"2" forKey:@"RecordType"];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:dic];
+        NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
+      
+        [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
+       
+        //1.同步扫描纪录
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
-//            
+//            2/添加客户
+            NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
+            [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+            [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
+                NSLog(@"添加陈工");
+            } failure:^(NSError *error) {
+                NSLog(@"");
+            }];
 //            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
 //            testLab.backgroundColor = [UIColor whiteColor];
 //            testLab.font = [UIFont systemFontOfSize:8];
@@ -177,7 +200,47 @@
             NSLog(@"批量导入客户失败，返回error is %@",error);
         }];
 
+    }else if (!_isLogin){
+        //储存未登录时的识别纪录
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record2"]];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.nameText.text forKey:@"UserName"];
+         [dic setObject:self.sexText.text forKey:@"Sex"];
+         [dic setObject:self.countryText.text forKey:@"Country"];
+         [dic setObject:self.cardNumText.text forKey:@"PassportNum"];
+         [dic setObject:self.startDayText.text forKey:@"ValidStartDate"];
+         [dic setObject:self.bornText.text forKey:@"BirthDay"];
+         [dic setObject:self.startPointText.text forKey:@"ValidAddress"];
+         [dic setObject:self.effectiveText.text forKey:@"ValidEndDate"];
+        [dic setObject:_RecordId forKey:@"RecordId"];
+        [dic setObject:@"2" forKey:@"RecordType"];
+       
+        [arr addObject:dic];
+        
+        [WriteFileManager saveData:arr name:@"record2"];
+       
     }
+    
+    
+    //    @property (nonatomic,copy) NSString *UserName;
+    //    @property (nonatomic,copy) NSString *Address;
+    //    @property (nonatomic,copy) NSString *BirthDay;
+    //    @property (nonatomic,copy) NSString *CardNum;
+    //    @property (nonatomic,copy) NSString *Nation;//民族
+    //    @property (nonatomic,copy) NSString *Sex;
+    
+    //    @property (nonatomic,copy) NSString *type;
+    //    @property(nonatomic,copy) NSString *Country;//国家
+    //    @property(nonatomic,copy) NSString *PassportNum;//护照号
+    //    @property(nonatomic,copy) NSString *ValidStartDate;
+    //    @property(nonatomic,copy) NSString *ValidAddress;
+    //    @property(nonatomic,copy) NSString *ValidEndDate;
+    //    @property (nonatomic,copy) NSString *PicUrl;
+    //    @property (nonatomic,copy) NSString *ModifyDate;//修改日期
+    //    @property (nonatomic,copy) NSString *RecordId;//纪录ID
+
+    
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"保存成功" message:@"已成功提取信息，您可以方便地在“我的客户中”查看和编辑" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
 //        [alert show];
    [WMAnimations WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];

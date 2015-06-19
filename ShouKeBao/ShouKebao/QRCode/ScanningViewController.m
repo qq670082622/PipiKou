@@ -745,7 +745,7 @@
 //    @property (nonatomic,copy) NSString *RecordId;//纪录ID
     
     
-    [self.writeFilePersonIdArr addObjectsFromArray:[WriteFileManager readData:@"record"]];
+    [self.writeFilePersonIdArr addObjectsFromArray:[WriteFileManager readData:@"record2"]];
           NSMutableDictionary *dic = [NSMutableDictionary dictionary];
    
     NSDictionary *json = diction[@"CredentialsPicRecord"];
@@ -778,7 +778,9 @@
     [StrToDic setValueWhenIsNull:dic andValue:json[@"RecordId"] forKey:@"RecordId"];
     
     [StrToDic setValueWhenIsNull:dic andValue:json[@"RecordType"] forKey:@"RecordType"];
+    
     [self.writeFilePersonIdArr addObject:dic];
+    
     [WriteFileManager saveData:_writeFilePersonIdArr name:@"record"];
  
 //        UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];

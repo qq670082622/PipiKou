@@ -1112,7 +1112,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 //                                        [self.view.window addSubview:testLab];
 
                     NSArray *new = [NSArray array];
-            [WriteFileManager saveData:new name:@"record"];
+            [WriteFileManager saveData:new name:@"record"];//清除未登录时的纪录
     [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
@@ -1133,12 +1133,21 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
    
     if (arr.count>0) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:arr forKey:@"RecordIds"];
+        NSMutableArray *muArr = [NSMutableArray array];
+        for (int i = 0 ; i<arr.count; i++) {
+            NSDictionary *dicNew = arr[i];
+            [muArr addObject:dicNew[@"RecordId"]];
+        }
+        
+        [dic setObject:muArr forKey:@"RecordIds"];
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
             
             [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                
+                [muArr removeAllObjects];
+                [WriteFileManager saveData:muArr name:@"recorder2"];//清除未登录时保存的客户
                 [MBProgressHUD hideHUD];
             });
 
