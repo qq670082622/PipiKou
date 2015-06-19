@@ -36,12 +36,8 @@
         self.ModifyDate = dict[@"ModifyDate"];
         self.PicUrl = dict[@"PicUrl"];
         self.RecordId = dict[@"RecordId"];
-      if (self.Country.length>0) {
-            self.type = @"passPort";
-        }else{
-        self.type = @"personId";
-        }
-       // NSString *timeStr = dict[@"createTime"];
+        self.RecordType = dict[@"RecordType"];
+        // NSString *timeStr = dict[@"createTime"];
    //   NSDate *date = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[timeStr doubleValue]];
      //   self.createTime =  [date formattedTime];
     }

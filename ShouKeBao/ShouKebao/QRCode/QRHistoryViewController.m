@@ -85,7 +85,7 @@
         
     }else if (_isLogin){
 
-        [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"SortType":@"1",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
+        [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"1",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
     NSLog(@"纪录json is %@",json);
     NSMutableArray *mua = [NSMutableArray array];
     for (NSDictionary *dic in json[@"CredentialsPicRecordList"]) {
@@ -223,10 +223,10 @@ static NSString *cellID = @"QRHistoryCell";
         creatLab.text = model.ModifyDate;
         
         
-        if ([model.type isEqualToString:@"passPort"]) {
+        if ([model.RecordType isEqualToString:@"2"]) {
             imgV.image = [UIImage imageNamed:@"passPort"];
              codeLab.text = model.PassportNum;
-        }else if([model.type isEqualToString:@"personId"]){
+        }else if([model.RecordType isEqualToString:@"1"]){
             imgV.image = [UIImage imageNamed:@"IDInform"];
             codeLab.text = model.CardNum;
         }
@@ -262,7 +262,7 @@ static NSString *cellID = @"QRHistoryCell";
         [self.editIndexArrInNoLogin addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
     }else if (self.table.editing == NO){
-        if ([model.type isEqualToString:@"personId"]) {
+        if ([model.RecordType isEqualToString:@"1"]) {
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             userIDTableviewController *uid = [sb instantiateViewControllerWithIdentifier:@"userID"];
             uid.address = model.Address;
@@ -275,7 +275,7 @@ static NSString *cellID = @"QRHistoryCell";
             uid.isLogin = _isLogin;
                    [self.navigationController pushViewController:uid animated:YES];
 
-        }else if ([model.type isEqualToString:@"passport"]){
+        }else if ([model.RecordType isEqualToString:@"2"]){
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *ca = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
             ca.nameLabStr = model.UserName;
@@ -361,7 +361,7 @@ static NSString *cellID = @"QRHistoryCell";
         NSMutableArray *arr = [NSMutableArray array];
         for(int i = 0 ;i<_editArr.count;i++){
             personIdModel *model = _editArr[i];
-            [arr addObject:model.RecordId];
+            [arr addObject:model];
             }
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"

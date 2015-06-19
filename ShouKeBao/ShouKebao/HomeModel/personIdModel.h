@@ -16,7 +16,7 @@
 @property (nonatomic,copy) NSString *CardNum;
 @property (nonatomic,copy) NSString *Nationality;//民族
 @property (nonatomic,copy) NSString *Sex;
-@property (nonatomic,copy) NSString *type;
+@property (nonatomic,copy) NSString *RecordType;
 @property(nonatomic,copy) NSString *Country;//国家
 @property(nonatomic,copy) NSString *PassportNum;//护照号
 @property(nonatomic,copy) NSString *ValidStartDate;

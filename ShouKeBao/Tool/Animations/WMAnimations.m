@@ -7,7 +7,10 @@
 //
 
 #import "WMAnimations.h"
+#import "MBProgressHUD+MJ.h"
+@interface WMAnimations()
 
+@end
 @implementation WMAnimations
 + (void)WMAnimationToMoveWithTableLayer:(CALayer *)layer andFromPiont:(CGPoint )fromPoint ToPoint:(CGPoint )toPoint
 {
@@ -184,4 +187,5 @@
     
 
 }
+
 @end

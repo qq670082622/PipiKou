@@ -147,19 +147,35 @@
 - (void)setModel:(HomeList *)model
 {
     _model = model;
-        
-    // 图标
-    if ([model.IsSKBOrder integerValue] == 1) {
-        self.iconView.image = [UIImage imageNamed:@"zhike"];
-        // 右边待定内容
-        self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
-    }
     
-    else{
-        self.iconView.image = [UIImage imageNamed:@"dingdanyue"];
-      
-         self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
+    //OrderStateDetail
+ //   订单状态（1等待提交采购、2等待提交游客信息、3等待支付订单、4等待下载出团通知书	int
+    // 根据订单配图标
+    
+    if ([model.OrderStateDetail integerValue] == 1) {
+        self.iconView.image = [UIImage imageNamed:@"ddcaigou"];
+        
+    }else if ([model.OrderStateDetail integerValue] == 2){
+        self.iconView.image = [UIImage imageNamed:@"dingdanqueren"];
+    }else if ([model.OrderStateDetail integerValue] == 3){
+        self.iconView.image = [UIImage imageNamed:@"dengdaizhif"];
+   
+    }else if ([model.OrderStateDetail integerValue] == 4){
+            self.iconView.image = [UIImage imageNamed:@"xztzs"];
+
     }
+    self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
+//    if ([model.IsSKBOrder integerValue] == 1) {
+//        self.iconView.image = [UIImage imageNamed:@"zhike"];
+//        // 右边待定内容
+//        self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
+//    }
+//    
+//    else{
+//        self.iconView.image = [UIImage imageNamed:@"dingdanyue"];
+//      
+//         self.rightLab.text = [NSString stringWithFormat:@"%@ %@",model.PersonCount,model.ChildCount];
+//    }
     
     // 标题
     self.titleLab.text = model.ShowType;

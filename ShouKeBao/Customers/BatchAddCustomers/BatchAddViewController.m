@@ -90,10 +90,13 @@
     
 }
 
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+
+
 -(void )loadData
 {
         // 判断是否授权成功
@@ -102,7 +105,7 @@
             // 授权失败直接返回
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"授权失败" message:@"请检查您是否对“旅游圈”通讯录的访问权限进行授权" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
             [alert show];
-        }
+        }else{
 
     ABAddressBookRef addressBooks = nil;
 
@@ -175,7 +178,12 @@
                         addressBooks.tel = (__bridge NSString*)value;
                         break;}
                         case 1: {// Email
-                        addressBooks.email = (__bridge NSString*)value;
+                            if ( (__bridge NSString*)value) {
+                                 addressBooks.email = (__bridge NSString*)value;
+                            }else{
+                            addressBooks.email = @" ";
+                            }
+                           
                         break;
                         }
                         }
@@ -189,7 +197,7 @@
             
         }
     
-   
+        }
 }
 
 
@@ -200,6 +208,8 @@
     }
     return _dataArr;
 }
+
+
 -(NSMutableArray *)editArr
 {
     if (_editArr == nil) {
@@ -212,6 +222,7 @@
 {
     return self.dataArr.count;
 }
+
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {

@@ -52,7 +52,7 @@
 
 @property (nonatomic,copy) NSString *LinkUrl;
 
-@property(nonatomic,copy) NSString *OrderState;
+@property(nonatomic,copy) NSString *OrderStateDetail;
 
 + (instancetype)homeListWithDict:(NSDictionary *)dict;
 
