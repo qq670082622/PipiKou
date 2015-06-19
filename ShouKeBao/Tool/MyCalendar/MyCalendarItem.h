@@ -15,7 +15,7 @@
 - (void)createCalendarViewWith:(NSDate *)date;
 - (NSDate *)nextMonth:(NSDate *)date;
 - (NSDate *)lastMonth:(NSDate *)date;
-
+@property (nonatomic, assign)BOOL isOrderTime;
 @property (nonatomic, strong) NSDate *date;
 @property (nonatomic, copy) void(^calendarBlock)(NSInteger day, NSInteger month, NSInteger year,NSDate *date);
 

@@ -82,7 +82,7 @@
 
 
 + (void)postForRecommendWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure{
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic

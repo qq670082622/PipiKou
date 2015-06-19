@@ -325,7 +325,11 @@
     CalendarViewController *calendar = [[CalendarViewController alloc] init];
     calendar.delegate = self;
     calendar.index = indexPath.row;
-    
+    if (self.type == datePick) {
+        calendar.isOrdersTime = YES;
+    }else{
+        calendar.isOrdersTime = NO;
+    }
     // 如果出发时间已经选过 传给日历 便于判断返回时间要小于出发时间
     if (self.start.length > 0){
         calendar.goDate = self.startDate;

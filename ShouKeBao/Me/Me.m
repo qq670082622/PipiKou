@@ -29,7 +29,10 @@
 #import "FeedBcakViewController.h"
 #import "ResizeImage.h"
 #import "IWHttpTool.h"
-@interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate>
+#import "InspectionViewController.h"
+#import "WMAnimations.h"
+
+@interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
 
@@ -39,6 +42,8 @@
 
 @property (nonatomic,assign) BOOL isPerson;//是否个人
 
+@property (nonatomic,assign) BOOL isFindNew;
+@property (nonatomic, strong) UIProgressView* progressView;
 @end
 
 @implementation Me
@@ -50,7 +55,7 @@
     
     self.tableView.rowHeight = 50;
     
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",@"评价旅游圈"]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",@"评价旅游圈", @"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -110,7 +115,6 @@
     } failure:^(NSError *error) {
     }];
 }
-
 #pragma mark - getter
 - (MeHeader *)meheader
 {
@@ -256,7 +260,14 @@
         btn.on = [[UserInfo shareUser].pushMode integerValue];
         cell.accessoryView = btn;
     }
-    
+    if (indexPath.section == 2 && indexPath.row == 4) {
+//        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 130, 8, 80, 40)];
+//        label.font = [UIFont systemFontOfSize:14];
+//        label.textColor = [UIColor lightGrayColor];
+//        label.text = @"检查到新版本";
+//        [cell.contentView addSubview:label];
+        [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:@"最新V2.5.2"];
+    }
     return cell;
 }
 
@@ -277,6 +288,7 @@
                 //                break;
                 //            }
             case 1:{
+                [Lotuseed onEvent:@"page5FeedBack" attributes:@{@"stationName":par.stationName}];
                 FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
                 [self.navigationController pushViewController:feedBackVC animated:YES];
                 break;
@@ -305,6 +317,21 @@
 //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
                 break;
             }
+            case 4:{
+                [Lotuseed onEvent:@"page5Inspection" attributes:@{@"stationName":par.stationName}];
+//                InspectionViewController * InspectionVC = [sb instantiateViewControllerWithIdentifier:@"InspectionViewController"];
+//                [self.navigationController pushViewController:InspectionVC animated:YES];
+                NSString * str = @"不再询问";
+                if (self.isFindNew) {
+                    UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"请速速更新" delegate:self cancelButtonTitle:str otherButtonTitles:@"立即更新", nil];
+                    [alertView show];
+                }else{
+//                    UIAlertView * alertView2 = [[UIAlertView alloc]initWithTitle:@"已更新到最新版本" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                    [alertView2 show];
+                }
+                break;
+            }
+
             default:
                 break;
         }
@@ -414,6 +441,16 @@
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     }else{
         [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
+    }
+}
+#pragma mark - UIAlertViewDelegate
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSLog(@"立即更新");
+    }else{
+        if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
+            exit(0);
+        }
     }
 }
 

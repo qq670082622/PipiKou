@@ -243,7 +243,7 @@
     
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"保存成功" message:@"已成功提取信息，您可以方便地在“我的客户中”查看和编辑" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
 //        [alert show];
-   [WMAnimations WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
+   [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
 
    
 //    self.nameText.text = _nameLabStr;

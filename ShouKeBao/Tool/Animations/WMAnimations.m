@@ -7,10 +7,7 @@
 //
 
 #import "WMAnimations.h"
-#import "MBProgressHUD+MJ.h"
-@interface WMAnimations()
 
-@end
 @implementation WMAnimations
 + (void)WMAnimationToMoveWithTableLayer:(CALayer *)layer andFromPiont:(CGPoint )fromPoint ToPoint:(CGPoint )toPoint
 {
@@ -186,6 +183,15 @@
     [scroll addSubview:lab];
     
 
+}
++(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
+                     withRightStr:(NSString *)str;
+{
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 130, 7, 80, 40)];
+    label.font = [UIFont systemFontOfSize:14];
+    label.textColor = [UIColor lightGrayColor];
+    label.text = str;
+    [cell.contentView addSubview:label];
 }
 
 @end

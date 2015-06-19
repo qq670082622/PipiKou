@@ -24,7 +24,8 @@
 
 +(void)WMShakeWithView:(UIView *)view;//震动
 
-+(void)WMNewWebWithScrollView:(UIScrollView *)scroll;//给webview增加“网页由xxxx提供”
++(void)WMNewWebWithScrollView:(UIScrollView *)scroll;
 
-+(UIView *)WMPopCustomerAlertWithCopyStr:(NSString *)copyStr;//自定义拷贝弹窗
++(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
+                     withRightStr:(NSString *)str;
 @end

@@ -17,5 +17,6 @@
 @interface CityViewController : SKTableViewController
 
 @property (nonatomic,weak) id<CityViewControllerDelegate> delegate;
+@property (nonatomic,copy) NSString * selectedCityName;
 
 @end
