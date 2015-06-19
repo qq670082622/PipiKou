@@ -204,6 +204,7 @@
 		633263D91AB851590021553B /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263CD1AB851590021553B /* AFURLResponseSerialization.m */; };
 		633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263CF1AB851590021553B /* AFURLSessionManager.m */; };
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
+		634469861B342AF7009F7ADF /* messageCellSKBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 634469851B342AF7009F7ADF /* messageCellSKBTableViewCell.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
 		635E70A81B1806E8008EFEB6 /* ScanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70A61B1806E8008EFEB6 /* ScanningViewController.m */; };
 		635E70A91B1806E8008EFEB6 /* ScanningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */; };
@@ -703,6 +704,8 @@
 		633263CF1AB851590021553B /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		633263D01AB851590021553B /* IWHttpTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IWHttpTool.h; sourceTree = "<group>"; };
 		633263D11AB851590021553B /* IWHttpTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IWHttpTool.m; sourceTree = "<group>"; };
+		634469841B342AF7009F7ADF /* messageCellSKBTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageCellSKBTableViewCell.h; sourceTree = "<group>"; };
+		634469851B342AF7009F7ADF /* messageCellSKBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageCellSKBTableViewCell.m; sourceTree = "<group>"; };
 		6359441E1ADBA9D9004F0035 /* textStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textStyle.h; sourceTree = "<group>"; };
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
 		635E70A51B1806E8008EFEB6 /* ScanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanningViewController.h; sourceTree = "<group>"; };
@@ -1436,6 +1439,8 @@
 			children = (
 				5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */,
 				5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */,
+				634469841B342AF7009F7ADF /* messageCellSKBTableViewCell.h */,
+				634469851B342AF7009F7ADF /* messageCellSKBTableViewCell.m */,
 				5ABA4F671AD7E5CD004AA8F6 /* RecommendCell.h */,
 				5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */,
 				5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */,
@@ -2598,6 +2603,7 @@
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
 				6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */,
 				5A52FC7D1ACEBF220076DAE6 /* SosViewController.m in Sources */,
+				634469861B342AF7009F7ADF /* messageCellSKBTableViewCell.m in Sources */,
 				5A52FC4E1ACEBF220076DAE6 /* ProductModal.m in Sources */,
 				5A52FC711ACEBF220076DAE6 /* Server.m in Sources */,
 				6326131D1AB1C175003AC2DA /* MJRefreshFooterView.m in Sources */,

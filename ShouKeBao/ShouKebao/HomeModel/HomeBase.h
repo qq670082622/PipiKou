@@ -14,6 +14,6 @@
 
 @property (nonatomic,copy) NSString *idStr;// 识别各种信息
 
-@property (nonatomic,strong) id model;// 可以是订单模型 或者推荐 或者提醒
+@property (nonatomic,strong) id model;// 可以是订单模型 或者推荐 或者提醒 或者新消息
 
 @end

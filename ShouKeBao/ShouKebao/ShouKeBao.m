@@ -49,6 +49,8 @@
 #import "SubstationParttern.h"
 #import "RecomViewController.h"
 #import "ScanningViewController.h"
+#import "messageModel.h"
+#import "messageCellSKBTableViewCell.h"
 #define FiveDay 432000
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
@@ -271,7 +273,24 @@
         int valueCount = [barButton.badgeValue intValue];
         barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
         
-        //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+             NSString *messageURL = message[2];
+         [HomeHttpTool getActivitiesNoticeListWithParam:@{} success:^(id json) {
+             NSLog(@"首页公告消息列表%@",json);
+             NSMutableArray *arr = json[@"ActivitiesNoticeList"];
+             for (NSDictionary *dic in arr) {
+                 messageModel *model = [messageModel modalWithDict:dic];
+                 if ([model.LinkUrl isEqualToString:messageURL]) {
+                     [self.dataSource addObject:model];
+                     
+                 }
+                 
+             }
+             [self.tableView reloadData];
+         } failure:^(NSError *error) {
+             NSLog(@"首页公告消息列表失败%@",error);
+         }];
+
+
     }
     
 
@@ -655,6 +674,10 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
+    
+//    NSArray *tmp2 = [self.dataSource sortedArrayUsingComparator:^NSComparisonResult(HomeBase *obj1, HomeBase *obj2){
+//    
+//    }
 }
 
 -(void)pushToStore
@@ -894,6 +917,12 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         cell.redTip.hidden = !(self.recommendCount > 0);
         
         return cell;
+    }else if ([model.model isKindOfClass:[messageModel class]]){
+        
+        messageCellSKBTableViewCell *cell = [messageCellSKBTableViewCell cellWithTableView:tableView];
+        cell.model = model.model;
+        return cell;
+        
     }else{
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;
