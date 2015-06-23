@@ -182,7 +182,13 @@
 -(void)setUpNavBarView
 {
     SKBNavBar *navBar = [SKBNavBar SKBNavBar];
+    double radious = 210/320;
+   // UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*3/5, 34)];
+   // [barView addSubview:navBar];
+ //   navBar.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width*radious, 34);
     self.navigationItem.titleView = navBar;
+   
+
     UIView *cover = [[UIView alloc] init];
     CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
     CGFloat navBarW = navBar.frame.size.width;
