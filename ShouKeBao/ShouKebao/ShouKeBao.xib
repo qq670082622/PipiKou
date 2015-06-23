@@ -7,7 +7,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShouKeBao">
             <connections>
-                <outlet property="SKBNewBtn" destination="sOf-Ea-0SB" id="Onm-dS-FrX"/>
+                <outlet property="SKBNewBtn" destination="sOf-Ea-0SB" id="DIg-Mz-aFX"/>
                 <outlet property="phoneBtn" destination="oE9-3F-kUd" id="K8s-va-nGC"/>
                 <outlet property="upView" destination="Bc7-6G-aOu" id="GGQ-vi-Ffv"/>
                 <outlet property="userIcon" destination="Amj-G2-utC" id="Rxc-iP-2jS"/>

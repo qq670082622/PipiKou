@@ -23,7 +23,7 @@
     [super awakeFromNib];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.stationBtn.layer andBorderColor:[UIColor clearColor] andBorderWidth:0 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.line.layer andBorderColor:[UIColor lightTextColor] andBorderWidth:1 andNeedShadow:NO];
-    NSTimer *timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(changeStationName) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(changeStationName) userInfo:nil repeats:YES];
     self.timer = timer;
 }
 
@@ -31,6 +31,7 @@
 {
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     [self.stationBtn setTitle:[udf objectForKey:@"SubstationName"] forState:UIControlStateNormal];
+   // NSLog(@"navBarView ' s subStationName is %@",[udf objectForKey:@"SubstationName"]);
     
 
 }
