@@ -12,5 +12,5 @@
 @interface StoreViewController : SKViewController
 @property (nonatomic,copy) NSString *PushUrl;
 @property (weak, nonatomic) IBOutlet BeseWebView *webView;
-
+@property (nonatomic,assign) BOOL needOpenShare;
 @end

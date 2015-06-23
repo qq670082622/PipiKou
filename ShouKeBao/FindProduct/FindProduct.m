@@ -650,43 +650,46 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         NSString *searchID = _rightMoreSearchID[selectRow];
         [dic setObject:searchID forKey:@"NavigationMainID"];
         
-        
-        [self.rightMoreArr removeAllObjects];
-        
-        [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
-            
-            NSLog(@"-----------------------dataSource2 json is %@-----------------",json);
-            
+        dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
+        dispatch_async(q, ^{
             [self.rightMoreArr removeAllObjects];
             
-            for(NSDictionary *dic in json[@"NavigationChildList"] ){
-                rightModal3 *modal = [rightModal3 modalWithDict:dic];
-                [self.rightMoreArr addObject:modal];
+            [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
                 
-                NSMutableDictionary *dicNew = [NSMutableDictionary dictionary];
-
-                [dicNew setObject:dic[@"Name"] forKey:@"Text"];
-                [dicNew setObject:dic[@"SearchKey"] forKey:@"Value"];
-                [self.pushArr addObject:dicNew];
-            }
-             //NSLog(@"------------ first object is %@,rightarr is %@",[self.rightMoreArr firstObject],_rightMoreArr);
-                            rightModal3 *modal3 = [self.rightMoreArr firstObject];
-                    NSString *key = modal3.searchKey;
-                    NSString *title = modal3.Name;
-                    NSLog(@" key is ~~` ~%@``````````------",key);
-                    ProductList *list = [[ProductList alloc] init];
-                    list.pushedSearchK = key;
-                    list.title = title;
-                    list.pushedArr = _pushArr;
-            
+                NSLog(@"-----------------------dataSource2 json is %@-----------------",json);
+                
+                [self.rightMoreArr removeAllObjects];
+                
+                for(NSDictionary *dic in json[@"NavigationChildList"] ){
+                    rightModal3 *modal = [rightModal3 modalWithDict:dic];
+                    [self.rightMoreArr addObject:modal];
                     
-                    [self.navigationController pushViewController:list animated:YES];
-          //  [self.rightTable2 reloadData];
-          
-        } failure:^(NSError *error) {
-            NSLog(@"右侧栏子栏rightTable3 请求错误！～～～error is ~~~~~~~~~%@",error);
-        }];
+                    NSMutableDictionary *dicNew = [NSMutableDictionary dictionary];
+                    
+                    [dicNew setObject:dic[@"Name"] forKey:@"Text"];
+                    [dicNew setObject:dic[@"SearchKey"] forKey:@"Value"];
+                    [self.pushArr addObject:dicNew];
+                }
+                //NSLog(@"------------ first object is %@,rightarr is %@",[self.rightMoreArr firstObject],_rightMoreArr);
+                rightModal3 *modal3 = [self.rightMoreArr firstObject];
+                NSString *key = modal3.searchKey;
+                NSString *title = modal3.Name;
+                NSLog(@" key is ~~` ~%@``````````------",key);
+                ProductList *list = [[ProductList alloc] init];
+                list.pushedSearchK = key;
+                list.title = title;
+                list.pushedArr = _pushArr;
+                
+                
+                [self.navigationController pushViewController:list animated:YES];
+                //  [self.rightTable2 reloadData];
+                
+            } failure:^(NSError *error) {
+                NSLog(@"右侧栏子栏rightTable3 请求错误！～～～error is ~~~~~~~~~%@",error);
+            }];
 
+        });
+        
         //[self loadDataSourceRight2];
        
 //                rightModal3 *modal3 = [self.rightMoreArr firstObject];
