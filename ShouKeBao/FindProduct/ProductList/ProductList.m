@@ -652,14 +652,14 @@
         }
         
         NSMutableArray *conArr = [NSMutableArray array];
-        if (!_isFromSearch){
+        if (!_isFromSearch && arr.count>0){
             NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
             [conArr addObject:dicNew];
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
                 }
 
-        }else{
+        }else if(_isFromSearch && arr.count>0){
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
             }
@@ -702,53 +702,59 @@
 #pragma 筛选navitem
 -(void)setSubViewHideNo
 {
-
-    UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-   
-    CGFloat W = self.view.frame.size.width * 0.8;
-  
-    self.subView.frame = CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height);
-    [cover addSubview:self.subView];
-    self.coverView = cover;
-    [self.view.window addSubview:cover];
-   
-    NSArray *priceData = [WriteFileManager readData:@"priceData"];
-    if (priceData.count == 3) {
-        [self.priceBtnOutlet setTitle:priceData[2] forState:UIControlStateNormal];
-    }
-    
-  
-    UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
-    [self.coverView addSubview:gestureView];
-    
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBlackViewToHide)];
-    [gestureView addGestureRecognizer:tap];
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
-       
-//        NSString *str = [_pushedArr firstObject][@"Text"];
-//        if ([str isEqualToString:@"暂无"]) {
-//            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
-//
-//        }
-   
-    }];
-    
-    NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
-    if ([_jiafan  isEqual: @"0"]) {
-        self.jiafanSwitch.on = NO;
+    if (self.dataArr.count>0) {
+        UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
         
-    }else if ([_jiafan isEqual:@"1"]){
-        self.jiafanSwitch.on = YES;
-    }
-    if ([_jishi isEqual:@"0"]) {
-        self.jishiSwitch.on = NO;
-    }else if ([_jishi isEqual:@"1"]){
-       self.jishiSwitch.on = YES;
+        CGFloat W = self.view.frame.size.width * 0.8;
+        
+        self.subView.frame = CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height);
+        [cover addSubview:self.subView];
+        self.coverView = cover;
+        [self.view.window addSubview:cover];
+        
+        NSArray *priceData = [WriteFileManager readData:@"priceData"];
+        if (priceData.count == 3) {
+            [self.priceBtnOutlet setTitle:priceData[2] forState:UIControlStateNormal];
+        }
+        
+        
+        UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
+        [self.coverView addSubview:gestureView];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBlackViewToHide)];
+        [gestureView addGestureRecognizer:tap];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
+            
+            //        NSString *str = [_pushedArr firstObject][@"Text"];
+            //        if ([str isEqualToString:@"暂无"]) {
+            //            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
+            //
+            //        }
+            
+        }];
+        
+        NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
+        if ([_jiafan  isEqual: @"0"]) {
+            self.jiafanSwitch.on = NO;
+            
+        }else if ([_jiafan isEqual:@"1"]){
+            self.jiafanSwitch.on = YES;
+        }
+        if ([_jishi isEqual:@"0"]) {
+            self.jishiSwitch.on = NO;
+        }else if ([_jishi isEqual:@"1"]){
+            self.jishiSwitch.on = YES;
+        }
+
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
     }
 
+  
     
 }
 

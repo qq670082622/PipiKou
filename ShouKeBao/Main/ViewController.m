@@ -37,7 +37,7 @@
 
     
     ShouKeBao *skb = [[ShouKeBao alloc] init];
-    [self addChildVc:skb title:@"旅游圈" image:@"shouye" selectedImage:@"shouye1"];
+    [self addChildVc:skb title:@"旅游圈" image:@"skb2" selectedImage:@"skb"];
     
 
    // [[self.childViewControllers objectAtIndex:0] setBadgeValue:_skbValue];
@@ -46,7 +46,7 @@
     [self addChildVc:fdp title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
     
     Orders *ods = [[Orders alloc] init];
-    [self addChildVc:ods title:@"理订单" image:@"APPdingdan" selectedImage:@"APPlidingdan"];
+    [self addChildVc:ods title:@"理订单" image:@"lidingdan" selectedImage:@"lidingdan2"];
    // [[self.childViewControllers objectAtIndex:2] setBadgeValue:_odsValue];
 
     

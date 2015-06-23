@@ -265,7 +265,7 @@
     
     self.iconView.image = [UIImage imageNamed:@"jinxuan"];
     
-    self.titleLab.text = @"今日推荐";
+    self.titleLab.text = @"精品推荐";
     
     self.titleLab.textColor = [UIColor colorWithRed:202/255.f green:118/255.f blue:252/255.f alpha:1];
     

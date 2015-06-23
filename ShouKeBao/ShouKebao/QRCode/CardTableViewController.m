@@ -288,7 +288,7 @@
     CGFloat btnW = (alertW - 5*alertX)/4;
     
     UIButton *weCaht = [UIButton buttonWithType:UIButtonTypeCustom];
-    [weCaht setBackgroundImage:[UIImage imageNamed:@"weixin"] forState:UIControlStateNormal];
+    [weCaht setBackgroundImage:[UIImage imageNamed:@"weixincopy"] forState:UIControlStateNormal];
     weCaht.frame = CGRectMake(alertX, btnY, btnW, btnW);
     [weCaht addTarget:self action:@selector(openWechat) forControlEvents:UIControlEventTouchUpInside];
     
@@ -299,7 +299,7 @@
      weLab.font = [UIFont systemFontOfSize:15];
    
     UIButton *qq = [UIButton buttonWithType:UIButtonTypeCustom];
-    [qq setBackgroundImage:[UIImage imageNamed:@"qq"] forState:UIControlStateNormal];
+    [qq setBackgroundImage:[UIImage imageNamed:@"QQcopy"] forState:UIControlStateNormal];
     qq.frame = CGRectMake(CGRectGetMaxX(weCaht.frame)+alertX, btnY, btnW, btnW);
     [qq addTarget:self action:@selector(openQQ) forControlEvents:UIControlEventTouchUpInside];
     
@@ -310,7 +310,7 @@
     qqLab.font = [UIFont systemFontOfSize:15];
     
     UIButton *message = [UIButton buttonWithType:UIButtonTypeCustom];
-    [message setBackgroundImage:[UIImage imageNamed:@"fujian"] forState:UIControlStateNormal];
+    [message setBackgroundImage:[UIImage imageNamed:@"duanxincopy"] forState:UIControlStateNormal];
     message.frame = CGRectMake(CGRectGetMaxX(qq.frame)+alertX, btnY, btnW, btnW);
     [message addTarget:self action:@selector(openMessa) forControlEvents:UIControlEventTouchUpInside];
     
@@ -321,7 +321,7 @@
     messageLab.font = [UIFont systemFontOfSize:15];
   
     UIButton *copo = [UIButton buttonWithType:UIButtonTypeCustom];
-    [copo setBackgroundImage:[UIImage imageNamed:@"beizhu"] forState:UIControlStateNormal];
+    [copo setBackgroundImage:[UIImage imageNamed:@"fuzhicopy"] forState:UIControlStateNormal];
     copo.frame = CGRectMake(CGRectGetMaxX(message.frame)+alertX, btnY, btnW, btnW);
     [copo addTarget:self action:@selector(openCopo) forControlEvents:UIControlEventTouchUpInside];
     
