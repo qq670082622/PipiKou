@@ -56,6 +56,7 @@
 #import "SKBNavBar.h"
 #import "messageModel.h"
 #import "messageCellSKBTableViewCell.h"
+#import "SKBNavBarFor6OrP.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -103,12 +104,13 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    [self initPull];
        
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     
-    self.userIcon.layer.masksToBounds = YES;
+
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
     [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -179,32 +181,59 @@
 
 }
 -(void)setUpNavBarView
-{
-    SKBNavBar *navBar = [SKBNavBar SKBNavBar];
-  
-    self.navigationItem.titleView = navBar;
+{ CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
+
+    if (screenW<375) {
+        SKBNavBar *navBar = [SKBNavBar SKBNavBar];
+        self.navigationItem.titleView = navBar;
+        //navBar.frame = CGRectMake(40, 0, screenW/2 - 20, 34);
+        
+        UIView *cover = [[UIView alloc] init];
+        CGFloat navBarW = navBar.frame.size.width;
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
+        cover.backgroundColor = [UIColor clearColor];
+        UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
+        station.backgroundColor = [UIColor clearColor];
+        station.frame = CGRectMake(0, 0, 64, 34);
+        [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:station];
+        
+        UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
+        search.backgroundColor = [UIColor clearColor];
+        search.frame = CGRectMake(64, 0, navBarW-64, 34);
+        [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:search];
+        
+        [self.navigationController.navigationBar addSubview:cover];
+        self.navBarView = cover;
+
+    }else{
+        
+        SKBNavBarFor6OrP *navBar = [SKBNavBarFor6OrP SKBNavBarFor6OrP];
+        self.navigationItem.titleView = navBar;
+       // navBar.frame = CGRectMake(40, 0, screenW/2 - 20, 34);
+        
+        UIView *cover = [[UIView alloc] init];
+        CGFloat navBarW = navBar.frame.size.width;
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
+        cover.backgroundColor = [UIColor clearColor];
+        UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
+        station.backgroundColor = [UIColor clearColor];
+        station.frame = CGRectMake(0, 0, 64, 34);
+        [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:station];
+        
+        UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
+        search.backgroundColor = [UIColor clearColor];
+        search.frame = CGRectMake(64, 0, navBarW-64, 34);
+        [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:search];
+        
+        [self.navigationController.navigationBar addSubview:cover];
+        self.navBarView = cover;
+
+    }
    
-
-    UIView *cover = [[UIView alloc] init];
-    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat navBarW = navBar.frame.size.width;
-    cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
-    cover.backgroundColor = [UIColor clearColor];
-    UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
-    station.backgroundColor = [UIColor clearColor];
-    station.frame = CGRectMake(0, 0, 64, 34);
-    [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
-    [cover addSubview:station];
-    
-    UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
-    search.backgroundColor = [UIColor clearColor];
-    search.frame = CGRectMake(64, 0, navBarW-64, 34);
-    [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
-    [cover addSubview:search];
-    
-    [self.navigationController.navigationBar addSubview:cover];
-    self.navBarView = cover;
-
 }
 
 -(void)initPull
@@ -224,6 +253,7 @@
 -(void)headerPull
 {
     [self loadContentDataSource];
+    [self.tableView headerEndRefreshing];
 }
 
 #pragma mark - CheckNewVersion

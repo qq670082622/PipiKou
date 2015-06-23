@@ -9,16 +9,16 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="SKBNavBar">
             <rect key="frame" x="0.0" y="0.0" width="230" height="34"/>
-            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
             <subviews>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="jianbian" translatesAutoresizingMaskIntoConstraints="NO" id="2xr-CG-sf7">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jianbian" translatesAutoresizingMaskIntoConstraints="NO" id="2xr-CG-sf7">
                     <rect key="frame" x="0.0" y="0.0" width="230" height="34"/>
                 </imageView>
-                <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YZQ-cQ-OwP" userLabel="line">
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YZQ-cQ-OwP" userLabel="line">
                     <rect key="frame" x="60" y="0.0" width="5" height="34"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                 </view>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUk-ro-ril">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TUk-ro-ril">
                     <rect key="frame" x="0.0" y="0.0" width="64" height="34"/>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
@@ -32,7 +32,7 @@
                         <action selector="changeStation:" destination="iN0-l3-epB" eventType="touchUpInside" id="pDv-7C-Ty3"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZ3-4d-nvZ">
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZ3-4d-nvZ">
                     <rect key="frame" x="60" y="0.0" width="170" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
                     <state key="normal" title="   搜索产品" image="fdjBtn" backgroundImage="sousuoBackView">
@@ -45,6 +45,24 @@
                 </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="YZQ-cQ-OwP" secondAttribute="trailing" constant="165" id="4p0-DY-k9C"/>
+                <constraint firstAttribute="bottom" secondItem="TUk-ro-ril" secondAttribute="bottom" id="54T-cL-5wx"/>
+                <constraint firstItem="WZ3-4d-nvZ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="7Lx-gp-dXt"/>
+                <constraint firstItem="YZQ-cQ-OwP" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="60" id="7p6-nY-isg"/>
+                <constraint firstAttribute="trailing" secondItem="2xr-CG-sf7" secondAttribute="trailing" id="89H-0B-qVG"/>
+                <constraint firstAttribute="bottom" secondItem="WZ3-4d-nvZ" secondAttribute="bottom" id="8RM-nk-6Zu"/>
+                <constraint firstItem="TUk-ro-ril" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="B75-7e-1Rr"/>
+                <constraint firstItem="WZ3-4d-nvZ" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="OLJ-V1-dr3"/>
+                <constraint firstItem="2xr-CG-sf7" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="VY1-KT-PV5"/>
+                <constraint firstAttribute="trailing" secondItem="WZ3-4d-nvZ" secondAttribute="trailing" id="ajL-1q-EEh"/>
+                <constraint firstAttribute="bottom" secondItem="YZQ-cQ-OwP" secondAttribute="bottom" id="fee-0b-ej1"/>
+                <constraint firstItem="YZQ-cQ-OwP" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="fyg-Je-JfQ"/>
+                <constraint firstAttribute="trailing" secondItem="TUk-ro-ril" secondAttribute="trailing" constant="166" id="jdj-OQ-Zf0"/>
+                <constraint firstItem="2xr-CG-sf7" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="mrS-4d-7Au"/>
+                <constraint firstItem="TUk-ro-ril" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="tlF-OU-gDV"/>
+                <constraint firstAttribute="bottom" secondItem="2xr-CG-sf7" secondAttribute="bottom" id="zlS-yF-hF8"/>
+            </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>

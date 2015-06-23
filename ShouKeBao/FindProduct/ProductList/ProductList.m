@@ -249,16 +249,21 @@
 }
 -(void)back
 {
-    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
-    [WriteFileManager saveData:priceData name:@"priceData"];
-
-    [self.pushedArr removeAllObjects];
-
-    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
-    [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
+    [self refereshSelectData];
 
     
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)refereshSelectData
+{
+    NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
+    [WriteFileManager saveData:priceData name:@"priceData"];
+    
+    [self.pushedArr removeAllObjects];
+    
+    NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
+    [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
 }
 
 
@@ -1937,6 +1942,7 @@
 - (IBAction)subReset:(id)sender {
 
     self.conditionDic = nil;
+    [self refereshSelectData];
     [self editButtons];
     
     [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
