@@ -182,10 +182,7 @@
 -(void)setUpNavBarView
 {
     SKBNavBar *navBar = [SKBNavBar SKBNavBar];
-    double radious = 210/320;
-   // UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*3/5, 34)];
-   // [barView addSubview:navBar];
- //   navBar.frame = CGRectMake(0, 0, [[UIScreen mainScreen] bounds].size.width*radious, 34);
+  
     self.navigationItem.titleView = navBar;
    
 
@@ -197,13 +194,13 @@
     UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
     station.backgroundColor = [UIColor clearColor];
     station.frame = CGRectMake(0, 0, 64, 34);
-    [station addTarget:self action:@selector(changeStation:) forControlEvents:UIControlEventTouchUpInside];
+    [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
     [cover addSubview:station];
     
     UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
     search.backgroundColor = [UIColor clearColor];
     search.frame = CGRectMake(64, 0, navBarW-64, 34);
-    [search addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
+    [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
     [cover addSubview:search];
     
     [self.navigationController.navigationBar addSubview:cover];
@@ -783,21 +780,21 @@
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
-//     SubstationParttern *par = [SubstationParttern sharedStationName];
-//    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
     [self.navigationController pushViewController:store animated:YES];
 }
 
-- (IBAction)changeStation:(id)sender {
-//     SubstationParttern *par = [SubstationParttern sharedStationName];
-//    [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
+- (void)changeStation{
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
    
     StationSelect *stationSelect = [[StationSelect alloc] init];
 
     [self.navigationController pushViewController:stationSelect animated:YES];
 }
 
-- (IBAction)phoneToService:(id)sender
+- (void)phoneToService
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
@@ -826,10 +823,10 @@
     }
 }
 
-- (IBAction)search:(id)sender
+- (void)search
 {
-//     SubstationParttern *par = [SubstationParttern sharedStationName];
-//    [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
     
