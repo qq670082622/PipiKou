@@ -175,8 +175,6 @@
   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
 //    [self checkNewVerSion];
-    self.progressView = [MeProgressView creatProgressViewWithFrame:[UIScreen mainScreen].bounds];
-    self.progressView.hidden = YES;
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
 
 }
@@ -605,6 +603,14 @@
     return _stationDataSource;
 }
 
+- (MeProgressView *)progressView
+{
+    if (!_progressView) {
+        self.progressView = [MeProgressView creatProgressViewWithFrame:[UIScreen mainScreen].bounds];
+        self.progressView.hidden = YES;
+    }
+    return _progressView;
+}
 
 #pragma mark - loadDataSource
 - (void)loadContentDataSource

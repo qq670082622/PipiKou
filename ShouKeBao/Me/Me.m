@@ -32,6 +32,7 @@
 #import "InspectionViewController.h"
 #import "WMAnimations.h"
 #import "MeProgressView.h"
+#import "AFNetworking.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -43,7 +44,8 @@
 @property (nonatomic,assign) BOOL isPerson;//是否个人
 
 @property (nonatomic,assign) BOOL isFindNew;
-@property (nonatomic, strong) UIProgressView* progressView;
+@property (nonatomic, copy)NSString * checkVersionLinkUrl;
+@property (nonatomic, strong)MeProgressView *progressView;
 @end
 
 @implementation Me
@@ -72,6 +74,8 @@
     if (head) {
         [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
     }
+    [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -145,7 +149,14 @@
     }
     return _buttonView;
 }
-
+- (MeProgressView *)progressView
+{
+    if (!_progressView) {
+        self.progressView = [MeProgressView creatProgressViewWithFrame:[UIScreen mainScreen].bounds];
+        self.progressView.hidden = YES;
+    }
+    return _progressView;
+}
 #pragma mark - MeHeaderDelegate
 // 点击设置 基本信息
 - (void)didClickSetting
@@ -331,15 +342,21 @@
                 [Lotuseed onEvent:@"page5Inspection" attributes:@{@"stationName":par.stationName}];
 //                InspectionViewController * InspectionVC = [sb instantiateViewControllerWithIdentifier:@"InspectionViewController"];
 //                [self.navigationController pushViewController:InspectionVC animated:YES];
-                NSString * str = @"不再询问";
-                self.isFindNew = YES;
-                if (self.isFindNew) {
-                    UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"请速速更新" delegate:self cancelButtonTitle:str otherButtonTitles:@"立即更新", nil];
-                    [alertView show];
-                }else{
-                    UIAlertView * alertView2 = [[UIAlertView alloc]initWithTitle:@"已更新到最新版本" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                    [alertView2 show];
-                }
+                
+            
+                [self checkNewVerSion];
+            
+//                NSString * str = @"不再询问";
+//                self.isFindNew = YES;
+//                if (self.isFindNew) {
+//                    UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"请速速更新" delegate:self cancelButtonTitle:str otherButtonTitles:@"立即更新", nil];
+//                    [alertView show];
+//                }else{
+//                    UIAlertView * alertView2 = [[UIAlertView alloc]initWithTitle:@"已更新到最新版本" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+//                    [alertView2 show];
+//                }
+                
+                
                 break;
             }
 
@@ -389,6 +406,74 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01f;
+}
+#pragma mark - CheckNewVersion
+- (void)checkNewVerSion{
+    NSDictionary * param = @{};
+    [MeHttpTool inspectionWithParam:param success:^(id json) {
+        NSLog(@"%@", json);
+        NSDictionary * dic = json[@"ios"];
+        NSString * versionCode = dic[@"VersionCode"];
+        NSArray * versionInfo = dic[@"VersionInfo"];
+        NSMutableString * str = [NSMutableString string];
+        for (int i = 0; i < versionInfo.count; i++) {
+            [str appendFormat:@"%d. %@  ", i+1, versionInfo[i]];
+        }
+        self.checkVersionLinkUrl = dic[@"LinkUrl"];
+        NSString * isMust = @"不在询问";
+        if ([dic[@"IsMustUpdate"]isEqualToString:@"1"]) {
+            isMust = @"退出程序";
+        }
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+        if (![versionCode isEqualToString:currentVersion]) {
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:str delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
+            [alertView show];
+        }else{
+            UIAlertView * alertV = [[UIAlertView alloc]initWithTitle:@"已是最新版本" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alertV show];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSURL *URL = [NSURL URLWithString:self.checkVersionLinkUrl];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        self.progressView.hidden = NO;
+        //下载请求
+        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        //正确的下载路径 [self getImagePath:@3.zip]
+        
+        //错误的路径
+        //    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
+        //    NSString *docPath = [path objectAtIndex:0];
+        
+        //            operation.outputStream = [NSOutputStream outputStreamToFileAtPath:[self getImagePath:@"3.zip"] append:YES];
+        //下载进度回调
+        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            //下载进度
+            float progress = ((float)totalBytesRead) / (totalBytesExpectedToRead);
+            self.progressView.progressValue = progress;
+        }];
+        
+        //成功和失败回调
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.progressView.hidden = YES;
+            NSLog(@"ok");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+            self.progressView.hidden = YES;
+        }];
+        
+        [operation start];
+        
+    }else{
+        if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
+            exit(0);
+        }
+    }
 }
 
 #pragma mark - UIActionSheetDelegate
@@ -455,27 +540,21 @@
     }
 }
 #pragma mark - UIAlertViewDelegate
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    if (buttonIndex == 1) {
-        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-        
-        //CFShow((__bridge CFTypeRef)(infoDic));
-        
-        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
-        NSLog(@"!!!%@", currentVersion);
-        NSLog(@"立即更新");
-        NSDictionary * dic = @{};
-        [MeHttpTool inspectionWithParam:dic success:^(id json) {
-            NSLog(@"%@", json);
-        } failure:^(NSError *error) {
-            
-        }];
-    }else{
-        if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
-            exit(0);
-        }
-    }
-}
+//- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+//    if (buttonIndex == 1) {
+//        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+//        
+//        //CFShow((__bridge CFTypeRef)(infoDic));
+//        
+//        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+//        NSLog(@"!!!%@", currentVersion);
+//        NSLog(@"立即更新");
+//    }else{
+//        if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
+//            exit(0);
+//        }
+//    }
+//}
 #pragma mark - FindNew
 - (void)findnew:(id)sender {
     Class isAllow = NSClassFromString(@"SKStoreProductViewController");

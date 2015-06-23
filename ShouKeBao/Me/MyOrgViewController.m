@@ -35,7 +35,6 @@
     self.title = @"我的旅行社";
     // Do any additional setup after loading the view.
     [self setNav];
-    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(- 20, 0, 0, 0);
     [self loadDataSource];
 }
 
@@ -51,6 +50,10 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 10;
 }
 
 -(void)back
