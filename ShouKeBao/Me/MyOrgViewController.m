@@ -35,7 +35,7 @@
     self.title = @"我的旅行社";
     // Do any additional setup after loading the view.
     [self setNav];
-    
+    self.tableView.scrollIndicatorInsets = UIEdgeInsetsMake(- 20, 0, 0, 0);
     [self loadDataSource];
 }
 

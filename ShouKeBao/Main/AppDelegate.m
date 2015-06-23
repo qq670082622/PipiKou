@@ -17,6 +17,7 @@
 #import "TravelLoginController.h"
 #import "Lotuseed.h"
 #import <AVFoundation/AVFoundation.h>
+#import "MeHttpTool.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
@@ -64,6 +65,8 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *urlStr = [NSString stringWithFormat:@"mailto://tianranwuwai@yeah.net?subject=bug报告&body=感谢您的配合!错误详情:%@",crashLogInfo];
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:url];
+    //将崩溃日志写到本地；等程序再运行的时候再发送到服务器；
+    [[NSUserDefaults standardUserDefaults]setValue:crashLogInfo forKey:@"crashLogInfo"];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
 }
 //- (void)installUncaughtExceptionHandler
@@ -72,9 +75,21 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+    
+//    NSArray * arr = @[@"1", @"2"];
+//    NSLog(@"%@", [arr objectAtIndex:2]);
+    NSString * crashLog = [[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"];
+    if (![crashLog isEqualToString:@""]) {
+        NSLog(@"%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"]);
+    }
+    [[NSUserDefaults standardUserDefaults]setValue:@"" forKey:@"crashLogInfo"];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
 
+    
+    
+    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *isFirst = [def objectForKey:@"isFirst"];
     
