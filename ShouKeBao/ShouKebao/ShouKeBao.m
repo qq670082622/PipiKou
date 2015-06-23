@@ -53,6 +53,7 @@
 #import "MeHttpTool.h"
 #import "AFNetworking.h"
 #import "MeProgressView.h"
+#import "SKBNavBar.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -61,7 +62,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;// 搬救兵电话按钮
 
 
-@property (weak, nonatomic) IBOutlet UILabel *yesterDayOrderCount;
+//@property (weak, nonatomic) IBOutlet UILabel *yesterDayOrderCount;
 @property (weak, nonatomic) IBOutlet UILabel *yesterdayVisitors;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
@@ -70,7 +71,7 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;// 列表内容的数组
 @property (nonatomic,strong) NSMutableArray *stationDataSource;
 @property (weak, nonatomic) IBOutlet UIView *upView;
-@property (weak, nonatomic) IBOutlet UIButton *stationName;
+//@property (weak, nonatomic)  UIButton *stationName;
 //@property (nonatomic,copy) NSMutableString *messageCount;
 - (IBAction)search:(id)sender;
 
@@ -89,6 +90,9 @@
 @property (nonatomic, strong)MeProgressView * progressView;
 @property (nonatomic, copy)NSString * checkVersionLinkUrl;
 
+@property (weak, nonatomic) IBOutlet UIButton *SKBNewBtn;
+
+@property(nonatomic,weak) UIView *navBarView;
 
 @end
 
@@ -103,8 +107,16 @@
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     
     self.userIcon.layer.masksToBounds = YES;
-    
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
+    [self.SKBNewBtn setTitle:@"收客宝" forState:UIControlStateNormal];
+    [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.SKBNewBtn addTarget:self action:@selector(pushToStore) forControlEvents:UIControlEventTouchUpInside];
+
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
+    
+   
+    
+   
     
     [self.view addSubview:self.tableView];
     
@@ -164,6 +176,32 @@
     self.progressView = [MeProgressView creatProgressViewWithFrame:[UIScreen mainScreen].bounds];
     self.progressView.hidden = YES;
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
+
+}
+
+-(void)setUpNavBarView
+{
+    SKBNavBar *navBar = [SKBNavBar SKBNavBar];
+    self.navigationItem.titleView = navBar;
+    UIView *cover = [[UIView alloc] init];
+    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat navBarW = navBar.frame.size.width;
+    cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
+    cover.backgroundColor = [UIColor clearColor];
+    UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
+    station.backgroundColor = [UIColor clearColor];
+    station.frame = CGRectMake(0, 0, 64, 34);
+    [station addTarget:self action:@selector(changeStation:) forControlEvents:UIControlEventTouchUpInside];
+    [cover addSubview:station];
+    
+    UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
+    search.backgroundColor = [UIColor clearColor];
+    search.frame = CGRectMake(64, 0, navBarW-64, 34);
+    [search addTarget:self action:@selector(search:) forControlEvents:UIControlEventTouchUpInside];
+    [cover addSubview:search];
+    
+    [self.navigationController.navigationBar addSubview:cover];
+    self.navBarView = cover;
 
 }
 #pragma mark - CheckNewVersion
@@ -384,13 +422,14 @@
         for(NSDictionary *dic in json[@"Substation"]){
             //[self.stationDataSource addObject:dic];
             if ([currentStation isEqualToString:dic[@"Value"]]) {
-                [self.stationName setTitle:[NSString stringWithFormat:@"%@",dic[@"Text"]] forState:UIControlStateNormal];
+                //[self.stationName setTitle:[NSString stringWithFormat:@"%@",dic[@"Text"]] forState:UIControlStateNormal];
+                NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+                [udf setObject:[NSString stringWithFormat:@"%@",dic[@"Text"]] forKey:@"SubstationName"];
+                 [udf synchronize];
+
             }
             
         }
-        NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
-        [udf setObject:self.stationName.currentTitle forKey:@"SubstationName"];
-        [udf synchronize];
         
     } failure:^(NSError *error) {
         NSLog(@"获取分站信息请求失败，原因：%@",error);
@@ -416,8 +455,13 @@
         
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
         
-        self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
-        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@人",muta[@"VisitorCount"]];
+       // self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
+       
+        NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已被光顾了%@次",muta[@"VisitorCount"]]];
+        NSString *visitors = [NSString stringWithFormat:@"%@",muta[@"VisitorCount"]];
+        
+        [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5,visitors.length)];
+        self.yesterdayVisitors.attributedText = newStr;
 
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
@@ -473,15 +517,17 @@
     
     [self getNotifiList];
     
-    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
-    NSString *subStationName = [udf stringForKey:@"SubstationName"];
-    if (subStationName) {
-        [self.stationName setTitle:subStationName forState:UIControlStateNormal];
-    }else{
-        [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
-    }
+//    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+//    NSString *subStationName = [udf stringForKey:@"SubstationName"];
+//    if (subStationName) {
+//        [self.stationName setTitle:subStationName forState:UIControlStateNormal];
+//    }else{
+//        [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
+//    }
     
     [self getStationName];
+    
+    [self setUpNavBarView];
 }
 
 
@@ -489,6 +535,7 @@
 {
     [super viewWillDisappear:animated];
     [Lotuseed onPageViewEnd:@"page1Click"];
+    [self.navBarView removeFromSuperview];
 }
 
 
@@ -506,7 +553,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 204)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 164)];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 54, 0);
         _tableView.rowHeight = 105;
         _tableView.dataSource = self;
@@ -730,14 +777,14 @@
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
+//     SubstationParttern *par = [SubstationParttern sharedStationName];
+//    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
     [self.navigationController pushViewController:store animated:YES];
 }
 
 - (IBAction)changeStation:(id)sender {
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
+//     SubstationParttern *par = [SubstationParttern sharedStationName];
+//    [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
    
     StationSelect *stationSelect = [[StationSelect alloc] init];
 
@@ -775,8 +822,8 @@
 
 - (IBAction)search:(id)sender
 {
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
+//     SubstationParttern *par = [SubstationParttern sharedStationName];
+//    [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
     

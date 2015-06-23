@@ -72,7 +72,7 @@
 -(void)loadDataSource
 {
 //PageIndex   PageSize
-    if (!_isLogin) {
+    if (!_isLogin) {  //注record是未登录时的识别纪录，而record2是未登录时添加的客户
         [self.dataArr removeAllObjects];
           NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
         
@@ -337,10 +337,11 @@ static NSString *cellID = @"QRHistoryCell";
    
 [self.table reloadData];
     }else if (!_isLogin){
-      
+         NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
         for (int i = 0; i<self.editIndexArrInNoLogin.count; i++) {
-            [self.dataArr removeObjectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]];
+            [arr removeObjectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]];
         }
+        [WriteFileManager saveData:arr name:@"record"];
         [self.table reloadData];
     }
    
@@ -361,7 +362,7 @@ static NSString *cellID = @"QRHistoryCell";
         NSMutableArray *arr = [NSMutableArray array];
         for(int i = 0 ;i<_editArr.count;i++){
             personIdModel *model = _editArr[i];
-            [arr addObject:model];
+            [arr addObject:model.RecordId];
             }
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
@@ -377,15 +378,17 @@ static NSString *cellID = @"QRHistoryCell";
 
     }else if (!_isLogin){
         
-        NSMutableArray *arr = [NSMutableArray array];
-        
+        NSMutableArray *muarr = [NSMutableArray array];
+        NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
         for (int i = 0; i<self.editIndexArrInNoLogin.count; i++) {
-            personIdModel *model = [self.dataArr objectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]
+            
+            
+            NSDictionary *dic = [arr objectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]
                                     ];
-           [arr addObject:model.RecordId];
+           [muarr addObject:dic];
         }
         
-        [WriteFileManager saveData:arr name:@"recoder2"];//未登录时储存的客户;
+        [WriteFileManager saveData:muarr name:@"recoder2"];//未登录时储存的客户;
         [self.table reloadData];
 
     }

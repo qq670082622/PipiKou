@@ -88,7 +88,7 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
     
         [dic setObject:value forKey:key];
     
-    }else if ([value isKindOfClass:[NSNull class]]){
+    }else{
         
         [dic setObject:@"" forKey:key];
     }

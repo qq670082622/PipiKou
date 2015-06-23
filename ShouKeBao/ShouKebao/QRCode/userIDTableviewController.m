@@ -149,26 +149,79 @@
   
     if (_isLogin) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
-        [dic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+        [dic setObject:self.nameText.text forKey:@"UserName"];
+        [dic setObject:self.nationalText.text forKey:@"Nationality"];
+        [dic setObject:self.cardText.text forKey:@"cardNumber"];
+        [dic setObject:self.bornText.text forKey:@"birthDay"];
+        [dic setObject:self.addressText.text forKey:@"address"];
+        [dic setObject:_RecordId forKey:@"RecordId"];
+        [dic setObject:@"1" forKey:@"RecordType"];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:dic];
+        NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
         
-        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
+        [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
+
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
+            //            2/添加客户
+            NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
+            [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+            [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
+                NSLog(@"添加陈工");
+           //测试，是添加成功的
+//                            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
+//                            testLab.backgroundColor = [UIColor whiteColor];
+//                            testLab.font = [UIFont systemFontOfSize:8];
+//                            testLab.text = [NSString stringWithFormat:@"身份证保存记录返回的JSON IS %@",json];
+//                            testLab.numberOfLines = 0;
+//                            [self.view.window addSubview:testLab];
+
             
-//            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
-//            testLab.backgroundColor = [UIColor whiteColor];
-//            testLab.font = [UIFont systemFontOfSize:8];
-//            testLab.text = [NSString stringWithFormat:@"保存记录返回的JSON IS %@",json];
-//            testLab.numberOfLines = 0;
-//            [self.view.window addSubview:testLab];
-            
+            } failure:^(NSError *error) {
+                NSLog(@"");
+            }];
+                      
+        } failure:^(NSError *error) {
+            NSLog(@"批量导入客户失败，返回error is %@",error);
+        }];
+
+        
+        
+        
 //            [self.saveBtn setTitle:@"已保存" forState:UIControlStateNormal];
 //            [self.saveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
 //            self.saveBtn.userInteractionEnabled = NO;
 
-        } failure:^(NSError *error) {
-            NSLog(@"批量导入客户失败，返回error is %@",error);
-        }];
+     
         
+    }else if (!_isLogin){
+    
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record2"]];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.nameText.text forKey:@"UserName"];
+         [dic setObject:self.nationalText.text forKey:@"Nationality"];
+         [dic setObject:self.cardText.text forKey:@"cardNumber"];
+         [dic setObject:self.bornText.text forKey:@"birthDay"];
+         [dic setObject:self.addressText.text forKey:@"address"];
+         [dic setObject:_RecordId forKey:@"RecordId"];
+        [dic setObject:@"1" forKey:@"RecordType"];
+        [arr addObject:dic];
+        [WriteFileManager saveData:arr name:@"record2"];
+        
+        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        testLab.backgroundColor = [UIColor whiteColor];
+        testLab.font = [UIFont systemFontOfSize:8];
+        testLab.text = [NSString stringWithFormat:@"---------------未登录时保存的客户arr is %@---------------",[WriteFileManager readData:@"record2"]];
+        testLab.numberOfLines = 0;
+        [self.view.window addSubview:testLab];
+
+//        self.nameText.text = _UserName;
+//        self.nationalText.text = _Nationality;
+//        self.cardText.text = _cardNumber;
+//        self.bornText.text = _birthDay;
+//        self.addressText.text = _address;
+
     }
     
     //测试有无保存记录
