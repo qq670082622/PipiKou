@@ -90,7 +90,6 @@
 
 - (void)submit
 {
-    NSLog(@"444444");
     NSDictionary *param = @{@"Busienss" : @{@"ID":self.org.ID,
                                             @"Name":self.comanyName.text,
                                             @"Address":self.address.text,
@@ -103,7 +102,6 @@
                             };
     [MeHttpTool setBusinessWithParam:param success:^(id json) {
         if ([json[@"IsSuccess"] integerValue] == 1) {
-            
             [self.navigationController popViewControllerAnimated:YES];
         }
     } failure:^(NSError *error) {

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface messageModel : NSObject
+#import "BaseModel.h"
+@interface messageModel : BaseModel 
 @property (nonatomic,copy) NSString *title;
 @property (nonatomic,copy) NSString *CreatedDate;
 @property (nonatomic,copy) NSString *ID;

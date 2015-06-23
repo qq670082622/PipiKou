@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Organization : NSObject
+#import "BaseModel.h"
+@interface Organization : BaseModel 
 
 /**
  *  地址

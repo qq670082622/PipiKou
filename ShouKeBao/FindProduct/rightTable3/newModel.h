@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface newModel : NSObject
+#import "BaseModel.h"
+@interface newModel : BaseModel 
 @property (nonatomic,copy)NSString *Text;
 @property (nonatomic,copy)NSString *Value;
 

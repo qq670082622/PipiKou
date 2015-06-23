@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Trader : NSObject
+#import "BaseModel.h"
+@interface Trader : BaseModel   
 /**
  *  城市
  */

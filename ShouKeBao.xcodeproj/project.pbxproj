@@ -327,6 +327,8 @@
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
 		7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15A1B33ECB8009F878D /* InspectionViewController.m */; };
+		7982F15E1B382852009F878D /* MeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15D1B382852009F878D /* MeProgressView.m */; };
+		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
 		79A8C5401B32DED300922CEA /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A8C53F1B32DED300922CEA /* CustomerDetailViewController.m */; };
 		79C2272A1B27CF93001EE081 /* FeedBcakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C227291B27CF93001EE081 /* FeedBcakViewController.m */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
@@ -903,6 +905,10 @@
 		7982F1571B33C6CB009F878D /* CityPlistTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityPlistTool.m; sourceTree = "<group>"; };
 		7982F1591B33ECB8009F878D /* InspectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InspectionViewController.h; sourceTree = "<group>"; };
 		7982F15A1B33ECB8009F878D /* InspectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InspectionViewController.m; sourceTree = "<group>"; };
+		7982F15C1B382852009F878D /* MeProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeProgressView.h; sourceTree = "<group>"; };
+		7982F15D1B382852009F878D /* MeProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeProgressView.m; sourceTree = "<group>"; };
+		7982F15F1B391C6A009F878D /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
+		7982F1601B391C6A009F878D /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		79A8C53F1B32DED300922CEA /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
 		79C227281B27CF93001EE081 /* FeedBcakViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedBcakViewController.h; sourceTree = "<group>"; };
 		79C227291B27CF93001EE081 /* FeedBcakViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedBcakViewController.m; sourceTree = "<group>"; };
@@ -1295,6 +1301,8 @@
 			children = (
 				5A52FBDE1ACEBF220076DAE6 /* MeButton.h */,
 				5A52FBDF1ACEBF220076DAE6 /* MeButton.m */,
+				7982F15C1B382852009F878D /* MeProgressView.h */,
+				7982F15D1B382852009F878D /* MeProgressView.m */,
 				5A52FBE01ACEBF220076DAE6 /* MeButtonView.h */,
 				5A52FBE11ACEBF220076DAE6 /* MeButtonView.m */,
 				5A52FBE21ACEBF220076DAE6 /* MeHeader.h */,
@@ -2255,6 +2263,8 @@
 				5A6996151AF8A5F2002EDD91 /* BackTableViewControllerController.m */,
 				79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */,
 				79D8D8201B2ACF2900AE4464 /* BeseWebView.m */,
+				7982F15F1B391C6A009F878D /* BaseModel.h */,
+				7982F1601B391C6A009F878D /* BaseModel.m */,
 			);
 			path = BaseViewController;
 			sourceTree = "<group>";
@@ -2442,6 +2452,7 @@
 			files = (
 				63B6CFB81B2EA8AA0037E06B /* personIdModel.h in Sources */,
 				5AD891DE1B02FD4200D3A392 /* UIViewController+HUD.m in Sources */,
+				7982F15E1B382852009F878D /* MeProgressView.m in Sources */,
 				63F1A1AB1B14250E00DE9867 /* MJArgument.m in Sources */,
 				5A944D231B00BC780004DE89 /* MLPhotoBrowserDatas.m in Sources */,
 				633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */,
@@ -2669,6 +2680,7 @@
 				632BFFD01AB91FD3003B15AD /* NSString+Base64Util.m in Sources */,
 				632BFFF61AB92A3A003B15AD /* SDWebImageCompat.m in Sources */,
 				5A52FC3B1ACEBF220076DAE6 /* FindProduct.m in Sources */,
+				7982F1611B391C6A009F878D /* BaseModel.m in Sources */,
 				5A52FC841ACEBF220076DAE6 /* OrderModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

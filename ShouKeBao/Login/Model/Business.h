@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Business : NSObject
+#import "BaseModel.h"
+@interface Business :BaseModel
 
 
 @property (nonatomic,copy) NSString *name;

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface recentlyModel : NSObject
+#import "BaseModel.h"
+@interface recentlyModel : BaseModel
 @property (nonatomic, copy) NSString *ID;//产品ID(用于收藏)
 @property (nonatomic, copy) NSString *PicUrl;//
 @property (nonatomic, copy) NSString *Name;//产品介绍

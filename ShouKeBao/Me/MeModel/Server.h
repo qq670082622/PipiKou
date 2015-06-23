@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Server : NSObject
+#import "BaseModel.h"
+@interface Server : BaseModel   
 
 @property (nonatomic,copy) NSString *Email;
 

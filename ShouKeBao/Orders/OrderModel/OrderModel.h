@@ -11,7 +11,8 @@
 /*
     1 灰色 2蓝色 3橙色 4绿色 5红色 6紫色
  */
-@interface OrderModel : NSObject
+#import "BaseModel.h"
+@interface OrderModel : BaseModel
 
 @property (nonatomic,copy) NSString *ProgressState;// 进度
 

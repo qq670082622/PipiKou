@@ -49,21 +49,19 @@
 #import "SubstationParttern.h"
 #import "RecomViewController.h"
 #import "ScanningViewController.h"
-#import "messageModel.h"
-#import "messageCellSKBTableViewCell.h"
-#import "SKBNavBar.h"
 #define FiveDay 432000
-
+#import "MeHttpTool.h"
+#import "AFNetworking.h"
+#import "MeProgressView.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
-@property (weak, nonatomic)  UIButton *searchBtn;
-@property (weak, nonatomic)  UIButton *stationName;
-
+@property (weak, nonatomic) IBOutlet UIButton *searchBtn;
+- (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;// 搬救兵电话按钮
 
 
-//@property (weak, nonatomic) IBOutlet UILabel *yesterDayOrderCount;
+@property (weak, nonatomic) IBOutlet UILabel *yesterDayOrderCount;
 @property (weak, nonatomic) IBOutlet UILabel *yesterdayVisitors;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
@@ -72,11 +70,11 @@
 @property (nonatomic,strong) NSMutableArray *dataSource;// 列表内容的数组
 @property (nonatomic,strong) NSMutableArray *stationDataSource;
 @property (weak, nonatomic) IBOutlet UIView *upView;
-
+@property (weak, nonatomic) IBOutlet UIButton *stationName;
 //@property (nonatomic,copy) NSMutableString *messageCount;
+- (IBAction)search:(id)sender;
 
-
-//- (IBAction)add:(id)sender;//现改为share!!
+- (IBAction)add:(id)sender;//现改为share!!
 
 @property (nonatomic,copy) NSMutableString *shareLink;
 @property (nonatomic,strong) NSMutableDictionary *shareDic;
@@ -88,8 +86,9 @@
 @property (nonatomic,assign) int guideIndex;
 
 @property(nonatomic,strong) NSMutableArray *isReadArr;
+@property (nonatomic, strong)MeProgressView * progressView;
+@property (nonatomic, copy)NSString * checkVersionLinkUrl;
 
-@property (weak, nonatomic) IBOutlet UIButton *SKBNewBtn;
 
 @end
 
@@ -103,30 +102,11 @@
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
-    [self.SKBNewBtn setTitle:@"收客宝" forState:UIControlStateNormal];
-    [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.SKBNewBtn addTarget:self action:@selector(pushToStore) forControlEvents:UIControlEventTouchUpInside];
-    
-//    UIView *barView = [[UIView alloc] initWithFrame:CGRectMake(28, 0, self.view.frame.size.width*2/3, 34)];
-//    self.navigationItem.titleView = barView;
-    SKBNavBar *navBar = [SKBNavBar SKBNavBar];
-    self.navigationItem.titleView = navBar;
-    UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
-    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
-    CGFloat navBarW = navBar.frame.size.width;
-    station.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
-    station.backgroundColor = [UIColor clearColor];
-    [station addTarget:self action:@selector(pushToStore) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationController.navigationBar addSubview:station];
-    
     self.userIcon.layer.masksToBounds = YES;
     
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
     [self.view addSubview:self.tableView];
-    
-    
-    
     
     // 取出隐藏的数据 看下有没有过期的 有就去掉
     NSDate *now = [NSDate date];
@@ -180,9 +160,70 @@
    
   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
+//    [self checkNewVerSion];
+    self.progressView = [MeProgressView creatProgressViewWithFrame:[UIScreen mainScreen].bounds];
+    self.progressView.hidden = YES;
+    [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
+
 }
-
-
+#pragma mark - CheckNewVersion
+- (void)checkNewVerSion{
+    NSDictionary * param = @{};
+    [MeHttpTool inspectionWithParam:param success:^(id json) {
+        NSDictionary * dic = json[@"ios"];
+        NSString * versionCode = dic[@"VersionCode"];
+        self.checkVersionLinkUrl = dic[@"LinkUrl"];
+        NSString * isMust = @"不在询问";
+        if ([dic[@"IsMustUpdate"]isEqualToString:@"1"]) {
+            isMust = @"退出程序";
+        }
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+        if (![versionCode isEqualToString:currentVersion]) {
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"" delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
+            [alertView show];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSURL *URL = [NSURL URLWithString:self.checkVersionLinkUrl];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        self.progressView.hidden = NO;
+                      //下载请求
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                      //正确的下载路径 [self getImagePath:@3.zip]
+                      
+                      //错误的路径
+                      //    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
+                      //    NSString *docPath = [path objectAtIndex:0];
+                      
+//            operation.outputStream = [NSOutputStream outputStreamToFileAtPath:[self getImagePath:@"3.zip"] append:YES];
+                      //下载进度回调
+            [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            //下载进度
+            float progress = ((float)totalBytesRead) / (totalBytesExpectedToRead);
+            self.progressView.progressValue = progress;
+        }];
+        
+                      //成功和失败回调
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.progressView.hidden = YES;
+            NSLog(@"ok");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+                      
+        [operation start];
+        
+    }else{
+        if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
+            exit(0);
+        }
+    }
+}
 
 #pragma  - mark程序在后台时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
@@ -297,24 +338,7 @@
         int valueCount = [barButton.badgeValue intValue];
         barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
         
-             NSString *messageURL = message[2];
-         [HomeHttpTool getActivitiesNoticeListWithParam:@{} success:^(id json) {
-             NSLog(@"首页公告消息列表%@",json);
-             NSMutableArray *arr = json[@"ActivitiesNoticeList"];
-             for (NSDictionary *dic in arr) {
-                 messageModel *model = [messageModel modalWithDict:dic];
-                 if ([model.LinkUrl isEqualToString:messageURL]) {
-                     [self.dataSource addObject:model];
-                     
-                 }
-                 
-             }
-             [self.tableView reloadData];
-         } failure:^(NSError *error) {
-             NSLog(@"首页公告消息列表失败%@",error);
-         }];
-
-
+        //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
     }
     
 
@@ -392,12 +416,8 @@
         
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:json];
         
-        //self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
-        NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"已被光顾了%@次",muta[@"VisitorCount"]]];
-        NSString *visitors = [NSString stringWithFormat:@"%@",muta[@"VisitorCount"]];
-        
-        [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5,visitors.length)];
-        self.yesterdayVisitors.attributedText = newStr;
+        self.yesterDayOrderCount.text = [NSString stringWithFormat:@"%@单",muta[@"OrderCount"]];
+        self.yesterdayVisitors.text = [NSString stringWithFormat:@"%@人",muta[@"VisitorCount"]];
 
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
@@ -473,6 +493,7 @@
 
 
 #pragma mark - getter
+
 -(NSMutableArray *)isReadArr
 {
     if (_isReadArr == nil) {
@@ -485,7 +506,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 164)];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 140, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 204)];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 54, 0);
         _tableView.rowHeight = 105;
         _tableView.dataSource = self;
@@ -703,23 +724,24 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
-    
-//    NSArray *tmp2 = [self.dataSource sortedArrayUsingComparator:^NSComparisonResult(HomeBase *obj1, HomeBase *obj2){
-//    
-//    }
 }
 
 -(void)pushToStore
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
-//     SubstationParttern *par = [SubstationParttern sharedStationName];
-//    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
     [self.navigationController pushViewController:store animated:YES];
 }
 
 - (IBAction)changeStation:(id)sender {
-    
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
+   
+    StationSelect *stationSelect = [[StationSelect alloc] init];
+
+    [self.navigationController pushViewController:stationSelect animated:YES];
 }
 
 - (IBAction)phoneToService:(id)sender
@@ -753,121 +775,106 @@
 
 - (IBAction)search:(id)sender
 {
-    
+     SubstationParttern *par = [SubstationParttern sharedStationName];
+    [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
+    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
+    [self.navigationController pushViewController:searchVC animated:NO];
     
    
 }
 
-#pragma -mark SKBBarDelegate
--(void)SKBNavBarDidClickedSearchBtn
+-(void)addAlert
 {
-   // SubstationParttern *par = [SubstationParttern sharedStationName];
-   // [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
+    // 获取到现在应用中存在几个window，ios是可以多窗口的
+    NSArray *windowArray = [UIApplication sharedApplication].windows;
+    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
+    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
+    // 以下就是不停的寻找子视图，修改要修改的
+    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+    CGFloat labY;
+    if (screenH == 667) {
+          labY = 260;
+    }else if (screenH == 568){
+        labY = 160;
+    }else if (screenH == 480){
+        labY = 180;
+    }else if (screenH == 736){
+        labY = 440;
+    }
+   
     
-    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
-    [self.navigationController pushViewController:searchVC animated:NO];}
+    CGFloat labW = self.view.bounds.size.width;
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
+    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.textColor = [UIColor blackColor];
+    lab.textAlignment = NSTextAlignmentCenter;
+    lab.font = [UIFont systemFontOfSize:12];
+    [actionWindow addSubview:lab];
+    [UIView animateWithDuration:0.4 animations:^{
+        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
+    }];
+    
+    self.warningLab = lab;
 
--(void)SKBNavBarDidClickedStationBtn
-{
-   // SubstationParttern *par = [SubstationParttern sharedStationName];
-  //  [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
-    
-    StationSelect *stationSelect = [[StationSelect alloc] init];
-    [self.navigationController pushViewController:stationSelect animated:YES];
 }
 
-//-(void)addAlert
-//{
-//    // 获取到现在应用中存在几个window，ios是可以多窗口的
-//    NSArray *windowArray = [UIApplication sharedApplication].windows;
-//    // 取出最后一个，因为你点击分享时这个actionsheet（其实是一个window）才会添加
-//    UIWindow *actionWindow = (UIWindow *)[windowArray lastObject];
-//    // 以下就是不停的寻找子视图，修改要修改的
-//    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat labY;
-//    if (screenH == 667) {
-//          labY = 260;
-//    }else if (screenH == 568){
-//        labY = 160;
-//    }else if (screenH == 480){
-//        labY = 180;
-//    }else if (screenH == 736){
-//        labY = 440;
-//    }
-//   
-//    
-//    CGFloat labW = self.view.bounds.size.width;
-//    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
-//    lab.text = @"您分享出去的内容对外只显示门市价";
-//    lab.textColor = [UIColor blackColor];
-//    lab.textAlignment = NSTextAlignmentCenter;
-//    lab.font = [UIFont systemFontOfSize:12];
-//    [actionWindow addSubview:lab];
-//    [UIView animateWithDuration:0.4 animations:^{
-//        lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
-//    }];
-//    
-//    self.warningLab = lab;
-//
-//}
-//
-//- (IBAction)add:(id)sender
-//{
-//   
-////构造分享内容
-//    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
-//                                       defaultContent:self.shareDic[@"Desc"]
-//                                                image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
-//                                                title:self.shareDic[@"Title"]
-//                                                  url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
-//                                            mediaType:SSPublishContentMediaTypeNews];
-//    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@,地址：%@",_shareDic[@"Tile"],_shareDic[@"Desc"],_shareDic[@"Url"]] image:nil];
-//    //创建弹出菜单容器
-//    id<ISSContainer> container = [ShareSDK container];
-//    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
-//    
-//    //弹出分享菜单
-//    [ShareSDK showShareActionSheet:container
-//                         shareList:nil
-//                           content:publishContent
-//                     statusBarTips:YES
-//                       authOptions:nil
-//                      shareOptions:nil
-//                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-//                                 [self.warningLab removeFromSuperview];
-//                                if (state == SSResponseStateSuccess)
-//                                {
-//                                    [self.warningLab removeFromSuperview];
-//                                    
-//                                    [MBProgressHUD showSuccess:@"分享成功"];
-//                                    
-//                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-//                                       
-//                                        [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
-//                                                                                    } failure:^(NSError *error) {
-//                                            
-//                                        }];
-//                                    
-//                                        [MBProgressHUD hideHUD];
-//
-//                                    });
-//                                    
-//                                }
-//                                else if (state == SSResponseStateFail)
-//                                {
-//                                    [self.warningLab removeFromSuperview];
-//                                    
-//                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
-//                                }else if (state == SSResponseStateCancel){
-//                                  
-//                                    [self.warningLab removeFromSuperview];
-//                                }
-//                            }];
-//    
-//     [self addAlert];
-//   
-//    
-//}
+- (IBAction)add:(id)sender
+{
+   
+//构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
+                                       defaultContent:self.shareDic[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
+                                                title:self.shareDic[@"Title"]
+                                                  url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
+                                            mediaType:SSPublishContentMediaTypeNews];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@,地址：%@",_shareDic[@"Tile"],_shareDic[@"Desc"],_shareDic[@"Url"]] image:nil];
+    //创建弹出菜单容器
+    id<ISSContainer> container = [ShareSDK container];
+    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
+    
+    //弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:nil
+                      shareOptions:nil
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                 [self.warningLab removeFromSuperview];
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    [self.warningLab removeFromSuperview];
+                                    
+                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                       
+                                        [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                                                                    } failure:^(NSError *error) {
+                                            
+                                        }];
+                                    
+                                        [MBProgressHUD hideHUD];
+
+                                    });
+                                    
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    [self.warningLab removeFromSuperview];
+                                    
+                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                }else if (state == SSResponseStateCancel){
+                                  
+                                    [self.warningLab removeFromSuperview];
+                                }
+                            }];
+    
+     [self addAlert];
+   
+    
+}
 
 
 -(void)customLeftBarItem
@@ -942,30 +949,23 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     if ([model.model isKindOfClass:[HomeList class]]) {
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
-       
         cell.model = model.model;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
         cell.redTip.hidden = !(self.recommendCount > 0);
         
         return cell;
-    }else if ([model.model isKindOfClass:[messageModel class]]){
-        
-        messageCellSKBTableViewCell *cell = [messageCellSKBTableViewCell cellWithTableView:tableView];
-        cell.model = model.model;
-        return cell;
-        
     }else{
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
     }
 }
@@ -1172,16 +1172,15 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
 [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"上传record成功");
-    //同步记录测试成功
 //                                        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //                                        testLab.backgroundColor = [UIColor whiteColor];
 //                                        testLab.font = [UIFont systemFontOfSize:8];
-//                                        testLab.text = [NSString stringWithFormat:@"未登录时同步的记录返回dic is %@/------/json is %@-------",dic,json];
+//                                        testLab.text = [NSString stringWithFormat:@"dic is %@/------/json is %@-------",dic,json];
 //                                        testLab.numberOfLines = 0;
 //                                        [self.view.window addSubview:testLab];
 
                     NSArray *new = [NSArray array];
-            [WriteFileManager saveData:new name:@"record"];//清除未登录时的纪录
+            [WriteFileManager saveData:new name:@"record"];
     [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
@@ -1202,28 +1201,12 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
    
     if (arr.count>0) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        NSMutableArray *muArr = [NSMutableArray array];
-        for (int i = 0 ; i<arr.count; i++) {
-            NSDictionary *dicNew = arr[i];
-            [muArr addObject:dicNew[@"RecordId"]];
-        }
-        
-        [dic setObject:muArr forKey:@"RecordIds"];
+        [dic setObject:arr forKey:@"RecordIds"];
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
-            NSLog(@"未登录批量导入客户成功 返回json is %@",json);
-            
-            UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-            testLab.backgroundColor = [UIColor whiteColor];
-            testLab.font = [UIFont systemFontOfSize:8];
-            testLab.text = [NSString stringWithFormat:@"未登录时同步的客户返回dic is %@/------/json is %@-------",dic,json];
-            testLab.numberOfLines = 0;
-            [self.view.window addSubview:testLab];
+            NSLog(@"批量导入客户成功 返回json is %@",json);
             
             [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-                
-                [muArr removeAllObjects];
-                [WriteFileManager saveData:muArr name:@"recorder2"];//清除未登录时保存的客户
                 [MBProgressHUD hideHUD];
             });
 

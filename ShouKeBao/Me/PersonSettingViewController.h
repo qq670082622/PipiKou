@@ -8,6 +8,6 @@
 
 #import "SKTableViewController.h"
 
-@interface PersonSettingViewController : SKTableViewController
 
+@interface PersonSettingViewController : SKTableViewController
 @end

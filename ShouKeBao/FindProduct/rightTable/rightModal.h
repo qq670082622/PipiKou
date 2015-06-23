@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface rightModal : NSObject
+#import "BaseModel.h"
+@interface rightModal : BaseModel   
 @property (copy, nonatomic) NSString  *rightIcon;
 @property (copy, nonatomic) NSString  *rightDescrip;
 @property (strong, nonatomic) NSNumber  *rightPrice;
