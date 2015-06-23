@@ -169,6 +169,15 @@
             [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
             [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
                 NSLog(@"添加陈工");
+           //测试，是添加成功的
+//                            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
+//                            testLab.backgroundColor = [UIColor whiteColor];
+//                            testLab.font = [UIFont systemFontOfSize:8];
+//                            testLab.text = [NSString stringWithFormat:@"身份证保存记录返回的JSON IS %@",json];
+//                            testLab.numberOfLines = 0;
+//                            [self.view.window addSubview:testLab];
+
+            
             } failure:^(NSError *error) {
                 NSLog(@"");
             }];
@@ -179,13 +188,7 @@
 
         
         
-//            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
-//            testLab.backgroundColor = [UIColor whiteColor];
-//            testLab.font = [UIFont systemFontOfSize:8];
-//            testLab.text = [NSString stringWithFormat:@"保存记录返回的JSON IS %@",json];
-//            testLab.numberOfLines = 0;
-//            [self.view.window addSubview:testLab];
-            
+        
 //            [self.saveBtn setTitle:@"已保存" forState:UIControlStateNormal];
 //            [self.saveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
 //            self.saveBtn.userInteractionEnabled = NO;
@@ -205,6 +208,14 @@
         [dic setObject:@"1" forKey:@"RecordType"];
         [arr addObject:dic];
         [WriteFileManager saveData:arr name:@"record2"];
+        
+        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+        testLab.backgroundColor = [UIColor whiteColor];
+        testLab.font = [UIFont systemFontOfSize:8];
+        testLab.text = [NSString stringWithFormat:@"---------------未登录时保存的客户arr is %@---------------",[WriteFileManager readData:@"record2"]];
+        testLab.numberOfLines = 0;
+        [self.view.window addSubview:testLab];
+
 //        self.nameText.text = _UserName;
 //        self.nationalText.text = _Nationality;
 //        self.cardText.text = _cardNumber;

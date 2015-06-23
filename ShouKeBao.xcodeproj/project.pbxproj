@@ -247,6 +247,8 @@
 		636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 636C8B931AC2E6860097CAE9 /* MBProgressHUD.m */; };
 		637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */ = {isa = PBXBuildFile; fileRef = 637EA9CE1B1DB76A00E5AC22 /* caremaCut.wav */; };
 		6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 6389CE041AB7F9F600A8326E /* ResizeImage.m */; };
+		63A81B891B39062900D8B37D /* SKBNavBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A81B881B39062900D8B37D /* SKBNavBar.m */; };
+		63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A81B8A1B39065F00D8B37D /* SKBNavBar.xib */; };
 		63AE28951B206F8700BDB8C1 /* newModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE28941B206F8700BDB8C1 /* newModel.m */; };
 		63AE28991B21975800BDB8C1 /* attachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE28971B21975800BDB8C1 /* attachmentViewController.m */; };
 		63AE289A1B21975800BDB8C1 /* attachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63AE28981B21975800BDB8C1 /* attachmentViewController.xib */; };
@@ -766,6 +768,9 @@
 		637EA9CE1B1DB76A00E5AC22 /* caremaCut.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = caremaCut.wav; sourceTree = "<group>"; };
 		6389CE031AB7F9F600A8326E /* ResizeImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResizeImage.h; sourceTree = "<group>"; };
 		6389CE041AB7F9F600A8326E /* ResizeImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResizeImage.m; sourceTree = "<group>"; };
+		63A81B871B39062900D8B37D /* SKBNavBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKBNavBar.h; sourceTree = "<group>"; };
+		63A81B881B39062900D8B37D /* SKBNavBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKBNavBar.m; sourceTree = "<group>"; };
+		63A81B8A1B39065F00D8B37D /* SKBNavBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKBNavBar.xib; sourceTree = "<group>"; };
 		63AE28931B206F8700BDB8C1 /* newModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newModel.h; sourceTree = "<group>"; };
 		63AE28941B206F8700BDB8C1 /* newModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newModel.m; sourceTree = "<group>"; };
 		63AE28961B21975800BDB8C1 /* attachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attachmentViewController.h; sourceTree = "<group>"; };
@@ -1459,6 +1464,9 @@
 				63F1A1341B13329E00DE9867 /* YesterDayCell.m */,
 				63F1A1361B1332AD00DE9867 /* RecentlyCell.h */,
 				63F1A1371B1332AD00DE9867 /* RecentlyCell.m */,
+				63A81B871B39062900D8B37D /* SKBNavBar.h */,
+				63A81B881B39062900D8B37D /* SKBNavBar.m */,
+				63A81B8A1B39065F00D8B37D /* SKBNavBar.xib */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -2355,6 +2363,7 @@
 				63E034471AFC995300BD714A /* Customer.storyboard in Resources */,
 				5A52FC451ACEBF220076DAE6 /* ConditionSelectViewController.xib in Resources */,
 				63E034521AFC995300BD714A /* RemindDetailViewController.xib in Resources */,
+				63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */,
 				63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */,
 				63E0344F1AFC995300BD714A /* AddRemind.storyboard in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
@@ -2571,6 +2580,7 @@
 				8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */,
 				63E0343E1AFC995300BD714A /* addCustomerViewController.m in Sources */,
 				63D31E911AB16EC30043B3CA /* WMNavigationController.m in Sources */,
+				63A81B891B39062900D8B37D /* SKBNavBar.m in Sources */,
 				6326131E1AB1C175003AC2DA /* MJRefreshHeaderView.m in Sources */,
 				5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */,
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,

@@ -1,0 +1,44 @@
+//
+//  SKBNavBar.m
+//  ShouKeBao
+//
+//  Created by 吴铭 on 15/6/23.
+//  Copyright (c) 2015年 shouKeBao. All rights reserved.
+//
+
+#import "SKBNavBar.h"
+#import "WMAnimations.h"
+@implementation SKBNavBar
+
+/*
+// Only override drawRect: if you perform custom drawing.
+// An empty implementation adversely affects performance during animation.
+- (void)drawRect:(CGRect)rect {
+    // Drawing code
+}
+*/
+
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.stationBtn.layer andBorderColor:[UIColor clearColor] andBorderWidth:0 andNeedShadow:NO];
+    [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.line.layer andBorderColor:[UIColor lightTextColor] andBorderWidth:1 andNeedShadow:NO];
+    NSTimer *timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(changeStationName) userInfo:nil repeats:YES];
+    self.timer = timer;
+}
+
+-(void)changeStationName
+{
+    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+    [self.stationBtn setTitle:[udf objectForKey:@"SubstationName"] forState:UIControlStateNormal];
+    
+
+}
+
++(instancetype)SKBNavBar
+{
+    
+ return [[[NSBundle mainBundle] loadNibNamed:@"SKBNavBar" owner:nil options:nil] lastObject];
+}
+
+@end
