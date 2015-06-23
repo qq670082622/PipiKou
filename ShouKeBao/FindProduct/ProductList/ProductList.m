@@ -52,6 +52,7 @@
 - (IBAction)backToTop:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
 
+
 //@property (weak, nonatomic) IBOutlet UIView *blackView;
 
 //@property (copy , nonatomic) NSMutableString *ProductSortingType;//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
@@ -91,6 +92,8 @@
 @property(nonatomic,assign) BOOL subDoneToFreshCommendBtn;
 
 @property(nonatomic,assign) long productCount;
+
+@property(nonatomic,copy) NSMutableString *selectIndex;
 @end
 
 @implementation ProductList
@@ -289,7 +292,7 @@
 -(NSMutableString *)jishi
 {
     if (_jishi == nil) {
-                    self.jishi = [NSMutableString stringWithFormat:@"1"];
+                    self.jishi = [NSMutableString stringWithFormat:@"0"];
     }
     return _jishi
     ;
@@ -320,7 +323,7 @@
 {
     if (_jiafan == nil) {
    
-            self.jiafan = [NSMutableString stringWithFormat:@"1"];
+            self.jiafan = [NSMutableString stringWithFormat:@"0"];
       
     }
     return _jiafan;
@@ -511,21 +514,36 @@
 {//推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
     [self.noProductWarnLab removeFromSuperview];
-    
+    [self editButtons ];
     NSString *type = [NSString string];
-    if (self.commondOutlet.selected == YES) {
-        type = @"0";
+    if (_selectIndex == nil) {
+        self.selectIndex = [NSMutableString stringWithFormat:@"0"];
+        type = [NSString stringWithFormat:@"%@",_selectIndex];
+    }else{
+        type = [NSString stringWithFormat:@"%@",_selectIndex];
     }
-    if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↑"]) {
-        type = @"1";
-    }else if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↓"]){
-    type = @"2";
+    
+    if (type == 0) {
+        [self.commondOutlet setSelected:YES];
     }
-    if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↑"]) {
-        type = @"3";
-    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↓"])
+    if ( [type isEqualToString:@"1"]) {
+        
+        [self.profitOutlet setSelected:YES];
+        [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal];
+        
+    }else if (    [type isEqualToString: @"2"]){
+        [self.profitOutlet setSelected: YES];
+        [self.profitOutlet setTitle: @"利润 ↓" forState:UIControlStateNormal];
+    }
+    if ( [type isEqualToString: @"3"]) {
+        
+        [self.cheapOutlet setSelected: YES];
+        [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal ];
+    }else if ([type isEqualToString: @"4"])
     {
-    type = @"4";
+        
+        [self.cheapOutlet setSelected: YES];
+        [self.cheapOutlet setTitle:@"同行价 ↓" forState:UIControlStateNormal ];
     }
     
     
@@ -595,21 +613,38 @@
 {
     //推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
+    
+     [self editButtons ];
     NSString *type = [NSString string];
-    if (self.commondOutlet.selected == YES) {
-        type = @"0";
+    if (_selectIndex == nil) {
+        self.selectIndex = [NSMutableString stringWithFormat:@"0"];
+        type = [NSString stringWithFormat:@"%@",_selectIndex];
+    }else{
+        type = [NSString stringWithFormat:@"%@",_selectIndex];
     }
-    if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↑"]) {
-        type = @"1";
-    }else if (self.profitOutlet.selected == YES && [self.profitOutlet.currentTitle isEqual:@"利润 ↓"]){
-        type = @"2";
-    }
-    if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↑"]) {
-        type = @"3";
-    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.currentTitle isEqualToString:@"同行价 ↓"])
-    {
-        type = @"4";
-    }
+
+        if (type == 0) {
+            [self.commondOutlet setSelected:YES];
+        }
+        if ( [type isEqualToString:@"1"]) {
+        
+            [self.profitOutlet setSelected:YES];
+            [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal];
+         
+        }else if (    [type isEqualToString: @"2"]){
+            [self.profitOutlet setSelected: YES];
+            [self.profitOutlet setTitle: @"利润 ↓" forState:UIControlStateNormal];
+        }
+        if ( [type isEqualToString: @"3"]) {
+           
+            [self.cheapOutlet setSelected: YES];
+            [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal ];
+        }else if ([type isEqualToString: @"4"])
+        {
+            
+            [self.cheapOutlet setSelected: YES];
+            [self.cheapOutlet setTitle:@"同行价 ↓" forState:UIControlStateNormal ];
+        }
 
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
@@ -1449,6 +1484,7 @@
     [dic setObject:@1 forKey:@"PageIndex"];
    
     [dic setObject:@"0" forKey:@"ProductSortingType"];
+    self.selectIndex = [NSMutableString stringWithFormat:@"0"];
    // [self ProductSortingTypeWith:@"0"];
    
     [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1524,7 +1560,7 @@
         [dic setObject:@"10" forKey:@"PageSize"];
       
         [dic setObject:@1 forKey:@"PageIndex"];
-      
+       self.selectIndex = [NSMutableString stringWithFormat:@"1"];
         [dic setObject:@"1" forKey:@"ProductSortingType"];
         //[self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1576,6 +1612,7 @@
         [dic setObject:@1 forKey:@"PageIndex"];
       
         [dic setObject:@"2" forKey:@"ProductSortingType"];
+         self.selectIndex = [NSMutableString stringWithFormat:@"2"];
        // [self ProductSortingTypeWith:@"1"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
        // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
@@ -1624,6 +1661,7 @@
         [dic setObject:@1 forKey:@"PageIndex"];
        
         [dic setObject:@"1" forKey:@"ProductSortingType"];
+         self.selectIndex = [NSMutableString stringWithFormat:@"1"];
        // [self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
       //  NSLog(@"-------page2 请求的 dic  is %@-----",dic);
@@ -1705,6 +1743,7 @@
         [dic setObject:@1 forKey:@"PageIndex"];
         
         [dic setObject:@"3" forKey:@"ProductSortingType"];
+         self.selectIndex = [NSMutableString stringWithFormat:@"3"];
      //   [self ProductSortingTypeWith:@"4"];
         
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1759,6 +1798,7 @@
         [dic setObject:@1 forKey:@"PageIndex"];
         
         [dic setObject:@"4" forKey:@"ProductSortingType"];
+         self.selectIndex = [NSMutableString stringWithFormat:@"4"];
        // [self ProductSortingTypeWith:@"3"];
         
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1809,6 +1849,7 @@
         [dic setObject:@1 forKey:@"PageIndex"];
         
         [dic setObject:@"3" forKey:@"ProductSortingType"];
+         self.selectIndex = [NSMutableString stringWithFormat:@"3"];
        // [self ProductSortingTypeWith:@"4"];
         
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -1945,18 +1986,14 @@
         
         [self.coverView removeFromSuperview];
         
-        // [_dressView removeFromSuperview];
-        
-       // [self recommond];
-        
-        [self.commondOutlet setSelected:YES];
-        
-        self.profitOutlet.selected = NO;
-        
-        self.cheapOutlet.selected = NO;
+//        [self.commondOutlet setSelected:YES];
+//        
+//        self.profitOutlet.selected = NO;
+//        
+//        self.cheapOutlet.selected = NO;
     }];
    
-    [self.commondOutlet setSelected:YES];
+   // [self.commondOutlet setSelected:YES];
     [self initPull];
     
     
