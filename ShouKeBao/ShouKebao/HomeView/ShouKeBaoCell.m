@@ -116,7 +116,7 @@
     CGFloat titleX = CGRectGetMaxX(self.iconView.frame) + gap;
     CGFloat titleW = (screenW - iconW - gap * 4) * 0.5;
     self.titleLab.frame = CGRectMake(titleX, gap, titleW, 20);
-    // 时间
+    // 右侧时间
     CGFloat timeX = CGRectGetMaxX(self.titleLab.frame) + gap;
     self.timeLab.frame = CGRectMake(timeX, gap, titleW, 20);
     
@@ -126,7 +126,7 @@
     CGFloat rightY = CGRectGetMaxY(self.timeLab.frame);
     self.rightLab.frame = CGRectMake(rightX, rightY, rightW, 15);
     
-      //出发时间
+      //中间出发时间
     self.goDate.frame = CGRectMake(titleX, rightY, screenW*2/3, 15);
     
     // 详情
@@ -182,7 +182,7 @@
     
     //GoDate
     NSDate *goDate = [NSDate dateWithTimeIntervalSince1970:[model.GoDate doubleValue]];
-    self.goDate.text = [goDate formattedTime];
+    self.goDate.text = [NSString stringWithFormat:@"%@出发",[goDate formattedTime]];
     
     // 时间
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];

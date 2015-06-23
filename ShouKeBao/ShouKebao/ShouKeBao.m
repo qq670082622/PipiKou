@@ -54,6 +54,8 @@
 #import "AFNetworking.h"
 #import "MeProgressView.h"
 #import "SKBNavBar.h"
+#import "messageModel.h"
+#import "messageCellSKBTableViewCell.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -108,7 +110,7 @@
     
     self.userIcon.layer.masksToBounds = YES;
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
-    [self.SKBNewBtn setTitle:@"收客宝" forState:UIControlStateNormal];
+    [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
     [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.SKBNewBtn addTarget:self action:@selector(pushToStore) forControlEvents:UIControlEventTouchUpInside];
 
@@ -650,6 +652,15 @@
                     
                     [self.dataSource addObject:base];
                 }
+                
+                for(NSDictionary *dic in json[@"NoticeCenterList"]){
+                    messageModel *message = [messageModel modalWithDict:dic];
+                    HomeBase *base = [[HomeBase alloc] init];
+                    base.time = message.CreatedDate;
+                    base.model = message;
+                    base.idStr = message.ID;
+                    [self.dataSource addObject:base];
+                }
                 // 加载未查看的提醒
                 [self showOldRemind];
                 
@@ -812,7 +823,7 @@
     [self.navigationController pushViewController:stationSelect animated:YES];
 }
 
-- (void)phoneToService
+- (IBAction)phoneToService:(id)sender
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
@@ -1016,10 +1027,19 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     HomeBase *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[HomeList class]]) {
+        
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
+        
+    }else if ([model.model isKindOfClass:[messageModel class]]){
+       
+        messageCellSKBTableViewCell *cell = [messageCellSKBTableViewCell cellWithTableView:tableView];
+        cell.model = model.model;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        return cell;
+        
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         
@@ -1031,6 +1051,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
         return cell;
     }else{
+       
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
@@ -1152,15 +1173,24 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
            
             return 260*radious;
             
-        }else{
+        }else if(count == 1){
             
             if (screenH == 480) {
                
-                return 350*radious+25;
+                return 270*radious+25;
             }
 
         
+            return 270*radious;
+        }else{
+            if (screenH == 480) {
+                
+                return 350*radious+25;
+            }
+            
+            
             return 350*radious;
+
         }
         
     }else{
