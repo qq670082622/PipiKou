@@ -138,28 +138,30 @@
         }
 
     }else if (arrCount == 1){
+        NSLog(@"--------IMGV'ssuper is %@------------",NSStringFromCGRect(self.imgSuperView.frame) );
         CGFloat IMGw = self.imgSuperView.frame.size.height - 2*gap;
         CGFloat IMGH = self.imgSuperView.frame.size.height - 2*gap - imgW;
         
-         UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[self.photosArr firstObject]]];
+        UIImageView *imgv = [[UIImageView alloc] init];
+    [imgv sd_setImageWithURL:[NSURL URLWithString:self.photosArr[0][@"PicUrl"]]];
         imgv.frame = CGRectMake(0, 0, IMGw, IMGH);
         imgv.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
         [imgv addGestureRecognizer:tap];
 
         
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/3)];
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGw-(imgW/3), IMGw, imgW/3)];
         backView.backgroundColor = [UIColor blackColor];
         backView.alpha = 0.5;
         
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/6)];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGw-(imgW/3), IMGw, imgW/6)];
         lab.text = [self.photosArr firstObject][@"ThirdAreaName"];
         lab.textColor = [UIColor whiteColor];
         lab.font = [UIFont systemFontOfSize:11];
         lab.textAlignment = NSTextAlignmentLeft;
         
         
-        UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/6), IMGw, imgW/6)];
+        UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGw-(imgW/6), IMGw, imgW/6)];
         lab2.text = [NSString stringWithFormat:@"¥%@",[self.photosArr firstObject][@"MinPeerPrice"]];
         lab2.textColor = [UIColor orangeColor];
         lab2.font = [UIFont systemFontOfSize:11];
@@ -179,7 +181,8 @@
             CGFloat imgvX = gap + col*(gap + imgW);
             CGFloat imgvY = gap + row*(gap + imgW);
             
-            UIImageView *imgv = [[UIImageView alloc] initWithImage:[UIImage imageNamed:self.photosArr[i]]];
+            UIImageView *imgv = [[UIImageView alloc] init];
+            [ imgv sd_setImageWithURL:[NSURL URLWithString:self.photosArr[i][@"PicUrl"]]];
             imgv.frame = CGRectMake(imgvX, imgvY, imgW, imgW);
             imgv.userInteractionEnabled = YES;
 
@@ -281,8 +284,8 @@
 -(CGSize)viewFrameWithPhotoCount:(NSUInteger)count
 {
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
-    
-    CGFloat imgW = (self.imgSuperView.frame.size.width- gap*4)/3;
+    CGFloat superiMGW = screenW-2*picViewGap;
+    CGFloat imgW = (superiMGW- gap*4)/3;
       int row = (int)(count + 3 - 1)/3;
    
     if ((count != 1) && (count !=4)) {
@@ -293,7 +296,7 @@
     }else if (count == 1){
         CGFloat viewH = 3*imgW + 4*gap;
         return CGSizeMake(screenW - picViewGap*2, viewH);
-    
+   // return CGSizeMake(viewH, viewH);
     }else {//==4
         CGFloat viewH = 2*imgW + 3*gap;
         return CGSizeMake(screenW - picViewGap*2, viewH);

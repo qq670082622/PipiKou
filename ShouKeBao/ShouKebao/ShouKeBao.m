@@ -206,6 +206,26 @@
     self.navBarView = cover;
 
 }
+
+-(void)initPull
+{
+//    //上啦刷新
+//    [self.tableView addFooterWithTarget:self action:@selector(footLoad)];
+//    //设置文字
+//    self.tableView.footerPullToRefreshText = @"加载更多";
+//    self.tableView.footerRefreshingText = @"正在刷新";
+    //下拉
+    [self.tableView addHeaderWithTarget:self action:@selector(headerPull)];
+    [self.tableView headerBeginRefreshing];
+    
+    self.tableView.headerPullToRefreshText =@"刷新内容";
+    self.tableView.headerRefreshingText = @"正在刷新";
+}
+-(void)headerPull
+{
+    [self loadContentDataSource];
+}
+
 #pragma mark - CheckNewVersion
 - (void)checkNewVerSion{
     NSDictionary * param = @{};
