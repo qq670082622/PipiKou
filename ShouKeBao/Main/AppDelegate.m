@@ -17,6 +17,7 @@
 #import "TravelLoginController.h"
 #import "Lotuseed.h"
 #import <AVFoundation/AVFoundation.h>
+#import "MeHttpTool.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
@@ -65,12 +66,21 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:url];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
+    NSDictionary * dic = @{};
+    [MeHttpTool getHistoryProductListWithParam:dic success:^(id json) {
+        NSLog(@"#$@!$@@");
+    } failure:^(NSError *error) {
+        
+    }];
+    
 }
 //- (void)installUncaughtExceptionHandler
 //{
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    NSArray * arr = @[@"1", @"2"];
+//    NSLog(@"%@", [arr objectAtIndex:2]);
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
