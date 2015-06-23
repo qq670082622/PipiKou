@@ -178,7 +178,6 @@
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
 
 }
-
 -(void)setUpNavBarView
 {
     SKBNavBar *navBar = [SKBNavBar SKBNavBar];
@@ -511,8 +510,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
-   
+    self.userName.text =  [UserInfo shareUser].userName;
     [Lotuseed onPageViewBegin:@"page1"];
     
     [self getNotifiList];
