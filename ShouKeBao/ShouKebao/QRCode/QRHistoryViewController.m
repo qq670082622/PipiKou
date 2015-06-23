@@ -86,6 +86,14 @@
     }else if (_isLogin){
 
         [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"1",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
+            
+//                UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+//                testLab.backgroundColor = [UIColor whiteColor];
+//                testLab.text = [NSString stringWithFormat:@"json is %@",json];
+//            testLab.font = [UIFont systemFontOfSize:9];
+//                testLab.numberOfLines = 0;
+//                [self.view.window addSubview:testLab];
+
     NSLog(@"纪录json is %@",json);
     NSMutableArray *mua = [NSMutableArray array];
     for (NSDictionary *dic in json[@"CredentialsPicRecordList"]) {

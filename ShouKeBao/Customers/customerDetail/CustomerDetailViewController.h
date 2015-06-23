@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *pasportInUseDay;
 @property (weak, nonatomic) IBOutlet UILabel *livingAddress;
 - (IBAction)attachmentAction:(id)sender;//附件
-
+@property (nonatomic,copy) NSString *picUrl;
 
 
 
@@ -53,6 +53,7 @@
 @property (nonatomic,copy) NSString *pasportAddressStr;
 @property (nonatomic,copy) NSString *pasportInUseDayStr;
 @property (nonatomic,copy) NSString *livingAddressStr;
+@property (nonatomic,copy) NSString *customerId;
 @property (nonatomic,strong) CustomModel *customMoel;
 
 - (IBAction)remond:(id)sender;

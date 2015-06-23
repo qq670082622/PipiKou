@@ -173,7 +173,7 @@
 //                            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
 //                            testLab.backgroundColor = [UIColor whiteColor];
 //                            testLab.font = [UIFont systemFontOfSize:8];
-//                            testLab.text = [NSString stringWithFormat:@"身份证保存记录返回的JSON IS %@",json];
+//                            testLab.text = [NSString stringWithFormat:@"身份证保存记录返回的JSON IS %@ 保存客户传的dic is %@ 同步记录保存的dic is %@, ",json,customerDic,dic];
 //                            testLab.numberOfLines = 0;
 //                            [self.view.window addSubview:testLab];
 
@@ -209,12 +209,12 @@
         [arr addObject:dic];
         [WriteFileManager saveData:arr name:@"record2"];
         
-        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-        testLab.backgroundColor = [UIColor whiteColor];
-        testLab.font = [UIFont systemFontOfSize:8];
-        testLab.text = [NSString stringWithFormat:@"---------------未登录时保存的客户arr is %@---------------",[WriteFileManager readData:@"record2"]];
-        testLab.numberOfLines = 0;
-        [self.view.window addSubview:testLab];
+//        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//        testLab.backgroundColor = [UIColor whiteColor];
+//        testLab.font = [UIFont systemFontOfSize:8];
+//        testLab.text = [NSString stringWithFormat:@"---------------未登录时保存的客户arr is %@---------------",[WriteFileManager readData:@"record2"]];
+//        testLab.numberOfLines = 0;
+//        [self.view.window addSubview:testLab];
 
 //        self.nameText.text = _UserName;
 //        self.nationalText.text = _Nationality;

@@ -339,7 +339,8 @@
         detail.noteStr = model.Remark;
         detail.userNameStr = model.Name;
         detail.customMoel = model;
-        
+        detail.picUrl = model.PicUrl;
+        detail.customerId = model.ID;
         [self.navigationController pushViewController:detail animated:YES];
     }
     if (tableView.tag == 2) {
@@ -487,7 +488,7 @@
     if (self.timeBtn.selected == NO) {
         [self.timeBtn setSelected:YES];
          NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"1" forKey:@"sortType"];
+        [accountDefaults setObject:@"2" forKey:@"sortType"];
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
@@ -497,7 +498,7 @@
         [self.timeBtn setSelected:YES];
         [self.timeBtn setTitle:@"时间排序 ↑" forState:UIControlStateNormal];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"2" forKey:@"sortType"];
+        [accountDefaults setObject:@"1" forKey:@"sortType"];
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
@@ -507,7 +508,7 @@
         [self.timeBtn setSelected:YES];
         [self.timeBtn setTitle:@"时间排序 ↓" forState:UIControlStateNormal];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"1" forKey:@"sortType"];
+        [accountDefaults setObject:@"2" forKey:@"sortType"];
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
@@ -530,7 +531,7 @@
     if (self.wordBtn.selected == NO) {
         [self.wordBtn setSelected:YES];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"5" forKey:@"sortType"];
+        [accountDefaults setObject:@"6" forKey:@"sortType"];
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
@@ -539,7 +540,7 @@
         [self.wordBtn setSelected:YES];
         [self.wordBtn setTitle:@"字母排序 ↑" forState:UIControlStateNormal];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"6" forKey:@"sortType"];
+        [accountDefaults setObject:@"5" forKey:@"sortType"];
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
@@ -549,7 +550,7 @@
         [self.wordBtn setSelected:YES];
         [self.wordBtn setTitle:@"字母排序 ↓" forState:UIControlStateNormal];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"5" forKey:@"sortType"];
+        [accountDefaults setObject:@"6" forKey:@"sortType"];
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];

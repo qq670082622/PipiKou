@@ -1276,12 +1276,18 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
 [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"上传record成功");
-//                                        UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//                                        testLab.backgroundColor = [UIColor whiteColor];
-//                                        testLab.font = [UIFont systemFontOfSize:8];
-//                                        testLab.text = [NSString stringWithFormat:@"dic is %@/------/json is %@-------",dic,json];
-//                                        testLab.numberOfLines = 0;
-//                                        [self.view.window addSubview:testLab];
+    
+//    UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+//    
+//    testLab.backgroundColor = [UIColor whiteColor];
+//    
+//    testLab.font = [UIFont systemFontOfSize:8];
+//    
+//    testLab.text = [NSString stringWithFormat:@"------/dic is %@ /json is %@-------",dic,json];
+//    
+//    testLab.numberOfLines = 0;
+//    
+//    [self.view.window addSubview:testLab];
 
                     NSArray *new = [NSArray array];
             [WriteFileManager saveData:new name:@"record"];
