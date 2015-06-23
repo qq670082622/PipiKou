@@ -46,6 +46,7 @@
 @property (nonatomic,assign) BOOL isFindNew;
 @property (nonatomic, copy)NSString * checkVersionLinkUrl;
 @property (nonatomic, strong)MeProgressView *progressView;
+@property (nonatomic, strong)NSDictionary * versionInfoDic;
 @end
 
 @implementation Me
@@ -75,7 +76,15 @@
         [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
     }
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
-
+    
+    //获取版本信息
+    NSDictionary * dic = @{};
+    [MeHttpTool inspectionWithParam:dic success:^(id json) {
+        self.versionInfoDic = json[@"ios"];
+        [self.tableView reloadData];
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -287,7 +296,14 @@
 //        label.textColor = [UIColor lightGrayColor];
 //        label.text = @"检查到新版本";
 //        [cell.contentView addSubview:label];
-        [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:@"最新V2.5.2"];
+        NSLog(@"#######%@", self.versionInfoDic);
+        
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+        if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
+            NSString * verStr = [NSString stringWithFormat:@"最新V%@", self.versionInfoDic[@"VersionCode"]];
+            [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:verStr];
+        }
     }
     return cell;
 }
@@ -303,11 +319,6 @@
                 
                 break;
             }
-                //            case 1:{
-                //                SuggestViewController *suggest = [sb instantiateViewControllerWithIdentifier:@"Suggest"];
-                //                [self.navigationController pushViewController:suggest animated:YES];
-                //                break;
-                //            }
             case 1:{
                 [Lotuseed onEvent:@"page5FeedBack" attributes:@{@"stationName":par.stationName}];
                 FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
@@ -409,19 +420,15 @@
 }
 #pragma mark - CheckNewVersion
 - (void)checkNewVerSion{
-    NSDictionary * param = @{};
-    [MeHttpTool inspectionWithParam:param success:^(id json) {
-        NSLog(@"%@", json);
-        NSDictionary * dic = json[@"ios"];
-        NSString * versionCode = dic[@"VersionCode"];
-        NSArray * versionInfo = dic[@"VersionInfo"];
+        NSString * versionCode = self.versionInfoDic[@"VersionCode"];
+        NSArray * versionInfo = self.versionInfoDic[@"VersionInfo"];
         NSMutableString * str = [NSMutableString string];
         for (int i = 0; i < versionInfo.count; i++) {
             [str appendFormat:@"%d. %@  ", i+1, versionInfo[i]];
         }
-        self.checkVersionLinkUrl = dic[@"LinkUrl"];
+        self.checkVersionLinkUrl = self.versionInfoDic[@"LinkUrl"];
         NSString * isMust = @"不在询问";
-        if ([dic[@"IsMustUpdate"]isEqualToString:@"1"]) {
+        if ([self.versionInfoDic[@"IsMustUpdate"]isEqualToString:@"1"]) {
             isMust = @"退出程序";
         }
         NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
@@ -430,12 +437,9 @@
             UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:str delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
             [alertView show];
         }else{
-            UIAlertView * alertV = [[UIAlertView alloc]initWithTitle:@"已是最新版本" message:@"" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView * alertV = [[UIAlertView alloc]initWithTitle:@"已是最新版本" message:[NSString stringWithFormat:@"版本号：%@", versionCode] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertV show];
         }
-    } failure:^(NSError *error) {
-        
-    }];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {

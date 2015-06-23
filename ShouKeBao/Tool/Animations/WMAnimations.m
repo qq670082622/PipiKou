@@ -187,9 +187,10 @@
 +(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
                      withRightStr:(NSString *)str;
 {
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 130, 7, 80, 40)];
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 130, 5, 95, 40)];
     label.font = [UIFont systemFontOfSize:14];
     label.textColor = [UIColor lightGrayColor];
+    label.textAlignment = NSTextAlignmentRight;
     label.text = str;
     [cell.contentView addSubview:label];
 }

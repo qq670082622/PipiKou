@@ -20,7 +20,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         [self addSubview:self.tableView];
-        
         self.userInteractionEnabled = YES;
         self.image = [UIImage resizedImageWithName:@"bubble" left:0.6 top:0.5];
         self.layer.shadowColor = [UIColor lightGrayColor].CGColor;
