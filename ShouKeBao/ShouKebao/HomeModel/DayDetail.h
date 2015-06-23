@@ -42,6 +42,8 @@
 
 @property (nonatomic,copy) NSString *IsOffLine;// 是否离线
 @property (nonatomic,copy) NSString *HistoryViewTime;// 历史流浪时间
+
+@property (nonatomic,copy) NSString *PushDate;//推送日期
 @property (nonatomic,strong) NSDictionary *ShareInfo;
 
 
