@@ -17,6 +17,7 @@
 #import "TravelLoginController.h"
 #import "Lotuseed.h"
 #import <AVFoundation/AVFoundation.h>
+//#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
 @property (nonatomic,assign) BOOL isAutoLogin;
@@ -54,6 +55,7 @@
     NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F69(appskb_v10_ios)", @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 }
+//软件崩溃时回调此方法；
 void UncaughtExceptionHandler(NSException *exception) {
     NSArray *arr = [exception callStackSymbols];//得到当前调用栈信息
     NSString *reason = [exception reason];//非常重要，就是崩溃的原因
@@ -64,6 +66,10 @@ void UncaughtExceptionHandler(NSException *exception) {
     [[UIApplication sharedApplication] openURL:url];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
 }
+//- (void)installUncaughtExceptionHandler
+//{
+//    InstallUncaughtExceptionHandler();
+//}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
