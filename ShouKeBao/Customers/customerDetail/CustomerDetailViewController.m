@@ -196,7 +196,7 @@
         MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
         hudView.labelText = @"删除中...";
         [hudView show:YES];
-        
+       
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.ID forKey:@"CustomerID"];
         [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
@@ -229,6 +229,8 @@
 
 - (IBAction)attachmentAction:(id)sender {
     attachmentViewController *att = [[attachmentViewController alloc] init];
+    att.picUrl = _picUrl;
+    att.customerId =  _customerId;
     [self.navigationController pushViewController:att animated:YES];
     
 }

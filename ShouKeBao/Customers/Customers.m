@@ -339,7 +339,8 @@
         detail.noteStr = model.Remark;
         detail.userNameStr = model.Name;
         detail.customMoel = model;
-        
+        detail.picUrl = model.PicUrl;
+        detail.customerId = model.ID;
         [self.navigationController pushViewController:detail animated:YES];
     }
     if (tableView.tag == 2) {

@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
 @interface attachmentViewController : SKViewController
-
+@property (nonatomic,copy) NSString *picUrl;
+@property (nonatomic,copy) NSString *customerId;
 @end
