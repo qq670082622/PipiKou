@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface HomeList : NSObject
+#import "BaseModel.h"
+@interface HomeList : BaseModel 
 
 /**
  *  儿童人数

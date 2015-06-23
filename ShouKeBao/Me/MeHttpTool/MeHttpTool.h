@@ -65,7 +65,12 @@
  */
 + (void)setDisturbSwitchWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 /**
- *  设置勿扰模式开关
+ *  反馈
  */
 + (void)feedBackWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+/**
+ *  检查更新
+ */
++ (void)inspectionWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
 @end

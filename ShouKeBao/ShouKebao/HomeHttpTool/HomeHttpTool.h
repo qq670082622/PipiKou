@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface HomeHttpTool : NSObject
+#import "BaseModel.h"
+@interface HomeHttpTool : BaseModel
 
 /**
  *  获取首页登录用户的相关汇总信息

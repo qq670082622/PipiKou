@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface ProductModal : NSObject
+#import "BaseModel.h"
+@interface ProductModal : BaseModel
 @property (nonatomic, copy) NSString *AdvertText;//广告文本
 
 @property (nonatomic, copy) NSString *ID;//产品ID(用于收藏)

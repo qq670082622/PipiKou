@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SKTableViewController.h"
-
-@interface Me : SKTableViewController
+#import <StoreKit/StoreKit.h>
+@interface Me : SKTableViewController<SKStoreProductViewControllerDelegate>
 
 @end

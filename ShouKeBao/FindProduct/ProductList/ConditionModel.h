@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface ConditionModel : NSObject
+#import "BaseModel.h"
+@interface ConditionModel : BaseModel
 //“ ProductCondition”:{
 //    “ ProductBrowseTag “:[{}````{}],
 //    “GoDate”:[{“Text”:””,”Value”:””}],

@@ -253,5 +253,22 @@
         
     }];
 }
+/**
+ *  检查更新
+ */
++ (void)inspectionWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
+    [IWHttpTool postWithURL:@"/Common/NewVersion" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
 
 @end

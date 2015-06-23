@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Recommend : NSObject
+#import "BaseModel.h"
+@interface Recommend : BaseModel    
 
 @property (nonatomic,copy) NSString *Count;
 

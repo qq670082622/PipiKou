@@ -8,8 +8,8 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
-@interface ButtonList : NSObject
+#import "BaseModel.h"
+@interface ButtonList : BaseModel
 
 @property (nonatomic,strong) UIColor *color;
 

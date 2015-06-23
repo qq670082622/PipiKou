@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface yesterDayModel : NSObject
+#import "BaseModel.h"
+@interface yesterDayModel : BaseModel
 @property (nonatomic, copy) NSString *ID;//产品ID(用于收藏)
 @property (nonatomic, copy) NSString *PicUrl;//
 @property (nonatomic, copy) NSString *Name;//产品介绍

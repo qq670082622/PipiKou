@@ -10,6 +10,8 @@
 #import "MeHttpTool.h"
 #import "Trader.h"
 #import "CityViewController.h"
+#import "MBProgressHUD+MJ.h"
+#import "UserInfo.h"
 @interface PersonSettingViewController ()<CityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
@@ -114,6 +116,9 @@
     [MeHttpTool setDistributionWithParam:param success:^(id json) {
         NSLog(@"-----%@——————————————————————",json);
         if ([json[@"IsSuccess"] integerValue] == 1) {
+            [[UserInfo shareUser]setValue:self.nickName.text forKey:@"userName"];
+            [MBProgressHUD showSuccess:@"保存成功"];
+
             [self.navigationController popViewControllerAnimated:YES];
         }
     } failure:^(NSError *error) {

@@ -31,7 +31,7 @@
 #import "IWHttpTool.h"
 #import "InspectionViewController.h"
 #import "WMAnimations.h"
-
+#import "MeProgressView.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -63,7 +63,10 @@
     
     // 知道登录类型以后 设置头部
     [self setHeader];
-    
+//    MeProgressView * pro = [MeProgressView creatProgressViewWithFrame:CGRectMake(0, 200, [UIScreen mainScreen].bounds.size.width, 60)];
+//    pro.backgroundColor = [UIColor clearColor];
+//    pro.progressValue = 0.3;
+//    [self.view addSubview:pro];
     // 设置头像
     NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
     if (head) {
@@ -76,6 +79,8 @@
     [super viewWillAppear:animated];
     SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page5Click" attributes:@{@"stationName":par.stationName}];
+    _meheader.nickName.text = [UserInfo shareUser].userName;
+
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
@@ -210,6 +215,11 @@
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
 
+#pragma mark - RefreshNickNameDelegate
+- (void)refreshNickName:(NSString *)name{
+    _meheader.nickName.text = [UserInfo shareUser].userName;
+}
+
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -322,12 +332,13 @@
 //                InspectionViewController * InspectionVC = [sb instantiateViewControllerWithIdentifier:@"InspectionViewController"];
 //                [self.navigationController pushViewController:InspectionVC animated:YES];
                 NSString * str = @"不再询问";
+                self.isFindNew = YES;
                 if (self.isFindNew) {
                     UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"请速速更新" delegate:self cancelButtonTitle:str otherButtonTitles:@"立即更新", nil];
                     [alertView show];
                 }else{
-//                    UIAlertView * alertView2 = [[UIAlertView alloc]initWithTitle:@"已更新到最新版本" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                    [alertView2 show];
+                    UIAlertView * alertView2 = [[UIAlertView alloc]initWithTitle:@"已更新到最新版本" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                    [alertView2 show];
                 }
                 break;
             }
@@ -446,12 +457,69 @@
 #pragma mark - UIAlertViewDelegate
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        
+        //CFShow((__bridge CFTypeRef)(infoDic));
+        
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+        NSLog(@"!!!%@", currentVersion);
         NSLog(@"立即更新");
+        NSDictionary * dic = @{};
+        [MeHttpTool inspectionWithParam:dic success:^(id json) {
+            NSLog(@"%@", json);
+        } failure:^(NSError *error) {
+            
+        }];
     }else{
         if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
             exit(0);
         }
     }
 }
-
+#pragma mark - FindNew
+- (void)findnew:(id)sender {
+    Class isAllow = NSClassFromString(@"SKStoreProductViewController");
+    if (isAllow != nil) {
+        SKStoreProductViewController *sKStoreProductViewController = [[SKStoreProductViewController alloc] init];
+        sKStoreProductViewController.delegate = self;
+        [sKStoreProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier: @"594467299"}
+                                                completionBlock:^(BOOL result, NSError *error) {
+                                                    if (result) {
+                                                        [self presentViewController:sKStoreProductViewController
+                                                                           animated:YES
+                                                                         completion:nil];
+                                                    }
+                                                    else{
+                                                        NSLog(@"%@",error);
+                                                    }
+                                                }];
+    }
+    else{
+        //低于iOS6没有这个类
+        NSString *string = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/us/app/id%@?mt=8",@"594467299"];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];
+    }
+    //    SKStoreProductViewController * storeProductViewController = [[SKStoreProductViewController alloc] init];
+    //    [storeProductViewController setDelegate:self];
+    //    [storeProductViewController loadProductWithParameters:@{SKStoreProductParameterITunesItemIdentifier:@"594467299"} completionBlock:^(BOOL result, NSError *error) {
+    //        if(error)
+    //        {
+    //            NSLog(@"Error %@ with user info %@",error,[error userInfo]);
+    //        }
+    //        else
+    //        {
+    //            [self presentViewController:storeProductViewController animated:YES completion:nil];
+    //        }
+    //    }];
+    
+    
+}
+- (void)productViewControllerDidFinish:(SKStoreProductViewController *)viewController {
+    
+    
+    [viewController dismissViewControllerAnimated:YES
+                                       completion:nil];
+    
+    
+}
 @end

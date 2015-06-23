@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface leftModal : NSObject
+#import "BaseModel.h"
+@interface leftModal : BaseModel
 
 @property (nonatomic, copy) NSString *Name;
 @property (nonatomic, copy) NSString *Type;

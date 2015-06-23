@@ -50,7 +50,9 @@
 #import "RecomViewController.h"
 #import "ScanningViewController.h"
 #define FiveDay 432000
-
+#import "MeHttpTool.h"
+#import "AFNetworking.h"
+#import "MeProgressView.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -84,6 +86,10 @@
 @property (nonatomic,assign) int guideIndex;
 
 @property(nonatomic,strong) NSMutableArray *isReadArr;
+@property (nonatomic, strong)MeProgressView * progressView;
+@property (nonatomic, copy)NSString * checkVersionLinkUrl;
+
+
 @end
 
 @implementation ShouKeBao
@@ -154,9 +160,70 @@
    
   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
+//    [self checkNewVerSion];
+    self.progressView = [MeProgressView creatProgressViewWithFrame:[UIScreen mainScreen].bounds];
+    self.progressView.hidden = YES;
+    [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
+
 }
-
-
+#pragma mark - CheckNewVersion
+- (void)checkNewVerSion{
+    NSDictionary * param = @{};
+    [MeHttpTool inspectionWithParam:param success:^(id json) {
+        NSDictionary * dic = json[@"ios"];
+        NSString * versionCode = dic[@"VersionCode"];
+        self.checkVersionLinkUrl = dic[@"LinkUrl"];
+        NSString * isMust = @"不在询问";
+        if ([dic[@"IsMustUpdate"]isEqualToString:@"1"]) {
+            isMust = @"退出程序";
+        }
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+        if (![versionCode isEqualToString:currentVersion]) {
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"" delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
+            [alertView show];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSURL *URL = [NSURL URLWithString:self.checkVersionLinkUrl];
+        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
+        self.progressView.hidden = NO;
+                      //下载请求
+            AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+                      //正确的下载路径 [self getImagePath:@3.zip]
+                      
+                      //错误的路径
+                      //    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
+                      //    NSString *docPath = [path objectAtIndex:0];
+                      
+//            operation.outputStream = [NSOutputStream outputStreamToFileAtPath:[self getImagePath:@"3.zip"] append:YES];
+                      //下载进度回调
+            [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+            //下载进度
+            float progress = ((float)totalBytesRead) / (totalBytesExpectedToRead);
+            self.progressView.progressValue = progress;
+        }];
+        
+                      //成功和失败回调
+        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+            self.progressView.hidden = YES;
+            NSLog(@"ok");
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            NSLog(@"%@",error);
+        }];
+                      
+        [operation start];
+        
+    }else{
+        if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
+            exit(0);
+        }
+    }
+}
 
 #pragma  - mark程序在后台时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
@@ -426,6 +493,7 @@
 
 
 #pragma mark - getter
+
 -(NSMutableArray *)isReadArr
 {
     if (_isReadArr == nil) {
@@ -881,14 +949,13 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     
     if ([model.model isKindOfClass:[HomeList class]]) {
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
-       
         cell.model = model.model;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
     }else if([model.model isKindOfClass:[Recommend class]]){
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
@@ -898,7 +965,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     }else{
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
     }
 }

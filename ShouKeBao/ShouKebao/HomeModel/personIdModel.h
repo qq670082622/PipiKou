@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface personIdModel : NSObject
+#import "BaseModel.h"
+@interface personIdModel : BaseModel
 
 @property (nonatomic,copy) NSString *UserName;
 @property (nonatomic,copy) NSString *Address;

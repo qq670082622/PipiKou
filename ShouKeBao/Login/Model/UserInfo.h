@@ -18,8 +18,8 @@
 #define UserInfoKeySubstation @"Substation"
 #define UserInfoKeyLoginAvatar @"LoginAvatar"
 #define UserInfoKeyAccount @"Account"
-
-@interface UserInfo : NSObject
+#import "BaseModel.h"
+@interface UserInfo : BaseModel
 
 + (UserInfo *)shareUser;
 

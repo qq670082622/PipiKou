@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface rightModal2 : NSObject
+#import "BaseModel.h"
+@interface rightModal2 : BaseModel  
 @property(nonatomic,copy) NSString  *title;
 @property (nonatomic,copy) NSString *Name;
 //@property (nonatomic,copy) NSString *SearchKey;

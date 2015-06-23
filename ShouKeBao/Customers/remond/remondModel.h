@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface remondModel : NSObject
+#import "BaseModel.h"
+@interface remondModel : BaseModel  
 
 @property (nonatomic,copy) NSString *name;
 @property (nonatomic,copy) NSString *phone;

@@ -7,8 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@interface Distribution : NSObject
+#import "BaseModel.h"
+@interface Distribution : BaseModel
 
 @property (nonatomic,copy) NSString *SkbType;// 1是旅行社 2是分销人
 
