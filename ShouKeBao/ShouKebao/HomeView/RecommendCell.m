@@ -87,9 +87,11 @@
     CGFloat tipY = self.iconView.frame.origin.y - 5;
     self.redTip.frame = CGRectMake(tipX, tipY, 10, 10);
     
+    CGFloat goDateH = 45;
+    self.goDate.frame = CGRectMake(self.titleLab.frame.origin.x, CGRectGetMaxY(self.titleLab.frame), screenW*2/3, goDateH);
     //图片
     
-    CGFloat photoViewY = CGRectGetMaxY(self.goDate.frame) + 10;
+    CGFloat photoViewY = CGRectGetMaxY(self.goDate.frame) ;
     
     
     self.imgSuperView.frame = (CGRect){{picViewGap,photoViewY}, [self viewFrameWithPhotoCount:self.photosArr.count]};
@@ -139,29 +141,29 @@
 
     }else if (arrCount == 1){
         NSLog(@"--------IMGV'ssuper is %@------------",NSStringFromCGRect(self.imgSuperView.frame) );
-        CGFloat IMGw = self.imgSuperView.frame.size.height - 2*gap;
-        CGFloat IMGH = self.imgSuperView.frame.size.height - 2*gap - imgW;
+        CGFloat IMGw = self.imgSuperView.frame.size.width - 2*gap;
+        CGFloat IMGH = self.imgSuperView.frame.size.height  ;
         
         UIImageView *imgv = [[UIImageView alloc] init];
     [imgv sd_setImageWithURL:[NSURL URLWithString:self.photosArr[0][@"PicUrl"]]];
-        imgv.frame = CGRectMake(0, 0, IMGw, IMGH);
-        imgv.userInteractionEnabled = YES;
+               imgv.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
         [imgv addGestureRecognizer:tap];
 
-        
-        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGw-(imgW/3), IMGw, imgW/3)];
+        imgv.frame = CGRectMake(0, 0, IMGw, IMGH);
+
+        UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/3)];
         backView.backgroundColor = [UIColor blackColor];
         backView.alpha = 0.5;
         
-        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGw-(imgW/3), IMGw, imgW/6)];
+        UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/6)];
         lab.text = [self.photosArr firstObject][@"ThirdAreaName"];
         lab.textColor = [UIColor whiteColor];
         lab.font = [UIFont systemFontOfSize:11];
         lab.textAlignment = NSTextAlignmentLeft;
         
         
-        UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGw-(imgW/6), IMGw, imgW/6)];
+        UILabel *lab2 = [[UILabel alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/6), IMGw, imgW/6)];
         lab2.text = [NSString stringWithFormat:@"¥%@",[self.photosArr firstObject][@"MinPeerPrice"]];
         lab2.textColor = [UIColor orangeColor];
         lab2.font = [UIFont systemFontOfSize:11];
@@ -172,7 +174,7 @@
         [imgv addSubview:lab];
         [imgv addSubview:lab2];
 
-        imgv.frame = CGRectMake(gap, gap, IMGw, IMGw);
+       // imgv.frame = CGRectMake(gap, gap, IMGw, IMGw);
         [self.imgSuperView addSubview:imgv];
     }else if (arrCount == 4){
         for (int i = 0; i<arrCount; i++) {
@@ -268,14 +270,23 @@
     
     self.iconView.image = [UIImage imageNamed:@"jinxuan"];
     
-    self.titleLab.text = @"精品推荐";
+    self.titleLab.text = @"今日推荐";
     
     self.titleLab.textColor = [UIColor colorWithRed:202/255.f green:118/255.f blue:252/255.f alpha:1];
     
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[recommend.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];
     
-    self.goDate.text = [NSString stringWithFormat:@"本次共向您推荐%@条精品线路",recommend.Count];
+    
+    self.goDate.text = [NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price];
+    self.goDate.numberOfLines = 0;
+    self.goDate.textAlignment = NSTextAlignmentLeft;
+    NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price]];
+    NSString *visitors = [NSString stringWithFormat:@"%@",recommend.Price];
+    
+    [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(17,visitors.length)];
+    self.goDate.attributedText = newStr;
+
   
   
 }
@@ -294,7 +305,7 @@
         return CGSizeMake(viewW, viewH);
     
     }else if (count == 1){
-        CGFloat viewH = 3*imgW + 4*gap;
+               CGFloat viewH = 2*imgW + 2*gap;
         return CGSizeMake(screenW - picViewGap*2, viewH);
    // return CGSizeMake(viewH, viewH);
     }else {//==4

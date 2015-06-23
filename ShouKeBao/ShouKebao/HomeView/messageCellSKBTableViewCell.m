@@ -7,7 +7,7 @@
 //
 
 #import "messageCellSKBTableViewCell.h"
-
+#import "NSDate+Category.h"
 @implementation messageCellSKBTableViewCell
 
 
@@ -57,7 +57,7 @@
     // 详情
     UILabel *detailLab = [[UILabel alloc] init];
     detailLab.textColor = [UIColor grayColor];
-    detailLab.font = [UIFont systemFontOfSize:14];
+    detailLab.font = [UIFont systemFontOfSize:13];
     detailLab.numberOfLines = 0;
     [self.contentView addSubview:detailLab];
     self.detailLab = detailLab;
@@ -82,7 +82,10 @@
     // 时间
     CGFloat timeX = CGRectGetMaxX(self.titleLab.frame) + gap;
     self.timeLab.frame = CGRectMake(timeX, gap, titleW, 20);
-
+//详情
+    CGFloat detailY = CGRectGetMaxY(self.titleLab.frame)+gap;
+    CGFloat detailW = screenW - 2*titleX;
+    self.detailLab.frame = CGRectMake(titleX, detailY, detailW, 50);
     
 }
 
@@ -90,9 +93,11 @@
 {
     _model = model;
     self.iconView.image = [UIImage imageNamed:@"tix"];
-    self.timeLab.text = model.CreatedDate;
-    self.titleLab.text = model.title;
-    
+        self.detailLab.text = model.title;
+    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
+    self.timeLab.text = [createDate formattedTime];
+    self.titleLab.text = @"公告消息";
+    self.titleLab.textColor = [UIColor colorWithRed:70/255.f green:215/255.f blue:59/255.f alpha:1];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
