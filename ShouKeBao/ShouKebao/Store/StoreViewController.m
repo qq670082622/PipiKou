@@ -15,6 +15,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
+
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
@@ -49,6 +50,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"店铺详情";
        NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
     
@@ -85,6 +87,9 @@
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
+    if (_needOpenShare) {
+        [self shareIt:nil];
+    }
 }
 
 #pragma  -mark VC Life
@@ -144,6 +149,7 @@
 
     
 }
+
 
 
 -(void)tapBlackViewToHideIt

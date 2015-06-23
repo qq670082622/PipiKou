@@ -810,6 +810,8 @@
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
      SubstationParttern *par = [SubstationParttern sharedStationName];
+   
+    store.needOpenShare = YES;
     [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
     [self.navigationController pushViewController:store animated:YES];
 }
