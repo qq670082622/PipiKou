@@ -26,6 +26,7 @@
 #import "ResizeImage.h"
 #import "UIImageView+WebCache.h"
 #import "newModel.h"
+#import "MobClick.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -115,6 +116,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"FindProduct"];
     
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
@@ -140,7 +142,11 @@
     
   }
 
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"FindProduct"];
 
+}
 #pragma mark - LoadDataSource
 - (void)loadDataSourceLeft
 {

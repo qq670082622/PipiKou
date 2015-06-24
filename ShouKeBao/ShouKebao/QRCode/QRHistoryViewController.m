@@ -13,6 +13,7 @@
 #import "userIDTableviewController.h"
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "MobClick.h"
 @interface QRHistoryViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -54,6 +55,14 @@
     [self loadDataSource];
    
     
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoQRHistoryViewController"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoQRHistoryViewController"];
 }
 
 -(void)back

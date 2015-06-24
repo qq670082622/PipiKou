@@ -13,7 +13,7 @@
 #import "HomeHttpTool.h"
 #import "WriteFileManager.h"
 #import "IWHttpTool.h"
-
+#import "MobClick.h"
 #import "WriteFileManager.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -63,10 +63,16 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoMessageCenterView"];
+
     [self loadDataSource];
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MeSosViewController"];
 
+}
 
 -(void)back
 {

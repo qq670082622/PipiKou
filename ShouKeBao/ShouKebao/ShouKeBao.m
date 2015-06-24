@@ -55,6 +55,7 @@
 #import "messageModel.h"
 #import "messageCellSKBTableViewCell.h"
 #import "SKBNavBarFor6OrP.h"
+#import "MobClick.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -180,7 +181,7 @@
 }
 -(void)setUpNavBarView
 { CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
-
+    
     if (screenW<375) {
         SKBNavBar *navBar = [SKBNavBar SKBNavBar];
         self.navigationItem.titleView = navBar;
@@ -562,7 +563,7 @@
 {
     [super viewWillAppear:animated];
     self.userName.text =  [UserInfo shareUser].userName;
-   
+    [MobClick beginLogPageView:@"ShouKeBao"];
     
     [self getNotifiList];
     
@@ -583,7 +584,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"ShouKeBao"];
+
     [self.navBarView removeFromSuperview];
 }
 

@@ -12,6 +12,7 @@
 #import "CityViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "UserInfo.h"
+#import "MobClick.h"
 @interface PersonSettingViewController ()<CityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *nickName;
@@ -53,6 +54,14 @@
     [self.femaleBtn setBackgroundImage:[UIImage imageNamed:@"nv1"] forState:UIControlStateSelected];
     
     [self loadDataSource];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MePersonSettingViewController"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MePersonSettingViewController"];
 }
 
 

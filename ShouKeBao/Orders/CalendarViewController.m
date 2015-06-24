@@ -8,7 +8,7 @@
 
 #import "CalendarViewController.h"
 #import "MyCalendarItem.h"
-
+#import "MobClick.h"
 
 @interface CalendarViewController ()
 
@@ -31,14 +31,19 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick beginLogPageView:@"OrdersCalendarView"];
+
     if (self.selectedDate) {
         if (_delegate && [_delegate respondsToSelector:@selector(didSelectedDateStr:atIndex:date:)]) {
             [_delegate didSelectedDateStr:self.selectedDate atIndex:self.index date:self.date];
         }
     }
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"OrdersCalendarView"];
 
+}
 - (void)setNavBar
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];

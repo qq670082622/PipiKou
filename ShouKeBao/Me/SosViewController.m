@@ -13,7 +13,7 @@
 #import "AppDelegate.h"
 #import "MLPhotoBrowserSignleViewController.h"
 #import "UIImage+MLBrowserPhotoImageForBundle.h"
-
+#import "MobClick.h"
 @interface SosViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) Server *server;
@@ -71,6 +71,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MeSosViewController"];
     
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"clearNavi"] forBarMetrics:UIBarMetricsDefault];
@@ -80,7 +81,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"MeSosViewController"];
+
     [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"jianbian"] forBarMetrics:UIBarMetricsDefault];
 }
 

@@ -8,8 +8,10 @@
 
 #import "RegisterViewController.h"
 #import "UINavigationController+SGProgress.h"
+#import "MobClick.h"
+//#define RegisterUrl @"http://www.lvyouquan.cn/MicroChannel/Reg"
+#define RegisterUrl @"http://wwwtest.lvyouquan.cn/MicroChannel/Reg"
 
-#define RegisterUrl @"http://www.lvyouquan.cn/MicroChannel/Reg"
 
 @interface RegisterViewController () <UIWebViewDelegate>
 
@@ -29,6 +31,14 @@
     
     [self.view addSubview:self.webView];
     [self loadWithUrl:RegisterUrl];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LoginRegisterView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LoginRegisterView"];
 }
 
 - (void)setNav

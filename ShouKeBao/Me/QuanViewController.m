@@ -11,6 +11,7 @@
 #import "UINavigationController+SGProgress.h"
 
 #import "BeseWebView.h"
+#import "MobClick.h"
 @interface QuanViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -57,11 +58,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
+    [MobClick beginLogPageView:@"MeQuanViewController"];
+
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MeQuanViewController"];
 
 }
 // 先一个个页面设置吧 以后再搞一起的

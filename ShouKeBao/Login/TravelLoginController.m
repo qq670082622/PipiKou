@@ -16,7 +16,7 @@
 #import "RegisterViewController.h"
 #import "WMNavigationController.h"
 #import "ScanningViewController.h"
-
+#import "MobClick.h"
 @interface TravelLoginController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -68,6 +68,14 @@
 
     //    self.accountField.text = @"huangfuyuhan@pipikou.com";
 //    self.passwordField.text = @"123456";
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LoginTravelLogin"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LoginTravelLogin"];
 }
 
 - (void)setOtherBtn

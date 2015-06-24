@@ -21,7 +21,7 @@
 #import "UIViewController+HUD.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
-
+#import "MobClick.h"
 #define pageSize @"10"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
@@ -97,6 +97,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoRecommendView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
     
@@ -105,7 +106,11 @@
    
 }
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoRecommendView"];
 
+}
 #pragma mark - private
 - (void)loadDataSource
 {

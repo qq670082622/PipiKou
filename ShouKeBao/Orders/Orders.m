@@ -30,6 +30,7 @@
 #import "UIImage+QD.h"
 #import "ArrowBtn.h"
 #import "NullContentView.h"
+#import "MobClick.h"
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
 #define historyCount 6
@@ -149,9 +150,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-  
+    [MobClick beginLogPageView:@"Orders"];
+    
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Orders"];
 
+}
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];

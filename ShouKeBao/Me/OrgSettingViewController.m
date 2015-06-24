@@ -10,7 +10,7 @@
 #import "CityViewController.h"
 #import "MeHttpTool.h"
 #import "Organization.h"
-
+#import "MobClick.h"
 @interface OrgSettingViewController () <UIScrollViewDelegate, CityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *comanyName;
@@ -45,6 +45,14 @@
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
     [self loadDataSource];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MeOrgSettingViewController"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MeOrgSettingViewController"];
 }
 
 #pragma mark - loadDataSource

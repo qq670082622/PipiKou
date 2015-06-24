@@ -17,6 +17,7 @@
 #import "UIViewController+HUD.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
+#import "MobClick.h"
 #define pageSize @"10"
 @interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -84,6 +85,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoYesterdayView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
     
@@ -91,7 +93,11 @@
     
     
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoYesterdayView"];
 
+}
 #pragma mark - private
 - (void)loadDataSource
 {

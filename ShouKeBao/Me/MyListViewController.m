@@ -15,7 +15,7 @@
 #import "ProductHistoryCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "ProduceDetailViewController.h"
-
+#import "MobClick.h"
 #define pageSize 10
 
 @interface MyListViewController ()<MGSwipeTableCellDelegate>
@@ -44,11 +44,13 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
+    [MobClick beginLogPageView:@"MeMyFavoritesView"];
     [super viewWillAppear:animated];
   
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [MobClick endLogPageView:@"MeMyFavoritesView"];
     [super viewWillDisappear:animated];
    
 }

@@ -15,6 +15,7 @@
 //#import "BeseWebView.h"
 #import "WMAnimations.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
+#import "MobClick.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
@@ -114,11 +115,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ProduceDetailView"];
+    
    }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"ProduceDetailView"];
+
 }
 
 //第一次开机引导

@@ -12,6 +12,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "BeseWebView.h"
+#import "MobClick.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
@@ -63,11 +64,14 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"OrderDetailView"];
+
    }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"OrderDetailView"];
+
 }
 
 #pragma -mark private

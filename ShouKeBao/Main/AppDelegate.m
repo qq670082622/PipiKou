@@ -18,6 +18,7 @@
 
 #import <AVFoundation/AVFoundation.h>
 #import "MeHttpTool.h"
+#import "MobClick.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
@@ -53,7 +54,7 @@
 //设置请求userAgent
 + (void)initialize {
     // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
-    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F69(appskb_v10_ios)", @"UserAgent", nil];
+    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F69(appskb_ios_v10)", @"UserAgent", nil];
     [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
 }
 //软件崩溃时回调此方法；
@@ -74,10 +75,15 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
-//    NSArray * arr = @[@"1", @"2"];
-//    NSLog(@"%@", [arr objectAtIndex:2]);
+    [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    
+    
+    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+        
+    
     NSString * crashLog = [[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"];
     if (![crashLog isEqualToString:@""]) {
         NSLog(@"%@",[[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"]);

@@ -13,7 +13,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "UserInfo.h"
 #import "AppDelegate.h"
-
+#import "MobClick.h"
 @interface SetPhonePwdViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBg1;
@@ -49,6 +49,14 @@
     [self.view addGestureRecognizer:tap];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(confirmFieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.confirmField];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LoginSetPhonePwdView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LoginSetPhonePwdView"];
 }
 
 - (void)dealloc
