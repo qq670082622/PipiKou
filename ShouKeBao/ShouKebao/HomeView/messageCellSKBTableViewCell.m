@@ -96,7 +96,7 @@
         self.detailLab.text = model.title;
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];
-    self.titleLab.text = @"公告消息";
+    self.titleLab.text = model.Type;
     self.titleLab.textColor = [UIColor colorWithRed:70/255.f green:215/255.f blue:59/255.f alpha:1];
 }
 

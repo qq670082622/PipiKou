@@ -677,6 +677,7 @@
                 }
                 
                 // 添加订单
+              
                 for (NSDictionary *dic in json[@"OrderList"]) {
 
                     HomeList *list = [HomeList homeListWithDict:dic];
@@ -688,7 +689,7 @@
                     
                     [self.dataSource addObject:base];
                 }
-                
+                  NSLog(@"orderJson is  %@",json[@"NoticeCenterList"]);
                 for(NSDictionary *dic in json[@"NoticeCenterList"]){
                     messageModel *message = [messageModel modalWithDict:dic];
                     HomeBase *base = [[HomeBase alloc] init];

@@ -15,6 +15,7 @@
 @property (nonatomic,copy) NSString  *Content;
 @property (nonatomic,copy) NSString *IsRead;
 @property (nonatomic,copy) NSString *LinkUrl;
+@property (nonatomic,copy) NSString *Type;
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end
