@@ -43,9 +43,14 @@
         
         UIButton *setBtn = [[UIButton alloc] init];
         [setBtn setBackgroundImage:[UIImage imageNamed:@"setting_icon"] forState:UIControlStateNormal];
-        [setBtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
+//        [setBtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:setBtn];
         self.setBtn = setBtn;
+        CGFloat btnX = self.frame.size.width - 47;
+        UIButton *bigSetBtn = [[UIButton alloc]initWithFrame:CGRectMake(btnX, 40, 40, 40)];
+        [bigSetBtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:bigSetBtn];
+        
         
         self.clipsToBounds = YES;
         self.contentMode = UIViewContentModeScaleAspectFill;

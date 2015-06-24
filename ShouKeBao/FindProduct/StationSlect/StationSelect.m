@@ -11,7 +11,7 @@
 #import "APService.h"
 #import "WriteFileManager.h"
 #import "UserInfo.h"
-
+#import "MobClick.h"
 @interface StationSelect ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (strong,nonatomic) NSMutableArray *dataArr;
@@ -43,6 +43,14 @@
     
     self.table.tableFooterView = [[UIView alloc] init];
     
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"FindProductStationSelect"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"FindProductStationSelect"];
 }
 
 - (void)back

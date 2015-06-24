@@ -21,12 +21,13 @@
 #import "ChildCell.h"
 #import "AppDelegate.h"
 #import "MobClick.h"
+
 @interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,CreatePersonControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
 
 @property (nonatomic,assign) BOOL isOpenSkb;// 是否开通收客宝
-
+@property (nonatomic, assign)BOOL isCreat;
 @end
 
 @implementation ChildAccountViewController
@@ -75,6 +76,10 @@
                     Distribution *dis = [Distribution distributionWithDict:dic];
                     [self.dataSource addObject:dis];
                 }
+                if (self.isCreat) {
+                    [self bangdingWith:self.dataSource[1]];
+                }
+                self.isCreat = NO;
                 // 如果没有开通收客宝
                 self.isOpenSkb = [json[@"IsOpenSkb"] integerValue];
                 // 刷新
@@ -136,61 +141,63 @@
     
     return cell;
 }
-
+- (void)bangdingWith:(Distribution *)dis{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    
+    // 绑定收客宝 选择分销人或者旅行社
+    NSDictionary *param = @{@"AppUserID":[def objectForKey:UserInfoKeyAppUserID],
+                            @"DistributionID":dis.distributionId,
+                            @"LoginType":dis.SkbType};
+    
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [LoginTool chooseUserWithParam:param success:^(id json) {
+        [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+        NSLog(@"----  %@",json);
+        
+        if ([json[@"IsSuccess"] integerValue] == 1) {
+            
+            // 保存必要的参数
+            [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
+            [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
+            [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
+            
+            // 保存用户模型
+            [UserInfo userInfoWithDict:json];
+            
+            // 保存分站
+            if (![def objectForKey:UserInfoKeySubstation]) {
+                [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
+            }
+            [def synchronize];
+            
+            // 给用户打上jpush标签
+            [APService setAlias:[def objectForKey:@"BusinessID"] callbackSelector:nil object:nil];
+            NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
+            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
+            
+            // 保存是否第一次做登录流程
+            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            [def setObject:@"1" forKey:@"isFirst"];
+            [def synchronize];
+            
+            // 跳转主界面
+            AppDelegate *app = [UIApplication sharedApplication].delegate;
+            [app setTabbarRoot];
+            
+        }else{
+            [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
+        }
+        
+    } failure:^(NSError *error) {
+        
+    }];
+}
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (indexPath.section == 0) {
         // 取出参数
         Distribution *dis = self.dataSource[indexPath.row];
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        
-        // 绑定收客宝 选择分销人或者旅行社
-        NSDictionary *param = @{@"AppUserID":[def objectForKey:UserInfoKeyAppUserID],
-                                @"DistributionID":dis.distributionId,
-                                @"LoginType":dis.SkbType};
-        
-        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        [LoginTool chooseUserWithParam:param success:^(id json) {
-            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-            NSLog(@"----  %@",json);
-            
-            if ([json[@"IsSuccess"] integerValue] == 1) {
-                
-                // 保存必要的参数
-                [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
-                [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
-                [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
-                
-                // 保存用户模型
-                [UserInfo userInfoWithDict:json];
-                
-                // 保存分站
-                if (![def objectForKey:UserInfoKeySubstation]) {
-                    [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
-                }
-                [def synchronize];
-                
-                // 给用户打上jpush标签
-                [APService setAlias:[def objectForKey:@"BusinessID"] callbackSelector:nil object:nil];
-                NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
-                [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
-                
-                // 保存是否第一次做登录流程
-                NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-                [def setObject:@"1" forKey:@"isFirst"];
-                [def synchronize];
-                
-                // 跳转主界面
-                AppDelegate *app = [UIApplication sharedApplication].delegate;
-                [app setTabbarRoot];
-                
-            }else{
-                [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
-            }
-            
-        } failure:^(NSError *error) {
-            
-        }];
+        [self bangdingWith:dis];
         
     }else{
         // 去创建分销人 或者 开通收客宝
@@ -256,9 +263,10 @@
 - (void)didFinishCreateSkb:(CreatePersonController *)createVc
 {
     [createVc dismissViewControllerAnimated:YES completion:nil];
-    
+    self.isCreat = YES;
     // 刷新数据
     [self loadDataSource];
+    
 }
 
 @end

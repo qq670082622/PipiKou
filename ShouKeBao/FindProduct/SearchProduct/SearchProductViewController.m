@@ -15,7 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MJRefresh.h"
 #import "NSArray+QD.h"
-
+#import "MobClick.h"
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -80,7 +80,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-   
+    [MobClick beginLogPageView:@"FindProductSearchProductView"];
+    
    
     [self.table addFooterWithTarget:self action:@selector(pullTable)];
     //设置文字
@@ -95,7 +96,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   
+    [MobClick endLogPageView:@"FindProductSearchProductView"];
+
      [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
 }
 

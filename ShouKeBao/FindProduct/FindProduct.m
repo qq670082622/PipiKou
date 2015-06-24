@@ -147,6 +147,7 @@
     [MobClick endLogPageView:@"FindProduct"];
 
 }
+
 #pragma mark - LoadDataSource
 - (void)loadDataSourceLeft
 {

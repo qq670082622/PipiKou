@@ -11,6 +11,7 @@
 #import "WriteFileManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "UIImageView+WebCache.h"
+#import "MobClick.h"
 @interface attachmentViewController ()
 @property (nonatomic ,strong) NSMutableArray *dataSource;
 @property(nonatomic , assign) BOOL isEditing;
@@ -55,6 +56,14 @@
     [self.imgV addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideImageSuperView)]];
     
     
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"CustomerattachmentView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"CustomerattachmentView"];
 }
 
 -(void)hideImageSuperView

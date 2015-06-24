@@ -8,6 +8,7 @@
 
 #import "MinMaxPriceSelectViewController.h"
 #import "WMAnimations.h"
+#import "MobClick.h"
 
 @interface MinMaxPriceSelectViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *minPrice;
@@ -96,12 +97,17 @@
     return[scan scanInt:&val] && [scan isAtEnd];
     
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"FindProductMinMaxPriceSelectView"];
 
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
-   
+    [MobClick endLogPageView:@"FindProductMinMaxPriceSelectView"];
+    
 }
 
 - (IBAction)cancle:(id)sender {

@@ -10,6 +10,7 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "StrToDic.h"
+#import "MobClick.h"
 @interface addCustomerViewController ()<UITextFieldDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *tele;
@@ -50,7 +51,12 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"CustomeraddCustomerView"];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"CustomeraddCustomerView"];
 }
 -(void)back
 {

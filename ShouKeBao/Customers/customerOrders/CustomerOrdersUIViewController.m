@@ -8,6 +8,7 @@
 
 #import "CustomerOrdersUIViewController.h"
 #import "CustomerDetailViewController.h"
+#import "MobClick.h"
 @interface CustomerOrdersUIViewController ()
 
 @end
@@ -39,9 +40,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"CustomerOrdersView"];
     [self.navigationItem setHidesBackButton:YES];
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    [MobClick endLogPageView:@"CustomerOrdersView"];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

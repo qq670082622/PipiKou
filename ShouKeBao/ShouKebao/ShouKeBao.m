@@ -1110,6 +1110,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     }
 
     if ([model.model isKindOfClass:[HomeList class]]) {
+        [MobClick event:@"ShouKeBao_ClickHomeList"];
         HomeList *order = model.model;
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
         detail.url = order.LinkUrl;
@@ -1117,6 +1118,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
+        [MobClick event:@"ShouKeBao_ClickRecommend"];
+
         [self nitifiToPushRecommendListWithUrl];
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
         

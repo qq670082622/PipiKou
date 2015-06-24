@@ -8,6 +8,7 @@
 
 #import "EditCustomerDetailViewController.h"
 #import "IWHttpTool.h"
+#import "MobClick.h"
 @interface EditCustomerDetailViewController ()<UITextFieldDelegate,UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *name;
 @property (weak, nonatomic) IBOutlet UITextField *tele;
@@ -46,6 +47,14 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKey)];
     [self.view addGestureRecognizer:tap];
     
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"CustomerEditCustomerDetailView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"CustomerEditCustomerDetailView"];
 }
 
 -(void)back

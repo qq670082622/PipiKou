@@ -12,7 +12,7 @@
 #import <AddressBook/AddressBook.h>
 #import "IWHttpTool.h"
 #import <AddressBookUI/AddressBookUI.h>
-
+#import "MobClick.h"
 @interface BatchAddViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong,nonatomic) NSMutableArray *dataArr;
 @property (strong,nonatomic) NSMutableArray *editArr;
@@ -42,7 +42,14 @@
     self.table.tableFooterView = [[UIView alloc] init];
     
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"CustomersBatchAddView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"CustomersBatchAddView"];
+}
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];

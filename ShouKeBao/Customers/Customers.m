@@ -18,6 +18,7 @@
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
 #import "NSString+QD.h"
+#import "MobClick.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -92,6 +93,17 @@
      [self initPull];
   
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    self.subView.hidden = YES;
+
+    [MobClick beginLogPageView:@"Customers"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Customers"];
+}
+
 -(void)initPull
 {
    
@@ -117,15 +129,6 @@
 //{
 //    [self.imageViewWhenIsNull removeFromSuperview];
 //}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-      self.subView.hidden = YES;
-   
-    
-    
-    }
 
 -(void)customerRightBarItem
 {

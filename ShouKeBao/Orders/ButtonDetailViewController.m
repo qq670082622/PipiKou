@@ -82,6 +82,7 @@
 -(void)back
 {
     NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp()"];
+    NSLog(@"$$$$$$$$$$$!!!!!!!!!%@", isFade);
     if (isFade.length && [isFade integerValue] == 0){
         // 这个地方上面的js方法自动处理
     }else{
@@ -142,7 +143,6 @@
 //        NSLog(@"%ld", self.webView.pageCount);
         [self.webView goBack];
         [self.webView goBack];
-//        [self.webView goBackPageNum:1];
     }
     self.isSave = NO;
     //[MBProgressHUD showSuccess:@"加载完成"];

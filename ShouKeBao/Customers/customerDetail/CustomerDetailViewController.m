@@ -13,7 +13,7 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "CustomModel.h"
-
+#import "MobClick.h"
 #import "attachmentViewController.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
@@ -112,11 +112,17 @@
     self.pasportInUseDay.text = self.customMoel.ValidEndDate;
     self.livingAddress.text = self.customMoel.Address;
 }
--(void)viewWillAppear:(BOOL)animated
-{
+- (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-   // [self.segmentControl setSelectedSegmentIndex:0];
+    [MobClick beginLogPageView:@"CustomerDetailViewController"];
+    // [self.segmentControl setSelectedSegmentIndex:0];
+
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"CustomerDetailViewController"];
+}
+
 //-(void)sex:(id)sender
 //{
 //    UISegmentedControl *control = (UISegmentedControl *)sender;
