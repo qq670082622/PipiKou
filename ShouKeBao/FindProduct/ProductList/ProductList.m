@@ -25,8 +25,7 @@
 #import "WMAnimations.h"
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
+
 #import "ChooseDayViewController.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
 @property (copy,nonatomic) NSMutableString *searchKey;
@@ -184,7 +183,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-        [Lotuseed onPageViewBegin:@"productList"];
+    
     NSIndexPath *selected = [self.subTable indexPathForSelectedRow];
     if(selected) [self.subTable deselectRowAtIndexPath:selected animated:NO];
     
@@ -198,10 +197,6 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-
-    [Lotuseed onPageViewEnd:@"productList"];
-    [Lotuseed onEvent:@"productListBack" attributes:@{@"stationName":par.stationName}];
     
    }
 
@@ -1168,7 +1163,7 @@
         NSString *productName = model.Name;
        
       
-        [Lotuseed onEvent:@"productlistSelectProduct" attributes:@{@"productName":productName}];
+      
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
        
         detail.produceUrl = productUrl;
@@ -1217,16 +1212,10 @@
             conditionVCTile = _subDataArr1[indexPath.row];
             
            
-            SubstationParttern *par = [SubstationParttern sharedStationName];
-
-            [Lotuseed onEvent: @"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile,@"stationName":par.stationName}];
-       
+            
         }else if (indexPath.section == 1){
          
             conditionVCTile = _subDataArr2[indexPath.row];
-            SubstationParttern *par = [SubstationParttern sharedStationName];
-
-           [Lotuseed onEvent: @"productlistConditionClik" attributes:@{@"clickConditionName":conditionVCTile,@"stationName":par.stationName}];
             
 
         }
@@ -1397,9 +1386,7 @@
 // 收藏按钮点击
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-
-    [Lotuseed onEvent:@"productIsFavorite" attributes:@{@"stationName":par.stationName}];
+    
     NSIndexPath *indexPath = [self.table indexPathForCell:cell];
     
     NSLog(@"------%@",indexPath);
@@ -1453,12 +1440,6 @@
     
    
        // [self backToTop:nil];
-    
-    
-    
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-
-    [Lotuseed onEvent:@"productListSortRemind" attributes:@{@"stationName":par.stationName}];
     
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
@@ -1701,9 +1682,7 @@
    }
     
     [hudView hide:YES];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-
-    [Lotuseed onEvent:@"productListSortprofits" attributes:@{@"type":self.profitOutlet.currentTitle,@"stationName":par.stationName}];
+ 
     }
 
 
@@ -1889,9 +1868,7 @@
         }];
 
     }
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-
-    [Lotuseed onEvent:@"productListSortCheapPrice" attributes:@{@"type":self.cheapOutlet.currentTitle,@"stationName":par.stationName}];
+ 
     
     [hudView hide:YES];
 }
@@ -1976,11 +1953,7 @@
 
 - (IBAction)subDone:(id)sender {
    
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-
-    [Lotuseed onEvent:@"productlistScreeningDone" attributes:@{@"stationName":par.stationName}];
-  
-   
+    
     // [self editButtons];//重新确认按钮状态
     
     //让推荐按钮被选中

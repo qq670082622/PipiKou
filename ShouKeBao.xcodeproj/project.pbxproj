@@ -152,7 +152,6 @@
 		5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */; };
 		5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A151ADB604C00B0E0E5 /* DayDetail.m */; };
 		5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */; };
-		630DFD721AFCB60800021553 /* libLotuseed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 630DFD701AFCB60800021553 /* libLotuseed.a */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
 		6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130D1AB1C175003AC2DA /* MJRefreshBaseView.m */; };
 		6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130F1AB1C175003AC2DA /* MJRefreshConst.m */; };
@@ -216,7 +215,6 @@
 		635E70C01B185B39008EFEB6 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BF1B185B39008EFEB6 /* CardTableViewController.m */; };
 		635E70C31B1872AD008EFEB6 /* userIDTableviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */; };
 		6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */; };
-		6364A9B31B0B19BE0099705B /* SubstationParttern.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9B21B0B19BE0099705B /* SubstationParttern.m */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
 		636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B541AC2E1420097CAE9 /* QQConnection.framework */; };
 		636C8B6E1AC2E1420097CAE9 /* QZoneConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */; };
@@ -616,8 +614,6 @@
 		5AED0A151ADB604C00B0E0E5 /* DayDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetail.m; sourceTree = "<group>"; };
 		5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRemindCell.h; sourceTree = "<group>"; };
 		5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRemindCell.m; sourceTree = "<group>"; };
-		630DFD701AFCB60800021553 /* libLotuseed.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libLotuseed.a; sourceTree = "<group>"; };
-		630DFD711AFCB60800021553 /* Lotuseed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Lotuseed.h; sourceTree = "<group>"; };
 		6326130A1AB1C175003AC2DA /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		6326130B1AB1C175003AC2DA /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		6326130C1AB1C175003AC2DA /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -735,8 +731,6 @@
 		635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userIDTableviewController.m; sourceTree = "<group>"; };
 		6364A9AE1B098CA00099705B /* YYAnimationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimationIndicator.h; sourceTree = "<group>"; };
 		6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimationIndicator.m; sourceTree = "<group>"; };
-		6364A9B11B0B19BE0099705B /* SubstationParttern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubstationParttern.h; sourceTree = "<group>"; };
-		6364A9B21B0B19BE0099705B /* SubstationParttern.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubstationParttern.m; sourceTree = "<group>"; };
 		636C8B531AC2E1420097CAE9 /* CopyConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CopyConnection.framework; sourceTree = "<group>"; };
 		636C8B541AC2E1420097CAE9 /* QQConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QQConnection.framework; sourceTree = "<group>"; };
 		636C8B551AC2E1420097CAE9 /* QZoneConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = QZoneConnection.framework; sourceTree = "<group>"; };
@@ -952,7 +946,6 @@
 				632EDE9B1AC8FC6300EE98FC /* CoreGraphics.framework in Frameworks */,
 				636C8B811AC2E20C0097CAE9 /* CoreTelephony.framework in Frameworks */,
 				632EDEAC1AC8FF4D00EE98FC /* libPushSDK-1.8.3.a in Frameworks */,
-				630DFD721AFCB60800021553 /* libLotuseed.a in Frameworks */,
 				632EDE991AC8FC4500EE98FC /* CoreFoundation.framework in Frameworks */,
 				632EDE971AC8FC3800EE98FC /* CFNetwork.framework in Frameworks */,
 				636C8B8D1AC2E2740097CAE9 /* libsqlite3.dylib in Frameworks */,
@@ -1230,8 +1223,6 @@
 				5A52FBC11ACEBF220076DAE6 /* UserInfo.m */,
 				5A4965CB1AD4F30E00233E5E /* Business.h */,
 				5A4965CC1AD4F30E00233E5E /* Business.m */,
-				6364A9B11B0B19BE0099705B /* SubstationParttern.h */,
-				6364A9B21B0B19BE0099705B /* SubstationParttern.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1579,15 +1570,6 @@
 				5AB7C9831ACBC9EA00217CAC /* QDActionSheet.m */,
 			);
 			path = CustomView;
-			sourceTree = "<group>";
-		};
-		630DFD6F1AFCB60800021553 /* Lotuseed */ = {
-			isa = PBXGroup;
-			children = (
-				630DFD701AFCB60800021553 /* libLotuseed.a */,
-				630DFD711AFCB60800021553 /* Lotuseed.h */,
-			);
-			path = Lotuseed;
 			sourceTree = "<group>";
 		};
 		632613081AB1C16E003AC2DA /* Tool */ = {
@@ -2010,7 +1992,6 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
-				630DFD6F1AFCB60800021553 /* Lotuseed */,
 				63E0340D1AFC995300BD714A /* Customers */,
 				636C8B511AC2E1420097CAE9 /* ShareSDK */,
 				5AB7C9811ACBC9C700217CAC /* CustomView */,
@@ -2490,7 +2471,6 @@
 				63F1A1351B13329E00DE9867 /* YesterDayCell.m in Sources */,
 				6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */,
 				5A52FC861ACEBF220076DAE6 /* OrderTool.m in Sources */,
-				6364A9B31B0B19BE0099705B /* SubstationParttern.m in Sources */,
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
 				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
 				63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */,

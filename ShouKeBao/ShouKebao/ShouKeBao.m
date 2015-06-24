@@ -45,8 +45,6 @@
 #import "UserInfo.h"
 #import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
 #import "RecomViewController.h"
 #import "ScanningViewController.h"
 #define FiveDay 432000
@@ -114,7 +112,7 @@
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
     [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.SKBNewBtn addTarget:self action:@selector(pushToStore) forControlEvents:UIControlEventTouchUpInside];
+    [self.SKBNewBtn addTarget:self action:@selector(pushToStoreFromButton) forControlEvents:UIControlEventTouchUpInside];
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
@@ -564,7 +562,7 @@
 {
     [super viewWillAppear:animated];
     self.userName.text =  [UserInfo shareUser].userName;
-    [Lotuseed onPageViewBegin:@"page1"];
+   
     
     [self getNotifiList];
     
@@ -585,7 +583,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"page1Click"];
+    
     [self.navBarView removeFromSuperview];
 }
 
@@ -658,7 +656,7 @@
                 [self.dataSource removeAllObjects];
                 
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
-                NSLog(@"%ld$$$$", self.recommendCount);
+                NSLog(@"%ld$$$$", (long)self.recommendCount);
                 // 添加精品推荐 如果有推荐的话
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
                 
@@ -845,16 +843,21 @@
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-   
+    
+    
+      [self.navigationController pushViewController:store animated:YES];
+}
+-(void)pushToStoreFromButton
+{
+    StoreViewController *store =  [[StoreViewController alloc] init];
+    store.PushUrl = _shareLink;
+    
     store.needOpenShare = YES;
-    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
+   
     [self.navigationController pushViewController:store animated:YES];
 }
-
 - (void)changeStation{
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
+   
    
     StationSelect *stationSelect = [[StationSelect alloc] init];
 
@@ -865,8 +868,7 @@
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page1ClickToSos" attributes:@{@"stationName":par.stationName}];
+    
     [self.navigationController pushViewController:sos animated:YES];
     
 }
@@ -884,16 +886,14 @@
         }
         NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
         NSLog(@"----------------手机号码%@------------------",phone);
-         SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page1Tap3sToSos" attributes:@{@"stationName":par.stationName}];
+        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
     }
 }
 
 - (void)search
 {
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"Page1Search" attributes:@{@"stationName":par.stationName}];
+   
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
     
@@ -1035,17 +1035,14 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         self.tabBarItem.badgeValue = nil;
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
     }
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page1ClickToMessageCenter" attributes:@{@"stationName":par.stationName}];
-    [self.navigationController pushViewController:messgeCenter animated:YES];
+        [self.navigationController pushViewController:messgeCenter animated:YES];
     
 }
 
 
 -(void)codeAction
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"QRCodeClicked" attributes:@{@"stationName":par.stationName}];
+   
    
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = YES;
@@ -1115,21 +1112,26 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         detail.url = order.LinkUrl;
         detail.title = @"订单详情";
         [self.navigationController pushViewController:detail animated:YES];
-         SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page1ClickToOrderDetail" attributes:@{@"stationName":par.stationName}];
+        
     }else if([model.model isKindOfClass:[Recommend class]]){
         [self nitifiToPushRecommendListWithUrl];
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
         
-    }else{//客户提醒
+    }else if ([model.model isKindOfClass:[messageModel class]]){
+        messageDetailViewController *msgDetail = [[messageDetailViewController alloc] init];
+        messageModel *msg = model.model;
+        msgDetail.messageURL = msg.LinkUrl;
+        [self.navigationController pushViewController:msgDetail animated:YES];
+        
+    }
+    else{//客户提醒
         remondModel *r = model.model;
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
         remondDetail.time = r.RemindTime;
         remondDetail.note = r.Content;
         remondDetail.remindId = r.ID;
         remondDetail.delegate = self;
-         SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page1ClickToRemondDetail" attributes:@{@"stationName":par.stationName}];
+       
 
         [self.navigationController pushViewController:remondDetail animated:YES];
     }
@@ -1152,11 +1154,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     // 刷新下 隐藏红点
     self.recommendCount = 0;
    
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    
-    [Lotuseed onEvent:@"page1ClickTorecommend" attributes:@{@"stationName":par.stationName}];
-    
-    [_tableView reloadData];
+       [_tableView reloadData];
 
 }
 

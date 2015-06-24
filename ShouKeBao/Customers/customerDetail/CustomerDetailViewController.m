@@ -13,8 +13,7 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "CustomModel.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
+
 #import "attachmentViewController.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
@@ -140,8 +139,7 @@
 }
 -(void)EditCustomerDetail
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"EditCustomerDetail" attributes:@{@"stationName":par.stationName}];
+    
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     
@@ -174,8 +172,7 @@
 
 
 - (IBAction)remond:(id)sender {
-     SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"ClickCustomerRemind" attributes:@{@"stationName":par.stationName}];
+    
     
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
@@ -203,8 +200,7 @@
             NSLog(@"删除客户信息成功%@",json);
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
-             SubstationParttern *par = [SubstationParttern sharedStationName];
-            [Lotuseed onEvent:@"deleteCustomer" attributes:@{@"stationName":par.stationName}];
+            
         
         } failure:^(NSError *error) {
             NSLog(@"删除客户请求失败%@",error);

@@ -10,8 +10,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
+
 #import "YYAnimationIndicator.h"
 //#import "BeseWebView.h"
 #import "WMAnimations.h"
@@ -115,12 +114,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"productDetail"];
-}
+   }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"productDetail"];
+    
 }
 
 //第一次开机引导
@@ -161,8 +159,7 @@
         [self.webView goBack];
    }
     else  {
-        SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"productDetailBack" attributes:@{@"stationName":par.stationName}];
+        
         [self.navigationController popViewControllerAnimated:YES];
     }
     
@@ -315,9 +312,7 @@
                                 if (state == SSResponseStateSuccess)
                                 {
 //                                    [self.warningLab removeFromSuperview];
-                                    SubstationParttern *par = [SubstationParttern sharedStationName];
-                                    [Lotuseed onEvent:@"productDetailShareSuccess" attributes:@{@"stationName":par.stationName}];
-                                    
+                                   
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         

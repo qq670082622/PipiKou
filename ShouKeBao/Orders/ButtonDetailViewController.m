@@ -7,7 +7,7 @@
 //
 
 #import "ButtonDetailViewController.h"
-#import "Lotuseed.h"
+
 #import "MBProgressHUD+MJ.h"
 #import "BeseWebView.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
@@ -66,12 +66,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"orderOperation"];
+   
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"orderOperation"];
+   
 }
 
 #pragma -mark private

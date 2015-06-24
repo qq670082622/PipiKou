@@ -9,7 +9,7 @@
 #import "messageDetailViewController.h"
 #import "HomeHttpTool.h"
 #import "NSDate+Category.h"
-#import "Lotuseed.h"
+
 #import "YYAnimationIndicator.h"
 #import "BeseWebView.h"
 @interface messageDetailViewController ()<UIWebViewDelegate>
@@ -57,12 +57,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"messageDetail"];
+    
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"messageDetail"];
+   
 }
 
 -(void)back

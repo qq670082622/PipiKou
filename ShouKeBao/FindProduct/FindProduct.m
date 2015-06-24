@@ -25,9 +25,6 @@
 #import "WMAnimations.h"
 #import "ResizeImage.h"
 #import "UIImageView+WebCache.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
-
 #import "newModel.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
@@ -118,9 +115,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page2Click" attributes:@{@"subStationName":par.stationName}];
-   
     
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
@@ -354,8 +348,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 - (IBAction)stationSelect:(id)sender {
    // [MobClick event:@"changeStationInPageTwo"];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page2ChangeStation" attributes:@{@"subStationName":par.stationName}];
+   
     StationSelect *station = [[StationSelect alloc] init];
     station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
@@ -366,8 +359,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (IBAction)search:(id)sender {
     
     //[MobClick event:@"searchInpageTwo"];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page2Search" attributes:@{@"stationName":par.stationName}];
+   
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
@@ -381,8 +373,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (void)hotBtnClick:(id)sender {
    // [MobClick event:@"remmondClick"];
 //    self.rightTable.scrollEnabled = NO;
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page2ClickRecommend" attributes:@{@"stationName":par.stationName}];
+   
     self.row = nil;
 //    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
 //    self.leftTable.tableHeaderView.backgroundColor = [UIColor whiteColor];
@@ -596,9 +587,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     if (tableView.tag == 1) {
         leftModal *model = self.leftTableArr[indexPath.row];
        // [MobClick event:@"leftTableClick" attributes:@{@"name":model.Name}];
-        SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page2LeftTableClick" attributes:@{@"name":model.Name,@"stationName":par.stationName}];
-        self.isHot = NO;
+                self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
         
@@ -631,9 +620,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     if (tableView.tag == 2) {
       
         rightModal2 *model = self.rightTableArr[indexPath.row];
-        SubstationParttern *par = [SubstationParttern sharedStationName];
-              [Lotuseed onEvent:@"page2ClickRightTable" attributes:@{@"name":model.Name,@"stationName":par.stationName}];
-    
+        
         self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"-----------tableSelectRow is %@--------",_table2Row);
 //        [UIView animateWithDuration:0.3 animations:^{
@@ -715,20 +702,14 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = key;
         list.title = title;
-        SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page2RightTable2Click" attributes:@{@"name":modal3.Name,@"stationName":par.stationName}];
-
-        
-        [self.navigationController pushViewController:list animated:YES];
+       [self.navigationController pushViewController:list animated:YES];
     }
     if (tableView.tag == 4) {
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         rightModal *model =  _hotArr[indexPath.section][indexPath.row];
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
-       SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"page2ClickRecommend" attributes:@{@"name":model.rightDescrip,@"stationName":par.stationName}];
-        [self.navigationController pushViewController:detail animated:YES];
+             [self.navigationController pushViewController:detail animated:YES];
     }
 
  [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];

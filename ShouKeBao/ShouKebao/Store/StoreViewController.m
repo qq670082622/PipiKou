@@ -11,7 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
-#import "Lotuseed.h"
+
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
@@ -87,21 +87,18 @@
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
-    if (_needOpenShare) {
-        [self shareIt:nil];
-    }
+    
 }
 
 #pragma  -mark VC Life
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"Store"];
-}
+    }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"Store"];
+    
 }
 
 #pragma -mark getter
@@ -177,7 +174,7 @@
 - (IBAction)checkCheapPrice{
     if (self.checkCheapBtnOutlet.selected == NO) {
       
-        [Lotuseed onEvent:@"productDetailCheckCheapPrice"];
+      
         
         [self.checkCheapBtnOutlet setSelected:YES];
         self.subView.hidden = NO;
@@ -215,6 +212,9 @@
 
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     self.coverView.hidden = YES;
+    if (_needOpenShare) {
+        [self shareIt:nil];
+    }
        NSString *rightStr = webView.request.URL.absoluteString;
         
     

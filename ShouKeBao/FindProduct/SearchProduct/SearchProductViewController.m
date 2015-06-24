@@ -15,8 +15,7 @@
 #import <QuartzCore/QuartzCore.h>
 #import "MJRefresh.h"
 #import "NSArray+QD.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
+
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -82,7 +81,7 @@
 {
     [super viewWillAppear:animated];
    
-    [Lotuseed onPageViewBegin:@"searchProduct"];
+   
     [self.table addFooterWithTarget:self action:@selector(pullTable)];
     //设置文字
     self.table.footerPullToRefreshText = @"上拉刷新";
@@ -96,8 +95,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [Lotuseed onPageViewEnd:@"searchProduct"];
+   
      [self.delegate passSearchKeyFromSearchVC:self.inputView.text];
 }
 
@@ -328,9 +326,7 @@
         
         //list.pushedArr = pushArr;
        
-        SubstationParttern *par = [SubstationParttern sharedStationName];
-        [Lotuseed onEvent:@"searchKey" attributes:@{@"searchKey":self.inputView.text,@"stationName":par.stationName}];
-        self.table.tableFooterView.hidden = NO;
+               self.table.tableFooterView.hidden = NO;
         
         list.isFromSearch = YES;
         [self.navigationController pushViewController:list animated:YES];
