@@ -11,7 +11,6 @@
 #import "StrToDic.h"
 #import "MBProgressHUD+MJ.h"
 
-#import "SubstationParttern.h"
 @interface AddRemindViewController () <UIScrollViewDelegate,UIGestureRecognizerDelegate,UITextViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextView *descript;

@@ -17,8 +17,6 @@
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
-
-#import "SubstationParttern.h"
 #import "NSString+QD.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh>
 @property (nonatomic,strong) NSMutableArray *dataArr;

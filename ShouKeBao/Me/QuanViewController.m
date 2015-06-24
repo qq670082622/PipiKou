@@ -11,7 +11,6 @@
 #import "UINavigationController+SGProgress.h"
 
 #import "BeseWebView.h"
-#import "SubstationParttern.h"
 @interface QuanViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) BeseWebView *webView;

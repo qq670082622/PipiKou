@@ -30,8 +30,6 @@
 #import "UIImage+QD.h"
 #import "ArrowBtn.h"
 #import "NullContentView.h"
-
-#import "SubstationParttern.h"
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
 #define historyCount 6
