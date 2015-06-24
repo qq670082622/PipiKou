@@ -308,8 +308,11 @@
                CGFloat viewH = 2*imgW + 2*gap;
         return CGSizeMake(screenW - picViewGap*2, viewH);
    // return CGSizeMake(viewH, viewH);
-    }else {//==4
+    }else if(count == 4) {//==4
         CGFloat viewH = 2*imgW + 3*gap;
+        return CGSizeMake(screenW - picViewGap*2, viewH);
+    }else{
+        CGFloat viewH = 2*imgW + 2*gap;
         return CGSizeMake(screenW - picViewGap*2, viewH);
     }
    

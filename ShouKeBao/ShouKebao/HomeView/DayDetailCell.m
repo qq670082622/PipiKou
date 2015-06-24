@@ -461,9 +461,9 @@
     self.time.text = [NSString stringWithFormat:@"浏览时间: %@",modal.HistoryViewTime];
     
     //出发时间
-    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[modal.LastScheduleDate doubleValue]];
-  self.goDateLab.text = [createDate formattedTime];
-    
+//    NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[modal.LastScheduleDate doubleValue]];
+//  self.goDateLab.text = [createDate formattedTime];
+    self.goDateLab.text = modal.PushDate;
   
     self.fanIsZero = [modal.PersonBackPrice integerValue];
     self.quanIsZero = [modal.PersonCashCoupon integerValue];

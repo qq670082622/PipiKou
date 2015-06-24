@@ -1198,10 +1198,10 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
        
             if (screenH == 480) {
                 
-                return 165*radious+25;
+                return 180*radious+25;
             }
 
-                    return 165*radious;
+                    return 180*radious;
                     
         }else if (count == 4 || count == 5 || count == 6){
           
@@ -1210,7 +1210,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
                 return 260*radious+25;
             }
            
-            return 260*radious;
+            return 270*radious;
             
         }else if(count == 1){
             

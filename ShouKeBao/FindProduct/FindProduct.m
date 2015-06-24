@@ -27,7 +27,7 @@
 #import "UIImageView+WebCache.h"
 #import "newModel.h"
 #import "MobClick.h"
-@interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate,notifi>
+@interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
 @property (weak, nonatomic) IBOutlet UIView *line;
@@ -91,8 +91,15 @@
 #pragma  mark - stationSelect delegate
 -(void)notifiToReloadData
 {
-    [self loadDataSourceLeft];
-    [self loadHotData];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *str = [def objectForKey:@"stationSelect"];
+    if ([str isEqualToString:@"yes"]) {
+        [self loadDataSourceLeft];
+        [self loadHotData];
+        [def setObject:@"no" forKey:@"stationSelect"];
+        [def synchronize];
+    }
+   
 //    [self loadDataSourceLeft];
 
 }
@@ -139,6 +146,8 @@
     
     NSIndexPath *selected3 = [self.rightTable2 indexPathForSelectedRow];
     if(selected3) [self.rightTable2 deselectRowAtIndexPath:selected animated:NO];
+    
+    [self notifiToReloadData];
     
   }
 

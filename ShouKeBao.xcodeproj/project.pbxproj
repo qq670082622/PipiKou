@@ -2831,8 +2831,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: MING WU (FUY6CA7TK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MING WU (FUY6CA7TK8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2854,7 +2854,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ShouKeBao;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "80267eab-678f-4f4c-8110-23eb4aa26c65";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2864,8 +2864,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: MING WU (FUY6CA7TK8)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: MING WU (FUY6CA7TK8)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShouKeBao/ShareSDK/Connection",
@@ -2886,7 +2886,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8",
 				);
 				PRODUCT_NAME = ShouKeBao;
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "80267eab-678f-4f4c-8110-23eb4aa26c65";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
