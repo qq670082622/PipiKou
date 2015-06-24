@@ -2854,7 +2854,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ShouKeBao;
-				PROVISIONING_PROFILE = "e8c64271-dddd-4a0c-8a6c-72dcf01afca6";
+				PROVISIONING_PROFILE = "80267eab-678f-4f4c-8110-23eb4aa26c65";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -2886,7 +2886,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8",
 				);
 				PRODUCT_NAME = ShouKeBao;
-				PROVISIONING_PROFILE = "e8c64271-dddd-4a0c-8a6c-72dcf01afca6";
+				PROVISIONING_PROFILE = "80267eab-678f-4f4c-8110-23eb4aa26c65";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

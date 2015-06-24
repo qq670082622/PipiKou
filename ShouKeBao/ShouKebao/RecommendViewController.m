@@ -50,7 +50,8 @@
     NSString *st = [def objectForKey:@"markStr"];;
     self.markUrl  = [def objectForKey:@"markStr"];
      NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
-    
+    [def setObject:@"" forKey:@"markStr"];
+    [def synchronize];
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -327,10 +328,10 @@
     if ([detail.PicUrl isEqualToString:_markUrl]) {
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1] andBorderWidth:3 andNeedShadow:normal];
     }
-    if (indexPath.row == 2) {
-        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
-
-           }
+//    if (indexPath.row == 2) {
+//        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
+//
+//           }
  
     
     return cell;

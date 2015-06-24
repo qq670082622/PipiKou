@@ -108,6 +108,7 @@
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
    [accountDefaults setObject:_stationNum forKey:UserInfoKeySubstation];
     [accountDefaults setObject:_stationName forKey:@"SubstationName"];
+    [accountDefaults setObject:@"yes" forKey:@"stationSelect"];
     [accountDefaults synchronize];
     
     [self.table reloadData];

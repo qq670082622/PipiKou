@@ -240,6 +240,7 @@
         self.inputView.text = selectHistoryKey;
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
+        list.isFromSearch = YES;
         self.table.tableFooterView.hidden = NO;
         //self.footView.hidden = NO;
         [self.navigationController pushViewController:list animated:YES];

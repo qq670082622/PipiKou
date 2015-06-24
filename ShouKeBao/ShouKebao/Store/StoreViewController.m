@@ -365,6 +365,7 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+    self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
         shareDic = [self.shareArr lastObject];
     //构造分享内容

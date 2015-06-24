@@ -120,8 +120,8 @@
     
     // 注册用户按钮
     
-    CGFloat newW = 20;
-    CGFloat newH = 20;
+    CGFloat newW = 25;
+    CGFloat newH = 25;
     CGFloat newX = 50;
     CGFloat newY = screenRect.size.height - newH - 35 ;
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
@@ -146,7 +146,7 @@
     [self.view addSubview:line];
     //证照神器
     CGFloat cardX = self.view.frame.size.width - 50 - newW - 5;
-    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY - 8, newW + 5, newH + 10)];
+    UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY - 18 , newW + 5, newH + 18)];
     [card addTarget:self action:@selector(Card:) forControlEvents:UIControlEventTouchUpInside];
     [card setBackgroundColor:[UIColor clearColor]];
     [card setBackgroundImage:[UIImage imageNamed:@"cardDigital"] forState:UIControlStateNormal];

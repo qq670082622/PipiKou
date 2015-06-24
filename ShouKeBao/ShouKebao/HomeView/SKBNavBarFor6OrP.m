@@ -22,7 +22,7 @@
     [super awakeFromNib];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.station.layer andBorderColor:[UIColor clearColor] andBorderWidth:0 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:self.line.layer andBorderColor:[UIColor lightTextColor] andBorderWidth:1 andNeedShadow:NO];
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(changeStationName) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2 target:self selector:@selector(changeStationName) userInfo:nil repeats:YES];
     self.timer = timer;
    // CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
     //self.frame = CGRectMake(28, 0, screenW/2 - 14, 34);
