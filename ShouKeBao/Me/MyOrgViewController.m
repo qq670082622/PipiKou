@@ -8,7 +8,7 @@
 
 #import "MyOrgViewController.h"
 #import "MeHttpTool.h"
-
+#import "MobClick.h"
 @interface MyOrgViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *companyName;
@@ -37,7 +37,14 @@
     [self setNav];
     [self loadDataSource];
 }
-
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"MeMyOrgViewController"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"MeMyOrgViewController"];
+}
 #pragma mark - private
 - (void)setNav
 {

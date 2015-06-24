@@ -10,7 +10,7 @@
 #import "InputhCell.h"
 #import "LoginTool.h"
 #import "MBProgressHUD+MJ.h"
-
+#import "MobClick.h"
 @interface CreatePersonController () <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,UIActionSheetDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UIGestureRecognizerDelegate>
 
 @property (nonatomic,strong) NSArray *dataSource;
@@ -34,7 +34,7 @@
 @property (nonatomic,weak) UITextField *positionField;// 职位
 
 @property (nonatomic,weak) UITextField *phoneField;// 联系手机
-
+@property (nonatomic, strong)UILabel * placeHolderlabel;//站位logo
 @end
 
 @implementation CreatePersonController
@@ -51,7 +51,7 @@
                               @{@"title":@"收客宝域名",@"des":@"skb/lvyouquan.cn/(您的域名)"}],
                             @[@{@"title":@"名称",@"des":@"使用公司名称或其他自定义"},
                               @{@"title":@"电话",@"des":@"客户可以点击电话与您联系"},
-                              @{@"title":@"联系",@"des":@"填写手机号接受提醒"}]];
+                              @{@"title":@"联系手机",@"des":@"填写手机号接受提醒"}]];
     }else{
         self.dataSource = @[@{@"title":@"名称",@"des":@"填写姓名方便用户认识您"},
                             @{@"title":@"职位",@"des":@"您在旅行社的职位"},
@@ -73,6 +73,14 @@
     
     // 监听域名输入
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(adrFieldTextDidChange:) name:UITextFieldTextDidChangeNotification object:self.adrField];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LoginCreatePerson"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LoginCreatePerson"];
 }
 
 - (void)dealloc
@@ -131,6 +139,13 @@
     iconView.userInteractionEnabled = YES;
     iconView.contentMode = UIViewContentModeScaleAspectFill;
     iconView.backgroundColor = [UIColor clearColor];
+    self.placeHolderlabel = [[UILabel alloc]initWithFrame:CGRectMake(20, 45, 70, 20)];
+    self.placeHolderlabel.backgroundColor = [UIColor clearColor];
+    self.placeHolderlabel.font = [UIFont systemFontOfSize:14];
+    self.placeHolderlabel.textAlignment = NSTextAlignmentCenter ;
+    self.placeHolderlabel.textColor = [UIColor lightGrayColor];
+    self.placeHolderlabel.text = @"上传Logo";
+    [iconView addSubview:self.placeHolderlabel];
 //    [iconView sd_setImageWithURL:[NSURL URLWithString:[UserInfo shareUser].LoginAvatar] placeholderImage:nil];
     iconView.layer.cornerRadius = 59;
     iconView.layer.masksToBounds = YES;
@@ -152,7 +167,7 @@
     createBtn.layer.cornerRadius = 3;
     createBtn.layer.masksToBounds = YES;
     [createBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
-    [createBtn setTitle:@"创建" forState:UIControlStateNormal];
+    [createBtn setTitle:@"开通收客宝" forState:UIControlStateNormal];
     [createBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [createBtn addTarget:self action:@selector(create:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -177,10 +192,11 @@
                 // 通知代理
                 if (self.delegate && [self.delegate respondsToSelector:@selector(didFinishCreateSkb:)]) {
                     [self.delegate didFinishCreateSkb:self];
+                    [MBProgressHUD showSuccess:@"保存成功"];
                 }
                 
             }else{
-                [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
+//                [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
             }
             
         } failure:^(NSError *error) {
@@ -200,10 +216,12 @@
                 // 通知代理
                 if (self.delegate && [self.delegate respondsToSelector:@selector(didFinishCreateSkb:)]) {
                     [self.delegate didFinishCreateSkb:self];
+                    [MBProgressHUD showSuccess:@"保存成功"];
+
                 }
                 
             }else{
-                [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
+//                [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
             }
             
         } failure:^(NSError *error) {
@@ -414,8 +432,10 @@
         NSLog(@"-------   %@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
+            self.placeHolderlabel.hidden = YES;
             self.headIconUrl = json[@"PicUrl"];
             self.userIcon.image = image;
+            
         }else{
             [MBProgressHUD showError:json[@"ErrorMsg"] toView:self.view];
         }

@@ -9,6 +9,7 @@
 #import "FeedBcakViewController.h"
 #import "MeHttpTool.h"
 #import "TimeTool.h"
+#import "MobClick.h"
 #define K_bounds [UIScreen mainScreen].bounds
 #define K_left 30
 #define K_between 30
@@ -161,6 +162,8 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:@"MeFeedBcakViewController"];
+
     NSString * goodOrBad = self.isGood ? @"1" : @"0";
     //纪录提交时间
     NSTimeInterval nowTime = [TimeTool getNowTime];
@@ -171,7 +174,11 @@
     } failure:^(NSError *error) {
     }];
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"MeFeedBcakViewController"];
 
+}
 /*
 #pragma mark - Navigation
 

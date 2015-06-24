@@ -8,7 +8,7 @@
 
 #import "ResultViewController.h"
 #import "AppDelegate.h"
-
+#import "MobClick.h"
 @interface ResultViewController ()
 
 @property (weak, nonatomic) IBOutlet UILabel *resultLab;
@@ -28,6 +28,14 @@
     [self setNav];
     
     [self configureResult];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LoginResultView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LoginResultView"];
 }
 
 - (void)setNav

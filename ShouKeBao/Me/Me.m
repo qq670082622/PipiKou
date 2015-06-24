@@ -32,6 +32,7 @@
 #import "WMAnimations.h"
 #import "MeProgressView.h"
 #import "AFNetworking.h"
+#import "MobClick.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -89,7 +90,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-   
+    [MobClick beginLogPageView:@"Me"];
     _meheader.nickName.text = [UserInfo shareUser].userName;
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -99,7 +100,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"Me"];
     [self.navigationController setNavigationBarHidden:NO animated:NO];
 }
 

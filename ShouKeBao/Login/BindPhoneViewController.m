@@ -19,7 +19,7 @@
 #import "RegisterViewController.h"
 #import "WMNavigationController.h"
 #import "SetPhonePwdViewController.h"
-
+#import "MobClick.h"
 @interface BindPhoneViewController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageBg1;
@@ -65,6 +65,14 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapHandle:)];
     [self.view addGestureRecognizer:tap];
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LoginBindPhoneView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LoginBindPhoneView"];
 }
 
 #pragma mark - getter

@@ -7,7 +7,7 @@
 //
 
 #import "SKSearckDisplayController.h"
-
+#import "MobClick.h"
 @implementation SKSearckDisplayController
 
 - (id)initWithSearchBar:(UISearchBar *)searchBar contentsController:(UIViewController *)viewController

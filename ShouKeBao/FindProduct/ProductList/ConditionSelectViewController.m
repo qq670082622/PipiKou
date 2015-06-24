@@ -8,6 +8,7 @@
 
 #import "ConditionSelectViewController.h"
 #import "WriteFileManager.h"
+#import "MobClick.h"
 @interface ConditionSelectViewController ()
 @property (nonatomic,copy)NSMutableString *passValue;
 @property (nonatomic,copy)NSMutableString *selectKey;
@@ -189,11 +190,16 @@ return cell;
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick beginLogPageView:@"FindProductConditionSelectView"];
     
    [self.delegate passKey:_selectKey andValue:_passValue andSelectIndexPath:self.superViewSelectIndexPath andSelectValue:_selectValue];
     
     }
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"FindProductConditionSelectView"];
+    
+}
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {

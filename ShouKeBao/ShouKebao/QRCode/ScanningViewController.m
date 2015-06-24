@@ -22,6 +22,7 @@
 #import "personIdModel.h"
 #import "WriteFileManager.h"
 #import "StrToDic.h"
+#import "MobClick.h"
 @interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
@@ -286,7 +287,8 @@
 {
     [super viewWillAppear:animated];
    // [self defaultToNotifiQRDStartRunning];
-    
+    [MobClick beginLogPageView:@"ShouKeBaoScanningView"];
+
    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
@@ -311,7 +313,9 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    }
+    [MobClick endLogPageView:@"ShouKeBaoScanningView"];
+
+}
 
 
 

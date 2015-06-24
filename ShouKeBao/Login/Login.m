@@ -23,6 +23,7 @@
 #import "BindPhoneViewController.h"
 #import "TravelLoginController.h"
 #import "ScanningViewController.h"
+#import "MobClick.h"
 @interface Login () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -58,7 +59,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-  
+    [MobClick beginLogPageView:@"Login"];
+    
     self.nameLab.text = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyPoneNum];
     
     self.navigationController.navigationBar.hidden = YES;
@@ -68,6 +70,8 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Login"];
+
     if (!self.isModal) {
         self.navigationController.navigationBar.hidden = NO;
     }

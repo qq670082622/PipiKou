@@ -9,7 +9,7 @@
 #import "PersonIDViewController.h"
 #import "ScanningViewController.h"
 #import <AVFoundation/AVFoundation.h>
-
+#import "MobClick.h"
 @interface PersonIDViewController ()
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 
@@ -119,6 +119,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoPersonIDView"];
+    [MobClick endLogPageView:@"ShouKeBaoPersonIDView"];
+
 //    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 //    [def setObject:@"0" forKey:@"needLoad"];
 //    [def synchronize];

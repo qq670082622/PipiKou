@@ -12,6 +12,7 @@
 
 #import "YYAnimationIndicator.h"
 #import "BeseWebView.h"
+#import "MobClick.h"
 @interface messageDetailViewController ()<UIWebViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *messgeTitle;
 @property (weak, nonatomic) IBOutlet UILabel *time;
@@ -57,12 +58,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaomessageDetailView"];
+
     
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-   
+    [MobClick endLogPageView:@"ShouKeBaomessageDetailView"];
+
 }
 
 -(void)back

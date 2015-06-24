@@ -18,6 +18,7 @@
 #import "UIViewController+HUD.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
+#import "MobClick.h"
 #define pageSize @"10"
 
 @interface RecentlyViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -88,6 +89,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoRecentlyView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
     
@@ -95,7 +97,11 @@
     
     
 }
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoRecentlyView"];
 
+}
 #pragma mark - private
 - (void)loadDataSource
 {

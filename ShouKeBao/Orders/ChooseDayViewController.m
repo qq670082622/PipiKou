@@ -10,6 +10,7 @@
 #import "CalendarViewController.h"
 #import "WMNavigationController.h"
 #import "WMAnimations.h"
+#import "MobClick.h"
 @interface ChooseDayViewController ()<CalendarViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -70,10 +71,14 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"OrdersChooseDayView"];
 
 }
 
-
+-(void)viewWillAppear:(BOOL)animated{
+    [super  viewWillAppear:animated];
+    [MobClick beginLogPageView:@"OrdersChooseDayView"];
+}
 #pragma mark - getter
 -(NSMutableArray *)buttonsArr
 {

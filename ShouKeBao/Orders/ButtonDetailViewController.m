@@ -10,6 +10,7 @@
 
 #import "MBProgressHUD+MJ.h"
 #import "BeseWebView.h"
+#import "MobClick.h"
 #define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ButtonDetailViewController()<UIWebViewDelegate>
 
@@ -50,6 +51,14 @@
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
    }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"OrdersButtonDetailView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"OrdersButtonDetailView"];
+}
 
 - (void)setRightBtn{
     self.rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40,20)];
@@ -62,16 +71,6 @@
     self.navigationItem.rightBarButtonItem = rightItem;
     self.rightButton.hidden = YES;
 
-}
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-   
-}
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-   
 }
 
 #pragma -mark private

@@ -13,6 +13,7 @@
 #import "StationSelect.h"
 #import "SearchProductViewController.h"
 #import "WMAnimations.h"
+#import "MobClick.h"
 #import "RecommendViewController.h"
 @interface RecomViewController ()
 
@@ -126,6 +127,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoRecomView"];
+
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     searchBtn.frame = CGRectMake(0, 0, 15, 15);
   //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill];
@@ -148,6 +151,11 @@
     
     
     [self.navigationItem setRightBarButtonItems:@[searchItem,stationItem] animated:YES];
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super   viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoRecomView"];
+
 }
 -(void)changeStation
 {

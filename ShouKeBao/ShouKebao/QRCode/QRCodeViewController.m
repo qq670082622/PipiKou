@@ -12,6 +12,7 @@
 #import "WMAnimations.h"
 #import "ProduceDetailViewController.h"
 #import "ScanningViewController.h"
+#import "MobClick.h"
 @interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
@@ -71,7 +72,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-  
+    [MobClick beginLogPageView:@"ShouKeBaoQRCodeView"];
+
     [self.captureSession startRunning];//当QR被父vc remove时候关闭识别，当被添加的时候打开识别
 
 }
@@ -79,6 +81,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoQRCodeView"];
+
        [self.captureSession stopRunning];
 }
 

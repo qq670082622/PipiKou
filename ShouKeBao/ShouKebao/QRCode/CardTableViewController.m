@@ -12,6 +12,7 @@
 #import "StrToDic.h"
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
+#import "MobClick.h"
 @interface CardTableViewController ()<UITextFieldDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
@@ -80,6 +81,14 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
 
+}
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"ShouKeBaoCardTableView"];
+}
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"ShouKeBaoCardTableView"];
 }
 
 -(void)back

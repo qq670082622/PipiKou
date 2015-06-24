@@ -190,7 +190,6 @@
 		632EDE9B1AC8FC6300EE98FC /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632EDE9A1AC8FC6300EE98FC /* CoreGraphics.framework */; };
 		632EDE9D1AC8FC6B00EE98FC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632EDE9C1AC8FC6B00EE98FC /* Foundation.framework */; };
 		632EDE9F1AC8FC7300EE98FC /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 632EDE9E1AC8FC7300EE98FC /* UIKit.framework */; };
-		632EDEA11AC8FC8300EE98FC /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 632EDEA01AC8FC8300EE98FC /* libz.dylib */; };
 		632EDEAC1AC8FF4D00EE98FC /* libPushSDK-1.8.3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 632EDEAB1AC8FF4D00EE98FC /* libPushSDK-1.8.3.a */; };
 		632EDEAE1AC9009000EE98FC /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = 632EDEAD1AC9009000EE98FC /* PushConfig.plist */; };
 		633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263BE1AB851590021553B /* AFHTTPRequestOperation.m */; };
@@ -940,7 +939,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				636C8B891AC2E23C0097CAE9 /* MessageUI.framework in Frameworks */,
-				632EDEA11AC8FC8300EE98FC /* libz.dylib in Frameworks */,
 				636C8B871AC2E22D0097CAE9 /* Security.framework in Frameworks */,
 				636C8B7D1AC2E1F90097CAE9 /* SystemConfiguration.framework in Frameworks */,
 				63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */,

@@ -20,7 +20,7 @@
 #import "WMNavigationController.h"
 #import "ChildCell.h"
 #import "AppDelegate.h"
-
+#import "MobClick.h"
 @interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,CreatePersonControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -49,9 +49,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"LogibChildAccountView"];
     
 }
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"LogibChildAccountView"];
 
+}
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {

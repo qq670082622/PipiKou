@@ -9,6 +9,7 @@
 #import "AreaViewController.h"
 #import "OrderTool.h"
 
+#import "MobClick.h"
 @interface AreaViewController ()
 
 @property (nonatomic,assign) BOOL isSeleted;
@@ -31,12 +32,17 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick beginLogPageView:@"OrdersAreaViewController"];
+
     if (_delegate && [_delegate respondsToSelector:@selector(didSelectAreaWithValue:Type:atIndex:isSelected:)]) {
         [_delegate didSelectAreaWithValue:self.chooseDic Type:self.type atIndex:self.chooseIndex isSelected:self.isSeleted];
     }
 }
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [MobClick endLogPageView:@"OrdersAreaViewController"];
 
+}
 #pragma mark - private
 - (void)configure
 {
