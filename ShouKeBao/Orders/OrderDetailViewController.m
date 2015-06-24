@@ -8,7 +8,7 @@
 
 #import "OrderDetailViewController.h"
 #import "OrderModel.h"
-#import "Lotuseed.h"
+
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "BeseWebView.h"
@@ -63,12 +63,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"orderDetail"];
-}
+   }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"orderDetail"];
+    
 }
 
 #pragma -mark private

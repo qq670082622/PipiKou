@@ -24,8 +24,7 @@
 #import "MeHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "WelcomeView.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
+
 #import "FeedBcakViewController.h"
 #import "ResizeImage.h"
 #import "IWHttpTool.h"
@@ -90,8 +89,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page5Click" attributes:@{@"stationName":par.stationName}];
+   
     _meheader.nickName.text = [UserInfo shareUser].userName;
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
@@ -120,8 +118,6 @@
 // 设置固定时间段免打扰
 - (void)changePushMode:(UISwitch *)modeSwitch
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page5DisturbSwitch" attributes:@{@"value":[NSString stringWithFormat:@"%d",modeSwitch.on],@"stationName":par.stationName}];
     
     NSDictionary *param = @{@"DisturbSwitch":[NSString stringWithFormat:@"%d",modeSwitch.on]};
     [MeHttpTool setDisturbSwitchWithParam:param success:^(id json) {
@@ -178,8 +174,7 @@
         OrgSettingViewController *org = [sb instantiateViewControllerWithIdentifier:@"OrgSetting"];
         [self.navigationController pushViewController:org animated:YES];
     }
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page5MeSetting" attributes:@{@"stationName":par.stationName}];
+  
 }
 
 // 点击头像上传照片
@@ -192,26 +187,25 @@
 #pragma mark - MeButtonViewDelegate
 - (void)buttonViewSelectedWithIndex:(NSInteger)index
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    switch (index) {// 我的收藏
+       switch (index) {// 我的收藏
         case 0:{
             MyListViewController *col = [[MyListViewController alloc] init];
             col.listType = collectionType;
-            [Lotuseed onEvent:@"page5MeCollection" attributes:@{@"stationName":par.stationName}];
+           
             [self.navigationController pushViewController:col animated:YES];
             break;
         }
         case 1:{ // 我的浏览
             MyListViewController *pre = [[MyListViewController alloc] init];
             pre.listType = previewType;
-            [Lotuseed onEvent:@"page5MeHadSeen" attributes:@{@"stationName":par.stationName}];
+            
             [self.navigationController pushViewController:pre animated:YES];
             break;
         }
         case 2:{ // 搬救兵
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
             SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
-            [Lotuseed onEvent:@"page5Sos" attributes:@{@"stationName":par.stationName}];
+            
             [self.navigationController pushViewController:sos animated:YES];
             break;
         }
@@ -230,8 +224,7 @@
     
     NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
     
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page5Tap3sToSos" attributes:@{@"stationName":par.stationName}];
+  
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
 
@@ -311,8 +304,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    // 下面的四个
+       // 下面的四个
     if (indexPath.section == 2) {
         switch (indexPath.row) {
             case 0:{
@@ -320,14 +312,14 @@
                 break;
             }
             case 1:{
-                [Lotuseed onEvent:@"page5FeedBack" attributes:@{@"stationName":par.stationName}];
+              
                 FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
                 [self.navigationController pushViewController:feedBackVC animated:YES];
                 break;
             }
                 
             case 2:{
-                [Lotuseed onEvent:@"page5AboutLvYouQuan" attributes:@{@"stationName":par.stationName}];
+                
                 UIWindow *window = [UIApplication sharedApplication].delegate.window;
                 WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
                 welceome.alpha = 0;
@@ -340,7 +332,7 @@
                 break;
             }
             case 3:{
-                [Lotuseed onEvent:@"page5TalkApp" attributes:@{@"stationName":par.stationName}];
+               
                 UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"需要发布之后, 才能到appstore评分" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
 //                NSString *str = [NSString stringWithFormat:
@@ -350,8 +342,7 @@
                 break;
             }
             case 4:{
-                [Lotuseed onEvent:@"page5Inspection" attributes:@{@"stationName":par.stationName}];
-//                InspectionViewController * InspectionVC = [sb instantiateViewControllerWithIdentifier:@"InspectionViewController"];
+               //                InspectionViewController * InspectionVC = [sb instantiateViewControllerWithIdentifier:@"InspectionViewController"];
 //                [self.navigationController pushViewController:InspectionVC animated:YES];
                 
             
@@ -387,7 +378,7 @@
             }
         }else{
             // 第二组 单个 账号安全
-            [Lotuseed onEvent:@"page5AccountSafe" attributes:@{@"stationName":par.stationName}];
+          
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
             SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
             safe.isPerson = self.isPerson;
@@ -528,8 +519,7 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];
     [def synchronize];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page5ChangeIcon" attributes:@{@"stationName":par.stationName}];
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 

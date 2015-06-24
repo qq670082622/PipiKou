@@ -9,7 +9,7 @@
 #import "QuanViewController.h"
 #import "MeHttpTool.h"
 #import "UINavigationController+SGProgress.h"
-#import "Lotuseed.h"
+
 #import "BeseWebView.h"
 #import "SubstationParttern.h"
 @interface QuanViewController () <UIWebViewDelegate>
@@ -58,13 +58,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"quanFuBao"];
     
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"quanFuBao"];
+
 }
 // 先一个个页面设置吧 以后再搞一起的
 - (void)setNav
@@ -89,8 +88,7 @@
             [self.webView goBack];
         }
         else  {
-            SubstationParttern *par = [SubstationParttern sharedStationName];
-            [Lotuseed onEvent:@"quanFuBaoBack" attributes:@{@"stationName":par.stationName}];
+           
             [self.navigationController popViewControllerAnimated:YES];
         }
     

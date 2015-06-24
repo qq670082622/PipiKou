@@ -17,7 +17,7 @@
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
-#import "Lotuseed.h"
+
 #import "SubstationParttern.h"
 #import "NSString+QD.h"
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh>
@@ -123,9 +123,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page4Click" attributes:@{@"stationName":par.stationName}];
-    self.subView.hidden = YES;
+      self.subView.hidden = YES;
    
     
     
@@ -202,8 +200,7 @@
 }
 
 - (IBAction)addNewUser:(id)sender {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"addNewCustomer" attributes:@{@"stationName":par.stationName}];
+    
     self.subView.hidden = YES;
     addCustomerViewController *add = [[addCustomerViewController alloc] init];
     add.delegate = self;
@@ -222,8 +219,7 @@
 }
 
 - (IBAction)importUser:(id)sender {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"batchCustomers" attributes:@{@"stationName":par.stationName}];
+ 
     NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
     if ([systemVersion intValue]<8.0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
@@ -572,8 +568,7 @@
         }];
         
    }else if (self.subView.hidden == YES){
-       SubstationParttern *par = [SubstationParttern sharedStationName];
-       [Lotuseed onEvent:@"CustomerSearch" attributes:@{@"stationName":par.stationName}];
+      
        self.imageViewWhenIsNull.hidden = YES;
     self.searchTextField.hidden = NO;
     self.cancelSearchOutlet.hidden = NO;

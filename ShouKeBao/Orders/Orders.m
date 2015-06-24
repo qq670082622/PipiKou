@@ -30,7 +30,7 @@
 #import "UIImage+QD.h"
 #import "ArrowBtn.h"
 #import "NullContentView.h"
-#import "Lotuseed.h"
+
 #import "SubstationParttern.h"
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
@@ -151,8 +151,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page3Click" attributes:@{@"stationName":par.stationName}];
+  
 }
 
 - (void)dealloc
@@ -304,9 +303,7 @@
 
 // 点击筛选
 - (void)selectAction
-{SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"OrderSelectClickAction" attributes:@{@"stationName":par.stationName}];
-    UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+{    UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dressTapHandle:)];
     tap.delegate = self;
@@ -318,7 +315,7 @@
     [cover addSubview:self.dressView];
     [self.view.window addSubview:cover];
     
-    [Lotuseed onEvent:@"page3ClickToScreening" attributes:@{@"stationName":par.stationName}];
+    
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
     }];
@@ -420,8 +417,7 @@
  *  删除出现的列表
  */
 - (void)removeMenu:(UITapGestureRecognizer *)ges
-{SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"deleteOrder" attributes:@{@"stationName":par.stationName}];
+{
     [self removeMenuFunc];
 }
 
@@ -599,8 +595,7 @@
 #pragma mark - QDMenuDelegate
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    if (menu.direct == 0) {// 时间筛选
+        if (menu.direct == 0) {// 时间筛选
         NSString *title = menu.dataSource[indexPath.row][@"Text"];
         self.menuButton.leftBtn.text = title;
         
@@ -609,7 +604,7 @@
         self.LselectedIndex = indexPath.row;
         [self.tableView headerBeginRefreshing];
        
-        [Lotuseed onEvent:@"orderClickLeftTimeMenu" attributes:@{@"name":_choosedTime,@"stationName":par.stationName}];
+       
     }else{// 状态筛选
          NSString *title = menu.dataSource[indexPath.row][@"Text"];
         self.menuButton.rightBtn.text = title;
@@ -617,7 +612,7 @@
         self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
         [self removeMenuFunc];
         self.RselectedIndex = indexPath.row;
-         [Lotuseed onEvent:@"orderClickRightStatusMenu" attributes:@{@"name":_chooseStatus,@"stationName":par.stationName}];
+        
         [self.tableView headerBeginRefreshing];
     }
 }
@@ -658,9 +653,7 @@
     OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detail.url = order.DetailLinkUrl;
     detail.title = @"订单详情";
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"page3ClickToOrderDetail" attributes:@{@"stationName":par.stationName}];
-    [self.navigationController pushViewController:detail animated:YES];
+        [self.navigationController pushViewController:detail animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
@@ -948,10 +941,7 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"orderSearch" attributes:@{@"stationName":par.stationName}];
-    
-    [self.searchDisplayController setActive:NO animated:YES];
+      [self.searchDisplayController setActive:NO animated:YES];
     
     if (self.searchKeyWord.length) {
         [searchBar endEditing:YES];

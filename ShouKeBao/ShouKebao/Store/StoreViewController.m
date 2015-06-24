@@ -11,7 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
-#import "Lotuseed.h"
+
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
@@ -94,12 +94,11 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"Store"];
-}
+    }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"Store"];
+    
 }
 
 #pragma -mark getter
@@ -175,7 +174,7 @@
 - (IBAction)checkCheapPrice{
     if (self.checkCheapBtnOutlet.selected == NO) {
       
-        [Lotuseed onEvent:@"productDetailCheckCheapPrice"];
+      
         
         [self.checkCheapBtnOutlet setSelected:YES];
         self.subView.hidden = NO;

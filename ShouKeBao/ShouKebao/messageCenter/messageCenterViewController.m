@@ -13,8 +13,7 @@
 #import "HomeHttpTool.h"
 #import "WriteFileManager.h"
 #import "IWHttpTool.h"
-#import "Lotuseed.h"
-#import "SubstationParttern.h"
+
 #import "WriteFileManager.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -175,8 +174,7 @@
         [WriteFileManager WMsaveData:_isReadArr name:@"messageRead"];
     }
     
-    SubstationParttern *par = [SubstationParttern sharedStationName];
-    [Lotuseed onEvent:@"messageCenterClickToMessageDetail" attributes:@{@"subStationName":par.stationName}];
+   
     
     [self.navigationController pushViewController:messageDetail animated:YES];
     

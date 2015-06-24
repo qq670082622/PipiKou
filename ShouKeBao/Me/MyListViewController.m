@@ -15,7 +15,7 @@
 #import "ProductHistoryCell.h"
 #import "MBProgressHUD+MJ.h"
 #import "ProduceDetailViewController.h"
-#import "Lotuseed.h"
+
 #define pageSize 10
 
 @interface MyListViewController ()<MGSwipeTableCellDelegate>
@@ -45,12 +45,12 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [Lotuseed onPageViewBegin:@"HistoryList"];
+  
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [Lotuseed onPageViewEnd:@"HistoryList"];
+   
 }
 #pragma mark - loadDataSource
 - (void)loadDataSource
@@ -221,7 +221,7 @@
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
     
-    [Lotuseed onEvent:@"cancleFavorite"];
+   
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
 
     ProductModal *model = self.dataSource[indexPath.row];

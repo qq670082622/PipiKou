@@ -8,7 +8,7 @@
 
 #import "MinMaxPriceSelectViewController.h"
 #import "WMAnimations.h"
-#import "Lotuseed.h"
+
 @interface MinMaxPriceSelectViewController ()<UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *minPrice;
 @property (weak, nonatomic) IBOutlet UITextField *maxPrice;
@@ -101,7 +101,7 @@
 {
     [super viewWillDisappear:animated];
     [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
-    [Lotuseed onEvent:@"productListPriceClick" attributes:@{@"minPrice":self.minPrice.text,@"maxPrice":self.maxPrice.text}];
+   
 }
 
 - (IBAction)cancle:(id)sender {
