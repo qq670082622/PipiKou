@@ -87,9 +87,7 @@
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
-    if (_needOpenShare) {
-        [self shareIt:nil];
-    }
+    
 }
 
 #pragma  -mark VC Life
@@ -215,6 +213,9 @@
 
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     self.coverView.hidden = YES;
+    if (_needOpenShare) {
+        [self shareIt:nil];
+    }
        NSString *rightStr = webView.request.URL.absoluteString;
         
     

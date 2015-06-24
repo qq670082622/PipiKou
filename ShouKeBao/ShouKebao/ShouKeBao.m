@@ -114,7 +114,7 @@
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
     [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.SKBNewBtn addTarget:self action:@selector(pushToStore) forControlEvents:UIControlEventTouchUpInside];
+    [self.SKBNewBtn addTarget:self action:@selector(pushToStoreFromButton) forControlEvents:UIControlEventTouchUpInside];
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
@@ -847,11 +847,20 @@
     store.PushUrl = _shareLink;
      SubstationParttern *par = [SubstationParttern sharedStationName];
    
+    
+    [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
+    [self.navigationController pushViewController:store animated:YES];
+}
+-(void)pushToStoreFromButton
+{
+    StoreViewController *store =  [[StoreViewController alloc] init];
+    store.PushUrl = _shareLink;
+    SubstationParttern *par = [SubstationParttern sharedStationName];
+    
     store.needOpenShare = YES;
     [Lotuseed onEvent:@"page1ClickToStore" attributes:@{@"stationName":par.stationName}];
     [self.navigationController pushViewController:store animated:YES];
 }
-
 - (void)changeStation{
      SubstationParttern *par = [SubstationParttern sharedStationName];
     [Lotuseed onEvent:@"page1ChangeStation" attributes:@{@"stationName":par.stationName}];
@@ -1121,7 +1130,14 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self nitifiToPushRecommendListWithUrl];
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
         
-    }else{//客户提醒
+    }else if ([model.model isKindOfClass:[messageModel class]]){
+        messageDetailViewController *msgDetail = [[messageDetailViewController alloc] init];
+        messageModel *msg = model.model;
+        msgDetail.messageURL = msg.LinkUrl;
+        [self.navigationController pushViewController:msgDetail animated:YES];
+        
+    }
+    else{//客户提醒
         remondModel *r = model.model;
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
         remondDetail.time = r.RemindTime;
