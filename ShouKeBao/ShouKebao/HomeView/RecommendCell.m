@@ -157,7 +157,7 @@
         [imgv addGestureRecognizer:tap];
 
         imgv.frame = CGRectMake(0, 0, IMGw, IMGH);
-        [imgv setTag:1];
+        [imgv setTag:0];
         
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/3)];
         backView.backgroundColor = [UIColor blackColor];
@@ -198,7 +198,7 @@
 
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
             [imgv addGestureRecognizer:tap];
-            [imgv setTag:4];
+            [imgv setTag:i];
             
             UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, imgW*2/3, imgW, imgW/3)];
             backView.backgroundColor = [UIColor blackColor];
@@ -254,7 +254,7 @@
     
     //取当前arr中的picUrl为标示
     NSString *markStr = self.photosArr[yesInt][@"PicUrl"];//取单个产品的三级区域名称
-     NSLog(@"点击了排第%d个，它的pic url is %@",yesInt,markStr);
+     NSLog(@"点击了排第%d个，它的PushId is %@",yesInt,markStr);
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:markStr forKey:@"markStr"];

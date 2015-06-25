@@ -177,13 +177,13 @@
      底下的三个按钮
      */
     CGFloat jY = CGRectGetMaxY(self.cheapPrice.frame) + 10;
-    //默认宽为55
-    CGFloat jW = self.fanIsZero ? 55 : 0 ;
-    CGFloat qW = self.quanIsZero ? 55 : 0 ;
+    //默认宽为60
+    CGFloat jW = self.fanIsZero ? 60 : 0 ;
+    CGFloat qW = self.quanIsZero ? 60 : 0 ;
     
     self.jiafanBtn.frame = CGRectMake(pX, jY, jW, 15);//加返按钮
     
-    CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame)+10;
+    CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame)+5;
     self.quanBtn.frame = CGRectMake(qX, jY, qW, 15);//券
     
     // 闪电
@@ -326,8 +326,8 @@
     /**
      *  底部按钮
      */
-    [self.jiafanBtn setTitle:[NSString stringWithFormat:@"    ￥%@",modal.PersonBackPrice] forState:UIControlStateNormal];
-    [self.quanBtn setTitle:[NSString stringWithFormat:  @"    ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
+    [self.jiafanBtn setTitle:[NSString stringWithFormat:@"      ￥%@",modal.PersonBackPrice] forState:UIControlStateNormal];
+    [self.quanBtn setTitle:[NSString stringWithFormat:  @"      ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
     [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发",modal.StartCityName] forState:UIControlStateNormal];
     if ([modal.StartCityName isEqualToString:@"不限"]) {
         [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发地",modal.StartCityName] forState:UIControlStateNormal];
