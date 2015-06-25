@@ -214,12 +214,11 @@
         }else{
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [LoginTool applyOpenSkbWithParam:param success:^(id json) {
-            
+            [MBProgressHUD showSuccess:@"申请成功"];
             if ([json[@"IsSuccess"] integerValue] == 1) {
                 // 通知代理
                 if (self.delegate && [self.delegate respondsToSelector:@selector(didFinishCreateSkb:)]) {
                     [self.delegate didFinishCreateSkb:self];
-                    [MBProgressHUD showSuccess:@"申请成功"];
                 }
                 
             }else{

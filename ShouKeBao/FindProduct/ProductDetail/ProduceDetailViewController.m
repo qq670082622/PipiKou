@@ -190,7 +190,12 @@
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
     if ([rightUrl containsString:@"tel:"]) {
-        [self.webView reload];
+//        [self.webView reload];
+        [self.webView stopLoading];
+        NSString * phone = @"15838378342";
+        NSString *phonen = [NSString stringWithFormat:@"tel://%@",phone];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
+
     }else{
         [_indicator startAnimation];
     }
