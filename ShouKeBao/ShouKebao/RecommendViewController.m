@@ -365,9 +365,9 @@
 {
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
     if ([tag isEqualToString:@"1"]) {
-        return  250;
+        return  260;
     }else{
-          return 230;
+          return 220;
     }
     
     

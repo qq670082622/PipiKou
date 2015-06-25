@@ -242,7 +242,7 @@
    
 
     CGFloat lineToX = self.todayBtnOutlet.frame.size.width/2;
-    CGFloat lineToY = CGRectGetMaxY(self.todayBtnOutlet.frame)+1;
+    CGFloat lineToY = CGRectGetMaxY(self.todayBtnOutlet.frame)+2;
    CGPoint to = CGPointMake(lineToX,lineToY);
    
     [WMAnimations WMAnimationToMoveWithTableLayer:self.moveLine.layer andFromPiont:self.normalPoint ToPoint:to];
@@ -270,7 +270,7 @@
     
     
     CGFloat lineToX = self.yesterdayBtnOutlet.frame.origin.x + self.yesterdayBtnOutlet.frame.size.width/2;
-    CGFloat lineToY = CGRectGetMaxY(self.yesterdayBtnOutlet.frame)+1;
+    CGFloat lineToY = CGRectGetMaxY(self.yesterdayBtnOutlet.frame)+2;
     CGPoint from =  self.normalPoint;
     CGPoint to = CGPointMake(lineToX,lineToY);
     [WMAnimations WMAnimationToMoveWithTableLayer:self.moveLine.layer andFromPiont:from ToPoint:to];
@@ -307,7 +307,7 @@
     
     
     CGFloat lineToX = self.recentlyBtnOutlet.frame.origin.x + self.recentlyBtnOutlet.frame.size.width/2;
-    CGFloat lineToY = CGRectGetMaxY(self.recentlyBtnOutlet.frame)+1;
+    CGFloat lineToY = CGRectGetMaxY(self.recentlyBtnOutlet.frame)+2;
     CGPoint from = self.normalPoint;
     CGPoint to = CGPointMake(lineToX,lineToY);
     [WMAnimations WMAnimationToMoveWithTableLayer:self.moveLine.layer andFromPiont:from ToPoint:to];
