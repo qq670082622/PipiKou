@@ -523,7 +523,7 @@
         type = [NSString stringWithFormat:@"%@",_selectIndex];
     }
     
-    if (type == 0) {
+    if ([type isEqualToString:@"0"]) {
         [self.commondOutlet setSelected:YES];
     }
     if ( [type isEqualToString:@"1"]) {
@@ -623,7 +623,7 @@
         type = [NSString stringWithFormat:@"%@",_selectIndex];
     }
 
-        if (type == 0) {
+        if ([type isEqualToString:@"0"]) {
             [self.commondOutlet setSelected:YES];
         }
         if ( [type isEqualToString:@"1"]) {

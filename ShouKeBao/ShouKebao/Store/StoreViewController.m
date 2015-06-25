@@ -16,7 +16,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
-#define urlSuffix @"?isfromapp=1&apptype=1"
+
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
 @property (weak, nonatomic) IBOutlet UIButton *checkCheapBtnOutlet;
@@ -44,6 +44,7 @@
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 
 @property(nonatomic,weak) UILabel *warningLab;
+@property(nonatomic,copy) NSString *urlSuffix;
 @end
 
 @implementation StoreViewController
@@ -52,8 +53,12 @@
     [super viewDidLoad];
     
     self.title = @"店铺详情";
-       NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
-    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+     NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    self.urlSuffix = urlSuffix;
+    NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
+    NSLog(@"push uRL IS %@ version is %@",_PushUrl,urlSuffix);
     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     
  
@@ -194,16 +199,16 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
    
-//    NSString *rightUrl = request.URL.absoluteString;
-//    NSRange range = [rightUrl rangeOfString:urlSuffix];
-//    if (range.location == NSNotFound) {
-//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
-//    }else{
+    NSString *rightUrl = request.URL.absoluteString;
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];
+    if (range.location == NSNotFound) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+    }else{
         self.coverView.hidden = NO;
         [_indicator startAnimation];
 
         return YES;
-   // }
+    }
     
  
     return YES;

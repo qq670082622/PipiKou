@@ -17,14 +17,17 @@
 
 @implementation RecommendCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView
++ (instancetype)cellWithTableView:(UITableView *)tableView withTag:(NSInteger)tag;
 {
-    static NSString *ID = @"recommendcell";
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+   // static NSString *ID = @"recommendcell";
+  
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
     if (!cell) {
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        [cell removeFromSuperview];
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
         
     }
+    
     return cell;
 }
 
@@ -73,7 +76,7 @@
 {
     [super layoutSubviews];
     
-    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+      CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
     CGRect rect = self.leftLab.frame;
     rect.size.width = screenW - 35 - 30;
@@ -110,7 +113,7 @@
             UIImageView *imgv = [[UIImageView alloc] init];
             [imgv sd_setImageWithURL:[NSURL URLWithString:self.photosArr[i][@"PicUrl"]]];
             imgv.frame = CGRectMake(imgvX, imgvY, imgW, imgW);
-            [imgv setTag:(int)self.photosArr[i]];
+            [imgv setTag:i];
             imgv.userInteractionEnabled = YES;
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
             [imgv addGestureRecognizer:tap];
@@ -151,7 +154,8 @@
         [imgv addGestureRecognizer:tap];
 
         imgv.frame = CGRectMake(0, 0, IMGw, IMGH);
-
+        [imgv setTag:1];
+        
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, IMGH-(imgW/3), IMGw, imgW/3)];
         backView.backgroundColor = [UIColor blackColor];
         backView.alpha = 0.5;
@@ -190,7 +194,7 @@
 
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapIMG:)];
             [imgv addGestureRecognizer:tap];
-
+            [imgv setTag:4];
             
             UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, imgW*2/3, imgW, imgW/3)];
             backView.backgroundColor = [UIColor blackColor];
@@ -229,24 +233,24 @@
     int selectTag  = (int)sender.view.tag;
     NSArray *arr =  self.imgSuperView.subviews;
     NSMutableArray *tagArr = [NSMutableArray array];
-    for (UIView *view in arr) {
+    for (UIImageView *view in arr) {
         [tagArr addObject:[NSString stringWithFormat:@"%ld",(long)view.tag]];
         
     }
-    
-    NSMutableArray *selectArr = [NSMutableArray array];
+    NSLog(@"tagArr si %@",tagArr);
+    NSMutableArray *indexArr = [NSMutableArray array];
     for (int i = 0; i<tagArr.count; i++) {
         if (selectTag == [tagArr[i] integerValue]) {
+           [indexArr addObject:[NSString stringWithFormat:@"%d",i] ];
            
-            [selectArr addObject:[NSString stringWithFormat:@"%d",i]];
         }
     }
     
-    int yesInt = [[selectArr firstObject] intValue];
+    int yesInt = [[indexArr firstObject]  intValue];
     
     //取当前arr中的picUrl为标示
-    NSString *markStr = self.photosArr[yesInt][@"PicUrl"];
-     NSLog(@"点击了排第%d个，它的picurl is %@",yesInt,markStr);
+    NSString *markStr = self.photosArr[yesInt][@"PicUrl"];//取单个产品的三级区域名称
+     NSLog(@"点击了排第%d个，它的pic url is %@",yesInt,markStr);
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:markStr forKey:@"markStr"];
@@ -265,8 +269,11 @@
 - (void)setRecommend:(Recommend *)recommend
 {
     _recommend = recommend;
-    
-    self.photosArr = recommend.RecommendIndexProductList;
+//    ThirdAreaName 三级区域
+//    String  PicUrl 产品图片
+//    String
+//    MinPeerPrice 最小同行价格  decimal
+    self.photosArr = recommend.RecommendIndexProductList;//photoArr 其实是数组
     
     self.iconView.image = [UIImage imageNamed:@"jinxuan"];
     

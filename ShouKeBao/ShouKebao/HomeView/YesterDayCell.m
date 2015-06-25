@@ -247,7 +247,7 @@
                                 if (state == SSResponseStateSuccess)
                                 {
                                     [self.warningLab removeFromSuperview];
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];

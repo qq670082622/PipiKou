@@ -302,8 +302,12 @@
                                 if (state == SSResponseStateSuccess)
                                 {
 //                                    [self.warningLab removeFromSuperview];
-                                   
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                   //精品推荐填1
+                                    NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+                                    [postDic setObject:@"0" forKey:@"ShareType"];
+                                    [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                    [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"0"} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];

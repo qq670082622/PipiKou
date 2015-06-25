@@ -260,9 +260,9 @@
     
     UIView *alert = [[UIView alloc] init];
     CGFloat alertX = 25;
-    CGFloat alertY = 200;
+    CGFloat alertY = [[UIScreen mainScreen] bounds].size.height/2-40;
     CGFloat alertW = [[UIScreen mainScreen] bounds].size.width - 50;
-    CGFloat alertH = 200;
+    CGFloat alertH = 250;
     alert.frame = CGRectMake(alertX, alertY, alertW, alertH);
     alert.backgroundColor = [UIColor whiteColor];
     [WMAnimations WMAnimationMakeBoarderWithLayer:alert.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
