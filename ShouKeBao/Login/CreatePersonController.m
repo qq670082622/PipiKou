@@ -184,7 +184,11 @@
                                 @"Position": self.positionField.text,
                                 @"Mobile": self.phoneField.text,
                                 @"HeadUrl":self.headIconUrl};
-        
+        if ([self.nameField.text isEqualToString:@""] || [self.positionField.text isEqualToString:@""] || [self.phoneField.text isEqualToString:@""] || [self.headIconUrl isEqualToString:@""]) {
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"请填写必要信息" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            [alert show];
+        }else{
+
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         [LoginTool createDistributionWithParam:param success:^(id json) {
             
@@ -202,6 +206,7 @@
         } failure:^(NSError *error) {
             
         }];
+    }
     }else{ // 创建收客宝
         NSDictionary *param = @{@"Domain": self.adrField.text,
                                 @"Name": self.nameField.text,
@@ -310,7 +315,10 @@
         InputhCell *cell = [InputhCell cellWithTableView:tableView];
         cell.textLabel.text = self.dataSource[indexPath.row][@"title"];
         cell.inputField.placeholder = self.dataSource[indexPath.row][@"des"];
-        
+        UILabel * lab = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 50)];
+        lab.textColor = [UIColor redColor];
+        lab.text = @"*";
+        [cell.contentView addSubview:lab];
         // 获取输入框
         switch (indexPath.row) {
             case 0:
