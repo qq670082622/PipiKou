@@ -28,6 +28,7 @@
 
 @property (nonatomic,assign) BOOL isOpenSkb;// 是否开通收客宝
 @property (nonatomic, assign)BOOL isCreat;
+@property (nonatomic, assign)BOOL isSKB;
 @end
 
 @implementation ChildAccountViewController
@@ -76,7 +77,7 @@
                     Distribution *dis = [Distribution distributionWithDict:dic];
                     [self.dataSource addObject:dis];
                 }
-                if (self.isCreat) {
+                if (self.isCreat && !self.isSKB) {
                     [self bangdingWith:self.dataSource[1]];
                 }
                 self.isCreat = NO;
@@ -263,6 +264,7 @@
 - (void)didFinishCreateSkb:(CreatePersonController *)createVc
 {
     [createVc dismissViewControllerAnimated:YES completion:nil];
+    self.isSKB = (createVc.createType == CreateSKBType) ? YES : NO;
     self.isCreat = YES;
     // 刷新数据
     [self loadDataSource];
