@@ -358,7 +358,7 @@
     //分享按钮
     CGFloat shareX = screenW - 120 - gap;
     CGFloat shareW = 120;
-    self.shareBtn.frame = CGRectMake(shareX, goLabY, shareW, 15);
+    self.shareBtn.frame = CGRectMake(shareX, goLabY, shareW, 18);
     //self.shareBtn.contentMode = UIViewContentModeScaleAspectFill;
      [self.shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 65)];
     [self.shareBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -20)];
@@ -387,11 +387,11 @@
 //        [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
 //    }
     
-    if (self.frame.size.height == 240) {
+    if (self.frame.size.height == 250) {
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
         self.isPlain = YES;
         [self layoutSubviews];
-    }else if (self.frame.size.height == 220){
+    }else if (self.frame.size.height == 230){
         [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
         self.isPlain = NO;
         [self layoutSubviews];
@@ -522,7 +522,7 @@
    
     self.descripBtn.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1];
 
-    if (self.frame.size.height == 240) {
+    if (self.frame.size.height == 250) {
        
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
     
