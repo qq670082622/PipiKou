@@ -70,49 +70,49 @@
 
 
 #pragma  - mark程序在前台时远程推送处理函数
--(void)dealPushForeground:(NSNotification *)noti
-{ //arr[0]是value arr[1]是key
-    //orderId ,userId ,recommond ,productId ,messageId
-       
-    
-    
-     NSMutableArray *message = noti.object;
-     NSLog(@"viewController 里取得值是 is %@",message);
-    
-    if ([message[0] isEqualToString:@"orderId"]) {
-        
-      self.odsValue = [NSMutableString stringWithFormat:@"%d",[self.odsValue intValue]+1];
-       
-    }
-    
-    else if ([message[0] isEqualToString:@"remind"]){
-        
-        
-        [[self.tabBarController.childViewControllers objectAtIndex:0] setBadgeValue:@"1"];
-    }
-    
-    else if ([message[0] isEqualToString:@"recommond"]){
-        
-        self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
-    }
-    
-    else if ([message[0] isEqualToString:@"productId"]){
-        
-        
-          self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
-    }
-    
-    else if ([message[0] isEqualToString:@"messageId"]){
-      self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
-    }
-    
-    else if ([message[0] isEqualToString:@"noticeType"]){
-        
-       self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
-        
-    }
-}
-
+//-(void)dealPushForeground:(NSNotification *)noti
+//{ //arr[0]是value arr[1]是key
+//    //orderId ,userId ,recommond ,productId ,messageId
+//       
+//    
+//    
+//     NSMutableArray *message = noti.object;
+//     NSLog(@"viewController 里取得值是 is %@",message);
+//    
+//    if ([message[0] isEqualToString:@"orderId"]) {
+//        
+//      self.odsValue = [NSMutableString stringWithFormat:@"%d",[self.odsValue intValue]+1];
+//       
+//    }
+//    
+//    else if ([message[0] isEqualToString:@"remind"]){
+//        
+//        
+//        [[self.tabBarController.childViewControllers objectAtIndex:0] setBadgeValue:@"1"];
+//    }
+//    
+//    else if ([message[0] isEqualToString:@"recommond"]){
+//        
+//        self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
+//    }
+//    
+//    else if ([message[0] isEqualToString:@"productId"]){
+//        
+//        
+//          self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
+//    }
+//    
+//    else if ([message[0] isEqualToString:@"messageId"]){
+//      self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
+//    }
+//    
+//    else if ([message[0] isEqualToString:@"noticeType"]){
+//        
+//       self.skbValue = [NSMutableString stringWithFormat:@"%d",[self.skbValue intValue]+1];
+//        
+//    }
+//}
+//
 
 - (void)addChildVc:(UIViewController *)childVc title:(NSString *)title image:(NSString *)image selectedImage:(NSString *)selectedImage
 {

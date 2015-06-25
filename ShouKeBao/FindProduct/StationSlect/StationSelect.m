@@ -108,7 +108,8 @@
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
    [accountDefaults setObject:_stationNum forKey:UserInfoKeySubstation];
     [accountDefaults setObject:_stationName forKey:@"SubstationName"];
-    [accountDefaults setObject:@"yes" forKey:@"stationSelect"];
+    [accountDefaults setObject:@"yes" forKey:@"stationSelect"];//改变分站时通知Findproduct刷新列表
+    [accountDefaults setObject:@"yes" forKey:@"stationSelect2"];//改变分站时通知首页刷新列表
     [accountDefaults synchronize];
     
     [self.table reloadData];

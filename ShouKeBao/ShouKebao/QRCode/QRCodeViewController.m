@@ -53,8 +53,8 @@
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
     
     CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
-    CGFloat viewH = screenH - 157;
-    
+    //CGFloat viewH = screenH - 157;
+    CGFloat viewH = screenH ;
     self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
     [self startReading];
 }

@@ -333,7 +333,7 @@
         [self.navigationController pushViewController:detail animated:YES];
     }
     
-    else if ([message[0] isEqualToString:@"remind"]){
+    else if ([message[0] isEqualToString:@"remind"]){//客户提醒
     //跳remindDetail
         NSString *remindTime = message[1];
         NSString *remindContent = message[2];
@@ -344,10 +344,10 @@
         [self.navigationController pushViewController:remindDetail animated:YES];
     }
     
-    else if ([message[0] isEqualToString:@"recommond"]){
+    else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
         //精品推荐界面
         //无需参数，直接跳转到精品推荐
-        RecommendViewController *rec = [[RecommendViewController alloc] init];
+        RecomViewController *rec = [[RecomViewController alloc] init];
         [self.navigationController pushViewController:rec animated:YES];
     }
     
@@ -359,7 +359,7 @@
         [self.navigationController pushViewController:detail animated:YES];
     }
     
-    else if ([message[0] isEqualToString:@"messageId"]){
+    else if ([message[0] isEqualToString:@"messageId"]){//公告
         //进入h5
         NSString *messageURL = message[2];
         messageDetailViewController *messageDetail = [[messageDetailViewController alloc] init];
@@ -573,17 +573,21 @@
     
     [self getNotifiList];
     
-//    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
-//    NSString *subStationName = [udf stringForKey:@"SubstationName"];
-//    if (subStationName) {
-//        [self.stationName setTitle:subStationName forState:UIControlStateNormal];
-//    }else{
-//        [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
-//    }
+
     
     [self getStationName];
     
     [self setUpNavBarView];
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *str = [def objectForKey:@"stationSelect2"];
+    if ([str isEqualToString:@"yes"]) {
+        [self loadContentDataSource];
+       
+        [def setObject:@"no" forKey:@"stationSelect2"];
+        [def synchronize];
+    }
+
 }
 
 
