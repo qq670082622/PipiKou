@@ -136,6 +136,8 @@
             lab2.font = [UIFont systemFontOfSize:11];
             lab2.textAlignment = NSTextAlignmentLeft;
            
+//                NSArray *subViews  = self.imgSuperView.subviews;
+//                NSLog(@"!%@ ",subViews);
             
             [imgv addSubview:backView];
             [imgv addSubview:lab];
