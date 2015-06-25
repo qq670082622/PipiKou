@@ -72,7 +72,7 @@
 
 @property (nonatomic,strong) DressView *dressView;
 @property (nonatomic,weak) UIView *cover;
-
+@property (nonatomic, assign)BOOL isNUll;
 
 //@property (nonatomic,weak) UIView *sep1;// 开始搜索的边界线
 @property (nonatomic,weak) UIView *sep2;
@@ -166,6 +166,7 @@
 #pragma mark - loadDatasource
 - (void)loadConditionData
 {
+    self.isNUll = NO;
     [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].delegate.window animated:YES];
     [self.chooseTime removeAllObjects];
     [self.chooseStatus removeAllObjects];
@@ -198,7 +199,7 @@
 
 // 根据条件加载数据
 - (void)loadDataSuorceByCondition
-{
+{   self.isNUll = NO;
     NSString *first = self.firstValue ? self.firstValue[@"Value"] : @"0";
     NSString *second = self.secondValue ? self.secondValue[@"Value"] : @"";
     NSString *third = self.thirdValue ? self.thirdValue[@"Value"] : @"";
@@ -275,8 +276,10 @@
 
 - (void)setNullImage
 {
+    
     self.nullContentView.hidden = self.dataArr.count;
     if (!self.nullContentView.hidden) {
+        self.isNUll = YES;
         [self.nullContentView setNullContentIsSearch:self.isSearch];
     }
 }
@@ -352,6 +355,9 @@
 
 -(void)headRefresh
 {
+    if (self.isNUll) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"DressViewClickReset" object:nil];
+    }
     self.pageIndex = 1;
     self.isHeadRefresh = YES;
     [self loadDataSuorceByCondition];
@@ -830,6 +836,7 @@
 
 - (void)clickConfirm:(NSNotification *)noty
 {
+    self.isNUll = NO;
     [UIView animateWithDuration:0.3 animations:^{
         self.dressView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {

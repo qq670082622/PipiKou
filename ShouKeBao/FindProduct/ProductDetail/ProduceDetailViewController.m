@@ -34,7 +34,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchEvent)];
+    UIView * vieww = [[UIView alloc]initWithFrame:self.webView.frame];
+//    [self.webView addSubview:vieww];
+//    [vieww addGestureRecognizer:tap];
+    [self.webView addGestureRecognizer:tap];
      [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
@@ -81,6 +85,9 @@
    // [self Guide];
 
 }
+- (void)touchEvent{
+    NSLog(@"aaa");
+}
 - (void)stopIndictor:(NSNotification *)noty
 {
 //    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！欢迎回来" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
@@ -111,7 +118,6 @@
     [MobClick endLogPageView:@"ProduceDetailView"];
 
 }
-
 //第一次开机引导
 -(void)Guide
 {

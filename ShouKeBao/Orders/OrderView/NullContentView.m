@@ -58,12 +58,14 @@
 
 - (void)setNullContentIsSearch:(BOOL)isSearch
 {
+    
     if (isSearch) {
         self.textLab.text = @"咦,还未找到您的订单~";
     }else{
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"咦,您还未下单!\n您可以进入找产品进行下单哟~"];
         [attr addAttribute:NSForegroundColorAttributeName value:[UIColor lightGrayColor] range:NSMakeRange(9, 14)];
         self.textLab.attributedText = attr;
+        
     }
 }
 
