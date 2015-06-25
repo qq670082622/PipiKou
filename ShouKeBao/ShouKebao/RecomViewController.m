@@ -33,6 +33,7 @@
 
 @property (strong,nonatomic) UIBarButtonItem *leftItem;
 @property (strong,nonatomic) UIBarButtonItem *rightItem;
+@property (weak, nonatomic) IBOutlet UIScrollView *scrolView;
 
 //@property(nonatomic,strong) TodayViewController *todayVC;
 @property(nonatomic,strong) YesterdayViewController *yesterdayVC;
@@ -67,6 +68,7 @@
     
     self.selectIndex = 0;
     [self addGes];
+    
    
 }
 
@@ -177,7 +179,13 @@
     if (_todayVC == nil) {
         self.todayVC = [[RecommendViewController alloc] init];
         [self addChildViewController:_todayVC];
+//        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
+//        CGFloat viewH = self.controllerView.frame.size.height;
+//        CGFloat viewY = self.controllerView.frame.origin.y;
+//        self.todayVC.view.frame = CGRectMake(0, viewY, viewW, viewH);
+//        [self.view addSubview:self.todayVC.view];
         self.todayVC.view.frame = self.controllerView.frame;
+  
     }
     return _todayVC;
 }
@@ -188,6 +196,14 @@
         self.yesterdayVC = [[YesterdayViewController alloc] init];
         [self addChildViewController:_yesterdayVC];
         self.yesterdayVC.view.frame = self.controllerView.frame;
+//        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
+//        CGFloat viewH = self.controllerView.frame.size.height;
+//        CGFloat viewY = self.controllerView.frame.origin.y;
+//      
+//        self.yesterdayVC.view.frame = CGRectMake(viewW, viewY, viewW, viewH);
+    //        [self.view addSubview:self.yesterdayVC.view];
+       
+
     }
     return _yesterdayVC;
 }
@@ -197,21 +213,31 @@
     if (_recentlyVC == nil) {
         self.recentlyVC = [[RecentlyViewController alloc] init];
         [self addChildViewController:_recentlyVC];
+//        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
+//        CGFloat viewH = self.controllerView.frame.size.height;
+//        CGFloat viewY = self.controllerView.frame.origin.y;
+//        self.recentlyVC.view.frame = CGRectMake(2*viewW, viewY, viewW, viewH);
+//       
+//        [self.view addSubview:self.recentlyVC.view];
+        
         self.recentlyVC.view.frame = self.controllerView.frame;
     }
     return _recentlyVC;
 }
 
 - (IBAction)todayAction:(id)sender {
-    self.selectIndex = 0;
-    [self.view addSubview:self.todayVC.view];
-    [self.todayBtnOutlet setSelected:YES];
     
+   
     [self.yesterdayBtnOutlet setSelected:NO];
     [self.recentlyBtnOutlet setSelected:NO];
+    [self.todayBtnOutlet setSelected:YES];
+    
+   
+    [self.view addSubview:self.todayVC.view];
     [self.yesterdayVC.view removeFromSuperview];
     [self.recentlyVC.view removeFromSuperview];
-    
+        self.selectIndex = 0;
+
     self.title = @"今日推荐";
    
 
@@ -228,12 +254,15 @@
 }
 
 - (IBAction)yesterdayAction:(id)sender {
+    
+    
     self.selectIndex = 1;
-    [self.view addSubview:self.yesterdayVC.view];
+   
      [self.yesterdayBtnOutlet setSelected:YES];
     [self.todayBtnOutlet setSelected:NO];
     [self.recentlyBtnOutlet setSelected:NO];
     
+    [self.view addSubview:self.yesterdayVC.view];
     [self.todayVC.view removeFromSuperview];
     [self.recentlyVC.view removeFromSuperview];
     
@@ -251,11 +280,26 @@
 }
 
 - (IBAction)recentlyAction:(id)sender {
+ //   if (_selectIndex == 0) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            
+//            self.controllerView.transform = CGAffineTransformMakeTranslation(-2*[[UIScreen mainScreen] bounds].size.width, 0);
+//        }];
+//
+//    }else if (_selectIndex == 1){
+//        [UIView animateWithDuration:0.5 animations:^{
+//                       self.controllerView.transform = CGAffineTransformMakeTranslation(-[[UIScreen mainScreen] bounds].size.width, 0);
+//        }];
+//
+//    }
+    
+    
     self.selectIndex = 2;
-    [self.view addSubview:self.recentlyVC.view];
-    [self.recentlyBtnOutlet setSelected:YES];
+        [self.recentlyBtnOutlet setSelected:YES];
     [self.todayBtnOutlet setSelected:NO];
     [self.yesterdayBtnOutlet setSelected:NO];
+    
+    [self.view addSubview:self.recentlyVC.view];
     [self.todayVC.view removeFromSuperview];
     [self.yesterdayVC.view removeFromSuperview];
     

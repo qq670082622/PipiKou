@@ -662,7 +662,7 @@
             dispatch_async(q, ^{
                 NSLog(@"-----count %lu",(unsigned long)[json[@"OrderList"] count]);
                 [self.dataSource removeAllObjects];
-                
+               
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 NSLog(@"%ld$$$$", (long)self.recommendCount);
                 // 添加精品推荐 如果有推荐的话
@@ -1241,7 +1241,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
             }
             
             
-            return 350*radious;
+            return 368*radious;
 
         }
         

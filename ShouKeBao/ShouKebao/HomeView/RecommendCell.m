@@ -23,7 +23,7 @@
   
     RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
     if (!cell) {
-        [cell removeFromSuperview];
+       
         cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
         
     }
@@ -45,14 +45,15 @@
         redTip.layer.masksToBounds = YES;
         [self.contentView addSubview:redTip];
         self.redTip = redTip;
-
+        
         UIView *imgSuperView = [[UIView alloc] init];
         imgSuperView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:imgSuperView];
         self.imgSuperView = imgSuperView;
-        
+
 
     }
+   
     return self;
 }
 
@@ -180,6 +181,7 @@
 
        // imgv.frame = CGRectMake(gap, gap, IMGw, IMGw);
         [self.imgSuperView addSubview:imgv];
+    
     }else if (arrCount == 4){
         for (int i = 0; i<arrCount; i++) {
             int row = i/2;
