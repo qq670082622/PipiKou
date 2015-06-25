@@ -17,14 +17,14 @@
 
 @implementation RecommendCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView withTag:(NSInteger)tag;
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 {
-   // static NSString *ID = @"recommendcell";
+    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
   
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
        
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
     
