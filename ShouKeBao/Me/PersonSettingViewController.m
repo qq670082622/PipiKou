@@ -96,6 +96,11 @@
             self.wechat.text = self.trader.WeiXinCode;
             self.remark.text = self.trader.Desc;
 //            self.place.titleLabel.text = self.trader.City;
+            
+            //先写死 mark一下
+            if ([[NSUserDefaults standardUserDefaults]valueForKey:@"City"]) {
+            self.place.titleLabel.text = [[NSUserDefaults standardUserDefaults]valueForKey:@"City"];
+            }
             if ([self.trader.Sex integerValue] == 1) {
                 self.maleBtn.selected = YES;
             }else{
@@ -111,6 +116,8 @@
 #pragma mark - private
 - (void)submit
 {
+    [[NSUserDefaults standardUserDefaults]setValue:self.place.titleLabel.text forKey:@"City"];
+    [[NSUserDefaults standardUserDefaults]synchronize];
     NSDictionary *param = @{@"Distribution":@{@"ID":self.trader.ID,
                                               @"Name":self.nickName.text,
                                               @"Sex":self.maleBtn.selected ? @"1" : @"2",

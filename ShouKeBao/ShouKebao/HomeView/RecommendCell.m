@@ -23,7 +23,6 @@
   
     RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-       
         cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
