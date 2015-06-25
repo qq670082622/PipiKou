@@ -47,7 +47,7 @@
 - (NSArray *)dataSource
 {
     if (!_dataSource) {
-        _dataSource = @[@[@"出发日期",@"大区",@"线路区域",@"国家/省份"],@[@"下单时间"]];
+        _dataSource = @[@[@"出发日期",@"大区",@"线路区域",@"国家/地区"],@[@"下单时间"]];
     }
     return _dataSource;
 }

@@ -56,8 +56,6 @@
     self.userName.text = model.Name;
     self.userTele.text = [NSString stringWithFormat:@"电话：%@",model.Mobile];
     self.userOders.text = [NSString stringWithFormat:@"订单数：%@",model.OrderCount];
-    
-
     }
 
 @end
