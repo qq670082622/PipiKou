@@ -285,18 +285,13 @@
         cell.accessoryView = btn;
     }
     if (indexPath.section == 2 && indexPath.row == 4) {
-//        UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 130, 8, 80, 40)];
-//        label.font = [UIFont systemFontOfSize:14];
-//        label.textColor = [UIColor lightGrayColor];
-//        label.text = @"检查到新版本";
-//        [cell.contentView addSubview:label];
-        NSLog(@"#######%@", self.versionInfoDic);
-        
         NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
         NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
-        if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
-            NSString * verStr = [NSString stringWithFormat:@"最新V%@", self.versionInfoDic[@"VersionCode"]];
-            [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:verStr];
+        if (self.versionInfoDic) {
+            if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
+                NSString * verStr = [NSString stringWithFormat:@"最新V%@", self.versionInfoDic[@"VersionCode"]];
+                [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:verStr];
+            }
         }
     }
     return cell;

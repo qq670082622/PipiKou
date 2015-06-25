@@ -107,7 +107,6 @@
        
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
-    
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -117,7 +116,7 @@
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-   
+
     
    
     
@@ -175,7 +174,7 @@
    
   
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
-//    [self checkNewVerSion];
+
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
 
 }
@@ -260,6 +259,7 @@
     NSDictionary * param = @{};
     [MeHttpTool inspectionWithParam:param success:^(id json) {
         NSDictionary * dic = json[@"ios"];
+        NSLog(@"%@", dic);
         NSString * versionCode = dic[@"VersionCode"];
         self.checkVersionLinkUrl = dic[@"LinkUrl"];
         NSString * isMust = @"不在询问";
