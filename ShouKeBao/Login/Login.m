@@ -144,6 +144,7 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(screenRect.size.width/2, newY, 0.5, 35)];
     line.backgroundColor = [UIColor grayColor];
     [self.view addSubview:line];
+    line.hidden = YES;
     //证照神器
     CGFloat cardX = self.view.frame.size.width - 50 - newW - 5;
     UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY - 18 , newW + 5, newH + 18)];
@@ -161,7 +162,8 @@
     [self.view addSubview:labCard];
     
     [self.view addSubview:card];
-
+    labCard.hidden = YES;
+    card.hidden = YES;
     
     // 切换用户按钮
     CGFloat changeW = 80;
