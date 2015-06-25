@@ -1090,8 +1090,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView withTag:indexPath.row];
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
@@ -1128,6 +1128,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
+
         [MobClick event:@"ShouKeBao_ClickRecommend"];
 
         [self nitifiToPushRecommendListWithUrl];

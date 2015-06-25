@@ -456,7 +456,9 @@ void UncaughtExceptionHandler(NSException *exception) {
             // 保存必要的参数
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
-            [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
+            if (![json[@"DistributionID"]isEqualToString:(NSString *)[NSNull null]]) {
+                [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
+            }
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
             [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
             

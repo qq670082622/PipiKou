@@ -75,7 +75,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+
       CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     
     CGRect rect = self.leftLab.frame;

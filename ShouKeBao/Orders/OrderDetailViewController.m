@@ -118,6 +118,7 @@
     }else{
 
         if ([rightUrl containsString:@"tel:"]) {
+            self,[webView reload];
 //            [self.webView loadRequest:self.request];
         }else{
          [_indicator startAnimation];
@@ -147,7 +148,7 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
-    [self.webView goBack];
+//    [self.webView goBack];
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
 
