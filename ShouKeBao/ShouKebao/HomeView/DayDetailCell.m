@@ -125,9 +125,9 @@
 {
    
     
-    DayDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",tag]];
+    DayDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
     if (cell == nil) {
-        cell = [[DayDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",tag]];
+        cell = [[DayDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
         cell.separatorInset = UIEdgeInsetsZero;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -424,7 +424,7 @@
                                 if (state == SSResponseStateSuccess)
                                 {
                                     [self.warningLab removeFromSuperview];
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];

@@ -21,10 +21,10 @@
 {
    // static NSString *ID = @"recommendcell";
   
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",tag]];
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
     if (!cell) {
         [cell removeFromSuperview];
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",tag]];
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
         
     }
     
