@@ -514,6 +514,12 @@
         [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(5,visitors.length)];
         self.yesterdayVisitors.attributedText = newStr;
 
+        CGFloat screnW = [[UIScreen mainScreen] bounds].size.width;
+        if (screnW == 320) {
+            self.yesterdayVisitors.font = [UIFont systemFontOfSize:9];
+        }else{
+            self.yesterdayVisitors.font = [UIFont systemFontOfSize:11];
+        }
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
         self.userName.text = muta[@"ShowName"];
@@ -1047,9 +1053,13 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 {
    
    
-    ScanningViewController *scan = [[ScanningViewController alloc] init];
-    scan.isLogin = YES;
-    [self.navigationController pushViewController:scan animated:YES];
+//    ScanningViewController *scan = [[ScanningViewController alloc] init];
+//    scan.isLogin = YES;
+//    [self.navigationController pushViewController:scan animated:YES];
+    
+    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+    [self.navigationController pushViewController:qrc animated:YES];
+
 }
 
 
@@ -1071,15 +1081,15 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
         
-    }else if ([model.model isKindOfClass:[messageModel class]]){
+    }else if ([model.model isKindOfClass:[messageModel class]]){//公告
        
         messageCellSKBTableViewCell *cell = [messageCellSKBTableViewCell cellWithTableView:tableView];
         cell.model = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
         
-    }else if([model.model isKindOfClass:[Recommend class]]){
-        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+    }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView withTag:indexPath.row];
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;  
         cell.recommend = model.model;
@@ -1088,7 +1098,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         cell.redTip.hidden = !(self.recommendCount > 0);
         
         return cell;
-    }else{
+    }else{//客户提醒
        
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
         cell.remind = model.model;

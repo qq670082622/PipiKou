@@ -247,7 +247,7 @@
     
     UIButton *descBtn = [[UIButton alloc] init];
     [descBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
-    descBtn.titleLabel.font= [UIFont systemFontOfSize:12];
+    descBtn.titleLabel.font= [UIFont systemFontOfSize:14];
   [self.contentView addSubview:descBtn];
    self.descripBtn = descBtn;
     
@@ -343,17 +343,17 @@
     CGFloat viewW = screenW - 2*gap;
     CGFloat viewH;
     if (_isPlain) {
-        viewH = [self sizeWithText:self.descripLab.text].height + 18;
+        viewH = [self sizeWithText:self.descripLab.text].height ;
     }else {
-        viewH = 32.5;
+        viewH = 20;
     }
     self.descripLab.frame = CGRectMake(viewX, viewY, viewW, viewH);
  //收起按钮
-    CGFloat descBtnY = CGRectGetMaxY(self.descripLab.frame) - 18;
-    self.descripBtn.frame = CGRectMake(viewX, descBtnY, viewW, 22);
+    CGFloat descBtnY = CGRectGetMaxY(self.descripLab.frame);
+    self.descripBtn.frame = CGRectMake(viewX, descBtnY, viewW, 30);
     [self.descripBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, viewW-40)];
 //出发日期
-    CGFloat goLabY = CGRectGetMaxY(self.descripLab.frame) + gap;
+    CGFloat goLabY = CGRectGetMaxY(self.descripBtn.frame) + gap;
     self.goDateLab.frame = CGRectMake(viewX, goLabY, 200, 15);
     //分享按钮
     CGFloat shareX = screenW - 120 - gap;
@@ -387,11 +387,11 @@
 //        [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
 //    }
     
-    if (self.frame.size.height == 320) {
+    if (self.frame.size.height == 240) {
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
         self.isPlain = YES;
         [self layoutSubviews];
-    }else if (self.frame.size.height == 195){
+    }else if (self.frame.size.height == 220){
         [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
         self.isPlain = NO;
         [self layoutSubviews];
@@ -515,13 +515,17 @@
     //描述块
    
     
-    self.descripLab.text = @"阿里巴巴网络技术有限公司是由曾担任英语教师的马云为首的18人，于1999年在中国杭州创立，他们相信互联网能够创造公平的竞争环境，让小企业通过创新与科技扩展业务，并在参与国内或全球市场竞争时处于更有利的位置,阿里巴巴集团经营多项业务，另外也从关联公司的业务和服务中取得经营商业生态系统上的支援。业务和关联公司的业务包括：淘宝网、天猫、聚划算、全球速卖通、阿里巴巴国际交易市场、1688、阿里妈妈、阿里云、蚂蚁金服、菜鸟网络等2014年9月19日，阿里巴巴集团在纽约证券交易所正式挂牌上市，股票代码“BABA”，创始人和董事局主席为马云,2014年全年，阿里巴巴总营收762.04亿元，净利润243.20亿元。";
+    self.descripLab.text = modal.AdvertText;
     
     self.descripBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     self.descripBtn.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1];
    
-    if (self.frame.size.height == 320) {
+    self.descripBtn.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1];
+
+    if (self.frame.size.height == 240) {
+       
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
+    
     }else{
     
     [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
