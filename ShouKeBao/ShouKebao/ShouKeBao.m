@@ -662,7 +662,7 @@
             dispatch_async(q, ^{
                 NSLog(@"-----count %lu",(unsigned long)[json[@"OrderList"] count]);
                 [self.dataSource removeAllObjects];
-                
+               
                 self.recommendCount = [json[@"RecommendProduct"][@"Count"] integerValue];
                 NSLog(@"%ld$$$$", (long)self.recommendCount);
                 // 添加精品推荐 如果有推荐的话
@@ -1089,9 +1089,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         return cell;
         
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
-        RecommendCell *cell = [RecommendCell cellWithTableView:tableView withTag:indexPath.row];
-
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
@@ -1128,7 +1128,6 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
-
         [MobClick event:@"ShouKeBao_ClickRecommend"];
 
         [self nitifiToPushRecommendListWithUrl];
@@ -1242,7 +1241,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
             }
             
             
-            return 350*radious;
+            return 368*radious;
 
         }
         

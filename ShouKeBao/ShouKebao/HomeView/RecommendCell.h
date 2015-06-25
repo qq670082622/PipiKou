@@ -35,6 +35,6 @@
 
 
 
-+(instancetype)cellWithTableView:(UITableView *)tableView withTag:(NSInteger)tag;
++(instancetype)cellWithTableView:(UITableView *)tableView;
 
 @end

@@ -17,14 +17,14 @@
 
 @implementation RecommendCell
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView withTag:(NSInteger)tag;
++ (instancetype)cellWithTableView:(UITableView *)tableView;
 {
-   // static NSString *ID = @"recommendcell";
+    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
   
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        [cell removeFromSuperview];
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
+       
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         
     }
     
@@ -45,14 +45,15 @@
         redTip.layer.masksToBounds = YES;
         [self.contentView addSubview:redTip];
         self.redTip = redTip;
-
+        
         UIView *imgSuperView = [[UIView alloc] init];
         imgSuperView.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:imgSuperView];
         self.imgSuperView = imgSuperView;
-        
+
 
     }
+   
     return self;
 }
 
@@ -135,6 +136,8 @@
             lab2.font = [UIFont systemFontOfSize:11];
             lab2.textAlignment = NSTextAlignmentLeft;
            
+//                NSArray *subViews  = self.imgSuperView.subviews;
+//                NSLog(@"!%@ ",subViews);
             
             [imgv addSubview:backView];
             [imgv addSubview:lab];
@@ -180,6 +183,7 @@
 
        // imgv.frame = CGRectMake(gap, gap, IMGw, IMGw);
         [self.imgSuperView addSubview:imgv];
+    
     }else if (arrCount == 4){
         for (int i = 0; i<arrCount; i++) {
             int row = i/2;
