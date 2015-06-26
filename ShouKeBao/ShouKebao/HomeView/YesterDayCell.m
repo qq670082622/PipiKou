@@ -330,7 +330,7 @@
     [self.quanBtn setTitle:[NSString stringWithFormat:  @"      ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
     [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发",modal.StartCityName] forState:UIControlStateNormal];
     if ([modal.StartCityName isEqualToString:@"不限"]) {
-        [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发地",modal.StartCityName] forState:UIControlStateNormal];
+        [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@",modal.StartCityName] forState:UIControlStateNormal];
     }
     
     [self.ShanDianBtn sizeToFit];
