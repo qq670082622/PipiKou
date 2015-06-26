@@ -82,7 +82,6 @@
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
-   // [self Guide];
 
 }
 #pragma mark - telCall_js
@@ -90,6 +89,7 @@
     NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
     if (string.length != 0) {
         self.telString = string;
+        NSLog(@"%@", self.telString);
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要拨打电话:%@吗?", string] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
@@ -209,12 +209,10 @@
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
     if ([rightUrl containsString:@"tel:"]) {
-//        [self.webView reload];
         [self.webView stopLoading];
         NSString * phone = @"15838378342";
         NSString *phonen = [NSString stringWithFormat:@"tel://%@",phone];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
-
     }else{
         [_indicator startAnimation];
     }

@@ -359,7 +359,7 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DressViewClickReset" object:nil];
         
         self.searchKeyWord = @"";
-        self.searchBar.placeholder = @"";
+        self.searchBar.placeholder = searchDefaultPlaceholder;
         self.choosedTime = @"";
         self.choosedStatus = @"0";
         self.menuButton.rightBtn.text = @"全部";
@@ -615,6 +615,7 @@
 #pragma mark - QDMenuDelegate
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+        self.isNUll = NO;
         if (menu.direct == 0) {// 时间筛选
         NSString *title = menu.dataSource[indexPath.row][@"Text"];
         self.menuButton.leftBtn.text = title;

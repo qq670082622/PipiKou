@@ -262,7 +262,7 @@
         NSLog(@"%@", dic);
         NSString * versionCode = dic[@"VersionCode"];
         self.checkVersionLinkUrl = dic[@"LinkUrl"];
-        NSString * isMust = @"不在询问";
+        NSString * isMust = @"不再询问";
         if ([dic[@"IsMustUpdate"]isEqualToString:@"1"]) {
             isMust = @"退出程序";
         }
@@ -1076,7 +1076,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeBase *model = self.dataSource[indexPath.row];
+        HomeBase *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[HomeList class]]) {//订单
         
