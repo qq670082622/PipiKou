@@ -120,9 +120,13 @@
     
     // 注册用户按钮
     
+//    CGFloat newW = 25;
+//    CGFloat newH = 25;
+//    CGFloat newX = 50;
+//    CGFloat newY = screenRect.size.height - newH - 35 ;
     CGFloat newW = 25;
     CGFloat newH = 25;
-    CGFloat newX = 50;
+    CGFloat newX = screenRect.size.width/2 - 12.5;
     CGFloat newY = screenRect.size.height - newH - 35 ;
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
     [new addTarget:self action:@selector(registerUser:) forControlEvents:UIControlEventTouchUpInside];
