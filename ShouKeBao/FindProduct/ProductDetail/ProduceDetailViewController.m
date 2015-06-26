@@ -25,7 +25,7 @@
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
-
+@property (nonatomic, strong)NSTimer * timer;
 @property(nonatomic,weak) UILabel *warningLab;
 @end
 
@@ -33,12 +33,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    UITapGestureRecognizer * tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(touchEvent)];
-    UIView * vieww = [[UIView alloc]initWithFrame:self.webView.frame];
+
+//    UIView * vieww = [[UIView alloc]initWithFrame:self.webView.frame];
 //    [self.webView addSubview:vieww];
 //    [vieww addGestureRecognizer:tap];
-    [self.webView addGestureRecognizer:tap];
      [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
@@ -82,11 +80,17 @@
     if ([productDetailGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
+    self.timer = timer;
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
    // [self Guide];
 
 }
-- (void)touchEvent{
-    NSLog(@"aaa");
+- (void)findIsCall{
+    NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
+    NSLog(@"%@**", string);
 }
 - (void)stopIndictor:(NSNotification *)noty
 {
@@ -116,7 +120,7 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ProduceDetailView"];
-
+    [self.timer invalidate];
 }
 //第一次开机引导
 -(void)Guide
