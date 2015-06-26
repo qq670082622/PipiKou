@@ -357,6 +357,7 @@
 {
     if (self.isNUll) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DressViewClickReset" object:nil];
+        self.searchKeyWord = @"";
     }
     self.pageIndex = 1;
     self.isHeadRefresh = YES;
