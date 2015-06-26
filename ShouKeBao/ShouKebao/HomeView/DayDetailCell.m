@@ -237,8 +237,8 @@
     
     
     UILabel *descLab = [[UILabel alloc] init];
-    descLab.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1];
-    descLab.textColor = [UIColor blackColor];
+    descLab.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];
+    descLab.textColor = [UIColor grayColor];
     descLab.font = [UIFont systemFontOfSize:11];
     descLab.numberOfLines = 0;
     [self.contentView addSubview:descLab];
@@ -260,7 +260,7 @@
     self.goDateLab = goLab;
     
     UIButton *btn = [[UIButton alloc] init];
-    btn.titleLabel.font = [UIFont systemFontOfSize:11];
+    btn.titleLabel.font = [UIFont systemFontOfSize:12];
     [btn setImage:[UIImage imageNamed:@"fenxianglan"] forState:UIControlStateNormal];
     [self.contentView addSubview:btn];
     self.shareBtn = btn;
@@ -360,7 +360,7 @@
     CGFloat shareW = 120;
     self.shareBtn.frame = CGRectMake(shareX, goLabY, shareW, 18);
     //self.shareBtn.contentMode = UIViewContentModeScaleAspectFill;
-     [self.shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 65)];
+     [self.shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 65)];
     [self.shareBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -20)];
     
     self.rouHei = CGRectGetMaxY(self.shareBtn.frame)+10;
@@ -387,11 +387,11 @@
 //        [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
 //    }
     
-    if (self.frame.size.height == 250) {
+    if (self.frame.size.height == 260) {
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
         self.isPlain = YES;
         [self layoutSubviews];
-    }else if (self.frame.size.height == 230){
+    }else if (self.frame.size.height == 220){
         [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
         self.isPlain = NO;
         [self layoutSubviews];
@@ -518,11 +518,11 @@
     self.descripLab.text = modal.AdvertText;
     
     self.descripBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
-    self.descripBtn.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1];
+    self.descripBtn.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];
    
-    self.descripBtn.backgroundColor = [UIColor colorWithRed:235/255.f green:235/255.f blue:235/255.f alpha:1];
+    self.descripBtn.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];
 
-    if (self.frame.size.height == 250) {
+    if (self.frame.size.height == 260) {
        
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
     

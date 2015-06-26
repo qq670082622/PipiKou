@@ -241,9 +241,9 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-    if (self.pageIndex < [self getEndPage]) {
+   // if (self.pageIndex < [self getEndPage]) {
         [self loadDataSource];
-    }
+    //}
 }
 
 // 右边滑动的按钮
@@ -365,9 +365,9 @@
 {
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
     if ([tag isEqualToString:@"1"]) {
-        return  250;
+        return  260;
     }else{
-          return 230;
+          return 220;
     }
     
     

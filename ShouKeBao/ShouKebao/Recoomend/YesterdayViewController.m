@@ -153,9 +153,9 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-    if (self.pageIndex < [self getEndPage]) {
+   // if (self.pageIndex < [self getEndPage]) {
         [self loadDataSource];
-    }
+    //}
 }
 
 - (void)didReceiveMemoryWarning {
@@ -197,7 +197,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-          return 153;
+          return 160;
     
     
 }

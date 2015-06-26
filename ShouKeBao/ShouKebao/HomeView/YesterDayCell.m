@@ -124,7 +124,7 @@
     self.goDateLab = goLab;
     
     UIButton *btn = [[UIButton alloc] init];
-    btn.titleLabel.font = [UIFont systemFontOfSize:11];
+    btn.titleLabel.font = [UIFont systemFontOfSize:12];
     [btn setImage:[UIImage imageNamed:@"fenxianglan"] forState:UIControlStateNormal];
     [self.contentView addSubview:btn];
     self.shareBtn = btn;
@@ -207,9 +207,9 @@
     //分享按钮
     CGFloat shareX = screenW - 120 - gap;
     CGFloat shareW = 120;
-    self.shareBtn.frame = CGRectMake(shareX, bttomY, shareW, 15);
+    self.shareBtn.frame = CGRectMake(shareX, bttomY, shareW, 18);
     //self.shareBtn.contentMode = UIViewContentModeScaleAspectFill;
-    [self.shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 40, 0, 65)];
+    [self.shareBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 35, 0, 65)];
     [self.shareBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -20)];
     
     

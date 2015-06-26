@@ -252,7 +252,7 @@
     int yesInt = [[indexArr firstObject]  intValue];
     
     //取当前arr中的picUrl为标示
-    NSString *markStr = self.photosArr[yesInt][@"PicUrl"];//取单个产品的三级区域名称
+    NSString *markStr = self.photosArr[yesInt][@"PushId"];//取单个产品的三级区域名称
      NSLog(@"点击了排第%d个，它的PushId is %@",yesInt,markStr);
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];

@@ -35,6 +35,7 @@
 
 @property (nonatomic,copy) NSString *totalCount;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
+@property(nonatomic,assign) NSInteger selectIndex;//时间顺序倒序1，2/价格顺序倒序3，4
 
 @end
 //↓近到远，高到低 ↑远到近，低到高
@@ -48,7 +49,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.pageIndex = 1;
-    
+    self.selectIndex = 1;//默认时间顺序
     
     //下啦刷新
     [self.table addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -105,9 +106,10 @@
 #pragma mark - private
 - (void)loadDataSource
 {
-    NSDictionary *param = @{@"PageSize":pageSize,
+       NSDictionary *param = @{@"PageSize":pageSize,
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-                            @"DateRangeType":@"3"};
+                            @"DateRangeType":@"3",
+                               @"SortType":[NSString stringWithFormat:@"%ld",(long)_selectIndex]};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
@@ -157,9 +159,9 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-    if (self.pageIndex < [self getEndPage]) {
+   // if (self.pageIndex < [self getEndPage]) {
         [self loadDataSource];
-    }
+    //}
 }
 
 
@@ -180,44 +182,63 @@
 
 
 - (IBAction)timeAction:(id)sender {
+    
+     [self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [self.priceBtn setSelected:NO];
    
 
     if (_timeBtn.selected == YES && [_timeBtn.titleLabel.text isEqualToString:@"时间↓"]) {
         
         [self.timeBtn setTitle:@"时间↑" forState:UIControlStateNormal];
+        self.selectIndex = 2;
         
     }else if( _timeBtn.selected == YES && [_timeBtn.titleLabel.text isEqualToString:@"时间↑"]){
        
         [self.timeBtn setTitle:@"时间↓" forState:UIControlStateNormal];
-            
+        self.selectIndex = 1;
         }
 
     else if (_timeBtn.selected == NO){
       
         [self.timeBtn setSelected:YES];
+        if ([_timeBtn.titleLabel.text isEqualToString:@"时间↑"]) {
+            self.selectIndex = 2;
+        }else{
+            self.selectIndex = 1;
+        }
         
     }
+   
+
+    [self headRefresh];
    }
 //@"时间↓" @"价格↓" @"时间↑" @"价格↑"
 - (IBAction)priceAction:(id)sender {
-    
+     [self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
     [_timeBtn setSelected:NO];
     
     if (_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↓"]) {
         
                    [self.priceBtn setTitle:@"价格↑" forState:UIControlStateNormal];
+        self.selectIndex = 4;
     }else if(_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↑"]){
         
         [self.priceBtn setTitle:@"价格↓" forState:UIControlStateNormal];
+        self.selectIndex = 3;
         }
     else if (_priceBtn.selected == NO){
         
         [self.priceBtn setSelected:YES];
+        if ([_priceBtn.titleLabel.text isEqualToString:@"价格↑"]) {
+            self.selectIndex = 4;
+        }else{
+            self.selectIndex = 3;
+        }
 
     }
-    
-  
+   
+
+    [self headRefresh];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -245,7 +266,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 153;
+    return 160;
 }
 
 @end
