@@ -100,7 +100,6 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoStoreView"];
-
     }
 -(void)viewWillDisappear:(BOOL)animated
 {

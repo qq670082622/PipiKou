@@ -272,6 +272,15 @@
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
             [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
             
+            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+            [accountDefaults setObject:[NSString stringWithFormat:@"%@", json[@"SubstationId"]] forKey:UserInfoKeySubstation];
+            [accountDefaults setObject:json[@"SubstationName"] forKey:@"SubstationName"];
+            [accountDefaults setObject:@"yes" forKey:@"stationSelect"];//改变分站时通知Findproduct刷新列表
+            [accountDefaults setObject:@"yes" forKey:@"stationSelect2"];//改变分站时通知首页刷新列表
+            [accountDefaults synchronize];
+
+            
+            
             // 重新保存密码 因为如果注销了的话
             [def setObject:self.passwordField.text forKey:UserInfoKeyPassword];
             

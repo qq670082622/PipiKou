@@ -357,7 +357,16 @@
 {
     if (self.isNUll) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"DressViewClickReset" object:nil];
+        
         self.searchKeyWord = @"";
+        self.searchBar.placeholder = @"";
+        self.choosedTime = @"";
+        self.choosedStatus = @"0";
+        self.menuButton.rightBtn.text = @"全部";
+        self.menuButton.leftBtn.text = @"不限";
+        self.LselectedIndex = 0;
+        self.RselectedIndex = 0;
+
     }
     self.pageIndex = 1;
     self.isHeadRefresh = YES;
