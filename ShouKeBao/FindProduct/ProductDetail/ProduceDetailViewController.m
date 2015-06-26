@@ -208,18 +208,12 @@
 //        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
-    if ([rightUrl containsString:@"tel:"]) {
-        [self.webView stopLoading];
-        NSString * phone = @"15838378342";
-        NSString *phonen = [NSString stringWithFormat:@"tel://%@",phone];
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
-    }else{
+    NSLog(@"%@*88888888888888888", rightUrl);
         [_indicator startAnimation];
-    }
         self.coverView.hidden = NO;
         return YES;
   
-       }
+}
 
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
