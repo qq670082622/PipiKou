@@ -144,7 +144,7 @@
     [self.upView addGestureRecognizer:tap];
     
     // 加载主列表数据
-    [self loadContentDataSource];
+  //  [self loadContentDataSource];
     
     [self  getUserInformation];
     
@@ -1257,8 +1257,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
    
-    HomeBase *model = [[HomeBase alloc] init];
-    model = self.dataSource[indexPath.row];
+    //HomeBase *model = [[HomeBase alloc] init];
+HomeBase    *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[Recommend class]]) {
         
