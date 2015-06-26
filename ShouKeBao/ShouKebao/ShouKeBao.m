@@ -629,7 +629,7 @@
 - (NSMutableArray *)dataSource
 {
     if (!_dataSource) {
-        _dataSource = [NSMutableArray array];
+        self.dataSource = [NSMutableArray array];
     }
     return _dataSource;
 }
@@ -1084,7 +1084,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         cell.model = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
-        
+
     }else if ([model.model isKindOfClass:[messageModel class]]){//公告
        
         messageCellSKBTableViewCell *cell = [messageCellSKBTableViewCell cellWithTableView:tableView];
@@ -1198,6 +1198,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%@",  self.dataSource[indexPath.row]);
     HomeBase *model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[Recommend class]]) {

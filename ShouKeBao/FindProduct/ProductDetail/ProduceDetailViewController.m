@@ -216,7 +216,6 @@
     }else{
         [_indicator startAnimation];
     }
-
         self.coverView.hidden = NO;
         return YES;
   
