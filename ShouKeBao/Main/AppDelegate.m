@@ -469,7 +469,9 @@ void UncaughtExceptionHandler(NSException *exception) {
                 [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
             }
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
-            [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
+            if (![json[@"LoginAvatar"] isEqual:(NSString *)[NSNull null]]) {
+                [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
+            }
             
             // 重新保存密码 因为如果注销了的话
             [def setObject:passWord forKey:UserInfoKeyPassword];

@@ -153,15 +153,23 @@
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [LoginTool chooseUserWithParam:param success:^(id json) {
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
-        NSLog(@"----  %@",json);
+        NSLog(@"---- ＃＃＃＃＃＃＃＃＃＃＃＃ %@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
             
             // 保存必要的参数
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
             [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
-            [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
-            
+            if (![json[@"LoginAvatar"]isEqual:[NSNull null]]) {
+                [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
+            }
+            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+            [accountDefaults setObject:[NSString stringWithFormat:@"%@", json[@"SubstationId"]] forKey:UserInfoKeySubstation];
+            [accountDefaults setObject:json[@"SubstationName"] forKey:@"SubstationName"];
+            [accountDefaults setObject:@"yes" forKey:@"stationSelect"];//改变分站时通知Findproduct刷新列表
+            [accountDefaults setObject:@"yes" forKey:@"stationSelect2"];//改变分站时通知首页刷新列表
+            [accountDefaults synchronize];
+
             // 保存用户模型
             [UserInfo userInfoWithDict:json];
             
