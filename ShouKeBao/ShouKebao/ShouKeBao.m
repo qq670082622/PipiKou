@@ -96,6 +96,8 @@
 
 @property(nonatomic,weak) UIView *navBarView;
 
+@property (nonatomic,assign) NSUInteger time;
+@property(nonatomic,strong) NSTimer *pushTime;
 @end
 
 @implementation ShouKeBao
@@ -185,12 +187,16 @@
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     // 给用户打上jpush标签
+    
     NSString *alias = [def objectForKey:UserInfoKeyBusinessID];
     [APService setAlias:alias callbackSelector:nil object:nil];
+   
     NSString *tag = [NSString stringWithFormat:@"substation_%@",[def objectForKey:UserInfoKeySubstation]];
     [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
 
+    [APService setTags:[NSSet setWithObject:[def objectForKey:UserInfoKeyBusinessID]] callbackSelector:nil object:nil];
 }
+
 -(void)setUpNavBarView
 { CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
     
@@ -644,7 +650,24 @@
         [def setObject:@"no" forKey:@"stationSelect2"];
         [def synchronize];
     }
+    
+    self.time = 0;
+    NSTimer *pushTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeDef) userInfo:nil repeats:3];
+    self.pushTime = pushTimer;
+    [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
 
+}
+
+-(void)changeDef
+{
+    self.time++ ;
+    NSLog(@"time is %lu",(unsigned long)_time);
+    if (_time == 3) {
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        [def setObject:@"no" forKey:@"appIsBack"];
+        [def synchronize];
+        [self.pushTime invalidate];
+    }
 }
 
 
