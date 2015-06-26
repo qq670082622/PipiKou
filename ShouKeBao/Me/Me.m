@@ -414,7 +414,7 @@
             [str appendFormat:@"%d. %@  ", i+1, versionInfo[i]];
         }
         self.checkVersionLinkUrl = self.versionInfoDic[@"LinkUrl"];
-        NSString * isMust = @"不在询问";
+        NSString * isMust = @"不再询问";
         if ([self.versionInfoDic[@"IsMustUpdate"]isEqualToString:@"1"]) {
             isMust = @"退出程序";
         }
