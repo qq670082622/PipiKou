@@ -512,7 +512,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
         [application endBackgroundTask:task];
     }];
     
-    [self prepAudio];
+   // [self prepAudio];
    }
 
 //播放一段无声音乐，让苹果审核时认为后台有音乐而让程序不会被杀死

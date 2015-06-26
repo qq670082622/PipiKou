@@ -176,6 +176,18 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
 
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
+    
+    [self setTagAndAlias];
+
+}
+
+-(void)setTagAndAlias
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    // 给用户打上jpush标签
+    [APService setAlias:[def objectForKey:UserInfoKeyBusinessID] callbackSelector:nil object:nil];
+    NSString *tag = [NSString stringWithFormat:@"substation_%@",[def objectForKey:UserInfoKeySubstation]];
+    [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
 
 }
 -(void)setUpNavBarView
