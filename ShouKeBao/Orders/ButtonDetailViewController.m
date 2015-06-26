@@ -128,6 +128,7 @@
     
     return YES;
 }
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     self.rightButton.hidden = YES;
