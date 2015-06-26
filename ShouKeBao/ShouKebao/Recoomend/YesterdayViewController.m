@@ -153,9 +153,9 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-    if (self.pageIndex < [self getEndPage]) {
+   // if (self.pageIndex < [self getEndPage]) {
         [self loadDataSource];
-    }
+    //}
 }
 
 - (void)didReceiveMemoryWarning {

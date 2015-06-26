@@ -241,9 +241,9 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-    if (self.pageIndex < [self getEndPage]) {
+   // if (self.pageIndex < [self getEndPage]) {
         [self loadDataSource];
-    }
+    //}
 }
 
 // 右边滑动的按钮

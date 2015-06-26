@@ -1078,7 +1078,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 {
     HomeBase *model = self.dataSource[indexPath.row];
     
-    if ([model.model isKindOfClass:[HomeList class]]) {
+    if ([model.model isKindOfClass:[HomeList class]]) {//订单
         
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
@@ -1109,6 +1109,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
     }
+
 }
 
 
