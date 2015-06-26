@@ -45,6 +45,7 @@
 
 @property(nonatomic,weak) UILabel *warningLab;
 @property(nonatomic,copy) NSString *urlSuffix;
+@property(nonatomic,copy) NSString *urlSuffix2;
 @property (nonatomic, copy)NSString * telString;
 @property (nonatomic, strong)NSTimer * timerr;
 @end
@@ -59,6 +60,10 @@
     CFShow((__bridge CFTypeRef)(infoDictionary));
      NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
     self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    self.urlSuffix2 = urlSuffix2;
+    
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_PushUrl]];
     NSLog(@"push uRL IS %@ version is %@",_PushUrl,urlSuffix);
     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
@@ -97,7 +102,7 @@
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timerr = timer;
-    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+   // [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
     // [self Guide];
     
@@ -225,9 +230,15 @@
    
     NSString *rightUrl = request.URL.absoluteString;
     NSRange range = [rightUrl rangeOfString:_urlSuffix];
-    if (range.location == NSNotFound) {
+     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
+   
+    if (range3.location == NSNotFound ) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-    }else{
+    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+    }
+    else{
         self.coverView.hidden = NO;
         [_indicator startAnimation];
 
@@ -249,7 +260,8 @@
     }
        NSString *rightStr = webView.request.URL.absoluteString;
         
-    
+    NSLog(@"---------------------rightStr is %@-------------------------",rightStr);
+
     NSString *result = [webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
     NSLog(@"---------------------result is %@-------------------------",result);
     

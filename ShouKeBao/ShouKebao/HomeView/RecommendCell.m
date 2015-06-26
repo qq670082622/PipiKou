@@ -282,7 +282,8 @@
     
     self.titleLab.text = @"今日推荐";
     
-    self.titleLab.textColor = [UIColor colorWithRed:202/255.f green:118/255.f blue:252/255.f alpha:1];
+    //self.titleLab.textColor = [UIColor colorWithRed:202/255.f green:118/255.f blue:252/255.f alpha:1];
+    self.titleLab.textColor = [UIColor blackColor];
     
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[recommend.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];

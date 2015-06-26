@@ -17,4 +17,6 @@
 + (NSString *)stringFromDate:(NSDate *)date;
 
 +(void)setValueWhenIsNull:(NSMutableDictionary *)dic andValue:(NSString *)value forKey:(NSString *)key;
+
++(NSMutableArray *)arr:(NSMutableArray *)arr addObject:(NSString *)str;
 @end

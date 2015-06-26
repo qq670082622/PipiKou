@@ -185,7 +185,8 @@
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     // 给用户打上jpush标签
-    [APService setAlias:[def objectForKey:UserInfoKeyBusinessID] callbackSelector:nil object:nil];
+    NSString *alias = [def objectForKey:UserInfoKeyBusinessID];
+    [APService setAlias:alias callbackSelector:nil object:nil];
     NSString *tag = [NSString stringWithFormat:@"substation_%@",[def objectForKey:UserInfoKeySubstation]];
     [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
 
@@ -1133,6 +1134,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
         HomeBase *model = self.dataSource[indexPath.row];
+     //[model retain];
     
     if ([model.model isKindOfClass:[HomeList class]]) {//订单
         
@@ -1254,7 +1256,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    HomeBase *model = self.dataSource[indexPath.row];
+   
+    HomeBase *model = [[HomeBase alloc] init];
+    model = self.dataSource[indexPath.row];
     
     if ([model.model isKindOfClass:[Recommend class]]) {
         
