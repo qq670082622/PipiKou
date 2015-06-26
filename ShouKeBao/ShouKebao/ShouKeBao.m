@@ -159,9 +159,9 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];//若程序在前台，直接调用，在后台被点击则调用
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithCrash" object:nil];
     
 //    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
 //    NSString *isBack = [appIsBack objectForKey:@"appIsBack"];
@@ -326,19 +326,122 @@
     }
 }
 
-#pragma  - mark程序在后台时远程推送处理函数
+#pragma  - mark程序未死亡时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
-    
-    [self loadContentDataSource];
+   
+    // [self getVoice];
+    [self headerPull];
     [self  getUserInformation];
    
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
+    
+    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
+    
+     NSString *result = [appIsBack objectForKey:@"appIsBack"];
+    
+    if ([result isEqualToString:@"yes"]) {
+        
+        [appIsBack setObject:@"no" forKey:@"appIsBack"];
+        [appIsBack synchronize];
+        
+        if ([message[0] isEqualToString:@"orderId"]) {
+            //已经处理的订单在发生变化时发送消息给用户，点击消息直接进入该订单消息的订单详情
+            //message[2]是订单url
+            OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            detail.url = message[2];
+            [self.navigationController pushViewController:detail animated:YES];
+        }
+        
+        else if ([message[0] isEqualToString:@"remind"]){//客户提醒
+            //跳remindDetail
+            NSString *remindTime = message[1];
+            NSString *remindContent = message[2];
+            //time,note
+            RemindDetailViewController *remindDetail = [[RemindDetailViewController alloc] init];
+            remindDetail.time = remindTime;
+            remindDetail.note = remindContent;
+            [self.navigationController pushViewController:remindDetail animated:YES];
+        }
+        
+        else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
+            //精品推荐界面
+            //无需参数，直接跳转到精品推荐
+            RecomViewController *rec = [[RecomViewController alloc] init];
+            [self.navigationController pushViewController:rec animated:YES];
+        }
+        
+        else if ([message[0] isEqualToString:@"productId"]){
+            
+            //产品详情h5
+            ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+            detail.produceUrl = message[2];
+            [self.navigationController pushViewController:detail animated:YES];
+        }
+        
+        else if ([message[0] isEqualToString:@"messageId"]){//公告
+            //进入h5
+            NSString *messageURL = message[2];
+            messageDetailViewController *messageDetail = [[messageDetailViewController alloc] init];
+            messageDetail.messageURL = messageURL;
+            [self.navigationController pushViewController:messageDetail animated:YES];
+        }
+        
+        else if ([message[0] isEqualToString:@"noticeType"]){
+            // [self ringAction];
+        }
+
+    }else{
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+        
+        if ([message[0] isEqualToString:@"messageId"]){//新公告
+            BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+            int valueCount = [barButton.badgeValue intValue];
+            barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+            
+            //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+        }
+
+
+    }
+    
+   
+
+}
+
+
+#pragma -mark 声音
+-(void)getVoice{
+   
+    //添加提示音
+    SystemSoundID messageSound;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
+    
+    AudioServicesPlaySystemSound (messageSound);
+}
+
+
+#pragma  - mark程序死亡时远程推送处理函数
+-(void)dealPushForeground:(NSNotification *)noti
+{ //arr[0]是value arr[1]是key
+    //orderId ,userId ,recommond ,productId ,messageId
+   
+    NSMutableArray *message = noti.object;
+    NSLog(@"viewController 里取得值是 is %@",message);
+    
+    [self headerPull];
+    
+    [self  getUserInformation];
+  
+    //[self getVoice];
+    
     if ([message[0] isEqualToString:@"orderId"]) {
-    //已经处理的订单在发生变化时发送消息给用户，点击消息直接进入该订单消息的订单详情
+        //已经处理的订单在发生变化时发送消息给用户，点击消息直接进入该订单消息的订单详情
         //message[2]是订单url
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
         detail.url = message[2];
@@ -346,7 +449,7 @@
     }
     
     else if ([message[0] isEqualToString:@"remind"]){//客户提醒
-    //跳remindDetail
+        //跳remindDetail
         NSString *remindTime = message[1];
         NSString *remindContent = message[2];
         //time,note
@@ -380,66 +483,7 @@
     }
     
     else if ([message[0] isEqualToString:@"noticeType"]){
-       // [self ringAction];
-    }
-}
-
-
-#pragma -mark 声音
--(void)getVoice{
-   
-    //添加提示音
-    SystemSoundID messageSound;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
-    
-    AudioServicesPlaySystemSound (messageSound);
-}
-
-
-#pragma  - mark程序在前台时远程推送处理函数
--(void)dealPushForeground:(NSNotification *)noti
-{ //arr[0]是value arr[1]是key
-    //orderId ,userId ,recommond ,productId ,messageId
-   
-    NSMutableArray *message = noti.object;
-    NSLog(@"viewController 里取得值是 is %@",message);
-    
-    [self loadContentDataSource];
-    
-    [self  getUserInformation];
-  
-    [self getVoice];
-   
-         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
-  
-   
-
-    if ([message[0] isEqualToString:@"orderId"]) {//订单消息
-     
-    }
-    
-    else if ([message[0] isEqualToString:@"remind"]){//客户提醒
-
-        
-    }
-    
-    else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
-      
-        
-    }
-    
-    else if ([message[0] isEqualToString:@"productId"]){//新线路（新产品）
-        
-           }
-    
-     if ([message[0] isEqualToString:@"messageId"]){//新公告
-        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-        int valueCount = [barButton.badgeValue intValue];
-        barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
-        
-        //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+        // [self ringAction];
     }
     
 

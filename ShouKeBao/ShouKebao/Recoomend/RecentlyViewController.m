@@ -19,6 +19,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
+#import "StationSelect.h"
 #define pageSize @"10"
 
 @interface RecentlyViewController ()<UITableViewDataSource,UITableViewDelegate>
@@ -43,13 +44,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    
+    
     [self.timeBtn setSelected:YES];
     
     self.table.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.pageIndex = 1;
-    self.selectIndex = 1;//默认时间顺序
+    self.selectIndex = 2;//默认时间顺序
     
     //下啦刷新
     [self.table addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -87,13 +91,18 @@
     });
     
 }
+
+
+
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoRecentlyView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
-    
+    [self headRefresh];
     // [self setupHead];
     
     
@@ -190,21 +199,21 @@
     if (_timeBtn.selected == YES && [_timeBtn.titleLabel.text isEqualToString:@"时间↓"]) {
         
         [self.timeBtn setTitle:@"时间↑" forState:UIControlStateNormal];
-        self.selectIndex = 2;
+        self.selectIndex = 1;
         
     }else if( _timeBtn.selected == YES && [_timeBtn.titleLabel.text isEqualToString:@"时间↑"]){
        
         [self.timeBtn setTitle:@"时间↓" forState:UIControlStateNormal];
-        self.selectIndex = 1;
+        self.selectIndex = 2;
         }
 
     else if (_timeBtn.selected == NO){
       
         [self.timeBtn setSelected:YES];
         if ([_timeBtn.titleLabel.text isEqualToString:@"时间↑"]) {
-            self.selectIndex = 2;
-        }else{
             self.selectIndex = 1;
+        }else{
+            self.selectIndex = 2;
         }
         
     }
@@ -220,19 +229,19 @@
     if (_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↓"]) {
         
                    [self.priceBtn setTitle:@"价格↑" forState:UIControlStateNormal];
-        self.selectIndex = 4;
+        self.selectIndex = 3;
     }else if(_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↑"]){
         
         [self.priceBtn setTitle:@"价格↓" forState:UIControlStateNormal];
-        self.selectIndex = 3;
+        self.selectIndex = 4;
         }
     else if (_priceBtn.selected == NO){
         
         [self.priceBtn setSelected:YES];
         if ([_priceBtn.titleLabel.text isEqualToString:@"价格↑"]) {
-            self.selectIndex = 4;
-        }else{
             self.selectIndex = 3;
+        }else{
+            self.selectIndex = 4;
         }
 
     }

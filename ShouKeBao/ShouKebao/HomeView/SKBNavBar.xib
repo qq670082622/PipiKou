@@ -35,7 +35,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WZ3-4d-nvZ">
                     <rect key="frame" x="60" y="0.0" width="170" height="34"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <state key="normal" title="   搜索产品" image="fdjBtn" backgroundImage="sousuoBackView">
+                    <state key="normal" title="   查找产品" image="fdjBtn" backgroundImage="sousuoBackView">
                         <color key="titleColor" white="0.48736142966360863" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
