@@ -16,6 +16,7 @@
     [aCoder encodeObject:self.idStr forKey:@"idStr"];
     [aCoder encodeObject:self.model forKey:@"model"];
     
+
 }
 
 

@@ -92,6 +92,18 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
         
         [dic setObject:@"" forKey:key];
     }
+    
+    
+}
+
+
++(NSMutableArray *)arr:(NSMutableArray *)arr addObject:(NSString *)str
+{
+    NSMutableArray *normal = [NSMutableArray arrayWithArray:arr];
+    [arr removeAllObjects];
+    [normal addObject:str];
+    arr = normal;
+    return arr;
 }
 
 @end

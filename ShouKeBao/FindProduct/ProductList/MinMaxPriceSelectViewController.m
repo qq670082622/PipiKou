@@ -68,17 +68,20 @@
     if (minBool  && maxBool && !minBiger) {
         [self.navigationController popViewControllerAnimated:YES];
     }
+    
     else if(!minBool || !maxBool ){
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您的输入并非纯数字，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-        [alert show];
-        self.minPrice.text = @"";
-        self.maxPrice.text = @"";
+       
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您的输入并非纯数字，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+            [alert show];
+            self.minPrice.text = @"";
+            self.maxPrice.text = @"";
+
     }else if (minBiger){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您输入的最小价格大于最大价格，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
         self.minPrice.text = @"";
         self.maxPrice.text = @"";
-    }else if (minPrice == 0 || maxPrice == 0){
+    }else if ( maxPrice == 0){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"价格不能为0，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
         self.minPrice.text = @"";
@@ -94,8 +97,12 @@
     
     int val;
     
-    return[scan scanInt:&val] && [scan isAtEnd];
-    
+    if ([scan scanInt:&val] && [scan isAtEnd]) {
+        return YES;
+    }else if([string isEqualToString:@""] && [scan isAtEnd]){
+        return YES;
+    }
+    return NO;
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -105,6 +112,10 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    if ([self.minPrice.text isEqualToString:@""]) {
+        self.minPrice.text = @"0";
+    }
     [self.delegate passTheMinPrice:self.minPrice.text AndMaxPrice:self.maxPrice.text];
     [MobClick endLogPageView:@"FindProductMinMaxPriceSelectView"];
     

@@ -5,7 +5,7 @@
 	<key>APP_KEY</key>
 	<string>1a1249b973c6ce482d68fd4f</string>
 	<key>APS_FOR_PRODUCTION </key>
-	<string>0</string>
+	<string>1</string>
 	<key>CHANNEL</key>
 	<string>0</string>
 </dict>

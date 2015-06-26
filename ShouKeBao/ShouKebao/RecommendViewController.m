@@ -95,13 +95,15 @@
 
 }
 
+
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoRecommendView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
-    
+    [self headRefresh];
    // [self setupHead];
   
    

@@ -1927,11 +1927,11 @@
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
 
-    [self.jishiSwitch setOn:YES];
+    [self.jishiSwitch setOn:NO];
     //[self jishi];
-    self.jishi = [NSMutableString stringWithFormat:@"1"];
-    self.jiafan = [NSMutableString stringWithFormat:@"1"];
-    [self.jiafanSwitch setOn:YES];
+    self.jishi = [NSMutableString stringWithFormat:@"0"];
+    self.jiafan = [NSMutableString stringWithFormat:@"0"];
+    [self.jiafanSwitch setOn:NO];
     //[self jiafan];
     
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ", nil];

@@ -18,6 +18,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
+#import "StationSelect.h"
 #define pageSize @"10"
 @interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -38,6 +39,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
+  
+    
     self.table.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -88,7 +91,7 @@
     [MobClick beginLogPageView:@"ShouKeBaoYesterdayView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
-    
+    [self headRefresh];
     // [self setupHead];
     
     

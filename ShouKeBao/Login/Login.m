@@ -297,11 +297,7 @@
             }
             [def synchronize];
             
-            // 给用户打上jpush标签
-            [APService setAlias:[def objectForKey:UserInfoKeyBusinessID] callbackSelector:nil object:nil];
-            NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
-            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
-            
+                       
             // 跳转主界面
             AppDelegate *app = [UIApplication sharedApplication].delegate;
             [app setTabbarRoot];
