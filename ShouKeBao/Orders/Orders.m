@@ -624,7 +624,7 @@
         [self removeMenuFunc];
         self.LselectedIndex = indexPath.row;
         [self.tableView headerBeginRefreshing];
-       
+    
        
     }else{// 状态筛选
          NSString *title = menu.dataSource[indexPath.row][@"Text"];

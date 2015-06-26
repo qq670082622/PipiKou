@@ -105,6 +105,7 @@
 {
 //    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"亲！欢迎回来" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
 //    [alert show];
+    [self.webView reload];
     if ([_webView canGoBack] && self.indicator.isAnimating) {
         [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
         [self.webView goBack];
