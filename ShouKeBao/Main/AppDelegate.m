@@ -631,7 +631,6 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
       [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"relooad" object:nil];
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
