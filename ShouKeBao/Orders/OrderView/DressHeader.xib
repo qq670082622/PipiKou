@@ -12,20 +12,6 @@
             <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0D-UB-bb2">
-                    <rect key="frame" x="168" y="14" width="52" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="52" id="HH2-fB-hRY"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="重置">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="reset:" destination="UGl-jb-UIV" eventType="touchUpInside" id="yI2-4V-wwb"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIu-aK-xJu">
                     <rect key="frame" x="240" y="14" width="52" height="22"/>
                     <constraints>
@@ -55,6 +41,20 @@
                         <action selector="back:" destination="UGl-jb-UIV" eventType="touchUpInside" id="fwh-lc-5qe"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0D-UB-bb2">
+                    <rect key="frame" x="124" y="14" width="52" height="22"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="52" id="HH2-fB-hRY"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="重置">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="reset:" destination="UGl-jb-UIV" eventType="touchUpInside" id="yI2-4V-wwb"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
@@ -63,7 +63,7 @@
                 <constraint firstItem="cIu-aK-xJu" firstAttribute="trailing" secondItem="UGl-jb-UIV" secondAttribute="trailingMargin" id="5Wy-JJ-7Hd"/>
                 <constraint firstAttribute="bottom" secondItem="faD-mI-f4Y" secondAttribute="bottom" constant="14" id="5nJ-N3-blJ"/>
                 <constraint firstItem="faD-mI-f4Y" firstAttribute="top" secondItem="UGl-jb-UIV" secondAttribute="top" constant="14" id="CnU-Ii-Dlh"/>
-                <constraint firstItem="cIu-aK-xJu" firstAttribute="leading" secondItem="L0D-UB-bb2" secondAttribute="trailing" constant="20" id="GMb-ZY-G2j"/>
+                <constraint firstItem="cIu-aK-xJu" firstAttribute="leading" secondItem="L0D-UB-bb2" secondAttribute="trailing" constant="64" id="GMb-ZY-G2j"/>
                 <constraint firstAttribute="bottom" secondItem="cIu-aK-xJu" secondAttribute="bottom" constant="14" id="PkU-fN-eBY"/>
                 <constraint firstItem="faD-mI-f4Y" firstAttribute="centerY" secondItem="UGl-jb-UIV" secondAttribute="centerY" id="bdb-lH-Veu"/>
                 <constraint firstAttribute="bottom" secondItem="L0D-UB-bb2" secondAttribute="bottom" constant="14" id="nqj-Qi-Uv0"/>
