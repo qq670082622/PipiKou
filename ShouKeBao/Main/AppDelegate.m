@@ -79,7 +79,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -118,7 +117,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     
 #pragma -mark莲子统计Lotuseed
     
- 
 
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
@@ -274,7 +272,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     return YES;
     //后台返回一个字典包含:messageId,noticeType,_j_msgid,messageUri,aps(5个)
 }
-
 
 #pragma mark - jpush信息处理集中在此方法
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -630,7 +627,9 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
-      [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isQQReloadView"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
+    }
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
