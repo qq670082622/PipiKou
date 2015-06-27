@@ -120,8 +120,6 @@
     
 
     
-   
-    
     [self.view addSubview:self.tableView];
     
     // 取出隐藏的数据 看下有没有过期的 有就去掉
@@ -182,7 +180,6 @@
     [self setTagAndAlias];
 
 }
-
 -(void)setTagAndAlias
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];

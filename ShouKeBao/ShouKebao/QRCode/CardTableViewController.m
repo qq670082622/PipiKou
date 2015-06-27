@@ -295,8 +295,8 @@
     
     CGFloat btnY = CGRectGetMaxY(lab.frame)+15;
     CGFloat btnW = (alertW - 5*alertX)/4;
-    
-    UIButton *weCaht = [UIButton buttonWithType:UIButtonTypeCustom];
+
+        UIButton *weCaht = [UIButton buttonWithType:UIButtonTypeCustom];
     [weCaht setBackgroundImage:[UIImage imageNamed:@"weixincopy"] forState:UIControlStateNormal];
     weCaht.frame = CGRectMake(alertX, btnY, btnW, btnW);
     [weCaht addTarget:self action:@selector(openWechat) forControlEvents:UIControlEventTouchUpInside];
@@ -369,7 +369,6 @@
 }
 -(void)openWechat
 {
-   
     NSURL * wechat_url = [NSURL URLWithString:@"weixin://qr/JnXv90fE6hqVrQOU9yA0"];
     
     if ([[UIApplication sharedApplication] canOpenURL:wechat_url]) {
@@ -396,7 +395,6 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
     });
-    
 }
 
 -(void)cancleCover{

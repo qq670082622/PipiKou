@@ -433,7 +433,6 @@
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         
     }];
-
     [self.historyArr addObject:self.searchTextField.text];
         if (self.historyArr.count > 6) {
             [self.historyArr removeObjectAtIndex:0];

@@ -12,7 +12,7 @@
 //@class BeseWebView;
 @interface ProduceDetailViewController : SKViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
- 
+
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;
 @end
