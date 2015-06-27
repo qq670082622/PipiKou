@@ -132,13 +132,12 @@
         [dic setObject:self.QQ.text forKey:@"QQCode"];
         [dic setObject:self.note.text forKey:@"Remark"];
         [dic setObject:self.ID forKey:@"ID"];
-        NSMutableArray *arr = [NSMutableArray array];
-        [arr addObject:dic];
+       
         
         NSMutableDictionary *secondDic = [NSMutableDictionary dictionary];
-        [secondDic setObject:arr forKey:@"CustomerList"];
+        [secondDic setObject:dic forKey:@"Customer"];
         
-        [IWHttpTool WMpostWithURL:@"/Customer/CreateCustomerList" params:secondDic success:^(id json) {
+        [IWHttpTool WMpostWithURL:@"Customer/EditCustomer" params:secondDic success:^(id json) {
             NSLog(@"---- b编辑单个客户成功 %@------",json);
             [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andNote:self.note.text];
         } failure:^(NSError *error) {
