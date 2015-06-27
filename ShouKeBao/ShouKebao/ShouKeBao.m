@@ -927,6 +927,25 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
+  //将今日推荐排在第二
+   
+    HomeBase *recom = [[HomeBase alloc] init];
+    int recomIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+       if ([base.model isKindOfClass:[Recommend class]]) {
+            recomIndex = i;
+        }
+        }
+   
+    if (recomIndex>1) {
+    
+        recom = self.dataSource[recomIndex];
+       
+        [self.dataSource removeObjectAtIndex:recomIndex];
+        [self.dataSource insertObject:recom atIndex:1];
+            }
+    
 }
 
 -(void)pushToStore

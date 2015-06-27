@@ -132,8 +132,11 @@
         [dic setObject:self.QQ.text forKey:@"QQCode"];
         [dic setObject:self.note.text forKey:@"Remark"];
         [dic setObject:self.ID forKey:@"ID"];
+
        // NSMutableArray *arr = [NSMutableArray array];
         //[arr addObject:dic];kjhkjhjk
+
+       
         
         NSMutableDictionary *secondDic = [NSMutableDictionary dictionary];
         [secondDic setObject:dic forKey:@"Customer"];
