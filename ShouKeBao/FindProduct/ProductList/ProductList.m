@@ -356,12 +356,18 @@
 
 
 -(void)clickPush
-{NSDictionary *dic = [NSDictionary dictionary];
-    dic = [_pushedArr firstObject];
-    if ([dic[@"Text"] isEqualToString:@"暂无"]) {
-        [self.navigationController popViewControllerAnimated:YES];
+{
+//    NSDictionary *dic = [NSDictionary dictionary];
+//    dic = [_pushedArr firstObject];
+//    if ([dic[@"Text"] isEqualToString:@"暂无"]) {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }else{
+//        [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+//    }
+    if (_isFromSearch == YES) {
+        [self.navigationController popViewControllerAnimated:NO];
     }else{
-        [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
     }
 }
 
