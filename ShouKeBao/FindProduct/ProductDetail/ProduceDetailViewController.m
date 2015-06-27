@@ -124,7 +124,6 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ProduceDetailView"];
-    
    }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -164,13 +163,10 @@
 
 -(void)back
 {
-    
     if ([_webView canGoBack]) {
-        
         [self.webView goBack];
    }
     else  {
-        
         [self.navigationController popViewControllerAnimated:YES];
     }
     
