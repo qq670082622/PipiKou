@@ -113,6 +113,7 @@
     
     self.table.headerPullToRefreshText =@"刷新内容";
     self.table.headerRefreshingText = @"正在刷新";
+    
 }
 
 -(void)headerPull
@@ -121,10 +122,12 @@
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
     [self loadDataSource];
-        [self.table headerEndRefreshing];
-    
-    
+    [self.table headerEndRefreshing];
 }
+
+
+
+
 //-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 //{
 //    [self.imageViewWhenIsNull removeFromSuperview];
@@ -152,9 +155,6 @@
 
 -(void)setSubViewUp
 {
-
-   
-    
     if (self.subView.hidden == YES) {
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 0;
@@ -239,8 +239,6 @@
 
 -(void)loadDataSource
 {
-    
-
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"500" forKey:@"PageSize"];
@@ -262,7 +260,7 @@
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
-               [self.table reloadData];
+        [self.table reloadData];
         if (_dataArr.count==0) {
             
            self.imageViewWhenIsNull.hidden = NO ;
@@ -428,6 +426,14 @@
 
     
     [self.searchTextField resignFirstResponder];
+    NSString *ni = @"         ";
+    
+    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
+    
+    //    这个居中不知道为啥不好使
+    //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    
     [UIView animateWithDuration:0.3 animations:^{
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
