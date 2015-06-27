@@ -80,7 +80,9 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+    //判断程序是否在前台计时
+     [self performSelector:@selector(changeDef) withObject:nil afterDelay:3];
+       [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
     
@@ -590,6 +592,16 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
    // [self prepAudio];
    }
 
+-(void)changeDef
+{
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"no" forKey:@"appIsBack"];
+    [def synchronize];
+    NSLog(@"已经修改ddef＝＝＝＝＝＝＝＝＝＝＝＝＝＝");
+    
+}
+
 //播放一段无声音乐，让苹果审核时认为后台有音乐而让程序不会被杀死
 - (BOOL) prepAudio
 
@@ -641,5 +653,8 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
 
 @end
