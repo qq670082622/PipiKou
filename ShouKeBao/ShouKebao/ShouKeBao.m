@@ -927,6 +927,37 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
+  //将今日推荐排在第二
+    HomeBase *Normal = [[HomeBase alloc] init];
+    HomeBase *recom = [[HomeBase alloc] init];
+    int recomIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+       
+        if ([base.model isKindOfClass:[Recommend class]]) {
+            recomIndex = i;
+        }
+        }
+    if (recomIndex>1) {
+        Normal = self.dataSource[1];
+        recom = self.dataSource[recomIndex];
+        [self.dataSource removeObjectAtIndex:1];
+        [self.dataSource removeObjectAtIndex:recomIndex];
+        NSMutableArray *new = [NSMutableArray arrayWithArray:self.dataSource];
+        
+        [new insertObject:recom atIndex:1];
+        [new insertObject:Normal atIndex:recomIndex];
+        [self.dataSource removeAllObjects];
+        [self.dataSource addObjectsFromArray:new];
+    }
+ //去掉重复的今日推荐
+//  for (int i = 0; i<self.dataSource.count; i++) {
+//      HomeBase *b = self.dataSource[i];
+//        if ([b.model isKindOfClass:[Recommend class]] && i>1) {
+//            [self.dataSource removeObjectAtIndex:i];
+//        }
+//    }
+    
 }
 
 -(void)pushToStore
