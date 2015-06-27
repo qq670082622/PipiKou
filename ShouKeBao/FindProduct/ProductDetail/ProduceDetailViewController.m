@@ -209,8 +209,6 @@
     if ([rightUrl containsString:@"mqq://"]) {
         NSLog(@"%@", rightUrl);
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
-        //            [self.webView reload];
-        //            [self.webView loadRequest:self.request];
     }else{
         [_indicator startAnimation];
         self.coverView.hidden = NO;
