@@ -79,7 +79,10 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+    
+    //判断程序是否在前台计时
+     [self performSelector:@selector(changeDef) withObject:nil afterDelay:3];
+       [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
     
@@ -117,6 +120,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
 #pragma -mark莲子统计Lotuseed
     
+ 
 
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
@@ -272,6 +276,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     return YES;
     //后台返回一个字典包含:messageId,noticeType,_j_msgid,messageUri,aps(5个)
 }
+
 
 #pragma mark - jpush信息处理集中在此方法
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
@@ -587,6 +592,16 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
    // [self prepAudio];
    }
 
+-(void)changeDef
+{
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"no" forKey:@"appIsBack"];
+    [def synchronize];
+    NSLog(@"已经修改ddef＝＝＝＝＝＝＝＝＝＝＝＝＝＝");
+    
+}
+
 //播放一段无声音乐，让苹果审核时认为后台有音乐而让程序不会被杀死
 - (BOOL) prepAudio
 
@@ -627,9 +642,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isQQReloadView"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
-    }
+      [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
@@ -640,5 +653,8 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
 
 @end

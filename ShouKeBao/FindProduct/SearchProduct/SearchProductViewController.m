@@ -236,7 +236,8 @@
 {
            NSLog(@"table 被点击");
       
-    NSMutableString *selectHistoryKey = _tableDataArr[indexPath.row];
+    NSMutableString *selectHistoryKey = _tableDataArr[self.tableDataArr.count - indexPath.row - 1];
+    
     if (selectHistoryKey) {
         self.inputView.text = selectHistoryKey;
         ProductList *list = [[ProductList alloc] init];
@@ -246,6 +247,7 @@
         //self.footView.hidden = NO;
         [self.navigationController pushViewController:list animated:YES];
     }
+    
     [tableView deselectRowAtIndexPath:indexPath animated:NO];
 }
 

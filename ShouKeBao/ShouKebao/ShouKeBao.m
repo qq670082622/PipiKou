@@ -95,7 +95,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *SKBNewBtn;
 
 @property(nonatomic,weak) UIView *navBarView;
-
+@property(nonatomic,assign) CGRect titleViewFrame;
 @property (nonatomic,assign) NSUInteger time;
 @property(nonatomic,strong) NSTimer *pushTime;
 @end
@@ -179,7 +179,10 @@
     
     [self setTagAndAlias];
 
+     [self setUpNavBarView];
+    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
 }
+//给推送打tag和标签
 -(void)setTagAndAlias
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -193,43 +196,37 @@
 
     [APService setTags:[NSSet setWithObject:[def objectForKey:UserInfoKeyBusinessID]] callbackSelector:nil object:nil];
 }
-
+//设置头部搜索与分站按钮
 -(void)setUpNavBarView
-{ CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
+{
+    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
     
     if (screenW<375) {
         SKBNavBar *navBar = [SKBNavBar SKBNavBar];
         self.navigationItem.titleView = navBar;
-        //navBar.frame = CGRectMake(40, 0, screenW/2 - 20, 34);
-        
-        UIView *cover = [[UIView alloc] init];
-        CGFloat navBarW = navBar.frame.size.width;
-        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
-        cover.backgroundColor = [UIColor clearColor];
-        UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
-        station.backgroundColor = [UIColor clearColor];
-        station.frame = CGRectMake(0, 0, 64, 34);
-        [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
-        [cover addSubview:station];
-        
-        UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
-        search.backgroundColor = [UIColor clearColor];
-        search.frame = CGRectMake(64, 0, navBarW-64, 34);
-        [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
-        [cover addSubview:search];
-        
-        [self.navigationController.navigationBar addSubview:cover];
-        self.navBarView = cover;
+        self.titleViewFrame = navBar.frame;
+
 
     }else{
         
         SKBNavBarFor6OrP *navBar = [SKBNavBarFor6OrP SKBNavBarFor6OrP];
         self.navigationItem.titleView = navBar;
-       // navBar.frame = CGRectMake(40, 0, screenW/2 - 20, 34);
+        self.titleViewFrame = navBar.frame;
+
+        
+    }
+   
+}
+//给navbar上控制蒙层
+-(void)setCoverOnTitileViewWithFrame:(CGRect )frame
+{
+    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
+    
+    if (screenW<375) {
         
         UIView *cover = [[UIView alloc] init];
-        CGFloat navBarW = navBar.frame.size.width;
-        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
+        CGFloat navBarW = frame.size.width;
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width, 34);
         cover.backgroundColor = [UIColor clearColor];
         UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
         station.backgroundColor = [UIColor clearColor];
@@ -245,11 +242,32 @@
         
         [self.navigationController.navigationBar addSubview:cover];
         self.navBarView = cover;
-
+        
+    }else{
+        
+               UIView *cover = [[UIView alloc] init];
+        CGFloat navBarW = frame.size.width;
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width, 34);
+        cover.backgroundColor = [UIColor clearColor];
+        UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
+        station.backgroundColor = [UIColor clearColor];
+        station.frame = CGRectMake(0, 0, 64, 34);
+        [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:station];
+        
+        UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
+        search.backgroundColor = [UIColor clearColor];
+        search.frame = CGRectMake(64, 0, navBarW-64, 34);
+        [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:search];
+        
+        [self.navigationController.navigationBar addSubview:cover];
+        self.navBarView = cover;
+       
+        
     }
-   
-}
 
+}
 -(void)initPull
 {
 //    //上啦刷新
@@ -637,7 +655,7 @@
     
     [self getStationName];
     
-    [self setUpNavBarView];
+   
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *str = [def objectForKey:@"stationSelect2"];
@@ -648,24 +666,14 @@
         [def synchronize];
     }
     
-    self.time = 0;
-    NSTimer *pushTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeDef) userInfo:nil repeats:3];
-    self.pushTime = pushTimer;
-    [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
+    
+   
+   
 
+    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
 }
 
--(void)changeDef
-{
-    self.time++ ;
-    NSLog(@"time is %lu",(unsigned long)_time);
-    if (_time == 3) {
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def setObject:@"no" forKey:@"appIsBack"];
-        [def synchronize];
-        [self.pushTime invalidate];
-    }
-}
+
 
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -927,6 +935,25 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
+  //将今日推荐排在第二
+   
+    HomeBase *recom = [[HomeBase alloc] init];
+    int recomIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+       if ([base.model isKindOfClass:[Recommend class]]) {
+            recomIndex = i;
+        }
+        }
+   
+    if (recomIndex>1) {
+    
+        recom = self.dataSource[recomIndex];
+       
+        [self.dataSource removeObjectAtIndex:recomIndex];
+        [self.dataSource insertObject:recom atIndex:1];
+            }
+    
 }
 
 -(void)pushToStore
