@@ -34,8 +34,8 @@
 {
     [super viewDidLoad];
     
-    
-   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor) name:@"stopIndictor" object:nil];
+
 
     
     [self.view addSubview:self.webView];
@@ -89,7 +89,9 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phonen]];
     }
 }
-
+- (void)stopIndictor{
+    [self.webView reload];
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -133,9 +135,7 @@
         }
         else
         {
-            
             [self.navigationController popViewControllerAnimated:YES];
-            
         }
     }
 }
@@ -163,9 +163,10 @@
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
-
-        if ([rightUrl containsString:@"tel:"]) {
-            self,[webView reload];
+        if ([rightUrl containsString:@"mqq://"]) {
+            NSLog(@"%@", rightUrl);
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+//            [self.webView reload];
 //            [self.webView loadRequest:self.request];
         }else{
          [_indicator startAnimation];
@@ -184,6 +185,8 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
+
     self.rightButton.hidden = YES;
 
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];

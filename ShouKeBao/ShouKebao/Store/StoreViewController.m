@@ -54,7 +54,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor) name:@"stopIndictor" object:nil];
+
     self.title = @"店铺详情";
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
@@ -123,7 +124,9 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phonen]];
     }
 }
-
+- (void)stopIndictor{
+    [self.webView reload];
+}
 #pragma  -mark VC Life
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -239,8 +242,12 @@
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
     }
     else{
-        self.coverView.hidden = NO;
-        [_indicator startAnimation];
+        if ([rightUrl containsString:@"mqq://"]) {
+            NSLog(@"%@", rightUrl);
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+        }else{
+            [_indicator startAnimation];
+        }
 
         return YES;
     }
@@ -252,6 +259,8 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
 
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     self.coverView.hidden = YES;

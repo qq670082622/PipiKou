@@ -164,6 +164,7 @@
 -(void)back
 {
     if ([_webView canGoBack]) {
+        
         [self.webView goBack];
    }
     else  {
@@ -205,9 +206,16 @@
 //        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
-    NSLog(@"%@*88888888888888888", rightUrl);
+    if ([rightUrl containsString:@"mqq://"]) {
+        NSLog(@"%@", rightUrl);
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+        //            [self.webView reload];
+        //            [self.webView loadRequest:self.request];
+    }else{
         [_indicator startAnimation];
         self.coverView.hidden = NO;
+
+    }
         return YES;
   
 }
@@ -215,6 +223,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
     self.coverView.hidden = YES;
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
