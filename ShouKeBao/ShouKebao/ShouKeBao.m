@@ -338,7 +338,7 @@
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
    
-    // [self getVoice];
+     [self getVoice];
     [self headerPull];
     [self  getUserInformation];
    
