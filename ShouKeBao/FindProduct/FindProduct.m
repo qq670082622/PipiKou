@@ -203,20 +203,17 @@
     
     leftModal *model = self.leftTableArr[selectRow];
     [dic setObject:model.Type forKey:@"NavigationType"];
-       [self.rightTableArr removeAllObjects];
     dispatch_queue_t q = dispatch_queue_create("loadDataSourceRight", DISPATCH_QUEUE_SERIAL);
     dispatch_async(q, ^{
         [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
             // NSLog(@"-------------dataSourceRight json is %@-----------------",json);
             
-            
-            [self.rightTable headerEndRefreshing];
+            [self.rightTableArr removeAllObjects];
             NSMutableArray *searchKeyArr = [NSMutableArray array];
             for(NSDictionary *dic in json[@"NavigationMainList"] ){
                 rightModal2 *modal = [rightModal2 modalWithDict:dic];
                 [searchKeyArr addObject:dic[@"ID"]];
                 [self.rightTableArr addObject:modal];
-                
                 
             }
             _rightMoreSearchID = searchKeyArr;//取出子大区的key
@@ -224,7 +221,8 @@
             
             //        self.rightTable.scrollEnabled = YES;
             [self.rightTable reloadData];
-            
+            [self.rightTable headerEndRefreshing];
+
         } failure:^(NSError *error) {
             NSLog(@"左侧栏请求错误！～～～error is ~~~~~~~~~%@",error);
         }];
