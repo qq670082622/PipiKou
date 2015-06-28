@@ -36,7 +36,6 @@
     
     
     
-    
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
@@ -67,7 +66,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *reason = [exception reason];//非常重要，就是崩溃的原因
     NSString *name = [exception name];//异常类型
     NSString *crashLogInfo = [NSString stringWithFormat:@"exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr];
-    NSString *urlStr = [NSString stringWithFormat:@"mailto://tianranwuwai@yeah.net?subject=bug报告&body=感谢您的配合!错误详情:%@",crashLogInfo];
+    NSString *urlStr = [NSString stringWithFormat:@"mailto://928572909@qq.com?subject=bug报告&body=感谢您的配合!错误详情:%@",crashLogInfo];
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:url];
     //将崩溃日志写到本地；等程序再运行的时候再发送到服务器；
@@ -86,9 +85,8 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
     
-    
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
-        
+    
     
     NSString * crashLog = [[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"];
     if (![crashLog isEqualToString:@""]) {

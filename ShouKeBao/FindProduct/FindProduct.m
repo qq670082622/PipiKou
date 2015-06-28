@@ -56,6 +56,8 @@
 @property (weak, nonatomic)  UIButton *hotBtn;
 @property (assign,nonatomic) BOOL isHot;
 
+@property (nonatomic, assign)NSInteger selectNum;
+
 @property (nonatomic,strong) NSMutableArray *pushArr;
 @end
 
@@ -83,6 +85,10 @@
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(headerViewDidClickedLoadBtn:)];
     [self.blackView addGestureRecognizer:tap];
+    
+    //设置一个没有的数，保证第一次都正常加载
+    self.selectNum = 100;
+    
 }
 
 #pragma -mark 点击手势隐藏蒙板
@@ -605,6 +611,11 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 //    self.rightTable.scrollEnabled = NO;
 //    self.hotTable.scrollEnabled = NO;
     if (tableView.tag == 1) {
+        
+        if (self.selectNum == indexPath.row) {
+            [self.leftTable reloadData];
+        }else{
+        self.selectNum = indexPath.row;
         leftModal *model = self.leftTableArr[indexPath.row];
        // [MobClick event:@"leftTableClick" attributes:@{@"name":model.Name}];
                 self.isHot = NO;
@@ -633,7 +644,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             self.hotBtn.titleLabel.font = [UIFont systemFontOfSize:12];
 
         }];
-        
+        }
 
     }
     
