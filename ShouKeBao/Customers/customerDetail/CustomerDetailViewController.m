@@ -63,6 +63,7 @@
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -145,8 +146,6 @@
 }
 -(void)EditCustomerDetail
 {
-    
-    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     
     EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
@@ -179,7 +178,6 @@
 
 - (IBAction)remond:(id)sender {
     
-    
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
     remond.customModel = self.customMoel;
@@ -189,13 +187,21 @@
 - (IBAction)deleteCustomer:(id)sender {
     
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"您确定要删除吗？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
-    [sheet showInView:self.view];
+     [sheet showInView:self.view];
+    
+   
+//   搜索删除后执行的方法
+   
+    
+//      [self.delegate deleteCustomerWith:self.tele.text];
+
+    
     
   }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 0) {
-        
+
         MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
         hudView.labelText = @"删除中...";
         [hudView show:YES];
@@ -204,6 +210,10 @@
         [dic setObject:self.ID forKey:@"CustomerID"];
         [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
             NSLog(@"删除客户信息成功%@",json);
+            [self.delegate deleteCustomerWith:self.keyWordss];
+
+            NSLog(@"删除客户信息后%@",dic);
+            
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
             
@@ -212,7 +222,7 @@
             NSLog(@"删除客户请求失败%@",error);
         }];
         [self.navigationController popViewControllerAnimated:YES];
-
+        
     }
     if (buttonIndex == 1) {
         return;
