@@ -283,13 +283,14 @@
 //    self.tableView.footerRefreshingText = @"正在刷新";
     //下拉
     [self.tableView addHeaderWithTarget:self action:@selector(headerPull)];
-    [self.tableView headerBeginRefreshing];
+ [self.tableView headerBeginRefreshing];
     
     self.tableView.headerPullToRefreshText =@"刷新内容";
     self.tableView.headerRefreshingText = @"正在刷新";
 }
 -(void)headerPull
 {
+    
     [self loadContentDataSource];
     [self.tableView headerEndRefreshing];
 }
@@ -652,6 +653,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     self.userName.text =  [UserInfo shareUser].userName;
     [MobClick beginLogPageView:@"ShouKeBao"];
     
@@ -661,6 +663,7 @@
     
     [self getStationName];
     
+    [self loadContentDataSource];
    
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -688,8 +691,7 @@
     [MobClick endLogPageView:@"ShouKeBao"];
   
     [self.navBarView removeFromSuperview];
-   
-}
+   }
 
 
 #pragma mark - getter
