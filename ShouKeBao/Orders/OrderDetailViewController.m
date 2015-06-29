@@ -210,5 +210,8 @@
 //    [self.webView goBack];
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 @end

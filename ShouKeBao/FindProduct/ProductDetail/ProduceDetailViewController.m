@@ -33,7 +33,6 @@
 @end
 
 @implementation ProduceDetailViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -104,6 +103,10 @@
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要拨打电话:%@吗?", string] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
+}
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
@@ -239,14 +242,14 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightUrl forKey:@"PageUrl"];
-    // [self.shareInfo removeAllObjects];
+     [self.shareInfo removeAllObjects];
     
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         
         NSLog(@"-----分享返回数据json is %@------",json);
       NSString *str =  json[@"ShareInfo"][@"Desc"];
         if(str.length>1){
-            [self.shareInfo removeAllObjects];
+//            [self.shareInfo removeAllObjects];
             self.shareInfo = json[@"ShareInfo"];
             NSLog(@"%@99999", self.shareInfo);
         }
