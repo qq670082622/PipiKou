@@ -19,7 +19,7 @@
 #import "NSArray+QD.h"
 #import "NSString+QD.h"
 #import "MobClick.h"
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
@@ -106,6 +106,7 @@
 
 -(void)initPull
 {
+    
    
     //下拉
     [self.table addHeaderWithTarget:self action:@selector(headerPull)];
@@ -239,6 +240,7 @@
 
 -(void)loadDataSource
 {
+    self.searchCustomerBtnOutlet.titleLabel.text = @"客户名/电话号码";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"500" forKey:@"PageSize"];
@@ -313,6 +315,7 @@
 //    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
 //    self.historyArr = searchArr;
     [self.historyTable reloadData];
+    NSLog(@"sssss");
 
 }
 
@@ -336,6 +339,8 @@
         detail.customMoel = model;
         detail.picUrl = model.PicUrl;
         detail.customerId = model.ID;
+        detail.delegate = self;
+        detail.keyWordss = self.searchK;
         [self.navigationController pushViewController:detail animated:YES];
     }
     if (tableView.tag == 2) {
@@ -461,7 +466,7 @@
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
-
+    
         [self.table reloadData];
         if (self.dataArr.count == 0) {
            self.imageViewWhenIsNull.hidden = NO;
@@ -581,6 +586,7 @@
     self.searchCustomerBtnOutlet.hidden = YES;
     [self.searchTextField becomeFirstResponder];
     
+       
     [UIView animateWithDuration:0.3 animations:^{
 
         self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
@@ -615,4 +621,38 @@
     }];
 
 }
+
+- (void)deleteCustomerWith:(NSString *)keyWords{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@1 forKey:@"PageIndex"];
+    [dic setObject:@"100" forKey:@"PageSize"];
+    [dic setObject:keyWords forKey:@"SearchKey"];
+    NSLog(@"%@**************", keyWords);
+//    self.searchK = [NSMutableString stringWithFormat:@"%@",keyWords];
+    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
+        
+        NSLog(@"------管客户搜索结果的json is %@-------",json);
+        [self.dataArr removeAllObjects];
+        for(NSDictionary *dic in json[@"CustomerList"]){
+            CustomModel *model = [CustomModel modalWithDict:dic];
+            [self.dataArr addObject:model];
+        }
+        
+        [self.table reloadData];
+        if (self.dataArr.count == 0) {
+            self.imageViewWhenIsNull.hidden = NO;
+        }else if (self.dataArr.count >0){
+            self.imageViewWhenIsNull.hidden = YES;
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
+    }];
+    [self cancelSearch];
+  
+    NSLog(@"fffff");
+    
+}
+
+
+
 @end
