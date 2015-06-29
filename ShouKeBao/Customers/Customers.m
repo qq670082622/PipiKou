@@ -126,7 +126,6 @@
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @"    客户名/电话号码";
-    NSLog(@"ooooo");
     [self loadDataSource];
     [self.table headerEndRefreshing];
 }
@@ -405,16 +404,24 @@
 #pragma mark - textField delegate method
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-//    [self.tableDataArr addObject:self.inputView.text];
-//    if (self.tableDataArr.count > 6) {
-//        [self.tableDataArr removeObjectAtIndex:0];
-//    }
-//    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
-//    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
+    //    [self.tableDataArr addObject:self.inputView.text];
+    //    if (self.tableDataArr.count > 6) {
+    //        [self.tableDataArr removeObjectAtIndex:0];
+    //    }
+    //    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
+    //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
+    
+    NSString *ni = @"       ";
+    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
+    
     
     [self.searchTextField resignFirstResponder];
-    NSString *ni = @"   ";
+    
     self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
+    
+    //    这个居中不知道为啥不好使
+    //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
     
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -422,41 +429,40 @@
         
     }];
     [self.historyArr addObject:self.searchTextField.text];
-        if (self.historyArr.count > 6) {
-            [self.historyArr removeObjectAtIndex:0];
-        }
-        NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
-        [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
-   
-
+    if (self.historyArr.count > 6) {
+        [self.historyArr removeObjectAtIndex:0];
+    }
+    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
+    [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
+    
+    
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"1" forKey:@"PageIndex"];
+    [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
-   [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
+    [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
     self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-       
+        
         NSLog(@"------管客户搜索结果的json is %@-------",json);
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
-    
+        
         [self.table reloadData];
         if (self.dataArr.count == 0) {
-           self.imageViewWhenIsNull.hidden = NO;
+            self.imageViewWhenIsNull.hidden = NO;
         }else if (self.dataArr.count >0){
             self.imageViewWhenIsNull.hidden = YES;
         }
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
-     [self cancelSearch];
+    [self cancelSearch];
     return YES;
 }
-
-
 - (IBAction)timeOrderAction:(id)sender {
   //  [self.orderNumBtn setSelected:NO];
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
@@ -568,8 +574,9 @@
            self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
            self.historyView.hidden = NO;
            
-            self.searchTextField.text = self.searchK;
-    
+           self.searchTextField.text = self.searchK;
+           
+           
        }];
     
     [self loadHistoryArr];

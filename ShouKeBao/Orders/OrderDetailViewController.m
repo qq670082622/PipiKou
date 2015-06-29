@@ -97,7 +97,7 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"OrderDetailView"];
 
-   }
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];

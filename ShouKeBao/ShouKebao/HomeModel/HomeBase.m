@@ -21,8 +21,8 @@
 
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    
-    if (self == [super init]) {
+    self = [super init];
+    if (self) {
         self.time =  [aDecoder decodeObjectForKey:@"time"];
         self.idStr =  [aDecoder decodeObjectForKey:@"idStr"];
         self.model =  [aDecoder decodeObjectForKey:@"model"];

@@ -23,8 +23,8 @@
 }
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    
-    if (self == [super init]) {
+    self = [super init];
+    if (self) {
         self.title =  [aDecoder decodeObjectForKey:@"title"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
         //self.ID = [aDecoder decodeObjectForKey:@"ID"];
@@ -34,7 +34,6 @@
         self.Type = [aDecoder decodeObjectForKey:@"Type"];
 
     }
-    
     return self;
 }
 

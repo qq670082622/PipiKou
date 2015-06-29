@@ -85,7 +85,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
     
-    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
+//    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
     NSString * crashLog = [[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"];
     if (![crashLog isEqualToString:@""]) {

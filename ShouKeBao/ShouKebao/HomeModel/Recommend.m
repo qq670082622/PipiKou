@@ -21,8 +21,8 @@
 
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    
-    if (self == [super init]) {
+    self = [super init];
+    if (self) {
         self.Count =  [aDecoder decodeObjectForKey:@"Count"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
         self.Price = [aDecoder decodeObjectForKey:@"Price"];

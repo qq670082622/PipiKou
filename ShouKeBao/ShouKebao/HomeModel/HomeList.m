@@ -30,7 +30,8 @@
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
     
-    if (self == [super init]) {
+    self = [super init];
+    if (self) {
         self.ChildCount =  [aDecoder decodeObjectForKey:@"ChildCount"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
         self.GoDate = [aDecoder decodeObjectForKey:@"GoDate"];
@@ -44,7 +45,6 @@
         self.LinkUrl = [aDecoder decodeObjectForKey:@"LinkUrl"];
         self.OrderStateDetail = [aDecoder decodeObjectForKey:@"OrderStateDetail"];
     }
-    
     return self;
 }
 

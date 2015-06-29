@@ -186,7 +186,7 @@
     [self setTagAndAlias];
 
      [self setUpNavBarView];
-    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
+    
     
 }
 //给推送打tag和标签
@@ -664,7 +664,8 @@
     
    [self loadContentDataSource];
 
-    self.navBarView.hidden = NO;
+    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
+    self.navBarView.userInteractionEnabled = YES;
   
 }
 
@@ -675,7 +676,7 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBao"];
-    self.navBarView.hidden = YES;
+    self.navBarView.userInteractionEnabled = NO;
     //[self.navBarView removeFromSuperview];
    }
 
