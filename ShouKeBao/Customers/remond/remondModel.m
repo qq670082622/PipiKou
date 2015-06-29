@@ -22,8 +22,8 @@
 
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
-    
-    if (self == [super init]) {
+    self = [super init];
+    if (self) {
         self.name =  [aDecoder decodeObjectForKey:@"name"];
         self.RemindTime =  [aDecoder decodeObjectForKey:@"time"];
         self.Content =  [aDecoder decodeObjectForKey:@"content"];
