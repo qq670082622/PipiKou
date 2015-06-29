@@ -126,6 +126,7 @@
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @"    客户名/电话号码";
+    NSLog(@"ooooo");
     [self loadDataSource];
     [self.table headerEndRefreshing];
 }
@@ -412,12 +413,8 @@
 //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
     
     [self.searchTextField resignFirstResponder];
-    
+    NSString *ni = @"   ";
     self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
-    
-    //    这个居中不知道为啥不好使
-    //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
-    
     
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -432,7 +429,7 @@
         [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
    
 
-  NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@"1" forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
    [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
@@ -571,9 +568,8 @@
            self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
            self.historyView.hidden = NO;
            
-           self.searchTextField.text = self.searchK;
-           
-           
+            self.searchTextField.text = self.searchK;
+    
        }];
     
     [self loadHistoryArr];
