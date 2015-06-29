@@ -232,7 +232,7 @@
         
         UIView *cover = [[UIView alloc] init];
         CGFloat navBarW = frame.size.width;
-        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width, 34);
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width-40, 34);
         cover.backgroundColor = [UIColor clearColor];
         UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
         station.backgroundColor = [UIColor clearColor];
@@ -253,7 +253,7 @@
         
                UIView *cover = [[UIView alloc] init];
         CGFloat navBarW = frame.size.width;
-        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width, 34);
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width-40, 34);
         cover.backgroundColor = [UIColor clearColor];
         UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
         station.backgroundColor = [UIColor clearColor];
@@ -663,21 +663,17 @@
     
     [self getStationName];
     
-    [self loadContentDataSource];
+   
    
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *str = [def objectForKey:@"stationSelect2"];
-    if ([str isEqualToString:@"yes"]) {
+       NSString *appIsBack = [def objectForKey:@"appIsBack"];
+    if ([appIsBack isEqualToString:@"no"]) {
         [self loadContentDataSource];
-       
-        [def setObject:@"no" forKey:@"stationSelect2"];
-        [def synchronize];
+
     }
+    [def synchronize];
     
-    
-   
-   
 
     [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
 }
@@ -691,6 +687,8 @@
     [MobClick endLogPageView:@"ShouKeBao"];
   
     [self.navBarView removeFromSuperview];
+     NSLog(@"self.navigationController.navigationBar.subviews is %@",self.navigationController.navigationBar.subviews);
+   
    }
 
 

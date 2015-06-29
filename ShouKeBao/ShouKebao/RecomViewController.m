@@ -132,9 +132,7 @@
 {
     [super viewWillAppear:animated];
     
-    
-  
-   
+    NSLog(@"self.navigationController.navigationBar.subviews is %@",self.navigationController.navigationBar.subviews);
     [MobClick beginLogPageView:@"ShouKeBaoRecomView"];
 
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
