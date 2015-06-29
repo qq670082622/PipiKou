@@ -242,7 +242,6 @@
     [dic setObject:searchID forKey:@"NavigationMainID"];
 
   
-    [self.rightMoreArr removeAllObjects];
     
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
        
@@ -734,6 +733,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
        [self.navigationController pushViewController:list animated:YES];
     }
     if (tableView.tag == 4) {
+        [MobClick event:@"productDetailClick"];
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         rightModal *model =  _hotArr[indexPath.section][indexPath.row];
         NSString *productUrl = model.productUrl;

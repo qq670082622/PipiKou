@@ -426,6 +426,9 @@
 //    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
 //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
 
+    NSString *ni = @"       ";
+    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
+    
     
     [self.searchTextField resignFirstResponder];
     [UIView animateWithDuration:0.3 animations:^{

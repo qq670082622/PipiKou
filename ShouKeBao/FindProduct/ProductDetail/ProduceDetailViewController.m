@@ -189,8 +189,6 @@
     [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
     
     [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
-    
-    
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
     self.navigationItem.rightBarButtonItem= barItem;
