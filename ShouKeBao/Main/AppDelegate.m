@@ -78,11 +78,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    //友盟统计分站
-//    NSDictionary *dict = @{@"sustationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
-//    NSLog(@"%@^^^^^^^", dict);
-//    [MobClick event:@"sustationUser" attributes:dict];
-//    NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
     
     //判断程序是否在前台计时
      [self performSelector:@selector(changeDef) withObject:nil afterDelay:3];

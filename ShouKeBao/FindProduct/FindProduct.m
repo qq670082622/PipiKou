@@ -406,6 +406,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         self.rightTable.alpha = 0;
         self.rightTable2.alpha = 0;
         self.hotTable.alpha = 1;
+        self.selectNum = 100;
         self.hotIcon.image = [UIImage imageNamed:@"APPhot2"];
     } completion:^(BOOL finished) {
 //        self.hotTable.scrollEnabled = YES;

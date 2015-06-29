@@ -110,6 +110,12 @@
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
 
+    //umeng登录统计,第一次启动app的时候统计一下
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isFirst"]intValue] != 1) {
+        [self umengLoginRecord];
+    }
+    
+    
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
@@ -1485,5 +1491,14 @@ HomeBase    *model = self.dataSource[indexPath.row];
    
    
 }
+
+- (void)umengLoginRecord{
+    //友盟统计分站,事件统计
+        NSDictionary *dict = @{@"sustationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
+        NSLog(@"%@^^^^^^^", dict);
+        [MobClick event:@"sustationUser" attributes:dict];
+        NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
+}
+
 
 @end
