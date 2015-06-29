@@ -831,6 +831,7 @@
     self.firstValue = nil;
     self.secondValue = nil;
     self.thirdValue = nil;
+    self.firstIndex = 0;
     self.goDateStart = @"";
     self.goDateEnd = @"";
     self.createDateStart = @"";

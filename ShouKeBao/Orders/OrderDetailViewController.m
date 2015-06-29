@@ -21,6 +21,11 @@
 @property (nonatomic, strong)NSURLRequest * request;
 @property (nonatomic, copy)NSString * telString;
 @property (nonatomic,strong)NSTimer * timer;
+
+@property (nonatomic,strong) UIButton * rightButton;
+@property (nonatomic,assign) BOOL isSave;
+
+
 @end
 
 @implementation OrderDetailViewController
@@ -29,8 +34,8 @@
 {
     [super viewDidLoad];
     
-    
-   
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor) name:@"stopIndictor" object:nil];
+
 
     
     [self.view addSubview:self.webView];
@@ -64,7 +69,7 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    
+    [self setRightBtn];
     // [self Guide];
     
 }
@@ -84,7 +89,9 @@
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phonen]];
     }
 }
-
+- (void)stopIndictor{
+    [self.webView reload];
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -97,6 +104,23 @@
     [self.timer invalidate];
     [MobClick endLogPageView:@"OrderDetailView"];
 
+}
+- (void)setRightBtn{
+    self.rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40,20)];
+    [self.rightButton setTitle:@"确定" forState:UIControlStateNormal];
+    self.rightButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.rightButton addTarget:self action:@selector(writeVisitorsInfoWebViewGoBack) forControlEvents:UIControlEventTouchUpInside];
+    //    rightBtn.highlighted = YES;
+    //    rightBtn.showsTouchWhenHighlighted = YES;
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
+    self.navigationItem.rightBarButtonItem = rightItem;
+    self.rightButton.hidden = YES;
+    
+}
+- (void)writeVisitorsInfoWebViewGoBack{
+    self.isSave = YES;
+    [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"];
+    //    [self.webView goBack];
 }
 
 #pragma -mark private
@@ -111,9 +135,7 @@
         }
         else
         {
-            
             [self.navigationController popViewControllerAnimated:YES];
-            
         }
     }
 }
@@ -141,9 +163,10 @@
     if (range.location == NSNotFound) {
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
     }else{
-
-        if ([rightUrl containsString:@"tel:"]) {
-            self,[webView reload];
+        if ([rightUrl containsString:@"mqq://"]) {
+            NSLog(@"%@", rightUrl);
+            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+//            [self.webView reload];
 //            [self.webView loadRequest:self.request];
         }else{
          [_indicator startAnimation];
@@ -162,11 +185,22 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
+
+    self.rightButton.hidden = YES;
 
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 //    [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
-    
+    BOOL isNeedBtn = [[self.webView stringByEvaluatingJavaScriptFromString:@"isShowSaveButtonForApp()"]intValue];
+    if (isNeedBtn) {
+        self.rightButton.hidden = NO;
+    }
+    if (self.isSave) {
+        //        NSLog(@"%ld", self.webView.pageCount);
+        [self.webView goBack];
+        [self.webView goBack];
+    }
+    self.isSave = NO;
    // [MBProgressHUD showSuccess:@"加载完成"];
    // [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     self.navigationItem.leftBarButtonItem.enabled = YES;

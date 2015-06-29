@@ -36,7 +36,6 @@
     
     
     
-    
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
@@ -67,7 +66,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *reason = [exception reason];//非常重要，就是崩溃的原因
     NSString *name = [exception name];//异常类型
     NSString *crashLogInfo = [NSString stringWithFormat:@"exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr];
-    NSString *urlStr = [NSString stringWithFormat:@"mailto://tianranwuwai@yeah.net?subject=bug报告&body=感谢您的配合!错误详情:%@",crashLogInfo];
+    NSString *urlStr = [NSString stringWithFormat:@"mailto://928572909@qq.com?subject=bug报告&body=感谢您的配合!错误详情:%@",crashLogInfo];
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:url];
     //将崩溃日志写到本地；等程序再运行的时候再发送到服务器；
@@ -80,13 +79,13 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+    //判断程序是否在前台计时
+     [self performSelector:@selector(changeDef) withObject:nil afterDelay:3];
+       [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
     
-    
     NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
-        
     
     NSString * crashLog = [[NSUserDefaults standardUserDefaults]valueForKey:@"crashLogInfo"];
     if (![crashLog isEqualToString:@""]) {
@@ -590,6 +589,16 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
    // [self prepAudio];
    }
 
+-(void)changeDef
+{
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:@"no" forKey:@"appIsBack"];
+    [def synchronize];
+    NSLog(@"已经修改ddef＝＝＝＝＝＝＝＝＝＝＝＝＝＝");
+    
+}
+
 //播放一段无声音乐，让苹果审核时认为后台有音乐而让程序不会被杀死
 - (BOOL) prepAudio
 
@@ -626,11 +635,10 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     return YES;
 }
 
-
-
-
 - (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
-      [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isQQReloadView"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
+    }
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
@@ -641,5 +649,8 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+
 
 @end

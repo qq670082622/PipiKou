@@ -122,6 +122,7 @@
 //    self.imageViewWhenIsNull.hidden = YES;
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
+    self.searchCustomerBtnOutlet.titleLabel.text = @"    客户名/电话号码";
     [self loadDataSource];
     [self.table headerEndRefreshing];
 }
@@ -429,6 +430,9 @@
 //    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
 //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
 
+    NSString *ni = @"       ";
+    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
+    
     
     [self.searchTextField resignFirstResponder];
     NSString *ni = @"         ";

@@ -12,6 +12,7 @@
 #import "Organization.h"
 #import "MobClick.h"
 #import "MBProgressHUD+MJ.h"
+#import "UserInfo.h"
 @interface OrgSettingViewController () <UIScrollViewDelegate, CityViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITextField *comanyName;
@@ -111,6 +112,7 @@
                             };
     [MeHttpTool setBusinessWithParam:param success:^(id json) {
         if ([json[@"IsSuccess"] integerValue] == 1) {
+            [[UserInfo shareUser]setValue:self.comanyName.text forKey:@"userName"];
             [MBProgressHUD showSuccess:@"保存成功"];
             [self.navigationController popViewControllerAnimated:YES];
         }

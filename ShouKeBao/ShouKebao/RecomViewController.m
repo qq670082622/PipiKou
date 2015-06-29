@@ -303,7 +303,7 @@
     [self.todayVC.view removeFromSuperview];
     [self.yesterdayVC.view removeFromSuperview];
     
-    self.title = @"最近推荐";
+    self.title = @"近期推荐";
     
     
     CGFloat lineToX = self.recentlyBtnOutlet.frame.origin.x + self.recentlyBtnOutlet.frame.size.width/2;

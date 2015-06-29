@@ -164,6 +164,7 @@
 -(void)back
 {
     if ([_webView canGoBack]) {
+        
         [self.webView goBack];
    }
     else  {
@@ -188,8 +189,6 @@
     [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
     
     [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
-    
-    
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
     self.navigationItem.rightBarButtonItem= barItem;
@@ -205,9 +204,14 @@
 //        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
 //    }else{
     NSString *rightUrl = request.URL.absoluteString;
-    NSLog(@"%@*88888888888888888", rightUrl);
+    if ([rightUrl containsString:@"mqq://"]) {
+        NSLog(@"%@", rightUrl);
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+    }else{
         [_indicator startAnimation];
         self.coverView.hidden = NO;
+
+    }
         return YES;
   
 }
@@ -215,6 +219,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
     self.coverView.hidden = YES;
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 

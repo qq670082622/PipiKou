@@ -95,7 +95,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *SKBNewBtn;
 
 @property(nonatomic,weak) UIView *navBarView;
-
+@property(nonatomic,assign) CGRect titleViewFrame;
 @property (nonatomic,assign) NSUInteger time;
 @property(nonatomic,strong) NSTimer *pushTime;
 @end
@@ -110,6 +110,12 @@
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
 
+    //umeng登录统计,第一次启动app的时候统计一下
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isFirst"]intValue] != 1) {
+        [self umengLoginRecord];
+    }
+    
+    
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
@@ -179,7 +185,10 @@
     
     [self setTagAndAlias];
 
+     [self setUpNavBarView];
+    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
 }
+//给推送打tag和标签
 -(void)setTagAndAlias
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -193,43 +202,37 @@
 
     [APService setTags:[NSSet setWithObject:[def objectForKey:UserInfoKeyBusinessID]] callbackSelector:nil object:nil];
 }
-
+//设置头部搜索与分站按钮
 -(void)setUpNavBarView
-{ CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
+{
+    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
     
     if (screenW<375) {
         SKBNavBar *navBar = [SKBNavBar SKBNavBar];
         self.navigationItem.titleView = navBar;
-        //navBar.frame = CGRectMake(40, 0, screenW/2 - 20, 34);
-        
-        UIView *cover = [[UIView alloc] init];
-        CGFloat navBarW = navBar.frame.size.width;
-        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
-        cover.backgroundColor = [UIColor clearColor];
-        UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
-        station.backgroundColor = [UIColor clearColor];
-        station.frame = CGRectMake(0, 0, 64, 34);
-        [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
-        [cover addSubview:station];
-        
-        UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
-        search.backgroundColor = [UIColor clearColor];
-        search.frame = CGRectMake(64, 0, navBarW-64, 34);
-        [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
-        [cover addSubview:search];
-        
-        [self.navigationController.navigationBar addSubview:cover];
-        self.navBarView = cover;
+        self.titleViewFrame = navBar.frame;
+
 
     }else{
         
         SKBNavBarFor6OrP *navBar = [SKBNavBarFor6OrP SKBNavBarFor6OrP];
         self.navigationItem.titleView = navBar;
-       // navBar.frame = CGRectMake(40, 0, screenW/2 - 20, 34);
+        self.titleViewFrame = navBar.frame;
+
+        
+    }
+   
+}
+//给navbar上控制蒙层
+-(void)setCoverOnTitileViewWithFrame:(CGRect )frame
+{
+    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
+    
+    if (screenW<375) {
         
         UIView *cover = [[UIView alloc] init];
-        CGFloat navBarW = navBar.frame.size.width;
-        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, navBar.frame.size.width, 34);
+        CGFloat navBarW = frame.size.width;
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width, 34);
         cover.backgroundColor = [UIColor clearColor];
         UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
         station.backgroundColor = [UIColor clearColor];
@@ -245,11 +248,32 @@
         
         [self.navigationController.navigationBar addSubview:cover];
         self.navBarView = cover;
-
+        
+    }else{
+        
+               UIView *cover = [[UIView alloc] init];
+        CGFloat navBarW = frame.size.width;
+        cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width, 34);
+        cover.backgroundColor = [UIColor clearColor];
+        UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
+        station.backgroundColor = [UIColor clearColor];
+        station.frame = CGRectMake(0, 0, 64, 34);
+        [station addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:station];
+        
+        UIButton *search = [UIButton buttonWithType:UIButtonTypeSystem];
+        search.backgroundColor = [UIColor clearColor];
+        search.frame = CGRectMake(64, 0, navBarW-64, 34);
+        [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
+        [cover addSubview:search];
+        
+        [self.navigationController.navigationBar addSubview:cover];
+        self.navBarView = cover;
+       
+        
     }
-   
-}
 
+}
 -(void)initPull
 {
 //    //上啦刷新
@@ -637,7 +661,7 @@
     
     [self getStationName];
     
-    [self setUpNavBarView];
+   
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *str = [def objectForKey:@"stationSelect2"];
@@ -648,32 +672,23 @@
         [def synchronize];
     }
     
-    self.time = 0;
-    NSTimer *pushTimer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(changeDef) userInfo:nil repeats:3];
-    self.pushTime = pushTimer;
-    [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
+    
+   
+   
 
+    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
 }
 
--(void)changeDef
-{
-    self.time++ ;
-    NSLog(@"time is %lu",(unsigned long)_time);
-    if (_time == 3) {
-        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        [def setObject:@"no" forKey:@"appIsBack"];
-        [def synchronize];
-        [self.pushTime invalidate];
-    }
-}
+
 
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBao"];
-
+  
     [self.navBarView removeFromSuperview];
+   
 }
 
 
@@ -1213,6 +1228,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     HomeBase *model = self.dataSource[indexPath.row];
     
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
@@ -1477,5 +1493,14 @@ HomeBase    *model = self.dataSource[indexPath.row];
    
    
 }
+
+- (void)umengLoginRecord{
+    //友盟统计分站,事件统计
+        NSDictionary *dict = @{@"sustationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
+        NSLog(@"%@^^^^^^^", dict);
+        [MobClick event:@"sustationUser" attributes:dict];
+        NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
+}
+
 
 @end
