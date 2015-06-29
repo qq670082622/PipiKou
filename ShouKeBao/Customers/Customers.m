@@ -435,7 +435,8 @@
     
     
     [self.searchTextField resignFirstResponder];
-    NSString *ni = @"         ";
+   
+    //NSString *ni = @"         ";
     
     self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
     
