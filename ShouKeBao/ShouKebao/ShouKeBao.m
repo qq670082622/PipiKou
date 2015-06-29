@@ -1490,6 +1490,9 @@ HomeBase    *model = self.dataSource[indexPath.row];
         [MobClick event:@"sustationUser" attributes:dict];
         NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
 }
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 @end
