@@ -602,8 +602,8 @@
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
-        NSString *ni = @"         ";
-        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
+//        NSString *ni = @"         ";
+//        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
      
     }];
 
