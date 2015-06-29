@@ -615,7 +615,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         }else{
         self.selectNum = indexPath.row;
         leftModal *model = self.leftTableArr[indexPath.row];
-       // [MobClick event:@"leftTableClick" attributes:@{@"name":model.Name}];
+     
                 self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
@@ -725,8 +725,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     
     }
     if (tableView.tag ==3 ) {
-        if (indexPath.row == 0 || _rightMoreArr) {
-            rightModal3 *modal3 = _rightMoreArr[indexPath.row];
+                  rightModal3 *modal3 = _rightMoreArr[indexPath.row];
             NSString *key = modal3.searchKey;
             NSString *title = modal3.Name;
             NSLog(@" key is ~~` ~%@``````````------",key);
@@ -734,8 +733,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             list.pushedSearchK = key;
             list.title = title;
             [self.navigationController pushViewController:list animated:YES];
-        }
         
+    
     }
     if (tableView.tag == 4) {
         [MobClick event:@"productDetailClick"];
