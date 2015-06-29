@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>D7625953-A4FE-49D9-950A-2D3EF1276C6B</string>
 	<key>IDESourceControlProjectName</key>
-	<string>ShouKeBao</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>16CD5C32986B7DB5A2DAC71F8C8FA77F832C2131</key>
 		<string>https://github.com/qq670082622/PipiKou.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>ShouKeBao.xcodeproj</string>
+	<string>ShouKeBao.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>16CD5C32986B7DB5A2DAC71F8C8FA77F832C2131</key>
