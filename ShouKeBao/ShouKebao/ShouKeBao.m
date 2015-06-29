@@ -187,6 +187,7 @@
 
      [self setUpNavBarView];
     [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
+    
 }
 //给推送打tag和标签
 -(void)setTagAndAlias
@@ -233,6 +234,7 @@
         UIView *cover = [[UIView alloc] init];
         CGFloat navBarW = frame.size.width;
         cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width-40, 34);
+      //  cover.frame =CGRectMake(48, 25, navBarW-40, 34);
         cover.backgroundColor = [UIColor clearColor];
         UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
         station.backgroundColor = [UIColor clearColor];
@@ -246,14 +248,16 @@
         [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
         [cover addSubview:search];
         
-        [self.navigationController.navigationBar addSubview:cover];
-        self.navBarView = cover;
+         self.navBarView = cover;
+       // [[[UIApplication sharedApplication].windows objectAtIndex:0] addSubview:cover];
+        [self.navigationController.navigationBar addSubview:_navBarView];
         
     }else{
         
                UIView *cover = [[UIView alloc] init];
         CGFloat navBarW = frame.size.width;
         cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width-40, 34);
+        //   cover.frame =CGRectMake(48, 25, navBarW, 34);
         cover.backgroundColor = [UIColor clearColor];
         UIButton *station = [UIButton buttonWithType:UIButtonTypeSystem];
         station.backgroundColor = [UIColor clearColor];
@@ -266,9 +270,10 @@
         search.frame = CGRectMake(64, 0, navBarW-64, 34);
         [search addTarget:self action:@selector(search) forControlEvents:UIControlEventTouchUpInside];
         [cover addSubview:search];
-        
-        [self.navigationController.navigationBar addSubview:cover];
         self.navBarView = cover;
+        [self.navigationController.navigationBar addSubview:_navBarView];
+        // [[[UIApplication sharedApplication].windows objectAtIndex:0] addSubview:cover];
+        
        
         
     }
@@ -276,21 +281,17 @@
 }
 -(void)initPull
 {
-//    //上啦刷新
-//    [self.tableView addFooterWithTarget:self action:@selector(footLoad)];
-//    //设置文字
-//    self.tableView.footerPullToRefreshText = @"加载更多";
-//    self.tableView.footerRefreshingText = @"正在刷新";
+
     //下拉
     [self.tableView addHeaderWithTarget:self action:@selector(headerPull)];
- [self.tableView headerBeginRefreshing];
+
     
     self.tableView.headerPullToRefreshText =@"刷新内容";
     self.tableView.headerRefreshingText = @"正在刷新";
 }
 -(void)headerPull
 {
-    
+     //[self.tableView headerBeginRefreshing];
     [self loadContentDataSource];
     [self.tableView headerEndRefreshing];
 }
@@ -659,22 +660,12 @@
     
     [self getNotifiList];
     
+[self getStationName];
+    
+   [self loadContentDataSource];
 
-    
-    [self getStationName];
-    
-   
-   
-    
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-       NSString *appIsBack = [def objectForKey:@"appIsBack"];
-    if ([appIsBack isEqualToString:@"no"]) {
-        [self loadContentDataSource];
-    }
-    [def synchronize];
-    
-
-    [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
+    self.navBarView.hidden = NO;
+  
 }
 
 
@@ -684,10 +675,8 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBao"];
-  
-    [self.navBarView removeFromSuperview];
-     NSLog(@"self.navigationController.navigationBar.subviews is %@",self.navigationController.navigationBar.subviews);
-   
+    self.navBarView.hidden = YES;
+    //[self.navBarView removeFromSuperview];
    }
 
 
@@ -1227,7 +1216,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+   
     HomeBase *model = self.dataSource[indexPath.row];
     
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
@@ -1498,6 +1487,7 @@ HomeBase    *model = self.dataSource[indexPath.row];
         NSDictionary *dict = @{@"sustationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
         NSLog(@"%@^^^^^^^", dict);
         [MobClick event:@"sustationUser" attributes:dict];
+        NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
 }
 
 
