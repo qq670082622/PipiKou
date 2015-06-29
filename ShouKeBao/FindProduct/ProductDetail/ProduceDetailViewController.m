@@ -14,7 +14,7 @@
 #import "YYAnimationIndicator.h"
 //#import "BeseWebView.h"
 #import "WMAnimations.h"
-#define urlSuffix @"?isfromapp=1&apptype=1"
+
 #import "MobClick.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
@@ -25,15 +25,26 @@
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
-@property (nonatomic, strong)NSTimer * timer;
+@property (nonatomic, strong)NSTimer *timer;
 @property(nonatomic,weak) UILabel *warningLab;
-@property (nonatomic, copy)NSString * telString;
+@property (nonatomic, copy)NSString *telString;
+@property (nonatomic, copy)NSString *urlSuffix;
+@property (nonatomic, copy)NSString *urlSuffix2;
 @end
 
 @implementation ProduceDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    self.urlSuffix2 = urlSuffix2;
+
      [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
@@ -198,19 +209,20 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
    
-//    NSString *rightUrl = request.URL.absoluteString;
-//    NSRange range = [rightUrl rangeOfString:urlSuffix];
-//    if (range.location == NSNotFound) {
-//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
-//    }else{
     NSString *rightUrl = request.URL.absoluteString;
-    if ([rightUrl containsString:@"mqq://"]) {
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
+    
+    if (range3.location == NSNotFound ) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+    }else if ([rightUrl containsString:@"mqq://"]) {
         NSLog(@"%@", rightUrl);
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
     }else{
         [_indicator startAnimation];
         self.coverView.hidden = NO;
-
     }
         return YES;
   
@@ -232,8 +244,9 @@
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         
         NSLog(@"-----分享返回数据json is %@------",json);
-      NSString *str =  self.shareInfo[@"Desc"];
-        if(str.length<2){
+      NSString *str =  json[@"ShareInfo"][@"Desc"];
+        if(str.length>1){
+            [self.shareInfo removeAllObjects];
             self.shareInfo = json[@"ShareInfo"];
             NSLog(@"%@99999", self.shareInfo);
         }

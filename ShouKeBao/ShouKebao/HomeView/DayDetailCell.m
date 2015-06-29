@@ -392,7 +392,7 @@
         self.isPlain = YES;
         [self layoutSubviews];
     }else if (self.frame.size.height == 220){
-        [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
+        [self.descripBtn setTitle:@"全文" forState:UIControlStateNormal];
         self.isPlain = NO;
         [self layoutSubviews];
     }
@@ -528,7 +528,7 @@
     
     }else{
     
-    [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
+    [self.descripBtn setTitle:@"全文" forState:UIControlStateNormal];
     }
 
     
