@@ -277,7 +277,9 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
     [dic setObject:rightStr forKey:@"PageUrl"];
-    
+ //   [dic setObject:[rightStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding] forKey:@"paheUrl"];
+    //NSLog(@"uft8转码url是%@",[rightStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]);
+  
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         NSLog(@"-----分享返回数据json is %@------",json);
       //检测当前页面是否有分享内容，有则刷新分享内容，没有则保留上级页面分享内容
@@ -418,11 +420,12 @@
     self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
         shareDic = [self.shareArr lastObject];
+    
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
                                        defaultContent:shareDic[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:shareDic[@"Pic"]]
-                                                title:shareDic[@"Title"]
+                                                title: shareDic[@"Title"]
                                                   url:shareDic[@"Url"]                                          description:shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
    
