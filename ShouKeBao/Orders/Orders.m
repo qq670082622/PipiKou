@@ -93,7 +93,6 @@
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
-
 @end
 
 @implementation Orders
@@ -151,6 +150,13 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"Orders"];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *appIsBack = [def objectForKey:@"appIsBack"];
+    if ([appIsBack isEqualToString:@"no"]) {
+        [self loadConditionData];
+    }
+    [def synchronize];
+
     
 }
 -(void)viewWillDisappear:(BOOL)animated{
@@ -168,11 +174,11 @@
 {
     self.isNUll = NO;
     [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].delegate.window animated:YES];
-    [self.chooseTime removeAllObjects];
-    [self.chooseStatus removeAllObjects];
     NSDictionary *param = @{};
     [OrderTool getOrderConditionWithParam:param success:^(id json) {
         [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
+        [self.chooseTime removeAllObjects];
+        [self.chooseStatus removeAllObjects];
         if (json) {
             NSLog(@"----%@",json);
             if ([json[@"IsSuccess"] integerValue] == 1) {

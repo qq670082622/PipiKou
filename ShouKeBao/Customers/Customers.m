@@ -412,7 +412,6 @@
 //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
     
     [self.searchTextField resignFirstResponder];
-    NSString *ni = @"         ";
     
     self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
     
