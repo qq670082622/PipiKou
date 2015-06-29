@@ -12,12 +12,20 @@
 #import "SKTableViewController.h"
 @class CustomModel;
 
+@protocol DeleteCustomerDelegate <NSObject>
+
+- (void)deleteCustomerWith:(NSString *)keyWords;
+
+@end
 @interface CustomerDetailViewController : SKTableViewController
+//协议传值
+@property (nonatomic, assign)id delegate;
+
 @property (weak, nonatomic) IBOutlet UILabel *weChat;
 @property (weak, nonatomic) IBOutlet UILabel *QQ;
 @property (weak, nonatomic) IBOutlet UITextView *note;
 @property (nonatomic,copy) NSString *ID;
-
+@property (nonatomic, copy)NSString * keyWordss;
 @property (weak, nonatomic) IBOutlet UILabel *tele;
 @property (nonatomic,copy) NSString *weChatStr;
 @property (weak, nonatomic) IBOutlet UILabel *userName;

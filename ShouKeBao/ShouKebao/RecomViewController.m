@@ -40,6 +40,8 @@
 @property(nonatomic,strong) RecentlyViewController *recentlyVC;
 @property (nonatomic,strong) RecommendViewController *todayVC;
 @property(nonatomic,assign) NSInteger selectIndex;
+
+@property(weak ,nonatomic)UIView *bugView;
 @end
 
 @implementation RecomViewController
@@ -129,6 +131,10 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    
+  
+   
     [MobClick beginLogPageView:@"ShouKeBaoRecomView"];
 
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];

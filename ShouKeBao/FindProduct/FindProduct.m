@@ -648,7 +648,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
     }
     
-    if (tableView.tag == 2) {
+    if (tableView.tag == 2 ) {
       
         rightModal2 *model = self.rightTableArr[indexPath.row];
         
@@ -724,7 +724,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 //
     
     }
-    if (tableView.tag ==3 ) {
+    if (tableView.tag ==3 && _rightMoreArr) {
                   rightModal3 *modal3 = _rightMoreArr[indexPath.row];
             NSString *key = modal3.searchKey;
             NSString *title = modal3.Name;

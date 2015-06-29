@@ -14,7 +14,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *tele;
 @property (weak, nonatomic) IBOutlet UITextField *wechat;
 @property (weak, nonatomic) IBOutlet UITextField *QQ;
+
 @property (weak, nonatomic) IBOutlet UITextView *note;
+
 - (IBAction)save:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *saveOutlet;
 
@@ -132,6 +134,10 @@
         [dic setObject:self.QQ.text forKey:@"QQCode"];
         [dic setObject:self.note.text forKey:@"Remark"];
         [dic setObject:self.ID forKey:@"ID"];
+
+       // NSMutableArray *arr = [NSMutableArray array];
+        //[arr addObject:dic];kjhkjhjk
+
        
         
         NSMutableDictionary *secondDic = [NSMutableDictionary dictionary];
@@ -144,7 +150,11 @@
             NSLog(@"-----创建单个客户失败 %@-----",error);
         }];
         
+        
+        
         [self.navigationController popViewControllerAnimated:YES];
+        
+        
         
     }else if(self.name.text.length == 0 && self.tele.text.length<7){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"😪，无法保存" message:@"您的客户资料不正确，若不想保存请点击“管客户”按钮返回" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
@@ -153,4 +163,8 @@
 
     
 }
+
+
+
+
 @end
