@@ -680,8 +680,9 @@
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBao"];
-
+  
     [self.navBarView removeFromSuperview];
+   
 }
 
 
@@ -1221,6 +1222,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     HomeBase *model = self.dataSource[indexPath.row];
     
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
