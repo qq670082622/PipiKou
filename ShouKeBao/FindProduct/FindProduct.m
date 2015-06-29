@@ -667,10 +667,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         
         dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
         dispatch_async(q, ^{
-            [self.rightMoreArr removeAllObjects];
-            
             [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
-                
                 NSLog(@"-----------------------dataSource2 json is %@-----------------",json);
                 
                 [self.rightMoreArr removeAllObjects];
