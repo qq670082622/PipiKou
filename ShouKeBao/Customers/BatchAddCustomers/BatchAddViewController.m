@@ -106,13 +106,6 @@
 
 -(void )loadData
 {
-        // 判断是否授权成功
-        if(ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized)
-        {
-            // 授权失败直接返回
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"授权失败" message:@"请检查您是否对“旅游圈”通讯录的访问权限进行授权" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
-            [alert show];
-        }else{
 
     ABAddressBookRef addressBooks = nil;
 
@@ -124,6 +117,15 @@
     
     dispatch_semaphore_wait(sema, DISPATCH_TIME_FOREVER);
     
+    
+            // 判断是否授权成功
+            if(ABAddressBookGetAuthorizationStatus() != kABAuthorizationStatusAuthorized)
+            {
+                // 授权失败直接返回
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"授权失败" message:@"请检查您是否对“旅游圈”通讯录的访问权限进行授权" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
+                [alert show];
+            }else{
+
     //获取通讯录中的所有人
     CFArrayRef allPeople = ABAddressBookCopyArrayOfAllPeople(addressBooks);
     
