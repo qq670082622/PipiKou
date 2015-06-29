@@ -19,7 +19,10 @@
 #import "NSArray+QD.h"
 #import "NSString+QD.h"
 #import "MobClick.h"
+
+//协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
+
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
@@ -241,7 +244,7 @@
 
 -(void)loadDataSource
 {
-    self.searchCustomerBtnOutlet.titleLabel.text = @"客户名/电话号码";
+    self.searchCustomerBtnOutlet.titleLabel.text = @"   客户名/电话号码";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"500" forKey:@"PageSize"];
@@ -281,31 +284,7 @@
    }
 
 
-//- (NSMutableArray *)arraySordByArray:(NSMutableArray *)array{
-//    NSArray *array2 = [array sortedArrayUsingComparator:
-//                       
-//                       ^NSComparisonResult(CustomModel *obj1, CustomModel *obj2) {
-//                           
-//                           // 先按照姓排序
-//                           
-//                           NSComparisonResult result = [obj1.lastname compare:obj2.lastname];
-//                           
-//                           // 如果有相同的姓，就比较名字
-//                           
-//                           if (result == NSOrderedSame) {  
-//                               
-//                               result = [obj1.firstname compare:obj2.firstname];  
-//                               
-//                           }  
-//                           
-//                           
-//                           
-//                           return result;  
-//                           
-//                       }];
-//return <#expression#>
-//}
-//
+
 -(void)loadHistoryArr
 {
 //    
@@ -340,6 +319,8 @@
         detail.customMoel = model;
         detail.picUrl = model.PicUrl;
         detail.customerId = model.ID;
+        
+        //协议传值5:指定第一页为第二页的代理人
         detail.delegate = self;
         detail.keyWordss = self.searchK;
         [self.navigationController pushViewController:detail animated:YES];
@@ -429,10 +410,6 @@
 //    }
 //    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
 //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
-
-    NSString *ni = @"       ";
-    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
-    
     
     [self.searchTextField resignFirstResponder];
     NSString *ni = @"         ";
@@ -455,10 +432,9 @@
         NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
         [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
    
-   
-    
+
   NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@1 forKey:@"PageIndex"];
+    [dic setObject:@"1" forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
    [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
     self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
@@ -585,18 +561,21 @@
    }else if (self.subView.hidden == YES){
       
        self.imageViewWhenIsNull.hidden = YES;
-    self.searchTextField.hidden = NO;
-    self.cancelSearchOutlet.hidden = NO;
-    self.searchCustomerBtnOutlet.hidden = YES;
-    [self.searchTextField becomeFirstResponder];
-    
+       self.searchTextField.hidden = NO;
+       self.cancelSearchOutlet.hidden = NO;
+       self.searchCustomerBtnOutlet.hidden = YES;
+       [self.searchTextField becomeFirstResponder];
        
-    [UIView animateWithDuration:0.3 animations:^{
-
-        self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
-  self.historyView.hidden = NO;
-        
-    }];
+       
+       [UIView animateWithDuration:0.3 animations:^{
+           
+           self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
+           self.historyView.hidden = NO;
+           
+           self.searchTextField.text = self.searchK;
+           
+           
+       }];
     
     [self loadHistoryArr];
    
@@ -621,18 +600,20 @@
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
+        NSString *ni = @"         ";
+        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
      
     }];
 
 }
-
+//协议传值6:由第一页实现协议方法
 - (void)deleteCustomerWith:(NSString *)keyWords{
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@1 forKey:@"PageIndex"];
+    [dic setObject:@"1" forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
     [dic setObject:keyWords forKey:@"SearchKey"];
-    NSLog(@"%@**************", keyWords);
-//    self.searchK = [NSMutableString stringWithFormat:@"%@",keyWords];
+    
+//    NSLog(@"%@**************", keyWords);
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         
         NSLog(@"------管客户搜索结果的json is %@-------",json);
@@ -653,7 +634,6 @@
     }];
     [self cancelSearch];
   
-    NSLog(@"fffff");
     
 }
 
