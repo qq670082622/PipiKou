@@ -222,6 +222,7 @@
 -(void)shareIt
 {
     NSDictionary *tmp = _modal.ShareInfo;
+    NSLog(@"-------------tmp is %@----------",tmp);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
