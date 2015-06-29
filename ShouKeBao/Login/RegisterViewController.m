@@ -9,8 +9,8 @@
 #import "RegisterViewController.h"
 #import "UINavigationController+SGProgress.h"
 #import "MobClick.h"
-//#define RegisterUrl @"http://www.lvyouquan.cn/MicroChannel/Reg"
-#define RegisterUrl @"http://wwwtest.lvyouquan.cn/MicroChannel/Reg"
+#define RegisterUrl @"http://www.lvyouquan.cn/MicroChannel/Reg"
+//#define RegisterUrl @"http://wwwtest.lvyouquan.cn/MicroChannel/Reg"
 
 
 @interface RegisterViewController () <UIWebViewDelegate>

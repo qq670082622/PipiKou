@@ -256,7 +256,6 @@
     } failure:^(NSError *error) {
         
         NSLog(@"分享请求数据失败，原因：%@",error);
-        
     }];
 
 }
