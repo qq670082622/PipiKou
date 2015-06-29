@@ -670,7 +670,6 @@
        NSString *appIsBack = [def objectForKey:@"appIsBack"];
     if ([appIsBack isEqualToString:@"no"]) {
         [self loadContentDataSource];
-
     }
     [def synchronize];
     
@@ -1499,7 +1498,6 @@ HomeBase    *model = self.dataSource[indexPath.row];
         NSDictionary *dict = @{@"sustationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
         NSLog(@"%@^^^^^^^", dict);
         [MobClick event:@"sustationUser" attributes:dict];
-        NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
 }
 
 
