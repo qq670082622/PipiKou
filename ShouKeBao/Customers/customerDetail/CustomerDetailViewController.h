@@ -13,19 +13,26 @@
 @class CustomModel;
 
 @protocol DeleteCustomerDelegate <NSObject>
-
+//代理方法：协议传值1: 由第二个页面制定一个协议,用来命令前一个页面做事(执行方法) .h文件
 - (void)deleteCustomerWith:(NSString *)keyWords;
 
 @end
 @interface CustomerDetailViewController : SKTableViewController
-//协议传值
-@property (nonatomic, assign)id delegate;
+
+////协议传值
+//@property (nonatomic, assign)id delegate;
+//或者
+//协议传值2:设置代理人属性 (.h文件) 注意位置
+@property(nonatomic, assign)id<DeleteCustomerDelegate>delegate;
 
 @property (weak, nonatomic) IBOutlet UILabel *weChat;
 @property (weak, nonatomic) IBOutlet UILabel *QQ;
 @property (weak, nonatomic) IBOutlet UITextView *note;
+
+//协议传值（删除时使用的属性）
 @property (nonatomic,copy) NSString *ID;
 @property (nonatomic, copy)NSString * keyWordss;
+
 @property (weak, nonatomic) IBOutlet UILabel *tele;
 @property (nonatomic,copy) NSString *weChatStr;
 @property (weak, nonatomic) IBOutlet UILabel *userName;

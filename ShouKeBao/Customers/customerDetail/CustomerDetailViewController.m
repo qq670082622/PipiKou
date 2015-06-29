@@ -189,14 +189,9 @@
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"您确定要删除吗？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
      [sheet showInView:self.view];
     
-   
 //   搜索删除后执行的方法
-   
-    
 //      [self.delegate deleteCustomerWith:self.tele.text];
-
-    
-    
+ 
   }
 -(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
@@ -210,9 +205,12 @@
         [dic setObject:self.ID forKey:@"CustomerID"];
         [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
             NSLog(@"删除客户信息成功%@",json);
+            
+//   删除后需要刷新列表的执行的方法
+//   协议传值3:让第二页的代理人(delegate)执行说好的协议方法 
             [self.delegate deleteCustomerWith:self.keyWordss];
 
-            NSLog(@"删除客户信息后%@",dic);
+//            NSLog(@"删除客户信息后%@",dic);
             
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
