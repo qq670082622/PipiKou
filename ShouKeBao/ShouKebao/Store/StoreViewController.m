@@ -264,10 +264,8 @@
 
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     self.coverView.hidden = YES;
-    if (_needOpenShare) {
-        [self shareIt:nil];
-    }
-       NSString *rightStr = webView.request.URL.absoluteString;
+   
+    NSString *rightStr = webView.request.URL.absoluteString;
         
     NSLog(@"---------------------rightStr is %@-------------------------",rightStr);
 
@@ -285,11 +283,14 @@
       //检测当前页面是否有分享内容，有则刷新分享内容，没有则保留上级页面分享内容
         NSDictionary *dicTest = json[@"ShareInfo"];
         NSString *testStr = dicTest[@"Title"];
-        if (testStr.length>2) {
+        if (testStr.length>0) {
             [self.shareArr removeAllObjects];
             [self.shareArr addObject:json[@"ShareInfo"]];
         }
-       
+        if (_needOpenShare) {
+            [self shareIt:nil];
+        }
+
         //判断当前页面是否为产品详情页，是则弹出查看同行价，不是则隐藏同行价按钮
         if (![json[@"PageType"] isEqualToString:@"2"]) {
          
