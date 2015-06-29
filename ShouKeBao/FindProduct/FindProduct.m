@@ -618,13 +618,15 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
                 self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
-        
-        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-        hudView.labelText = @"加载中...";
-        [hudView show:YES];
+//            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
+//            dispatch_async(q, ^{
+                [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                               [self loadDataSourceRight];
             [self.leftTable reloadData];
-            [self loadDataSourceRight];
-        [hudView hide:YES];
+
+                           [MBProgressHUD hideHUDForView:self.view animated:YES];
+           // });
+      
        
         
         [self.hotBtn setTitleColor:[UIColor colorWithRed:214/255.f green:222/255.f blue:232/255.f alpha:0.7] forState:UIControlStateNormal];
@@ -667,7 +669,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         
         dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
         dispatch_async(q, ^{
+       //     [self.rightMoreArr removeAllObjects];
+            
             [IWHttpTool WMpostWithURL:@"/Product/GetNavigationChild" params:dic success:^(id json) {
+                
                 NSLog(@"-----------------------dataSource2 json is %@-----------------",json);
                 
                 [self.rightMoreArr removeAllObjects];
@@ -719,15 +724,17 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     
     }
     if (tableView.tag ==3 ) {
-   
-        rightModal3 *modal3 = _rightMoreArr[indexPath.row];
-        NSString *key = modal3.searchKey;
-        NSString *title = modal3.Name;
-        NSLog(@" key is ~~` ~%@``````````------",key);
-        ProductList *list = [[ProductList alloc] init];
-        list.pushedSearchK = key;
-        list.title = title;
-       [self.navigationController pushViewController:list animated:YES];
+        if (indexPath.row == 0 || _rightMoreArr) {
+            rightModal3 *modal3 = _rightMoreArr[indexPath.row];
+            NSString *key = modal3.searchKey;
+            NSString *title = modal3.Name;
+            NSLog(@" key is ~~` ~%@``````````------",key);
+            ProductList *list = [[ProductList alloc] init];
+            list.pushedSearchK = key;
+            list.title = title;
+            [self.navigationController pushViewController:list animated:YES];
+        }
+        
     }
     if (tableView.tag == 4) {
         [MobClick event:@"productDetailClick"];
