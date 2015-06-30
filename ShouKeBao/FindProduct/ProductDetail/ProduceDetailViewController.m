@@ -249,7 +249,7 @@
         NSLog(@"-----分享返回数据json is %@------",json);
       NSString *str =  json[@"ShareInfo"][@"Desc"];
         if(str.length>1){
-//            [self.shareInfo removeAllObjects];
+          // [self.shareInfo removeAllObjects];
             self.shareInfo = json[@"ShareInfo"];
             NSLog(@"%@99999", self.shareInfo);
         }
