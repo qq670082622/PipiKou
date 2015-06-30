@@ -18,6 +18,8 @@
 @property (nonatomic,assign) int webLoadCount;
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
 @property (nonatomic,copy) NSString *linkUrl;
+@property(nonatomic,copy) NSString *urlSuffix;
+@property(nonatomic,copy) NSString *urlSuffix2;
 @end
 
 @implementation QuanViewController
@@ -25,6 +27,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    
+    self.urlSuffix2 = urlSuffix2;
+
     self.title = @"圈付宝";
     [self setNav];
 //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
@@ -137,9 +150,20 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-       
-    return YES;
+    NSString *rightUrl = request.URL.absoluteString;
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
     
+    if (range3.location == NSNotFound ) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+    }else{
+
+    return YES;
+    }
+    return YES;
 }
 
 

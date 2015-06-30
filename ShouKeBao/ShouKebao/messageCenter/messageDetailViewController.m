@@ -77,7 +77,7 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:YES];
+    [super viewDidDisappear:animated];
    // [self.delegate toReferesh];
     
 }

@@ -262,11 +262,11 @@
     [defaultCenter postNotificationName:@"notifiToPushToRecommed" object:nil];
 }
 
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self ];
-
-}
+//-(void)dealloc
+//{
+//    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+//
+//}
 
 
 - (void)setRecommend:(Recommend *)recommend

@@ -33,16 +33,15 @@
 @end
 
 @implementation ProduceDetailViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
-    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix = urlSuffix;
     
-    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix2 = urlSuffix2;
 
      [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
@@ -104,6 +103,10 @@
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要拨打电话:%@吗?", string] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
+}
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
@@ -239,21 +242,20 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightUrl forKey:@"PageUrl"];
-    // [self.shareInfo removeAllObjects];
+     [self.shareInfo removeAllObjects];
     
     [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
         
         NSLog(@"-----分享返回数据json is %@------",json);
       NSString *str =  json[@"ShareInfo"][@"Desc"];
         if(str.length>1){
-            [self.shareInfo removeAllObjects];
+          // [self.shareInfo removeAllObjects];
             self.shareInfo = json[@"ShareInfo"];
             NSLog(@"%@99999", self.shareInfo);
         }
     } failure:^(NSError *error) {
         
         NSLog(@"分享请求数据失败，原因：%@",error);
-        
     }];
 
 }
@@ -272,7 +274,7 @@
     
     // 以下就是不停的寻找子视图，修改要修改的
     CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
-    CGFloat labY;
+    CGFloat labY = 180;
     if (screenH == 667) {
         labY = 260;
     }else if (screenH == 568){

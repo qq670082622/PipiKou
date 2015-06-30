@@ -239,7 +239,7 @@
     UILabel *descLab = [[UILabel alloc] init];
     descLab.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];
     descLab.textColor = [UIColor grayColor];
-    descLab.font = [UIFont systemFontOfSize:11];
+    descLab.font = [UIFont boldSystemFontOfSize:13];
     descLab.numberOfLines = 0;
     [self.contentView addSubview:descLab];
     self.descripLab = descLab;
@@ -578,7 +578,7 @@
     
     // 以下就是不停的寻找子视图，修改要修改的
     CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
-    CGFloat labY;
+    CGFloat labY = 180;
     if (screenH == 667) {
         labY = 260;
     }else if (screenH == 568){

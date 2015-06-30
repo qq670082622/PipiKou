@@ -361,7 +361,7 @@
 { //arr[0]是value arr[1]是key
     //orderId ,userId ,recommond ,productId ,messageId
    
-     [self getVoice];
+    // [self getVoice];
     [self headerPull];
     [self  getUserInformation];
    
@@ -1490,6 +1490,9 @@ HomeBase    *model = self.dataSource[indexPath.row];
         [MobClick event:@"sustationUser" attributes:dict];
         NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
 }
-
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 @end

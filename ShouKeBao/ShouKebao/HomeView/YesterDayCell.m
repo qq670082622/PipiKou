@@ -222,6 +222,7 @@
 -(void)shareIt
 {
     NSDictionary *tmp = _modal.ShareInfo;
+    NSLog(@"-------------tmp is %@----------",tmp);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
@@ -370,7 +371,7 @@
     
     // 以下就是不停的寻找子视图，修改要修改的
     CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
-    CGFloat labY;
+    CGFloat labY = 180;
     if (screenH == 667) {
         labY = 260;
     }else if (screenH == 568){

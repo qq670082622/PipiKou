@@ -452,13 +452,13 @@ void UncaughtExceptionHandler(NSException *exception) {
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
--(void)dealloc
-{
-    //如果是非arc 需要＋[super dealloc];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self ];
-    
-}
+//-(void)dealloc
+//{
+//    //如果是非arc 需要＋[super dealloc];
+//    
+//    [[NSNotificationCenter defaultCenter] removeObserver:self ];
+//    
+//}
 
 
 
