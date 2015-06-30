@@ -13,7 +13,7 @@
 #import "YYAnimationIndicator.h"
 #import "BeseWebView.h"
 #import "MobClick.h"
-#define urlSuffix @"?isfromapp=1&apptype=1"
+//#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -25,6 +25,8 @@
 @property (nonatomic,strong) UIButton * rightButton;
 @property (nonatomic,assign) BOOL isSave;
 
+@property(nonatomic,copy) NSString *urlSuffix;
+@property(nonatomic,copy) NSString *urlSuffix2;
 
 @end
 
@@ -71,6 +73,17 @@
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setRightBtn];
     // [self Guide];
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    
+    self.urlSuffix2 = urlSuffix2;
+
     
 }
 #pragma mark - telCall_js
@@ -159,16 +172,15 @@
 {
     
     NSString *rightUrl = request.URL.absoluteString;
-    NSRange range = [rightUrl rangeOfString:urlSuffix];
-    if (range.location == NSNotFound) {
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
+    
+    if (range3.location == NSNotFound ) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
     }else{
-        if ([rightUrl containsString:@"mqq://"]) {
-            NSLog(@"%@", rightUrl);
-            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
-//            [self.webView reload];
-//            [self.webView loadRequest:self.request];
-        }else{
          [_indicator startAnimation];
         }
 //        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
@@ -177,8 +189,7 @@
 //        
 //        [hudView show:YES];
         return YES;
-    }
-    NSLog(@"----------right url is %@ ----------",rightUrl);
+    
     
     return YES;
     
