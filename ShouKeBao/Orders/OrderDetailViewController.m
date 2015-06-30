@@ -218,7 +218,6 @@
 }
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
-//    [self.webView goBack];
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
 - (void)dealloc
