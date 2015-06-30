@@ -39,8 +39,7 @@
     self.urlSuffix2 = urlSuffix2;
 
     self.title = @"圈付宝";
-    [self setNav];
-//    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
+    //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
 //    label.textAlignment = NSTextAlignmentCenter;
 //    label.text = @"版权所有  盗版必究";
 //    label.font = [UIFont systemFontOfSize:20];
@@ -65,9 +64,29 @@
 //    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
 //    
 //    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
-    
+    [self setUpleftBarButtonItems];
 
 }
+
+-(void)setUpleftBarButtonItems
+{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+    back.frame = CGRectMake(0, 0, 8, 10);
+    [back setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:15];
+    turnOff.frame = CGRectMake(25, 0, 50, 30);
+    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    
+    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+    
+}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -81,18 +100,7 @@
 
 }
 // 先一个个页面设置吧 以后再搞一起的
-- (void)setNav
-{
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-}
+
 
 #pragma -mark private
 -(void)back
@@ -109,7 +117,10 @@
     
 }
 
-
+-(void)turnOff
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma mark - getter
 - (UIWebView *)webView
 {

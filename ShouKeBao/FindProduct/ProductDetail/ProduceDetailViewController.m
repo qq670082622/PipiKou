@@ -68,17 +68,7 @@
 
     [self customRightBarItem];
   
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-    
-     [self.webView scalesPageToFit];
+        [self.webView scalesPageToFit];
      [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     
@@ -91,8 +81,27 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
-    
+    [self setUpleftBarButtonItems];
 
+}
+
+-(void)setUpleftBarButtonItems
+{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+    back.frame = CGRectMake(0, 0, 8, 10);
+    [back setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:15];
+    turnOff.frame = CGRectMake(25, 0, 50, 30);
+    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    
+    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+    
 }
 #pragma mark - telCall_js
 - (void)findIsCall{
@@ -188,7 +197,10 @@
     
 }
 
-
+-(void)turnOff
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 -(NSMutableDictionary *)shareInfo
 {
     if ( _shareInfo == nil ) {
