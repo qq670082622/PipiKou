@@ -33,7 +33,7 @@
 {
     UISegmentedControl *control = (UISegmentedControl *)sender;
     if (control.selectedSegmentIndex == 0) {
-        [self.navigationController popViewControllerAnimated:NO];
+    [self.navigationController popViewControllerAnimated:NO];
     }
 }
 
