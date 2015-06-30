@@ -190,6 +190,8 @@
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 0.5)];
     line.backgroundColor = [UIColor colorWithRed:175/255.f green:175/255.f blue:175/255.f alpha:1];
      self.table.tableFooterView = line;
+    
+   // [self loadDataSource];
    
   }
 

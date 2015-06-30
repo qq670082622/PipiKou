@@ -11,7 +11,6 @@
 #import "MBProgressHUD+MJ.h"
 #import "BeseWebView.h"
 #import "MobClick.h"
-#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface ButtonDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -19,6 +18,10 @@
 @property (nonatomic,strong) NSMutableArray *webUrlArr;
 @property (nonatomic,strong) UIButton * rightButton;
 @property (nonatomic,assign) BOOL isSave;
+
+@property(nonatomic,copy) NSString *urlSuffix;
+@property(nonatomic,copy) NSString *urlSuffix2;
+
 @end
 
 @implementation ButtonDetailViewController
@@ -49,6 +52,17 @@
     [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    
+    self.urlSuffix2 = urlSuffix2;
+
     
    }
 - (void)viewWillAppear:(BOOL)animated{
@@ -112,9 +126,14 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *rightUrl = request.URL.absoluteString;
-    NSRange range = [rightUrl rangeOfString:urlSuffix];
-    if (range.location == NSNotFound) {
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:urlSuffix]]]];
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
+    
+    if (range3.location == NSNotFound ) {
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
     }else{
         MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
         

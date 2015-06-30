@@ -38,10 +38,10 @@
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
-    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix = urlSuffix;
     
-    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"]];
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix2 = urlSuffix2;
 
      [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
@@ -249,7 +249,7 @@
         NSLog(@"-----分享返回数据json is %@------",json);
       NSString *str =  json[@"ShareInfo"][@"Desc"];
         if(str.length>1){
-//            [self.shareInfo removeAllObjects];
+          // [self.shareInfo removeAllObjects];
             self.shareInfo = json[@"ShareInfo"];
             NSLog(@"%@99999", self.shareInfo);
         }
