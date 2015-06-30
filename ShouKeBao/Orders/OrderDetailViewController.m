@@ -224,5 +224,6 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
+    self.webView.delegate = nil;
 }
 @end
