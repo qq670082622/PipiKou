@@ -101,7 +101,7 @@
 #pragma mark - telCall_js
 - (void)findIsCall{
     NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
-    if (string.length != 0) {
+    if (string.length != 0){
         self.telString = string;
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要拨打电话:%@吗?", string] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
