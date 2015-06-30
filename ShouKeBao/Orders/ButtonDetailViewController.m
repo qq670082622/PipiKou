@@ -36,15 +36,6 @@
     
     [self.webView loadRequest:request];
     self.webView.delegate = self;
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
     
     [self setRightBtn];
     
@@ -62,7 +53,7 @@
     NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     
     self.urlSuffix2 = urlSuffix2;
-
+    [self setUpleftBarButtonItems];
     
    }
 - (void)viewWillAppear:(BOOL)animated{
@@ -73,6 +64,26 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"OrdersButtonDetailView"];
 }
+
+-(void)setUpleftBarButtonItems
+{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+    back.frame = CGRectMake(0, 0, 8, 10);
+    [back setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:15];
+    turnOff.frame = CGRectMake(25, 0, 50, 30);
+    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    
+    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+    
+}
+
 
 - (void)setRightBtn{
     self.rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40,20)];
@@ -109,7 +120,10 @@
         }
     }
 }
-
+-(void)turnOff
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
 #pragma -mark getter
 - (UIWebView *)webView
 {

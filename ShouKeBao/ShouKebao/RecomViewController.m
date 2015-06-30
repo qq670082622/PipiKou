@@ -15,6 +15,7 @@
 #import "WMAnimations.h"
 #import "MobClick.h"
 #import "RecommendViewController.h"
+#import "HomeHttpTool.h"
 @interface RecomViewController ()
 
 - (IBAction)todayAction:(id)sender;
@@ -71,12 +72,31 @@
     self.selectIndex = 0;
     [self addGes];
     
-   
+    [self judgeToTurnYesterDay];
 }
 
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+}
+- (void)judgeToTurnYesterDay
+{
+    NSDictionary *param = @{@"PageSize":@10,
+                            @"PageIndex":@1,
+                            @"DateRangeType":@"1"};
+    
+    [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
+              if (json) {
+            NSLog(@"aaaaaaaa  %@",json);
+                  NSArray *arr = json[@"ProductList"];
+                  if (arr.count == 0) {
+                      [self yesterdayAction:nil];
+                  }
+              }
+        
+    } failure:^(NSError *error) {
+        
+    }];
 }
 
 -(void)addGes
@@ -132,7 +152,7 @@
 {
     [super viewWillAppear:animated];
     
-    NSLog(@"self.navigationController.navigationBar.subviews is %@",self.navigationController.navigationBar.subviews);
+   
     [MobClick beginLogPageView:@"ShouKeBaoRecomView"];
 
     UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
