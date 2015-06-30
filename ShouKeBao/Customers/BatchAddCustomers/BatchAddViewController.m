@@ -39,7 +39,7 @@
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-    self.table.tableFooterView = [[UIView alloc] init];
+//    self.table.tableFooterView = [[UIView alloc] init];
     
 }
 - (void)viewWillAppear:(BOOL)animated{
