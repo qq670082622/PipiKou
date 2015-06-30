@@ -628,13 +628,9 @@
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
         
-     
-       
-        
         if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]||[self.searchK isEqualToString:@"  "] || [self.searchK isEqualToString:@"   "] || [self.searchK isEqualToString:@"    "]|| [self.searchK isEqualToString:@"     "]|| [self.searchK isEqualToString:@"      "]) {
             NSString *ni = @"    ";
             self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
-            
             
         }else{
            NSString *ni = @"       ";
