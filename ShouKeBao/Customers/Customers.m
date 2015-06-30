@@ -226,18 +226,18 @@
 
 - (IBAction)importUser:(id)sender {
  
-    NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
-    if ([systemVersion intValue]<8.0) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-        [alert show];
-        self.subView.hidden = YES;
-    }else if ([systemVersion intValue] >= 8.0){
+//    NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
+//    if ([systemVersion intValue]<8.0) {
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+//        [alert show];
+//        self.subView.hidden = YES;
+//    }else if ([systemVersion intValue] >= 8.0){
   
         self.subView.hidden = YES;
     BatchAddViewController *batch = [[BatchAddViewController alloc] init];
     batch.delegate = self;
         [self.navigationController pushViewController:batch animated:YES];
-    }
+  //  }
 }
 
 
