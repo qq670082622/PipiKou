@@ -38,8 +38,8 @@
         self.leftLab.textColor = [UIColor lightGrayColor];
         
         UIImageView *redTip = [[UIImageView alloc] init];
-        redTip.backgroundColor = [UIColor redColor];
-        redTip.hidden = YES;
+//        redTip.backgroundColor = [UIColor redColor];
+//        redTip.hidden = YES;
         redTip.layer.cornerRadius = 5;
         redTip.layer.masksToBounds = YES;
         [self.contentView addSubview:redTip];
@@ -60,16 +60,16 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated
 {
     [super setSelected:selected animated:animated];
-    if (![_redTip isHidden]) {
-        _redTip.backgroundColor = [UIColor redColor];
-    }
+//    if (![_redTip isHidden]) {
+//        _redTip.backgroundColor = [UIColor redColor];
+//    }
 }
 
 -(void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated{
     [super setHighlighted:highlighted animated:animated];
-    if (![_redTip isHidden]) {
-        _redTip.backgroundColor = [UIColor redColor];
-    }
+//    if (![_redTip isHidden]) {
+//        _redTip.backgroundColor = [UIColor redColor];
+//    }
 }
 
 - (void)layoutSubviews
@@ -272,7 +272,16 @@
 - (void)setRecommend:(Recommend *)recommend
 {
     _recommend = recommend;
-//    ThirdAreaName 三级区域
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *redStr = [def objectForKey:@"redTip"];
+    if ([redStr isEqualToString:recommend.CreatedDate]) {
+        self.redTip.backgroundColor = [UIColor clearColor];
+    }else{
+        self.redTip.backgroundColor = [UIColor redColor];
+    }
+  
+   
+    //    ThirdAreaName 三级区域
 //    String  PicUrl 产品图片
 //    String
 //    MinPeerPrice 最小同行价格  decimal

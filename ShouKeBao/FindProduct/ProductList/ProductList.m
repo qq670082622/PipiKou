@@ -733,6 +733,7 @@
             [self.table reloadData];
             [self.subTable reloadData];
       [self.table headerEndRefreshing];
+            [self scrollViewDidScroll:nil];
         }
         
     } failure:^(NSError *error) {

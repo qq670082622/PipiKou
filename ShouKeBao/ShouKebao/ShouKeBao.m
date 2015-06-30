@@ -1236,7 +1236,11 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
     }else if([model.model isKindOfClass:[Recommend class]]){
         [MobClick event:@"ShouKeBao_ClickRecommend"];
-
+        Recommend *mo = model.model;
+        NSString *createDate = mo.CreatedDate;
+        NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        [def setObject:createDate forKey:@"redTip"];
+        [def synchronize];
         [self nitifiToPushRecommendListWithUrl];
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
         

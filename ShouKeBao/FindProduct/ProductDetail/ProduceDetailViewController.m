@@ -88,16 +88,19 @@
 -(void)setUpleftBarButtonItems
 {
     UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
-    back.frame = CGRectMake(0, 0, 8, 10);
-    [back setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    back.frame = CGRectMake(0, 0, 45, 10);
+    [back setTitle:@"〈返回" forState:UIControlStateNormal];
+    back.titleLabel.font = [UIFont systemFontOfSize:14];
+    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
     UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:15];
-    turnOff.frame = CGRectMake(25, 0, 50, 30);
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
+    turnOff.frame = CGRectMake(0, 0, 30, 30);
     [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
     [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
     
     [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
