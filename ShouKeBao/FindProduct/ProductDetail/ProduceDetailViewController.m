@@ -226,19 +226,23 @@
 {
    
     NSString *rightUrl = request.URL.absoluteString;
-    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSLog(@"rightStr is %@--------",rightUrl);
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
     
-    if (range3.location == NSNotFound ) {
+    
+    if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+        // return YES;
+    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-    }else if ([rightUrl containsString:@"mqq://"]) {
-        NSLog(@"%@", rightUrl);
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+        // return YES;
     }else{
+        
         [_indicator startAnimation];
-        self.coverView.hidden = NO;
+        return YES;
+        
     }
         return YES;
   
@@ -252,7 +256,7 @@
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
  NSString *rightUrl = webView.request.URL.absoluteString;
-    
+    NSLog(@"right Str is %@",rightUrl);
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightUrl forKey:@"PageUrl"];
      [self.shareInfo removeAllObjects];

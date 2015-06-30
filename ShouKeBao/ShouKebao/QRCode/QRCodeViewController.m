@@ -31,32 +31,38 @@
 @property (nonatomic, strong) AVCaptureSession *captureSession;
 //展示layer
 @property (nonatomic, strong) AVCaptureVideoPreviewLayer *videoPreviewLayer;
+@property (nonatomic, strong) AVCaptureConnection * connection;
 @end
 
 @implementation QRCodeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   self.title = @"二维码扫描";
+    self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
-   
     
-   
+    
+    
     
     [self openUrl];
     
     
     
 }
-
+#pragma mark 设置焦距
+- (void)setFocalLength:(CGFloat)lengthScale
+{
+    [_videoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(lengthScale, lengthScale)];
+    _connection.videoScaleAndCropFactor = lengthScale;
+}
 -(void)listenNeedLoad
 {
-//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-//    NSString *result = [def objectForKey:@"needLoad"];
-//    if ([result isEqualToString:@"1"]) {
-//    [self stopReading];
-//    }
+    //    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    //    NSString *result = [def objectForKey:@"needLoad"];
+    //    if ([result isEqualToString:@"1"]) {
+    //    [self stopReading];
+    //    }
     
 }
 
@@ -64,26 +70,26 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoQRCodeView"];
-
+    
     [self.captureSession startRunning];//当QR被父vc remove时候关闭识别，当被添加的时候打开识别
-   
-   //------------当唤出证件神器 以下代码放viewdidload上
+    
+    //------------当唤出证件神器 以下代码放viewdidload上
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
     
     CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
     //CGFloat viewH = screenH - 157;
     CGFloat viewH = screenH ;
     self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
-     [self startReading];
-
+    [self startReading];
+    
 }
 
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoQRCodeView"];
-
-       [self.captureSession stopRunning];
+    
+    [self.captureSession stopRunning];
 }
 
 //实现startReading方法（这可就是重点咯）
@@ -123,7 +129,8 @@
     [_viewPreview.layer addSublayer:_videoPreviewLayer];
     //10.设置扫描范围
     captureMetadataOutput.rectOfInterest = CGRectMake(0.2f, 0.2f, 0.8f, 0.8f);
-
+    _connection = [captureMetadataOutput connectionWithMediaType:AVMediaTypeVideo];
+    [self setFocalLength:2.0];//1倍正常，2x，3x，4x依次放大
     //10.1.扫描框
     CGFloat boxX = _viewPreview.bounds.size.width * 0.1f;
     CGFloat wid = _viewPreview.bounds.size.width*0.8f;
@@ -139,12 +146,12 @@
     lab.textColor = [UIColor whiteColor];
     [_viewPreview addSubview:lab];
     //10.2.扫描线
-   
+    
     _scanLayer = [[CALayer alloc] init];
     _scanLayer.frame = CGRectMake(0, 0, _boxView.bounds.size.width, 8);
     _scanLayer.contents = (id)[UIImage imageNamed:@"widLine"].CGImage;
-
- 
+    
+    
     [_boxView.layer addSublayer:_scanLayer];
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.2f target:self selector:@selector(moveScanLayer:) userInfo:nil repeats:YES];
     [timer fire];
@@ -187,7 +194,7 @@
         }];
     }
     
-
+    
 }
 ////实现开始和停止方法
 //- (void)startStopReading{
@@ -214,13 +221,13 @@
             [self.navigationController pushViewController:QRcodeWeb animated:YES ];
             
             NSLog(@"打开了网页:%@",_lblStatus.text);
-
+            
         }else{
             ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
             detail.produceUrl = self.lblStatus.text;
             [self.navigationController pushViewController:detail animated:YES];
         }
-       
+        
     }
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
     
@@ -228,7 +235,7 @@
     CGFloat viewH = screenH - 157;
     
     self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
-  }
+}
 
 -(void)stopReading{
     [_captureSession stopRunning];

@@ -11,6 +11,6 @@
 #import "BeseWebView.h"
 @interface StoreViewController : SKViewController
 @property (nonatomic,copy) NSString *PushUrl;
-@property (weak, nonatomic) IBOutlet BeseWebView *webView;
+@property (weak, nonatomic) IBOutlet UIWebView *webView;
 @property (nonatomic,assign) BOOL needOpenShare;
 @end
