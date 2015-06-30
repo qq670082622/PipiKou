@@ -188,23 +188,25 @@
 {
     
     NSString *rightUrl = request.URL.absoluteString;
-    NSRange range = [rightUrl rangeOfString:_urlSuffix];
-    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+    NSLog(@"rightStr is %@--------",rightUrl);
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
     
-    if (range3.location == NSNotFound ) {
+    
+    if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
+        // return YES;
+    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+        // return YES;
     }else{
-         [_indicator startAnimation];
-        }
-//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//        
-//        hudView.labelText = @"拼命加载中...";
-//        
-//        [hudView show:YES];
+        
+        [_indicator startAnimation];
         return YES;
+        
+    }
+
     
     
     return YES;
