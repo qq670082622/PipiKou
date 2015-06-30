@@ -245,28 +245,32 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
    
-    NSString *rightUrl = request.URL.absoluteString;
-    NSRange range = [rightUrl rangeOfString:_urlSuffix];
-     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];
+   NSString *rightUrl = request.URL.absoluteString;
+    NSLog(@"rightStr is %@--------",rightUrl);
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
-   
-    if (range3.location == NSNotFound ) {
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-    }else if (range3.location != NSNotFound && range2.location != NSNotFound ){
-    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-    }
-    else{
-        if ([rightUrl containsString:@"mqq://"]) {
-            NSLog(@"%@", rightUrl);
-            [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
-        }else{
-            [_indicator startAnimation];
-        }
 
+  
+     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+       // return YES;
+    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
+    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+       // return YES;
+    }else{
+       
+        [_indicator startAnimation];
+        return YES;
+        
+    }
+  
+    if ([rightUrl containsString:@"mqq://"]) {
+        NSLog(@"%@", rightUrl);
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
         return YES;
     }
-    
- 
+   
     return YES;
 }
 //
@@ -382,7 +386,7 @@
 -(void)hideButn:(NSTimer*)timer
 {
     NSString *result = [self.webView stringByEvaluatingJavaScriptFromString:@"hideCheapPriceButton()"];
-    NSLog(@"-------222222222222--------------result is %@-------------------------",result);
+    NSLog(@"-------222222222222--------------result is %@-------------------------",result);//0不隐藏，1隐藏
     if ([result  isEqual: @"1"]) {
         self.checkCheapBtnOutlet.hidden = YES;
         self.blackView.alpha = 0;

@@ -289,13 +289,14 @@
     self.timeLab.text = [createDate formattedTime];
     
     
-    self.goDate.text = [NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price];
+    //self.goDate.text = [NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price];
     self.goDate.numberOfLines = 0;
     self.goDate.textAlignment = NSTextAlignmentLeft;
     NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price]];
     NSString *visitors = [NSString stringWithFormat:@"%@",recommend.Price];
     
-    [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(17,visitors.length)];
+    NSInteger startIndex = [recommend.Count integerValue]>9?18:17;
+    [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(startIndex,visitors.length)];
     self.goDate.attributedText = newStr;
 
   
