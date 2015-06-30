@@ -27,7 +27,7 @@
 #import "UIImageView+WebCache.h"
 #import "newModel.h"
 #import "MobClick.h"
-@interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate>
+@interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate, notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
 @property (weak, nonatomic) IBOutlet UIView *line;
@@ -650,7 +650,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     
     if (tableView.tag == 2 ) {
       
-        rightModal2 *model = self.rightTableArr[indexPath.row];
+//        rightModal2 *model = self.rightTableArr[indexPath.row];
         
         self.table2Row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"-----------tableSelectRow is %@--------",_table2Row);
