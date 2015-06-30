@@ -116,8 +116,7 @@
 #pragma mark - private
 - (void)submit
 {
-    [[NSUserDefaults standardUserDefaults]setValue:self.place.titleLabel.text forKey:@"City"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    
     NSDictionary *param = @{@"Distribution":@{@"ID":self.trader.ID,
                                               @"Name":self.nickName.text,
                                               @"Sex":self.maleBtn.selected ? @"1" : @"2",
@@ -132,6 +131,9 @@
     [MeHttpTool setDistributionWithParam:param success:^(id json) {
         NSLog(@"-----%@——————————————————————",json);
         if ([json[@"IsSuccess"] integerValue] == 1) {
+            [[NSUserDefaults standardUserDefaults]setValue:self.place.titleLabel.text forKey:@"City"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+
             [[UserInfo shareUser]setValue:self.nickName.text forKey:@"userName"];
             [MBProgressHUD showSuccess:@"保存成功"];
 
