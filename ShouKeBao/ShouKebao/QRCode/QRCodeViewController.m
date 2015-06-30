@@ -13,6 +13,7 @@
 #import "ProduceDetailViewController.h"
 #import "ScanningViewController.h"
 #import "MobClick.h"
+//
 @interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
