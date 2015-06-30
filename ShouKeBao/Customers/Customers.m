@@ -411,14 +411,20 @@
     //    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
     //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
     
-    NSString *ni = @"       ";
-    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
+//    NSString *ni = @"       ";
+//    NSLog(@"%@_____________+++++", self.searchK);
+//    if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]) {
+//        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
+//        NSLog(@",,,,,,,,,");
+//    }else{
+//    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:self.searchK];
+//        NSLog(@",,,,,,,........,,%@", self.searchCustomerBtnOutlet.titleLabel.text);
+//    }
     
     
     [self.searchTextField resignFirstResponder];
-    
-    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:textField.text];
-    
+
+
     //    这个居中不知道为啥不好使
     //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
     
@@ -444,6 +450,8 @@
     self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         
+        
+        
         NSLog(@"------管客户搜索结果的json is %@-------",json);
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerList"]){
@@ -457,6 +465,18 @@
         }else if (self.dataArr.count >0){
             self.imageViewWhenIsNull.hidden = YES;
         }
+        
+        
+//            NSString *ni = @"    ";
+//        
+//            if ([self.searchK isEqualToString:@""]) {
+//                self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
+//           
+//       
+//            }
+        
+        
+        
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
@@ -558,8 +578,10 @@
             self.subView.alpha = 1;
             self.subView.alpha = 0;
             self.subView.hidden = YES;
+       
         }];
-        
+
+       
    }else if (self.subView.hidden == YES){
       
        self.imageViewWhenIsNull.hidden = YES;
@@ -575,6 +597,9 @@
            self.historyView.hidden = NO;
            
            self.searchTextField.text = self.searchK;
+          
+           
+           
            
            
        }];
@@ -602,9 +627,15 @@
         
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
         self.historyView.hidden = YES;
-//        NSString *ni = @"         ";
-//        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
-     
+        
+        if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]||[self.searchK isEqualToString:@"  "] || [self.searchK isEqualToString:@"   "] || [self.searchK isEqualToString:@"    "]|| [self.searchK isEqualToString:@"     "]|| [self.searchK isEqualToString:@"      "]) {
+            NSString *ni = @"    ";
+            self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
+            
+        }else{
+           NSString *ni = @"       ";
+        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
+        }
     }];
 
 }

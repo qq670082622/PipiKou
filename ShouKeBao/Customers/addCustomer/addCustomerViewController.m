@@ -105,13 +105,9 @@
 {
     
     if ([text isEqualToString:@"\n"]) {
-        
         [self.note resignFirstResponder];
-        
         return NO;
-        
     }
-    
     return YES;    
     
 }
