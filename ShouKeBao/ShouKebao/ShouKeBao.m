@@ -1156,7 +1156,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 -(void)codeAction
 {
    
-   
+//   
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = YES;
     [self.navigationController pushViewController:scan animated:YES];
