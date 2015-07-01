@@ -15,7 +15,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.95686274509803926" alpha="1" colorSpace="calibratedRGB"/>
                         <sections>
-                            <tableViewSection id="BtL-bc-FT7">
+                            <tableViewSection id="8E3-Ql-p0g">
                                 <cells>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="gN0-DV-wsH">
                                         <autoresizingMask key="autoresizingMask"/>
@@ -271,42 +271,6 @@
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
-                            <tableViewSection id="nSm-YB-dQJ">
-                                <cells>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="150" id="VF7-IC-fSC">
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="VF7-IC-fSC" id="ToR-5c-Ma8">
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="简介" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NWZ-RJ-RYR">
-                                                    <rect key="frame" x="15" y="8" width="42" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" constant="42" id="hYL-9F-4ev"/>
-                                                        <constraint firstAttribute="height" constant="21" id="k6K-co-Sc1"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gsW-pP-iHq">
-                                                    <rect key="frame" x="15" y="37" width="297" height="105"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                                </textView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="NWZ-RJ-RYR" firstAttribute="leading" secondItem="ToR-5c-Ma8" secondAttribute="leadingMargin" constant="7" id="5KF-vT-OF2"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="gsW-pP-iHq" secondAttribute="bottom" constant="-0.5" id="FcT-Tn-iMw"/>
-                                                <constraint firstItem="NWZ-RJ-RYR" firstAttribute="top" secondItem="ToR-5c-Ma8" secondAttribute="topMargin" id="GB2-fo-t0O"/>
-                                                <constraint firstItem="gsW-pP-iHq" firstAttribute="trailing" secondItem="ToR-5c-Ma8" secondAttribute="trailingMargin" id="bdy-xO-LXS"/>
-                                                <constraint firstItem="gsW-pP-iHq" firstAttribute="top" secondItem="NWZ-RJ-RYR" secondAttribute="bottom" constant="8" symbolic="YES" id="qby-yx-7tC"/>
-                                                <constraint firstItem="gsW-pP-iHq" firstAttribute="leading" secondItem="NWZ-RJ-RYR" secondAttribute="leading" id="wAP-5D-URe"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
                         </sections>
                         <connections>
                             <outlet property="dataSource" destination="NJv-l4-bx0" id="GWq-Sj-AMc"/>
@@ -321,7 +285,6 @@
                         <outlet property="nickName" destination="wAM-Hu-bfK" id="wAa-lx-Ckk"/>
                         <outlet property="phone" destination="Da5-2Q-uNb" id="efk-Ta-xtg"/>
                         <outlet property="place" destination="Qm4-AB-QbO" id="Agz-U2-7df"/>
-                        <outlet property="remark" destination="gsW-pP-iHq" id="buZ-PG-ckO"/>
                         <outlet property="sign" destination="5aJ-Up-FGB" id="eGi-f5-Xgc"/>
                         <outlet property="wechat" destination="a71-jk-I6q" id="RTi-CL-hRe"/>
                     </connections>
@@ -1102,7 +1065,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4mu-N2-rrk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="385" y="-163"/>
+            <point key="canvasLocation" x="363" y="-216"/>
         </scene>
         <!--Suggest View Controller-->
         <scene sceneID="TL5-Ev-imC">

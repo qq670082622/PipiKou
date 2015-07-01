@@ -343,7 +343,7 @@
     CGFloat viewW = screenW - 2*gap;
     CGFloat viewH;
     if (_isPlain) {
-        viewH = [self sizeWithText:self.descripLab.text].height ;
+        viewH = 130;//[self sizeWithText:self.descripLab.text].height ;
     }else {
         viewH = 20;
     }
@@ -387,7 +387,7 @@
 //        [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
 //    }
     
-    if (self.frame.size.height == 260) {
+    if (self.frame.size.height == 330) {
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
         self.isPlain = YES;
         [self layoutSubviews];
@@ -429,7 +429,7 @@
                                         
                                     }];
 
-                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    [MBProgressHUD showSuccess:@"操作成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];
                                     });
@@ -522,7 +522,7 @@
    
     self.descripBtn.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];
 
-    if (self.frame.size.height == 260) {
+    if (self.frame.size.height == 330) {
        
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
     
