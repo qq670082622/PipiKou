@@ -51,6 +51,8 @@
 
 @implementation Customers
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
@@ -58,6 +60,7 @@
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
 [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+
    // [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     //[self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
  //[self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
@@ -70,6 +73,7 @@
     self.table.dataSource = self;
     self.table.rowHeight = 64;
     
+   
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -89,6 +93,7 @@
     
     self.table.tableFooterView = [[UIView alloc] init];
     
+    
      [self customerRightBarItem];
     
      [self initPull];
@@ -97,7 +102,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.subView.hidden = YES;
-
+  
+ 
     [MobClick beginLogPageView:@"Customers"];
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -123,7 +129,7 @@
 //    self.imageViewWhenIsNull.hidden = YES;
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
-//    self.searchCustomerBtnOutlet.titleLabel.text = @"    客户名/电话号码";
+    self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
     [self loadDataSource];
     [self.table headerEndRefreshing];
 }
@@ -242,7 +248,6 @@
 
 -(void)loadDataSource
 {
-    self.searchCustomerBtnOutlet.titleLabel.text = @"   客户名/电话号码";
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"500" forKey:@"PageSize"];
@@ -259,6 +264,9 @@
     
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         NSLog(@"------管客户json is %@-------",json);
+        
+//         self.searchCustomerBtnOutlet.titleLabel.text = @"   客户名/电话号码";
+        
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
@@ -410,18 +418,16 @@
     //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
     
 //    NSString *ni = @"       ";
-//    NSLog(@"%@_____________+++++", self.searchK);
 //    if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]) {
 //        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
-//        NSLog(@",,,,,,,,,");
 //    }else{
 //    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:self.searchK];
-//        NSLog(@",,,,,,,........,,%@", self.searchCustomerBtnOutlet.titleLabel.text);
+//self.searchCustomerBtnOutlet.titleLabel.text);
 //    }
     
     
     [self.searchTextField resignFirstResponder];
-
+   
 
     //    这个居中不知道为啥不好使
     //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -446,6 +452,7 @@
     [dic setObject:@"100" forKey:@"PageSize"];
     [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
     self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
+//    self.searchTextField.text = self.searchK;
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         
         
@@ -570,8 +577,7 @@
 
 
 - (IBAction)customSearch:(id)sender {
-    self.searchCustomerBtnOutlet.hidden = YES;
-
+   
    if (self.subView.hidden == NO){
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 1;
@@ -582,26 +588,20 @@
 
        
    }else if (self.subView.hidden == YES){
-      
+
        self.imageViewWhenIsNull.hidden = YES;
        self.searchTextField.hidden = NO;
        self.cancelSearchOutlet.hidden = NO;
        self.searchCustomerBtnOutlet.hidden = YES;
-       [self.searchTextField becomeFirstResponder];
        
+       [self.searchTextField becomeFirstResponder];
+       self.searchTextField.text = self.searchK;
        
        [UIView animateWithDuration:0.3 animations:^{
            
            self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
            self.historyView.hidden = NO;
-           
-           self.searchTextField.text = self.searchK;
-          
-           
-           
-           
-           
-       }];
+                 }];
     
     [self loadHistoryArr];
    
@@ -628,7 +628,7 @@
         self.historyView.hidden = YES;
         
         if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]||[self.searchK isEqualToString:@"  "] || [self.searchK isEqualToString:@"   "] || [self.searchK isEqualToString:@"    "]|| [self.searchK isEqualToString:@"     "]|| [self.searchK isEqualToString:@"      "]) {
-            NSString *ni = @"    ";
+            NSString *ni = @" ";
             self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
             
         }else{

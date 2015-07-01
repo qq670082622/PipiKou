@@ -327,7 +327,7 @@
         [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
     
-    if ([detail.PicUrl isEqualToString:_markUrl]) {
+    if ([detail.PushId isEqualToString:_markUrl]) {
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
     }
 //    if (indexPath.row == 2) {
@@ -367,7 +367,7 @@
 {
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
     if ([tag isEqualToString:@"1"]) {
-        return  260;
+        return  330;
     }else{
           return 220;
     }

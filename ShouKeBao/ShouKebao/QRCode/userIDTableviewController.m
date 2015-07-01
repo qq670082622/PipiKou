@@ -260,14 +260,12 @@
     
     UIView *alert = [[UIView alloc] init];
     CGFloat alertX = 25;
-    CGFloat alertY = [[UIScreen mainScreen] bounds].size.height/2-40;
+    CGFloat alertY = [[UIScreen mainScreen] bounds].size.height/2-80;
     CGFloat alertW = [[UIScreen mainScreen] bounds].size.width - 50;
-    CGFloat alertH = 250;
-    alert.frame = CGRectMake(alertX, alertY, alertW, alertH);
-    alert.backgroundColor = [UIColor whiteColor];
+       alert.backgroundColor = [UIColor whiteColor];
     [WMAnimations WMAnimationMakeBoarderWithLayer:alert.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(alertX, 15, alertW - alertX*2, 45)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(alertX, 15, alertW - alertX*2, 65)];
     lab.numberOfLines = 0;
     lab.text = @"信息已经提取到识别历史，是否还提取粘贴到？..";
     lab.textColor = [UIColor blackColor];
@@ -331,6 +329,9 @@
     cancle.frame = CGRectMake(alertW/2 - 30, CGRectGetMaxY(line.frame)+15, 60, 25);
     [cancle addTarget:self action:@selector(cancleCover) forControlEvents:UIControlEventTouchUpInside];
     
+    CGFloat alertH = CGRectGetMaxY(cancle.frame)+15;
+    alert.frame = CGRectMake(alertX, alertY, alertW, alertH);
+
     [cover addSubview:alert];
     [alert addSubview:lab];
     [alert addSubview:weCaht];

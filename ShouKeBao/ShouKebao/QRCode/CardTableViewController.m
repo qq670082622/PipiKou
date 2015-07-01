@@ -279,14 +279,12 @@
     
     UIView *alert = [[UIView alloc] init];
     CGFloat alertX = 25;
-    CGFloat alertY = 200;
+    CGFloat alertY = [[UIScreen mainScreen] bounds].size.height/2-80;
     CGFloat alertW = [[UIScreen mainScreen] bounds].size.width - 50;
-    CGFloat alertH = 200;
-    alert.frame = CGRectMake(alertX, alertY, alertW, alertH);
     alert.backgroundColor = [UIColor whiteColor];
     [WMAnimations WMAnimationMakeBoarderWithLayer:alert.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(alertX, 15, alertW - alertX*2, 45)];
+    UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(alertX, 15, alertW - alertX*2, 65)];
     lab.numberOfLines = 0;
     lab.text = @"信息已经提取到识别历史，是否还提取粘贴到？..";
     lab.textColor = [UIColor blackColor];
@@ -295,8 +293,8 @@
     
     CGFloat btnY = CGRectGetMaxY(lab.frame)+15;
     CGFloat btnW = (alertW - 5*alertX)/4;
-
-        UIButton *weCaht = [UIButton buttonWithType:UIButtonTypeCustom];
+    
+    UIButton *weCaht = [UIButton buttonWithType:UIButtonTypeCustom];
     [weCaht setBackgroundImage:[UIImage imageNamed:@"weixincopy"] forState:UIControlStateNormal];
     weCaht.frame = CGRectMake(alertX, btnY, btnW, btnW);
     [weCaht addTarget:self action:@selector(openWechat) forControlEvents:UIControlEventTouchUpInside];
@@ -305,8 +303,8 @@
     weLab.text = @"微信";
     weLab.textAlignment = NSTextAlignmentCenter;
     weLab.textColor = [UIColor lightGrayColor];
-     weLab.font = [UIFont systemFontOfSize:15];
-   
+    weLab.font = [UIFont systemFontOfSize:15];
+    
     UIButton *qq = [UIButton buttonWithType:UIButtonTypeCustom];
     [qq setBackgroundImage:[UIImage imageNamed:@"QQcopy"] forState:UIControlStateNormal];
     qq.frame = CGRectMake(CGRectGetMaxX(weCaht.frame)+alertX, btnY, btnW, btnW);
@@ -328,7 +326,7 @@
     messageLab.textAlignment = NSTextAlignmentCenter;
     messageLab.textColor = [UIColor lightGrayColor];
     messageLab.font = [UIFont systemFontOfSize:15];
-  
+    
     UIButton *copo = [UIButton buttonWithType:UIButtonTypeCustom];
     [copo setBackgroundImage:[UIImage imageNamed:@"fuzhicopy"] forState:UIControlStateNormal];
     copo.frame = CGRectMake(CGRectGetMaxX(message.frame)+alertX, btnY, btnW, btnW);
@@ -339,7 +337,7 @@
     copoLab.textAlignment = NSTextAlignmentCenter;
     copoLab.textColor = [UIColor lightGrayColor];
     copoLab.font = [UIFont systemFontOfSize:15];
-
+    
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(alertX, CGRectGetMaxY(copoLab.frame)+15, alertW - alertX*2, 0.5)];
     line.backgroundColor = [UIColor lightGrayColor];
     
@@ -349,6 +347,9 @@
     cancle.titleLabel.font = [UIFont systemFontOfSize:15];
     cancle.frame = CGRectMake(alertW/2 - 30, CGRectGetMaxY(line.frame)+15, 60, 25);
     [cancle addTarget:self action:@selector(cancleCover) forControlEvents:UIControlEventTouchUpInside];
+    
+    CGFloat alertH = CGRectGetMaxY(cancle.frame)+15;
+    alert.frame = CGRectMake(alertX, alertY, alertW, alertH);
     
     [cover addSubview:alert];
     [alert addSubview:lab];

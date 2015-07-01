@@ -1907,7 +1907,7 @@
        // [_dressView removeFromSuperview];
     }];
 
-    // [self loadDataSourceWithCondition];
+     [self scrollViewDidScroll:nil];
     
     
    }
