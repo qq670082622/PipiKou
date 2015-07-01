@@ -104,6 +104,7 @@
         NSLog(@"%@", [error localizedDescription]);
         return NO;
     }
+
     //3.创建媒体数据输出流
     AVCaptureMetadataOutput *captureMetadataOutput = [[AVCaptureMetadataOutput alloc] init];
     //4.实例化捕捉会话
