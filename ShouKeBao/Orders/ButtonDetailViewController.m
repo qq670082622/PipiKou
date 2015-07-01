@@ -149,6 +149,8 @@
     NSRange range3 = [rightUrl rangeOfString:@"?"];
     
     
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+    
     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
         // return YES;

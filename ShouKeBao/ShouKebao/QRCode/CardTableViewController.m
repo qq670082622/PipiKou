@@ -92,8 +92,11 @@
 }
 
 -(void)back
-{[self.delegate toIfPush];
-    [self.navigationController popViewControllerAnimated:YES];
+{
+    [self.delegate toIfPush];
+     //防止有编辑，但未保存，默认将其保存
+    [self saveRecordToCustomer];
+        [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -162,77 +165,6 @@
 
 - (IBAction)save:(id)sender {
     
-    if (_isLogin) {
-       
-       NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:self.nameText.text forKey:@"UserName"];
-        [dic setObject:self.sexText.text forKey:@"Sex"];
-        [dic setObject:self.countryText.text forKey:@"Country"];
-        [dic setObject:self.cardNumText.text forKey:@"PassportNum"];
-        [dic setObject:self.startDayText.text forKey:@"ValidStartDate"];
-        [dic setObject:self.bornText.text forKey:@"BirthDay"];
-        [dic setObject:self.startPointText.text forKey:@"ValidAddress"];
-        [dic setObject:self.effectiveText.text forKey:@"ValidEndDate"];
-        [dic setObject:_RecordId forKey:@"RecordId"];
-        [dic setObject:@"2" forKey:@"RecordType"];
-        NSMutableArray *arr = [NSMutableArray array];
-        [arr addObject:dic];
-        NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
-      
-        [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
-       
-        //1.同步扫描纪录
-        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
-            NSLog(@"批量导入客户成功 返回json is %@",json);
-//            2/添加客户
-            NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
-            [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
-            [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
-                NSLog(@"添加陈工");
-        //测试是成功的
-                
-//                            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
-//                            testLab.backgroundColor = [UIColor whiteColor];
-//                            testLab.font = [UIFont systemFontOfSize:8];
-//                            testLab.text = [NSString stringWithFormat:@"保存护照记录返回的JSON IS %@",json];
-//                            testLab.numberOfLines = 0;
-//                            [self.view.window addSubview:testLab];
-
-            } failure:^(NSError *error) {
-                NSLog(@"");
-            }];
-           
-            
-//            [self.saveBtn setTitle:@"已保存" forState:UIControlStateNormal];
-//            [self.saveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
-//            self.saveBtn.userInteractionEnabled = NO;
-        
-        
-        } failure:^(NSError *error) {
-            NSLog(@"批量导入客户失败，返回error is %@",error);
-        }];
-
-    }else if (!_isLogin){
-        //储存未登录时的识别纪录
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record2"]];
-        
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:self.nameText.text forKey:@"UserName"];
-         [dic setObject:self.sexText.text forKey:@"Sex"];
-         [dic setObject:self.countryText.text forKey:@"Country"];
-         [dic setObject:self.cardNumText.text forKey:@"PassportNum"];
-         [dic setObject:self.startDayText.text forKey:@"ValidStartDate"];
-         [dic setObject:self.bornText.text forKey:@"BirthDay"];
-         [dic setObject:self.startPointText.text forKey:@"ValidAddress"];
-         [dic setObject:self.effectiveText.text forKey:@"ValidEndDate"];
-        [dic setObject:_RecordId forKey:@"RecordId"];
-        [dic setObject:@"2" forKey:@"RecordType"];
-       
-        [arr addObject:dic];
-        
-        [WriteFileManager saveData:arr name:@"record2"];
-       
-    }
     
     
     //    @property (nonatomic,copy) NSString *UserName;
@@ -255,6 +187,8 @@
     
 //    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"保存成功" message:@"已成功提取信息，您可以方便地在“我的客户中”查看和编辑" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles: nil];
 //        [alert show];
+    
+    [self saveRecordToCustomer];
    [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
 
    
@@ -267,6 +201,82 @@
 //    self.startPointText.text = _startPointLabStr;
 //    self.effectiveText.text = _effectiveLabStr;
    }
+
+-(void)saveRecordToCustomer
+{
+    if (_isLogin) {
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.nameText.text forKey:@"UserName"];
+        [dic setObject:self.sexText.text forKey:@"Sex"];
+        [dic setObject:self.countryText.text forKey:@"Country"];
+        [dic setObject:self.cardNumText.text forKey:@"PassportNum"];
+        [dic setObject:self.startDayText.text forKey:@"ValidStartDate"];
+        [dic setObject:self.bornText.text forKey:@"BirthDay"];
+        [dic setObject:self.startPointText.text forKey:@"ValidAddress"];
+        [dic setObject:self.effectiveText.text forKey:@"ValidEndDate"];
+        [dic setObject:_RecordId forKey:@"RecordId"];
+        [dic setObject:@"2" forKey:@"RecordType"];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:dic];
+        NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
+        
+        [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
+        
+        //1.同步扫描纪录
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+            NSLog(@"批量导入客户成功 返回json is %@",json);
+            //            2/添加客户
+            NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
+            [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+            [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
+                NSLog(@"添加陈工");
+                //测试是成功的
+                
+                //                            UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
+                //                            testLab.backgroundColor = [UIColor whiteColor];
+                //                            testLab.font = [UIFont systemFontOfSize:8];
+                //                            testLab.text = [NSString stringWithFormat:@"保存护照记录返回的JSON IS %@",json];
+                //                            testLab.numberOfLines = 0;
+                //                            [self.view.window addSubview:testLab];
+                
+            } failure:^(NSError *error) {
+                NSLog(@"");
+            }];
+            
+            
+            //            [self.saveBtn setTitle:@"已保存" forState:UIControlStateNormal];
+            //            [self.saveBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateNormal];
+            //            self.saveBtn.userInteractionEnabled = NO;
+            
+            
+        } failure:^(NSError *error) {
+            NSLog(@"批量导入客户失败，返回error is %@",error);
+        }];
+        
+    }else if (!_isLogin){
+        //储存未登录时的识别纪录
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record2"]];
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:self.nameText.text forKey:@"UserName"];
+        [dic setObject:self.sexText.text forKey:@"Sex"];
+        [dic setObject:self.countryText.text forKey:@"Country"];
+        [dic setObject:self.cardNumText.text forKey:@"PassportNum"];
+        [dic setObject:self.startDayText.text forKey:@"ValidStartDate"];
+        [dic setObject:self.bornText.text forKey:@"BirthDay"];
+        [dic setObject:self.startPointText.text forKey:@"ValidAddress"];
+        [dic setObject:self.effectiveText.text forKey:@"ValidEndDate"];
+        [dic setObject:_RecordId forKey:@"RecordId"];
+        [dic setObject:@"2" forKey:@"RecordType"];
+        
+        [arr addObject:dic];
+        
+        [WriteFileManager saveData:arr name:@"record2"];
+        
+    }
+
+}
 
 -(void)WMPopCustomerAlertWithCopyStr:(NSString *)copyStr//自定义拷贝弹窗
 {
