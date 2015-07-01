@@ -160,7 +160,7 @@
 {
     [self.timer invalidate];
 
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)addGes
