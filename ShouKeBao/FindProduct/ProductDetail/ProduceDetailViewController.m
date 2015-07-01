@@ -155,6 +155,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.delegate notiQRCToStartRuning];
     [MobClick endLogPageView:@"ProduceDetailView"];
     [self.timer invalidate];
 }

@@ -105,13 +105,13 @@ void UncaughtExceptionHandler(NSException *exception) {
     // 是否第一次打开app
     if ([isFirst integerValue] != 1) {
         // 如果是第一次 就去登录旅行社 绑定手机 并显示欢迎界面
-        [self setWelcome];
+        [self setWelcome];//初次登录进入欢迎界面
     }else{
         // 如果不是第一次就 显示常规登录
         if (self.isAutoLogin){
-            [self setTabbarRoot];
+            [self setTabbarRoot];//登录到主界面
         }else{
-            [self setLoginRoot];
+            [self setLoginRoot];//常规登录
         }
     }
     

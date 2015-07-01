@@ -15,6 +15,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
+#import "StrToDic.h"
 #define gap 10
 @implementation YesterDayCell
 
@@ -221,7 +222,8 @@
 
 -(void)shareIt
 {
-    NSDictionary *tmp = _modal.ShareInfo;
+ 
+    NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_modal.ShareInfo];
     NSLog(@"-------------tmp is %@----------",tmp);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
@@ -231,7 +233,7 @@
                                                   url:tmp[@"Url"]                                          description:tmp[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     
-    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@ ,  %@",tmp[@"Tile"],tmp[@"Desc"],tmp[@"Url"]] image:nil];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@,%@,  %@",tmp[@"Tile"],tmp[@"Desc"],tmp[@"Url"]] image:nil];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
@@ -262,7 +264,7 @@
                                 else if (state == SSResponseStateFail)
                                 {
                                     [self.warningLab removeFromSuperview];
-                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                    NSLog(@"TEXT_ShARE_FAI, 分享失败,错误码:%ld,错误描述:%@",(long)[error errorCode], [error errorDescription]) ;
                                 }else if (state == SSResponseStateCancel){
                                     [self.warningLab removeFromSuperview];
                                 }
