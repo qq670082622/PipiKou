@@ -267,7 +267,7 @@
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         NSLog(@"-----  %@",json);
         
-        if ([json[@"IsSuccess"] integerValue] == 1) {
+        if ([json[@"IsSuccess"] integerValue] == 1 ) {
             
             // 保存必要的参数
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];

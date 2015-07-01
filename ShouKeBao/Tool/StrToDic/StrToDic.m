@@ -106,4 +106,15 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
     return arr;
 }
 
++(NSMutableDictionary *)dicCleanSpaceWithDict:(NSDictionary *)dict
+{
+    NSArray *keys = [dict allKeys];
+    NSMutableDictionary *newDic = [NSMutableDictionary dictionary];
+    for (int i = 0; i<keys.count; i++) {
+         NSMutableString *newStr = [NSMutableString stringWithFormat:@"%@",[[dict objectForKey:keys[i]] stringByReplacingOccurrencesOfString:@" " withString:@""]];
+        [newDic setObject:newStr forKey:keys[i]];
+    }
+    NSLog(@"newDic is %@",newDic);
+    return newDic;
+}
 @end

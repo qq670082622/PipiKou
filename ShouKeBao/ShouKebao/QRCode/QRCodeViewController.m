@@ -14,7 +14,7 @@
 #import "ScanningViewController.h"
 #import "MobClick.h"
 //
-@interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh>
+@interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh,notiQRCToStartRuning>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 @property (weak, nonatomic) IBOutlet UILabel *lblStatus;
 
@@ -85,6 +85,14 @@
     
 }
 
+-(void)notiQRCToStartRuning
+{
+    [self startReading];
+}
+-(void)refresh
+{
+    [self startReading];
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -226,6 +234,7 @@
         }else{
             ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
             detail.produceUrl = self.lblStatus.text;
+            detail.delegate = self;
             [self.navigationController pushViewController:detail animated:YES];
         }
         
@@ -246,10 +255,7 @@
     [self openUrl];
 }
 
--(void)refresh
-{
-    [self startReading];
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

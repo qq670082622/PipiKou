@@ -19,4 +19,5 @@
 +(void)setValueWhenIsNull:(NSMutableDictionary *)dic andValue:(NSString *)value forKey:(NSString *)key;
 
 +(NSMutableArray *)arr:(NSMutableArray *)arr addObject:(NSString *)str;
++(NSMutableDictionary *)dicCleanSpaceWithDict:(NSDictionary *)dict;//去空格
 @end
