@@ -167,7 +167,7 @@
     
     [self.view addSubview:card];
    // labCard.hidden = YES;
-    //card.hidden = YES;
+   // card.hidden = YES;
     
     // 切换用户按钮
     CGFloat changeW = 80;
