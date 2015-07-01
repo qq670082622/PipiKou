@@ -273,8 +273,9 @@ static NSString *cellID = @"QRHistoryCell";
     personIdModel *model = _dataArr[indexPath.row];
     
     if (self.table.editing == YES) {
+        [self.editArr removeAllObjects];
         
-        [self.editArr addObject:model];
+        [self.editArr addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         [self.editIndexArrInNoLogin addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
@@ -322,7 +323,9 @@ static NSString *cellID = @"QRHistoryCell";
    // remondModel *model = _dataArr[indexPath.row];
     personIdModel *model = self.dataArr[indexPath.row];
     if (self.table.editing == YES) {
-        
+        if ([self.editArr containsObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]]) {
+            [self.editArr removeObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+        }
         [self.editArr removeObject:model];
          [self.editIndexArrInNoLogin removeObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
     }
@@ -334,42 +337,50 @@ static NSString *cellID = @"QRHistoryCell";
 
 
 - (IBAction)deleteAction:(id)sender {
+     [self.table setEditing:NO animated:YES];
     if (_isLogin) {
         NSMutableArray *arr = [NSMutableArray array];
         for (int i = 0; i<self.editArr.count; i++) {
-            [self.dataArr removeObject:self.editArr[i]];
-            personIdModel *model = self.editArr[i];
+            //[self.dataArr removeObject:self.editArr[i]];
+           // personIdModel *model = self.editArr[i];
+            //[arr addObject:model.RecordId];
+            personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
             [arr addObject:model.RecordId];
-            // Customer/DeleteCredentialsPicRecord
         }
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:arr forKey:@"RecordIds"];
         
         [IWHttpTool WMpostWithURL:@"Customer/DeleteCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"批量删除客户成功 返回json is %@",json);
-            // [self.delegate referesh];
+//                    UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
+//                    testLab.backgroundColor = [UIColor whiteColor];
+//                    testLab.text = [NSString stringWithFormat:@" 原数据是%@----要删除的数据是%@,返回的json is %@",self.dataArr,self.editArr,json];
+//                    testLab.numberOfLines = 0;
+//                    [self.view.window addSubview:testLab];
+
+           
         } failure:^(NSError *error) {
             NSLog(@"批量删除客户失败，返回error is %@",error);
         }];
-   
-[self.table reloadData];
+       
+
     }else if (!_isLogin){
          NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
         for (int i = 0; i<self.editIndexArrInNoLogin.count; i++) {
             [arr removeObjectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]];
         }
         [WriteFileManager saveData:arr name:@"record"];
-        [self.table reloadData];
-    }
+           }
    
     [self EditCustomerDetail];
     
     [MBProgressHUD showSuccess:@"操作成功"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
+        [self.navigationController popViewControllerAnimated:YES];
     });
 
-  
+   
 }
 
 - (IBAction)saveToCustom:(id)sender {
@@ -378,9 +389,12 @@ static NSString *cellID = @"QRHistoryCell";
        
         NSMutableArray *arr = [NSMutableArray array];
         for(int i = 0 ;i<_editArr.count;i++){
-            personIdModel *model = _editArr[i];
+          //  personIdModel *model = _editArr[i];
+            //[arr addObject:model.RecordId];
+            
+            personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
             [arr addObject:model.RecordId];
-            }
+        }
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:arr forKey:@"RecordIds"];
@@ -415,6 +429,7 @@ static NSString *cellID = @"QRHistoryCell";
     [MBProgressHUD showSuccess:@"操作成功"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
+        [self.navigationController popViewControllerAnimated:YES];
     });
 
 }

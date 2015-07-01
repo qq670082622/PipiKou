@@ -45,7 +45,14 @@
     
     
     
+    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
     
+    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
+    CGFloat viewH = screenH - 157;
+    //CGFloat viewH = screenH ;
+    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
+    [self startReading];
+
     [self openUrl];
     
     
@@ -75,13 +82,6 @@
     [self.captureSession startRunning];//当QR被父vc remove时候关闭识别，当被添加的时候打开识别
     
     //------------当唤出证件神器 以下代码放viewdidload上
-    CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
-    
-    CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
-    //CGFloat viewH = screenH - 157;
-    CGFloat viewH = screenH ;
-    self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
-    [self startReading];
     
 }
 

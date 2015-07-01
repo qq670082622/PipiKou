@@ -36,8 +36,9 @@
                             <color key="backgroundColor" red="0.72559902815013411" green="0.72559902815013411" blue="0.72559902815013411" alpha="1" colorSpace="calibratedRGB"/>
                         </view>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cI6-Gz-Bcb">
-                            <rect key="frame" x="64" y="8" width="20" height="22"/>
+                            <rect key="frame" x="64" y="8" width="20" height="42"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="15"/>
                             <state key="normal" image="deleteHistory">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
@@ -46,8 +47,9 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="SgL-pg-qUC">
-                            <rect key="frame" x="244" y="8" width="20" height="22"/>
+                            <rect key="frame" x="234" y="8" width="40" height="42"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="15"/>
                             <state key="normal" image="saveToCustomer">
                                 <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
