@@ -34,9 +34,8 @@
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                    <state key="normal" title="    客户名/电话号码" image="fdjBtn">
-                        <color key="titleColor" red="0.49305365893089709" green="0.49369872773823753" blue="0.49529945403793174" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    <state key="normal" title="                          " image="fdjBtn">
+                        <color key="titleColor" cocoaTouchSystemColor="scrollViewTexturedBackgroundColor"/>
                     </state>
                     <connections>
                         <action selector="customSearch:" destination="-1" eventType="touchUpInside" id="Sd9-Dc-d95"/>
