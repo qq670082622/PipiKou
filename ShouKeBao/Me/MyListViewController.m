@@ -16,6 +16,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "ProduceDetailViewController.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 #define pageSize 10
 
 @interface MyListViewController ()<MGSwipeTableCellDelegate>
@@ -229,6 +230,16 @@
     ProductModal *model = self.dataSource[indexPath.row];
     NSDictionary *param = @{@"ProductID":model.ID,
                             @"IsFavorites":[NSString stringWithFormat:@"%d",![model.IsFavorites integerValue]]};
+    if ([model.IsFavorites integerValue]) {
+    //取消收藏
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeCancelMyStore" attributes:dict];
+        
+    }else{
+    //收藏
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeStore" attributes:dict];
+    }
     [MBProgressHUD showHUDAddedTo:self.view.window animated:YES];
     [MeHttpTool cancelFavouriteWithParam:param success:^(id json) {
         NSLog(@"-----%@",json);

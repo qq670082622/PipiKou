@@ -58,7 +58,6 @@
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
 [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-
    // [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     //[self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
  //[self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
@@ -71,7 +70,6 @@
     self.table.dataSource = self;
     self.table.rowHeight = 64;
     
-   
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -125,7 +123,7 @@
 //    self.imageViewWhenIsNull.hidden = YES;
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
-    self.searchCustomerBtnOutlet.titleLabel.text = @"    客户名/电话号码";
+//    self.searchCustomerBtnOutlet.titleLabel.text = @"    客户名/电话号码";
     [self loadDataSource];
     [self.table headerEndRefreshing];
 }
@@ -572,7 +570,8 @@
 
 
 - (IBAction)customSearch:(id)sender {
-   
+    self.searchCustomerBtnOutlet.hidden = YES;
+
    if (self.subView.hidden == NO){
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 1;
