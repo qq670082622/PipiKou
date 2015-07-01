@@ -8,13 +8,14 @@
 
 #import "BaseClickAttribute.h"
 #import "UserInfo.h"
+#import <UIKit/UIKit.h>
 @implementation BaseClickAttribute
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         self = (BaseClickAttribute *)[NSMutableDictionary dictionaryWithCapacity:1];
-     NSDictionary * dic = @{@"SubstationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
+     NSDictionary * dic = @{@"SubstationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"], @"DeviceID":[[UIDevice currentDevice].identifierForVendor UUIDString]};
     [self addEntriesFromDictionary:dic];
     }
     return self;
