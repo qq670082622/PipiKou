@@ -152,11 +152,11 @@
             } else {
             if ((__bridge id)abLastName != nil)
                 {
-                    // nameString = (__bridge NSString *)abFullName;
-                nameString = [NSString stringWithFormat:@"%@ %@", nameString, lastNameString];
+                     nameString = (__bridge NSString *)abFullName;
+                //nameString = [NSString stringWithFormat:@"%@ %@", nameString, lastNameString];
                 }}
         
-        addressBooks.name = nameString;
+        addressBooks.name = [NSString stringWithFormat:@"%@",nameString];
        
             addressBooks.recordID = [NSString stringWithFormat:@"%d",ABRecordGetRecordID(person)];;
        
