@@ -116,6 +116,9 @@
     [self.dataArr1 removeAllObjects];
          _dataArr1 = arr;
     [self.table reloadData];
+    if (_dataArr1.count == 0 ) {
+        self.noConditionImg.hidden = NO;
+    }
         //NSLog(@"arr count is %lu",[arr count]);
     
     // NSLog(@"------------arr is %@ count is %lu-----------",_dataArr1,(unsigned long)[_dataArr1 count]);
@@ -174,17 +177,18 @@
     NSString *conditionStr = [[_conditionSelectArr firstObject] objectForKey:self.title];
     
     if (!conditionStr) {
+        if ([self.title containsString:@"目的地"]) {
+            [[_conditionSelectArr firstObject] setObject:@"全部" forKey:self.title];
+
+        }else{
         [[_conditionSelectArr firstObject] setObject:@"不限" forKey:self.title];
     }
-    
+    }
     if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]] ) {
-        
-        cell.accessoryType = UITableViewCellAccessoryCheckmark;
-        
+                  cell.accessoryType = UITableViewCellAccessoryCheckmark;
 
         
-        }
-   
+    }
 return cell;
 }
 

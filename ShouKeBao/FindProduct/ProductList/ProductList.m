@@ -257,7 +257,7 @@
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
     
-    [self.pushedArr removeAllObjects];
+    //[self.pushedArr removeAllObjects];
     
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
     [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
@@ -699,7 +699,7 @@
         }
         
         NSMutableArray *conArr = [NSMutableArray array];
-        if (!_isFromSearch && arr.count>0){
+        if (!_isFromSearch && arr.count>0){//走正常进入，需要从找产品取出三级条件
             NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
             [conArr addObject:dicNew];
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
@@ -707,6 +707,7 @@
                 }
 
         }else if(_isFromSearch && arr.count>0){
+            //走搜索进入，后台直接提供目的地，不过位置被放最后一位，一下操作便是调整位置
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
             }
@@ -1960,8 +1961,7 @@
     
     
     [self initPullForResetAndCancel];
-    
-}
+  }
 
 
 
