@@ -135,7 +135,6 @@
 {
     if (!_meheader) {
         _meheader = [[MeHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
-        self sets
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
         _meheader.isPerson = self.isPerson;
