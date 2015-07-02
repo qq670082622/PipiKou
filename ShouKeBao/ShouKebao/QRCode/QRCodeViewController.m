@@ -66,6 +66,7 @@
         _connection.videoScaleAndCropFactor = lengthScale;
     }];
 }
+
 -(void)listenNeedLoad
 {
     //    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
