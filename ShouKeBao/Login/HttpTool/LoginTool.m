@@ -61,7 +61,7 @@
  */
 + (void)syncLoginWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *url = @"Business/LoginQuick";
     NSString *overStr = [normalURL stringByAppendingString:url];
     
