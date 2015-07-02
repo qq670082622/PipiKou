@@ -64,6 +64,7 @@
     [_videoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(lengthScale, lengthScale)];
     _connection.videoScaleAndCropFactor = lengthScale;
 }
+
 -(void)listenNeedLoad
 {
     //    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];

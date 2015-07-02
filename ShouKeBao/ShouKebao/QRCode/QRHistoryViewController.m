@@ -83,7 +83,7 @@
 //PageIndex   PageSize
     if (!_isLogin) {  //注record是未登录时的识别纪录，而record2是未登录时添加的客户
         [self.dataArr removeAllObjects];
-          NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
+        NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
         
       for(NSDictionary *dic in arr) {
             personIdModel *model = [personIdModel modelWithDict:dic];
