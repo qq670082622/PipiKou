@@ -61,8 +61,10 @@
 #pragma mark 设置焦距
 - (void)setFocalLength:(CGFloat)lengthScale
 {
-    [_videoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(lengthScale, lengthScale)];
-    _connection.videoScaleAndCropFactor = lengthScale;
+    [UIView animateWithDuration:0.5 animations:^{
+        [_videoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(lengthScale, lengthScale)];
+        _connection.videoScaleAndCropFactor = lengthScale;
+    }];
 }
 
 -(void)listenNeedLoad

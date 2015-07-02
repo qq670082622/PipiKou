@@ -111,9 +111,22 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
     NSArray *keys = [dict allKeys];
     NSMutableDictionary *newDic = [NSMutableDictionary dictionary];
     for (int i = 0; i<keys.count; i++) {
-         NSMutableString *newStr = [NSMutableString stringWithFormat:@"%@",[[dict objectForKey:keys[i]] stringByReplacingOccurrencesOfString:@" " withString:@""]];
-        [newDic setObject:newStr forKey:keys[i]];
-    }
+       //
+        NSMutableString *newStr = [NSMutableString stringWithFormat:@"%@",[[dict objectForKey:keys[i]] stringByReplacingOccurrencesOfString:@" " withString:@""]];//去空格
+     
+        if ([keys[i] isEqualToString:@"Url"]){
+            [newDic setObject:newStr forKey:keys[i]];
+
+        }else if ([keys[i] isEqualToString:@"Pic"]){
+            [newDic setObject:newStr forKey:keys[i]];
+
+        }else{
+
+        NSMutableString *new2 = [NSMutableString stringWithFormat:@"%@",[newStr stringByReplacingOccurrencesOfString:@"." withString:@""]];//去"."
+            [newDic setObject:new2 forKey:keys[i]];
+        }
+        
+          }
     NSLog(@"newDic is %@",newDic);
     return newDic;
 }

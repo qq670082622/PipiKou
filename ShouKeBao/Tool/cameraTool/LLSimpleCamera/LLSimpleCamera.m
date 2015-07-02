@@ -17,6 +17,8 @@
 @property (strong, nonatomic) AVCaptureSession *session;
 @property (strong, nonatomic) AVCaptureDevice *captureDevice;
 @property (strong, nonatomic) AVCaptureVideoPreviewLayer *captureVideoPreviewLayer;
+@property (nonatomic, strong) AVCaptureConnection * connection;
+
 
 @end
 
@@ -108,11 +110,28 @@
         self.stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
         NSDictionary *outputSettings = [[NSDictionary alloc] initWithObjectsAndKeys: AVVideoCodecJPEG, AVVideoCodecKey, nil];
         [self.stillImageOutput setOutputSettings:outputSettings];
+        
+        
+        _connection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
+        [self setFocalLength:2.0];//1倍正常，2x，3x，4x依次放大
+         
+        
+        
         [self.session addOutput:self.stillImageOutput];
     }
     
     [self.session startRunning];
     self.isStart = YES;
+}
+#pragma mark 设置焦距
+- (void)setFocalLength:(CGFloat)lengthScale
+{
+    [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(lengthScale, lengthScale)];
+    _connection.videoScaleAndCropFactor = lengthScale;
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+//        _connection.videoScaleAndCropFactor = 1.0;
+//    }];
 }
 
 // stop session

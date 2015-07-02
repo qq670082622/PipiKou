@@ -149,7 +149,7 @@
         [self.table setEditing:YES animated:YES];
         self.isEditing = YES;
         
-        
+        [self.editArr removeAllObjects];
         self.navigationItem.rightBarButtonItem.title = @"取消";
         
     }else if (self.subView.hidden == NO && self.isEditing){
@@ -273,8 +273,7 @@ static NSString *cellID = @"QRHistoryCell";
     personIdModel *model = _dataArr[indexPath.row];
     
     if (self.table.editing == YES) {
-        [self.editArr removeAllObjects];
-        
+              
         [self.editArr addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         [self.editIndexArrInNoLogin addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];

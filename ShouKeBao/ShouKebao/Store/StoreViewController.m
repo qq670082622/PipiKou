@@ -11,7 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
-
+#import "StrToDic.h"
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
@@ -322,6 +322,7 @@
             
          //定时器来调js方法
             NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+            [self.timer invalidate];
             self.timer = timer;
             [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
            
@@ -437,7 +438,7 @@
 {
     self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
-        shareDic = [self.shareArr lastObject];
+        shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
     
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
