@@ -128,10 +128,10 @@
 {
     [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(lengthScale, lengthScale)];
     _connection.videoScaleAndCropFactor = lengthScale;
-    [UIView animateWithDuration:0.5 animations:^{
-        [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
-        _connection.videoScaleAndCropFactor = 1.0;
-    }];
+//    [UIView animateWithDuration:0.5 animations:^{
+//        [_captureVideoPreviewLayer setAffineTransform:CGAffineTransformMakeScale(1.0, 1.0)];
+//        _connection.videoScaleAndCropFactor = 1.0;
+//    }];
 }
 
 // stop session

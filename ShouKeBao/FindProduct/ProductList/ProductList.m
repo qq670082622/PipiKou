@@ -681,6 +681,9 @@
         if (arr.count==0) {
             self.noProductView.hidden = NO;
             [self.pageCountBtn setTitle:@"没有产品" forState:UIControlStateNormal];
+            self.cheapOutlet.userInteractionEnabled = NO;
+            self.profitOutlet.userInteractionEnabled = NO;
+            self.commondOutlet.userInteractionEnabled = NO;
 
         }else if (arr.count>0){
          //self.table.tableFooterView.hidden = YES;
@@ -690,7 +693,7 @@
                 [self.dataArr addObject:modal];
             }
             NSString *str = json[@"TotalCount"];
-            self.productCount = [str longLongValue];
+            self.productCount = [str integerValue];
            
             
         }

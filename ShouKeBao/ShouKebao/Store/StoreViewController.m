@@ -11,7 +11,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "AppDelegate.h"
-
+#import "StrToDic.h"
 #import "MBProgressHUD+MJ.h"
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
@@ -437,7 +437,7 @@
 {
     self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
-        shareDic = [self.shareArr lastObject];
+        shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
     
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]

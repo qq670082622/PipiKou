@@ -160,7 +160,7 @@
 {
     [self.timer invalidate];
 
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popViewControllerAnimated:NO];
 }
 
 -(void)addGes
@@ -375,19 +375,23 @@
             
             if (self.camera.isStart == NO && _cameraInUse == NO) {
                 [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                
-                [UIView animateWithDuration:1 animations:^{
+               
+                [UIView animateWithDuration:0.5 animations:^{
                     self.personIDVC.view.alpha = 0;
                     self.QRCodevc.view.alpha = 0;
+                    
+                    
                     [self.QRCodevc.view removeFromSuperview];
                     [self.view addSubview:self.personIDVC.view];
+                    
                     self.personIDVC.view.alpha = 1;
                     self.QRCodevc.view.alpha = 1;
                 }];
                
-                
                 [self.camera start];
                 self.cameraInUse = YES;
+                
+                
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 
                 self.title = @"身份证扫描";
