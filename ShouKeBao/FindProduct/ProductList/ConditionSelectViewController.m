@@ -15,6 +15,9 @@
 @property (nonatomic,copy)NSMutableString *selectValue;
 @property (nonatomic,strong) NSMutableArray *conditionSelectArr;//(arr内为一个字典)
 @property (nonatomic,assign) BOOL rowHeight70;
+@property (weak, nonatomic) IBOutlet UIImageView *noConditionImg;
+
+
 @end
 
 @implementation ConditionSelectViewController
