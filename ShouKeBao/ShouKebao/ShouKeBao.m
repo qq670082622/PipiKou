@@ -1160,7 +1160,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = YES;
     [self.navigationController pushViewController:scan animated:YES];
-    
+//
 //    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
 //    [self.navigationController pushViewController:qrc animated:YES];
 
