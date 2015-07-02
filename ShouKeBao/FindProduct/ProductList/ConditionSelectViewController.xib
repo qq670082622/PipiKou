@@ -25,10 +25,12 @@
                         <outlet property="delegate" destination="-1" id="5qP-JK-Lga"/>
                     </connections>
                 </tableView>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" translatesAutoresizingMaskIntoConstraints="NO" id="waT-T4-PcF">
+                <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" translatesAutoresizingMaskIntoConstraints="NO" id="waT-T4-PcF">
                     <rect key="frame" x="60" y="64" width="200" height="206"/>
                     <constraints>
+                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="200" id="7kK-6q-4ES"/>
                         <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="206" id="9Ai-ou-i06"/>
+                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="206" id="Bt8-gQ-EQD"/>
                         <constraint firstAttribute="height" constant="206" id="Gcn-bj-Moy"/>
                         <constraint firstAttribute="width" constant="200" id="nAM-i0-13w"/>
                     </constraints>
