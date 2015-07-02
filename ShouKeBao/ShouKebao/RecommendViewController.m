@@ -421,7 +421,7 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    
+                                    //近期推荐
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];
