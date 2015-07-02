@@ -15,6 +15,10 @@
 @property (weak, nonatomic) IBOutlet UITextField *wechat;
 @property (weak, nonatomic) IBOutlet UITextField *QQ;
 
+@property (weak, nonatomic) IBOutlet UIView *contentName;
+@property (weak, nonatomic) IBOutlet UIView *contentTel;
+
+
 @property (weak, nonatomic) IBOutlet UITextView *note;
 
 - (IBAction)save:(id)sender;
@@ -31,8 +35,23 @@
 //    self.saveOutlet.layer.borderWidth = 1;
 //    self.saveOutlet.layer.cornerRadius = 4;
 //    self.saveOutlet.layer.masksToBounds = YES;
+//    textColor = [UIColor redColor];
+//    lab.text = @"*";
+//    NSString *star =
+    
+    UILabel *starName = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 40)];
+    starName.textColor = [UIColor redColor];
+    starName.text = @"*";
+    [self.contentName addSubview:starName];
     self.name.text = self.nameStr;
+    
+    UILabel *starTel = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 40)];
+    starTel.textColor = [UIColor redColor];
+    starTel.text = @"*";
+    [self.contentTel addSubview:starTel];
     self.tele.text = self.teleStr;
+    
+    
     self.wechat.text = self.wechatStr;
     self.QQ.text = self.QQStr;
     self.note.text = self.noteStr;
