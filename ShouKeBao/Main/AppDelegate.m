@@ -79,6 +79,19 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    Class cls = NSClassFromString(@"UMANUtil");
+    SEL deviceIDSelector = @selector(openUDIDString);
+    NSString *deviceID = nil;
+    if(cls && [cls respondsToSelector:deviceIDSelector]){
+        deviceID = [cls performSelector:deviceIDSelector];
+    }
+    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
+                                                       options:NSJSONWritingPrettyPrinted
+                                                         error:nil];
+    
+    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    
+    
     //判断程序是否在前台计时
      [self performSelector:@selector(changeDef) withObject:nil afterDelay:3];
        [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
@@ -122,21 +135,21 @@ void UncaughtExceptionHandler(NSException *exception) {
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"65bcf051bafc"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104542403"
-                           appSecret:@"zOYB51wNKimtVaBg"
+    [ShareSDK connectQZoneWithAppKey:@"1104675247"
+                           appSecret:@"XNkGBn61TRLlmLZa"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104542403"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104675247"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"
+    [ShareSDK connectWeChatWithAppId:@"wxe86a3ad3ad6e4d69"
                            wechatCls:[WXApi class]];
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"   //微信APPID
-                           appSecret:@"747908a80a1ee4681b131c384a275a46"  //微信APPSecret
+    [ShareSDK connectWeChatWithAppId:@"wxe86a3ad3ad6e4d69"   //微信APPID
+                           appSecret:@"a085a1da6dd90c73e77b6774a28adfbe"  //微信APPSecret
                            wechatCls:[WXApi class]];
     
     //连接短信分享
