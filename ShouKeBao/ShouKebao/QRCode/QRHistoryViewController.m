@@ -149,7 +149,7 @@
         [self.table setEditing:YES animated:YES];
         self.isEditing = YES;
         
-        
+        [self.editArr removeAllObjects];
         self.navigationItem.rightBarButtonItem.title = @"取消";
         
     }else if (self.subView.hidden == NO && self.isEditing){
