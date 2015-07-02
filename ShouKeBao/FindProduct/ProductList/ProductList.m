@@ -1935,7 +1935,9 @@
     [self refereshSelectData];
     [self editButtons];
     
-    [self.priceBtnOutlet setTitle:@"价格区间" forState:UIControlStateNormal];
+    NSMutableAttributedString *pric = [[NSMutableAttributedString alloc] initWithString:@"价格区间"];
+    [self.priceBtnOutlet setAttributedTitle:pric forState:UIControlStateNormal];
+    //[self.priceBtnOutlet setTitle:pric forState:UIControlStateNormal];
     
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
