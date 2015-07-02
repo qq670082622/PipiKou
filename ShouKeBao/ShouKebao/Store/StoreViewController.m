@@ -322,6 +322,7 @@
             
          //定时器来调js方法
             NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(hideButn:) userInfo:nil repeats:YES];
+            [self.timer invalidate];
             self.timer = timer;
             [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
            
