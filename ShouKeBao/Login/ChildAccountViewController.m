@@ -78,11 +78,22 @@
                     [self.dataSource addObject:dis];
                 }
                 if (self.isCreat && !self.isSKB) {
-                    [self bangdingWith:self.dataSource[1]];
+                    
+                    /*  此处跳转节点，慎重！会崩的哦  */
+                    NSLog(@"%@", ((Distribution *)self.dataSource[0]).SkbType);
+                    if ([((Distribution *)self.dataSource[0]).SkbType isEqualToString:@"1"]) {
+                        [self bangdingWith:self.dataSource[1]];
+                    }else{
+                    [self bangdingWith:self.dataSource[0]];
+                    }
+                    
+                    
+                    
                 }
                 self.isCreat = NO;
                 // 如果没有开通收客宝
                 self.isOpenSkb = [json[@"IsOpenSkb"] integerValue];
+                NSLog(@"%@", json[@"IsOpenSkb"]);
                 // 刷新
                 [self.tableView reloadData];
             }
@@ -211,6 +222,7 @@
     }else{
         // 去创建分销人 或者 开通收客宝
         CreatePersonController *create = [[CreatePersonController alloc] initWithStyle:UITableViewStyleGrouped];
+        NSLog(@"%d", self.isOpenSkb);
         create.delegate = self;
         create.createType = self.isOpenSkb ? CreatePersonType : CreateSKBType;
         WMNavigationController *nav = [[WMNavigationController alloc] initWithRootViewController:create];
