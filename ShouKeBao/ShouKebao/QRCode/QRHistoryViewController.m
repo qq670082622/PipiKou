@@ -273,8 +273,7 @@ static NSString *cellID = @"QRHistoryCell";
     personIdModel *model = _dataArr[indexPath.row];
     
     if (self.table.editing == YES) {
-        [self.editArr removeAllObjects];
-        
+              
         [self.editArr addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
         [self.editIndexArrInNoLogin addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
