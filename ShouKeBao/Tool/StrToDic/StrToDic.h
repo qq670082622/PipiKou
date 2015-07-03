@@ -20,4 +20,5 @@
 
 +(NSMutableArray *)arr:(NSMutableArray *)arr addObject:(NSString *)str;
 +(NSMutableDictionary *)dicCleanSpaceWithDict:(NSDictionary *)dict;//去空格
++(NSMutableString *)cleanSpaceWithString:(NSString *)str;//字符串去空格
 @end

@@ -51,12 +51,12 @@
     
 }
 
-+ (void)WMAnimationToScaleWithLayer:(CALayer *)layer andFromValue:(CGFloat)fromValue andToValue:(CGFloat)toValue{
++ (void)WMAnimationToScaleWithLayer:(CALayer *)layer andFromValue:(id)fromValue andToValue:(id)toValue{
     
     CABasicAnimation *animation = [CABasicAnimation animationWithKeyPath:@"transform.scale"];
-    animation.fromValue = @0.0f;
-    animation.toValue = @1.0f;
-    animation.duration = 0.2;
+    animation.fromValue = fromValue;
+    animation.toValue = toValue;
+    animation.duration = 0.01f;
     animation.repeatCount = 1;
     //animation.autoreverses = YES;//是否变回原来的属性
     [layer addAnimation:animation forKey:@"scale"];

@@ -29,7 +29,6 @@
     [super viewDidLoad];
     [self customerRightBarItem];
     self.title = @"客户详情";
-    
 //    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
 //    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
 //    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
@@ -48,9 +47,9 @@
     if (self.note.text == nil) {
         self.note.text = @"备注信息";
     }
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+
     
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
@@ -222,7 +221,6 @@
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
             
-        
         } failure:^(NSError *error) {
             NSLog(@"删除客户请求失败%@",error);
         }];

@@ -130,4 +130,10 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
     NSLog(@"newDic is %@",newDic);
     return newDic;
 }
+
++(NSMutableString *)cleanSpaceWithString:(NSString *)str
+{
+    NSMutableString *newStr = [NSMutableString stringWithString:str];
+    return [NSMutableString stringWithFormat:@"%@",[newStr stringByReplacingOccurrencesOfString:@" " withString:@""]];
+}
 @end

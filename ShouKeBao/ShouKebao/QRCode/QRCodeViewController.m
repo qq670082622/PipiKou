@@ -13,6 +13,7 @@
 #import "ProduceDetailViewController.h"
 #import "ScanningViewController.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 //
 @interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh,notiQRCToStartRuning>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
@@ -228,6 +229,9 @@
     if (self.lblStatus.text.length>3) {
         NSRange range = [self.lblStatus.text rangeOfString:@"lvyouquan"];
         if (range.location == NSNotFound) {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"MeCancelMyStore" attributes:dict];
+
             URLOpenFromQRCodeViewController *QRcodeWeb = [[URLOpenFromQRCodeViewController alloc] init];
             QRcodeWeb.delegate = self;
             QRcodeWeb.url = self.lblStatus.text;
@@ -239,6 +243,7 @@
             ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
             detail.produceUrl = self.lblStatus.text;
             detail.delegate = self;
+            detail.isQRcode = YES;
             [self.navigationController pushViewController:detail animated:YES];
         }
         

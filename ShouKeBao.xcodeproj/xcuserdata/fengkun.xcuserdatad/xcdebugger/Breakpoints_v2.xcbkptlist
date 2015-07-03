@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShouKeBao/Login/Login.m"
-            timestampString = "457529085.323548"
+            filePath = "ShouKeBao/ShouKebao/ShouKeBao.m"
+            timestampString = "457586024.910538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "257"
-            endingLineNumber = "257"
-            landmarkName = "-loginAction:"
+            startingLineNumber = "1161"
+            endingLineNumber = "1161"
+            landmarkName = "-codeAction"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
