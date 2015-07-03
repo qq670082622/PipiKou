@@ -428,6 +428,7 @@
         }
 
     }else{
+        [self getVoice];
         self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
         [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
         
@@ -1169,9 +1170,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = YES;
     [self.navigationController pushViewController:scan animated:YES];
-//
-//    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
-//    [self.navigationController pushViewController:qrc animated:YES];
+
+   // QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+   // [self.navigationController pushViewController:qrc animated:YES];
 
 }
 

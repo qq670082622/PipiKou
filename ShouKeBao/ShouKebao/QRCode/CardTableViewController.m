@@ -57,24 +57,22 @@
    //如果是扫描直接进来
         
       
-    self.nameText.text = _nameLabStr;
-    self.sexText.text = _sexLabStr;
-    self.countryText.text = _countryLabStr;
-    self.cardNumText.text = _cardNumStr;
-    self.bornText.text = _bornLabStr;
-    self.startDayText.text = _startDayLabStr;
-    self.startPointText.text = _startPointLabStr;
-    self.effectiveText.text = _effectiveLabStr;
+    self.nameText.text = [StrToDic cleanSpaceWithString:_nameLabStr];
+    self.sexText.text = [StrToDic cleanSpaceWithString:_sexLabStr];
+    self.countryText.text = [StrToDic cleanSpaceWithString:_countryLabStr];
+    self.cardNumText.text = [StrToDic cleanSpaceWithString:_cardNumStr];
+    self.bornText.text = [StrToDic cleanSpaceWithString:_bornLabStr];
+    self.startDayText.text = [StrToDic cleanSpaceWithString:_startDayLabStr];
+    self.startPointText.text = [StrToDic cleanSpaceWithString:_startPointLabStr];
+    self.effectiveText.text = [StrToDic cleanSpaceWithString:_effectiveLabStr];
              
     
     
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.sexLab,self.countryLab,self.cardNum,self.bornLab,self.startDayLab,self.startPointLab,self.effectiveLab, nil]];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor blueColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];

@@ -110,6 +110,7 @@
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoRecentlyView"];
+    
 
 }
 #pragma mark - private

@@ -28,9 +28,8 @@
     [self loadDataSource];
    
     self.navigationController.title = self.conditionTitle;
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
@@ -176,18 +175,13 @@
     NSLog(@"读取的arr is %@ 对比的箭名%@",_conditionSelectArr,[[_conditionSelectArr firstObject] objectForKey:self.title]);
     NSString *conditionStr = [[_conditionSelectArr firstObject] objectForKey:self.title];
     
-    if (!conditionStr) {
-        if ([self.title containsString:@"目的地"]) {
-            [[_conditionSelectArr firstObject] setObject:@"全部" forKey:self.title];
-
-        }else{
-        [[_conditionSelectArr firstObject] setObject:@"不限" forKey:self.title];
-    }
-    }
-    if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]] ) {
+    if (!conditionStr &&indexPath.row == 0) {
+         cell.accessoryType = UITableViewCellAccessoryCheckmark;
+       // [[_conditionSelectArr firstObject] setObject:@"不限" forKey:self.title];
+     
+    }else if ([_dataArr1[indexPath.row][@"Text"] isEqualToString:[[_conditionSelectArr firstObject] objectForKey:self.title]] ) {
                   cell.accessoryType = UITableViewCellAccessoryCheckmark;
 
-        
     }
 return cell;
 }
