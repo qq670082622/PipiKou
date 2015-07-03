@@ -19,9 +19,10 @@
 #import "NSArray+QD.h"
 #import "NSString+QD.h"
 #import "MobClick.h"
+#import "EditCustomerDetailViewController.h"
 
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate, initPullDegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -97,15 +98,30 @@
      [self customerRightBarItem];
     
      [self initPull];
+    
+   
   
 }
+- (void)reloadMethod{
+    
+    [self.table reloadData];
+    NSLog(@"nnnnn");
+}
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.subView.hidden = YES;
-  
+    
+    
+    
+    [self initPull];
  
     [MobClick beginLogPageView:@"Customers"];
 }
+
+
+
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"Customers"];
@@ -329,6 +345,10 @@
         //协议传值5:指定第一页为第二页的代理人
         detail.delegate = self;
         detail.keyWordss = self.searchK;
+        
+        
+        
+        
         [self.navigationController pushViewController:detail animated:YES];
     }
     if (tableView.tag == 2) {

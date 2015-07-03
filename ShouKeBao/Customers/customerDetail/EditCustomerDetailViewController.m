@@ -39,6 +39,11 @@
 //    lab.text = @"*";
 //    NSString *star =
     
+//    self.initDelegate = [self.navigationController.viewControllers objectAtIndex:0];
+    
+  
+    
+    
     UILabel *starName = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 40)];
     starName.textColor = [UIColor redColor];
     starName.text = @"*";
@@ -80,6 +85,7 @@
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
+    
 }
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
@@ -144,6 +150,8 @@
 }
 
 - (IBAction)save:(id)sender {
+  
+    
     if (self.name.text.length>0 && self.tele.text.length>6) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.name.text forKey:@"Name"];
@@ -156,22 +164,39 @@
        // NSMutableArray *arr = [NSMutableArray array];
         //[arr addObject:dic];kjhkjhjk
 
-       
+        //       指定第一页为代理人嘛
+//        self.initDelegate = [self.navigationController.viewControllers objectAtIndex:0];
+        
+        
         
         NSMutableDictionary *secondDic = [NSMutableDictionary dictionary];
         [secondDic setObject:dic forKey:@"Customer"];
         
         [IWHttpTool WMpostWithURL:@"Customer/EditCustomer" params:secondDic success:^(id json) {
             NSLog(@"---- b编辑单个客户成功 %@------",json);
+            
+
+            
+      
+
+            
             [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andNote:self.note.text];
+           
+            
+       
+            
+          [self.initDelegate reloadMethod];
+            
+        [self.navigationController popViewControllerAnimated:YES];
+            
         } failure:^(NSError *error) {
             NSLog(@"-----创建单个客户失败 %@-----",error);
         }];
         
         
         
-        [self.navigationController popViewControllerAnimated:YES];
         
+
         
         
     }else if(self.name.text.length == 0 && self.tele.text.length<7){
