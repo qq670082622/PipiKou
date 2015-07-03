@@ -175,35 +175,27 @@
         [IWHttpTool WMpostWithURL:@"Customer/EditCustomer" params:secondDic success:^(id json) {
             NSLog(@"---- b编辑单个客户成功 %@------",json);
             
-
-            
-      
-
             
             [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andNote:self.note.text];
            
-            
-       
-            
-          [self.initDelegate reloadMethod];
+  
+//             [self.initDelegate reloadMethod];
+        
             
         [self.navigationController popViewControllerAnimated:YES];
+            
             
         } failure:^(NSError *error) {
             NSLog(@"-----创建单个客户失败 %@-----",error);
         }];
-        
-        
-        
-        
-
-        
-        
+   
     }else if(self.name.text.length == 0 && self.tele.text.length<7){
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"😪，无法保存" message:@"您的客户资料不正确，若不想保存请点击“管客户”按钮返回" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
         [alert show];
     }
 
+    
+    
     
 }
 

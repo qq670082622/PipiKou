@@ -59,15 +59,16 @@
     
        
     self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
+    
+   
+    
 }
+
 
 -(void)back
 {
+//     [self.initDelegate reloadMethod];
     [self.navigationController popViewControllerAnimated:YES];
-    
-//    [self.initDelegate reloadMethod];
-    
-    
 }
 
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField

@@ -15,10 +15,10 @@
 -(void)refreshCustomerInfoWithName:(NSString*)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note;
 @end
 
-@protocol initPullDegate <NSObject>
--(void)reloadMethod;
-
-@end
+//@protocol initPullDegate <NSObject>
+//-(void)reloadMethod;
+//
+//@end
 
 
 @interface EditCustomerDetailViewController : SKTableViewController
@@ -31,7 +31,7 @@
 
 @property(nonatomic,weak) id<notifiToRefereshCustomerDetailInfo>delegate;
 
-@property(nonatomic, assign)id<initPullDegate>initDelegate;
+//@property(nonatomic, assign)id<initPullDegate>initDelegate;
 
 //@property (weak, nonatomic) IBOutlet UITextField *name;
 //@property (weak, nonatomic) IBOutlet UITextField *tele;
