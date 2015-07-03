@@ -133,7 +133,13 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
 
 +(NSMutableString *)cleanSpaceWithString:(NSString *)str
 {
-    NSMutableString *newStr = [NSMutableString stringWithString:str];
-    return [NSMutableString stringWithFormat:@"%@",[newStr stringByReplacingOccurrencesOfString:@" " withString:@""]];
+    if (str == nil) {
+        NSMutableString *newStr = [NSMutableString stringWithFormat:@""];
+         return newStr;
+    }else{
+    NSMutableString *newStr = [NSMutableString stringWithFormat:@"%@",[str stringByReplacingOccurrencesOfString:@" " withString:@""]];
+         return newStr;
+    }
+   
 }
 @end

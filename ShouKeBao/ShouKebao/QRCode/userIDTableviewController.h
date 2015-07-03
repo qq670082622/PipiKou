@@ -23,9 +23,9 @@
 @property(nonatomic,copy) NSString *sex;
 @property(nonatomic,copy) NSString *UserName;
 @property (copy,nonatomic) NSString *RecordId;
-
+@property (copy,nonatomic) NSMutableString *ModifyDate;
 @property(nonatomic,assign) BOOL isLogin;
-
+@property (copy,nonatomic) NSString *PicUrl;
 
 @property(nonatomic,weak) id<toIfPush2>delegate;
 
