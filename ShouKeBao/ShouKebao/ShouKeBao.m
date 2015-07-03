@@ -1444,19 +1444,7 @@ HomeBase    *model = self.dataSource[indexPath.row];
         [dic setObject:arr forKey:@"CredentialsPicRecordList"];
         
 [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
-            NSLog(@"上传record成功");
-    
-//    UILabel *testLab = [[UILabel alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-//    
-//    testLab.backgroundColor = [UIColor whiteColor];
-//    
-//    testLab.font = [UIFont systemFontOfSize:8];
-//    
-//    testLab.text = [NSString stringWithFormat:@"------/dic is %@ /json is %@-------",dic,json];
-//    
-//    testLab.numberOfLines = 0;
-//    
-//    [self.view.window addSubview:testLab];
+            NSLog(@"1上传record成功,json is %@",json);
 
                     NSArray *new = [NSArray array];
             [WriteFileManager saveData:new name:@"record"];
@@ -1476,23 +1464,41 @@ HomeBase    *model = self.dataSource[indexPath.row];
 
 -(void)postWithNotLoginRecord2//未登录时添加的客户
 {
-    NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"recoder2"]];//未登录时储存的客户;
+    NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record2"]];//未登录时储存的客户;
    
     if (arr.count>0) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:arr forKey:@"RecordIds"];
-        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
-            NSLog(@"批量导入客户成功 返回json is %@",json);
+          [dic setObject:arr forKey:@"CredentialsPicRecordList"];
+        
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+            NSLog(@"22222上传record成功,参数是%@,json is %@",arr,json);
             
-            [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-                [MBProgressHUD hideHUD];
-            });
+            NSMutableDictionary *dic2 = [NSMutableDictionary dictionary];
+            NSMutableArray *arr2 = [NSMutableArray array];
+            for (int i = 0; i<arr.count; i++) {
+                NSString *recodId = arr[i][@"RecordId"];
+                [arr2 addObject:recodId];
+            }
+            [dic2 setObject:arr2 forKey:@"RecordIds"];
+            [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic2 success:^(id json) {
+                NSLog(@"222222导入未登录客户成功 参数是%@,返回json is %@",dic2,json);
+                
+                NSArray *new = [NSArray array];
+                [WriteFileManager saveData:new name:@"record2"];
+                [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
+                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                    [MBProgressHUD hideHUD];
+                });
+                
+            } failure:^(NSError *error) {
+                NSLog(@"批量导入客户失败，返回error is %@",error);
+            }];
 
-        } failure:^(NSError *error) {
-            NSLog(@"批量导入客户失败，返回error is %@",error);
+                  } failure:^(NSError *error) {
+            NSLog(@"上传record失败");
         }];
-}
+
+       }
    
    
 }
