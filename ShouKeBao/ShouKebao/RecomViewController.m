@@ -16,6 +16,7 @@
 #import "MobClick.h"
 #import "RecommendViewController.h"
 #import "HomeHttpTool.h"
+
 @interface RecomViewController ()
 
 - (IBAction)todayAction:(id)sender;
@@ -59,15 +60,16 @@
   
     
     self.title = @"今日推荐";
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+  [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+    
+   // [WMAnimations WMAnimationToScaleWithLayer:leftBtn.layer andFromValue:@1.0f andToValue:@2.0f];
     
     self.selectIndex = 0;
     [self addGes];

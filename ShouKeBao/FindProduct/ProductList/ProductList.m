@@ -156,11 +156,8 @@
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     searchVC.delegate = self;
     
-   
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
-    [leftBtn setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
@@ -199,7 +196,7 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+  
    }
 
 
@@ -247,7 +244,7 @@
 -(void)back
 {
     [self refereshSelectData];
-
+  [self.pushedArr removeAllObjects];
     
     [self.navigationController popViewControllerAnimated:YES];
 }
@@ -257,7 +254,7 @@
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
     
-    //[self.pushedArr removeAllObjects];
+   
     
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
     [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
@@ -777,11 +774,12 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
             
-            //        NSString *str = [_pushedArr firstObject][@"Text"];
-            //        if ([str isEqualToString:@"暂无"]) {
-            //            self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
-            //
-            //        }
+                  //  NSString *str = [_pushedArr firstObject][@"Text"];
+                    if (_pushedArr.count == 0) {
+                     
+                        self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
+            
+                    }
             
         }];
         
@@ -1323,13 +1321,15 @@
               cell.detailTextLabel.text = self.subIndicateDataArr1[indexPath.row];
                }
                
-//               if (indexPath.row == 0 && _isFromSearch == YES) { //当是从搜索进来时,掩盖第一个cell
-//                   UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-//                   coverView.backgroundColor = [UIColor whiteColor];
-//                   [cell.contentView addSubview:coverView];
-//                   cell.accessoryType = UITableViewCellAccessoryNone;
-//                   cell.detailTextLabel.text = @"";
-//               }
+//               if (indexPath.row == 0 && _isFromSearch == YES)
+             if (indexPath.row == 0 && self.pushedArr.count == 0)   { //当是从搜索进来时,掩盖第一个cell
+
+                                  UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+                   coverView.backgroundColor = [UIColor whiteColor];
+                   [cell.contentView addSubview:coverView];
+                   cell.accessoryType = UITableViewCellAccessoryNone;
+                   cell.detailTextLabel.text = @"";
+               }
                
                           }
            
