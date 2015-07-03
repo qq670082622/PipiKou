@@ -113,9 +113,21 @@
     [super viewWillAppear:animated];
     self.subView.hidden = YES;
     
+//    NSUserDefaults *CustomerDefault = [NSUserDefaults standardUserDefaults];
+//    NSString *first = [CustomerDefault objectForKey:@"isFirst"];
+//    [CustomerDefault setObject:[NSNumber numberWithBool:YES] forKey:@"isFirst"];
+    
+//    if ([first integerValue] != 1) {// 是否第一次打开app
+        [self initPull];
+//         NSLog(@"不是第一次");
+//    }else{
+//         NSLog(@"是第一次");
+//    }
+//    
+
     
     
-    [self initPull];
+//    [self initPull];
  
     [MobClick beginLogPageView:@"Customers"];
 }
