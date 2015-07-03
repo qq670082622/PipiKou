@@ -195,6 +195,18 @@
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
             [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
             
+            
+            
+            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
+                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+                [MobClick setAppVersion:version];
+            }
+
+            
+            
+            
+            
             // 保存是否第一次做登录流程
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             [def setObject:@"1" forKey:@"isFirst"];

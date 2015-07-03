@@ -94,9 +94,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     //判断程序是否在前台计时
      [self performSelector:@selector(changeDef) withObject:nil afterDelay:3];
-       [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
-    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-    [MobClick setAppVersion:version];
+    
     
 //    NSSetUncaughtExceptionHandler(&UncaughtExceptionHandler);
     
@@ -547,6 +545,14 @@ void UncaughtExceptionHandler(NSException *exception) {
         if ([json[@"IsSuccess"] integerValue] == 1) {
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             
+            
+            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
+                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+                [MobClick setAppVersion:version];
+            }
+            
+
             // 保存必要的参数
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];

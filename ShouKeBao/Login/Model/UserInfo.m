@@ -54,5 +54,14 @@ static UserInfo *user;
     }
     return self;
 }
++ (BOOL)isOnlineUserWithBusinessID:(NSString *)bussinessID{
+    NSArray * testBussinessID = @[@"1", @"2", @"3"];
+    for (NSString * str in testBussinessID) {
+        if ([str isEqualToString:bussinessID]) {
+            return NO;
+        }
+    }
+    return YES;
+}
 
 @end
