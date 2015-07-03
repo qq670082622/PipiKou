@@ -285,6 +285,15 @@
 
             
             
+            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
+                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+                [MobClick setAppVersion:version];
+            }
+
+            
+            
+            
             // 重新保存密码 因为如果注销了的话
             [def setObject:self.passwordField.text forKey:UserInfoKeyPassword];
             

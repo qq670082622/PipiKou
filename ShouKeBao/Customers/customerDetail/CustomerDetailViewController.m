@@ -27,7 +27,6 @@
     [super viewDidLoad];
     [self customerRightBarItem];
     self.title = @"客户详情";
-    
 //    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
 //    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
 //    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
@@ -215,7 +214,6 @@
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
             
-        
         } failure:^(NSError *error) {
             NSLog(@"删除客户请求失败%@",error);
         }];

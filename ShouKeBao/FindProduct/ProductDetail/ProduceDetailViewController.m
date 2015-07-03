@@ -16,6 +16,7 @@
 #import "WMAnimations.h"
 #import "StrToDic.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
@@ -35,6 +36,12 @@
 @implementation ProduceDetailViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (self.isQRcode) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"InQRcode" attributes:dict];
+    }
+    
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
@@ -359,6 +366,12 @@
                                 [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    if (self.isQRcode) {
+                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                        [MobClick event:@"QRINShareSuccess" attributes:dict];
+                                    }
+
+                                    
 //                                    [self.warningLab removeFromSuperview];
                                    //精品推荐填1
                                     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];

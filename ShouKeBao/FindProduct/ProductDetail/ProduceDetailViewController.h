@@ -15,7 +15,7 @@
 @end
 @interface ProduceDetailViewController : SKViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-
+@property (nonatomic, assign)BOOL isQRcode;
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;
 @property(nonatomic,weak) id<notiQRCToStartRuning>delegate;

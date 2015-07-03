@@ -56,6 +56,7 @@
 #import "messageCellSKBTableViewCell.h"
 #import "SKBNavBarFor6OrP.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -105,6 +106,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    
     [self initPull];
        
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
@@ -658,6 +661,10 @@
     self.userName.text =  [UserInfo shareUser].userName;
     [MobClick beginLogPageView:@"ShouKeBao"];
     
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoNum" attributes:dict];
+
+    
     [self getNotifiList];
     
 [self getStationName];
@@ -1156,7 +1163,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 -(void)codeAction
 {
    
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"QRcodeClickInMainView" attributes:dict];
+
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = YES;
     [self.navigationController pushViewController:scan animated:YES];
