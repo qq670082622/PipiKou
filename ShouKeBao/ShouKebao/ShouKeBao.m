@@ -1171,8 +1171,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     scan.isLogin = YES;
     [self.navigationController pushViewController:scan animated:YES];
 
-   // QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
-   // [self.navigationController pushViewController:qrc animated:YES];
+//    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+//    [self.navigationController pushViewController:qrc animated:YES];
 
 }
 
@@ -1245,7 +1245,12 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
-        [MobClick event:@"ShouKeBao_ClickRecommend"];
+        
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"RecommendClick" attributes:dict];
+
+        
+        
         Recommend *mo = model.model;
         NSString *createDate = mo.CreatedDate;
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -1449,7 +1454,7 @@ HomeBase    *model = self.dataSource[indexPath.row];
                     NSArray *new = [NSArray array];
             [WriteFileManager saveData:new name:@"record"];
     [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
     });
 
@@ -1485,10 +1490,10 @@ HomeBase    *model = self.dataSource[indexPath.row];
                 
                 NSArray *new = [NSArray array];
                 [WriteFileManager saveData:new name:@"record2"];
-                [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-                    [MBProgressHUD hideHUD];
-                });
+//                [MBProgressHUD showSuccess:@"已同步未登录时添加的客户信息"];
+//                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//                    [MBProgressHUD hideHUD];
+//                });
                 
             } failure:^(NSError *error) {
                 NSLog(@"批量导入客户失败，返回error is %@",error);

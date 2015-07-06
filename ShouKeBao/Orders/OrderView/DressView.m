@@ -8,7 +8,8 @@
 
 #import "DressView.h"
 #import "DressFooter.h"
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @interface DressView() <UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSArray *dataSource;
@@ -193,13 +194,18 @@
     if ((indexPath.section == 0 || indexPath.section == 1) && indexPath.row == 0){
         timeType type = 0;
         switch (indexPath.section) {
-            case 0:
+            case 0:{
                 type = timePick;
-                
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"OrderTimeSX" attributes:dict];
+            }
                 break;
-            case 1:
+            case 1:{
                 type = datePick;
-                
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"OrderDateSX" attributes:dict];
+
+            }
                 break;
             default:
                 break;
@@ -212,14 +218,26 @@
         if (_delegate && [_delegate respondsToSelector:@selector(wantToPushAreaWithType:)]) {
             areaType type = 0;
             switch (indexPath.row) {
-                case 1:
+                case 1:{
                     type = firstArea;
+                
+                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                    [MobClick event:@"OrderAreaSX" attributes:dict];
+
+                }
                     break;
-                case 2:
+                case 2:{
                     type = secondArea;
+                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                    [MobClick event:@"OrderLineSX" attributes:dict];
+                    }
                     break;
-                case 3:
+                case 3:{
                     type = thirdArea;
+                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                    [MobClick event:@"OrderProvinceSX" attributes:dict];
+
+                }
                     break;
                 default:
                     break;

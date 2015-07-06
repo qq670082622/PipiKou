@@ -191,8 +191,10 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     yesterDayModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
+    web.fromType = FromRecommend;
     web.produceUrl = detail.LinkUrl;
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

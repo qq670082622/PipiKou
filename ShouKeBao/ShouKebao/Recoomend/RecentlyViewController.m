@@ -270,6 +270,7 @@
     recentlyModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.produceUrl = detail.LinkUrl;
+    web.fromType = FromRecommend;
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

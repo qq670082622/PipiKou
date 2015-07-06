@@ -16,6 +16,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "StrToDic.h"
+#import "MobClick.h"
+#import "BaseClickAttribute.h"
 #define gap 10
 @implementation YesterDayCell
 
@@ -248,6 +250,9 @@
                                 [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                    [MobClick event:@"RecommendShareSuccess" attributes:dict];
+
                                     [self.warningLab removeFromSuperview];
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
                                     } failure:^(NSError *error) {

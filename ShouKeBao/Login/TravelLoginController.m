@@ -132,8 +132,9 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     [self.view addSubview:labCard];
     
     [self.view addSubview:card];
-  //  labCard.hidden = YES;
-//card.hidden = YES;
+   //labCard.hidden = YES;
+   //card.hidden = YES;
+    
 }
 
 /**

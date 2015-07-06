@@ -255,8 +255,11 @@
     NSString *markStr = self.photosArr[yesInt][@"PushId"];//取单个产品的三级区域名称
      NSLog(@"点击了排第%d个，它的PushId is %@",yesInt,markStr);
     
+    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    [def setObject:markStr forKey:@"markStr"];
+    [def setObject:markStr forKey:@"markStr"];//标记pushId,在今日推荐中高亮该产品
+    [def setObject:_recommend.CreatedDate forKey:@"redTip"];//标记createdate，下次该cell红点不显示
+
     [def synchronize];
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter postNotificationName:@"notifiToPushToRecommed" object:nil];

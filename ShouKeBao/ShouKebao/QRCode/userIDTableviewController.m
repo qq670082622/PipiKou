@@ -101,14 +101,17 @@
         [dic setObject:_RecordId forKey:@"RecordId"];
         [dic setObject:_ModifyDate forKey:@"ModifyDate"];
         [dic setObject:@"1" forKey:@"RecordType"];
-        [dic setObject:_PicUrl forKey:@"PicUrl"];
+        if (_PicUrl) {
+             [dic setObject:_PicUrl forKey:@"PicUrl"];
+        }
+       
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:dic];
         NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
         
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
         
-        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
             NSLog(@"同步客户纪录客户成功 返回json is %@",json);
             //            2/添加客户
             
@@ -129,8 +132,10 @@
         [dic setObject:_RecordId forKey:@"RecordId"];
         [dic setObject:@"1" forKey:@"RecordType"];
           [dic setObject:_ModifyDate forKey:@"ModifyDate"];
-        [dic setObject:_PicUrl forKey:@"PicUrl"];
-        [arr addObject:dic];
+        if (_PicUrl) {
+             [dic setObject:_PicUrl forKey:@"PicUrl"];
+        }
+       [arr addObject:dic];
         [WriteFileManager saveData:arr name:@"record"];
         
         
@@ -151,7 +156,9 @@
         [dic setObject:_RecordId forKey:@"RecordId"];
           [dic setObject:_ModifyDate forKey:@"ModifyDate"];
         [dic setObject:@"1" forKey:@"RecordType"];
-        [dic setObject:_PicUrl forKey:@"PicUrl"];
+        if (_PicUrl) {
+            [dic setObject:_PicUrl forKey:@"PicUrl"];
+        }
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:dic];
         NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
@@ -185,8 +192,9 @@
         [dic setObject:_RecordId forKey:@"RecordId"];
           [dic setObject:_ModifyDate forKey:@"ModifyDate"];
         [dic setObject:@"1" forKey:@"RecordType"];
-        [dic setObject:_PicUrl forKey:@"PicUrl"];
-        [arr addObject:dic];
+        if (_PicUrl) {
+            [dic setObject:_PicUrl forKey:@"PicUrl"];
+        }        [arr addObject:dic];
         [WriteFileManager saveData:arr name:@"record2"];
         NSLog(@"dic is %@,---,arr is %@,---,读取的是arr is%@",dic,arr,[WriteFileManager readData:@"record2"]);
         

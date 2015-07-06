@@ -243,7 +243,7 @@
             ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
             detail.produceUrl = self.lblStatus.text;
             detail.delegate = self;
-            detail.isQRcode = YES;
+            detail.fromType = FromQRcode;
             [self.navigationController pushViewController:detail animated:YES];
         }
         

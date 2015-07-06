@@ -7,7 +7,7 @@
 //
 
 #import "WMAnimations.h"
-
+#define K_ScreenWidth [UIScreen mainScreen].bounds.size.width
 @implementation WMAnimations
 + (void)WMAnimationToMoveWithTableLayer:(CALayer *)layer andFromPiont:(CGPoint )fromPoint ToPoint:(CGPoint )toPoint
 {
@@ -187,12 +187,16 @@
 +(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
                      withRightStr:(NSString *)str;
 {
-    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 130, 5, 95, 40)];
+    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(K_ScreenWidth - 130, 5, 95, 40)];
     label.font = [UIFont systemFontOfSize:14];
     label.textColor = [UIColor lightGrayColor];
     label.textAlignment = NSTextAlignmentRight;
     label.text = str;
     [cell.contentView addSubview:label];
+    UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake(86, 12.5, 55, 23)];
+    imgView.image = [UIImage imageNamed:@"update_tb.png"];
+    [cell.contentView addSubview:imgView];
+    
 }
 
 @end

@@ -13,6 +13,8 @@
 #import "YYAnimationIndicator.h"
 #import "BeseWebView.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
+
 //#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
@@ -207,10 +209,16 @@
     }else{
         
         [_indicator startAnimation];
-        return YES;
         
     }
+    if ([rightUrl containsString:@"Product/ProductDetail"]) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderDetailProductDetailClick" attributes:dict];
+    }else if([rightUrl containsString:@"Order/SKBOrderCancel"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderDetailOrderCancelClick" attributes:dict];
 
+    }
     
     
     return YES;

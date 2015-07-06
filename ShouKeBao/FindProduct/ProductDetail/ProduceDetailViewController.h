@@ -10,12 +10,24 @@
 #import "SKViewController.h"
 #import "BeseWebView.h"
 //@class BeseWebView;
+typedef enum{
+    FromQRcode,
+    FromRecommend,
+    FromStore,
+    FromProductSearch,
+    FromFindProduct,
+    FromHotProduct,
+    FromScanHistory
+}JumpinFrom;
+
 @protocol notiQRCToStartRuning<NSObject>
 -(void)notiQRCToStartRuning;
 @end
 @interface ProduceDetailViewController : SKViewController
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
-@property (nonatomic, assign)BOOL isQRcode;
+//@property (nonatomic, assign)BOOL isQRcode;
+//@property (nonatomic, assign)BOOL isRecommend;
+@property (nonatomic, assign)JumpinFrom fromType;
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;
 @property(nonatomic,weak) id<notiQRCToStartRuning>delegate;

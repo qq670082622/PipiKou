@@ -8,7 +8,8 @@
 
 #import "CantactView.h"
 #import "OrderModel.h"
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @interface CantactView()
 
 @property (weak, nonatomic) IBOutlet UILabel *name;
@@ -55,6 +56,9 @@
 - (IBAction)callPhone:(id)sender
 {
     NSLog(@"-------");
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"OrderListCallPhone" attributes:dict];
+
     NSString *phone = [NSString stringWithFormat:@"tel://%@",self.model.FollowPerson[@"Tel"]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
@@ -62,6 +66,9 @@
 - (IBAction)addQQ:(id)sender
 {
     NSLog(@"-----");
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"OrderListQQ" attributes:dict];
+    
     if (![self joinGroup:nil key:nil]) {
         UIAlertView*ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
         [ale show];

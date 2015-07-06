@@ -31,17 +31,31 @@
 @property (nonatomic, copy)NSString *telString;
 @property (nonatomic, copy)NSString *urlSuffix;
 @property (nonatomic, copy)NSString *urlSuffix2;
+@property (nonatomic, strong)NSArray *eventArray;
+
+//FromQRcode,
+//FromRecommend,
+//FromStore,
+//FromProductSearch,
+//FromFindProduct,
+//FromHotProduct
+
 @end
 
 @implementation ProduceDetailViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.isQRcode) {
+    if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"InQRcode" attributes:dict];
+        [MobClick event:@"FromFindProductAll" attributes:dict];
+        
     }
+
     
+    self.eventArray = @[@"FromQRcode", @"FromRecommend", @"FromStore", @"FromProductSearch",@"FromFindProduct", @"FromHotProduct"];
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:[NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
@@ -242,11 +256,11 @@
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
     
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
 
 
     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+        
         // return YES;
     }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
@@ -254,10 +268,30 @@
     }else{
         
         [_indicator startAnimation];
-        return YES;
         
     }
+    
+    
+    
+    if ([rightUrl containsString:@"mqq://"]) {
+        NSLog(@"%@", rightUrl);
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+    }
+    
 
+        if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:[NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
+        }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:[NSString stringWithFormat:@"%@ProductWritecontacts", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
+
+        }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:[NSString stringWithFormat:@"%@ProductOrderSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
+
+        }
+    
         return YES;
   
 }
@@ -349,7 +383,7 @@
                                                   url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
 
-[publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
     NSLog(@"%@444", self.shareInfo);
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -366,10 +400,15 @@
                                 [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
-                                    if (self.isQRcode) {
+                                    
+                                    
+                                    if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
                                         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-                                        [MobClick event:@"QRINShareSuccess" attributes:dict];
+                                        [MobClick event:@"FromFindProductAllShareSuccess" attributes:dict];
+
                                     }
+                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                        [MobClick event:[NSString stringWithFormat:@"%@ShareSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
 
                                     
 //                                    [self.warningLab removeFromSuperview];
@@ -415,6 +454,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-
+/*
+  */
 
 @end

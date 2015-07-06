@@ -22,6 +22,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 #define pageSize @"10"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
@@ -358,6 +359,7 @@
 {
     DayDetail *detail = self.dataSource[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
+    web.fromType = FromRecommend;
     web.produceUrl = detail.LinkUrl;
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -421,6 +423,9 @@
                                 
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                    [MobClick event:@"RecommendShareSuccess" attributes:dict];
+
                                     //近期推荐
                                     [MBProgressHUD showSuccess:@"分享成功"];
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码

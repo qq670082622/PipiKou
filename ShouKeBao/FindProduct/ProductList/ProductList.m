@@ -27,6 +27,8 @@
 #import "WriteFileManager.h"
 
 #import "ChooseDayViewController.h"
+#import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -1181,6 +1183,17 @@
         detail.produceUrl = productUrl;
        
         detail.productName = productName;
+        
+        
+        if (self.isFromSearch) {
+            detail.fromType = FromProductSearch;
+        }else{
+            detail.fromType = FromFindProduct;
+        }
+        
+        
+        
+        
        
         [self.navigationController pushViewController:detail animated:YES];
        

@@ -32,7 +32,8 @@
 @implementation MyListViewController
 
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    
+    
     // Do any additional setup after loading the view.
     self.tableView.rowHeight = 160;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -297,6 +298,11 @@
     ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
     detail.produceUrl = model.LinkUrl;
     detail.productName = model.Name;
+    if (self.listType == collectionType) {
+        detail.fromType = FromStore;
+    }else{
+        detail.fromType = FromScanHistory;
+    }
     [self.navigationController pushViewController:detail animated:YES];
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

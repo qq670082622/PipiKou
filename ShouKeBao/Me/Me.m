@@ -33,6 +33,7 @@
 #import "MeProgressView.h"
 #import "AFNetworking.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -58,7 +59,7 @@
     
     self.tableView.rowHeight = 50;
     
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈"/*,@"评价旅游圈", @"检查更新"*/]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",@"检查更新"*/]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -91,8 +92,16 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"Me"];
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeNum" attributes:dict];
+
+    
+    
     _meheader.nickName.text = [UserInfo shareUser].userName;
 
+    
+    
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
@@ -138,10 +147,10 @@
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
         _meheader.isPerson = self.isPerson;
-        if (!self.isPerson) {
-            _meheader.personType.hidden = YES;
-        }
-        _meheader.personType.text = self.isPerson ? @"我的旅行社" : @"";
+//        if (!self.isPerson) {
+//            _meheader.personType.hidden = YES;
+//        }
+        _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
     }
     return _meheader;
 }
@@ -193,12 +202,19 @@
             MyListViewController *col = [[MyListViewController alloc] init];
             col.listType = collectionType;
            
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"CustomStore" attributes:dict];
+
+            
             [self.navigationController pushViewController:col animated:YES];
             break;
         }
         case 1:{ // 我的浏览
             MyListViewController *pre = [[MyListViewController alloc] init];
             pre.listType = previewType;
+            
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"CustomScanHistory" attributes:dict];
             
             [self.navigationController pushViewController:pre animated:YES];
             break;

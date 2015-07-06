@@ -78,18 +78,21 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    Class cls = NSClassFromString(@"UMANUtil");
-    SEL deviceIDSelector = @selector(openUDIDString);
-    NSString *deviceID = nil;
-    if(cls && [cls respondsToSelector:deviceIDSelector]){
-        deviceID = [cls performSelector:deviceIDSelector];
-    }
-    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
-                                                       options:NSJSONWritingPrettyPrinted
-                                                         error:nil];
-    
-    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
+    [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+
+//    Class cls = NSClassFromString(@"UMANUtil");
+//    SEL deviceIDSelector = @selector(openUDIDString);
+//    NSString *deviceID = nil;
+//    if(cls && [cls respondsToSelector:deviceIDSelector]){
+//        deviceID = [cls performSelector:deviceIDSelector];
+//    }
+//    NSData* jsonData = [NSJSONSerialization dataWithJSONObject:@{@"oid" : deviceID}
+//                                                       options:NSJSONWritingPrettyPrinted
+//                                                         error:nil];
+//    
+//    NSLog(@"%@", [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding]);
     
     
     //判断程序是否在前台计时
@@ -391,7 +394,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     //    客户提示消息推送//    userId（用户Id）
     NSString *remindTime = [userInfo valueForKey:@"remindTime"];
     NSString *remindContent = [userInfo valueForKey:@"remindContent"];
-    //NSString *customerUri = [userInfo valueForKey:<#(NSString *)#>]
+    //NSString *customerUri = [userInfo valueForKey:(NSString *)]
     
     //    精品推荐消息推送//    点击进入精品推荐页面，无附加字段
     NSString  *recommond = [userInfo valueForKey:@"recommond"];
@@ -546,11 +549,11 @@ void UncaughtExceptionHandler(NSException *exception) {
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
             
             
-            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
-                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
-                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-                [MobClick setAppVersion:version];
-            }
+//            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
+//                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+//                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//                [MobClick setAppVersion:version];
+//            }
             
 
             // 保存必要的参数
