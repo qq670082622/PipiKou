@@ -439,11 +439,12 @@
     self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
         shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
-    
+ 
+    NSLog(@"shareDic is %@",shareDic);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
                                        defaultContent:shareDic[@"Desc"]
-                                                image:[ShareSDK imageWithUrl:shareDic[@"Pic"]]
+                                                image:[ShareSDK imageWithUrl:shareDic[@"Pic"] ]
                                                 title: shareDic[@"Title"]
                                                   url:shareDic[@"Url"]                                          description:shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
@@ -482,7 +483,7 @@
                                 else if (state == SSResponseStateFail)
                                 {
                                     [self.warningLab removeFromSuperview];
-                                    NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
+                                    NSLog( @"shareDic is %@分享失败,错误码:%ld,错误描述:%@",shareDic,(long)[error errorCode], [error errorDescription]);
                                 }else if (state == SSResponseStateCancel){
                                     [self.warningLab removeFromSuperview];
                                 }

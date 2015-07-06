@@ -403,7 +403,7 @@
 -(void)shareIt
 {
     NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_detail.ShareInfo];
-    //构造分享内容
+        //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:tmp[@"Pic"]]

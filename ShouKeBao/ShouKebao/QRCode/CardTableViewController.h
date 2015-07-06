@@ -24,8 +24,8 @@
 @property (copy, nonatomic) NSString *startPointLabStr;
 @property (copy, nonatomic) NSString *effectiveLabStr;
 @property (copy,nonatomic) NSString *RecordId;
-
-
+@property (copy,nonatomic) NSMutableString *ModifyDate;
+@property (copy,nonatomic) NSString *PicUrl;
 @property(nonatomic,assign) BOOL isLogin;
 @property(weak,nonatomic) id<toIfPush>delegate;
 @end

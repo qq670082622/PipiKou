@@ -22,7 +22,7 @@
 #import "EditCustomerDetailViewController.h"
 #import "BaseClickAttribute.h"
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate, initPullDegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -103,30 +103,23 @@
   
 }
 - (void)reloadMethod{
-    
     [self.table reloadData];
-    NSLog(@"nnnnn");
 }
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.subView.hidden = YES;
+      self.subView.hidden = YES;
+ 
+    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
+    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
+    NSLog(@"appIsBack---- %@", appIsBack);
     
-//    NSUserDefaults *CustomerDefault = [NSUserDefaults standardUserDefaults];
-//    NSString *first = [CustomerDefault objectForKey:@"isFirst"];
-//    [CustomerDefault setObject:[NSNumber numberWithBool:YES] forKey:@"isFirst"];
-    
-//    if ([first integerValue] != 1) {// 是否第一次打开app
+    if ([appIsBack isEqualToString:@"no"]) {
         [self initPull];
-//         NSLog(@"不是第一次");
-//    }else{
-//         NSLog(@"是第一次");
-//    }
-//    
+    }
+    [customer synchronize];
 
-    
-    
 //    [self initPull];
  
     [MobClick beginLogPageView:@"Customers"];
@@ -142,7 +135,7 @@
 -(void)initPull
 {
     
-   
+    NSLog(@"bbb");
     //下拉
     [self.table addHeaderWithTarget:self action:@selector(headerPull)];
     [self.table headerBeginRefreshing];
@@ -361,7 +354,7 @@
         detail.delegate = self;
         detail.keyWordss = self.searchK;
         
-        
+//        detail.initDelegate = self;
         
         
         [self.navigationController pushViewController:detail animated:YES];

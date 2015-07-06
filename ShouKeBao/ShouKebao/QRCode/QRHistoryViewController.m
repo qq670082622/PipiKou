@@ -36,7 +36,8 @@
     
     self.table.rowHeight = 70;
     self.table.tableFooterView = [[UIView alloc] init];
-    
+    self.table.delegate = self;
+    self.table.dataSource = self;
    
     
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
@@ -49,12 +50,13 @@
     
     [self stepRightItem];
      self.title = @"识别纪录";
-    [self loadDataSource];
+    //[self loadDataSource];
    
     
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [self loadDataSource];
     [MobClick beginLogPageView:@"ShouKeBaoQRHistoryViewController"];
 }
 - (void)viewWillDisappear:(BOOL)animated{
@@ -81,25 +83,17 @@
     if (!_isLogin) {  //注record是未登录时的识别纪录，而record2是未登录时添加的客户
         [self.dataArr removeAllObjects];
         NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
-        
+        NSLog(@"dataArr is %@ - --- arr is %@",_dataArr,arr);
       for(NSDictionary *dic in arr) {
             personIdModel *model = [personIdModel modelWithDict:dic];
             [self.dataArr addObject:model];
         }
         [self ifArrIsNull:_dataArr];
-        [self.table reloadData];
-        
+         [self.table reloadData];
     }else if (_isLogin){
 
         [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"1",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
             
-//                UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
-//                testLab.backgroundColor = [UIColor whiteColor];
-//                testLab.text = [NSString stringWithFormat:@"json is %@",json];
-//            testLab.font = [UIFont systemFontOfSize:9];
-//                testLab.numberOfLines = 0;
-//                [self.view.window addSubview:testLab];
-
     NSLog(@"纪录json is %@",json);
     NSMutableArray *mua = [NSMutableArray array];
     for (NSDictionary *dic in json[@"CredentialsPicRecordList"]) {
@@ -109,13 +103,15 @@
     [self.dataArr removeAllObjects];
     self.dataArr = mua;
              [self ifArrIsNull:_dataArr];
-    [self.table reloadData];
-   } failure:^(NSError *error) {
+            
+             [self.table reloadData];
+      } failure:^(NSError *error) {
     NSLog(@" error history");
 }];
     }
     
    
+
 
 }
 //没有纪录时调用
@@ -205,7 +201,8 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-static NSString *cellID = @"QRHistoryCell";
+     NSString *cellID = [NSString stringWithFormat:@"historyCell%d",((arc4random() % 2500) + 1)];
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
@@ -227,7 +224,7 @@ static NSString *cellID = @"QRHistoryCell";
         codeLab.textColor = [UIColor grayColor];
         codeLab.font = [UIFont systemFontOfSize:12];
         codeLab.textAlignment = NSTextAlignmentLeft;
-       
+        
         [cell.contentView addSubview:codeLab];
         
         UILabel *creatLab = [[UILabel alloc] initWithFrame:CGRectMake(screenW-140, codeLab.frame.origin.y, 130, 20)];
@@ -239,18 +236,18 @@ static NSString *cellID = @"QRHistoryCell";
         
         if ([model.RecordType isEqualToString:@"2"]) {
             imgV.image = [UIImage imageNamed:@"passPort"];
-             codeLab.text = model.PassportNum;
+            codeLab.text = model.PassportNum;
         }else if([model.RecordType isEqualToString:@"1"]){
             imgV.image = [UIImage imageNamed:@"IDInform"];
             codeLab.text = model.CardNum;
         }
-
-       cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         [cell.contentView addSubview:creatLab];
+    
     }
   
-
+    
     return cell;
 }
 
@@ -286,9 +283,12 @@ static NSString *cellID = @"QRHistoryCell";
             uid.sex = model.Sex;
             uid.UserName = model.UserName;
             uid.RecordId = model.RecordId;
+            uid.ModifyDate = [NSMutableString stringWithFormat:@"%@",model.ModifyDate];
             uid.isLogin = _isLogin;
+            uid.PicUrl = model.PicUrl;
                    [self.navigationController pushViewController:uid animated:YES];
-
+          
+            
         }else if ([model.RecordType isEqualToString:@"2"]){
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *ca = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
@@ -302,12 +302,19 @@ static NSString *cellID = @"QRHistoryCell";
             ca.effectiveLabStr = model.ValidEndDate;
             ca.RecordId = model.RecordId;
             ca.isLogin = _isLogin;
-            
+            ca.PicUrl = model.PicUrl;
+            ca.ModifyDate = [NSMutableString stringWithFormat:@"%@",model.ModifyDate];
+
             [self.navigationController pushViewController:ca animated:YES];
 
         }
+        if (!_isLogin) {
+            NSMutableArray *mua = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]];
+            [mua removeObjectAtIndex:indexPath.row];
+            [WriteFileManager saveData:mua name:@"record"];//点击进去即删除点击的数据（因为，详细界面会再保存一次，否则会重复）
 
-    }
+        }
+           }
     
     
 //    NSLog(@"--------editArr is %@--------indexpath.row's model is %@---",_editArr,_dataArr[indexPath.row]);
@@ -337,9 +344,7 @@ static NSString *cellID = @"QRHistoryCell";
     if (_isLogin) {
         NSMutableArray *arr = [NSMutableArray array];
         for (int i = 0; i<self.editArr.count; i++) {
-            //[self.dataArr removeObject:self.editArr[i]];
-           // personIdModel *model = self.editArr[i];
-            //[arr addObject:model.RecordId];
+          
             personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
             [arr addObject:model.RecordId];
         }
@@ -348,11 +353,7 @@ static NSString *cellID = @"QRHistoryCell";
         
         [IWHttpTool WMpostWithURL:@"Customer/DeleteCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"批量删除客户成功 返回json is %@",json);
-//                    UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
-//                    testLab.backgroundColor = [UIColor whiteColor];
-//                    testLab.text = [NSString stringWithFormat:@" 原数据是%@----要删除的数据是%@,返回的json is %@",self.dataArr,self.editArr,json];
-//                    testLab.numberOfLines = 0;
-//                    [self.view.window addSubview:testLab];
+
 
            
         } failure:^(NSError *error) {

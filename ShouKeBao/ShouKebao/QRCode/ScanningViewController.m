@@ -674,12 +674,13 @@
                                 card.Nationality = json[@"CredentialsPicRecord"][@"Nationality"];
                                 card.sex = json[@"CredentialsPicRecord"][@"Sex"];
                             card.RecordId = json[@"CredentialsPicRecord"][@"RecordId"];
-                           
+                           card.ModifyDate = json[@"CredentialsPicRecord"][@"ModifyDate"];
+                            card.PicUrl = json[@"CredentialsPicRecord"][@"PicUrl"];
                             card.isLogin = _isLogin;
                             card.delegate = self;
                             
                             if (!_isLogin) {//未登录时保存记录
-                                [self saveRecordWithJson:json];
+                               // [self saveRecordWithJson:json];
                             }
                                 [self.navigationController pushViewController:card animated:YES];
                             
@@ -710,12 +711,15 @@
             card.startPointLabStr = json[@"CredentialsPicRecord"][@"ValidAddress"];
             card.effectiveLabStr = json[@"CredentialsPicRecord"][@"ValidEndDate"];
             card.RecordId = json[@"CredentialsPicRecord"][@"RecordId"];
+            card.ModifyDate = json[@"CredentialsPicRecord"][@"ModifyDate"];
+            card.PicUrl = json[@"CredentialsPicRecord"][@"PicUrl"];
+
             card.isLogin = _isLogin;
 
             card.delegate = self;
             
             if (!_isLogin) {//未登录时保存记录
-                [self saveRecordWithJson:json];
+               // [self saveRecordWithJson:json];
             }
             [self.navigationController pushViewController:card animated:YES];
             
@@ -733,24 +737,6 @@
 //未登录时候保存记录，登录后同步
 -(void)saveRecordWithJson:(NSDictionary *)diction
 {
-//    @property (nonatomic,copy) NSString *UserName;
-//    @property (nonatomic,copy) NSString *Address;
-//    @property (nonatomic,copy) NSString *BirthDay;
-//    @property (nonatomic,copy) NSString *CardNum;
-//    @property (nonatomic,copy) NSString *Nation;//民族
-//    @property (nonatomic,copy) NSString *Sex;
-
-//    @property (nonatomic,copy) NSString *type;
-//    @property(nonatomic,copy) NSString *Country;//国家
-//    @property(nonatomic,copy) NSString *PassportNum;//护照号
-//    @property(nonatomic,copy) NSString *ValidStartDate;
-//    @property(nonatomic,copy) NSString *ValidAddress;
-//    @property(nonatomic,copy) NSString *ValidEndDate;
-//    @property (nonatomic,copy) NSString *PicUrl;
-//    @property (nonatomic,copy) NSString *ModifyDate;//修改日期
-//    @property (nonatomic,copy) NSString *RecordId;//纪录ID
-    
-    
     [self.writeFilePersonIdArr addObjectsFromArray:[WriteFileManager readData:@"record2"]];
           NSMutableDictionary *dic = [NSMutableDictionary dictionary];
    
@@ -789,12 +775,7 @@
     
     [WriteFileManager saveData:_writeFilePersonIdArr name:@"record"];
  
-//        UILabel *testLab = [[UILabel alloc] initWithFrame:self.view.frame];
-//    testLab.backgroundColor = [UIColor whiteColor];
-//    testLab.font = [UIFont systemFontOfSize:8];
-//    testLab.text = [NSString stringWithFormat:@"%@",[WriteFileManager readData:@"record"]];
-//    testLab.numberOfLines = 0;
-//    [self.view.window addSubview:testLab];
+
 
 }
 //测试后台返回用

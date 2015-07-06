@@ -115,6 +115,22 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
         NSMutableString *newStr = [NSMutableString stringWithFormat:@"%@",[[dict objectForKey:keys[i]] stringByReplacingOccurrencesOfString:@" " withString:@""]];//去空格
      
         if ([keys[i] isEqualToString:@"Url"]){
+           
+            NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+            CFShow((__bridge CFTypeRef)(infoDictionary));
+            NSString  *urlSuffix = [NSString stringWithFormat:@"?isshareapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+            NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isshareapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+            
+            NSRange range = [newStr rangeOfString:urlSuffix];//带？
+            NSRange range2 = [newStr rangeOfString:urlSuffix2];//不带?
+            NSRange range3 = [newStr rangeOfString:@"?"];
+
+            if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
+                newStr =[NSMutableString stringWithFormat:@"%@",[newStr stringByAppendingString:urlSuffix]];
+               
+            }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
+                 newStr =[NSMutableString stringWithFormat:@"%@",[newStr stringByAppendingString:urlSuffix2]];
+            }
             [newDic setObject:newStr forKey:keys[i]];
 
         }else if ([keys[i] isEqualToString:@"Pic"]){
@@ -133,7 +149,13 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
 
 +(NSMutableString *)cleanSpaceWithString:(NSString *)str
 {
-    NSMutableString *newStr = [NSMutableString stringWithString:str];
-    return [NSMutableString stringWithFormat:@"%@",[newStr stringByReplacingOccurrencesOfString:@" " withString:@""]];
+    if (str == nil) {
+        NSMutableString *newStr = [NSMutableString stringWithFormat:@""];
+         return newStr;
+    }else{
+    NSMutableString *newStr = [NSMutableString stringWithFormat:@"%@",[str stringByReplacingOccurrencesOfString:@" " withString:@""]];
+         return newStr;
+    }
+   
 }
 @end

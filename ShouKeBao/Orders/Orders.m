@@ -136,8 +136,11 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"historysearch" object:nil];
     
+    
+    
     NSUserDefaults *orderGuideDefault = [NSUserDefaults standardUserDefaults];
     NSString *orderGuide = [orderGuideDefault objectForKey:@"orderGuide"];
+    NSLog(@"orderGuide = %@", orderGuide);
     if ([orderGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
@@ -155,6 +158,7 @@
     NSString *appIsBack = [def objectForKey:@"appIsBack"];
     if ([appIsBack isEqualToString:@"no"]) {
         [self loadConditionData];
+        NSLog(@" appIsBack = %@---", appIsBack);
     }
     [def synchronize];
 
