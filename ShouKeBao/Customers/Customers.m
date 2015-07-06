@@ -48,11 +48,18 @@
 @property (weak, nonatomic) IBOutlet UIButton *importUser;
 @property(nonatomic,copy) NSMutableString *searchK;
 
+
+
 @end
 
 @implementation Customers
 
-
+-(void)dealloc
+{
+//    只要注册一个观察者,一定要在类的dealloc方法中, 移除掉自己的观察者身份
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    [center removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -100,8 +107,38 @@
      [self initPull];
     
    
-  
+    //    通知中心的使用
+    //  1,获取通知中心,注册一个观察者和事件
+    //    这事一个单例类
+    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+    
+    //  2, 在通知中心中, 添加在一个观察者和观察的事件
+    [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
+    
+
+    
+    
+    
+    
 }
+
+
+//收到通知中心的消息时,观察者(self)要调用方法
+- (void)receiveNotification:(NSNotification *)noti
+{
+//    //    4,
+//    NSLog(@"noti.object.Name = %@, %@", [noti.object valueForKey:@"Name"], [noti.object valueForKey:@"Mobile"]);
+    
+    [self initPull];
+    
+    
+    
+    
+    
+}
+
+
+
 - (void)reloadMethod{
     [self.table reloadData];
 }
@@ -111,17 +148,16 @@
     [super viewWillAppear:animated];
       self.subView.hidden = YES;
  
-    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
-    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
-    NSLog(@"appIsBack---- %@", appIsBack);
     
-    if ([appIsBack isEqualToString:@"no"]) {
-        [self initPull];
-    }
-    [customer synchronize];
+//    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
+//    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
+//    NSLog(@"appIsBack---- %@", appIsBack);
+//    
+//    if ([appIsBack isEqualToString:@"no"]) {
+//        [self initPull];
+//    }
+//    [customer synchronize];
 
-//    [self initPull];
- 
     [MobClick beginLogPageView:@"Customers"];
 }
 
@@ -135,7 +171,7 @@
 -(void)initPull
 {
     
-    NSLog(@"bbb");
+//    NSLog(@"bbb");
     //下拉
     [self.table addHeaderWithTarget:self action:@selector(headerPull)];
     [self.table headerBeginRefreshing];
@@ -353,6 +389,8 @@
         
 //        detail.initDelegate = self;
         
+
+        
         
         [self.navigationController pushViewController:detail animated:YES];
     }
@@ -381,6 +419,7 @@
         CustomCell *cell = [CustomCell cellWithTableView:tableView];
         CustomModel *model = _dataArr[indexPath.row];
         cell.model = model;
+        
         
         return cell;
     }

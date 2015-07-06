@@ -62,13 +62,19 @@
     
    
     
+    
 }
 
 
 -(void)back
 {
 //     [self.initDelegate reloadMethod];
+    
+
+    
     [self.navigationController popViewControllerAnimated:YES];
+    
+    
 }
 
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField
@@ -173,7 +179,7 @@
     self.tele.text = phone;
     self.note.text = note;
     self.userName.text = name;
-    
+ 
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
