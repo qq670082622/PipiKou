@@ -12,7 +12,6 @@
 #define formalRUL @"http://app.lvyouquan.cn/"
 #define kWebTestHost @"http://apptest.lvyouquan.cn/"
 
-
 @interface IWHttpTool : NSObject
 /**
  *  发送一个POST请求

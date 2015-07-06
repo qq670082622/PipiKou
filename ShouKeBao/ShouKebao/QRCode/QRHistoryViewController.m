@@ -36,7 +36,8 @@
     
     self.table.rowHeight = 70;
     self.table.tableFooterView = [[UIView alloc] init];
-    
+    self.table.delegate = self;
+    self.table.dataSource = self;
    
     
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
@@ -88,7 +89,7 @@
             [self.dataArr addObject:model];
         }
         [self ifArrIsNull:_dataArr];
-        
+         [self.table reloadData];
     }else if (_isLogin){
 
         [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"1",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
@@ -102,12 +103,14 @@
     [self.dataArr removeAllObjects];
     self.dataArr = mua;
              [self ifArrIsNull:_dataArr];
+            
+             [self.table reloadData];
       } failure:^(NSError *error) {
     NSLog(@" error history");
 }];
     }
     
-    [self.table reloadData];
+   
 
 
 }
@@ -199,51 +202,52 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
      NSString *cellID = [NSString stringWithFormat:@"historyCell%d",((arc4random() % 2500) + 1)];
-;
+
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     
     CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
     
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-            }
-  
-    personIdModel *model = self.dataArr[indexPath.row];
-    UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 35, 35)];
-    [cell.contentView addSubview:imgV];
+        personIdModel *model = self.dataArr[indexPath.row];
+        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 35, 35)];
+        [cell.contentView addSubview:imgV];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame)+10, 10, 200, 20)];
+        label.textColor = [UIColor blackColor];
+        label.font = [UIFont systemFontOfSize:15];
+        label.textAlignment = NSTextAlignmentLeft;
+        label.text = model.UserName;
+        [cell.contentView addSubview:label];
+        
+        UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.origin.x, CGRectGetMaxY(label.frame)+10, 200, 20)];
+        codeLab.textColor = [UIColor grayColor];
+        codeLab.font = [UIFont systemFontOfSize:12];
+        codeLab.textAlignment = NSTextAlignmentLeft;
+        
+        [cell.contentView addSubview:codeLab];
+        
+        UILabel *creatLab = [[UILabel alloc] initWithFrame:CGRectMake(screenW-140, codeLab.frame.origin.y, 130, 20)];
+        creatLab.textColor = [UIColor grayColor];
+        creatLab.font = [UIFont systemFontOfSize:13];
+        creatLab.textAlignment = NSTextAlignmentRight;
+        creatLab.text = model.ModifyDate;
+        
+        
+        if ([model.RecordType isEqualToString:@"2"]) {
+            imgV.image = [UIImage imageNamed:@"passPort"];
+            codeLab.text = model.PassportNum;
+        }else if([model.RecordType isEqualToString:@"1"]){
+            imgV.image = [UIImage imageNamed:@"IDInform"];
+            codeLab.text = model.CardNum;
+        }
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        [cell.contentView addSubview:creatLab];
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame)+10, 10, 200, 20)];
-    label.textColor = [UIColor blackColor];
-    label.font = [UIFont systemFontOfSize:15];
-    label.textAlignment = NSTextAlignmentLeft;
-    label.text = model.UserName;
-    [cell.contentView addSubview:label];
-    
-    UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.origin.x, CGRectGetMaxY(label.frame)+10, 200, 20)];
-    codeLab.textColor = [UIColor grayColor];
-    codeLab.font = [UIFont systemFontOfSize:12];
-    codeLab.textAlignment = NSTextAlignmentLeft;
-    
-    [cell.contentView addSubview:codeLab];
-    
-    UILabel *creatLab = [[UILabel alloc] initWithFrame:CGRectMake(screenW-140, codeLab.frame.origin.y, 130, 20)];
-    creatLab.textColor = [UIColor grayColor];
-    creatLab.font = [UIFont systemFontOfSize:13];
-    creatLab.textAlignment = NSTextAlignmentRight;
-    creatLab.text = model.ModifyDate;
-    
-    
-    if ([model.RecordType isEqualToString:@"2"]) {
-        imgV.image = [UIImage imageNamed:@"passPort"];
-        codeLab.text = model.PassportNum;
-    }else if([model.RecordType isEqualToString:@"1"]){
-        imgV.image = [UIImage imageNamed:@"IDInform"];
-        codeLab.text = model.CardNum;
     }
+  
     
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell.contentView addSubview:creatLab];
-
     return cell;
 }
 
@@ -279,8 +283,9 @@
             uid.sex = model.Sex;
             uid.UserName = model.UserName;
             uid.RecordId = model.RecordId;
-            uid.ModifyDate = model.ModifyDate;
+            uid.ModifyDate = [NSMutableString stringWithFormat:@"%@",model.ModifyDate];
             uid.isLogin = _isLogin;
+            uid.PicUrl = model.PicUrl;
                    [self.navigationController pushViewController:uid animated:YES];
           
             
@@ -297,7 +302,9 @@
             ca.effectiveLabStr = model.ValidEndDate;
             ca.RecordId = model.RecordId;
             ca.isLogin = _isLogin;
-            
+            ca.PicUrl = model.PicUrl;
+            ca.ModifyDate = [NSMutableString stringWithFormat:@"%@",model.ModifyDate];
+
             [self.navigationController pushViewController:ca animated:YES];
 
         }
