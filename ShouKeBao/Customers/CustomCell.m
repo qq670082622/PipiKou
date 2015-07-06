@@ -9,6 +9,8 @@
 #import "CustomCell.h"
 #import "UIImageView+WebCache.h"
 #import "IWHttpTool.h"
+#import "MobClick.h"
+#import "BaseClickAttribute.h"
 @implementation CustomCell
 
 - (void)awakeFromNib {
@@ -22,6 +24,10 @@
 }
 
 - (IBAction)callAction:(id)sender {
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"CustomCallClick" attributes:dict];
+    
     
     if (self.model.Mobile.length>6) {
       

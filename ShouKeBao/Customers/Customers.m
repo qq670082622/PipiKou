@@ -20,7 +20,7 @@
 #import "NSString+QD.h"
 #import "MobClick.h"
 #import "EditCustomerDetailViewController.h"
-
+#import "BaseClickAttribute.h"
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate, initPullDegate>
 
@@ -83,7 +83,7 @@
     
     self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
     
- CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
+    CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
     UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
     lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
     UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
@@ -192,6 +192,9 @@
 
 -(void)setSubViewUp
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"CustomAddClick" attributes:dict];
+
     if (self.subView.hidden == YES) {
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 0;
@@ -521,6 +524,10 @@
     return YES;
 }
 - (IBAction)timeOrderAction:(id)sender {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"TimeOrderClick" attributes:dict];
+
+    
   //  [self.orderNumBtn setSelected:NO];
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
@@ -561,12 +568,18 @@
       //  [self.table reloadData];
 
     }
+    
     [hudView hide:YES];
     
 }
 
 
 - (IBAction)wordOrderAction:(id)sender {
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"WordOrderClick" attributes:dict];
+
+    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"加载中...";
     [hudView show:YES];
@@ -610,6 +623,10 @@
 
 - (IBAction)customSearch:(id)sender {
    
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"CustomSearchClick" attributes:dict];
+
    if (self.subView.hidden == NO){
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 1;

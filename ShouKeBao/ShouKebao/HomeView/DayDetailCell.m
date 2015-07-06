@@ -17,6 +17,8 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "StrToDic.h"
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 #define gap 10
 //此处三点要注意：1，通过点击button 确定是哪个cell需要改变高度，用dic记录并[_tableView beginUpdates];
 //2,利用cell的高度确定当前按钮的作用是展开还是收起，以及按钮的title为何（在button的点击事件里说明）
@@ -424,6 +426,10 @@
                                  [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                    [MobClick event:@"RecommendShareSuccess" attributes:dict];
+
+                                    
                                     [self.warningLab removeFromSuperview];
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
                                     } failure:^(NSError *error) {

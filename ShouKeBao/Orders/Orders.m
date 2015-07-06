@@ -31,6 +31,7 @@
 #import "ArrowBtn.h"
 #import "NullContentView.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
 #define historyCount 6
@@ -874,6 +875,27 @@
     if ([detail.title isEqualToString:@"填写游客信息"]) {
         detail.isWriteVisitorsInfo = YES;
     }
+    if ([title isEqualToString:@"订单催办"]) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderListUrges" attributes:dict];
+
+    }else if([title isEqualToString:@"提交游客信息"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderListSubmitVisitorInfo" attributes:dict];
+
+    }else if([title isEqualToString:@"查看客户订单信息"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderListCheckOrderInfo" attributes:dict];
+
+    }else if([title isEqualToString:@"立即采购"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderListPurchasAtOnce" attributes:dict];
+
+    }else if([title isEqualToString:@"付款"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderListPayFor" attributes:dict];
+
+    }
     [self.navigationController pushViewController:detail animated:YES];
 }
 
@@ -970,6 +992,10 @@
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"OrderSearchClick" attributes:dict];
+
+    
       [self.searchDisplayController setActive:NO animated:YES];
     
     if (self.searchKeyWord.length) {

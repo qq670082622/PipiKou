@@ -197,11 +197,11 @@
             
             
             
-            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
-                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
-                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
-                [MobClick setAppVersion:version];
-            }
+//            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
+//                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+//                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+//                [MobClick setAppVersion:version];
+//            }
 
             
             

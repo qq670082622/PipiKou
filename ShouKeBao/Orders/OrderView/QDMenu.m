@@ -8,7 +8,8 @@
 
 #import "QDMenu.h"
 #import "UIImage+QD.h"
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @interface QDMenu() <UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -106,14 +107,58 @@
     NSIndexPath *lastIndex = [NSIndexPath indexPathForRow:_currentIndex inSection:0];
     UITableViewCell *lastCell = [tableView cellForRowAtIndexPath:lastIndex];
     lastCell.accessoryType = UITableViewCellAccessoryNone;
-    
     // 选中操作
     UITableViewCell *cell = [tableView  cellForRowAtIndexPath:indexPath];
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     
     // 保存选中的
     _currentIndex = indexPath.row;
-   
+    switch (indexPath.row) {
+        case 0:{
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"OrderAllSX" attributes:dict];
+        }
+            break;
+        case 1:
+        {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"OrderTodaySX" attributes:dict];
+
+        
+        }
+            break;
+        case 2:
+        {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"OrderYesterdaySX" attributes:dict];
+
+        }
+            break;
+        case 3:
+        {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"OrderLastWeekSX" attributes:dict];
+
+        }
+            break;
+        case 4:
+        {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"OrderLastTwoWeekSX" attributes:dict];
+
+        }
+            break;
+        case 5:
+        {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"OrderLastMonthSX" attributes:dict];
+
+        }
+            break;
+
+        default:
+            break;
+    }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (_delegate && [_delegate respondsToSelector:@selector(menu:didSelectRowAtIndexPath:)]) {

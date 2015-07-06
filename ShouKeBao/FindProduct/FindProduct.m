@@ -27,6 +27,7 @@
 #import "UIImageView+WebCache.h"
 #import "newModel.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate, notifi>
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -130,6 +131,10 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"FindProduct"];
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductNum" attributes:dict];
+
     
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
@@ -382,7 +387,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (IBAction)search:(id)sender {
     
     //[MobClick event:@"searchInpageTwo"];
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductSearchList" attributes:dict];
+
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
 }
 
@@ -613,6 +620,8 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         if (self.selectNum == indexPath.row) {
             [self.leftTable reloadData];
         }else{
+            
+
         self.selectNum = indexPath.row;
         leftModal *model = self.leftTableArr[indexPath.row];
      
@@ -732,16 +741,20 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             ProductList *list = [[ProductList alloc] init];
             list.pushedSearchK = key;
             list.title = title;
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FindProductList" attributes:dict];
+
             [self.navigationController pushViewController:list animated:YES];
         
     
     }
     if (tableView.tag == 4) {
-        [MobClick event:@"productDetailClick"];
+
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         rightModal *model =  _hotArr[indexPath.section][indexPath.row];
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
+        detail.fromType = FromHotProduct;
              [self.navigationController pushViewController:detail animated:YES];
     }
 

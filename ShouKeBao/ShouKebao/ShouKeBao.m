@@ -1245,7 +1245,12 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         [self.navigationController pushViewController:detail animated:YES];
         
     }else if([model.model isKindOfClass:[Recommend class]]){
-        [MobClick event:@"ShouKeBao_ClickRecommend"];
+        
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"RecommendClick" attributes:dict];
+
+        
+        
         Recommend *mo = model.model;
         NSString *createDate = mo.CreatedDate;
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
