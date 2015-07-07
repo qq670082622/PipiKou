@@ -32,7 +32,7 @@
 @property (nonatomic, copy)NSString *urlSuffix;
 @property (nonatomic, copy)NSString *urlSuffix2;
 @property (nonatomic, strong)NSArray *eventArray;
-
+@property (nonatomic, assign)BOOL isBack;
 //FromQRcode,
 //FromRecommend,
 //FromStore,
@@ -212,6 +212,7 @@
 
 -(void)back
 {
+    self.isBack = YES;
     if ([_webView canGoBack]) {
         
         [self.webView goBack];
@@ -278,7 +279,9 @@
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
     }
     
-
+    if (!self.isBack) {
+        
+    
         if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
@@ -289,9 +292,9 @@
         }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductOrderSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
-
+            [MobClick event:@"OrderAll" attributes:dict];
         }
-    
+    }
         return YES;
   
 }
@@ -299,6 +302,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
     self.coverView.hidden = YES;
      [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
