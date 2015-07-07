@@ -154,6 +154,10 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"Orders"];
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"OrderNum" attributes:dict];
+
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *appIsBack = [def objectForKey:@"appIsBack"];
     if ([appIsBack isEqualToString:@"no"]) {

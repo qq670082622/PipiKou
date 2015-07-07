@@ -16,7 +16,8 @@
 #import "MobClick.h"
 #import "RecommendViewController.h"
 #import "HomeHttpTool.h"
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @interface RecomViewController ()
 
 - (IBAction)todayAction:(id)sender;
@@ -192,6 +193,9 @@
 
 -(void)searchAction
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"RecommendSearchClick" attributes:dict];
+
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
 }
 

@@ -14,6 +14,7 @@
 #import "MLPhotoBrowserSignleViewController.h"
 #import "UIImage+MLBrowserPhotoImageForBundle.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface SosViewController () <UIScrollViewDelegate>
 
 @property (nonatomic,strong) Server *server;
@@ -155,6 +156,14 @@
 // qq联系客服
 - (IBAction)callByQq:(UIButton *)sender
 {
+    if (self.isFromMe) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeSOSQQClick" attributes:dict];
+
+    }else{
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoSOSQQClick" attributes:dict];
+    }
     if (!self.server.QQCode) {
         return;
     }
@@ -179,6 +188,13 @@
 // 打电话联系客服
 - (IBAction)callServer:(UIButton *)sender
 {
+    if (self.isFromMe) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeSOSCallPheoneClick" attributes:dict];
+    }else{
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoCallPheoneClick" attributes:dict];
+    }
     [self phoneCall];
 }
 
