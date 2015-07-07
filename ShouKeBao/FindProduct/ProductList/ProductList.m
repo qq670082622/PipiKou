@@ -156,6 +156,7 @@
     self.navigationItem.titleView = titleView;
     
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
+    
     searchVC.delegate = self;
     
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
@@ -368,7 +369,9 @@
     if (_isFromSearch == YES) {
         [self.navigationController popViewControllerAnimated:NO];
     }else{
-     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+        SearchProductViewController * SPVC = [[SearchProductViewController alloc] init];
+        SPVC.isFromFindProduct = NO;
+     [self.navigationController pushViewController:SPVC animated:NO];
     }
 }
 
@@ -1204,7 +1207,9 @@
         if (indexPath.section == 0 && indexPath.row == 2) {
             ChooseDayViewController *choose = [[ChooseDayViewController alloc]init];
             choose.delegate = self;
-            
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"FindProductStartTimeSX" attributes:dict];
+
             NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
             NSDictionary *conditionDic = _conditionArr[a];
             choose.buttons = conditionDic;
@@ -1212,7 +1217,82 @@
             self.coverView.hidden = YES;
             [self.navigationController pushViewController:choose animated:YES];
         }else if (!(indexPath.section == 0 && indexPath.row == 2)){
-       
+            if (indexPath.section == 0) {
+                switch (indexPath.row) {
+                    case 0:{
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductDestinationSX" attributes:dict];
+                    }
+                        break;
+                    case 1:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductStartCitySX" attributes:dict];
+
+                    }
+                        break;
+                    case 3:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductDayNumberSX" attributes:dict];
+ 
+                    }
+                        break;
+                    case 4:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductVisitLineSX" attributes:dict];
+ 
+                    }
+                        break;
+                    case 5:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductSupplierSX" attributes:dict];
+
+                    }
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+            
+            if (indexPath.section == 1) {
+                switch (indexPath.row) {
+                    case 0:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductThemeSX" attributes:dict];
+
+                    }
+                        break;
+                    case 1:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductHotelTypeSX" attributes:dict];
+
+                    }
+                        break;
+                    case 2:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductTripModeSX" attributes:dict];
+
+                    }
+                        break;
+                    case 3:
+                    {
+                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                        [MobClick event:@"FindProductShipCompanySX" attributes:dict];
+
+                    }
+                        break;
+ 
+                    default:
+                        break;
+                }
+            }
             
         NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
     
@@ -1429,8 +1509,11 @@
     [dic setObject:result forKey:@"IsFavorites"];///Product/ SetProductFavorites
   
     [IWHttpTool WMpostWithURL:@"/Product/SetProductFavorites" params:dic success:^(id json) {
-       NSLog(@"产品收藏成功%@",json);
-      
+        if ([model.IsFavorites isEqualToString:@"0"]) {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"FindProductListStoreClick" attributes:dict];
+            
+        }
         if ([json[@"IsSuccess"] integerValue] == 1) {
             [MBProgressHUD showSuccess:@"操作成功"];
             model.IsFavorites = [NSString stringWithFormat:@"%d",![model.IsFavorites integerValue]];
@@ -1465,7 +1548,9 @@
 
 - (IBAction)recommond{//推荐
     
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductRecommondClick" attributes:dict];
+
        // [self backToTop:nil];
     
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
@@ -1544,7 +1629,9 @@
    
         //[self backToTop:nil];
    
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductProfitsClick" attributes:dict];
+
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
@@ -1717,7 +1804,9 @@
 
 
 - (IBAction)cheapPrice:(id)sender {//同行价4,3
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductPriceClick" attributes:dict];
+
   // dispatch_queue_t que = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);
   //  dispatch_sync(que, ^{
        // [self backToTop:nil];
@@ -2012,7 +2101,9 @@
 
 
 - (IBAction)subMinMax:(id)sender {
-  
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductPriceRangeSX" attributes:dict];
+
     MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
    
     mm.delegate = self;

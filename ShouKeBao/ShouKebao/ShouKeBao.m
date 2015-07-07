@@ -612,7 +612,7 @@
         }
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
-        self.userName.text = muta[@"ShowName"];
+//        self.userName.text = muta[@"ShowName"];
         self.shareLink = muta[@"LinkUrl"];
         if (![muta[@"ShareInfo"] isKindOfClass:[NSNull class]]) {
             NSMutableDictionary *info = [NSMutableDictionary cleanNullResult:muta[@"ShareInfo"]];
@@ -964,7 +964,9 @@
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoStore" attributes:dict];
+
     
       [self.navigationController pushViewController:store animated:YES];
 }
@@ -972,7 +974,9 @@
 {
     StoreViewController *store =  [[StoreViewController alloc] init];
     store.PushUrl = _shareLink;
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoStore" attributes:dict];
+
     store.needOpenShare = YES;
    
     [self.navigationController pushViewController:store animated:YES];
@@ -989,7 +993,7 @@
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
-    
+    sos.isFromMe =NO;
     [self.navigationController pushViewController:sos animated:YES];
     
 }
@@ -1014,7 +1018,9 @@
 
 - (void)search
 {
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoSearchProductClick" attributes:dict];
+    
     SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
     [self.navigationController pushViewController:searchVC animated:NO];
     
@@ -1144,6 +1150,9 @@
 -(void)ringAction
 {
 
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MesseageCenterClick" attributes:dict];
+    
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
     messgeCenter.delegate = self;
     
@@ -1238,6 +1247,9 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
     if ([model.model isKindOfClass:[HomeList class]]) {
         [MobClick event:@"ShouKeBao_ClickHomeList"];
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"ShouKeBaoOrderDetailClick" attributes:dict];
+
         HomeList *order = model.model;
         OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
         detail.url = order.LinkUrl;

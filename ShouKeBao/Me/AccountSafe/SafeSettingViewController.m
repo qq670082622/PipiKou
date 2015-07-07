@@ -12,7 +12,8 @@
 #import "AppDelegate.h"
 #import "UserInfo.h"
 #import "BindPhoneViewController.h"
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @interface SafeSettingViewController()<UIAlertViewDelegate>
 
 /**
@@ -75,6 +76,9 @@
         BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
         bind.isForget = YES;
         bind.isModefyPwd = YES;
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeChangeAccountPassWord" attributes:dict];
+
         [self.navigationController pushViewController:bind animated:YES];
 
     }else if(indexPath.section == 2){
@@ -121,6 +125,9 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     if (buttonIndex == 1) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeExitAccount" attributes:dict];
+        
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
         [def removeObjectForKey:UserInfoKeyPassword];
         AppDelegate *app = [UIApplication sharedApplication].delegate;

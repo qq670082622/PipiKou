@@ -219,8 +219,23 @@
         [MobClick event:@"OrderDetailOrderCancelClick" attributes:dict];
 
     }
-    
-    
+    if ([rightUrl containsString:@"/Order/Detail/"]) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderDetailClick" attributes:dict];
+
+    }
+    if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FromOrderDetailProductPrice" attributes:dict];
+    }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FromOrderDetailProductWritecontacts" attributes:dict];
+        
+    }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FromOrderDetailProductOrderSuccess" attributes:dict];
+    }
+
     return YES;
     
 }

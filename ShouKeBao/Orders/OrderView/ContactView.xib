@@ -27,19 +27,6 @@
                     <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaA-wO-8BY">
-                    <rect key="frame" x="20" y="130" width="190" height="45"/>
-                    <color key="backgroundColor" red="0.36862745099999999" green="0.74117647060000003" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                    <inset key="imageEdgeInsets" minX="10" minY="5" maxX="130" maxY="5"/>
-                    <state key="normal" title="Button" image="qq_order">
-                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="addQQ:" destination="4AU-th-pbG" eventType="touchUpInside" id="1wP-LM-pr3"/>
-                    </connections>
-                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BIa-TF-XIN">
                     <rect key="frame" x="20" y="67" width="190" height="45"/>
                     <color key="backgroundColor" red="0.36862745098039218" green="0.74117647058823533" blue="0.3529411764705882" alpha="1" colorSpace="calibratedRGB"/>
@@ -54,6 +41,19 @@
                     </state>
                     <connections>
                         <action selector="callPhone:" destination="4AU-th-pbG" eventType="touchUpInside" id="UjR-ri-TMl"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PaA-wO-8BY">
+                    <rect key="frame" x="20" y="130" width="190" height="45"/>
+                    <color key="backgroundColor" red="0.36862745099999999" green="0.74117647060000003" blue="0.35294117650000001" alpha="1" colorSpace="calibratedRGB"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                    <inset key="imageEdgeInsets" minX="10" minY="5" maxX="130" maxY="5"/>
+                    <state key="normal" title="Button" image="qq_order">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="addQQ:" destination="4AU-th-pbG" eventType="touchUpInside" id="1wP-LM-pr3"/>
                     </connections>
                 </button>
             </subviews>

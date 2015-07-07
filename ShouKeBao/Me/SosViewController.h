@@ -9,5 +9,5 @@
 #import "SKTableViewController.h"
 
 @interface SosViewController : UITableViewController
-
+@property (nonatomic, assign)BOOL isFromMe;
 @end

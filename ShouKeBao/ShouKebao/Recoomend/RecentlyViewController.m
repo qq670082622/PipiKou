@@ -19,6 +19,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 #import "StationSelect.h"
 #define pageSize @"10"
 
@@ -99,6 +100,9 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoRecentlyRecommend" attributes:dict];
+
     [MobClick beginLogPageView:@"ShouKeBaoRecentlyView"];
     
     self.view.window.backgroundColor = [UIColor clearColor];
@@ -267,6 +271,9 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoRecentlyRecommendProductDetailClick" attributes:dict];
+
     recentlyModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.produceUrl = detail.LinkUrl;

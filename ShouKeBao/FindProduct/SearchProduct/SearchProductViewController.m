@@ -17,6 +17,7 @@
 #import "NSArray+QD.h"
 #import "MobClick.h"
 #import "StrToDic.h"
+#import "BaseClickAttribute.h"
 @interface SearchProductViewController ()<UITableViewDataSource,UITableViewDelegate,UITextFieldDelegate,UIScrollViewDelegate>
 @property (strong,nonatomic)NSMutableArray *hotSearchWord;
 @property(strong,nonatomic)NSMutableArray *tableDataArr;
@@ -107,6 +108,15 @@
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
+    if (self.isFromFindProduct) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FindProductWriteKeyWordsSearch" attributes:dict];
+
+    }else{
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FindProductWriteKeyWordsSearchList" attributes:dict];
+    }
+
     [self search];
     [self.inputView resignFirstResponder];
     return YES;
@@ -138,7 +148,7 @@
 -(void)setBtnText
 {
     
-    [self.btn1 setTitle:_hotSearchWord[0] forState:UIControlStateNormal];
+      [self.btn1 setTitle:_hotSearchWord[0] forState:UIControlStateNormal];
       [self.btn2 setTitle:_hotSearchWord[1] forState:UIControlStateNormal];
       [self.btn3 setTitle:_hotSearchWord[2] forState:UIControlStateNormal];
       [self.btn4 setTitle:_hotSearchWord[3] forState:UIControlStateNormal];
@@ -371,7 +381,16 @@
 
 -(IBAction)hotWordSearch:(id)sender
 {
-   
+    if (self.isFromFindProduct) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FindProductHotKeyWordsSearch" attributes:dict];
+
+    }else{
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"FindProductHotKeyWordsSearchList" attributes:dict];
+
+    }
+
     UIButton *btn = (UIButton *)sender;
     self.inputView.text = btn.currentTitle;
     [self search];

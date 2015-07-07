@@ -376,7 +376,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 - (IBAction)stationSelect:(id)sender {
    // [MobClick event:@"changeStationInPageTwo"];
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductStationClick" attributes:dict];
+
     StationSelect *station = [[StationSelect alloc] init];
     station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
@@ -389,8 +391,9 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     //[MobClick event:@"searchInpageTwo"];
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductSearchList" attributes:dict];
-
-    [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:NO];
+    SearchProductViewController *SPVC = [[SearchProductViewController alloc] init];
+    SPVC.isFromFindProduct = YES;
+    [self.navigationController pushViewController:SPVC animated:NO];
 }
 
 
@@ -403,7 +406,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 - (void)hotBtnClick:(id)sender {
    // [MobClick event:@"remmondClick"];
 //    self.rightTable.scrollEnabled = NO;
-   
+    NSDictionary * dic = @{@"SubName":@"热门推荐"};
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+    [MobClick event:@"FindProductSubNameClick" attributes:dict];
+
     self.row = nil;
 //    [self.hotBtn setTitleColor:[UIColor orangeColor] forState:UIControlStateNormal];
 //    self.leftTable.tableHeaderView.backgroundColor = [UIColor whiteColor];
@@ -620,11 +626,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         if (self.selectNum == indexPath.row) {
             [self.leftTable reloadData];
         }else{
-            
 
         self.selectNum = indexPath.row;
         leftModal *model = self.leftTableArr[indexPath.row];
-     
+            NSDictionary * dic = @{@"SubName":model.Name};
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+            [MobClick event:@"FindProductSubNameClick" attributes:dict];
+
                 self.isHot = NO;
         self.row = [NSMutableString stringWithFormat:@"%ld",(long)indexPath.row];
         NSLog(@"self.row is %@",_row);
@@ -741,10 +749,11 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             ProductList *list = [[ProductList alloc] init];
             list.pushedSearchK = key;
             list.title = title;
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        NSDictionary * dic = @{@"TwoSubName":key};
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
         [MobClick event:@"FindProductList" attributes:dict];
 
-            [self.navigationController pushViewController:list animated:YES];
+        [self.navigationController pushViewController:list animated:YES];
         
     
     }

@@ -19,6 +19,7 @@
 #import "WMAnimations.h"
 #import "MobClick.h"
 #import "StationSelect.h"
+#import "BaseClickAttribute.h"
 #define pageSize @"10"
 @interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -40,7 +41,7 @@
     [super viewDidLoad];
    
   
-    
+
     self.table.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -89,7 +90,9 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoYesterdayView"];
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoYesterdayRecommend" attributes:dict];
+
     self.view.window.backgroundColor = [UIColor clearColor];
     [self headRefresh];
     // [self setupHead];
@@ -191,6 +194,8 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoYesterdayRecommendProductDetailClick" attributes:dict];
     
     yesterDayModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
