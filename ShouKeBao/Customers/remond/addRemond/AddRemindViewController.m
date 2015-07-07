@@ -15,6 +15,7 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *descript;
 
+//设置时间的控件
 @property (strong, nonatomic) UIDatePicker *datePicker;
 
 @property (weak, nonatomic) IBOutlet UILabel *holder;
@@ -38,6 +39,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textHandle:) name:UITextViewTextDidChangeNotification object:self.descript];
 }
+
 
 - (void)dealloc
 {
@@ -67,7 +69,9 @@
 {
     UITextView *textView = (UITextView *)noty.object;
     
+//    隐藏textView上的默认提示信息
     self.holder.hidden = textView.text.length;
+    
 }
 
 - (void)setNav
@@ -176,7 +180,7 @@
         
         if (!_datePicker) {
             [self.view addSubview:self.datePicker];
-            
+//            出现_datePicker设置时间
             [UIView animateWithDuration:0.3 animations:^{
                 _datePicker.transform = CGAffineTransformMakeTranslation(0, - _datePicker.frame.size.height);
             } completion:^(BOOL finished) {
@@ -193,6 +197,7 @@
 //            //[self.datePicker removeFromSuperview];
             }
     }
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 

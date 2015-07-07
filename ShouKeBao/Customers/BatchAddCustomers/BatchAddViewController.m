@@ -135,36 +135,36 @@
     for(NSInteger i = 0; i<nPeople; i++)
         {
         //创建一个addressBook shuxing类
-        batchModel *addressBooks = [[batchModel alloc]init];
-       
+            batchModel *addressBooks = [[batchModel alloc]init];
+            
             //获取个人
-        ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
-       
+            ABRecordRef person = CFArrayGetValueAtIndex(allPeople, i);
+            
             //获取个人名字
-        CFTypeRef abName = ABRecordCopyValue(person, kABPersonAddressProperty);
-        CFTypeRef abLastName = ABRecordCopyValue(person, kABPersonLastNameProperty);
-        CFStringRef abFullName = ABRecordCopyCompositeName(person);
-        NSString *nameString = (__bridge NSString *)abName;
-        NSString *lastNameString = (__bridge NSString *)abLastName;
-       
+            CFTypeRef abName = ABRecordCopyValue(person, kABPersonAddressProperty);
+            CFTypeRef abLastName = ABRecordCopyValue(person, kABPersonLastNameProperty);
+            CFStringRef abFullName = ABRecordCopyCompositeName(person);
+            NSString *nameString = (__bridge NSString *)abName;
+            NSString *lastNameString = (__bridge NSString *)abLastName;
+            
             if ((__bridge id)abFullName != nil) {
-            nameString = (__bridge NSString *)abFullName;
+                nameString = (__bridge NSString *)abFullName;
             } else {
-            if ((__bridge id)abLastName != nil)
+                if ((__bridge id)abLastName != nil)
                 {
-                     nameString = (__bridge NSString *)abFullName;
-                //nameString = [NSString stringWithFormat:@"%@ %@", nameString, lastNameString];
+                    nameString = (__bridge NSString *)abFullName;
+                    //nameString = [NSString stringWithFormat:@"%@ %@", nameString, lastNameString];
                 }}
-        
-        addressBooks.name = [NSString stringWithFormat:@"%@",nameString];
-       
-            addressBooks.recordID = [NSString stringWithFormat:@"%d",ABRecordGetRecordID(person)];;
-       
+            
+            addressBooks.name = [NSString stringWithFormat:@"%@",nameString];
+            
+            addressBooks.recordID = [NSString stringWithFormat:@"%d",ABRecordGetRecordID(person)];
+            
             ABPropertyID multiProperties[] = {
-            kABPersonPhoneProperty,
-            kABPersonEmailProperty
+                kABPersonPhoneProperty,
+                kABPersonEmailProperty
             };
-      
+            
             NSInteger multiPropertiesTotal = sizeof(multiProperties) / sizeof(ABPropertyID);
        
             for (NSInteger j = 0; j < multiPropertiesTotal; j++) {
