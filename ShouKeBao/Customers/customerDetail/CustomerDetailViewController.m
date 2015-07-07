@@ -69,12 +69,7 @@
 -(void)back
 {
 //     [self.initDelegate reloadMethod];
-    
-
-    
     [self.navigationController popViewControllerAnimated:YES];
-    
-    
 }
 
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField

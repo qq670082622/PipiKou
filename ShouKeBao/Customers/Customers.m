@@ -114,12 +114,7 @@
     
     //  2, 在通知中心中, 添加在一个观察者和观察的事件
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
-    
-
-    
-    
-    
-    
+   
 }
 
 
@@ -131,24 +126,16 @@
     
     [self initPull];
     
-    
-    
-    
-    
 }
 
-
-
-- (void)reloadMethod{
-    [self.table reloadData];
-}
+//- (void)reloadMethod{
+//    [self.table reloadData];
+//}
 
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
       self.subView.hidden = YES;
- 
-    
 //    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
 //    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
 //    NSLog(@"appIsBack---- %@", appIsBack);
@@ -309,7 +296,7 @@
 -(void)loadDataSource
 {
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@1 forKey:@"PageIndex"];
+    [dic setObject:@"1" forKey:@"PageIndex"];
     [dic setObject:@"500" forKey:@"PageSize"];
     if (_searchK.length>0) {
         [dic setObject:_searchK forKey:@"SearchKey"];

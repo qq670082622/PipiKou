@@ -200,12 +200,7 @@
             //    CustomModel *model = [[CustomModel alloc]initWithDict:dic];
             
             [center postNotificationName:@"下班" object:@"开心" userInfo:nil];
-            
-            
-            
-            
-            
-            
+
         [self.navigationController popViewControllerAnimated:YES];
             
             

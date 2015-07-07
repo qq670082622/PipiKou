@@ -72,7 +72,7 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    for (int i = 0; i < self.subviews.count; i ++) {
+    for (int i = 0; i < self.subviews.count; i++) {
         MeButton *btn = self.subviews[i];
         
         CGFloat btnW = self.frame.size.width / 3;

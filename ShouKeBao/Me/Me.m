@@ -64,6 +64,7 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
+  
     
     // 知道登录类型以后 设置头部
     [self setHeader];
@@ -82,6 +83,7 @@
     NSDictionary * dic = @{};
     [MeHttpTool inspectionWithParam:dic success:^(id json) {
         self.versionInfoDic = json[@"ios"];
+        NSLog(@"self.versionInfoDic = %@", self.versionInfoDic);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
@@ -204,7 +206,6 @@
            
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"CustomStore" attributes:dict];
-
             
             [self.navigationController pushViewController:col animated:YES];
             break;

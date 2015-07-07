@@ -27,8 +27,8 @@
     for (remondModel *remind in remindArr) {
         if ([remind.ID isEqualToString:self.remindId]) {
             [muta removeObject:remind];
-        }
-    }
+        }}
+    
     [WriteFileManager saveData:muta name:@"remindData"];
     
     self.noteLebel.text = [NSString stringWithFormat:@"%@",self.note];

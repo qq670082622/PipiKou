@@ -40,6 +40,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(textHandle:) name:UITextViewTextDidChangeNotification object:self.descript];
 }
 
+
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
