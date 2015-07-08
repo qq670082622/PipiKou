@@ -708,33 +708,33 @@
 }
 //协议传值6:由第一页实现协议方法
 - (void)deleteCustomerWith:(NSString *)keyWords{
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"1" forKey:@"PageIndex"];
-    [dic setObject:@"100" forKey:@"PageSize"];
-    [dic setObject:keyWords forKey:@"SearchKey"];
-    
-//    NSLog(@"%@**************", keyWords);
-    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-        
-        NSLog(@"------管客户搜索结果的json is %@-------",json);
-        [self.dataArr removeAllObjects];
-        for(NSDictionary *dic in json[@"CustomerList"]){
-            CustomModel *model = [CustomModel modalWithDict:dic];
-            [self.dataArr addObject:model];
-        }
-        
-        [self.table reloadData];
-        if (self.dataArr.count == 0) {
-            self.imageViewWhenIsNull.hidden = NO;
-        }else if (self.dataArr.count >0){
-            self.imageViewWhenIsNull.hidden = YES;
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
-    }];
-    [self cancelSearch];
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:@"1" forKey:@"PageIndex"];
+//    [dic setObject:@"100" forKey:@"PageSize"];
+//    [dic setObject:keyWords forKey:@"SearchKey"];
+//    
+////    NSLog(@"%@**************", keyWords);
+//    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
+//        
+//        NSLog(@"------管客户搜索结果的json is %@-------",json);
+//        [self.dataArr removeAllObjects];
+//        for(NSDictionary *dic in json[@"CustomerList"]){
+//            CustomModel *model = [CustomModel modalWithDict:dic];
+//            [self.dataArr addObject:model];
+//        }
+//        
+//        [self.table reloadData];
+//        if (self.dataArr.count == 0) {
+//            self.imageViewWhenIsNull.hidden = NO;
+//        }else if (self.dataArr.count >0){
+//            self.imageViewWhenIsNull.hidden = YES;
+//        }
+//    } failure:^(NSError *error) {
+//        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
+//    }];
+//    [self cancelSearch];
   
-    
+    [self initPull];
 }
 
 
