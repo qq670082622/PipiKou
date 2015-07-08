@@ -171,7 +171,7 @@
             NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
             [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
             [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
-                NSLog(@"添加陈工");
+                NSLog(@"添加陈工,json is %@",json);
                           } failure:^(NSError *error) {
                 NSLog(@"");
             }];

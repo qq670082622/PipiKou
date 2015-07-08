@@ -154,6 +154,8 @@
 {
     [super viewWillDisappear:animated];
     [self.timerr invalidate];
+    [self.timer invalidate];
+    
     [MobClick endLogPageView:@"ShouKeBaoStoreView"];
 
 }
