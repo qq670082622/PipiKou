@@ -182,6 +182,25 @@
 //             [self.initDelegate reloadMethod];
         
             
+            //  3, 通知中心的使用
+            //    发送一个消息
+            NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+            //    参数1:发送消息的事件名(必须一致)
+            //    参数2:可以使用这个参数,传递一个对象给观察者
+            //    参数3:一些消息的参数信息(系统用得较多)
+            
+            //    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+            //    [dic setObject:self.userName.text forKey:@"Name"];
+            //    [dic setObject:self.tele.text forKey:@"Mobile"];
+            //    [dic setObject:self.weChat.text forKey:@"WeiXinCode"];
+            //    [dic setObject:self.QQ.text forKey:@"QQCode"];
+            //    [dic setObject:self.note.text forKey:@"Remark"];
+            //    [dic setObject:self.ID forKey:@"ID"];
+            
+            //    CustomModel *model = [[CustomModel alloc]initWithDict:dic];
+            
+            [center postNotificationName:@"下班" object:@"开心" userInfo:nil];
+
         [self.navigationController popViewControllerAnimated:YES];
             
             

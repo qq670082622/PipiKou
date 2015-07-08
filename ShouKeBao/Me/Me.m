@@ -64,6 +64,7 @@
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
+  
     
     // 知道登录类型以后 设置头部
     [self setHeader];
@@ -82,6 +83,7 @@
     NSDictionary * dic = @{};
     [MeHttpTool inspectionWithParam:dic success:^(id json) {
         self.versionInfoDic = json[@"ios"];
+        NSLog(@"self.versionInfoDic = %@", self.versionInfoDic);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
@@ -128,7 +130,9 @@
 // 设置固定时间段免打扰
 - (void)changePushMode:(UISwitch *)modeSwitch
 {
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeDonotDisturbMe" attributes:dict];
+
     NSDictionary *param = @{@"DisturbSwitch":[NSString stringWithFormat:@"%d",modeSwitch.on]};
     [MeHttpTool setDisturbSwitchWithParam:param success:^(id json) {
         NSLog(@"json   %@",json);
@@ -204,7 +208,6 @@
            
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"CustomStore" attributes:dict];
-
             
             [self.navigationController pushViewController:col animated:YES];
             break;
@@ -222,7 +225,7 @@
         case 2:{ // 搬救兵
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
             SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
-            
+            sos.isFromMe = YES;
             [self.navigationController pushViewController:sos animated:YES];
             break;
         }
@@ -382,6 +385,9 @@
             // 第一组的两个
             if (indexPath.row == 0) {
                 MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"MeOrgViewClick" attributes:dict];
+
                 [self.navigationController pushViewController:myOrg animated:YES];
             }else{
                 // 圈付宝
@@ -393,6 +399,9 @@
           
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
             SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"MeAccountSafety" attributes:dict];
+
             safe.isPerson = self.isPerson;
             [self.navigationController pushViewController:safe animated:YES];
         }

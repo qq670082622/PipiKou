@@ -46,7 +46,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    
+
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *st = [def objectForKey:@"markStr"];;
     self.markUrl  = [def objectForKey:@"markStr"];
@@ -102,7 +102,9 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoRecommendView"];
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoTodayRecommend" attributes:dict];
+
     self.view.window.backgroundColor = [UIColor clearColor];
     [self headRefresh];
    // [self setupHead];
@@ -357,6 +359,9 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoTodayRecommendProductDetailClick" attributes:dict];
+
     DayDetail *detail = self.dataSource[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.fromType = FromRecommend;

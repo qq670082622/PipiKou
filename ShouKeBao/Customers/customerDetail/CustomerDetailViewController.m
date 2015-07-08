@@ -62,6 +62,7 @@
     
    
     
+    
 }
 
 
@@ -173,7 +174,7 @@
     self.tele.text = phone;
     self.note.text = note;
     self.userName.text = name;
-    
+ 
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
