@@ -175,7 +175,7 @@
                             <color key="backgroundColor" white="0.75298642966360851" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <view contentMode="scaleToFill" id="mfU-vs-M8V">
-                            <rect key="frame" x="0.0" y="69" width="320" height="425"/>
+                            <rect key="frame" x="0.0" y="55" width="320" height="425"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史搜索" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="f2V-Dx-CxV">
