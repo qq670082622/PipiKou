@@ -714,7 +714,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
                 list.pushedSearchK = key;
                 list.title = title;
                 list.pushedArr = _pushArr;
-                
+
                 
                 [self.navigationController pushViewController:list animated:YES];
                 //  [self.rightTable2 reloadData];

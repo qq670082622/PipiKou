@@ -9,6 +9,7 @@
 #import "FeedBcakViewController.h"
 #import "MeHttpTool.h"
 #import "TimeTool.h"
+#import "BaseClickAttribute.h"
 #import "MobClick.h"
 #define K_bounds [UIScreen mainScreen].bounds
 #define K_left 30
@@ -165,6 +166,17 @@
     [MobClick beginLogPageView:@"MeFeedBcakViewController"];
 
     NSString * goodOrBad = self.isGood ? @"1" : @"0";
+    if ([goodOrBad isEqualToString:@"1"]) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeFeedBackSupport" attributes:dict];
+
+    }else{
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeFeedBackTread" attributes:dict];
+
+    }
+
+    
     //纪录提交时间
     NSTimeInterval nowTime = [TimeTool getNowTime];
     [[NSUserDefaults standardUserDefaults]setValue:[NSString stringWithFormat:@"%f",nowTime] forKey:@"lastClickTime"];

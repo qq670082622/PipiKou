@@ -52,10 +52,13 @@
         
     }
 
-    
-    self.eventArray = @[@"FromQRcode", @"FromRecommend", @"FromStore", @"FromProductSearch",@"FromFindProduct", @"FromHotProduct"];
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:[NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
+
+    self.eventArray = @[@"FromQRcode", @"FromRecommend", @"FromStore", @"FromProductSearch",@"FromFindProduct", @"FromHotProduct", @"FromScanHistory"];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ProductDetailAll" attributes:dict];
+
+    NSString * string = [NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]];
+    [MobClick event:string attributes:dict];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
@@ -284,12 +287,14 @@
     
         if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            NSLog(@"%@", [NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]]);
             [MobClick event:[NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
         }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductWritecontacts", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
 
         }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
+
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductOrderSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
             [MobClick event:@"OrderAll" attributes:dict];

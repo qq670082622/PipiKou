@@ -393,6 +393,9 @@
                 // 圈付宝
                 QuanViewController *quan = [[QuanViewController alloc] init];
                 [self.navigationController pushViewController:quan animated:YES];
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"MeQFBClick" attributes:dict];
+
             }
         }else{
             // 第二组 单个 账号安全
