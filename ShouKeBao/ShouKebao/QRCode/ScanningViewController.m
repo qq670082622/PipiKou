@@ -83,13 +83,16 @@
     self.camera.fixOrientationAfterCapture = NO;
     //self.snapButton = self.midOutlet;
 //    [self addObserver:self forKeyPath:@"selectIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+  
     
+    
+
     if (!self.isLogin) {
         
         
         self.pickerData = [NSArray arrayWithObjects:@"身份证",@"护照", nil];
         
-        
+          [self ifPush];
       //  [self getCamera];
          [self.camera start];
     
@@ -285,6 +288,8 @@
 {
     [super viewWillAppear:animated];
    // [self defaultToNotifiQRDStartRunning];
+    
+    self.navigationController.navigationBarHidden = NO;
     [MobClick beginLogPageView:@"ShouKeBaoScanningView"];
 
    [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
@@ -294,15 +299,7 @@
     self.timer = timer;
 
     [self.view bringSubviewToFront:self.controlView];
-    if (!_isLogin) {
-         [self ifPush];
-    }
-//    if (_isLogin) {
-//        if ((self.selectIndex == 1) || (self.selectIndex == 2)) {
-//            [self ifPush];
-//        }
-//    }
-   
+    
    
 }
 

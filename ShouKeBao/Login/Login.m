@@ -212,7 +212,7 @@
 {
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = NO;
-   
+    self.navigationController.navigationBar.hidden = NO;
     [self.navigationController pushViewController:scan animated:YES];
 }
 // 设置头部

@@ -127,14 +127,6 @@
 
 -(void)EditCustomerDetail
 {
-//      self.dataArr = [NSMutableArray arrayWithArray: [WriteFileManager WMreadData:@"scanning"]];
-//    
-//    //personIdModel *model = _dataArr[0];
-//    UILabel *testLab = [[UILabel alloc] initWithFrame:CGRectMake(0, 64, 320, 500)];
-//    testLab.backgroundColor = [UIColor whiteColor];
-//    testLab.text = [NSString stringWithFormat:@"(用来测试后台返回的数据，8秒后自动删除)\n\narr is %lu----,modelName is",self.dataArr.count];
-//    testLab.numberOfLines = 0;
-//    [self.view.window addSubview:testLab];
 
     if (self.subView.hidden == YES && !self.isEditing) {
        
@@ -241,8 +233,10 @@
             imgV.image = [UIImage imageNamed:@"IDInform"];
             codeLab.text = model.CardNum;
         }
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        if (_isEditing) {
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        }
+    
         [cell.contentView addSubview:creatLab];
     
     }
