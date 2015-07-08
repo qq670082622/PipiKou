@@ -16,7 +16,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
-
+#import "BaseClickAttribute.h"
 @interface StoreViewController ()<UIWebViewDelegate,UIGestureRecognizerDelegate>
 @property (nonatomic,copy) NSMutableString *shareUrl;
 @property (weak, nonatomic) IBOutlet UIButton *checkCheapBtnOutlet;
@@ -145,6 +145,9 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoStoreNum" attributes:dict];
+
     [MobClick beginLogPageView:@"ShouKeBaoStoreView"];
     }
 -(void)viewWillDisappear:(BOOL)animated
@@ -464,6 +467,8 @@
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
                                 [self.warningLab removeFromSuperview];
+                                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                [MobClick event:@"ShouKeBaoStoreShareSuccess" attributes:dict];
 
                                 if (state == SSResponseStateSuccess)
                                 {

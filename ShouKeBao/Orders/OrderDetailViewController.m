@@ -29,7 +29,7 @@
 
 @property(nonatomic,copy) NSString *urlSuffix;
 @property(nonatomic,copy) NSString *urlSuffix2;
-
+@property(nonatomic,assign)BOOL isBack;
 @end
 
 @implementation OrderDetailViewController
@@ -155,6 +155,7 @@
 #pragma -mark private
 -(void)back
 {
+    self.isBack = YES;
     NSString *isFade = [self.webView stringByEvaluatingJavaScriptFromString:@"goBackForApp();"];
     if (isFade.length && [isFade integerValue] == 0){
         // 这个地方上面的js方法自动处理
@@ -224,6 +225,9 @@
         [MobClick event:@"OrderDetailClick" attributes:dict];
 
     }
+    if (self.isBack) {
+        
+    
     if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromOrderDetailProductPrice" attributes:dict];
@@ -234,13 +238,19 @@
     }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromOrderDetailProductOrderSuccess" attributes:dict];
-    }
+        [MobClick event:@"OrderAll" attributes:dict];
 
+    }
+    }
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeCancelMyStore" attributes:dict];
+
+    
     return YES;
     
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
-{
+{   self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
 
     self.rightButton.hidden = YES;
