@@ -159,7 +159,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     [ShareSDK connectSMS];
     //连接拷贝
     [ShareSDK connectCopy];
-    
+  /*
 #pragma  mark - about Jpush
     // Required
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
@@ -285,9 +285,10 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    lable.numberOfLines = 0;
 //    [self.window addSubview:lable];
     
-//    
+//    */
     return YES;
     //后台返回一个字典包含:messageId,noticeType,_j_msgid,messageUri,aps(5个)
+   
 }
 
 
@@ -298,7 +299,7 @@ void UncaughtExceptionHandler(NSException *exception) {
                  stringByReplacingOccurrencesOfString: @" " withString: @""]);
     [UMessage registerDeviceToken:deviceToken];
     // Required
-    [APService registerDeviceToken:deviceToken];
+//    [APService registerDeviceToken:deviceToken];
 }
 
 
@@ -386,7 +387,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     [UMessage didReceiveRemoteNotification:userInfo];   
         // Required
-    [APService handleRemoteNotification:userInfo];
+//    [APService handleRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -468,7 +469,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
 
     // IOS 7 Support Required
-    [APService handleRemoteNotification:userInfo];
+//    [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
