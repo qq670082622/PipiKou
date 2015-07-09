@@ -19,6 +19,8 @@
 #import "StrToDic.h"
 #import "BaseClickAttribute.h"
 #import "MobClick.h"
+#import <AGCommon/ICMErrorInfo.h>
+
 #define gap 10
 //此处三点要注意：1，通过点击button 确定是哪个cell需要改变高度，用dic记录并[_tableView beginUpdates];
 //2,利用cell的高度确定当前按钮的作用是展开还是收起，以及按钮的title为何（在button的点击事件里说明）
@@ -436,7 +438,11 @@
                                         
                                     }];
                                     //今日推荐
-                                    [MBProgressHUD showSuccess:@"操作成功"];
+                                    if (type == ShareTypeCopy) {
+                                        [MBProgressHUD showSuccess:@"拷贝成功"];
+                                    }else{
+                                    [MBProgressHUD showSuccess:@"分享成功"];
+                                    }
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                         [MBProgressHUD hideHUD];
                                     });

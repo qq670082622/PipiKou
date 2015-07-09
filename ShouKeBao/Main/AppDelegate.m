@@ -36,7 +36,6 @@
 {
     
     
-    
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
@@ -79,6 +78,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
+
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -292,7 +293,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - jpush信息处理集中在此方法
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    
+    [UMessage registerDeviceToken:deviceToken];
     // Required
     [APService registerDeviceToken:deviceToken];
 }
@@ -380,12 +381,13 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        }
 //        
     
-        
+    [UMessage didReceiveRemoteNotification:userInfo];   
         // Required
     [APService handleRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [UMessage didReceiveRemoteNotification:userInfo];
     
     //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
     NSString *orderId = [userInfo valueForKey:@"orderId"];

@@ -9,7 +9,7 @@
 #import "WMNavigationController.h"
 #import "Me.h"
 
-@interface WMNavigationController ()
+@interface WMNavigationController ()<UIGestureRecognizerDelegate>
 
 @end
 
@@ -61,7 +61,10 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
+//    __weak typeof (self) weakSelf = self;
+//    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
+//        self.interactivePopGestureRecognizer.delegate = weakSelf;
+//    }
 }
 
 - (void)didReceiveMemoryWarning
