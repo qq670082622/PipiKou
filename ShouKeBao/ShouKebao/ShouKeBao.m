@@ -428,24 +428,23 @@
         }
 
     }else{
+       
+        NSString *type = message[0];
+        if (type.length>0) {
+            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
         [self getVoice];
-        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+        }
         
         if ([message[0] isEqualToString:@"messageId"]){//新公告
             BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
             int valueCount = [barButton.badgeValue intValue];
             barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
             
-            //self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-        }
-
-
-    }
-    
-   
-
+          }
 }
+    
+   }
 
 
 #pragma -mark 声音
@@ -1176,12 +1175,12 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"QRcodeClickInMainView" attributes:dict];
 
-//    ScanningViewController *scan = [[ScanningViewController alloc] init];
-//    scan.isLogin = YES;
-//    [self.navigationController pushViewController:scan animated:YES];
+    ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isLogin = YES;
+    [self.navigationController pushViewController:scan animated:YES];
 
-    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
-    [self.navigationController pushViewController:qrc animated:YES];
+//    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+//    [self.navigationController pushViewController:qrc animated:YES];
 
 }
 
