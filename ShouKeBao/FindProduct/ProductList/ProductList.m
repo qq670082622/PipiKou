@@ -581,12 +581,10 @@
             self.table.tableFooterView = label;
             self.noProductWarnLab = label;
         }else if (arr.count>0){
-         // self.table.tableFooterView.hidden = YES;
-            for (NSDictionary *dic in json[@"ProductList"]) {
+                       for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
-                //self.table.tableFooterView.hidden = YES;
-            }
+                           }
             
             [self.table reloadData];
             NSString *page = [NSString stringWithFormat:@"%@",_page];
@@ -626,6 +624,11 @@
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
     
      [self editButtons ];
+    
+    [self.noProductWarnLab removeFromSuperview];
+    self.table.tableFooterView = nil;
+    self.table.tableFooterView.hidden = YES;
+
     NSString *type = [NSString string];
     if (_selectIndex == nil) {
         self.selectIndex = [NSMutableString stringWithFormat:@"0"];
@@ -1154,7 +1157,7 @@
         self.backToTopBtn.hidden = YES;
     }
     
-    NSInteger count = self.table.contentOffset.y/1360;
+    NSInteger count = self.table.contentOffset.y/1250;
     int totalCount = (int)self.productCount/10;
     if (self.productCount%10>0) {//如果／10还有余数总页码＋1
         totalCount++;
