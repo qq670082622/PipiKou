@@ -16,7 +16,7 @@
 
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
    
    //组dic
@@ -82,7 +82,7 @@
 
 
 + (void)postForRecommendWithURL:(NSString *)url params:(NSDictionary *)params success:(void (^)(id))success failure:(void (^)(NSError *))failure{
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic
@@ -215,7 +215,7 @@
 //          }
 //      }];
     
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic
@@ -283,7 +283,7 @@
 + (void)postWithURL:(NSString *)url params:(NSDictionary *)params formDataArray:(NSArray *)formDataArray success:(void (^)(id))success failure:(void (^)(NSError *))failure
 {
     
-    NSString *normalURL = formalRUL;
+    NSString *normalURL = kWebTestHost;
     NSString *overStr = [normalURL stringByAppendingString:url];
     
     //组dic
