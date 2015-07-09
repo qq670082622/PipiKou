@@ -324,6 +324,7 @@
 		63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1A81B14250E00DE9867 /* NSObject+MJKeyValue.m */; };
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
+		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */; };
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
@@ -902,6 +903,8 @@
 		63F1A1A91B14250E00DE9867 /* NSObject+MJMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJMember.h"; sourceTree = "<group>"; };
 		63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
+		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		7960A5891B39320C00A69E44 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
 		7964F4EF1B437D6500F56EB2 /* BaseClickAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClickAttribute.h; sourceTree = "<group>"; };
@@ -952,6 +955,7 @@
 				636C8B811AC2E20C0097CAE9 /* CoreTelephony.framework in Frameworks */,
 				632EDEAC1AC8FF4D00EE98FC /* libPushSDK-1.8.3.a in Frameworks */,
 				632EDE991AC8FC4500EE98FC /* CoreFoundation.framework in Frameworks */,
+				795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */,
 				632EDE971AC8FC3800EE98FC /* CFNetwork.framework in Frameworks */,
 				636C8B8D1AC2E2740097CAE9 /* libsqlite3.dylib in Frameworks */,
 				636C8B8B1AC2E2520097CAE9 /* libstdc++.dylib in Frameworks */,
@@ -2220,6 +2224,15 @@
 			path = MJExtension;
 			sourceTree = "<group>";
 		};
+		795C96651B4E0FA1006F996F /* UMessage_Sdk_1.1.0 */ = {
+			isa = PBXGroup;
+			children = (
+				795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */,
+				795C96671B4E0FA1006F996F /* UMessage.h */,
+			);
+			path = UMessage_Sdk_1.1.0;
+			sourceTree = "<group>";
+		};
 		7982F1551B33C68C009F878D /* CityPlistTool */ = {
 			isa = PBXGroup;
 			children = (
@@ -2235,6 +2248,7 @@
 				799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */,
 				799F3E0C1B3A512400C14FBB /* MobClick.h */,
 				799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */,
+				795C96651B4E0FA1006F996F /* UMessage_Sdk_1.1.0 */,
 			);
 			path = UMAnalytics_Sdk_3.5.8;
 			sourceTree = "<group>";
@@ -2857,6 +2871,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8/UMessage_Sdk_1.1.0",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ShouKeBao;
@@ -2891,6 +2906,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Umeng",
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8",
+					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8/UMessage_Sdk_1.1.0",
 				);
 				PRODUCT_NAME = ShouKeBao;
 				PROVISIONING_PROFILE = "f35893a4-abeb-4794-a589-edd66563eef0";

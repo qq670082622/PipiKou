@@ -22,7 +22,7 @@
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     return cell;
-}
+} 
 
 -(void)setModal:(rightModal3 *)modal
 {

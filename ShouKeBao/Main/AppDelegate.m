@@ -20,6 +20,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "MeHttpTool.h"
 #import "MobClick.h"
+#import "UMessage.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
