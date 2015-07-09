@@ -78,8 +78,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
-
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -293,6 +293,9 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - jpush信息处理集中在此方法
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    NSLog(@"%@",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
+                  stringByReplacingOccurrencesOfString: @">" withString: @""]
+                 stringByReplacingOccurrencesOfString: @" " withString: @""]);
     [UMessage registerDeviceToken:deviceToken];
     // Required
     [APService registerDeviceToken:deviceToken];
