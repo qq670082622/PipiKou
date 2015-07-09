@@ -49,7 +49,7 @@
     self.view.backgroundColor = [UIColor colorWithRed:240/255.0 green:240/255.0 blue:240/255.0 alpha:1];
     self.loginBtn.layer.cornerRadius = 3;
     self.loginBtn.layer.masksToBounds = YES;
-    self.loginBtn.enabled = NO;
+    self.loginBtn.enabled = YES;
     [self.loginBtn setBackgroundImage:[UIImage imageNamed:@"red-bg"] forState:UIControlStateNormal];
     
     self.imageBg1.image = self.imageBg2.image = [UIImage resizedImageWithName:@"bg_white"];
@@ -164,14 +164,18 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
 // 监听输入
 - (void)accountFieldTextChange:(NSNotification *)noty
 {
-    UITextField *field = (UITextField *)noty.object;
+//    UITextField *field = (UITextField *)noty.object;
     
-    self.loginBtn.enabled = field.text.length;
+//    self.loginBtn.enabled = field.text.length;
 }
 
 // 登录旅行社账号
 - (IBAction)loginAction:(UIButton *)sender
 {
+    if ([self.accountField.text isEqualToString:@""]) {
+        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"账号不能为空" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alert show];
+    }else{
     NSDictionary *param = @{@"LoginName":self.accountField.text,
                             @"LoginPassword":self.passwordField.text};
     
@@ -211,7 +215,7 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     } failure:^(NSError *error) {
         
     }];
-    
+    }
 }
 
 // 退出编辑
