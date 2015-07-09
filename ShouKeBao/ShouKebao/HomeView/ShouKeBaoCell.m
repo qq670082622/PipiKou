@@ -182,8 +182,18 @@
     
     //GoDate
     NSDate *goDate = [NSDate dateWithTimeIntervalSince1970:[model.GoDate doubleValue]];
+    NSLog(@"godate is %@",[goDate formattedTime]);
+    if ([[goDate formattedTime] isEqualToString:@"00:00"]) {
+        NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+        [formatter setDateFormat:@"YYYY-MM-dd"];
+      NSString  *date = [formatter stringFromDate:[NSDate date]];//得到时间戳
+        NSString *last = [date substringFromIndex:date.length-1];//取出时间戳最后一位
+        NSString *new = [NSString stringWithFormat:@"%ld",[last integerValue]+1];//将最后一位的字符数组＋1
+        NSString *strat = [date substringToIndex:9];//取出前9位
+        self.goDate.text = [NSString stringWithFormat:@"%@%@出发",strat,new];//拼接成新的时间戳
+    }else{
     self.goDate.text = [NSString stringWithFormat:@"%@出发",[goDate formattedTime]];
-    
+    }
     // 时间
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[model.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];

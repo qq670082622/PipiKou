@@ -238,6 +238,6 @@
 "NSDateCategory.text9" = "凌晨hh:mm";
 "NSDateCategory.text10" = "上午hh:mm";
 "NSDateCategory.text11" = "下午hh:mm";
-"NSDateCategory.text12" = "晚上hh:mm";
+"NSDateCategory.text12" = "今晚hh:mm";
 "NSDateCategory.text13" = "昨天HH:mm";
 "NSDateCategory.text14" = "今天 %@";
