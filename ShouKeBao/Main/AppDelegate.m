@@ -54,7 +54,7 @@
 //设置请求userAgent
 + (void)initialize {
     // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];//下面mozilla。。。为打印的useragent
     NSString *currentVersion = [NSString stringWithFormat:@"Mozilla/5.0 (iPhone; CPU iPhone OS 8_3 like Mac OS X) AppleWebKit/600.1.4 (KHTML, like Gecko) Mobile/12F69(ios_skbapp_v%@)", [infoDic objectForKey:@"CFBundleVersion"]];
     NSLog(@"%@", currentVersion);
     NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:currentVersion, @"UserAgent", nil];
@@ -130,8 +130,6 @@ void UncaughtExceptionHandler(NSException *exception) {
             [self setLoginRoot];//常规登录
         }
     }
-    
-#pragma -mark莲子统计Lotuseed
     
  
 
@@ -470,15 +468,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     // IOS 7 Support Required
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-}
--(void)getVoice{
-    
-    //添加提示音
-    SystemSoundID messageSound;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
-    
-    AudioServicesPlaySystemSound (messageSound);
 }
 
 //-(void)dealloc
