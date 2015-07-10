@@ -1179,12 +1179,12 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"QRcodeClickInMainView" attributes:dict];
 
-    ScanningViewController *scan = [[ScanningViewController alloc] init];
-    scan.isLogin = YES;
-    [self.navigationController pushViewController:scan animated:YES];
+//    ScanningViewController *scan = [[ScanningViewController alloc] init];
+//    scan.isLogin = YES;
+//    [self.navigationController pushViewController:scan animated:YES];
 
-//    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
-//    [self.navigationController pushViewController:qrc animated:YES];
+    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+    [self.navigationController pushViewController:qrc animated:YES];
 
 }
 
