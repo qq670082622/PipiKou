@@ -444,7 +444,8 @@
     self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
         shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
- 
+ //@"http://r.lvyouquan.cn/KEPicFolder/default/attached/image/20150329/20150329162426_7341.jpg"
+    //http://r.lvyouquan.cn/KEPicFolder/default/attached/skbhead/2015-07-10/5a1c7a31-0dca-47a7-9188-a9f12a89243f.jpg
     NSLog(@"shareDic is %@",shareDic);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
