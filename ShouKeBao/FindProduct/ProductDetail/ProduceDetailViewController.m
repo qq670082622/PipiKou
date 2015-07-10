@@ -385,6 +385,7 @@
 //    NSString * str = [NSString stringWithFormat:@"%@%@%@", self.shareInfo[@"Title"], self.shareInfo[@"Desc"], self.shareInfo[@"Url"]];
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareInfo];
     self.shareInfo = new;
+    NSLog(@"shareInfoIs %@",_shareInfo);
     id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
