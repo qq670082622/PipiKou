@@ -1417,7 +1417,8 @@
 				5A60FC711AE0A93400CDAC4B /* WelcomeView.h */,
 				5A60FC721AE0A93400CDAC4B /* WelcomeView.m */,
 			);
-			path = Welcome;
+			name = Welcome;
+			path = ../../Welcome;
 			sourceTree = "<group>";
 		};
 		5A60FC741AE0A97000CDAC4B /* WelcomeView */ = {
@@ -1446,6 +1447,7 @@
 		5A8216121AD36AB9009388DA /* HomeModel */ = {
 			isa = PBXGroup;
 			children = (
+				5A60FC6C1AE0A8CD00CDAC4B /* Welcome */,
 				5ABA4F641AD7C2E7004AA8F6 /* HomeBase.h */,
 				5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */,
 				5A82161A1AD3843B009388DA /* HomeList.h */,
@@ -2011,7 +2013,6 @@
 				845514F81AC0327E00D588A7 /* Manager */,
 				845514E61ABFFAB500D588A7 /* BaseViewController */,
 				5A52FB701ACEBF220076DAE6 /* FindProduct */,
-				5A60FC6C1AE0A8CD00CDAC4B /* Welcome */,
 				5A52FBB21ACEBF220076DAE6 /* Login */,
 				5A52FBC71ACEBF220076DAE6 /* Me */,
 				5A52FBF41ACEBF220076DAE6 /* Orders */,
