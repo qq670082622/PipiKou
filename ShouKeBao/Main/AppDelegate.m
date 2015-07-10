@@ -421,7 +421,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
     
-    
+//    [self getVoice];
     if (orderUri.length>4) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
@@ -470,6 +470,15 @@ void UncaughtExceptionHandler(NSException *exception) {
     // IOS 7 Support Required
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
+}
+-(void)getVoice{
+    
+    //添加提示音
+    SystemSoundID messageSound;
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"wav"];
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
+    
+    AudioServicesPlaySystemSound (messageSound);
 }
 
 //-(void)dealloc
@@ -588,6 +597,13 @@ void UncaughtExceptionHandler(NSException *exception) {
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
             [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
             
+            //给用户打上友盟标签
+            [UMessage addTag:[NSSet setWithObject:tag]
+                    response:^(id responseObject, NSInteger remain, NSError *error) {
+                        //add your codes
+                    }];
+            [UMessage addAlias:[def objectForKey:UserInfoKeyBusinessID] type:nil response:^(id responseObject, NSError *error) {
+            }];
             self.isAutoLogin = YES;
         }
 
