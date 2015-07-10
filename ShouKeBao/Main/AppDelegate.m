@@ -131,8 +131,6 @@ void UncaughtExceptionHandler(NSException *exception) {
         }
     }
     
-#pragma -mark莲子统计Lotuseed
-    
  
 
 #pragma mark -about shareSDK
@@ -470,15 +468,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     // IOS 7 Support Required
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
-}
--(void)getVoice{
-    
-    //添加提示音
-    SystemSoundID messageSound;
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"wav"];
-    AudioServicesCreateSystemSoundID((__bridge CFURLRef)[NSURL fileURLWithPath:path],&messageSound);
-    
-    AudioServicesPlaySystemSound (messageSound);
 }
 
 //-(void)dealloc

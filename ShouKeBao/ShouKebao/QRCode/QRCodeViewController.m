@@ -104,7 +104,6 @@
     
     [self.captureSession stopRunning];
 }
-
 //实现startReading方法（这可就是重点咯）
 - (BOOL)startReading {
     NSError *error;

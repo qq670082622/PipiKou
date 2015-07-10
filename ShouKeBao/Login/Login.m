@@ -268,7 +268,7 @@
         NSLog(@"-----  %@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1 ) {
-            
+             
             // 保存必要的参数
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
