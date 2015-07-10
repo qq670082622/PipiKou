@@ -13,5 +13,53 @@
             stopOnStyle = "0">
          </BreakpointContent>
       </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "ShouKeBao/ShouKebao/QRCode/userIDTableviewController.m"
+            timestampString = "458204709.174532"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "168"
+            endingLineNumber = "168"
+            landmarkName = "-saveWithRecordAndAddCustomer"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "-[userIDTableviewController saveWithRecordAndAddCustomer]"
+                  moduleName = "ShouKeBao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/ShouKeBao/ShouKeBao/ShouKebao/QRCode/userIDTableviewController.m"
+                  timestampString = "458211076.76118"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "1308">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__57-[userIDTableviewController saveWithRecordAndAddCustomer]_block_invoke"
+                  moduleName = "ShouKeBao"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/David/ShouKeBao/ShouKeBao/ShouKebao/QRCode/userIDTableviewController.m"
+                  timestampString = "458211076.761374"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "168"
+                  endingLineNumber = "168"
+                  offsetFromSymbolStart = "40">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
    </Breakpoints>
 </Bucket>
