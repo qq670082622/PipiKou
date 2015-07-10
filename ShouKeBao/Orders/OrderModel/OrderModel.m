@@ -9,7 +9,7 @@
 #import "OrderModel.h"
 #import "ButtonList.h"
 #import "UIColor+SK.h"
-
+#import "NSMutableDictionary+QD.h"
 @implementation OrderModel
 
 + (instancetype)orderModelWithDict:(NSDictionary *)dict
@@ -21,47 +21,48 @@
 {
     self = [super init];
     if (self) {
-        self.ProgressState = dict[@"ProgressState"];// 进度
+        NSMutableDictionary * dic = [NSMutableDictionary cleanNullResult:dict];
+        self.ProgressState = dic[@"ProgressState"];// 进度
         
-        self.StateText = dict[@"StateText"];// 状态文字
+        self.StateText = dic[@"StateText"];// 状态文字
         
-        self.ProductPicUrl = dict[@"ProductPicUrl"];// 旅游图标
+        self.ProductPicUrl = dic[@"ProductPicUrl"];// 旅游图标
         
         // 状态文字颜色
-        self.StateTextColor = [UIColor configureColorWithNum:[dict[@"StateTextColor"] integerValue]];
+        self.StateTextColor = [UIColor configureColorWithNum:[dic[@"StateTextColor"] integerValue]];
         
         // 上线条颜色
-        self.TopBarColor = [UIColor configureColorWithNum:[dict[@"TopBarColor"] integerValue]];
+        self.TopBarColor = [UIColor configureColorWithNum:[dic[@"TopBarColor"] integerValue]];
         
-        self.ProductName = dict[@"ProductName"];// 旅游标题
+        self.ProductName = dic[@"ProductName"];// 旅游标题
         
-        self.OrderPrice = dict[@"OrderPrice"];// 价格
+        self.OrderPrice = dic[@"OrderPrice"];// 价格
         
-        self.IsCruiseShip = dict[@"IsCruiseShip"];// 是否游轮 是就显示 成人 + 小孩 (人数)
+        self.IsCruiseShip = dic[@"IsCruiseShip"];// 是否游轮 是就显示 成人 + 小孩 (人数)
         
-        self.PersonCount = dict[@"PersonCount"];// 成人数
+        self.PersonCount = dic[@"PersonCount"];// 成人数
         
-        self.ChildCount = dict[@"ChildCount"];// 小孩数
+        self.ChildCount = dic[@"ChildCount"];// 小孩数
         
-        self.CreatedDate = dict[@"CreatedDate"];// 创建时间
+        self.CreatedDate = dic[@"CreatedDate"];// 创建时间
         
-        self.GoDate = dict[@"GoDate"];// 出发时间
+        self.GoDate = dic[@"GoDate"];// 出发时间
         
-        self.Code = dict[@"Code"];// 订单编号
+        self.Code = dic[@"Code"];// 订单编号
         
-        self.DetailLinkUrl = dict[@"DetailLinkUrl"];
+        self.DetailLinkUrl = dic[@"DetailLinkUrl"];
         
-        if (![dict[@"SKBOrder"] isKindOfClass:[NSNull class]]) {
-            self.SKBOrder = dict[@"SKBOrder"];
+        if (![dic[@"SKBOrder"] isKindOfClass:[NSNull class]]) {
+            self.SKBOrder = dic[@"SKBOrder"];
         }
         
-        self.FollowPerson = dict[@"FollowPerson"];
+        self.FollowPerson = dic[@"FollowPerson"];
         
         //获取OrderId用于再次请求后台数据；
-        self.OrderId = dict[@"OrderId"];
+        self.OrderId = dic[@"OrderId"];
         // 返回底部按钮组
-        for (NSDictionary *dic in dict[@"ButtonList"]) {
-            ButtonList *btn = [ButtonList buttonListWithDict:dic];
+        for (NSDictionary *dic2 in dic[@"ButtonList"]) {
+            ButtonList *btn = [ButtonList buttonListWithDict:dic2];
             [self.buttonList addObject:btn];
         }
     }
