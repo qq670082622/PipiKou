@@ -79,7 +79,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
+//    [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -389,7 +389,24 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [UMessage didReceiveRemoteNotification:userInfo];
+//    noticeType：SingleOrder
+//    objectId ：订单Id
+//    objectUri：订单url
+//    
+//    精品推荐推送通知：
+//    noticeType：PerfectProduct
+//    
+//    公告推送通知：
+//    noticeType：SingleArticle
+//    objectId ：公告Id
+//    objectUri：公告url
+//    
+//    线路推送通知：
+//    noticeType：SingleProduct
+//    objectId ：线路Id
+//    objectUri：线路url
     
+    /*
     //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
     NSString *orderId = [userInfo valueForKey:@"orderId"];
     NSString *orderUri = [userInfo valueForKey:@"orderUri"];
@@ -414,20 +431,23 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *messageUri = [userInfo valueForKey:@"messageUri"];
     
     //客户消息提醒
-    //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    */
     
     
-    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
+    NSString *noticeType = [userInfo valueForKey:@"noticeType"];
+    NSString * objID = [userInfo valueForKey:@"objectId"];
+    NSString * objUri = [userInfo valueForKey:@"objectUri"];
+//    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
     
-//    [self getVoice];
-    if (orderUri.length>4) {
+    if ([noticeType isEqualToString:@"SingleOrder"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"orderId"];
-        [arr addObject:orderId];
-        [arr addObject:orderUri];
+        [arr addObject:objID];
+        [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
     }
+    /*
     if (remindContent.length>4) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
@@ -437,29 +457,30 @@ void UncaughtExceptionHandler(NSException *exception) {
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
     }
-    if ([recommond isEqualToString:@"123"]) {
+     */
+    if ([noticeType isEqualToString:@"PerfectProduct"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"recommond"];
-        [arr addObject:recommond];
+        [arr addObject:noticeType];
         [arr addObject:@"123"];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
     }
-    if (productId.length>4) {
+    if ([noticeType isEqualToString:@"SingleProduct"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"productId"];
-        [arr addObject:productId];
-        [arr addObject:productUri];
+        [arr addObject:objID];
+        [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
     }
-    if (messageId.length>4) {
+    if ([noticeType isEqualToString:@"SingleArticle"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"messageId"];
-        [arr addObject:messageId];
-        [arr addObject:messageUri];
+        [arr addObject:objID];
+        [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
     }

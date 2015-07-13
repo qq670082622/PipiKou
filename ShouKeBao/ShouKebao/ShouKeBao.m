@@ -388,7 +388,7 @@
             detail.url = message[2];
             [self.navigationController pushViewController:detail animated:YES];
         }
-        
+        /*
         else if ([message[0] isEqualToString:@"remind"]){//客户提醒
             //跳remindDetail
             NSString *remindTime = message[1];
@@ -399,7 +399,7 @@
             remindDetail.note = remindContent;
             [self.navigationController pushViewController:remindDetail animated:YES];
         }
-        
+        */
         else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
             //精品推荐界面
             //无需参数，直接跳转到精品推荐
