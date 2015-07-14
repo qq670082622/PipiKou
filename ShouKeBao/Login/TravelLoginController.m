@@ -83,7 +83,7 @@
     CGRect screenRect = [UIScreen mainScreen].bounds;
     
     // 注册用户按钮
-   
+  //*********
     CGFloat newW = 25;
     CGFloat newH = 25;
     CGFloat newX = 50;
@@ -114,7 +114,8 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     UIView *line = [[UIView alloc] initWithFrame:CGRectMake(screenRect.size.width/2, newY, 0.5, 35)];
     line.backgroundColor = [UIColor grayColor];
     [self.view addSubview:line];
-   // line.hidden = YES;
+    //******
+//    line.hidden = YES;
     //证照神器
     CGFloat cardX = self.view.frame.size.width - 50 - newW - 5;
     UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY-18, newW+5, newH+18)];
@@ -132,8 +133,10 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     [self.view addSubview:labCard];
     
     [self.view addSubview:card];
-   //labCard.hidden = YES;
-  // card.hidden = YES;
+    
+    //********
+//   labCard.hidden = YES;
+//   card.hidden = YES;
     
 }
 

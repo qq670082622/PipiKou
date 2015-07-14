@@ -21,6 +21,9 @@
 #import "MeHttpTool.h"
 #import "MobClick.h"
 #import "UMessage.h"
+#import "ShouKeBao.h"
+
+
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
@@ -79,7 +82,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-//    [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
+    [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -157,7 +160,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     [ShareSDK connectSMS];
     //连接拷贝
     [ShareSDK connectCopy];
-    
+    /*
 #pragma  mark - about Jpush
     // Required
 #if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
@@ -183,7 +186,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 #endif
     // Required
     [APService setupWithOption:launchOptions];
-    
+   */
     
 #pragma -mark 程序未运行此处处理推送通知
 // NSDictionary *userInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -296,7 +299,7 @@ void UncaughtExceptionHandler(NSException *exception) {
                  stringByReplacingOccurrencesOfString: @" " withString: @""]);
     [UMessage registerDeviceToken:deviceToken];
     // Required
-    [APService registerDeviceToken:deviceToken];
+//    [APService registerDeviceToken:deviceToken];
 }
 
 
@@ -384,7 +387,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     [UMessage didReceiveRemoteNotification:userInfo];   
         // Required
-    [APService handleRemoteNotification:userInfo];
+//    [APService handleRemoteNotification:userInfo];
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
@@ -433,7 +436,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     //客户消息提醒
     */
     
-    
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isReceveNoti"];
     NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     NSString * objID = [userInfo valueForKey:@"objectId"];
     NSString * objUri = [userInfo valueForKey:@"objectUri"];
@@ -484,10 +487,11 @@ void UncaughtExceptionHandler(NSException *exception) {
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
     }
-    
+//    ShouKeBao * SKB = [[ShouKeBao alloc]init];
+//    [self.window.rootViewController presentViewController:SKB animated:YES  completion:nil];
 
     // IOS 7 Support Required
-    [APService handleRemoteNotification:userInfo];
+//    [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNewData);
 }
 
@@ -602,18 +606,29 @@ void UncaughtExceptionHandler(NSException *exception) {
             [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
             [def synchronize];
             
-            // 给用户打上jpush标签
-            [APService setAlias:[def objectForKey:UserInfoKeyBusinessID] callbackSelector:nil object:nil];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
-            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
-            
             //给用户打上友盟标签
-            [UMessage addTag:[NSSet setWithObject:tag]
+            [UMessage addTag:tag
                     response:^(id responseObject, NSInteger remain, NSError *error) {
                         //add your codes
                     }];
-            [UMessage addAlias:[def objectForKey:UserInfoKeyBusinessID] type:nil response:^(id responseObject, NSError *error) {
+            NSString * string = [NSString stringWithFormat:@"business_%@", [def objectForKey:UserInfoKeyBusinessID]];
+            [UMessage addTag:string response:^(id responseObject, NSInteger remain, NSError *error) {
+                NSLog(@"%@", error);
+
             }];
+            NSLog(@"%@%@", string, tag);
+            
+            [UMessage getTags:^(NSSet *responseTags, NSInteger remain, NSError *error) {
+                NSLog(@"%@", responseTags);
+            }];
+            [UMessage removeAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeBaidu response:^(id responseObject, NSError *error) {
+                
+            }];
+            [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeSina response:^(id responseObject, NSError *error) {
+                NSLog(@"%@", error);
+            }];
+            
             self.isAutoLogin = YES;
         }
 
