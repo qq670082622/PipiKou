@@ -173,7 +173,7 @@
             [_delegate finishChoosedTimeArr:tmp andType:self.type];
         }
         [self.navigationController popViewControllerAnimated:YES];
-        NSDictionary * dic = [[NSUserDefaults standardUserDefaults]objectForKey:@"isConformDic"];
+        NSDictionary *dic = [[NSUserDefaults standardUserDefaults]objectForKey:@"isConformDic"];
         [dic setValue:@"1" forKey:@"startData"];
         [[NSUserDefaults standardUserDefaults]synchronize];
     }

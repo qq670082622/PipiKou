@@ -282,6 +282,8 @@
     self.tourTitle.text = model.ProductName;
     // 价格
     NSString *tmp = [NSString stringWithFormat:@"￥%@(同行)",model.OrderPrice];
+
+    //    富文本：NSMutableAttributedString
     NSMutableAttributedString *attrStr = [[NSMutableAttributedString alloc] initWithString:tmp];
     [attrStr addAttributes:@{NSForegroundColorAttributeName:[UIColor orangeColor],
                              NSFontAttributeName:[UIFont boldSystemFontOfSize:17]} range:NSMakeRange(0, model.OrderPrice.length + 1)];
@@ -315,7 +317,9 @@
         [view removeFromSuperview];
     }
     
+//    判断是否有数据，有则布局‘查看客户订单信息’和‘立即采购’控件。
     if (model.buttonList.count) {
+
 //        for (ButtonList *btn in model.buttonList) {
         for (int i = (int)model.buttonList.count-1;i > -1; i--) {
             ButtonList * btn = [model.buttonList objectAtIndex:i];
@@ -329,6 +333,9 @@
             b.contentEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
             b.linkUrl = btn.linkurl;
             b.text = btn.text;
+//            NSLog(@"btn.text= %@", btn.text);
+//            NSLog(@"b.text= %@", b.text);
+
             [b addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
             
             [self.bottomView addSubview:b];
@@ -364,7 +371,7 @@
     CGSize max = CGSizeMake(MAXFLOAT, MAXFLOAT);
     CGFloat btnW = 0;
     
-    for (int i = 0; i < self.buttonArr.count; i ++) {
+    for (int i = 0; i < self.buttonArr.count; i++) {
         
         LinkButton *btn = self.buttonArr[i];
         CGSize btnSize = [NSString textSizeWithText:btn.text font:[UIFont systemFontOfSize:14] maxSize:max];

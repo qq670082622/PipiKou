@@ -208,7 +208,6 @@
             }
         }
     } failure:^(NSError *error) {
-        
     }];
 }
 
@@ -428,6 +427,8 @@
  */
 - (void)createMenuWithSelectedIndex:(NSInteger)SelectedIndex frame:(CGRect)frame dataSource:(NSMutableArray *)dataSource direct:(NSInteger)direct
 {
+    
+//    NSLog(@"fffff");
     self.qdmenu = [[QDMenu alloc] init];
     self.qdmenu.direct = direct;
     self.qdmenu.currentIndex = SelectedIndex;
@@ -513,12 +514,14 @@
     return _coverView;
 }
 
+//点击查看客户详情信息的弹出框内容
 - (DetailView *)detailView
 {
     if (!_detailView) {
         _detailView = [[DetailView alloc] init];
         _detailView.center = self.view.window.center;
         _detailView.bounds = CGRectMake(0, 0, self.view.frame.size.width * 0.8, 272);
+//        _detailView.backgroundColor = [UIColor yellowColor];
     }
     return _detailView;
 }

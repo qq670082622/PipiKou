@@ -33,29 +33,41 @@
 
 - (NSInteger)day:(NSDate *)date{
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+//  获取返回今天的日期
+//    NSLog(@"---- %ld", [components day]);
     return [components day];
 }
 
 
 - (NSInteger)month:(NSDate *)date{
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+  //  获取返回yue
     return [components month];
 }
 
 - (NSInteger)year:(NSDate *)date{
     NSDateComponents *components = [[NSCalendar currentCalendar] components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+//    NSLog(@"--year---- %ld", [components year]);
+//    返回年
     return [components year];
 }
 
 
 - (NSInteger)firstWeekdayInThisMonth:(NSDate *)date{
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    
+
     [calendar setFirstWeekday:1];//1.Sun. 2.Mon. 3.Thes. 4.Wed. 5.Thur. 6.Fri. 7.Sat.
+//   comp 信息为年月日
     NSDateComponents *comp = [calendar components:(NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay) fromDate:date];
+        NSLog(@"--comp---- %@", comp);
+
     [comp setDay:1];
     NSDate *firstDayOfMonthDate = [calendar dateFromComponents:comp];
+//    设定每月的第一天从星期几开始 周日为1
     NSUInteger firstWeekday = [calendar ordinalityOfUnit:NSCalendarUnitWeekday inUnit:NSCalendarUnitWeekOfMonth forDate:firstDayOfMonthDate];
+//    NSLog(@"--firstWeekday---- %ld", firstWeekday);
+//    NSLog(@"--firstDayOfMonthDate---- %@", firstDayOfMonthDate);
+
     return firstWeekday - 1;
 }
 
@@ -67,7 +79,9 @@
 - (NSDate *)lastMonth:(NSDate *)date{
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = -1;
+//    上个月的今天
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
+//    NSLog(@"lastMonth:newDate===== %@", newDate);
     return newDate;
 }
 
@@ -75,6 +89,8 @@
     NSDateComponents *dateComponents = [[NSDateComponents alloc] init];
     dateComponents.month = +1;
     NSDate *newDate = [[NSCalendar currentCalendar] dateByAddingComponents:dateComponents toDate:date options:0];
+//    NSLog(@"nextMonth:newDate===== %@", newDate);
+
     return newDate;
 }
 
@@ -99,7 +115,7 @@
     headlabel.frame           = CGRectMake(0, 0, self.frame.size.width, 25);
     headlabel.textAlignment   = NSTextAlignmentCenter;
     [self addSubview:headlabel];
-    
+//    细横线
     UIView *sep1 = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(headlabel.frame), self.frame.size.width, 0.5)];
     sep1.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];
     [self addSubview:sep1];

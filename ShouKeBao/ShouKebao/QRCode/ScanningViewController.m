@@ -69,6 +69,7 @@
 
 @implementation ScanningViewController
 
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -291,6 +292,23 @@
 {
     [super viewWillAppear:animated];
    // [self defaultToNotifiQRDStartRunning];
+
+    
+////    我们可以通过
+//    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+////    获取对摄像头的访问权限。AVAuthorizationStatus
+//    
+//    NSLog(@"%ld ------999", authStatus);
+//    if(authStatus != AVAuthorizationStatusRestricted || authStatus != AVAuthorizationStatusDenied){
+//        UIAlertView *theAlertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"相机权限受限！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+//        [theAlertView show];
+//        
+//        
+//        return;
+//    
+//    }
+   
+
     
     self.navigationController.navigationBarHidden = NO;
     [MobClick beginLogPageView:@"ShouKeBaoScanningView"];
