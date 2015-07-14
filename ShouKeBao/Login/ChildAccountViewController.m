@@ -21,7 +21,7 @@
 #import "ChildCell.h"
 #import "AppDelegate.h"
 #import "MobClick.h"
-
+#import "UMessage.h"
 @interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,CreatePersonControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -195,8 +195,21 @@
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
             [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
             
-            
-            
+            //给用户打上友盟标签
+            [UMessage addTag:tag
+                    response:^(id responseObject, NSInteger remain, NSError *error) {
+                        //add your codes
+                    }];
+            NSString * string = [NSString stringWithFormat:@"business_%@", [def objectForKey:UserInfoKeyBusinessID]];
+//            [UMessage addTag:string response:nil];
+            [UMessage addTag:string response:^(id responseObject, NSInteger remain, NSError *error) {
+                NSLog(@"%@%ld", responseObject,remain);
+
+            }];
+
+            [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeSina response:^(id responseObject, NSError *error) {
+            }];
+
 //            if ([UserInfo isOnlineUserWithBusinessID:@"1"]) {
 //                [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
 //                NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];

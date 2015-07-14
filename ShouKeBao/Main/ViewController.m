@@ -56,8 +56,8 @@
     
     Me *me = [[Me alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildVc:me title:@"我" image:@"wo2" selectedImage:@"wo"];
-   
     
+    NSLog(@"%@", self.selectedViewController);
 //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithForeground" object:nil];
     
     NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
@@ -67,8 +67,6 @@
     [appIsBack synchronize];
 
 }
-
-
 #pragma  - mark程序在前台时远程推送处理函数
 //-(void)dealPushForeground:(NSNotification *)noti
 //{ //arr[0]是value arr[1]是key

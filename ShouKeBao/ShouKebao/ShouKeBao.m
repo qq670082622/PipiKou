@@ -57,6 +57,9 @@
 #import "SKBNavBarFor6OrP.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "UMessage.h"
+
+
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -107,7 +110,6 @@
     
     [super viewDidLoad];
     
-    
     [self initPull];
        
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
@@ -117,7 +119,6 @@
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isFirst"]intValue] != 1) {
         [self umengLoginRecord];
     }
-    
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -205,6 +206,27 @@
     [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
 
     [APService setTags:[NSSet setWithObject:[def objectForKey:UserInfoKeyBusinessID]] callbackSelector:nil object:nil];
+    //给用户打上友盟标签
+    [UMessage addTag:tag
+            response:^(id responseObject, NSInteger remain, NSError *error) {
+                //add your codes
+            }];
+    NSString * string = [NSString stringWithFormat:@"business_%@", [def objectForKey:UserInfoKeyBusinessID]];
+//    [UMessage addTag:string response:nil];
+    [UMessage addTag:string response:^(id responseObject, NSInteger remain, NSError *error) {
+        
+    }];
+
+    [UMessage getTags:^(NSSet *responseTags, NSInteger remain, NSError *error) {
+        NSLog(@"%@", responseTags);
+    }];
+    [UMessage removeAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:@"appuser" response:^(id responseObject, NSError *error) {
+        
+    }];
+
+    [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeSina response:^(id responseObject, NSError *error) {
+    }];
+
 }
 //设置头部搜索与分站按钮
 -(void)setUpNavBarView
@@ -365,9 +387,17 @@
     //orderId ,userId ,recommond ,productId ,messageId
    
     // [self getVoice];
+    self.tabBarItem.badgeValue = nil;
     [self headerPull];
     [self  getUserInformation];
-   
+    
+    
+//    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isReceveNoti"];
+    
+    
+//    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isReceveNoti"]) {
+        self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
+//    }
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
@@ -435,7 +465,6 @@
             [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
         [self getVoice];
         }
-        
         if ([message[0] isEqualToString:@"messageId"]){//新公告
             BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
             int valueCount = [barButton.badgeValue intValue];
@@ -657,7 +686,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
     self.userName.text =  [UserInfo shareUser].userName;
     [MobClick beginLogPageView:@"ShouKeBao"];
     

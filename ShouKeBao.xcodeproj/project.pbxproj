@@ -2876,7 +2876,7 @@
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ShouKeBao;
-				PROVISIONING_PROFILE = "c1e5c308-8d01-4edf-b797-a3fb0dc06055";
+				PROVISIONING_PROFILE = "d40ee23e-53ae-4be2-8364-515d57a34ddb";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -2910,7 +2910,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8/UMessage_Sdk_1.1.0",
 				);
 				PRODUCT_NAME = ShouKeBao;
-				PROVISIONING_PROFILE = "c1e5c308-8d01-4edf-b797-a3fb0dc06055";
+				PROVISIONING_PROFILE = "d40ee23e-53ae-4be2-8364-515d57a34ddb";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
