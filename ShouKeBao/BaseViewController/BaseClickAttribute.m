@@ -16,6 +16,7 @@
     if (self) {
         self = (BaseClickAttribute *)[NSMutableDictionary dictionaryWithCapacity:1];
      NSDictionary * dic = @{@"SubstationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"], @"DeviceID":[[UIDevice currentDevice].identifierForVendor UUIDString], @"AppUserID":[[NSUserDefaults standardUserDefaults]valueForKey:@"AppUserID"]};
+        NSLog(@"%@", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
         NSLog(@"%@", [[UIDevice currentDevice].identifierForVendor UUIDString]);
     [self addEntriesFromDictionary:dic];
     }

@@ -622,9 +622,9 @@ void UncaughtExceptionHandler(NSException *exception) {
             [UMessage getTags:^(NSSet *responseTags, NSInteger remain, NSError *error) {
                 NSLog(@"%@", responseTags);
             }];
-            [UMessage removeAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeBaidu response:^(id responseObject, NSError *error) {
-                
-            }];
+//            [UMessage removeAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeBaidu response:^(id responseObject, NSError *error) {
+//                
+//            }];
             [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeSina response:^(id responseObject, NSError *error) {
                 NSLog(@"%@", error);
             }];

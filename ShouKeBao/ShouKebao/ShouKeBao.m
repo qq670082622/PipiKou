@@ -1203,7 +1203,6 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
 -(void)codeAction
 {
-   
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"QRcodeClickInMainView" attributes:dict];
 

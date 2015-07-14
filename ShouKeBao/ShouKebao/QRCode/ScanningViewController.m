@@ -81,6 +81,9 @@
     CGFloat cameraH = [[UIScreen mainScreen] bounds].size.height - 94;
     self.camera.view.frame = CGRectMake(0, 0, cameraW, cameraH);
     self.camera.fixOrientationAfterCapture = NO;
+    
+    
+    
     //self.snapButton = self.midOutlet;
 //    [self addObserver:self forKeyPath:@"selectIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
   

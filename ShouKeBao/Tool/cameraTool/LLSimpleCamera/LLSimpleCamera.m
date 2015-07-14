@@ -113,8 +113,8 @@
         
         
         _connection = [self.stillImageOutput connectionWithMediaType:AVMediaTypeVideo];
-        [self setFocalLength:2.0];//1倍正常，2x，3x，4x依次放大
-         
+//        [self setFocalLength:2.0];//1倍正常，2x，3x，4x依次放大
+        
         
         
         [self.session addOutput:self.stillImageOutput];
