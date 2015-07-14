@@ -73,7 +73,7 @@
     scroll.scrollEnabled = YES;
     [self.view addSubview:scroll];
     
-    // weekday
+    // weekday 1-7
     NSArray *array = @[@"日", @"一", @"二", @"三", @"四", @"五", @"六"];
     UIView *weekBg = [[UIView alloc] init];
     weekBg.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];

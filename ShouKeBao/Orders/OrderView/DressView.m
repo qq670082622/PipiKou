@@ -57,7 +57,7 @@
 - (void)setHeader
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.bounds.size.width, 60)];
-    
+//    引入Xib
     UIView *header = [[[NSBundle mainBundle] loadNibNamed:@"DressHeader" owner:nil options:nil] lastObject];
     header.frame = CGRectMake(0, 0, self.bounds.size.width, 50);
     [cover addSubview:header];
