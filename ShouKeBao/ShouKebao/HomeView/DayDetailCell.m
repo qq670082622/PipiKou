@@ -428,8 +428,11 @@
                                  [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    
+                                    
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"RecommendShareSuccess" attributes:dict];
+                                    [MobClick event:@"ShareSuccessAll" attributes:dict];
 
                                     
                                     [self.warningLab removeFromSuperview];

@@ -169,26 +169,29 @@
 {
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
-    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
-    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
-    NSRange range3 = [rightUrl rangeOfString:@"?"];
+//    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+//    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
+//    NSRange range3 = [rightUrl rangeOfString:@"?"];
     
    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
-    if ([rightUrl containsString:@"alipay"]) {
-        
-    }else{
-    if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-        // return YES;
-    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-        // return YES;
-    }else{
-        
-        return YES;
-        }
-    }
+//    if ([rightUrl containsString:@"alipay"]) {
+//        
+//    }else{
+//    if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+//        NSLog(@"%@", [rightUrl stringByAppendingString:_urlSuffix]);
+//         return YES;
+//    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
+//        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+//        NSLog(@"%@", [rightUrl stringByAppendingString:_urlSuffix]);
+//
+//         return YES;
+//    }else{
+//        
+//        return YES;
+//        }
+//    }
     return YES;
 }
 

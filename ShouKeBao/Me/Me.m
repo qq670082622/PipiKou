@@ -34,6 +34,7 @@
 #import "AFNetworking.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "NewVersionWebViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -48,6 +49,8 @@
 @property (nonatomic, copy)NSString * checkVersionLinkUrl;
 @property (nonatomic, strong)MeProgressView *progressView;
 @property (nonatomic, strong)NSDictionary * versionInfoDic;
+@property (nonatomic, copy)NSString * IOSUpdateType;
+
 @end
 
 @implementation Me
@@ -58,8 +61,7 @@
     self.title = @"我";
     
     self.tableView.rowHeight = 50;
-    
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",@"检查更新"*/]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -82,7 +84,7 @@
     //获取版本信息
     NSDictionary * dic = @{};
     [MeHttpTool inspectionWithParam:dic success:^(id json) {
-        self.versionInfoDic = json[@"ios"];
+        self.versionInfoDic = json[@"NewVersion"];
         NSLog(@"self.versionInfoDic = %@", self.versionInfoDic);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
@@ -303,15 +305,20 @@
         btn.on = [[UserInfo shareUser].pushMode integerValue];
         cell.accessoryView = btn;
     }
-    if (indexPath.section == 2 && indexPath.row == 4) {
-        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    NSLog(@"%@", currentVersion);
+    if (indexPath.section == 2 && indexPath.row == 3) {
         if (self.versionInfoDic) {
             if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
                 NSString * verStr = [NSString stringWithFormat:@"最新V%@", self.versionInfoDic[@"VersionCode"]];
-                [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:verStr];
+                [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:verStr withImage:[UIImage imageNamed:@"update_tb.png"]
+                 ];
             }
         }
+    }
+    if (indexPath.section == 2 && indexPath.row == 2) {
+        [WMAnimations  WMNewTableViewCellWithCell:cell withRightStr:[NSString stringWithFormat:@"当前V%@", currentVersion] withImage:nil];
     }
     return cell;
 }
@@ -347,9 +354,11 @@
                 break;
             }
             case 3:{
-               
+                [self checkNewVerSion];
+/*
                 UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"需要发布之后, 才能到appstore评分" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
+ */
 //                NSString *str = [NSString stringWithFormat:
 //                                 @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",
 //                                 587767923];
@@ -363,16 +372,6 @@
             
                 [self checkNewVerSion];
             
-//                NSString * str = @"不再询问";
-//                self.isFindNew = YES;
-//                if (self.isFindNew) {
-//                    UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"请速速更新" delegate:self cancelButtonTitle:str otherButtonTitles:@"立即更新", nil];
-//                    [alertView show];
-//                }else{
-//                    UIAlertView * alertView2 = [[UIAlertView alloc]initWithTitle:@"已更新到最新版本" message:nil delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-//                    [alertView2 show];
-//                }
-                
                 
                 break;
             }
@@ -435,6 +434,7 @@
 }
 #pragma mark - CheckNewVersion
 - (void)checkNewVerSion{
+    /*
         NSString * versionCode = self.versionInfoDic[@"VersionCode"];
         NSArray * versionInfo = self.versionInfoDic[@"VersionInfo"];
         NSMutableString * str = [NSMutableString string];
@@ -455,39 +455,38 @@
             UIAlertView * alertV = [[UIAlertView alloc]initWithTitle:@"已是最新版本" message:[NSString stringWithFormat:@"版本号：%@", versionCode] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alertV show];
         }
+     */
+    self.checkVersionLinkUrl = self.versionInfoDic[@"LinkUrl"];
+    self.IOSUpdateType = [NSString stringWithFormat:@"%@", self.versionInfoDic[@"IOSUpdateType"]];
+    NSString * isMust = @"不再询问";
+    if ([self.versionInfoDic[@"IsMustUpdate"] integerValue] == 1) {
+        isMust = @"退出程序";
+    }
+    NSArray * infoArray = self.versionInfoDic[@"VersionInfo"];
+    NSMutableString * infoString = [NSMutableString stringWithCapacity:1];
+    for (int i = 0; i < infoArray.count; i++) {
+        [infoString appendFormat:@"%d.%@  ",i + 1, [infoArray objectAtIndex:i]];
+    }
+    if ([self.versionInfoDic[@"IsHaveNewVersion"]integerValue] == 1) {
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:infoString delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
+        [alertView show];
+    }else{
+        UIAlertView * alertViewNOVersion = [[UIAlertView alloc]initWithTitle:@"提示" message:@"已是最新版" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertViewNOVersion show];
+    }
+
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        NSURL *URL = [NSURL URLWithString:self.checkVersionLinkUrl];
-        NSURLRequest *request = [NSURLRequest requestWithURL:URL];
-        self.progressView.hidden = NO;
-        //下载请求
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
-        //正确的下载路径 [self getImagePath:@3.zip]
-        
-        //错误的路径
-        //    NSArray *path = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory,  NSUserDomainMask, YES);
-        //    NSString *docPath = [path objectAtIndex:0];
-        
-        //            operation.outputStream = [NSOutputStream outputStreamToFileAtPath:[self getImagePath:@"3.zip"] append:YES];
-        //下载进度回调
-        [operation setDownloadProgressBlock:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
-            //下载进度
-            float progress = ((float)totalBytesRead) / (totalBytesExpectedToRead);
-            self.progressView.progressValue = progress;
-        }];
-        
-        //成功和失败回调
-        [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            self.progressView.hidden = YES;
-            NSLog(@"ok");
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"%@",error);
-            self.progressView.hidden = YES;
-        }];
-        
-        [operation start];
-        
+        //进入更新页面
+        if ([self.IOSUpdateType isEqualToString:@"0"]) {
+            NewVersionWebViewController * NVWVC = [[NewVersionWebViewController alloc]init];
+            NVWVC.LinkUrl = self.checkVersionLinkUrl;
+            [self.navigationController pushViewController:NVWVC animated:YES];
+        }else{
+            //             NSString *string = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/us/app/id%@?mt=8", @"797395756"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.checkVersionLinkUrl]];
+        }
     }else{
         if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
             exit(0);

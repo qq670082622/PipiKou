@@ -23,6 +23,7 @@
 #import "WriteFileManager.h"
 #import "StrToDic.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
@@ -677,6 +678,9 @@
 //        self.photoImg.image = [UIImage imageNamed:@"testCaed"];
 //    }
     if([self.selectedStr isEqualToString:@"身份证"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"ShouKeBaoUserIdScan" attributes:dict];
+
                                        NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
                         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"File/UploadIDCard" params:@{@"FileStreamData":imageStr,@"PictureType":@3}  success:^(id json) {
                             NSLog(@"------图片--图片---json is %@----图片----",json);
@@ -709,7 +713,9 @@
         
         
     }else if([self.selectedStr isEqualToString:@"护照"]){
-        
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"ShouKeBaoPersonIdScan" attributes:dict];
+
         NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"4"}  success:^(id json) {
             NSLog(@"------图片--图片---json is %@----图片----",json);

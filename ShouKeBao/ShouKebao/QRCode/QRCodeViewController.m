@@ -49,10 +49,9 @@
     AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     
     if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
-        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"摄像头访问权限受限" message:@"摄请您到 设置》隐私》相机中将旅游圈权限打开" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"摄像头访问权限受限" message:@"请您到 设置》隐私》相机中将旅游圈权限打开" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
     }else{
-        
     }
     
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;

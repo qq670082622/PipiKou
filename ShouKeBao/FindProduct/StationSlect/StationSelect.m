@@ -113,8 +113,8 @@
     [self.table reloadData];
     
     [self.delegate notifiToReloadData];
-    NSString *normal = @"substation_";
-    [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationNum]] callbackSelector:nil object:nil];
+//    NSString *normal = @"substation_";
+//    [APService setTags:[NSSet setWithObject:[normal stringByAppendingString:_stationNum]] callbackSelector:nil object:nil];
     
     [self.navigationController popViewControllerAnimated:YES];
 

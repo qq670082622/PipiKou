@@ -27,5 +27,6 @@
 +(void)WMNewWebWithScrollView:(UIScrollView *)scroll;
 
 +(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
-                     withRightStr:(NSString *)str;
+                     withRightStr:(NSString *)str
+                        withImage:(UIImage *)image;
 @end

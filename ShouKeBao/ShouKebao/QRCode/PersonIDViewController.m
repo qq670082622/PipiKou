@@ -10,6 +10,7 @@
 #import "ScanningViewController.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface PersonIDViewController ()
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
 
@@ -120,7 +121,10 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoPersonIDView"];
-    [MobClick endLogPageView:@"ShouKeBaoPersonIDView"];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoPersonIDViewNum" attributes:dict];
+//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//    [MobClick event:@"ShoukeBaouserIDTableviewNum" attributes:dict];
 
 //    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
 //    [def setObject:@"0" forKey:@"needLoad"];
@@ -133,7 +137,8 @@
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
+    [MobClick endLogPageView:@"ShouKeBaoPersonIDView"];
+
     [self.timer invalidate];
 }
 

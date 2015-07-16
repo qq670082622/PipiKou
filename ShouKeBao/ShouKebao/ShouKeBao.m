@@ -58,7 +58,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "UMessage.h"
-
+#import "NewVersionWebViewController.h"
 
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
@@ -102,6 +102,9 @@
 @property(nonatomic,assign) CGRect titleViewFrame;
 @property (nonatomic,assign) NSUInteger time;
 @property(nonatomic,strong) NSTimer *pushTime;
+@property (nonatomic, copy)NSString * IOSUpdateType;
+@property (nonatomic, assign)BOOL isFromDowmload;
+@property (nonatomic, assign)BOOL isMustUpdate;
 @end
 
 @implementation ShouKeBao
@@ -109,9 +112,8 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
+    [self checkNewVerSion];
     [self initPull];
-       
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
 
@@ -193,19 +195,20 @@
     
     
 }
+
 //给推送打tag和标签
 -(void)setTagAndAlias
 {
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     // 给用户打上jpush标签
     
-    NSString *alias = [def objectForKey:UserInfoKeyBusinessID];
-    [APService setAlias:alias callbackSelector:nil object:nil];
+//    NSString *alias = [def objectForKey:UserInfoKeyBusinessID];
+//    [APService setAlias:alias callbackSelector:nil object:nil];
    
     NSString *tag = [NSString stringWithFormat:@"substation_%@",[def objectForKey:UserInfoKeySubstation]];
-    [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
-
-    [APService setTags:[NSSet setWithObject:[def objectForKey:UserInfoKeyBusinessID]] callbackSelector:nil object:nil];
+//    [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
+//
+//    [APService setTags:[NSSet setWithObject:[def objectForKey:UserInfoKeyBusinessID]] callbackSelector:nil object:nil];
     //给用户打上友盟标签
     [UMessage addTag:tag
             response:^(id responseObject, NSInteger remain, NSError *error) {
@@ -224,7 +227,7 @@
         
     }];
 
-    [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeSina response:^(id responseObject, NSError *error) {
+    [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:@"appuser" response:^(id responseObject, NSError *error) {
     }];
 
 }
@@ -325,18 +328,22 @@
 - (void)checkNewVerSion{
     NSDictionary * param = @{};
     [MeHttpTool inspectionWithParam:param success:^(id json) {
-        NSDictionary * dic = json[@"ios"];
-        NSLog(@"%@", dic);
-        NSString * versionCode = dic[@"VersionCode"];
+        NSDictionary * dic = json[@"NewVersion"];
+        NSLog(@"%@", json);
         self.checkVersionLinkUrl = dic[@"LinkUrl"];
+        self.IOSUpdateType = [NSString stringWithFormat:@"%@", dic[@"IOSUpdateType"]];
         NSString * isMust = @"不再询问";
-        if ([dic[@"IsMustUpdate"]isEqualToString:@"1"]) {
+        if ([dic[@"IsMustUpdate"] integerValue] == 1) {
+            self.isMustUpdate = YES;
             isMust = @"退出程序";
         }
-        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
-        if (![versionCode isEqualToString:currentVersion]) {
-            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:@"" delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
+        NSArray * infoArray = dic[@"VersionInfo"];
+        NSMutableString * infoString = [NSMutableString stringWithCapacity:1];
+        for (int i = 0; i < infoArray.count; i++) {
+            [infoString appendFormat:@"%d.%@  ",i + 1, [infoArray objectAtIndex:i]];
+        }
+        if ([dic[@"IsHaveNewVersion"]integerValue] == 1) {
+            UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:infoString delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];
             [alertView show];
         }
     } failure:^(NSError *error) {
@@ -345,6 +352,7 @@
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
+        /*
         NSURL *URL = [NSURL URLWithString:self.checkVersionLinkUrl];
         NSURLRequest *request = [NSURLRequest requestWithURL:URL];
         self.progressView.hidden = NO;
@@ -373,7 +381,19 @@
         }];
                       
         [operation start];
-        
+         */
+        if ([self.IOSUpdateType isEqualToString:@"0"]) {
+            NewVersionWebViewController * NVWVC = [[NewVersionWebViewController alloc]init];
+            NVWVC.LinkUrl = self.checkVersionLinkUrl;
+            [NVWVC isFromBlock:^(BOOL isFromDown) {
+                NSLog(@"%d", isFromDown);
+                self.isFromDowmload = isFromDown;
+            }];
+            [self.navigationController pushViewController:NVWVC animated:YES];
+        }else{
+//             NSString *string = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/us/app/id%@?mt=8", @"797395756"];
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.checkVersionLinkUrl]];
+        }
     }else{
         if ([[alertView buttonTitleAtIndex:buttonIndex]isEqualToString:@"退出程序"]) {
             exit(0);
@@ -396,7 +416,6 @@
     
     
 //    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isReceveNoti"]) {
-        self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
 //    }
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
@@ -410,7 +429,8 @@
         
         [appIsBack setObject:@"no" forKey:@"appIsBack"];
         [appIsBack synchronize];
-        
+        self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
+
         if ([message[0] isEqualToString:@"orderId"]) {
             //已经处理的订单在发生变化时发送消息给用户，点击消息直接进入该订单消息的订单详情
             //message[2]是订单url
@@ -455,6 +475,8 @@
         
         else if ([message[0] isEqualToString:@"noticeType"]){
             // [self ringAction];
+        }else{
+        
         }
 
     }else{
@@ -695,13 +717,15 @@
     
     [self getNotifiList];
     
-[self getStationName];
+    [self getStationName];
     
    [self loadContentDataSource];
 
     [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
     self.navBarView.userInteractionEnabled = YES;
-  
+    if (self.isFromDowmload && self.isMustUpdate) {
+        [self checkNewVerSion];
+    }
 }
 
 
@@ -1115,6 +1139,9 @@
                                  [self.warningLab removeFromSuperview];
                                 if (state == SSResponseStateSuccess)
                                 {
+                                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                    [MobClick event:@"ShareSuccessAll" attributes:dict];
+
                                     [self.warningLab removeFromSuperview];
                                     
                                     if (type == ShareTypeCopy) {
@@ -1203,15 +1230,15 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 
 -(void)codeAction
 {
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"QRcodeClickInMainView" attributes:dict];
+//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//    [MobClick event:@"QRcodeClickInMainView" attributes:dict];
+//
+//    ScanningViewController *scan = [[ScanningViewController alloc] init];
+//    scan.isLogin = YES;
+//    [self.navigationController pushViewController:scan animated:YES];
 
-    ScanningViewController *scan = [[ScanningViewController alloc] init];
-    scan.isLogin = YES;
-    [self.navigationController pushViewController:scan animated:YES];
-
-//    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
-//    [self.navigationController pushViewController:qrc animated:YES];
+    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+    [self.navigationController pushViewController:qrc animated:YES];
 
 }
 

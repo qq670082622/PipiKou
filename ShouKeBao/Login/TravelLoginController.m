@@ -17,6 +17,7 @@
 #import "WMNavigationController.h"
 #import "ScanningViewController.h"
 #import "MobClick.h"
+#import "UMessage.h"
 @interface TravelLoginController () <UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
@@ -84,14 +85,14 @@
     
     // 注册用户按钮
   //*********
-    CGFloat newW = 25;
-    CGFloat newH = 25;
-    CGFloat newX = 50;
-    
-    
-//        CGFloat newW = 25;
+//    CGFloat newW = 25;
 //    CGFloat newH = 25;
-//    CGFloat newX = screenRect.size.width/2 - 12.5;
+//    CGFloat newX = 50;
+    
+    
+        CGFloat newW = 25;
+    CGFloat newH = 25;
+    CGFloat newX = screenRect.size.width/2 - 12.5;
 CGFloat newY = screenRect.size.height - newH - 35 - 64;
     
     UIButton *new = [[UIButton alloc] initWithFrame:CGRectMake(newX, newY, newW, newH)];
@@ -115,7 +116,7 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     line.backgroundColor = [UIColor grayColor];
     [self.view addSubview:line];
     //******
-//    line.hidden = YES;
+    line.hidden = YES;
     //证照神器
     CGFloat cardX = self.view.frame.size.width - 50 - newW - 5;
     UIButton *card = [[UIButton alloc] initWithFrame:CGRectMake(cardX, newY-18, newW+5, newH+18)];
@@ -135,8 +136,8 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     [self.view addSubview:card];
     
     //********
-//   labCard.hidden = YES;
-//   card.hidden = YES;
+   labCard.hidden = YES;
+   card.hidden = YES;
     
 }
 
@@ -181,7 +182,8 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
     }else{
     NSDictionary *param = @{@"LoginName":self.accountField.text,
                             @"LoginPassword":self.passwordField.text};
-    
+    [UMessage removeAllTags:^(id responseObject, NSInteger remain, NSError *error) {
+    }];
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     // 请求登录

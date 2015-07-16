@@ -715,7 +715,10 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
                 list.title = title;
                 list.pushedArr = _pushArr;
 
-                
+                NSDictionary * dic = @{@"TwoSubName":key};
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+                [MobClick event:@"FindProductList" attributes:dict];
+
                 [self.navigationController pushViewController:list animated:YES];
                 //  [self.rightTable2 reloadData];
                 
@@ -749,9 +752,6 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
             ProductList *list = [[ProductList alloc] init];
             list.pushedSearchK = key;
             list.title = title;
-        NSDictionary * dic = @{@"TwoSubName":key};
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
-        [MobClick event:@"FindProductList" attributes:dict];
 
         [self.navigationController pushViewController:list animated:YES];
         

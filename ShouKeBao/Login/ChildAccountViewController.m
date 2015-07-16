@@ -191,9 +191,9 @@
             [def synchronize];
             
             // 给用户打上jpush标签
-            [APService setAlias:[def objectForKey:@"BusinessID"] callbackSelector:nil object:nil];
+//            [APService setAlias:[def objectForKey:@"BusinessID"] callbackSelector:nil object:nil];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
-            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
+//            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
             
             //给用户打上友盟标签
             [UMessage addTag:tag

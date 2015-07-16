@@ -261,30 +261,34 @@
     NSRange range3 = [rightUrl rangeOfString:@"?"];
     
 
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
 
     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-        
-        // return YES;
+//        [self doIfInWebWithUrl:rightUrl];
+         return YES;
     }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-        // return YES;
+//        [self doIfInWebWithUrl:rightUrl];
+
+         return YES;
     }else{
-        
+//        [self doIfInWebWithUrl:rightUrl];
         [_indicator startAnimation];
-        
     }
     
     
     
-    if ([rightUrl containsString:@"mqq://"]) {
-        NSLog(@"%@", rightUrl);
-        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
-    }
+        return YES;
+  
+}
+
+- (void)doIfInWebWithUrl:(NSString *)rightUrl{
+//    if ([rightUrl containsString:@"mqq://"]) {
+//        NSLog(@"%@", rightUrl);
+//    }
     
     if (!self.isBack) {
-        
-    
         if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             NSLog(@"%@", [NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]]);
@@ -292,27 +296,25 @@
         }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductWritecontacts", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
-
+            
         }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
-
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductOrderSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
             [MobClick event:@"OrderAll" attributes:dict];
         }
     }
-        return YES;
-  
+
 }
-
-
 -(void)webViewDidFinishLoad:(UIWebView *)webView
-{
+{   [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+
+    NSString *rightUrl = webView.request.URL.absoluteString;
+    [self doIfInWebWithUrl:rightUrl];
     self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
     self.coverView.hidden = YES;
-     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
- NSString *rightUrl = webView.request.URL.absoluteString;
+
     NSLog(@"right Str is %@",rightUrl);
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:rightUrl forKey:@"PageUrl"];
@@ -385,7 +387,7 @@
 //    NSString * str = [NSString stringWithFormat:@"%@%@%@", self.shareInfo[@"Title"], self.shareInfo[@"Desc"], self.shareInfo[@"Url"]];
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareInfo];
     self.shareInfo = new;
-    NSLog(@"shareInfoIs %@",_shareInfo);
+    NSLog(@"shareInfoIs %@",new);
     id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
@@ -411,13 +413,14 @@
                                 if (state == SSResponseStateSuccess)
                                 {
                                     
-                                    
+                                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                    [MobClick event:@"ShareSuccessAll" attributes:dict];
+
                                     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
                                         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                         [MobClick event:@"FromFindProductAllShareSuccess" attributes:dict];
 
                                     }
-                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                         [MobClick event:[NSString stringWithFormat:@"%@ShareSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
 
                                     

@@ -203,44 +203,14 @@
     
     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-        // return YES;
+         return YES;
     }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-        // return YES;
+         return YES;
     }else{
         
         [_indicator startAnimation];
         
-    }
-    if ([rightUrl containsString:@"Product/ProductDetail"]) {
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"OrderDetailProductDetailClick" attributes:dict];
-    }else if([rightUrl containsString:@"Order/SKBOrderCancel"]){
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"OrderDetailOrderCancelClick" attributes:dict];
-
-    }
-    if ([rightUrl containsString:@"/Order/Detail/"]) {
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"OrderDetailClick" attributes:dict];
-
-    }
-    if (self.isBack) {
-        
-    
-    if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"FromOrderDetailProductPrice" attributes:dict];
-    }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"FromOrderDetailProductWritecontacts" attributes:dict];
-        
-    }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-        [MobClick event:@"FromOrderDetailProductOrderSuccess" attributes:dict];
-        [MobClick event:@"OrderAll" attributes:dict];
-
-    }
     }
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"MeCancelMyStore" attributes:dict];
@@ -249,8 +219,48 @@
     return YES;
     
 }
+- (void)doIfInWebWithUrl:(NSString *)rightUrl{
+    
+    if ([rightUrl containsString:@"Product/ProductDetail"]) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderDetailProductDetailClick" attributes:dict];
+    }else if([rightUrl containsString:@"Order/SKBOrderCancel"]){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderDetailOrderCancelClick" attributes:dict];
+        
+    }
+    if ([rightUrl containsString:@"/Order/Detail/"]) {
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrderDetailClick" attributes:dict];
+        
+    }
+    if (self.isBack) {
+        
+        
+        if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"FromOrderDetailProductPrice" attributes:dict];
+        }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"FromOrderDetailProductWritecontacts" attributes:dict];
+            
+        }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"FromOrderDetailProductOrderSuccess" attributes:dict];
+            [MobClick event:@"OrderAll" attributes:dict];
+            
+        }
+    }
+
+}
 -(void)webViewDidFinishLoad:(UIWebView *)webView
-{   self.isBack = NO;
+
+{
+    [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+    NSString *rightUrl = webView.request.URL.absoluteString;
+    [self doIfInWebWithUrl:rightUrl];
+
+    self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
 
     self.rightButton.hidden = YES;

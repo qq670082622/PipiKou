@@ -185,7 +185,8 @@
 
 }
 +(void)WMNewTableViewCellWithCell:(UITableViewCell *)cell
-                     withRightStr:(NSString *)str;
+                     withRightStr:(NSString *)str
+                        withImage:(UIImage *)image;
 {
     UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(K_ScreenWidth - 130, 5, 95, 40)];
     label.font = [UIFont systemFontOfSize:14];
@@ -193,9 +194,11 @@
     label.textAlignment = NSTextAlignmentRight;
     label.text = str;
     [cell.contentView addSubview:label];
-    UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake(86, 12.5, 55, 23)];
-    imgView.image = [UIImage imageNamed:@"update_tb.png"];
-    [cell.contentView addSubview:imgView];
+    if (image) {
+        UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake(86, 12.5, 55, 23)];
+        imgView.image = image;
+        [cell.contentView addSubview:imgView];
+    }
     
 }
 

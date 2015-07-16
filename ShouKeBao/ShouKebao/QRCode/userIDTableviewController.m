@@ -14,6 +14,7 @@
 #import "WMAnimations.h"
 #import "MBProgressHUD+MJ.h"
 #import "MobClick.h"
+#import "BaseClickAttribute.h"
 @interface userIDTableviewController ()<UITextFieldDelegate, UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
@@ -72,6 +73,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+
     [MobClick beginLogPageView:@"ShouKeBaouserIDTableview"];
 }
 - (void)viewWillDisappear:(BOOL)animated{

@@ -13,7 +13,7 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WXApi.h"
 #import <ShareSDK/ShareSDK.h>
-#import "APService.h"
+//#import "APService.h"
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;

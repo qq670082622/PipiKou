@@ -23,7 +23,7 @@
 #import "UMessage.h"
 #import "ShouKeBao.h"
 
-
+//jpush 1a1249b973c6ce482d68fd4f
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
 
@@ -81,12 +81,14 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
     
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
+//    [UMessage registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeNewsstandContentAvailability)];
+
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
-
 //    Class cls = NSClassFromString(@"UMANUtil");
 //    SEL deviceIDSelector = @selector(openUDIDString);
 //    NSString *deviceID = nil;
@@ -160,34 +162,47 @@ void UncaughtExceptionHandler(NSException *exception) {
     [ShareSDK connectSMS];
     //连接拷贝
     [ShareSDK connectCopy];
-    /*
-#pragma  mark - about Jpush
+    
+#pragma  mark - about UMeng
     // Required
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
-    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
-        //可以添加自定义categories
-        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |
-                                                       UIUserNotificationTypeSound |
-                                                       UIUserNotificationTypeAlert)
-                                           categories:nil];
-    } else {
-        //categories 必须为nil
-        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                       UIRemoteNotificationTypeSound |
-                                                       UIRemoteNotificationTypeAlert)
-                                           categories:nil];
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= _IPHONE80_
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        //register remoteNotification types （iOS 8.0及其以上版本）
+        UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
+        action1.identifier = @"action1_identifier";
+        action1.title=@"Accept";
+        action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
+        
+        UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
+        action2.identifier = @"action2_identifier";
+        action2.title=@"Reject";
+        action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
+        action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+        action2.destructive = YES;
+        
+        UIMutableUserNotificationCategory *categorys = [[UIMutableUserNotificationCategory alloc] init];
+        categorys.identifier = @"category1";//这组动作的唯一标示
+        [categorys setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
+        
+        UIUserNotificationSettings *userSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert
+                                                                                     categories:[NSSet setWithObject:categorys]];
+        [UMessage registerRemoteNotificationAndUserNotificationSettings:userSettings];
+        
+    } else{
+        //register remoteNotification types (iOS 8.0以下)
+        [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
+         |UIRemoteNotificationTypeSound
+         |UIRemoteNotificationTypeAlert];
     }
 #else
-    //categories 必须为nil
-    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                   UIRemoteNotificationTypeSound |
-                                                   UIRemoteNotificationTypeAlert)
-                                       categories:nil];
-#endif
-    // Required
-    [APService setupWithOption:launchOptions];
-   */
     
+    //register remoteNotification types (iOS 8.0以下)
+    [UMessage registerForRemoteNotificationTypes:UIRemoteNotificationTypeBadge
+     |UIRemoteNotificationTypeSound
+     |UIRemoteNotificationTypeAlert];
+    
+#endif
 #pragma -mark 程序未运行此处处理推送通知
 // NSDictionary *userInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
 //    
@@ -309,7 +324,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 //若应用程序为关闭状态则调用：didFinishLaunchingWithOptions方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-    
+    [UMessage setAutoAlert:NO];
+
 //    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
 //    NSString *orderId = [userInfo valueForKey:@"orderId"];
 //    NSString *orderUri = [userInfo valueForKey:@"orderUri"];
@@ -391,7 +407,10 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    [UMessage setAutoAlert:NO];
+
     [UMessage didReceiveRemoteNotification:userInfo];
+
 //    noticeType：SingleOrder
 //    objectId ：订单Id
 //    objectUri：订单url
@@ -449,7 +468,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objID];
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-    }
+    }else if
     /*
     if (remindContent.length>4) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -461,7 +480,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         
     }
      */
-    if ([noticeType isEqualToString:@"PerfectProduct"]) {
+    ([noticeType isEqualToString:@"PerfectProduct"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"recommond"];
@@ -469,16 +488,14 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:@"123"];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
-    }
-    if ([noticeType isEqualToString:@"SingleProduct"]) {
+    }else if ([noticeType isEqualToString:@"SingleProduct"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"productId"];
         [arr addObject:objID];
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-    }
-    if ([noticeType isEqualToString:@"SingleArticle"]) {
+    }else if ([noticeType isEqualToString:@"SingleArticle"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"messageId"];
@@ -486,13 +503,17 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
+    }else{
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSArray * array = @[@"elseType", @"", @""];
+        [defaultCenter postNotificationName:@"pushWithBackGround" object:array];
     }
 //    ShouKeBao * SKB = [[ShouKeBao alloc]init];
 //    [self.window.rootViewController presentViewController:SKB animated:YES  completion:nil];
 
     // IOS 7 Support Required
 //    [APService handleRemoteNotification:userInfo];
-    completionHandler(UIBackgroundFetchResultNewData);
+//    completionHandler(UIBackgroundFetchResultNewData);
 }
 
 //-(void)dealloc
@@ -625,7 +646,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //            [UMessage removeAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeBaidu response:^(id responseObject, NSError *error) {
 //                
 //            }];
-            [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeSina response:^(id responseObject, NSError *error) {
+            [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:@"appuser" response:^(id responseObject, NSError *error) {
                 NSLog(@"%@", error);
             }];
             
