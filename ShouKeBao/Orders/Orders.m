@@ -428,7 +428,7 @@
 - (void)createMenuWithSelectedIndex:(NSInteger)SelectedIndex frame:(CGRect)frame dataSource:(NSMutableArray *)dataSource direct:(NSInteger)direct
 {
     
-//    NSLog(@"fffff");
+    NSLog(@"fffff");
     self.qdmenu = [[QDMenu alloc] init];
     self.qdmenu.direct = direct;
     self.qdmenu.currentIndex = SelectedIndex;
@@ -688,6 +688,7 @@
 {
     // 取出模型
     OrderModel *order = self.dataArr[indexPath.section];
+//    order.StateText订单状态 和 DetailLinkUrl进入详情界面的url
     NSLog(@"%@22%@", order.StateText, order.DetailLinkUrl);
     OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detail.url = order.DetailLinkUrl;
@@ -883,6 +884,7 @@
     ButtonDetailViewController *detail = [[ButtonDetailViewController alloc] init];
     detail.linkUrl = url;
     detail.title = title;
+    NSLog(@"detail.title = %@", detail.title);
     if ([detail.title isEqualToString:@"填写游客信息"]) {
         detail.isWriteVisitorsInfo = YES;
     }
