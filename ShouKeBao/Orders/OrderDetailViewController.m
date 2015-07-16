@@ -45,7 +45,7 @@
     [self.view addSubview:self.webView];
     
     self.webView.delegate = self;
-    
+//    加载url
     self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     
     [self.webView loadRequest:self.request];
@@ -66,11 +66,16 @@
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timer = timer;
+//    将方法添加到nsrunloop中
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setRightBtn];
+    
     // [self Guide];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    
+    NSLog(@"jjj %@", infoDictionary);
+    
     CFShow((__bridge CFTypeRef)(infoDictionary));
     
     NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
@@ -149,6 +154,9 @@
 - (void)writeVisitorsInfoWebViewGoBack{
     self.isSave = YES;
     [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"];
+    NSLog(@"$$$$www  %@", [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"]);
+    
+    
     //    [self.webView goBack];
 }
 
@@ -191,14 +199,14 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    
+//    显示详情界面的url
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
+
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
-    
-   
+
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
     
     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
