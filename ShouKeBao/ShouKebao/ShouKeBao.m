@@ -43,7 +43,6 @@
 #import "RemindDetailViewController.h"
 #import "messageDetailViewController.h"
 #import "UserInfo.h"
-#import "APService.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "RecomViewController.h"
 #import "ScanningViewController.h"
@@ -59,7 +58,8 @@
 #import "BaseClickAttribute.h"
 #import "UMessage.h"
 #import "NewVersionWebViewController.h"
-
+#import "Me.h"
+#import "StrToDic.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
@@ -117,10 +117,6 @@
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
 
-    //umeng登录统计,第一次启动app的时候统计一下
-    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"isFirst"]intValue] != 1) {
-        [self umengLoginRecord];
-    }
     
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -169,7 +165,8 @@
     
     // 显示提醒
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
-    [[NSRunLoop currentRunLoop] addTimer:timer forMode:NSRunLoopCommonModes];
+    self.pushTime = timer;
+    [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];//若程序在前台，直接调用，在后台被点击则调用
     
@@ -192,7 +189,12 @@
     [self setTagAndAlias];
 
      [self setUpNavBarView];
-    
+    //第一次加载
+    if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]) {
+        Me * meVC = (Me *)[self.navigationController.tabBarController.viewControllers objectAtIndex:4];
+        meVC.tabBarItem.badgeValue = @"";
+    }
+
     
 }
 
@@ -312,8 +314,6 @@
 
     //下拉
     [self.tableView addHeaderWithTarget:self action:@selector(headerPull)];
-
-    
     self.tableView.headerPullToRefreshText =@"刷新内容";
     self.tableView.headerRefreshingText = @"正在刷新";
 }
@@ -322,6 +322,9 @@
      //[self.tableView headerBeginRefreshing];
     [self loadContentDataSource];
     [self.tableView headerEndRefreshing];
+//    if (self.pushTime) {
+//        [self.pushTime setFireDate:[NSDate distantFuture]];
+//    }
 }
 
 #pragma mark - CheckNewVersion
@@ -426,10 +429,9 @@
      NSString *result = [appIsBack objectForKey:@"appIsBack"];
     
     if ([result isEqualToString:@"yes"]) {
-        
+        self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
         [appIsBack setObject:@"no" forKey:@"appIsBack"];
         [appIsBack synchronize];
-        self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
 
         if ([message[0] isEqualToString:@"orderId"]) {
             //已经处理的订单在发生变化时发送消息给用户，点击消息直接进入该订单消息的订单详情
@@ -795,11 +797,15 @@
 #pragma mark - loadDataSource
 - (void)loadContentDataSource
 {
+
     NSDictionary *param = @{};// 基本参数即可
-    
+
     [HomeHttpTool getIndexContentWithParam:param success:^(id json) {
         NSLog(@"------------------------新接口是%@---------------------",json);
-        
+//        if (self.pushTime) {
+//            [self.pushTime setFireDate:[NSDate distantPast]];
+//        }
+
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
             
             dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
@@ -861,13 +867,14 @@
                     [self.tableView reloadData];
                 });
             });
+            
+
         }
 
     } failure:^(NSError *error) {
         
     }];
 }
-
 
 #pragma mark - private
 //第一次开机引导
@@ -915,7 +922,7 @@
 // 显示提醒
 - (void)showRemind:(NSTimer *)timer
 {
-//    NSLog(@"-----remind-");
+    NSLog(@"-----remind-");
     NSArray *remindArr = [WriteFileManager readData:@"remindData"];
     for (remondModel *remind in remindArr) {
         NSDate *now = [NSDate date];
@@ -1117,6 +1124,9 @@
 {
    
 //构造分享内容
+    NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareDic];
+    self.shareDic = new;
+    NSLog(@"%@", self.shareDic);
     id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
                                        defaultContent:self.shareDic[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]
@@ -1390,8 +1400,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 {
    
     //HomeBase *model = [[HomeBase alloc] init];
-HomeBase    *model = self.dataSource[indexPath.row];
-    
+    HomeBase    *model = self.dataSource[indexPath.row];
     if ([model.model isKindOfClass:[Recommend class]]) {
         
         Recommend *rmodel = model.model;
@@ -1577,13 +1586,6 @@ HomeBase    *model = self.dataSource[indexPath.row];
    
 }
 
-- (void)umengLoginRecord{
-    //友盟统计分站,事件统计
-        NSDictionary *dict = @{@"sustationName" : [[NSUserDefaults standardUserDefaults]valueForKey:@"SubstationName"], @"DistributionID" : [[UserInfo shareUser]valueForKey:@"DistributionID"], @"BusinessID" : [[UserInfo shareUser]valueForKey:@"BusinessID"]};
-        NSLog(@"%@^^^^^^^", dict);
-        [MobClick event:@"sustationUser" attributes:dict];
-        NSLog(@"**********%@*********", [[UserInfo shareUser]valueForKey:@"BusinessID"]);
-}
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self];

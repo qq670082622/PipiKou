@@ -39,13 +39,6 @@
     self.urlSuffix2 = urlSuffix2;
 
     self.title = @"圈付宝";
-    //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
-//    label.textAlignment = NSTextAlignmentCenter;
-//    label.text = @"版权所有  盗版必究";
-//    label.font = [UIFont systemFontOfSize:20];
-//    [self.view addSubview:label];
-//    [self.view sendSubviewToBack:label];
-
     [self.view addSubview:self.webView];
     
     [self loadDataSource];

@@ -262,7 +262,7 @@
   
         [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
     
-     if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
+     if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
        // return YES;
     }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀

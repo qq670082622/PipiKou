@@ -15,7 +15,6 @@
 #import "ShouKeBao.h"
 #import "WMNavigationController.h"
 #import "ResizeImage.h"
-#import "APService.h"
 @interface ViewController ()
 @property (copy,nonatomic) NSMutableString   *skbValue;
 @property (copy ,nonatomic) NSMutableString *fdpValue;

@@ -36,8 +36,6 @@
 - (void)isFromBlock:(ResturnBlock)returnBlock{
     self.block = returnBlock;
 }
--(void)viewDidDisappear:(BOOL)animated{
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -52,7 +50,7 @@
     return _webView;
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-    NSLog(@"%@", request.URL.absoluteString) ;
+    NSLog(@"%@", request.URL.absoluteString);
     return YES;
 }
 /*

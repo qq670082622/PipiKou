@@ -728,35 +728,21 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
         });
         
-        //[self loadDataSourceRight2];
-       
-//                rightModal3 *modal3 = [self.rightMoreArr firstObject];
-//        NSString *key = modal3.searchKey;
-//        NSString *title = modal3.Name;
-//        NSLog(@" key is ~~` ~%@``````````------",key);
-//        ProductList *list = [[ProductList alloc] init];
-//        list.pushedSearchK = key;
-//        list.title = title;
-//        list.pushedArr = _pushArr;
-//        
-//        
-//        [self.navigationController pushViewController:list animated:YES];
+    }
+//    if (tableView.tag ==3 && _rightMoreArr) {
 //
-    
-    }
-    if (tableView.tag ==3 && _rightMoreArr) {
-                  rightModal3 *modal3 = _rightMoreArr[indexPath.row];
-            NSString *key = modal3.searchKey;
-            NSString *title = modal3.Name;
-            NSLog(@" key is ~~` ~%@``````````------",key);
-            ProductList *list = [[ProductList alloc] init];
-            list.pushedSearchK = key;
-            list.title = title;
-
-        [self.navigationController pushViewController:list animated:YES];
-        
-    
-    }
+//                  rightModal3 *modal3 = _rightMoreArr[indexPath.row];
+//            NSString *key = modal3.searchKey;
+//            NSString *title = modal3.Name;
+//            NSLog(@" key is ~~` ~%@``````````------",key);
+//            ProductList *list = [[ProductList alloc] init];
+//            list.pushedSearchK = key;
+//            list.title = title;
+//
+//        [self.navigationController pushViewController:list animated:YES];
+//        
+//    
+//    }
     if (tableView.tag == 4) {
 
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];

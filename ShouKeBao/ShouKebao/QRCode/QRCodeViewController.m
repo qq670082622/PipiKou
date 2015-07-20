@@ -40,6 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
@@ -53,7 +54,14 @@
         [alertView show];
     }else{
     }
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    self.navigationItem.leftBarButtonItem= leftItem;
+
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
     
     CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
@@ -66,6 +74,10 @@
     
     
     
+}
+- (void)back{
+    [self.navigationController popViewControllerAnimated:NO];
+
 }
 #pragma mark 设置焦距
 - (void)setFocalLength:(CGFloat)lengthScale

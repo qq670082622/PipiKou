@@ -23,6 +23,7 @@
 #import "WMAnimations.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "StrToDic.h"
 #define pageSize @"10"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
@@ -403,8 +404,9 @@
     // 取出模型
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     DayDetail *detail = self.dataSource[indexPath.row];
-    NSDictionary *tmp = detail.shareInfo;
-    
+    NSDictionary *tmp2 = detail.shareInfo;
+    NSMutableDictionary *tmp = [StrToDic dicCleanSpaceWithDict:tmp2];
+
     NSLog(@"------分享内容为%@-------------",tmp);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
