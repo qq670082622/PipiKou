@@ -81,11 +81,10 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-//    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+    
     
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
-//    [UMessage registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeNewsstandContentAvailability)];
 
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
@@ -408,58 +407,13 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [UMessage setAutoAlert:NO];
-
     [UMessage didReceiveRemoteNotification:userInfo];
 
-//    noticeType：SingleOrder
-//    objectId ：订单Id
-//    objectUri：订单url
-//    
-//    精品推荐推送通知：
-//    noticeType：PerfectProduct
-//    
-//    公告推送通知：
-//    noticeType：SingleArticle
-//    objectId ：公告Id
-//    objectUri：公告url
-//    
-//    线路推送通知：
-//    noticeType：SingleProduct
-//    objectId ：线路Id
-//    objectUri：线路url
-    
-    /*
-    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
-    NSString *orderId = [userInfo valueForKey:@"orderId"];
-    NSString *orderUri = [userInfo valueForKey:@"orderUri"];
-    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //    客户提示消息推送//    userId（用户Id）
-    NSString *remindTime = [userInfo valueForKey:@"remindTime"];
-    NSString *remindContent = [userInfo valueForKey:@"remindContent"];
-    //NSString *customerUri = [userInfo valueForKey:(NSString *)]
-    
-    //    精品推荐消息推送//    点击进入精品推荐页面，无附加字段
-    NSString  *recommond = [userInfo valueForKey:@"recommond"];
-    // NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //    新线路推荐消息推送//    productId（产品Id）
-    NSString *productUri = [userInfo valueForKey:@"productUri"];
-    NSString *productId = [userInfo valueForKey:@"productId"];
-    //  NSString *noticeType = [userInfo valueForKey:@"noticeType"];
-    
-    //    系统\公告消息推送//    messageId（消息Id）
-    NSString *messageId = [userInfo valueForKey:@"messageId"];
-    NSString *messageUri = [userInfo valueForKey:@"messageUri"];
-    
-    //客户消息提醒
-    */
     
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isReceveNoti"];
     NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     NSString * objID = [userInfo valueForKey:@"objectId"];
     NSString * objUri = [userInfo valueForKey:@"objectUri"];
-//    NSLog(@"--jpush---- orderid is %@ orderUri is%@ remindTime is %@ remindContent is %@  recommond is %@  productid is %@ messageid is %@ ,productUri %@,messageUri is %@",orderId,orderUri, remindTime,remindContent,recommond,productId,messageId,productUri,messageUri);
     
     if ([noticeType isEqualToString:@"SingleOrder"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
@@ -469,17 +423,6 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
     }else if
-    /*
-    if (remindContent.length>4) {
-        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        NSMutableArray *arr = [NSMutableArray array];
-        [arr addObject:@"remind"];
-        [arr addObject:remindTime];
-        [arr addObject:remindContent];
-        [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-        
-    }
-     */
     ([noticeType isEqualToString:@"PerfectProduct"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
@@ -663,7 +606,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
-
 - (void)applicationDidEnterBackground:(UIApplication *)application {//进入后台
     
     NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];

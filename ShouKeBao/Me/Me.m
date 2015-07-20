@@ -18,7 +18,6 @@
 #import "SafeSettingViewController.h"
 #import "UserInfo.h"
 #import "UIImageView+WebCache.h"
-#import "APService.h"
 #import "NSDate+Category.h"
 #import "QuanViewController.h"
 #import "MeHttpTool.h"
@@ -35,6 +34,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "NewVersionWebViewController.h"
+#import "MoneyTreeViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -61,12 +61,12 @@
     self.title = @"我";
     
     self.tableView.rowHeight = 50;
-    self.desArr = @[@[@"我的旅行社",@"圈付宝"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[@[@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
-  
+
     
     // 知道登录类型以后 设置头部
     [self setHeader];
@@ -99,7 +99,10 @@
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"MeNum" attributes:dict];
-
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]&&self.tableView) {
+        [self.tableView reloadData];
+        self.tabBarItem.badgeValue = nil;
+    }
     
     
     _meheader.nickName.text = [UserInfo shareUser].userName;
@@ -268,10 +271,11 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    static NSString *ID = @"mecell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    NSString * string = [NSString stringWithFormat:@"%d", arc4random()];
+//    static NSString *ID = @"mecell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:string];
     if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:ID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:string];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
@@ -287,8 +291,23 @@
                     cell.textLabel.text = nil;
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
-            }else{
+            }else if(indexPath.row == 1){
                 cell.imageView.image = [UIImage imageNamed:@"money"];
+                
+
+                
+                
+            }else{
+/**
+* *摇钱树图片设置
+**/
+                cell.imageView.image = [UIImage imageNamed:@"ip600003"];
+                //第一次加载
+                if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]) {
+                    UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
+                    imgView.image = [UIImage imageNamed:@"yaoqianshu"];
+                    [cell.contentView addSubview:imgView];
+                }
             }
         }else{
             cell.imageView.image = [UIImage imageNamed:@"zhanghu-anquan"];
@@ -388,13 +407,22 @@
                 [MobClick event:@"MeOrgViewClick" attributes:dict];
 
                 [self.navigationController pushViewController:myOrg animated:YES];
-            }else{
+            }else if(indexPath.row == 1){
                 // 圈付宝
                 QuanViewController *quan = [[QuanViewController alloc] init];
-                [self.navigationController pushViewController:quan animated:YES];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeQFBClick" attributes:dict];
 
+                [self.navigationController pushViewController:quan animated:YES];
+
+            }else{
+                MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
+                moneyTreeVC.webTitle = @"摇钱树";
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"MeMoenyTreeClick" attributes:dict];
+
+                [self.navigationController pushViewController:moneyTreeVC animated:YES];
             }
         }else{
             // 第二组 单个 账号安全

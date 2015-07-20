@@ -1,3 +1,4 @@
+
 //
 //  StrToDic.m
 //  piaodaren
@@ -125,14 +126,14 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
             NSRange range2 = [newStr rangeOfString:urlSuffix2];//不带?
             NSRange range3 = [newStr rangeOfString:@"?"];
 
-            if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
+            if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
                 newStr =[NSMutableString stringWithFormat:@"%@",[newStr stringByAppendingString:urlSuffix]];
                
             }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
                  newStr =[NSMutableString stringWithFormat:@"%@",[newStr stringByAppendingString:urlSuffix2]];
             }
             [newDic setObject:newStr forKey:keys[i]];
-
+            NSLog(@"%@", newStr);
         }else if ([keys[i] isEqualToString:@"Pic"]){
             [newDic setObject:newStr forKey:keys[i]];
 

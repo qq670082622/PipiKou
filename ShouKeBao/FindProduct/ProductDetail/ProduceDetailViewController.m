@@ -263,7 +263,7 @@
 
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
 
-    if (range3.location == NSNotFound && range.location != NSNotFound) {//没有问号，没有问号后缀
+    if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
 //        [self doIfInWebWithUrl:rightUrl];
          return YES;
@@ -306,7 +306,8 @@
 
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
-{   [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+{
+    [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
     NSString *rightUrl = webView.request.URL.absoluteString;
     [self doIfInWebWithUrl:rightUrl];
@@ -335,7 +336,9 @@
     }];
 
 }
-
+//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+//    [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
+//}
 -(void)addAlert
 {
     
@@ -428,7 +431,9 @@
                                    //精品推荐填1
                                     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
                                     [postDic setObject:@"0" forKey:@"ShareType"];
-                                    [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                    if (self.shareInfo[@"Url"]) {
+                                        [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                    }
                                     [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"0"} success:^(id json) {
                                     } failure:^(NSError *error) {

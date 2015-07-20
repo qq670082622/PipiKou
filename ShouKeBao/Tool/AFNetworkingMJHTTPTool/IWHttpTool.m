@@ -10,7 +10,6 @@
 #import "AFNetworking.h"
 #import "StrToDic.h"
 #import "UserInfo.h"
-#import "APService.h"
 
 @implementation IWHttpTool
 
@@ -34,7 +33,7 @@
     [tmp setObject:@"1" forKey:@"MobileType"];
     [tmp setObject:currentVersion forKey:@"MobileVersion"];
     [tmp setObject:mobileID forKey:@"MobileID"];
-    
+    NSLog(@"%@", tmp);
     // 分区设置
     if (subStation) {
         [tmp setObject:subStation forKey:@"Substation"];

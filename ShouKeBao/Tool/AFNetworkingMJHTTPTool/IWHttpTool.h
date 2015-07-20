@@ -9,9 +9,13 @@
 #import <Foundation/Foundation.h>
 
 #define kWebServiceHost @"http://app200.lvyouquan.cn/"
-#define formalRUL @"http://app.lvyouquan.cn/"
-#define kWebTestHost @"http://apptest.lvyouquan.cn/"
+//#define kWebTestHost @"http://apptest.lvyouquan.cn/"
 
+
+
+
+#define formalRUL @"http://app.lvyouquan.cn/"
+//#define formalRUL @"http://apptest.lvyouquan.cn/"
 @interface IWHttpTool : NSObject
 /**
  *  发送一个POST请求
