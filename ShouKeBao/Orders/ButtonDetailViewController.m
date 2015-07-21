@@ -11,6 +11,9 @@
 #import "MBProgressHUD+MJ.h"
 #import "BeseWebView.h"
 #import "MobClick.h"
+#import "QRCodeViewController.h"
+#import "ScanningViewController.h"
+#import "BaseClickAttribute.h"
 @interface ButtonDetailViewController()<UIWebViewDelegate>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -191,6 +194,19 @@
     //[MBProgressHUD showSuccess:@"加载完成"];
     //[MBProgressHUD hideAllHUDsForView:self.view animated:YES];
   
+}
+-(void)codeAction
+{
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"QRcodeClickInMainView" attributes:dict];
+    
+    ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isLogin = YES;
+    [self.navigationController pushViewController:scan animated:YES];
+    
+    //    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+    //    [self.navigationController pushViewController:qrc animated:YES];
+    
 }
 
 @end

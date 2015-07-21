@@ -26,8 +26,8 @@
     [MeHttpTool getMeIndexWithParam:@{} success:^(id json) {
         if (json) {
             NSLog(@"-----%@",json);
-            [self loadWithUrl:json[@"QFBLinkUrl"]];
-            self.linkUrl = json[@"QFBLinkUrl"];
+            [self loadWithUrl:json[@"MoneyTreeUrl"]];
+            self.linkUrl = json[@"MoneyTreeUrl"];
         }
     }failure:^(NSError *error){
         
@@ -37,7 +37,7 @@
 - (void)loadWithUrl:(NSString *)url
 {
     //    url = @"http://www.myie9.com/useragent/";
-    url = @"http://m.lvyouquan.cn/MoneyTree";
+//    url = @"http://m.lvyouquan.cn/MoneyTree";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
 }

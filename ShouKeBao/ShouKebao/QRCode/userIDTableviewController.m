@@ -148,6 +148,8 @@
 //同步记录并添加为客户
 -(void)saveWithRecordAndAddCustomer
 {
+    if ([self.nameText.text isEqualToString:@""]||[self.cardText.text isEqualToString:@""]) {
+    
     if (_isLogin) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:self.nameText.text forKey:@"UserName"];
@@ -163,15 +165,16 @@
         }
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:dic];
+        NSLog(@"%@", dic);
         NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
         
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
-        
         [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
             //            2/添加客户
             NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
             [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+            NSLog(@"%@", customerDic);
             [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
                 NSLog(@"添加陈工,json is %@",json);
                           } failure:^(NSError *error) {
@@ -201,7 +204,10 @@
         NSLog(@"dic is %@,---,arr is %@,---,读取的是arr is%@",dic,arr,[WriteFileManager readData:@"record2"]);
         
     }
-    
+    }else{
+        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"", nil];
+        [alert show];
+    }
 
 }
 

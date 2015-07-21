@@ -14,7 +14,8 @@
 #import "BeseWebView.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
-
+#import "ScanningViewController.h"
+#import "QRCodeViewController.h"
 //#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate>
 
@@ -298,4 +299,20 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     self.webView.delegate = nil;
 }
+-(void)codeAction
+{
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"QRcodeClickInMainView" attributes:dict];
+    
+    ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isLogin = YES;
+    [self.navigationController pushViewController:scan animated:YES];
+    
+    //    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
+    //    [self.navigationController pushViewController:qrc animated:YES];
+    
+}
+
+
+
 @end

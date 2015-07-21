@@ -92,7 +92,7 @@
          [self.table reloadData];
     }else if (_isLogin){
 
-        [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"1",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
+        [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"2",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
             
     NSLog(@"纪录json is %@",json);
     NSMutableArray *mua = [NSMutableArray array];
