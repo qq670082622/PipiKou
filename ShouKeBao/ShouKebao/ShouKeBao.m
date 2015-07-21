@@ -1280,8 +1280,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         return cell;
         
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
-        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
-        
+//        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:self.recommendCount];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;  
         cell.recommend = model.model;
         
