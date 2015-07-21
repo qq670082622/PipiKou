@@ -52,6 +52,7 @@
     if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"摄像头访问权限受限" message:@"请您到 设置》隐私》相机中将旅游圈权限打开" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
+        
     }else{
     }
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
