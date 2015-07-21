@@ -121,8 +121,8 @@
 {
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoPersonIDView"];
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"ShouKeBaoPersonIDViewNum" attributes:dict];
+//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//    [MobClick event:@"ShouKeBaoPersonIDViewNum" attributes:dict];
 //    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
 //    [MobClick event:@"ShoukeBaouserIDTableviewNum" attributes:dict];
 

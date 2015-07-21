@@ -83,7 +83,10 @@
     // 调用页面js方法
     [webView stringByEvaluatingJavaScriptFromString:@"viewRegBusinessTab(1)"];
 }
-
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSLog(@"%@",     request.URL.absoluteString);
+    return YES;
+}
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self.navigationController cancelSGProgress];

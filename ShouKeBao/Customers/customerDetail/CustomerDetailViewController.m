@@ -248,6 +248,7 @@
     attachmentViewController *att = [[attachmentViewController alloc] init];
     att.picUrl = _picUrl;
     att.customerId =  _customerId;
+    NSLog(@"%@%@", _customerId, _picUrl);
     [self.navigationController pushViewController:att animated:YES];
     
 }

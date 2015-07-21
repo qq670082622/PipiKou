@@ -138,7 +138,7 @@ void UncaughtExceptionHandler(NSException *exception) {
  
 
 #pragma mark -about shareSDK
-    [ShareSDK registerApp:@"65bcf051bafc"];//appKey
+    [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey
     //QQ空间
     [ShareSDK connectQZoneWithAppKey:@"1104675247"
                            appSecret:@"XNkGBn61TRLlmLZa"
@@ -150,11 +150,11 @@ void UncaughtExceptionHandler(NSException *exception) {
                        tencentOAuthCls:[TencentOAuth class]];
    
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wxe86a3ad3ad6e4d69"
+    [ShareSDK connectWeChatWithAppId:@"wxf7e885da3d7269d5"
                            wechatCls:[WXApi class]];
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wxe86a3ad3ad6e4d69"   //微信APPID
-                           appSecret:@"a085a1da6dd90c73e77b6774a28adfbe"  //微信APPSecret
+    [ShareSDK connectWeChatWithAppId:@"wxf7e885da3d7269d5"   //微信APPID
+                           appSecret:@"2ae2501db00abfe12fd26d4535f75ee0"  //微信APPSecret
                            wechatCls:[WXApi class]];
     
     //连接短信分享
