@@ -337,6 +337,7 @@
 		845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514E81ABFFAD900D588A7 /* SKTableViewController.m */; };
 		845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514EB1ABFFAFB00D588A7 /* SKViewController.m */; };
 		845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514FA1AC032C000D588A7 /* WriteFileManager.m */; };
+		B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -930,6 +931,8 @@
 		845514EB1ABFFAFB00D588A7 /* SKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKViewController.m; sourceTree = "<group>"; };
 		845514F91AC032C000D588A7 /* WriteFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteFileManager.h; sourceTree = "<group>"; };
 		845514FA1AC032C000D588A7 /* WriteFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteFileManager.m; sourceTree = "<group>"; };
+		B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
+		B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1459,6 +1462,8 @@
 		5A8216131AD36AB9009388DA /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */,
+				B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */,
 				5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */,
 				5A8216161AD36AFE009388DA /* ShouKeBaoCell.m */,
 				634469841B342AF7009F7ADF /* messageCellSKBTableViewCell.h */,
@@ -2517,6 +2522,7 @@
 				63E034561AFC995300BD714A /* remondViewController.m in Sources */,
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				5A52FC7E1ACEBF220076DAE6 /* SuggestViewController.m in Sources */,
+				B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */,
 				635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
 				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,

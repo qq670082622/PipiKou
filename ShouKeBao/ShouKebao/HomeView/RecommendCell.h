@@ -35,6 +35,9 @@
 
 
 
-+(instancetype)cellWithTableView:(UITableView *)tableView;
 
++ (instancetype)cellWithTableView:(UITableView *)tableView number:(NSInteger)number;
+
++(instancetype)cellWithCollectionView:(UICollectionView *)collectionView;
++(instancetype)cellWithTableView:(UITableView *)tableView;
 @end
