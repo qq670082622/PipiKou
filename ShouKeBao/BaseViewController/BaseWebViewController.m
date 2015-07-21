@@ -10,7 +10,11 @@
 #import "BeseWebView.h"
 #import "UINavigationController+SGProgress.h"
 #import "MeHttpTool.h"
+#import "YYAnimationIndicator.h"
 @interface BaseWebViewController ()<UIWebViewDelegate>
+@property (nonatomic, copy)NSString *urlSuffix;
+@property (nonatomic, copy)NSString *urlSuffix2;
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 
 @end
 
@@ -18,6 +22,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix2 = urlSuffix2;
+
     [self setUpleftBarButtonItems];
     self.title = self.webTitle;
     [self.view addSubview:self.webView];
@@ -26,6 +38,13 @@
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.linkUrl]];
     [self.webView loadRequest:request];
+    
+    
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    [self.view addSubview:_indicator];
 
     
     
@@ -87,10 +106,34 @@
 #pragma  - mark delegate
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
+    
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
+    
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+    
+    if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+        //        [self doIfInWebWithUrl:rightUrl];
+        return YES;
+    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+        //        [self doIfInWebWithUrl:rightUrl];
+        
+        return YES;
+    }else{
+        //        [self doIfInWebWithUrl:rightUrl];
+        [_indicator startAnimation];
+    }
+    
+    
+    
     return YES;
+    
 }
 
 #pragma mark - UIWebViewDelegate
@@ -102,6 +145,8 @@
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
     [self.navigationController cancelSGProgress];
+    [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

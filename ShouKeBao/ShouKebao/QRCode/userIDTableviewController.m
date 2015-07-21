@@ -148,7 +148,6 @@
 //同步记录并添加为客户
 -(void)saveWithRecordAndAddCustomer
 {
-    if ([self.nameText.text isEqualToString:@""]||[self.cardText.text isEqualToString:@""]) {
     
     if (_isLogin) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
@@ -204,10 +203,6 @@
         NSLog(@"dic is %@,---,arr is %@,---,读取的是arr is%@",dic,arr,[WriteFileManager readData:@"record2"]);
         
     }
-    }else{
-        UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:@"", nil];
-        [alert show];
-    }
 
 }
 
@@ -239,9 +234,13 @@
 
 
 - (IBAction)save:(id)sender {
-  
+    if (![self.nameText.text isEqualToString:@""]&&![self.cardText.text isEqualToString:@""]) {
     [self saveWithRecordAndAddCustomer];
     [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
+    }else{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    }
    
 }
 

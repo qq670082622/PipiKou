@@ -51,7 +51,7 @@
         [MobClick event:@"FromFindProductAll" attributes:dict];
         
     }
-
+    NSLog(@"%d",self.fromType);
 
     self.eventArray = @[@"FromQRcode", @"FromRecommend", @"FromStore", @"FromProductSearch",@"FromFindProduct", @"FromHotProduct", @"FromScanHistory"];
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];

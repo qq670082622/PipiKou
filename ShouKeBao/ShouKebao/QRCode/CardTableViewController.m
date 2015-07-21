@@ -141,10 +141,17 @@
 
 - (IBAction)save:(id)sender {
    
+    if (![self.nameText.text isEqualToString:@""]&&![self.cardNumText.text isEqualToString:@""]) {
+
     [self saveRecordToCustomer];
    
     [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
-   }
+    }else{
+    UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+    [alert show];
+    }
+}
+
 
 -(void)saveRecordToCustomer
 {
