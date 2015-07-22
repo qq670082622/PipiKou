@@ -1151,7 +1151,7 @@
                                 {
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
-
+                                    
                                     [self.warningLab removeFromSuperview];
                                     
                                     if (type == ShareTypeCopy) {
