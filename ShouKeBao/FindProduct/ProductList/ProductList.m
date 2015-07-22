@@ -247,7 +247,7 @@
 -(void)back
 {
     [self refereshSelectData];
-  [self.pushedArr removeAllObjects];
+    [self.pushedArr removeAllObjects];
     
     [self.navigationController popViewControllerAnimated:YES];
 }

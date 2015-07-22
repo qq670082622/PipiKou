@@ -36,18 +36,20 @@
         cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
     
+    
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     
-    
-    NSLog(@"height = %f  %f  %f", cell.bounds.size.width, cell.bounds.size.height, [UIScreen mainScreen].bounds.size.height);
+
     //    int row = (int)(number + 3 - 1)/3;
 //        NSInteger number = 3;
     //判断屏幕的高度
+    
     CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
-//    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     double radious = screenH/667;
+    
 //    double radiousW = screenW/375;
 //     NSLog(@"222   = %f", [UIScreen mainScreen].bounds.size.width);
+    
     
     if ((number/3 == 0 && number != 1)||number == 3) {
         NSLog(@"1kkk");
@@ -89,33 +91,7 @@
         //        NSLog(@"aaa  %f", cell.bounds.size.height);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    //    if (number/3 == 0 && number != 1) {
-    //           NSLog(@"1kkk");
-    //    cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap , picViewGap*2, (cell.bounds.size.width-picViewGap)*number/3, cell.bounds.size.height*3*row/2) collectionViewLayout:flowLayout];
-    //
-    //
-    //    }else if (number == 4){
-    //           NSLog(@"2kkk");
-    //        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap, picViewGap*2, ((cell.bounds.size.width-picViewGap-gap)*number)/(3*2)+gap/2, cell.bounds.size.height*3)collectionViewLayout:flowLayout];
-    //
-    //    }else if (number == 1){
-    //        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap, picViewGap*2, (cell.bounds.size.width-picViewGap), cell.bounds.size.height*3*3/2)collectionViewLayout:flowLayout];
-    //
-    //    }else{
-    //        NSLog(@"3kkk");
-    //     cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap , picViewGap*2, cell.bounds.size.width-picViewGap, cell.bounds.size.height*3*row/2)collectionViewLayout:flowLayout];
-    ////        NSLog(@"aaa  %f", cell.bounds.size.height);
-    //    }
-    
-    
+
     cell.collectionView.backgroundColor = [UIColor whiteColor];
     cell.collectionView.delegate = cell;
     cell.collectionView.dataSource = cell;

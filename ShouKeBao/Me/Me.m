@@ -419,6 +419,7 @@
                 MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
                 moneyTreeVC.webTitle = @"摇钱树";
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
+                
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeMoenyTreeClick" attributes:dict];
 
