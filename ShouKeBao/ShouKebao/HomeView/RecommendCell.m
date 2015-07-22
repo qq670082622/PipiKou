@@ -39,7 +39,7 @@
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     
     
-    NSLog(@"height = %f", cell.bounds.size.width);
+    NSLog(@"height = %f  %f  %f", cell.bounds.size.width, cell.bounds.size.height, [UIScreen mainScreen].bounds.size.height);
     //    int row = (int)(number + 3 - 1)/3;
     //    NSInteger number = 2;
     //判断屏幕的高度
@@ -51,40 +51,40 @@
     if ((number/3 == 0 && number != 1)||number == 3) {
         NSLog(@"1kkk");
         if (screenH == 480) {
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (cell.bounds.size.width-picViewGap)*number/3, (180*radious+25)-2*picViewGap) collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (180*radious+25)-2*picViewGap, (180*radious+25)-2*picViewGap) collectionViewLayout:flowLayout];
         }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (cell.bounds.size.width-picViewGap)*number/3, 180*radious-2*picViewGap) collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, 180*radious-2*picViewGap, 180*radious-2*picViewGap) collectionViewLayout:flowLayout];
         
     }else if (number == 4){
         
         if (screenH == 480) {
             
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, ((cell.bounds.size.width -picViewGap-gap)*number)/(3*2)+gap/2, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
             
         }
         NSLog(@"2kkk");
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, ((cell.bounds.size.width -picViewGap-gap)*number)/(3*2)+gap/2, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
         
     }else if (number == 1){
         if (screenH == 480) {
             
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (cell.bounds.size.width-picViewGap), (270*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (270*radious+25)-2*picViewGap, (270*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
         }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (cell.bounds.size.width-picViewGap), 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2,  270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
         
     }else if (number == 5 || number == 6){
         if (screenH == 480) {
             
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, cell.bounds.size.width-picViewGap-gap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
         }
         
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, cell.bounds.size.width-picViewGap-gap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
     }else{
         NSLog(@"3kkk");
         if (screenH == 480) {
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, cell.bounds.size.width-picViewGap-gap, (400*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, (400*radious+25)-2*picViewGap, (400*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
         }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, cell.bounds.size.width-picViewGap-gap, 368*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, 368*radious-2*picViewGap, 368*radious-2*picViewGap)collectionViewLayout:flowLayout];
         //        NSLog(@"aaa  %f", cell.bounds.size.height);
     }
     
@@ -236,7 +236,7 @@
         CGFloat viewW = imgW;
         CGFloat viewH = imgH;
         NSLog(@"jj %f  %f", viewW, viewH);
-        return CGSizeMake(viewW, viewH);
+        return CGSizeMake(viewH, viewH);
         
     }
     
