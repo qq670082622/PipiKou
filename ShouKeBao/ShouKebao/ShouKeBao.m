@@ -1282,7 +1282,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
 //        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:self.recommendCount];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
@@ -1413,6 +1413,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
         NSLog(@"-----------------radious is %.3f---------",radious);
         
+//        NSInteger count = 3;
+        
         if ( count == 2 || count == 3) {
        
             if (screenH == 480) {
@@ -1445,7 +1447,6 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
                 
                 return 400*radious+25;
             }
-            
             
             return 368*radious;
 

@@ -41,50 +41,51 @@
     
     NSLog(@"height = %f  %f  %f", cell.bounds.size.width, cell.bounds.size.height, [UIScreen mainScreen].bounds.size.height);
     //    int row = (int)(number + 3 - 1)/3;
-    //    NSInteger number = 2;
+//        NSInteger number = 3;
     //判断屏幕的高度
     CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+//    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
     double radious = screenH/667;
-    
-    
+//    double radiousW = screenW/375;
+//     NSLog(@"222   = %f", [UIScreen mainScreen].bounds.size.width);
     
     if ((number/3 == 0 && number != 1)||number == 3) {
         NSLog(@"1kkk");
         if (screenH == 480) {
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (180*radious+25)-2*picViewGap, (180*radious+25)-2*picViewGap) collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, ((180*radious+25)-2*picViewGap)*3, (180*radious+25)-2*picViewGap) collectionViewLayout:flowLayout];
         }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, 180*radious-2*picViewGap, 180*radious-2*picViewGap) collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (180*radious-2*picViewGap)*3, 180*radious-2*picViewGap) collectionViewLayout:flowLayout];
         
     }else if (number == 4){
         
         if (screenH == 480) {
             
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
             
         }
         NSLog(@"2kkk");
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
         
     }else if (number == 1){
         if (screenH == 480) {
             
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, (270*radious+25)-2*picViewGap, (270*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (270*radious+25)-2*picViewGap, (270*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
         }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2,  270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap,  270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
         
     }else if (number == 5 || number == 6){
         if (screenH == 480) {
-            
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+           
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, (((260*radious+25)-2*picViewGap)-gap)*3/2+2*gap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
         }
         
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, ((270*radious-2*picViewGap)-gap)*3/2+2*gap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
     }else{
         NSLog(@"3kkk");
         if (screenH == 480) {
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2, (400*radious+25)-2*picViewGap, (400*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, (400*radious+25)-2*picViewGap, (400*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
         }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2, 368*radious-2*picViewGap, 368*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, 368*radious-2*picViewGap, 368*radious-2*picViewGap)collectionViewLayout:flowLayout];
         //        NSLog(@"aaa  %f", cell.bounds.size.height);
     }
     
@@ -151,7 +152,7 @@
 {
     NSLog(@"mm11 mm self.photosArr.count = %ld", self.photosArr.count);
     return self.photosArr.count;
-    //    return 2;
+//        return 3;
 }
 
 
@@ -180,17 +181,17 @@
     //    CGFloat superiMGW = screenW-2*picViewGap;
     NSLog(@"nnnn %f", screenH);
     NSLog(@"nnnn %f", screenW);
-    
+//    NSInteger number = 3;
     if (self.photosArr.count == 1) {
         CGFloat viewW = screenW;
-        CGFloat viewH = screenH;
+        CGFloat viewH = screenH-gap;
         return CGSizeMake(viewW, viewH);
         
     }else if(self.photosArr.count == 2 || self.photosArr.count == 4){
         NSLog(@"ggg");
         //   collectonView的宽度，高度
         CGFloat superiMGW = screenW-gap;
-        CGFloat superiMGH = screenH-gap*self.photosArr.count/2;
+        CGFloat superiMGH = screenH-gap;
         
         
         //    每排3张 每张的宽度，高度
@@ -202,8 +203,10 @@
         return CGSizeMake(viewW, viewH);
         
     }else if (self.photosArr.count == 5 || self.photosArr.count == 6){
+        NSLog(@"iii");
         CGFloat superiMGW = screenW-2*gap;
-        CGFloat superiMGH = screenH-gap*self.photosArr.count/2;
+//        CGFloat superiMGH = screenH-2*gap;
+        CGFloat superiMGH = screenH-gap;
         
         CGFloat imgW = superiMGW/3;
         CGFloat imgH = superiMGH/2;
@@ -213,7 +216,8 @@
         return CGSizeMake(viewW, viewH);
     }else if (self.photosArr.count == 3){
         CGFloat superiMGW = screenW-2*gap;
-        CGFloat superiMGH = screenH-gap;
+//        CGFloat superiMGH = screenH-gap;
+        CGFloat superiMGH = screenH;
         
         CGFloat imgW = superiMGW/3;
         CGFloat imgH = superiMGH;
@@ -226,7 +230,7 @@
         
         //   collectonView的宽度，高度
         CGFloat superiMGW = screenW-2*gap;
-        CGFloat superiMGH = screenH-3*gap;
+        CGFloat superiMGH = screenH-2*gap;
         
         
         //    每排3张 每张的宽度，高度
@@ -236,7 +240,7 @@
         CGFloat viewW = imgW;
         CGFloat viewH = imgH;
         NSLog(@"jj %f  %f", viewW, viewH);
-        return CGSizeMake(viewH, viewH);
+        return CGSizeMake(viewW, viewH);
         
     }
     
