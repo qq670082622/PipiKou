@@ -253,6 +253,7 @@
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"RecommendShareSuccess" attributes:dict];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
+                                    [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
 
                                     [self.warningLab removeFromSuperview];
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {

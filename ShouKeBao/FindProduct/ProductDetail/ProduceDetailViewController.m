@@ -420,8 +420,10 @@
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
 
                                     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
-                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                         [MobClick event:@"FromFindProductAllShareSuccess" attributes:dict];
+                                    }
+                                    if (self.fromType == FromRecommend) {
+                                        [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
 
                                     }
                                         [MobClick event:[NSString stringWithFormat:@"%@ShareSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];

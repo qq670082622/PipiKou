@@ -434,6 +434,7 @@
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"RecommendShareSuccess" attributes:dict];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
+                                    [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
 
                                     //近期推荐
                                     if (type == ShareTypeCopy) {

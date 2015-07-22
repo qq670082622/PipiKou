@@ -389,7 +389,7 @@
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:arr forKey:@"RecordIds"];
-        
+        NSLog(@"%@", dic);
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
             [self.table reloadData];

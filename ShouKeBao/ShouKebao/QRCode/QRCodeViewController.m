@@ -40,7 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor blackColor];
     self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
@@ -50,7 +50,7 @@
     AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     
     if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
-        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"摄像头访问权限受限" message:@"请您到 设置》隐私》相机中将旅游圈权限打开" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"无法访问相机" message:@"请在【设置->隐私->相机】下允许“旅游圈”访问相机" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
         [alertView show];
         
     }else{
