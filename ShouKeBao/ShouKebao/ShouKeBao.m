@@ -61,8 +61,13 @@
 #import "Me.h"
 #import "StrToDic.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
+@property (nonatomic, strong)RecommendCell *cell;
+@property (nonatomic, strong)BBBadgeBarButtonItem *barButton;
+@property (nonatomic, assign) NSInteger num;
 
+@property (nonatomic, assign)BOOL yesorno;
 @property (weak, nonatomic) IBOutlet UIButton *searchBtn;
+
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;// 搬救兵电话按钮
@@ -109,15 +114,22 @@
 
 @implementation ShouKeBao
 
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+    
+    [self.view addSubview:self.tableView];
+    
     [self checkNewVerSion];
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
-
     
+    NSLog(@"[self getNotifiList]; = ");
+    
+        [self getNotifiList];
+
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
@@ -128,7 +140,7 @@
     
 
     
-    [self.view addSubview:self.tableView];
+//    [self.view addSubview:self.tableView];
     
     // 取出隐藏的数据 看下有没有过期的 有就去掉
     NSDate *now = [NSDate date];
@@ -164,7 +176,7 @@
     [self.phoneBtn addGestureRecognizer:longPress];
     
     // 显示提醒
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:100 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     self.pushTime = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
     
@@ -279,7 +291,10 @@
         [cover addSubview:search];
         
          self.navBarView = cover;
+        
        // [[[UIApplication sharedApplication].windows objectAtIndex:0] addSubview:cover];
+        
+     
         [self.navigationController.navigationBar addSubview:_navBarView];
         
     }else{
@@ -414,7 +429,7 @@
     [self headerPull];
     [self  getUserInformation];
     
-    
+
 //    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isReceveNoti"];
     
     
@@ -486,13 +501,16 @@
         NSString *type = message[0];
         if (type.length>0) {
             self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+            NSLog(@"self.tabBarItem.badgeValue = %@", self.tabBarItem.badgeValue);
+          
             [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+            
         [self getVoice];
         }
         if ([message[0] isEqualToString:@"messageId"]){//新公告
-            BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-            int valueCount = [barButton.badgeValue intValue];
-            barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
+            self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+            int valueCount = [self.barButton.badgeValue intValue];
+            self.barButton.badgeValue = [NSString stringWithFormat:@"%d",valueCount+1];
             
           }
 }
@@ -687,7 +705,7 @@
         NSLog(@"首页公告消息列表%@",json);
         NSMutableArray *arr = json[@"ActivitiesNoticeList"];
         
-        BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+        self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
        
 
         int count = 0;
@@ -698,8 +716,48 @@
                 count += 1;
             }
         }
-        barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
-      
+        
+//        设置角标
+        
+        self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
+        
+        NSLog(@"self.recommendCount = %ld", self.recommendCount);
+        
+        if (self.recommendCount == 0) {
+            
+            if ([self.barButton.badgeValue intValue] == 0) {
+                self.tabBarItem.badgeValue = nil;
+                //                 NSLog(@"1yyyy");
+            }else{
+                self.tabBarItem.badgeValue = self.barButton.badgeValue;
+                //                NSLog(@"2yyyy %@", self.barButton.badgeValue);
+            }
+        }else{
+            
+//            判断隐藏redtip
+            if (self.yesorno == YES) {
+                 NSLog(@"self.yesorno.hidden = %d", self.cell.redTip.hidden);
+                if (count == 0) {
+                    self.tabBarItem.badgeValue = nil;
+                    NSLog(@"nnnnnnnmmm");
+                }else{
+                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
+                }
+//                判断显示redtip
+            }else{
+               
+                NSLog(@"nnn55 nnnnmmm");
+                self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
+            }
+            NSLog(@"self.yesorno = %d", self.yesorno);
+            
+            //
+        }
+        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
+        
+        
+        
+        
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
     }];
@@ -710,6 +768,50 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
+    [self.tableView reloadData];
+    
+    NSLog(@"[super viewWillAppear:animated];");
+    
+//    NSLog(@"serrr = %@", self.tabBarItem.badgeValue);
+//    NSLog(@"serrrself.recommendCount = %ld", self.recommendCount);
+////    self.barButton.badgeValue = @"5";
+////设置tableBar上的角标
+//    
+//    if (self.num == 0) {
+//        NSLog(@"num = %ld", self.num);
+//        if (self.recommendCount != 0) {
+////            tabBar上图标
+//            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.barButton.badgeValue intValue]+1];
+////            App图标上的角标
+//               [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
+//            
+//            NSLog(@"se00 = %@", self.tabBarItem.badgeValue);
+//        }else{
+//            NSLog(@"se = %@", self.tabBarItem.badgeValue);
+//            if ([self.barButton.badgeValue intValue] == 0) {
+//                self.tabBarItem.badgeValue = nil;
+//    //            App图标上的角标
+//                [UIApplication sharedApplication].applicationIconBadgeNumber  = 0;
+//                NSLog(@"s1e = %@", self.tabBarItem.badgeValue);
+//            }else{
+//                self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.barButton.badgeValue intValue]+1];
+//                
+//                [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
+//                NSLog(@"s2e = %@", self.tabBarItem.badgeValue);
+//                
+//            }
+//        }
+//        self.num ++;
+//    }
+////    else{
+////        NSLog(@"self.num = %ld", self.num);
+////        self.tabBarItem.badgeValue = self.barButton.badgeValue;
+////    }
+//    
+//    [UIApplication sharedApplication].applicationIconBadgeNumber  = [self.barButton.badgeValue intValue];
+
+    
     self.userName.text =  [UserInfo shareUser].userName;
     [MobClick beginLogPageView:@"ShouKeBao"];
     
@@ -717,7 +819,7 @@
     [MobClick event:@"ShouKeBaoNum" attributes:dict];
 
     
-    [self getNotifiList];
+//    [self getNotifiList];
     
     [self getStationName];
     
@@ -739,6 +841,12 @@
     [MobClick endLogPageView:@"ShouKeBao"];
     self.navBarView.userInteractionEnabled = NO;
     //[self.navBarView removeFromSuperview];
+    
+//    //            App图标上的角标
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
+    
+    
+    
    }
 
 
@@ -1195,11 +1303,11 @@
     [customButton addTarget:self action:@selector(ringAction) forControlEvents:UIControlEventTouchUpInside];
     [customButton setImage:[UIImage imageNamed:@"lingdang1"] forState:UIControlStateNormal];
     
-    BBBadgeBarButtonItem *barButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
+    self.barButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     
-   barButton.shouldHideBadgeAtZero = YES;
+   self.barButton.shouldHideBadgeAtZero = YES;
     
-    self.navigationItem.leftBarButtonItem = barButton;
+    self.navigationItem.leftBarButtonItem = self.barButton;
     
    
 }
@@ -1217,18 +1325,30 @@
 
 -(void)ringAction
 {
-
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 8;
+    
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"MesseageCenterClick" attributes:dict];
     
     messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
     messgeCenter.delegate = self;
     
-    BBBadgeBarButtonItem *barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
+    self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
    
-self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [barButton.badgeValue intValue]];
-    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+    
+ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
+    
+//     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.barButton.badgeValue intValue]];
+    
+ 
+    
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+
+    
+    NSLog(@"[UIApplication sharedApplication].applicationIconBadgeNumber = %ld", [UIApplication sharedApplication].applicationIconBadgeNumber);
+
    
+    NSLog(@"applicationIconBadgeNumber = %ld", [self.tabBarItem.badgeValue integerValue]);
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
@@ -1280,20 +1400,27 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         return cell;
         
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
+
         
 //        之所以大费周章的取count 就是因为在返回首页的时候指定self.count=0,再执行这个方法点时候会以为图片为0，从而影响CollectionView的布局；
         Recommend *rmodel = model.model;
         NSUInteger count = rmodel.RecommendIndexProductList.count;
         
 //      RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
-        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:count];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.recommend = model.model;
+        self.cell = [RecommendCell cellWithTableView:tableView number:count];
+        self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        NSLog(@"%ld", self.recommendCount);
+//        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+//        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:self.recommendCount];
+        self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+        self.cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
-        cell.redTip.hidden = !(self.recommendCount > 0);
-        
-        return cell;
+        self.cell.redTip.hidden = !(self.recommendCount > 0);
+        self.yesorno = self.cell.redTip.hidden;
+        return self.cell;
         
         
     }else{//客户提醒
@@ -1380,11 +1507,10 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
    [self.navigationController pushViewController:rec animated:YES];
     
     // 刷新下 隐藏红点
+
     self.recommendCount = 0;
        [_tableView reloadData];
-
-    
-    
+ 
 }
 
 
@@ -1528,7 +1654,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 -(void)postwithNotLoginRecord
 {
    NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
-   
+    NSLog(@"arr = %@", arr);
     
     if (arr.count>0) {
     

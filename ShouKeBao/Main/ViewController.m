@@ -36,6 +36,7 @@
 
     
     ShouKeBao *skb = [[ShouKeBao alloc] init];
+    
     [self addChildVc:skb title:@"旅游圈" image:@"skb2" selectedImage:@"skb"];
     
 

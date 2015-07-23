@@ -147,7 +147,10 @@
 //    [self.dataSource addObject:@"test1"];
 //    [self.dataSource addObject:@"test2"];
 //    [self.dataSource addObject:@"test1"];
-    [self.dataSource addObject:_picUrl];
+    NSArray * picArray = [self.picUrl componentsSeparatedByString:@","];
+    for (NSString * str in picArray) {
+        [self.dataSource addObject:str];
+    }
 //    if (_picUrl.length<6) {
 //        [self.dataSource removeAllObjects];
 //        [self.dataSource addObject:@"test1"];
@@ -161,7 +164,7 @@
         //bangdingshouji
         for (int i = 0; i<self.dataSource.count; i++) {
             UIImageView *imgV = [[UIImageView alloc] init];
-            [imgV sd_setImageWithURL:[NSURL URLWithString:_picUrl]];
+            [imgV sd_setImageWithURL:[NSURL URLWithString:[self.dataSource objectAtIndex:i]]];
             int row = i/3;
             int col = i%3;
             CGFloat imgX = marginX + col*(marginX + imgW);
@@ -233,7 +236,6 @@
     NSMutableArray *tagArr = [NSMutableArray array];
     for (UIView *view in arr) {
         [tagArr addObject:[NSString stringWithFormat:@"%ld",(long)view.tag]];
-        
     }
     
     NSMutableArray *selectArr = [NSMutableArray array];
@@ -247,20 +249,21 @@
     int yesInt = [[selectArr firstObject] intValue];//当前被选中的index为几
     NSLog(@"被选中的是第%d个",yesInt);
     
-   // self.imageSuperView.hidden = NO;
-    if (yesInt == 0) {
-        self.imgV.image = [UIImage imageNamed:self.dataSource[0]];
+//    self.imageSuperView.hidden = NO;
+//    if (yesInt == 0) {
+//        self.imgV.image = [UIImage imageNamed:self.dataSource[0]];
+        [self.imgV sd_setImageWithURL:[NSURL URLWithString:[self.dataSource objectAtIndex:yesInt]]];
         MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
         [browserVc showHeadPortrait:self.imgV originUrl:nil];
 
-    }else if (yesInt != 0){
-        self.imgV.image = [UIImage imageNamed:self.dataSource[yesInt - 1]];
-        MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
-        [browserVc showHeadPortrait:self.imgV originUrl:nil];
-        
-
-    }
-    }
+//    }else if (yesInt != 0){
+//        self.imgV.image = [UIImage imageNamed:self.dataSource[yesInt - 1]];
+//        MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
+//        [browserVc showHeadPortrait:self.imgV originUrl:nil];
+//        
+//
+//    }
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

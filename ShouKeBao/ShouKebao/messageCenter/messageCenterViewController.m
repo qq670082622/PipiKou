@@ -68,7 +68,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"MeSosViewController"];
+    [MobClick endLogPageView:@"ShouKeBaoMessageCenterView"];
 
 }
 
