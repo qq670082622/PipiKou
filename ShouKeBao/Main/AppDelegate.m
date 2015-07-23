@@ -140,12 +140,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104675247"
-                           appSecret:@"XNkGBn61TRLlmLZa"
+    [ShareSDK connectQZoneWithAppKey:@"1104705605"
+                           appSecret:@"XKgvuFzR766wGYoW"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104675247"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104705605"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    

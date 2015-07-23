@@ -437,10 +437,14 @@
 
                                     
                                     [self.warningLab removeFromSuperview];
+                                    if (tmp[@"Url"]) {
+                                
+                                    
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];
+                                    }
                                     //今日推荐
                                     if (type == ShareTypeCopy) {
                                         [MBProgressHUD showSuccess:@"拷贝成功"];

@@ -92,12 +92,12 @@
 
 //仅同步记录
 -(void)saveWithRecord{
-    
+
     if (_isLogin) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:self.nameText.text forKey:@"UserName"];
         [dic setObject:self.nationalText.text forKey:@"Nationality"];
-        [dic setObject:self.cardText.text forKey:@"cardNumber"];
+        [dic setObject:self.cardText.text forKey:@"CardNum"];
         [dic setObject:self.bornText.text forKey:@"birthDay"];
         [dic setObject:self.addressText.text forKey:@"address"];
         [dic setObject:_RecordId forKey:@"RecordId"];
@@ -113,6 +113,7 @@
         
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
         
+
         [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
             NSLog(@"同步客户纪录客户成功 返回json is %@",json);
             //            2/添加客户
@@ -128,7 +129,7 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.nameText.text forKey:@"UserName"];
         [dic setObject:self.nationalText.text forKey:@"Nationality"];
-        [dic setObject:self.cardText.text forKey:@"cardNumber"];
+        [dic setObject:self.cardText.text forKey:@"CardNum"];
         [dic setObject:self.bornText.text forKey:@"birthDay"];
         [dic setObject:self.addressText.text forKey:@"address"];
         [dic setObject:_RecordId forKey:@"RecordId"];
@@ -153,7 +154,7 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:self.nameText.text forKey:@"UserName"];
         [dic setObject:self.nationalText.text forKey:@"Nationality"];
-        [dic setObject:self.cardText.text forKey:@"cardNumber"];
+        [dic setObject:self.cardText.text forKey:@"CardNum"];
         [dic setObject:self.bornText.text forKey:@"birthDay"];
         [dic setObject:self.addressText.text forKey:@"address"];
         [dic setObject:_RecordId forKey:@"RecordId"];
@@ -168,7 +169,7 @@
         NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
         
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
-        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
             //            2/添加客户
             NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
@@ -190,7 +191,7 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.nameText.text forKey:@"UserName"];
         [dic setObject:self.nationalText.text forKey:@"Nationality"];
-        [dic setObject:self.cardText.text forKey:@"cardNumber"];
+        [dic setObject:self.cardText.text forKey:@"CardNum"];
         [dic setObject:self.bornText.text forKey:@"birthDay"];
         [dic setObject:self.addressText.text forKey:@"address"];
         [dic setObject:_RecordId forKey:@"RecordId"];

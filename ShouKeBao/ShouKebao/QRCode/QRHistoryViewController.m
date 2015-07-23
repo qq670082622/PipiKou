@@ -392,8 +392,14 @@
         NSLog(@"%@", dic);
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
+
             [self.table reloadData];
-            
+            [MBProgressHUD showSuccess:@"操作成功"];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                [MBProgressHUD hideHUD];
+                [self.navigationController popViewControllerAnimated:YES];
+            });
+
         } failure:^(NSError *error) {
             NSLog(@"批量导入客户失败，返回error is %@",error);
         }];
@@ -417,11 +423,6 @@
     
     [self EditCustomerDetail];
     
-    [MBProgressHUD showSuccess:@"操作成功"];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [MBProgressHUD hideHUD];
-        [self.navigationController popViewControllerAnimated:YES];
-    });
 
 }
 @end
