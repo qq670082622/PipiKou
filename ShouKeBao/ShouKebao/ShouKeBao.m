@@ -118,17 +118,23 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
+   
     
     [self.view addSubview:self.tableView];
+    
+   
+    
+    NSLog(@"rrr recomm = %ld", self.recommendCount);
+
     
     [self checkNewVerSion];
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     
-    NSLog(@"[self getNotifiList]; = ");
+
     
-        [self getNotifiList];
+   
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -168,7 +174,7 @@
     
     [self  getUserInformation];
     
-  //  [self getNotifiList];
+    
     
     // 长按搬救兵 打电话
     UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc] initWithTarget:self action:@selector(longPressCall:)];
@@ -707,7 +713,7 @@
         
         self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
        
-
+  
         int count = 0;
         [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
         for (int i = 0; i<arr.count; i++) {
@@ -718,37 +724,70 @@
         }
         
 //        设置角标
-        
         self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
         
-        NSLog(@"self.recommendCount = %ld", self.recommendCount);
         
-        if (self.recommendCount == 0) {
+        NSLog(@"0000 self.recommendCount = %ld", self.recommendCount);
+        
+// 为0 隐藏1
+        if (self.recommendCount == 0&& self.yesorno == YES) {
             
             if ([self.barButton.badgeValue intValue] == 0) {
                 self.tabBarItem.badgeValue = nil;
-                //                 NSLog(@"1yyyy");
+              
             }else{
                 self.tabBarItem.badgeValue = self.barButton.badgeValue;
-                //                NSLog(@"2yyyy %@", self.barButton.badgeValue);
+         
+             }
+// 为0 不隐藏0
+  
+        }else if (self.recommendCount == 0 &&self.yesorno == NO){
+                    NSLog(@"kkkkkk  ");
+            if ([self.barButton.badgeValue intValue] == 0) {
+                self.tabBarItem.badgeValue = @"1";
+        
+            }else{
+                self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",count+1];
+                
             }
-        }else{
+//   不为0
+        }else if (self.recommendCount != 0){
             
-//            判断隐藏redtip
-            if (self.yesorno == YES) {
-                 NSLog(@"self.yesorno.hidden = %d", self.cell.redTip.hidden);
+     //  判断隐藏redtip
+            if (self.yesorno) {
+                NSLog(@"self.yesorno.hidden = %d", self.yesorno);
                 if (count == 0) {
                     self.tabBarItem.badgeValue = nil;
                     NSLog(@"nnnnnnnmmm");
                 }else{
                     self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
                 }
-//                判断显示redtip
+                
+//     //        ***************************************
+//            }else if (self.num != 0){
+//                if (count == 0) {
+//                    self.tabBarItem.badgeValue = nil;
+//                    NSLog(@"nnnnnnnmmm");
+//                }else{
+//                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
+//                }
+//
+      //        ***************************************
+        
+       //    判断显示redtip＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
             }else{
-               
-                NSLog(@"nnn55 nnnnmmm");
-                self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
+                  NSLog(@"nnnnnnnmmm");
+                if (count == 0) {
+                    self.tabBarItem.badgeValue = @"1";
+                    
+//                    NSLog(@"nnnnnnnmmm");
+                }else{
+                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
+                }
+                
+                
             }
+            
             NSLog(@"self.yesorno = %d", self.yesorno);
             
             //
@@ -768,9 +807,13 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+//    if (self.num == 0) {
+//        self.num++;
+//    }else{
+//    [self.tableView reloadData];
+//    [self.view addSubview:self.tableView];
     
-    [self.tableView reloadData];
-    
+//    }
     NSLog(@"[super viewWillAppear:animated];");
     
 //    NSLog(@"serrr = %@", self.tabBarItem.badgeValue);
@@ -1382,6 +1425,9 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"---rrr22 recomm = %ld", self.recommendCount);
+    
+    
         HomeBase *model = self.dataSource[indexPath.row];
      //[model retain];
     
@@ -1409,17 +1455,42 @@
 //      RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         self.cell = [RecommendCell cellWithTableView:tableView number:count];
         self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
 
-        NSLog(@"%ld", self.recommendCount);
-//        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
-//        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:self.recommendCount];
+        NSLog(@"self.recommendCount)%ld", self.recommendCount);
+
+//
         self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
         self.cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
-        self.cell.redTip.hidden = !(self.recommendCount > 0);
-        self.yesorno = self.cell.redTip.hidden;
+//        self.cell.redTip.hidden = !(self.recommendCount > 0);
+//        self.yesorno = self.cell.redTip.hidden;
+        
+        if (!(self.recommendCount > 0)) {
+            self.cell.redTip.hidden = !(self.recommendCount > 0);
+//            隐藏
+            self.yesorno = 0;
+        }else{
+           
+//          显示
+            self.yesorno = 1;
+
+        }
+        
+        
+        
+         NSLog(@" -----self.yesorno = %d --- self.recommendCount)%ld", self.yesorno, self.recommendCount);
+        
+//        if (self.num == 0) {
+//            self.num ++;
+//        }
+        
+        NSLog(@"red self.num = %ld", self.num);
+        
+        [self getNotifiList];
+        
         return self.cell;
         
         
@@ -1429,8 +1500,9 @@
         cell.remind = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
+        
     }
-
+  
 }
 
 
@@ -1461,9 +1533,8 @@
         
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"RecommendClick" attributes:dict];
-
-        
-        
+//******************************
+     
         Recommend *mo = model.model;
         NSString *createDate = mo.CreatedDate;
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -1507,7 +1578,7 @@
    [self.navigationController pushViewController:rec animated:YES];
     
     // 刷新下 隐藏红点
-
+    NSLog(@"y_________");
     self.recommendCount = 0;
        [_tableView reloadData];
  
