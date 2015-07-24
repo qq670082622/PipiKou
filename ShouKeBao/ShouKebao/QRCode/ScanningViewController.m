@@ -84,7 +84,16 @@
     self.camera.view.frame = CGRectMake(0, 0, cameraW, cameraH);
     self.camera.fixOrientationAfterCapture = NO;
     
+    //判断摄像头访问权限
+    NSString * mediaType = AVMediaTypeVideo;
+    AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     
+    if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"无法访问相机" message:@"请在【设置->隐私->相机】下允许“旅游圈”访问相机" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }else{
+    }
+
     
     //self.snapButton = self.midOutlet;
 //    [self addObserver:self forKeyPath:@"selectIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];

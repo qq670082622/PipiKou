@@ -37,7 +37,10 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
+   
+    
+//     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
+//    [center postNotificationName:@"pushWithBackGround" object:nil];
     
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
@@ -81,6 +84,22 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+    
+    
+//        NSLog(@"gggg...");
+//  
+//    
+//    float sysVersion=[[UIDevice currentDevice]systemVersion].floatValue;
+//    if (sysVersion>=8.0) {
+//        UIUserNotificationType type=UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
+//        UIUserNotificationSettings *setting=[UIUserNotificationSettings settingsForTypes:type categories:nil];
+//        
+//        [[UIApplication sharedApplication]registerUserNotificationSettings:setting];
+//    }
+//    
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 10;
+    
+   
     
     
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
@@ -186,6 +205,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         
         UIUserNotificationSettings *userSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeBadge|UIUserNotificationTypeSound|UIUserNotificationTypeAlert
                                                                                      categories:[NSSet setWithObject:categorys]];
+        
         [UMessage registerRemoteNotificationAndUserNotificationSettings:userSettings];
         
     } else{
@@ -201,6 +221,7 @@ void UncaughtExceptionHandler(NSException *exception) {
      |UIRemoteNotificationTypeSound
      |UIRemoteNotificationTypeAlert];
     
+  
 #endif
 #pragma -mark 程序未运行此处处理推送通知
 // NSDictionary *userInfo = [launchOptions objectForKey: UIApplicationLaunchOptionsRemoteNotificationKey];
@@ -299,7 +320,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    lable.text = str;
 //    lable.numberOfLines = 0;
 //    [self.window addSubview:lable];
-    
+    //    NSLog(@"gggg...");
+ 
 //    
     return YES;
     //后台返回一个字典包含:messageId,noticeType,_j_msgid,messageUri,aps(5个)
@@ -308,6 +330,10 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 #pragma mark - jpush信息处理集中在此方法
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    
+    
+    
+    
     NSLog(@"%@",[[[[deviceToken description] stringByReplacingOccurrencesOfString: @"<" withString: @""]
                   stringByReplacingOccurrencesOfString: @">" withString: @""]
                  stringByReplacingOccurrencesOfString: @" " withString: @""]);
@@ -322,6 +348,14 @@ void UncaughtExceptionHandler(NSException *exception) {
 //若应用程序在前期，会直接调用
 //若应用程序为关闭状态则调用：didFinishLaunchingWithOptions方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    
+    
+//    [UIApplication sharedApplication].applicationIconBadgeNumber = 9;
+    
+    
+    
+    
+    
     
     [UMessage setAutoAlert:NO];
 
@@ -406,6 +440,18 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    
+    NSInteger number = 0;
+    number ++;
+    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
+        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+        
+    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground){
+        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+    }
+    
+    
+    
     [UMessage setAutoAlert:NO];
     [UMessage didReceiveRemoteNotification:userInfo];
 
