@@ -391,6 +391,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
     //[MobClick event:@"searchInpageTwo"];
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductSearchList" attributes:dict];
+
     SearchProductViewController *SPVC = [[SearchProductViewController alloc] init];
     SPVC.isFromFindProduct = YES;
     [self.navigationController pushViewController:SPVC animated:NO];

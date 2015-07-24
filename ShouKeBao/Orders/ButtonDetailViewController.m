@@ -14,7 +14,10 @@
 #import "QRCodeViewController.h"
 #import "ScanningViewController.h"
 #import "BaseClickAttribute.h"
-@interface ButtonDetailViewController()<UIWebViewDelegate>
+#import "userIDTableviewController.h"  
+#import "CardTableViewController.h"
+#import "JSONKit.h"
+@interface ButtonDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
 @property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,assign) int webLoadCount;
@@ -62,6 +65,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"OrdersButtonDetailView"];
+    if (self.userInfoDic) {
+        NSLog(@"%@", self.userInfoDic);
+    }
+
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -147,6 +154,10 @@
 {
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
+    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
+        [self codeAction];
+        return NO;
+    }
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
@@ -202,11 +213,23 @@
     
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = YES;
+    scan.VC = self;
+    scan.isFromOrder = YES;
     [self.navigationController pushViewController:scan animated:YES];
     
     //    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
     //    [self.navigationController pushViewController:qrc animated:YES];
     
 }
+- (void)giveJSCardScanningCallBackJson:(NSDictionary*)dic{
+    //    NSDictionary * dic = @{@"Name":@"tom",@"Sex":@"1(男)/0(女)",@"CardType":@"0(身份证)/1(护照)",@"出生日期":@"1900-01-01"};
+    NSString * jsonStr = [dic JSONString];
+    NSLog(@"%@", jsonStr);
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"LYQSKBAPP_OpenCardScanning_CallBack(%@, '%@')", @1, jsonStr]];
+}
 
+
+-(void)writeDelegate:(NSDictionary *)dic{
+    [self giveJSCardScanningCallBackJson:dic];
+}
 @end

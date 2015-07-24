@@ -14,6 +14,12 @@
 -(void)toIfPush2;
 
 @end
+@protocol DelegateToOrder <NSObject>
+
+- (void)writeDelegate:(NSDictionary *)dic;
+
+@end
+
 @interface userIDTableviewController : SKTableViewController
 //json[@"Address"],json[@"BirthDay"],json[@"CardNum"],json[@"Nation"],json[@"Sex"],json[@"UserName"]
 @property(nonatomic,copy) NSString *address;
@@ -26,6 +32,10 @@
 @property (copy,nonatomic) NSMutableString *ModifyDate;
 @property(nonatomic,assign) BOOL isLogin;
 @property (copy,nonatomic) NSString *PicUrl;
+@property(nonatomic,assign) BOOL isFromOrder;
+@property (nonatomic, assign)BOOL isIDCard;
+@property (nonatomic, strong)id VC;
+@property (nonatomic, assign)id delegateToOrder;
 
 @property(nonatomic,weak) id<toIfPush2>delegate;
 

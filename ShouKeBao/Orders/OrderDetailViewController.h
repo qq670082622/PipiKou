@@ -13,5 +13,6 @@
 @interface OrderDetailViewController : SKTableViewController
 
 @property (nonatomic,copy) NSString *url;
+@property (nonatomic, strong)NSDictionary * userInfoDic;
 
 @end

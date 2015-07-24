@@ -235,12 +235,30 @@
 
 
 - (IBAction)save:(id)sender {
+    if (self.isFromOrder) {
+        NSString * cardtye = self.isIDCard?@"0":@"1";
+        NSString * sexx = [self.sex isEqualToString:@"男"]?@"0":@"1";
+        NSMutableString * infoString = [NSMutableString string];
+        [infoString appendString:[self.bornText.text componentsSeparatedByString:@"年"][0]];
+        NSString * str2 = [self.bornText.text componentsSeparatedByString:@"年"][1];
+        [infoString appendFormat:@"-%@", [str2 componentsSeparatedByString:@"月"][0]];
+        NSString * str3 = [str2 componentsSeparatedByString:@"月"][1];
+        [infoString appendFormat:@"-%@", [str3 componentsSeparatedByString:@"日"][0]];
+
+        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardText.text};
+        NSLog(@"%@", dic);
+        self.delegateToOrder = self.VC;
+        [self.delegateToOrder writeDelegate:dic];
+
+        [self.navigationController popToViewController:self.VC animated:YES];
+    }else{
     if (![self.nameText.text isEqualToString:@""]&&![self.cardText.text isEqualToString:@""]) {
     [self saveWithRecordAndAddCustomer];
     [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
     }else{
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
+    }
     }
    
 }

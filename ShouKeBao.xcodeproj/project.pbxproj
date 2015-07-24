@@ -320,6 +320,8 @@
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */; };
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
+		796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C4D4C1B60CEF6008EBAFE /* WebKit.framework */; };
+		796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 796C4D501B60E90C008EBAFE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		796FBA011B58AE7B009C75AF /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA001B58AE7B009C75AF /* BaseWebViewController.m */; };
 		796FBA041B58B5BC009C75AF /* MoneyTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */; };
 		797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797E56591B56569C00154C55 /* NewVersionWebViewController.m */; };
@@ -897,6 +899,9 @@
 		7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
 		7964F4EF1B437D6500F56EB2 /* BaseClickAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClickAttribute.h; sourceTree = "<group>"; };
 		7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseClickAttribute.m; sourceTree = "<group>"; };
+		796C4D4C1B60CEF6008EBAFE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		796C4D4F1B60E90C008EBAFE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
+		796C4D501B60E90C008EBAFE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		796FB9FF1B58AE7A009C75AF /* BaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
 		796FBA001B58AE7B009C75AF /* BaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		796FBA021B58B5BC009C75AF /* MoneyTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyTreeViewController.h; sourceTree = "<group>"; };
@@ -940,6 +945,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */,
 				636C8B891AC2E23C0097CAE9 /* MessageUI.framework in Frameworks */,
 				636C8B871AC2E22D0097CAE9 /* Security.framework in Frameworks */,
 				636C8B7D1AC2E1F90097CAE9 /* SystemConfiguration.framework in Frameworks */,
@@ -1582,6 +1588,7 @@
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				796C4D4E1B60E90C008EBAFE /* JSONKit */,
 				7982F1551B33C68C009F878D /* CityPlistTool */,
 				79EE91651B2BCD0E008C8935 /* TimeTool */,
 				63CE06021B203D1F008B98B0 /* cameraTool */,
@@ -1955,6 +1962,7 @@
 		63D31E351AB143D00043B3CA = {
 			isa = PBXGroup;
 			children = (
+				796C4D4C1B60CEF6008EBAFE /* WebKit.framework */,
 				63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */,
 				63D31E401AB143D00043B3CA /* ShouKeBao */,
 				63D31E5A1AB143D00043B3CA /* ShouKeBaoTests */,
@@ -2201,6 +2209,15 @@
 				795C96671B4E0FA1006F996F /* UMessage.h */,
 			);
 			path = UMessage_Sdk_1.1.0;
+			sourceTree = "<group>";
+		};
+		796C4D4E1B60E90C008EBAFE /* JSONKit */ = {
+			isa = PBXGroup;
+			children = (
+				796C4D4F1B60E90C008EBAFE /* JSONKit.h */,
+				796C4D501B60E90C008EBAFE /* JSONKit.m */,
+			);
+			path = JSONKit;
 			sourceTree = "<group>";
 		};
 		797E56571B56565E00154C55 /* NewVersion */ = {
@@ -2491,6 +2508,7 @@
 				5A6996161AF8A5F2002EDD91 /* BackTableViewControllerController.m in Sources */,
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
 				63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */,
+				796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
 				5A52FC6F1ACEBF220076DAE6 /* MeHttpTool.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,

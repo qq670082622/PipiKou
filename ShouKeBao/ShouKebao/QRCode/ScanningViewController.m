@@ -84,7 +84,16 @@
     self.camera.view.frame = CGRectMake(0, 0, cameraW, cameraH);
     self.camera.fixOrientationAfterCapture = NO;
     
+    //判断摄像头访问权限
+    NSString * mediaType = AVMediaTypeVideo;
+    AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
     
+    if (authorizationStatus == AVAuthorizationStatusRestricted|| authorizationStatus == AVAuthorizationStatusDenied) {
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"无法访问相机" message:@"请在【设置->隐私->相机】下允许“旅游圈”访问相机" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+        [alertView show];
+    }else{
+    }
+
     
     //self.snapButton = self.midOutlet;
 //    [self addObserver:self forKeyPath:@"selectIndex" options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
@@ -92,7 +101,7 @@
     
     
 
-    if (!self.isLogin) {
+    if (!self.isLogin || self.isFromOrder) {
         
         
         self.pickerData = [NSArray arrayWithObjects:@"身份证",@"护照", nil];
@@ -118,17 +127,17 @@
     self.pickerView.textColor   = [UIColor colorWithRed:147/255.f green:198/255.f blue:228/255.f alpha:1];
     self.pickerView.selectionPoint = CGPointMake(self.pickerView.frame.size.width/2, 0);
   
-    if (!self.isLogin) {
+    if (!self.isLogin || self.isFromOrder) {
         self.title = @"身份证扫描";
-        [self.pickerView scrollToElement:1 animated:YES];
-        self.selectIndex = 1;
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//        [self.pickerView scrollToElement:1 animated:YES];
+//        self.selectIndex = 1;
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
             [self.pickerView scrollToElement:0 animated:YES];
             self.selectIndex = 0;
             [self.view addSubview:self.personIDVC.view];
             [self setTreeBtnImagesWithYes];
              [self.camera start];
-        });
+//        });
 
         
     }else if(self.isLogin){
@@ -702,7 +711,9 @@
                             card.PicUrl = json[@"CredentialsPicRecord"][@"PicUrl"];
                             card.isLogin = _isLogin;
                             card.delegate = self;
-                            
+                            card.isFromOrder = self.isFromOrder;
+                            card.isIDCard = YES;
+                            card.VC = self.VC;
                             if (!_isLogin) {//未登录时保存记录
                                // [self saveRecordWithJson:json];
                             }
@@ -741,7 +752,9 @@
             card.RecordId = json[@"CredentialsPicRecord"][@"RecordId"];
             card.ModifyDate = json[@"CredentialsPicRecord"][@"ModifyDate"];
             card.PicUrl = json[@"CredentialsPicRecord"][@"PicUrl"];
-
+            card.isFromOrder = self.isFromOrder;
+            card.isIDCard = YES;
+            card.VC = self.VC;
             card.isLogin = _isLogin;
 
             card.delegate = self;

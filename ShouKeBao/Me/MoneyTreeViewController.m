@@ -9,7 +9,7 @@
 #import "MoneyTreeViewController.h"
 #import "MeHttpTool.h"
 #import "BeseWebView.h"
-@interface MoneyTreeViewController ()
+@interface MoneyTreeViewController ()<UIWebViewDelegate>
 
 @end
 
@@ -18,7 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDataSource];
-    
+    self.webView.delegate  = self;
 }
 #pragma mark - loadDataSource
 - (void)loadDataSource
@@ -37,9 +37,23 @@
 - (void)loadWithUrl:(NSString *)url
 {
     //    url = @"http://www.myie9.com/useragent/";
-//    url = @"http://m.lvyouquan.cn/MoneyTree";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [super webViewDidFinishLoad:webView];
+     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('lyqwebview_title').value"];
+    if (![title isEqualToString:@""]) {
+        for (NSString * str in [title componentsSeparatedByString:@"摇钱树"]) {
+            if (![str isEqualToString:@""]) {
+                self.title = str;
+            }
+        }
+    }else{
+    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+    }
+    
+    NSLog(@"%@", title);
 }
 
 

@@ -140,7 +140,21 @@
 }
 
 - (IBAction)save:(id)sender {
-   
+    if (self.isFromOrder) {
+        NSString * cardtye = self.isIDCard?@"0":@"1";
+        NSString * sexx = [self.sexLabStr isEqualToString:@"男"]?@"0":@"1";
+        NSMutableString * infoString = [NSMutableString string];
+        [infoString appendString:[self.bornText.text substringWithRange:NSMakeRange(0, 4)]];
+        [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(4, 2)]];
+        [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(6, 2)]];
+        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardNumText.text};
+        NSLog(@"%@", dic);
+        self.delegateToOrder = self.VC;
+        [self.delegateToOrder writeDelegate:dic];
+        [self.navigationController popToViewController:self.VC animated:YES];
+
+    }else{
+
     if (![self.nameText.text isEqualToString:@""]&&![self.cardNumText.text isEqualToString:@""]) {
 
     [self saveRecordToCustomer];
@@ -149,6 +163,7 @@
     }else{
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
+    }
     }
 }
 
@@ -177,7 +192,7 @@
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
         
         //1.同步扫描纪录
-        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
             //            2/添加客户
             NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
@@ -245,7 +260,7 @@
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
         
         //1.同步扫描纪录
-        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
                   } failure:^(NSError *error) {
             NSLog(@"批量导入客户失败，返回error is %@",error);
