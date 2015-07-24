@@ -14,6 +14,7 @@
 @property (nonatomic, copy)NSString * webTitle;
 @property (nonatomic,strong) BeseWebView *webView;
 
+- (void)webViewDidFinishLoad:(UIWebView *)webView;
 
 
 @end

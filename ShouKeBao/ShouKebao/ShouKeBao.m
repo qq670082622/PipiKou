@@ -181,7 +181,7 @@
         [self Guide];
     }
    
-  
+//  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
 
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
@@ -1280,16 +1280,22 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         return cell;
         
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
-        NSLog(@"%ld", self.recommendCount);
-//        RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
-        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:self.recommendCount];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;  
+        
+//        之所以大费周章的取count 就是因为在返回首页的时候指定self.count=0,再执行这个方法点时候会以为图片为0，从而影响CollectionView的布局；
+        Recommend *rmodel = model.model;
+        NSUInteger count = rmodel.RecommendIndexProductList.count;
+        
+//      RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:count];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
         cell.redTip.hidden = !(self.recommendCount > 0);
         
         return cell;
+        
+        
     }else{//客户提醒
        
         ShowRemindCell *cell = [ShowRemindCell cellWithTableView:tableView];
@@ -1304,7 +1310,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-   
+    NSLog(@"pppppp");
     HomeBase *model = self.dataSource[indexPath.row];
     
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
@@ -1374,10 +1380,11 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
    [self.navigationController pushViewController:rec animated:YES];
     
     // 刷新下 隐藏红点
-//    self.recommendCount = 0;
-//   
-//       [_tableView reloadData];
+    self.recommendCount = 0;
+       [_tableView reloadData];
 
+    
+    
 }
 
 
@@ -1401,7 +1408,7 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
 {
    
     //HomeBase *model = [[HomeBase alloc] init];
-    HomeBase    *model = self.dataSource[indexPath.row];
+    HomeBase *model = self.dataSource[indexPath.row];
     if ([model.model isKindOfClass:[Recommend class]]) {
         
         Recommend *rmodel = model.model;
@@ -1414,6 +1421,8 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
         
         NSLog(@"-----------------radious is %.3f---------",radious);
         
+//        NSInteger count = 3;
+      
         if ( count == 2 || count == 3) {
        
             if (screenH == 480) {
@@ -1446,7 +1455,6 @@ self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.b
                 
                 return 400*radious+25;
             }
-            
             
             return 368*radious;
 

@@ -82,7 +82,9 @@
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"FindProductSearchProductView"];
     
-   
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ProductSearchClickAll" attributes:dict];
+
     [self.table addFooterWithTarget:self action:@selector(pullTable)];
     //设置文字
     self.table.footerPullToRefreshText = @"上拉刷新";

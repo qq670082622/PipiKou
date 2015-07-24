@@ -12,4 +12,5 @@
 
 @property (nonatomic,copy) NSString *linkUrl;
 @property (nonatomic, assign)BOOL isWriteVisitorsInfo;
+@property (nonatomic, strong)NSDictionary * userInfoDic;
 @end

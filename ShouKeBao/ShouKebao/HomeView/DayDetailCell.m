@@ -276,7 +276,7 @@
     //    self.line = line;
 }
 
-- (void)layoutSubviews
+- (void)layoutSubviews 
 {
     [super layoutSubviews];
     
@@ -372,7 +372,6 @@
     
     [self.descripBtn addTarget:self action:@selector(changeTheRowHeight) forControlEvents:UIControlEventTouchUpInside];
     [self.shareBtn addTarget:self action:@selector(shareIt) forControlEvents:UIControlEventTouchUpInside];
-
 }
 
 -(void)changeTheRowHeight

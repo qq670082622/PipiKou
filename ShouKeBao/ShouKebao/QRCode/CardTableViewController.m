@@ -140,7 +140,24 @@
 }
 
 - (IBAction)save:(id)sender {
-   
+    if (self.isFromOrder) {
+        NSString * cardtye = self.isIDCard?@"0":@"1";
+        NSString * sexx = [self.sexLabStr isEqualToString:@"男"]?@"0":@"1";
+        NSMutableString * infoString = [NSMutableString string];
+        [infoString appendString:[self.bornText.text componentsSeparatedByString:@"年"][0]];
+        NSString * str2 = [self.bornText.text componentsSeparatedByString:@"年"][1];
+        [infoString appendFormat:@"-%@", [str2 componentsSeparatedByString:@"月"][0]];
+        NSString * str3 = [str2 componentsSeparatedByString:@"月"][1];
+        [infoString appendFormat:@"-%@", [str3 componentsSeparatedByString:@"日"][0]];
+
+        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardNumText.text};
+        NSLog(@"%@", dic);
+        self.delegateToOrder = self.VC;
+        [self.delegateToOrder writeDelegate:dic];
+        [self.navigationController popToViewController:self.VC animated:YES];
+
+    }else{
+
     if (![self.nameText.text isEqualToString:@""]&&![self.cardNumText.text isEqualToString:@""]) {
 
     [self saveRecordToCustomer];
@@ -149,6 +166,7 @@
     }else{
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];
+    }
     }
 }
 

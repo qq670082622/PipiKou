@@ -16,8 +16,12 @@
 #import "BaseClickAttribute.h"
 #import "ScanningViewController.h"
 #import "QRCodeViewController.h"
+#import <WebKit/WebKit.h>
+#import "JSONKit.h"
+#import "userIDTableviewController.h"
+#import "CardTableViewController.h"
 //#define urlSuffix @"?isfromapp=1&apptype=1"
-@interface OrderDetailViewController()<UIWebViewDelegate>
+@interface OrderDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
 @property (nonatomic,strong) BeseWebView *webView;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
@@ -42,7 +46,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor) name:@"stopIndictor" object:nil];
 
 
-    
+
     [self.view addSubview:self.webView];
     
     self.webView.delegate = self;
@@ -203,6 +207,10 @@
 //    显示详情界面的url
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
+    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
+        [self LYQSKBAPP_OpenCardScanning];
+        return NO;
+    }
 
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
@@ -299,20 +307,35 @@
     [[NSNotificationCenter defaultCenter]removeObserver:self];
     self.webView.delegate = nil;
 }
--(void)codeAction
+
+//js调取原生app的方法
+-(void)LYQSKBAPP_OpenCardScanning
 {
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"QRcodeClickInMainView" attributes:dict];
-    
+
     ScanningViewController *scan = [[ScanningViewController alloc] init];
+    scan.isFromOrder = YES;
     scan.isLogin = YES;
+    scan.VC = self;
     [self.navigationController pushViewController:scan animated:YES];
-    
-    //    QRCodeViewController *qrc = [[QRCodeViewController alloc] init];
-    //    [self.navigationController pushViewController:qrc animated:YES];
+//    [self giveJSCardScanningCallBackJson];
     
 }
+//app调取js方法并向js传json参数
+- (void)giveJSCardScanningCallBackJson:(NSDictionary*)dic{
+//    NSDictionary * dic = @{@"Name":@"tom",@"Sex":@"1(男)/0(女)",@"CardType":@"0(身份证)/1(护照)",@"出生日期":@"1900-01-01"};
+    NSString * jsonStr = [dic JSONString];
+    NSLog(@"%@", jsonStr);
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"LYQSKBAPP_OpenCardScanning_CallBack(%@, '%@')", @1, jsonStr]];
+}
 
-
-
+//- (void)webView:(WebView *)sender didClearWindowObject:(WebScriptObject *)windowObject forFrame:(WebFrame *)frame
+//
+//{
+//    
+//    [windowObject setValue:self forKey:@"controller"];
+//    
+//}
+-(void)writeDelegate:(NSDictionary *)dic{
+    [self giveJSCardScanningCallBackJson:dic];
+}
 @end
