@@ -121,12 +121,7 @@
    
     
     [self.view addSubview:self.tableView];
-    
-   
-    
-    NSLog(@"rrr recomm = %ld", self.recommendCount);
-
-    
+  
     [self checkNewVerSion];
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
@@ -134,7 +129,14 @@
     
 
     
-   
+//    UIButton *Btn = [[UIButton alloc]initWithFrame:CGRectMake(50,0,50, 50)];
+//    Btn.backgroundColor = [UIColor purpleColor];
+//    
+//    [Btn addTarget:self action:@selector(dealPushBackGround:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.tableView addSubview:Btn];
+    
+    
+    
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -198,8 +200,6 @@
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-   
-//  
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushToRecommendList) name:@"notifiToPushToRecommed" object:nil];
 
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
@@ -433,6 +433,8 @@
     }
 }
 
+
+
 #pragma  - mark程序未死亡时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
@@ -445,7 +447,6 @@
     
 
 //    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isReceveNoti"];
-    
     
 //    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isReceveNoti"]) {
 //    }
@@ -513,11 +514,12 @@
     }else{
        
         NSString *type = message[0];
+      
+        
         if (type.length>0) {
-            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-            NSLog(@"self.tabBarItem.badgeValue = %@", self.tabBarItem.badgeValue);
-          
-            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+//            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+//
+//            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
             
         [self getVoice];
         }
@@ -736,49 +738,52 @@
 //        NSLog(@"0000 self.recommendCount = %ld", self.recommendCount);
 //        NSLog(@"0000 yes = %d", self.yesorno);
 // 为0 隐藏1
-        if (self.recommendCount == 0&& self.yesorno == YES) {
-            
-            if ([self.barButton.badgeValue intValue] == 0) {
-                self.tabBarItem.badgeValue = nil;
-              
-            }else{
-                self.tabBarItem.badgeValue = self.barButton.badgeValue;
-             }
-// 为0 不隐藏0
-        }else if (self.recommendCount == 0 &&self.yesorno == NO){
-                    NSLog(@"kkkkkk  ");
-            if ([self.barButton.badgeValue intValue] == 0) {
-                self.tabBarItem.badgeValue = @"1";
-        
-            }else{
-                self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",count+1];
-                
-            }
-//   不为0
-        }else if (self.recommendCount != 0){
-            
-     //  判断隐藏redtip
-            if (self.yesorno) {
-                NSLog(@"self.yesorno.hidden = %d", self.yesorno);
-                if (count == 0) {
-                    self.tabBarItem.badgeValue = nil;
-                    NSLog(@"11nnnnnnnmmm");
-                }else{
-                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
-                }
-
-       //    判断显示redtip＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-            }else{
-                  NSLog(@"22nnnnnnnmmm");
-                if (count == 0) {
-                    self.tabBarItem.badgeValue = @"1";
-                }else{
-                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
-                }
-            }
-        }
-        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
+//        if (self.recommendCount == 0&& self.yesorno == YES) {
+//            
+//            if ([self.barButton.badgeValue intValue] == 0) {
+//                self.tabBarItem.badgeValue = nil;
+//              
+//            }else{
+//                self.tabBarItem.badgeValue = self.barButton.badgeValue;
+//             }
+//// 为0 不隐藏0
+//        }else if (self.recommendCount == 0 &&self.yesorno == NO){
+//                    NSLog(@"kkkkkk  ");
+//            if ([self.barButton.badgeValue intValue] == 0) {
+//                self.tabBarItem.badgeValue = @"1";
+//        
+//            }else{
+//                self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",count+1];
+//                
+//            }
+////   不为0
+//        }else if (self.recommendCount != 0){
+//            
+//     //  判断隐藏redtip
+//            if (self.yesorno) {
+//                NSLog(@"self.yesorno.hidden = %d", self.yesorno);
+//                if (count == 0) {
+//                    self.tabBarItem.badgeValue = nil;
+//                    NSLog(@"11nnnnnnnmmm");
+//                }else{
+//                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
+//                }
+//
+//       //    判断显示redtip＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
+//            }else{
+//                  NSLog(@"22nnnnnnnmmm");
+//                if (count == 0) {
+//                    self.tabBarItem.badgeValue = @"1";
+//                }else{
+//                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
+//                }
+//            }
+//        }
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
  
+        
+        
+        
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
     }];
@@ -1359,14 +1364,16 @@
     messgeCenter.delegate = self;
     
     self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
-   
+
+//   ***************************
     
- self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
+//     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
+    
+//   ***************************
     
 //     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.barButton.badgeValue intValue]];
     
- 
-    
+
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
 
     
@@ -1374,12 +1381,14 @@
 
    
     NSLog(@"applicationIconBadgeNumber = %ld", [self.tabBarItem.badgeValue integerValue]);
-    if ([self.tabBarItem.badgeValue intValue] <= 0) {
-        self.tabBarItem.badgeValue = nil;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    }
-        [self.navigationController pushViewController:messgeCenter animated:YES];
+//   ***************************
+//    if ([self.tabBarItem.badgeValue intValue] <= 0) {
+//        self.tabBarItem.badgeValue = nil;
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//    }
     
+        [self.navigationController pushViewController:messgeCenter animated:YES];
+//
 }
 
 
@@ -1491,14 +1500,13 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"pppppp");
     HomeBase *model = self.dataSource[indexPath.row];
     
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
-    if ([self.tabBarItem.badgeValue intValue] <= 0) {
-        self.tabBarItem.badgeValue = nil;
-        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-    }
+//    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+//    if ([self.tabBarItem.badgeValue intValue] <= 0) {
+//        self.tabBarItem.badgeValue = nil;
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+//    }
 
     if ([model.model isKindOfClass:[HomeList class]]) {
         [MobClick event:@"ShouKeBao_ClickHomeList"];
