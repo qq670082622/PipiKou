@@ -39,9 +39,7 @@
 @property (nonatomic,copy) NSString *totalCount;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (nonatomic,strong) NSMutableDictionary *tagDic;
-
-@property (nonatomic, assign)BOOL flag;
-
+@property (nonatomic,assign) BOOL flag;
 @end
 
 @implementation RecommendViewController
@@ -49,24 +47,25 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-   [self loadDataSource];
+    self.flag = YES;
+    [self loadDataSource];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *st = [def objectForKey:@"markStr"];;
     self.markUrl  = [def objectForKey:@"markStr"];
-     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
+    NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
     [def setObject:@"" forKey:@"markStr"];
     [def synchronize];
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
     
-
+    
     
     
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.pageIndex = 1;
     
-  
+    
     
     //下啦刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -80,11 +79,11 @@
     self.tableView.footerPullToRefreshText = @"加载更多";
     self.tableView.footerRefreshingText = @"加载中";
     
-  //  [self setNav];
+    //  [self setNav];
     
     
     // 第一次加载的时候显示这个hud
-  //  [self showHudInView:self.view hint:@"正在加载中"];
+    //  [self showHudInView:self.view hint:@"正在加载中"];
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
     
@@ -92,21 +91,18 @@
     [_indicator setLoadText:@"拼命加载中..."];
     [self.view addSubview:_indicator];
     [self.view bringSubviewToFront:_indicator];
-
-     [_indicator startAnimation];
-   
+    
+    [_indicator startAnimation];
     
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-       
-//    [self scrollTableView];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         
-    [self.tableView reloadData];
+        [self.tableView reloadData];
         
     });
     
+    //
     
-
 }
 
 - (void)scrollTableView
@@ -115,11 +111,15 @@
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
     NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
-    NSLog(@"iii = %@", index);
+//    NSLog(@"iii = %@", index);
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.tableView.scrollEnabled = YES;
-
+    
 }
+
+
+
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.tableView.scrollEnabled = YES;
@@ -133,23 +133,23 @@
     [MobClick beginLogPageView:@"ShouKeBaoRecommendView"];
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoTodayRecommend" attributes:dict];
-
-
-//
+    
+    
+    //
     
     
     
     self.view.window.backgroundColor = [UIColor clearColor];
     [self headRefresh];
-   // [self setupHead];
-  
-   
+    // [self setupHead];
+    
+    
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoRecommendView"];
-
+    
 }
 #pragma mark - private
 - (void)loadDataSource
@@ -157,15 +157,15 @@
     NSDictionary *param = @{@"PageSize":pageSize,
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                             @"DateRangeType":@"1"};
-//    NSDictionary *param = @{@"PageSize":pageSize,
-//                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
-//                            @"DateRangeType":@"1"};
-
+    //    NSDictionary *param = @{@"PageSize":pageSize,
+    //                            @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
+    //                            @"DateRangeType":@"1"};
+    
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
-               [self.tableView headerEndRefreshing];
+        [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
-       // [self hideHud];
-              if (json) {
+        // [self hideHud];
+        if (json) {
             NSLog(@"aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
             if (self.isRefresh) {
@@ -177,9 +177,11 @@
                 [self.dataSource addObject:detail];
             }
             [self.tableView reloadData];
-                  [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
-
+            [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
+            
         }
+        //          [self scrollTableView];
+        
     } failure:^(NSError *error) {
         
     }];
@@ -199,13 +201,13 @@
 //- (void)setNav
 //{
 //    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 50, 50)];
-//    
+//
 //    UIButton *back = [[UIButton alloc] initWithFrame:CGRectMake(0, 5, 40, 40)];
 //    back.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 20);
 //    [back setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
 //    [back addTarget:self action:@selector(backToHome) forControlEvents:UIControlEventTouchUpInside];
 //    [cover addSubview:back];
-//    
+//
 //    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cover];
 //}
 //
@@ -218,13 +220,13 @@
 //{
 //    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 40)];
 //    cover.backgroundColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-//    
+//
 //    // 选择分站按钮
 //    UIButton *station = [[UIButton alloc] initWithFrame:CGRectMake(10, 5, 75, 30)];
 //    station.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 0);
 //    [station setBackgroundImage:[UIImage imageNamed:@"dizhi"] forState:UIControlStateNormal];
 //    [station addTarget:self action:@selector(selectStation:) forControlEvents:UIControlEventTouchUpInside];
-//    
+//
 //    // 取出储存的分站
 //    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
 //    NSString *subStationName = [udf stringForKey:@"SubstationName"];
@@ -232,11 +234,11 @@
 //    if (![subStationName isKindOfClass:[NSNull class]]) {
 //        [station setTitle:@"上海" forState:UIControlStateNormal];
 //    }
-//    
+//
 //    [station setTitleColor:[UIColor colorWithRed:91/255.0 green:155/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
 //    station.titleLabel.font = [UIFont systemFontOfSize:12];
 //    [cover addSubview:station];
-//    
+//
 //    // 搜索按钮
 //    CGFloat searchX = CGRectGetMaxX(station.frame) + 5;
 //    CGFloat searchW = self.view.frame.size.width - station.frame.size.width - 25;
@@ -249,7 +251,7 @@
 //    search.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 0);
 //    [search addTarget:self action:@selector(goSearch:) forControlEvents:UIControlEventTouchUpInside];
 //    [cover addSubview:search];
-//    
+//
 //    [self.view addSubview:cover];
 //}
 
@@ -263,7 +265,7 @@
 //- (void)goSearch:(UIButton *)sender
 //{
 //    SearchProductViewController *searchVC = [[SearchProductViewController alloc] init];
-//    
+//
 //    [self.navigationController pushViewController:searchVC animated:YES];
 //}
 
@@ -280,8 +282,8 @@
 {
     self.isRefresh = NO;
     self.pageIndex ++;
-   // if (self.pageIndex < [self getEndPage]) {
-        [self loadDataSource];
+    // if (self.pageIndex < [self getEndPage]) {
+    [self loadDataSource];
     //}
 }
 
@@ -336,7 +338,7 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         //_tableView.rowHeight = 80;
-       // _tableView.separatorInset = UIEdgeInsetsZero;
+        // _tableView.separatorInset = UIEdgeInsetsZero;
     }
     return _tableView;
 }
@@ -352,29 +354,29 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
- 
+    
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
-
+    
+    
     DayDetail *detail = self.dataSource[indexPath.row];
     cell.detail = detail;
- 
-        [cell.descripBtn setTag:indexPath.row];
+    
+    [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([detail.PushId isEqualToString:_markUrl]) {
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
     }
-//    if (indexPath.row == 2) {
-//        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
-//
-//           }
+    //    if (indexPath.row == 2) {
+    //        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
+    //
+    //           }
+    
     
     if (self.flag) {
         [self scrollTableView];
         self.flag = NO;
     }
-    
-  
     
     
     
@@ -384,23 +386,23 @@
 -(void)changeHeight:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
- 
-  NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
-  
+    
+    NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
+    
     if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
         [self.tagDic setObject:@"0" forKey:tag];
     }else{
         [self.tagDic setObject:@"1" forKey:tag];}
     [_tableView beginUpdates];
     [_tableView endUpdates];
-
+    
 }
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoTodayRecommendProductDetailClick" attributes:dict];
-
+    
     DayDetail *detail = self.dataSource[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.fromType = FromRecommend;
@@ -415,7 +417,7 @@
     if ([tag isEqualToString:@"1"]) {
         return  330;
     }else{
-          return 220;
+        return 220;
     }
     
     
@@ -444,7 +446,7 @@
     DayDetail *detail = self.dataSource[indexPath.row];
     NSDictionary *tmp2 = detail.shareInfo;
     NSMutableDictionary *tmp = [StrToDic dicCleanSpaceWithDict:tmp2];
-
+    
     NSLog(@"------分享内容为%@-------------",tmp);
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
@@ -455,7 +457,7 @@
                                             mediaType:SSPublishContentMediaTypeNews];
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
-//    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
+    //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
     
     //弹出分享菜单
     [ShareSDK showShareActionSheet:container
@@ -473,7 +475,7 @@
                                     [MobClick event:@"RecommendShareSuccess" attributes:dict];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
                                     [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
-
+                                    
                                     //近期推荐
                                     if (type == ShareTypeCopy) {
                                         [MBProgressHUD showSuccess:@"拷贝成功"];
@@ -490,7 +492,7 @@
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }
                             }];
-
+    
     [self addAlert];
     
     return YES;
@@ -529,7 +531,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [actionWindow addSubview:lab];
     });
-
+    
 }
 
 

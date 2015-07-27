@@ -37,10 +37,7 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-   
-    
-//     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//    [center postNotificationName:@"pushWithBackGround" object:nil];
+
     
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
@@ -348,14 +345,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //若应用程序在前期，会直接调用
 //若应用程序为关闭状态则调用：didFinishLaunchingWithOptions方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 9;
-    
-    
-    
-    
-    
+
     
     [UMessage setAutoAlert:NO];
 
