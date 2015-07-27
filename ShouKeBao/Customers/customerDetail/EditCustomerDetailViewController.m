@@ -174,10 +174,12 @@
         
         [IWHttpTool WMpostWithURL:@"Customer/EditCustomer" params:secondDic success:^(id json) {
             NSLog(@"---- b编辑单个客户成功 %@------",json);
-            
-            
+            if ( [[NSString stringWithFormat:@"%@",json[@"IsSuccess"]]isEqualToString:@"0"]) {
+                UIAlertView * aler = [[UIAlertView alloc]initWithTitle:@"提示" message:json[@"ErrorMsg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [aler show];
+            }
             [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andNote:self.note.text];
-           
+        
   
 //             [self.initDelegate reloadMethod];
         

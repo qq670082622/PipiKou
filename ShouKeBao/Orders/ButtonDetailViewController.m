@@ -154,10 +154,6 @@
 {
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
-    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
-        [self codeAction];
-        return NO;
-    }
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
@@ -167,19 +163,25 @@
     
     if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-        // return YES;
+         return YES;
     }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-        // return YES;
+         return YES;
     }else{
-        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-        
-        hudView.labelText = @"拼命加载中...";
-        
-        [hudView show:YES];
+//        MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//        
+//        hudView.labelText = @"拼命加载中...";
+//        
+//        [hudView show:YES];
 
-        return YES;
+//        return YES;
     }
+    
+    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
+        [self codeAction];
+//        return NO;
+    }
+
 //    NSLog(@"----------right url is %@ ----------",rightUrl);
     
     return YES;
