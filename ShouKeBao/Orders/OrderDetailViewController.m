@@ -207,10 +207,6 @@
 //    显示详情界面的url
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
-    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
-        [self LYQSKBAPP_OpenCardScanning];
-        return NO;
-    }
 
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
@@ -229,6 +225,12 @@
         [_indicator startAnimation];
         
     }
+    
+    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
+        [self LYQSKBAPP_OpenCardScanning];
+//        return NO;
+    }
+
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"MeCancelMyStore" attributes:dict];
 

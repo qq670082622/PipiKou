@@ -101,9 +101,14 @@
     [MobClick event:@"MeNum" attributes:dict];
     if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]&&self.tableView) {
         [self.tableView reloadData];
-        self.tabBarItem.badgeValue = nil;
+//        self.tabBarItem.badgeValue = nil;
+        for (UIView * subView in self.tabBarController.tabBar.subviews) {
+            if (subView.tag == 888) {
+                [subView removeFromSuperview];
+            }
+        }
     }
-    
+
     
     _meheader.nickName.text = [UserInfo shareUser].userName;
 

@@ -210,7 +210,17 @@
     //第一次加载
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]) {
         Me * meVC = (Me *)[self.navigationController.tabBarController.viewControllers objectAtIndex:4];
-        meVC.tabBarItem.badgeValue = @"";
+//        meVC.tabBarItem.badgeValue = @"";
+        UIView *badgeView = [[UIView alloc]init];
+        badgeView.tag = 888;
+        badgeView.layer.cornerRadius = 5;
+        badgeView.backgroundColor = [UIColor redColor];
+        CGRect tabFrame = self.tabBarController.tabBar.frame;
+        float percentX = (4 +0.6) / 5;
+        CGFloat x = ceilf(percentX * tabFrame.size.width);
+        CGFloat y = ceilf(0.1 * tabFrame.size.height);
+        badgeView.frame = CGRectMake(x, y, 10, 10);
+        [self.tabBarController.tabBar addSubview:badgeView];
     }
 
     
@@ -1580,7 +1590,7 @@
     // 刷新下 隐藏红点
     NSLog(@"y_________");
     self.recommendCount = 0;
-       [_tableView reloadData];
+//       [_tableView reloadData];
  
 }
 
