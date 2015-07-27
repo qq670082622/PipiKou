@@ -41,7 +41,7 @@
 //@property(nonatomic,strong) TodayViewController *todayVC;
 @property(nonatomic,strong) YesterdayViewController *yesterdayVC;
 @property(nonatomic,strong) RecentlyViewController *recentlyVC;
-@property (nonatomic,strong) RecommendViewController *todayVC;
+//@property (nonatomic,strong) RecommendViewController *todayVC;
 @property(nonatomic,assign) NSInteger selectIndex;
 
 @property(weak ,nonatomic)UIView *bugView;

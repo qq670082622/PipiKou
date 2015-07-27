@@ -226,6 +226,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"fffff---");
     
     //    NSInteger selectTag  = indexPath.row;
     //    NSArray *arr =  self.imgSuperView.subviews;
@@ -254,10 +255,15 @@
     [def setObject:markStr forKey:@"markStr"];//标记pushId,在今日推荐中高亮该产品
     [def setObject:_recommend.CreatedDate forKey:@"redTip"];//标记createdate，下次该cell红点不显示
     
+    NSString *num = [NSString stringWithFormat:@"%ld", indexPath.row];
+    [def setObject:num forKey:@"num"];
+    
+    
     [def synchronize];
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter postNotificationName:@"notifiToPushToRecommed" object:nil];
 }
+
 
 
 

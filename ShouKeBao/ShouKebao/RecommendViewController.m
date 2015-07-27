@@ -28,10 +28,10 @@
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
-@property (nonatomic,strong) UITableView *tableView;
+@property(nonatomic, assign)NSInteger number;
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
-
+@property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,assign) NSInteger pageIndex;
 
 @property (nonatomic,assign) BOOL isRefresh;
@@ -40,6 +40,8 @@
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (nonatomic,strong) NSMutableDictionary *tagDic;
 
+@property (nonatomic, assign)BOOL flag;
+
 @end
 
 @implementation RecommendViewController
@@ -47,8 +49,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-
-            NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+   [self loadDataSource];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *st = [def objectForKey:@"markStr"];;
     self.markUrl  = [def objectForKey:@"markStr"];
      NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
@@ -56,10 +58,15 @@
     [def synchronize];
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
+    
+
+    
+    
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.pageIndex = 1;
     
+  
     
     //下啦刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -87,16 +94,37 @@
     [self.view bringSubviewToFront:_indicator];
 
      [_indicator startAnimation];
-    [self loadDataSource];
+   
     
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [self.tableView reloadData];
+       
+//    [self scrollTableView];
+        
+    [self.tableView reloadData];
         
     });
+    
+    
 
 }
 
+- (void)scrollTableView
+{
+    NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
+    NSString *num = [mark objectForKey:@"num"];
+    NSInteger number = [num integerValue];
+    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
+    NSLog(@"iii = %@", index);
+    [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    self.tableView.scrollEnabled = YES;
+
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    self.tableView.scrollEnabled = YES;
+    
+}
 
 
 - (void)viewWillAppear:(BOOL)animated
@@ -106,6 +134,11 @@
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoTodayRecommend" attributes:dict];
 
+
+//
+    
+    
+    
     self.view.window.backgroundColor = [UIColor clearColor];
     [self headRefresh];
    // [self setupHead];
@@ -310,10 +343,7 @@
 
 #pragma mark - UITableViewDataSource
 
--(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    
-}
+
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -322,8 +352,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+ 
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
-   
 
     DayDetail *detail = self.dataSource[indexPath.row];
     cell.detail = detail;
@@ -338,7 +368,15 @@
 //        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
 //
 //           }
- 
+    
+    if (self.flag) {
+        [self scrollTableView];
+        self.flag = NO;
+    }
+    
+  
+    
+    
     
     return cell;
 }

@@ -10,4 +10,5 @@
 
 @interface RecommendViewController : SKViewController
 @property (nonatomic,copy) NSString *markUrl;
+
 @end
