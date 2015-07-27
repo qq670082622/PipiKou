@@ -907,6 +907,17 @@
                                                         <action selector="save:" destination="hzH-qa-6bb" eventType="touchUpInside" id="YOy-RS-hgE"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="KGh-Nw-hrR">
+                                                    <rect key="frame" x="10" y="5" width="300" height="55"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="提取信息">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="save:" destination="hzH-qa-6bb" eventType="touchUpInside" id="Wb2-f6-dv1"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" red="0.94117647058823528" green="0.94117647058823528" blue="0.94117647058823528" alpha="1" colorSpace="calibratedRGB"/>
                                         </tableViewCellContentView>
@@ -931,6 +942,7 @@
                         <outlet property="nameLab" destination="dG2-mE-0Fp" id="T9W-60-3cX"/>
                         <outlet property="nameText" destination="8hJ-jZ-yIj" id="WmH-DF-rJM"/>
                         <outlet property="saveBtn" destination="aLI-6A-OTM" id="SEv-41-oKY"/>
+                        <outlet property="saveBtn2" destination="KGh-Nw-hrR" id="EiU-X5-7oI"/>
                         <outlet property="sexLab" destination="C34-vO-b1D" id="lvB-CK-RgM"/>
                         <outlet property="sexText" destination="R1D-qH-8Df" id="xId-Ns-WHk"/>
                         <outlet property="startDayLab" destination="VzS-HP-feF" id="9FI-xa-CZu"/>
@@ -1126,11 +1138,22 @@
                                                     <rect key="frame" x="10" y="15" width="300" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <state key="normal" title="提取信息">
+                                                    <state key="normal" title="保存为客户并提取">
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
                                                         <action selector="save:" destination="gHZ-cC-IZ1" eventType="touchUpInside" id="C2K-kb-rqN"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="qb4-lD-ScD">
+                                                    <rect key="frame" x="12" y="15" width="300" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                    <state key="normal" title="提取信息">
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="save:" destination="gHZ-cC-IZ1" eventType="touchUpInside" id="20c-rp-Aa3"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -1157,6 +1180,7 @@
                         <outlet property="nationalLab" destination="Pes-2X-8QH" id="91I-Mz-Ba9"/>
                         <outlet property="nationalText" destination="la9-nP-J4J" id="5Yv-5J-gLT"/>
                         <outlet property="saveBtn" destination="hoA-v4-NU2" id="tzQ-Ai-jH4"/>
+                        <outlet property="saveBtn2" destination="qb4-lD-ScD" id="9FA-L5-ZHT"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qng-2P-SNL" userLabel="First Responder" sceneMemberID="firstResponder"/>

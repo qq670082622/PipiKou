@@ -40,6 +40,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *effectiveText;
 
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+@property (strong, nonatomic) IBOutlet UIButton *saveBtn2;
 
 - (IBAction)save:(id)sender;
 
@@ -81,6 +82,13 @@
     
     if (_ModifyDate.length<1) {
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
+    }
+    if (self.isLogin) {
+        self.saveBtn.hidden = NO;
+        self.saveBtn2.hidden = YES;
+    }else{
+        self.saveBtn.hidden = YES;
+        self.saveBtn2.hidden = NO;
     }
 
 

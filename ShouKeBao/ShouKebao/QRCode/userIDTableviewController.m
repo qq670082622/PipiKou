@@ -32,6 +32,8 @@
 
 @property (weak, nonatomic) IBOutlet UITextView *addressText;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
+@property (strong, nonatomic) IBOutlet UIButton *saveBtn2;
+
 - (IBAction)save:(id)sender;
 
 @property(nonatomic,strong) NSMutableArray *scanningArr;
@@ -68,7 +70,13 @@
     if (_ModifyDate.length<1) {
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
     }
-    
+    if (self.isLogin) {
+        self.saveBtn.hidden = NO;
+        self.saveBtn2.hidden = YES;
+    }else{
+        self.saveBtn.hidden = YES;
+        self.saveBtn2.hidden = NO;
+    }
 
 }
 - (void)viewWillAppear:(BOOL)animated{

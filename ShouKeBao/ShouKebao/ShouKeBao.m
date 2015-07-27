@@ -222,8 +222,6 @@
         badgeView.frame = CGRectMake(x, y, 10, 10);
         [self.tabBarController.tabBar addSubview:badgeView];
     }
-
-    
 }
 
 //给推送打tag和标签
