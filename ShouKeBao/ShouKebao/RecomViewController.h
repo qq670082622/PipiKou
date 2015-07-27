@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
+#import "RecommendViewController.h"
 @interface RecomViewController : SKViewController
-
+@property (nonatomic,strong) RecommendViewController *todayVC;
 @end

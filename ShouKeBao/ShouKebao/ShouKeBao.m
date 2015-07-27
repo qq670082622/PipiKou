@@ -209,8 +209,8 @@
      [self setUpNavBarView];
     //第一次加载
     if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]) {
-        Me * meVC = (Me *)[self.navigationController.tabBarController.viewControllers objectAtIndex:4];
-//        meVC.tabBarItem.badgeValue = @"";
+//        Me * meVC = (Me *)[self.navigationController.tabBarController.viewControllers objectAtIndex:4];
+        //        meVC.tabBarItem.badgeValue = @"";
         UIView *badgeView = [[UIView alloc]init];
         badgeView.tag = 888;
         badgeView.layer.cornerRadius = 5;
@@ -723,7 +723,6 @@
         
         self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
        
-  
         int count = 0;
         [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
         for (int i = 0; i<arr.count; i++) {
@@ -735,10 +734,9 @@
         
 //        设置角标
         self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
-        
-        
-        NSLog(@"0000 self.recommendCount = %ld", self.recommendCount);
-        
+    
+//        NSLog(@"0000 self.recommendCount = %ld", self.recommendCount);
+//        NSLog(@"0000 yes = %d", self.yesorno);
 // 为0 隐藏1
         if (self.recommendCount == 0&& self.yesorno == YES) {
             
@@ -747,10 +745,8 @@
               
             }else{
                 self.tabBarItem.badgeValue = self.barButton.badgeValue;
-         
              }
 // 为0 不隐藏0
-  
         }else if (self.recommendCount == 0 &&self.yesorno == NO){
                     NSLog(@"kkkkkk  ");
             if ([self.barButton.badgeValue intValue] == 0) {
@@ -768,45 +764,23 @@
                 NSLog(@"self.yesorno.hidden = %d", self.yesorno);
                 if (count == 0) {
                     self.tabBarItem.badgeValue = nil;
-                    NSLog(@"nnnnnnnmmm");
+                    NSLog(@"11nnnnnnnmmm");
                 }else{
                     self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
                 }
-                
-//     //        ***************************************
-//            }else if (self.num != 0){
-//                if (count == 0) {
-//                    self.tabBarItem.badgeValue = nil;
-//                    NSLog(@"nnnnnnnmmm");
-//                }else{
-//                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
-//                }
-//
-      //        ***************************************
-        
+
        //    判断显示redtip＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
             }else{
-                  NSLog(@"nnnnnnnmmm");
+                  NSLog(@"22nnnnnnnmmm");
                 if (count == 0) {
                     self.tabBarItem.badgeValue = @"1";
-                    
-//                    NSLog(@"nnnnnnnmmm");
                 }else{
                     self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
                 }
-                
-                
             }
-            
-            NSLog(@"self.yesorno = %d", self.yesorno);
-            
-            //
         }
         [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
-        
-        
-        
-        
+ 
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
     }];
@@ -1435,9 +1409,6 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"---rrr22 recomm = %ld", self.recommendCount);
-    
-    
         HomeBase *model = self.dataSource[indexPath.row];
      //[model retain];
     
@@ -1458,11 +1429,13 @@
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
 
         
-//        之所以大费周章的取count 就是因为在返回首页的时候指定self.count=0,再执行这个方法点时候会以为图片为0，从而影响CollectionView的布局；
+//之所以大费周章的取count 就是因为在返回首页的时候指定self.count=0,再执行这个方法点时候会以为图片为0，从而影响CollectionView的布局；
         Recommend *rmodel = model.model;
         NSUInteger count = rmodel.RecommendIndexProductList.count;
         
 //      RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        
+        
         self.cell = [RecommendCell cellWithTableView:tableView number:count];
         self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
@@ -1475,29 +1448,30 @@
         self.cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
-//        self.cell.redTip.hidden = !(self.recommendCount > 0);
+        self.cell.redTip.hidden = !(self.recommendCount > 0);
 //        self.yesorno = self.cell.redTip.hidden;
-        
-        if (!(self.recommendCount > 0)) {
-            self.cell.redTip.hidden = !(self.recommendCount > 0);
-//            隐藏
-            self.yesorno = 0;
-        }else{
-           
-//          显示
-            self.yesorno = 1;
 
+//        if (!(self.recommendCount > 0)) {
+//            self.cell.redTip.hidden = !(self.recommendCount > 0);
+////            隐藏
+//            self.yesorno = 0;
+//        }else{
+//           
+////          显示
+//            self.yesorno = 1;
+//
+//        }
+        
+        
+        if ([self.cell.redTip.backgroundColor isEqual:[UIColor clearColor]]) {
+            self.yesorno = YES;
+        }else{
+            self.yesorno = NO;
         }
         
         
-        
          NSLog(@" -----self.yesorno = %d --- self.recommendCount)%ld", self.yesorno, self.recommendCount);
-        
-//        if (self.num == 0) {
-//            self.num ++;
-//        }
-        
-        NSLog(@"red self.num = %ld", self.num);
+
         
         [self getNotifiList];
         
@@ -1587,10 +1561,21 @@
     RecomViewController *rec = [[RecomViewController alloc] init];
    [self.navigationController pushViewController:rec animated:YES];
     
+   
     // 刷新下 隐藏红点
     NSLog(@"y_________");
-    self.recommendCount = 0;
-//       [_tableView reloadData];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        
+      self.recommendCount = 0;
+        
+//       NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
+//        [mark setObject:@"0" forKey:@"recomment"];
+        
+    });
+
+    [_tableView reloadData];
+
  
 }
 
