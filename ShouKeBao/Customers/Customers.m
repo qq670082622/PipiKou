@@ -314,6 +314,7 @@
         
 //         self.searchCustomerBtnOutlet.titleLabel.text = @"   客户名/电话号码";
         
+        
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
@@ -646,35 +647,50 @@
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"CustomSearchClick" attributes:dict];
 
+    
    if (self.subView.hidden == NO){
-        [UIView animateWithDuration:0.8 animations:^{
+       
+        [UIView animateWithDuration:0.2 animations:^{
             self.subView.alpha = 1;
             self.subView.alpha = 0;
             self.subView.hidden = YES;
-       
+           
         }];
 
        
-   }else if (self.subView.hidden == YES){
-
-       self.imageViewWhenIsNull.hidden = YES;
-       self.searchTextField.hidden = NO;
-       self.cancelSearchOutlet.hidden = NO;
-       self.searchCustomerBtnOutlet.hidden = YES;
-       
-       [self.searchTextField becomeFirstResponder];
-       self.searchTextField.text = self.searchK;
-       
-       [UIView animateWithDuration:0.3 animations:^{
-           
-           self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
-           self.historyView.hidden = NO;
-                 }];
-    
-    [self loadHistoryArr];
+     }else if (self.subView.hidden == YES){
+//       self.imageViewWhenIsNull.hidden = YES;
+//       self.searchTextField.hidden = NO;
+//       self.cancelSearchOutlet.hidden = NO;
+//       self.searchCustomerBtnOutlet.hidden = YES;
+//       
+//       [self.searchTextField becomeFirstResponder];
+//       self.searchTextField.text = self.searchK;
+//       
+//       [UIView animateWithDuration:0.3 animations:^{
+//           
+//           self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
+//           self.historyView.hidden = NO;
+//                 }];
+//    
+//    [self loadHistoryArr];
    
    }
-
+    self.imageViewWhenIsNull.hidden = YES;
+    self.searchTextField.hidden = NO;
+    self.cancelSearchOutlet.hidden = NO;
+    self.searchCustomerBtnOutlet.hidden = YES;
+    
+    [self.searchTextField becomeFirstResponder];
+    self.searchTextField.text = self.searchK;
+    
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
+        self.historyView.hidden = NO;
+    }];
+    [self loadHistoryArr];
 }
 
 
