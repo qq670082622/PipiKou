@@ -128,15 +128,6 @@
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     
 
-    
-//    UIButton *Btn = [[UIButton alloc]initWithFrame:CGRectMake(50,0,50, 50)];
-//    Btn.backgroundColor = [UIColor purpleColor];
-//    
-//    [Btn addTarget:self action:@selector(dealPushBackGround:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.tableView addSubview:Btn];
-    
-    
-    
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -1264,7 +1255,7 @@
 //构造分享内容
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareDic];
     self.shareDic = new;
-    NSLog(@"%@", self.shareDic);
+    NSLog(@"self.shareDic ＝ %@", self.shareDic);
     id<ISSContent> publishContent = [ShareSDK content:self.shareDic[@"Desc"]
                                        defaultContent:self.shareDic[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareDic[@"Pic"]]

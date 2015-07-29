@@ -223,7 +223,7 @@
 
 -(void)shareIt
 {
- 
+
     NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_modal.ShareInfo];
     NSLog(@"-------------tmp is %@----------",tmp);
     //构造分享内容
