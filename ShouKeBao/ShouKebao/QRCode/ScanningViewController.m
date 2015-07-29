@@ -111,7 +111,7 @@
          [self.camera start];
     
 
-    }else if(self.isLogin){
+    }else if(self.isLogin && !self.isFromOrder){
         self.pickerData = [NSArray arrayWithObjects:@"二维码",@"身份证",@"护照", nil];
     }
  
@@ -128,27 +128,8 @@
     self.pickerView.selectionPoint = CGPointMake(self.pickerView.frame.size.width/2, 0);
   
     if (!self.isLogin || self.isFromOrder) {
-//        [self.pickerView scrollToElement:1 animated:YES];
-//        self.selectIndex = 1;
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        
-            self.title = @"身份证扫描";
-            [self.pickerView scrollToElement:0 animated:YES];
-            self.selectIndex = 0;
             [self.view addSubview:self.personIDVC.view];
             [self setTreeBtnImagesWithYes];
-             [self.camera start];
-//        });
-
-        
-    }else if(self.isLogin){
-        
-        self.title = @"二维码扫描";
-         [self.view addSubview:self.QRCodevc.view];
-//        [self.view addSubview:self.personIDVC.view];
-//        [self.personIDVC.view removeFromSuperview];
-        [self.pickerView scrollToElement:0 animated:YES];
-        self.selectIndex = 0;
     }
 
     
@@ -178,17 +159,27 @@
     }
     }else{
         if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"huzhaoOrShenfenzheng"]isEqualToString:@"HZ"]) {
+            [self ifPush];
+            [self.view addSubview:self.personIDVC.view];
+            [self setTreeBtnImagesWithYes];
             self.title = @"护照扫描";
-            [self.pickerView scrollToElement:2 animated:YES];
             self.selectIndex = 2;
+            [self.pickerView scrollToElement:2 animated:YES];
+
 
         }else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"huzhaoOrShenfenzheng"]isEqualToString:@"SFZ"]){
-        self.title = @"身份证扫描";
-            [self.pickerView scrollToElement:1 animated:YES];
+            [self ifPush];
+            [self.view addSubview:self.personIDVC.view];
+            [self setTreeBtnImagesWithYes];
+            self.title = @"身份证扫描";
             self.selectIndex = 1;
+            [self.pickerView scrollToElement:1 animated:YES];
 
         }else{
         self.title = @"二维码扫描";
+            
+            [self.view addSubview:self.QRCodevc.view];
+
             [self.pickerView scrollToElement:0 animated:YES];
             self.selectIndex = 0;
 

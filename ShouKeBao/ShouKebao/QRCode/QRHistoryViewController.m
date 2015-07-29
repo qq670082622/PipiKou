@@ -396,9 +396,14 @@
         for(int i = 0 ;i<_editArr.count;i++){
           //  personIdModel *model = _editArr[i];
             //[arr addObject:model.RecordId];
-            
             personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
+            if ([model.UserName isEqualToString:@""]||[model.CardNum isEqualToString:@""]) {
+                UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"抱歉" message:@"姓名或证件号为空，无法保存" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                [alertView show];
+                return;
+            }else{
             [arr addObject:model.RecordId];
+            }
         }
         
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"

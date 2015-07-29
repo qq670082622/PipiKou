@@ -430,6 +430,7 @@
 
 
 -(void)FromiMessage:(NSNotification *)noti{
+    self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
     NSString * urlStr = noti.object;
     BaseWebViewController * webView = [[BaseWebViewController alloc]init];
     webView.linkUrl = urlStr;
@@ -506,8 +507,13 @@
             [self.navigationController pushViewController:messageDetail animated:YES];
         }
         
-        else if ([message[0] isEqualToString:@"noticeType"]){
-            // [self ringAction];
+        else if ([message[0] isEqualToString:@"Other"]){
+            NSString * otherUrl = message[2];
+            NSString * otherTitle = message[3];
+            BaseWebViewController * webView = [[BaseWebViewController alloc]init];
+            webView.linkUrl = otherUrl;
+            webView.webTitle = otherTitle;
+            [self.navigationController pushViewController:webView animated:YES];
         }else{
         
         }

@@ -56,6 +56,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"护照";
+    self.nameText.delegate = self;
+    self.cardNumText.delegate = self;
    //如果是扫描直接进来
         
     self.nameText.text = [StrToDic cleanSpaceWithString:_nameLabStr];
@@ -98,7 +100,11 @@
         self.saveBtn.hidden = YES;
         self.saveBtn2.hidden = NO;
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.nameText];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.cardNumText];
 
+
+    [self changeButton];
 
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -160,9 +166,11 @@
         NSString * cardtye = self.isIDCard?@"0":@"1";
         NSString * sexx = [self.sexLabStr isEqualToString:@"M"]?@"0":@"1";
         NSMutableString * infoString = [NSMutableString string];
+        if (self.bornText.text.length > 7) {
         [infoString appendString:[self.bornText.text substringWithRange:NSMakeRange(0, 4)]];
         [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(4, 2)]];
         [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(6, 2)]];
+        }
         NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardNumText.text};
         NSLog(@"%@", dic);
         self.delegateToOrder = self.VC;
@@ -442,5 +450,27 @@
 -(void)cancleCover{
     [self.coverView removeFromSuperview];
 }
+- (void)FieldTextChange:(NSNotification *)noty
+{
+    [self changeButton];
+}
+- (void)changeButton{
+    if (![self.nameText.text isEqualToString:@""]&&![self.cardNumText.text isEqualToString:@""]) {
+        self.saveBtn.backgroundColor = [UIColor blueColor];
+        self.saveBtn2.backgroundColor = [UIColor blueColor];
+        self.saveBtnFromOrder.backgroundColor = [UIColor blueColor];
+        self.saveBtn.userInteractionEnabled= YES;
+        self.saveBtn2.userInteractionEnabled= YES;
+        self.saveBtnFromOrder.userInteractionEnabled= YES;
+    }else{
+        self.saveBtn.backgroundColor = [UIColor lightGrayColor];
+        self.saveBtn2.backgroundColor = [UIColor lightGrayColor];
+        self.saveBtnFromOrder.backgroundColor = [UIColor lightGrayColor];
+        self.saveBtn.userInteractionEnabled= NO;
+        self.saveBtn2.userInteractionEnabled= NO;
+        self.saveBtnFromOrder.userInteractionEnabled= NO;
 
+    }
+
+}
 @end

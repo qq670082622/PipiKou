@@ -450,7 +450,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     NSString * objID = [userInfo valueForKey:@"objectId"];
     NSString * objUri = [userInfo valueForKey:@"objectUri"];
-    
+    NSString * objTitle = [userInfo valueForKey:@"noticeTitle"];
     if ([noticeType isEqualToString:@"SingleOrder"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
@@ -482,7 +482,15 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
         
-    }else{
+    }else if([noticeType isEqualToString:@"Other"]){
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"OtherId"];
+        [arr addObject:objID];
+        [arr addObject:objUri];
+        [arr addObject:objTitle];
+        [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+    }else {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSArray * array = @[@"elseType", @"", @""];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:array];
