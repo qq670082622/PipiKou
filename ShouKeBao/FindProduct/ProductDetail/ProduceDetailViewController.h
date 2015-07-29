@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
 #import "BeseWebView.h"
+@class DayDetail;
+@class yesterDayModel;
 //@class BeseWebView;
 typedef enum{
     FromQRcode,
@@ -30,5 +32,7 @@ typedef enum{
 @property (nonatomic, assign)JumpinFrom fromType;
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;
+@property (nonatomic, strong) DayDetail *detail;
+@property (nonatomic , strong)yesterDayModel *detail2;
 @property(nonatomic,weak) id<notiQRCToStartRuning>delegate;
 @end

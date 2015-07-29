@@ -29,6 +29,7 @@
         self.Sex = dict[@"Sex"];
        // self.createTime = dict[@"CreateTime"];
         self.Country = dict[@"Country"];//国家
+        NSLog(@"%@", dict);
         self.PassportNum = dict[@"PassportNum"];
         self.ValidStartDate = dict[@"ValidStartDate"];
         self.ValidAddress = dict[@"ValidAddress"];

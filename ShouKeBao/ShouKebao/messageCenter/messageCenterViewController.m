@@ -15,6 +15,7 @@
 #import "IWHttpTool.h"
 #import "MobClick.h"
 #import "WriteFileManager.h"
+#import "BaseClickAttribute.h"
 @interface messageCenterViewController ()<UITableViewDataSource,UITableViewDelegate>//,notifiToReferesh>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
@@ -166,7 +167,9 @@
     messageDetail.createDate = model.CreatedDate;
     messageDetail.messageTitle = model.title;
 
-    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShoukeBaoMessageCenterDetailClick" attributes:dict];
+
     
     [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
     NSString *idStr = [NSString stringWithString:model.ID];

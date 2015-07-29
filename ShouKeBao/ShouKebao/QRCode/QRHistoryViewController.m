@@ -14,6 +14,8 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "MobClick.h"
+#import "MJRefresh.h"
+#import "QRCodeCell.h"
 @interface QRHistoryViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -21,6 +23,16 @@
 @property (weak, nonatomic) IBOutlet UIView *subView;
 //@property(nonatomic,strong) NSMutableArray *dataSource;
 @property(nonatomic,strong) NSMutableArray *editArr;
+@property (strong, nonatomic) IBOutlet UIView *loginView;
+@property (strong, nonatomic) IBOutlet UIButton *logindeleteBT;
+@property (strong, nonatomic) IBOutlet UIButton *loginsaveBT;
+@property (strong, nonatomic) IBOutlet UILabel *logindeleteLB;
+@property (strong, nonatomic) IBOutlet UILabel *loginsaveLB;
+@property (strong, nonatomic) IBOutlet UIButton *deleteVT;
+@property (strong, nonatomic) IBOutlet UILabel *deleteLB;
+@property (nonatomic, assign) BOOL isLoadMore;
+@property (nonatomic, assign) BOOL isOver;
+@property (nonatomic, copy) NSString * pageNum;
 - (IBAction)deleteAction:(id)sender;
 - (IBAction)saveToCustom:(id)sender;
 
@@ -38,7 +50,15 @@
     self.table.tableFooterView = [[UIView alloc] init];
     self.table.delegate = self;
     self.table.dataSource = self;
-   
+    self.pageNum = @"1";
+    [self.table addHeaderWithTarget:self action:@selector(loadNewData)];
+    [self.table addFooterWithTarget:self action:@selector(loadMoreData)];
+    self.table.headerPullToRefreshText = @"下拉刷新";
+    self.table.headerRefreshingText = @"正在刷新中";
+    self.table.footerPullToRefreshText = @"上拉刷新";
+    self.table.footerRefreshingText = @"正在刷新";
+
+    
     
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
@@ -51,19 +71,42 @@
     [self stepRightItem];
      self.title = @"识别纪录";
     //[self loadDataSource];
-   
-    
+    if (self.isLogin) {
+        self.deleteLB.hidden  = YES;
+        self.deleteVT.hidden = YES;
+    }else{
+        self.loginView.hidden = YES;
+        self.loginsaveBT.hidden = YES;
+        self.loginsaveLB.hidden = YES;
+        self.logindeleteBT.hidden = YES;
+        self.logindeleteLB.hidden = YES;
+    }
+    [self loadNewData];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self loadDataSource];
     [MobClick beginLogPageView:@"ShouKeBaoQRHistoryViewController"];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoQRHistoryViewController"];
 }
-
+- (void)loadMoreData{
+    self.pageNum = [NSString stringWithFormat:@"%ld",[self.pageNum integerValue]+1];
+    self.isLoadMore = YES;
+    if (self.isOver) {
+        self.table.footerHidden = YES;
+    }else{
+    [self loadDataSource];
+    }
+}
+- (void)loadNewData{
+    self.pageNum = @"1";
+    self.isLoadMore = NO;
+    self.isOver = NO;
+    self.table.footerHidden = NO;
+    [self loadDataSource];
+}
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -81,6 +124,7 @@
 {
 //PageIndex   PageSize
     if (!_isLogin) {  //注record是未登录时的识别纪录，而record2是未登录时添加的客户
+        
         [self.dataArr removeAllObjects];
         NSArray *arr = [NSArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
         NSLog(@"dataArr is %@ - --- arr is %@",_dataArr,arr);
@@ -92,16 +136,25 @@
          [self.table reloadData];
     }else if (_isLogin){
 
-        [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"2",@"PageIndex":@"1",@"PageSize":@"1000"}  success:^(id json) {
-            
+        [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"2",@"PageIndex":self.pageNum,@"PageSize":@"20"}  success:^(id json) {
+            [self.table footerEndRefreshing];
+            [self.table headerEndRefreshing];
     NSLog(@"纪录json is %@",json);
     NSMutableArray *mua = [NSMutableArray array];
     for (NSDictionary *dic in json[@"CredentialsPicRecordList"]) {
         personIdModel *model = [personIdModel modelWithDict:dic];
         [mua addObject:model];
     }
-    [self.dataArr removeAllObjects];
-    self.dataArr = mua;
+            if (!self.isLoadMore) {
+                [self.dataArr removeAllObjects];
+                self.dataArr = mua;
+            }else{
+                if ([self.pageNum integerValue] > [json[@"TotalCount"] integerValue]/20) {
+                    self.isOver = YES;
+                }else{
+                [self.dataArr addObjectsFromArray:mua];
+                }
+            }
              [self ifArrIsNull:_dataArr];
             
              [self.table reloadData];
@@ -193,55 +246,13 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     NSString *cellID = [NSString stringWithFormat:@"historyCell%d",((arc4random() % 2500) + 1)];
-
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-    
-    CGFloat screenW = [[UIScreen mainScreen] bounds].size.width;
-    
+    static  NSString * cellID = @"QRHistoryCell";
+    QRCodeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-        personIdModel *model = self.dataArr[indexPath.row];
-        UIImageView *imgV = [[UIImageView alloc] initWithFrame:CGRectMake(15, 10, 35, 35)];
-        [cell.contentView addSubview:imgV];
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(imgV.frame)+10, 10, 200, 20)];
-        label.textColor = [UIColor blackColor];
-        label.font = [UIFont systemFontOfSize:15];
-        label.textAlignment = NSTextAlignmentLeft;
-        label.text = model.UserName;
-        [cell.contentView addSubview:label];
-        
-        UILabel *codeLab = [[UILabel alloc] initWithFrame:CGRectMake(label.frame.origin.x, CGRectGetMaxY(label.frame)+10, 200, 20)];
-        codeLab.textColor = [UIColor grayColor];
-        codeLab.font = [UIFont systemFontOfSize:12];
-        codeLab.textAlignment = NSTextAlignmentLeft;
-        
-        [cell.contentView addSubview:codeLab];
-        
-        UILabel *creatLab = [[UILabel alloc] initWithFrame:CGRectMake(screenW-140, codeLab.frame.origin.y, 130, 20)];
-        creatLab.textColor = [UIColor grayColor];
-        creatLab.font = [UIFont systemFontOfSize:13];
-        creatLab.textAlignment = NSTextAlignmentRight;
-        creatLab.text = model.ModifyDate;
-        
-        
-        if ([model.RecordType isEqualToString:@"2"]) {
-            imgV.image = [UIImage imageNamed:@"passPort"];
-            codeLab.text = model.PassportNum;
-        }else if([model.RecordType isEqualToString:@"1"]){
-            imgV.image = [UIImage imageNamed:@"IDInform"];
-            codeLab.text = model.CardNum;
-        }
-        if (_isEditing) {
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        }
-    
-        [cell.contentView addSubview:creatLab];
-    
+        cell = [[QRCodeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-  
-    
+    personIdModel *model = self.dataArr[indexPath.row];
+    cell.model = model;
     return cell;
 }
 
@@ -259,7 +270,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     
     personIdModel *model = _dataArr[indexPath.row];
-    
+    NSLog(@"%ld%@", (long)indexPath.row, model.UserName);
     if (self.table.editing == YES) {
               
         [self.editArr addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
@@ -267,6 +278,7 @@
         [self.editIndexArrInNoLogin addObject:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         
     }else if (self.table.editing == NO){
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
         if ([model.RecordType isEqualToString:@"1"]) {
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             userIDTableviewController *uid = [sb instantiateViewControllerWithIdentifier:@"userID"];
@@ -274,6 +286,7 @@
             uid.birthDay = model.BirthDay;
             uid.cardNumber = model.CardNum;
             uid.Nationality = model.Nationality;
+            
             uid.sex = model.Sex;
             uid.UserName = model.UserName;
             uid.RecordId = model.RecordId;
@@ -289,6 +302,7 @@
             ca.nameLabStr = model.UserName;
             ca.sexLabStr = model.Sex;
             ca.countryLabStr = model.Country;
+            NSLog(@"%@", model.Country);
             ca.cardNumStr = model.PassportNum;
             ca.bornLabStr = model.BirthDay;
             ca.startDayLabStr = model.ValidStartDate;

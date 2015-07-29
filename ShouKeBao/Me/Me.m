@@ -335,8 +335,11 @@
     if (indexPath.section == 2 && indexPath.row == 3) {
         if (self.versionInfoDic) {
             if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
-                NSString * verStr = [NSString stringWithFormat:@"最新V%@", self.versionInfoDic[@"VersionCode"]];
-                [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:verStr withImage:[UIImage imageNamed:@"update_tb.png"]
+                UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
+                imgView.image = [UIImage imageNamed:@"yaoqianshu"];
+                [cell.contentView addSubview:imgView];
+            }else{
+                [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:@"已是最新版本" withImage:nil
                  ];
             }
         }

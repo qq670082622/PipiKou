@@ -60,6 +60,7 @@
 #import "NewVersionWebViewController.h"
 #import "Me.h"
 #import "StrToDic.h"
+#import "BaseWebViewController.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 @property (nonatomic, strong)RecommendCell *cell;
 @property (nonatomic, strong)BBBadgeBarButtonItem *barButton;
@@ -189,6 +190,8 @@
     [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];//若程序在前台，直接调用，在后台被点击则调用
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FromiMessage:) name:@"FromiMesseage" object:nil];
+
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithCrash" object:nil];
     
@@ -435,6 +438,13 @@
 
 
 
+-(void)FromiMessage:(NSNotification *)noti{
+    NSString * urlStr = noti.object;
+    BaseWebViewController * webView = [[BaseWebViewController alloc]init];
+    webView.linkUrl = urlStr;
+    [self.navigationController pushViewController:webView animated:YES];
+}
+
 #pragma  - mark程序未死亡时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
 { //arr[0]是value arr[1]是key
@@ -653,7 +663,6 @@
                 NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
                 [udf setObject:[NSString stringWithFormat:@"%@",dic[@"Text"]] forKey:@"SubstationName"];
                  [udf synchronize];
-
             }
             
         }
@@ -1300,7 +1309,7 @@
                                     
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
                                        
-                                        [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                        [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"0"} success:^(id json) {
                                                                                     } failure:^(NSError *error) {
                                             
                                         }];

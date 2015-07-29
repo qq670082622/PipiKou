@@ -199,6 +199,7 @@
     
     yesterDayModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
+    web.detail2  = detail;
     web.fromType = FromRecommend;
     web.produceUrl = detail.LinkUrl;
     [self.navigationController pushViewController:web animated:YES];

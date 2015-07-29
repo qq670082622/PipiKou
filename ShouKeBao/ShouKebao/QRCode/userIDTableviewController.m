@@ -33,6 +33,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *addressText;
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn2;
+@property (strong, nonatomic) IBOutlet UIButton *saveBtnFromOrder;
 
 - (IBAction)save:(id)sender;
 
@@ -71,9 +72,17 @@
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
     }
     if (self.isLogin) {
-        self.saveBtn.hidden = NO;
-        self.saveBtn2.hidden = YES;
+        if (self.isFromOrder) {
+            self.saveBtn.hidden = YES;
+            self.saveBtn2.hidden = YES;
+            self.saveBtnFromOrder.hidden = NO;
+        }else{
+            self.saveBtn.hidden = NO;
+            self.saveBtn2.hidden = YES;
+            self.saveBtnFromOrder.hidden = YES;
+        }
     }else{
+        self.saveBtnFromOrder.hidden = YES;
         self.saveBtn.hidden = YES;
         self.saveBtn2.hidden = NO;
     }
@@ -289,10 +298,10 @@
     
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(alertX, 15, alertW - alertX*2, 65)];
     lab.numberOfLines = 0;
-    lab.text = @"信息已经提取到识别历史，是否还提取粘贴到？..";
+    lab.text = @"信息已经提取为客户，是否还提取粘贴到..";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
-    lab.font = [UIFont systemFontOfSize:12];
+    lab.font = [UIFont systemFontOfSize:15];
     
     CGFloat btnY = CGRectGetMaxY(lab.frame)+15;
     CGFloat btnW = (alertW - 5*alertX)/4;
@@ -347,13 +356,11 @@
     UIButton *cancle = [UIButton buttonWithType:UIButtonTypeCustom];
     [cancle setTitle:@"取消" forState:UIControlStateNormal];
     [cancle setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-    cancle.titleLabel.font = [UIFont systemFontOfSize:15];
-    cancle.frame = CGRectMake(alertW/2 - 30, CGRectGetMaxY(line.frame)+15, 60, 25);
+    cancle.titleLabel.font = [UIFont systemFontOfSize:17];
+    cancle.frame = CGRectMake(alertW/2 - 80, CGRectGetMaxY(line.frame)+10, 160, 35);
     [cancle addTarget:self action:@selector(cancleCover) forControlEvents:UIControlEventTouchUpInside];
-    
     CGFloat alertH = CGRectGetMaxY(cancle.frame)+15;
     alert.frame = CGRectMake(alertX, alertY, alertW, alertH);
-
     [cover addSubview:alert];
     [alert addSubview:lab];
     [alert addSubview:weCaht];

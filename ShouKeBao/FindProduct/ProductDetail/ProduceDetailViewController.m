@@ -17,6 +17,8 @@
 #import "StrToDic.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "DayDetail.h"
+#import "yesterDayModel.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
@@ -121,7 +123,7 @@
     
     UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
     turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
-    turnOff.frame = CGRectMake(0, 0, 30, 30);
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
     [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
     [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
     [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -391,6 +393,11 @@
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareInfo];
     self.shareInfo = new;
     NSLog(@"shareInfoIs %@",new);
+//    if (self.detail) {
+//        self.shareInfo = self.detail.ShareInfo;
+//    }else{
+//        self.shareInfo = self.detail2.ShareInfo;
+//    }
     id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]

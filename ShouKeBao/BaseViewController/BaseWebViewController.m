@@ -74,7 +74,7 @@
     
     UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
     turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
-    turnOff.frame = CGRectMake(0, 0, 30, 30);
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
     [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
     [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
     [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -112,9 +112,6 @@
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
-    
-    
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
     
     if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];

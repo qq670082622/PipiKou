@@ -324,6 +324,7 @@
 		796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 796C4D501B60E90C008EBAFE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		796FBA011B58AE7B009C75AF /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA001B58AE7B009C75AF /* BaseWebViewController.m */; };
 		796FBA041B58B5BC009C75AF /* MoneyTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */; };
+		7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7975831A1B6734E1008E2908 /* QRCodeCell.m */; };
 		797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797E56591B56569C00154C55 /* NewVersionWebViewController.m */; };
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
 		7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15A1B33ECB8009F878D /* InspectionViewController.m */; };
@@ -906,6 +907,8 @@
 		796FBA001B58AE7B009C75AF /* BaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		796FBA021B58B5BC009C75AF /* MoneyTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyTreeViewController.h; sourceTree = "<group>"; };
 		796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyTreeViewController.m; sourceTree = "<group>"; };
+		797583191B6734E1008E2908 /* QRCodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeCell.h; sourceTree = "<group>"; };
+		7975831A1B6734E1008E2908 /* QRCodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeCell.m; sourceTree = "<group>"; };
 		797E56581B56569C00154C55 /* NewVersionWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewVersionWebViewController.h; sourceTree = "<group>"; };
 		797E56591B56569C00154C55 /* NewVersionWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewVersionWebViewController.m; sourceTree = "<group>"; };
 		7982F1561B33C6CB009F878D /* CityPlistTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPlistTool.h; sourceTree = "<group>"; };
@@ -1484,6 +1487,8 @@
 				63F1A1341B13329E00DE9867 /* YesterDayCell.m */,
 				63F1A1361B1332AD00DE9867 /* RecentlyCell.h */,
 				63F1A1371B1332AD00DE9867 /* RecentlyCell.m */,
+				797583191B6734E1008E2908 /* QRCodeCell.h */,
+				7975831A1B6734E1008E2908 /* QRCodeCell.m */,
 				63A81B871B39062900D8B37D /* SKBNavBar.h */,
 				63A81B881B39062900D8B37D /* SKBNavBar.m */,
 				63A81B8A1B39065F00D8B37D /* SKBNavBar.xib */,
@@ -1969,6 +1974,7 @@
 				63D31E3F1AB143D00043B3CA /* Products */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		63D31E3F1AB143D00043B3CA /* Products */ = {
 			isa = PBXGroup;
@@ -2624,6 +2630,7 @@
 				6326131E1AB1C175003AC2DA /* MJRefreshHeaderView.m in Sources */,
 				5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */,
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,
+				7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,

@@ -116,22 +116,23 @@
     }
  
     
-    CGFloat pickX = [[UIScreen mainScreen] bounds].size.width/2 - 125;
-    CGFloat pickW = 250;
-    CGFloat pickY = 0;
-    CGFloat pickH = 20;
+//    CGFloat pickX = [[UIScreen mainScreen] bounds].size.width/2 - 125;
+//    CGFloat pickW = 250;
+//    CGFloat pickY = 0;
+//    CGFloat pickH = 20;
     self.pickerView.delegate = self;
-    self.pickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake(pickX, pickY, pickW, pickH) withDataSource:_pickerData];
+    self.pickerView = [[V8HorizontalPickerView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 20) withDataSource:_pickerData];
     self.pickerView.backgroundColor   = [UIColor clearColor];
     self.pickerView.selectedTextColor = [UIColor whiteColor];//147 198 228
     self.pickerView.textColor   = [UIColor colorWithRed:147/255.f green:198/255.f blue:228/255.f alpha:1];
     self.pickerView.selectionPoint = CGPointMake(self.pickerView.frame.size.width/2, 0);
   
     if (!self.isLogin || self.isFromOrder) {
-        self.title = @"身份证扫描";
 //        [self.pickerView scrollToElement:1 animated:YES];
 //        self.selectIndex = 1;
 //        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        
+            self.title = @"身份证扫描";
             [self.pickerView scrollToElement:0 animated:YES];
             self.selectIndex = 0;
             [self.view addSubview:self.personIDVC.view];
@@ -164,8 +165,37 @@
     
    
     [self addGes];
+    if (self.isFromOrder || !self.isLogin) {
+    if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"huzhaoOrShenfenzheng"]isEqualToString:@"HZ"]) {
+        self.title = @"护照扫描";
+        [self.pickerView scrollToElement:1 animated:YES];
+        self.selectIndex = 1;
+    }else{
+        self.title = @"身份证扫描";
+        [self.pickerView scrollToElement:0 animated:YES];
+        self.selectIndex = 0;
+
+    }
+    }else{
+        if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"huzhaoOrShenfenzheng"]isEqualToString:@"HZ"]) {
+            self.title = @"护照扫描";
+            [self.pickerView scrollToElement:2 animated:YES];
+            self.selectIndex = 2;
+
+        }else if([[[NSUserDefaults standardUserDefaults]objectForKey:@"huzhaoOrShenfenzheng"]isEqualToString:@"SFZ"]){
+        self.title = @"身份证扫描";
+            [self.pickerView scrollToElement:1 animated:YES];
+            self.selectIndex = 1;
+
+        }else{
+        self.title = @"二维码扫描";
+            [self.pickerView scrollToElement:0 animated:YES];
+            self.selectIndex = 0;
+
+        }
+        
     
-  
+    }
    
     
 }
@@ -257,13 +287,19 @@
             
              _selectIndex +=1;
             self.title = @"身份证扫描";
+            [[NSUserDefaults standardUserDefaults]setValue:@"SFZ" forKey:@"huzhaoOrShenfenzheng"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
         }
         
       
        else if(_selectIndex == 1){
             
             _selectIndex +=1;
+           
            self.title = @"护照扫描";
+           [[NSUserDefaults standardUserDefaults]setValue:@"HZ" forKey:@"huzhaoOrShenfenzheng"];
+           [[NSUserDefaults standardUserDefaults]synchronize];
+
         }
 
         NSLog(@"----index is %ld------",(long)_selectIndex);
@@ -286,6 +322,10 @@
 
             _selectIndex -=1;
              self.title = @"身份证扫描";
+             [[NSUserDefaults standardUserDefaults]setValue:@"SFZ" forKey:@"huzhaoOrShenfenzheng"];
+             [[NSUserDefaults standardUserDefaults]synchronize];
+
+
         }
         
         NSLog(@"----index is %ld------",(long)_selectIndex);
@@ -392,6 +432,9 @@
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 [self.view bringSubviewToFront:self.controlView];
                 self.title = @"二维码扫描";
+                [[NSUserDefaults standardUserDefaults]setValue:@"EWM" forKey:@"huzhaoOrShenfenzheng"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+
                 [self setTreeBtnImagesWithNo];
                 
             }
@@ -421,11 +464,17 @@
                 [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
                 
                 self.title = @"身份证扫描";
+                [[NSUserDefaults standardUserDefaults]setValue:@"SFZ" forKey:@"huzhaoOrShenfenzheng"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+
                 [self setTreeBtnImagesWithYes];
                 
             }
          
              self.title = @"身份证扫描";
+            [[NSUserDefaults standardUserDefaults]setValue:@"SFZ" forKey:@"huzhaoOrShenfenzheng"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+
         }else{
             
             if (self.camera.isStart == NO && _cameraInUse == NO) {
@@ -444,11 +493,18 @@
                 
                 
                 self.title = @"护照扫描";
+                [[NSUserDefaults standardUserDefaults]setValue:@"HZ" forKey:@"huzhaoOrShenfenzheng"];
+                [[NSUserDefaults standardUserDefaults]synchronize];
+
                 [self setTreeBtnImagesWithYes];
                 
             }
               //[self ifPush];
              self.title = @"护照扫描";
+            [[NSUserDefaults standardUserDefaults]setValue:@"HZ" forKey:@"huzhaoOrShenfenzheng"];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+
+
         }
   
     }else if (!_isLogin){
@@ -734,15 +790,15 @@
         NSData *data = UIImageJPEGRepresentation(self.photoImg.image, 1.0);
         NSString *imageStr = [data base64EncodedStringWithOptions:0];                [IWHttpTool postWithURL:@"file/uploadpassport" params:@{@"FileStreamData":imageStr,@"PictureType":@"4"}  success:^(id json) {
             NSLog(@"------图片--图片---json is %@----图片----",json);
-   
+
            // [self getTestLabWithJson:json];
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
             CardTableViewController *card = [sb instantiateViewControllerWithIdentifier:@"customerCard"];
-            
+            NSLog(@"%@", json);
             card.nameLabStr = json[@"CredentialsPicRecord"][@"UserName"];
             card.sexLabStr = json[@"CredentialsPicRecord"][@"Sex"];
-            //card.countryLabStr = json[@"CredentialsPicRecord"][@"Country"];//后面接口更新后要把国籍还回来
-            card.countryLabStr = json[@"CredentialsPicRecord"][@"Nationality"];
+            card.countryLabStr = json[@"CredentialsPicRecord"][@"Country"];//后面接口更新后要把国籍还回来
+//            card.countryLabStr = json[@"CredentialsPicRecord"][@"Nationality"];
 
             card.cardNumStr = json[@"CredentialsPicRecord"][@"PassportNum"];
             card.bornLabStr = json[@"CredentialsPicRecord"][@"BirthDay"];

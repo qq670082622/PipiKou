@@ -155,9 +155,11 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
 //跳转证件页面
 -(void)Card
 {
+    
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isLogin = NO;
     [self.navigationController pushViewController:scan animated:YES];
+    [MobClick event:@"ScanClickNumUnlogin"];
 }
 - (void)dealloc
 {

@@ -113,7 +113,7 @@
     
     UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
     turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
-    turnOff.frame = CGRectMake(0, 0, 30, 30);
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
     [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
     [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
     [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -477,7 +477,7 @@
                                 if (state == SSResponseStateSuccess)
                                 {
                                     [self.warningLab removeFromSuperview];
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1"} success:^(id json) {
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"0"} success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];

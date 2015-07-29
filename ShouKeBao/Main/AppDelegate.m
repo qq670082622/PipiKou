@@ -22,7 +22,7 @@
 #import "MobClick.h"
 #import "UMessage.h"
 #import "ShouKeBao.h"
-
+#import "BaseWebViewController.h"
 //jpush 1a1249b973c6ce482d68fd4f
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
@@ -156,21 +156,21 @@ void UncaughtExceptionHandler(NSException *exception) {
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104705605"
-                           appSecret:@"XKgvuFzR766wGYoW"
+    [ShareSDK connectQZoneWithAppKey:@"1104787206"
+                           appSecret:@"v6rYWKc8Fvjjye3n"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104705605"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104787206"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wxf7e885da3d7269d5"
+    [ShareSDK connectWeChatWithAppId:@"wx96ff8e3c5c1c313d"
                            wechatCls:[WXApi class]];
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wxf7e885da3d7269d5"   //微信APPID
-                           appSecret:@"2ae2501db00abfe12fd26d4535f75ee0"  //微信APPSecret
+    [ShareSDK connectWeChatWithAppId:@"wx96ff8e3c5c1c313d"   //微信APPID
+                           appSecret:@"3b5a91dfcb30d1286aea9e5009fc069b"  //微信APPSecret
                            wechatCls:[WXApi class]];
     
     //连接短信分享
@@ -509,8 +509,9 @@ void UncaughtExceptionHandler(NSException *exception) {
 - (BOOL)application:(UIApplication *)application
       handleOpenURL:(NSURL *)url
 {
-    return [ShareSDK handleOpenURL:url
-                        wxDelegate:self];
+    [ShareSDK handleOpenURL:url
+                 wxDelegate:self];
+    return YES;
 }
 
 - (BOOL)application:(UIApplication *)application
@@ -518,10 +519,18 @@ void UncaughtExceptionHandler(NSException *exception) {
   sourceApplication:(NSString *)sourceApplication
          annotation:(id)annotation
 {
-    return [ShareSDK handleOpenURL:url
+    NSLog(@"aaaaaaaabb");
+    NSString * urlString = url.absoluteString;
+    if ([urlString containsString:@"url="]) {
+        NSString * webStr = [urlString stringByReplacingOccurrencesOfString:@"pipikou://url=" withString:@""];
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
+    }
+    [ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication
                         annotation:annotation
                         wxDelegate:self];
+    return YES;
 }
 
 #pragma mark - public

@@ -67,7 +67,7 @@
 {
     layer.borderColor = color.CGColor;
     layer.borderWidth = borderWid;
-    layer.cornerRadius = 4;
+    layer.cornerRadius = 9;
     layer.masksToBounds = YES;
     if (needShow) {
         layer.shadowColor = [UIColor lightGrayColor].CGColor;

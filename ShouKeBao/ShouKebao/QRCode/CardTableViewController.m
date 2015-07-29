@@ -41,6 +41,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn2;
+@property (strong, nonatomic) IBOutlet UIButton *saveBtnFromOrder;
 
 - (IBAction)save:(id)sender;
 
@@ -57,7 +58,6 @@
     self.title = @"护照";
    //如果是扫描直接进来
         
-      
     self.nameText.text = [StrToDic cleanSpaceWithString:_nameLabStr];
     self.sexText.text = [StrToDic cleanSpaceWithString:_sexLabStr];
     self.countryText.text = [StrToDic cleanSpaceWithString:_countryLabStr];
@@ -84,9 +84,17 @@
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
     }
     if (self.isLogin) {
+        if (self.isFromOrder) {
+            self.saveBtn.hidden = YES;
+            self.saveBtn2.hidden = YES;
+            self.saveBtnFromOrder.hidden = NO;
+        }else{
         self.saveBtn.hidden = NO;
         self.saveBtn2.hidden = YES;
+        self.saveBtnFromOrder.hidden = YES;
+        }
     }else{
+        self.saveBtnFromOrder.hidden = YES;
         self.saveBtn.hidden = YES;
         self.saveBtn2.hidden = NO;
     }
@@ -150,7 +158,7 @@
 - (IBAction)save:(id)sender {
     if (self.isFromOrder) {
         NSString * cardtye = self.isIDCard?@"0":@"1";
-        NSString * sexx = [self.sexLabStr isEqualToString:@"男"]?@"0":@"1";
+        NSString * sexx = [self.sexLabStr isEqualToString:@"M"]?@"0":@"1";
         NSMutableString * infoString = [NSMutableString string];
         [infoString appendString:[self.bornText.text substringWithRange:NSMakeRange(0, 4)]];
         [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(4, 2)]];
@@ -194,11 +202,11 @@
         [dic setObject:@"2" forKey:@"RecordType"];
         [dic setObject:_PicUrl forKey:@"PicUrl"];
         NSMutableArray *arr = [NSMutableArray array];
+        
         [arr addObject:dic];
         NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
         
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
-        
         //1.同步扫描纪录
         [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
             NSLog(@"批量导入客户成功 返回json is %@",json);
@@ -319,10 +327,10 @@
     
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(alertX, 15, alertW - alertX*2, 65)];
     lab.numberOfLines = 0;
-    lab.text = @"信息已经提取到识别历史，是否还提取粘贴到？..";
+    lab.text = @"信息已经提取为客户，是否还提取粘贴到..";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
-    lab.font = [UIFont systemFontOfSize:12];
+    lab.font = [UIFont systemFontOfSize:15];
     
     CGFloat btnY = CGRectGetMaxY(lab.frame)+15;
     CGFloat btnW = (alertW - 5*alertX)/4;
