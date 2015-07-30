@@ -529,10 +529,17 @@ void UncaughtExceptionHandler(NSException *exception) {
 {
     NSLog(@"aaaaaaaabb");
     NSString * urlString = url.absoluteString;
-    if ([urlString containsString:@"url="]) {
+    if ([urlString containsString:@"pipikou://"]) {
         NSString * webStr = [urlString stringByReplacingOccurrencesOfString:@"pipikou://url=" withString:@""];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
+    }
+    
+    if ([urlString containsString:@"QQ41D9B706"]) {
+//        NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
+//        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
+//        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+//        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
     }
     [ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication

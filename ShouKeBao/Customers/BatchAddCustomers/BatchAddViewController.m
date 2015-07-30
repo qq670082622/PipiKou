@@ -13,6 +13,7 @@
 #import "IWHttpTool.h"
 #import <AddressBookUI/AddressBookUI.h>
 #import "MobClick.h"
+
 @interface BatchAddViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong,nonatomic) NSMutableArray *dataArr;
 @property (strong,nonatomic) NSMutableArray *editArr;
@@ -24,23 +25,77 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-  self.title = @"批量添加客户";
+    self.title = @"批量添加客户";
     self.table.rowHeight = 60;
+     All= NO;
     [self loadData];
+    
     [self.table setEditing:YES animated:YES];
     [self setUpRightButton];
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    
+    
+    
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
 
-    
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
     
-//    self.table.tableFooterView = [[UIView alloc] init];
+    self.table.tableFooterView = [[UIView alloc] init];
     
+}
+-(void)viewDidAppear:(BOOL)animated {
+    //////之所以在viewDidAppear中来设置某个cell被初始选中，目的是要在uitableview加载出来以后再做
+    NSLog(@"调用刷新了");
+    [super viewDidAppear:animated];
+    
+    //////这里假设你初始要选中的是第一行
+    if (All) {
+    NSLog(@"----++++%ld",self.editArr.count);
+    for (NSInteger i = 0; i<self.editArr.count;i++) {
+        NSIndexPath *indexPath =[NSIndexPath indexPathForRow:i inSection:0];
+        [self.table selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
+
+    }
+    
+}
+-(void)Allselect:(UIButton *)button{
+    switch (button.tag) {
+        case 101:
+        {
+            All = YES;
+            NSLog(@"点击全选");
+            [self.editArr removeAllObjects];
+            [self.editArr addObjectsFromArray:self.dataArr];
+            
+            [allbutton setTitle:@"取消" forState:UIControlStateNormal];
+            allbutton.tag = 102;
+            NSLog(@"editArr:--%ld===dataArr:--%ld",self.editArr.count,self.dataArr.count);
+            [self.table reloadData];
+            [self viewDidAppear:YES];
+        }
+            break;
+        case 102:
+        {
+            All = NO;
+            NSLog(@"点击取消");
+            [self.editArr removeAllObjects];
+            //[self.editArr addObjectsFromArray:self.dataArr];
+            allbutton.tag = 101;
+            [allbutton setTitle:@"全选" forState:UIControlStateNormal];
+            NSLog(@"editArr:--%ld",self.editArr.count);
+            [self.table reloadData];
+        }
+            break;
+            
+        default:
+            break;
+    }
+
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -62,8 +117,16 @@
     [button addTarget:self action:@selector(EditCustomerDetail)forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    //全选按钮
+    allbutton = [[UIButton alloc] initWithFrame:CGRectMake(0,0 , 30, 20)];
+    [allbutton setTitle:@"全选" forState:UIControlStateNormal];
+    allbutton.titleLabel.textColor = [UIColor whiteColor];
+    allbutton.titleLabel.font = [UIFont systemFontOfSize:15];
+    allbutton.tag = 101;
+    [allbutton addTarget:self action:@selector(Allselect:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *allItem = [[UIBarButtonItem alloc] initWithCustomView:allbutton];
     
-    self.navigationItem.rightBarButtonItem= barItem;
+    self.navigationItem.rightBarButtonItems = @[barItem,allItem];
     
     
   }
@@ -149,10 +212,12 @@
             
             if ((__bridge id)abFullName != nil) {
                 nameString = (__bridge NSString *)abFullName;
+                
             } else {
                 if ((__bridge id)abLastName != nil)
                 {
                     nameString = (__bridge NSString *)abFullName;
+                    NSLog(@"===%@",nameString);
                     //nameString = [NSString stringWithFormat:@"%@ %@", nameString, lastNameString];
                 }}
             
@@ -237,6 +302,12 @@
 {
     batchCell *cell = [batchCell cellWithTableView:tableView];
     cell.model = _dataArr[indexPath.row];
+//    if (indexPath.row == 2) {
+//        [cell setSelected:YES];
+//    }
+//    if (All) {
+//         [cell setSelected:YES];
+//    }
     return cell;
 }
 
@@ -247,18 +318,19 @@
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    //[self.editArr addObject:_dataArr[indexPath.row]];
     batchModel *model = _dataArr[indexPath.row];
     [self.editArr addObject:model];
-    
-    NSLog(@"--------editArr is %@--------indexpath.row's model is %@---",_editArr,_dataArr[indexPath.row]);
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     batchModel *model = _dataArr[indexPath.row];
     [self.editArr removeObject:model];
+    if (self.editArr.count <= self.dataArr.count-1) {
+        allbutton.tag = 101;
+        [allbutton setTitle:@"全选" forState:UIControlStateNormal];
+    }
     NSLog(@"--------editArr is %@--------indexpath.row's model is %@---",_editArr,_dataArr[indexPath.row]);
     
 }

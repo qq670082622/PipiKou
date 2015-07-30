@@ -72,7 +72,7 @@
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
     }
     if (self.isLogin) {
-        if (self.isFromOrder) {
+        if (self.isFromOrder||self.isFromCamer) {
             self.saveBtn.hidden = YES;
             self.saveBtn2.hidden = YES;
             self.saveBtnFromOrder.hidden = NO;
@@ -89,10 +89,33 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.nameText];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.cardText];
     
-    
+    [self setUpleftBarButtonItems];
     [self changeButton];
 
 }
+-(void)setUpleftBarButtonItems
+{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+    back.frame = CGRectMake(0, 0, 45, 10);
+    [back setTitle:@"〈返回" forState:UIControlStateNormal];
+    back.titleLabel.font = [UIFont systemFontOfSize:14];
+    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
+    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+}
+- (void)turnOff{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
@@ -198,6 +221,8 @@
             [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
             NSLog(@"%@", customerDic);
             [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
+                self.delegateToOrder = self.VC;
+                [self.delegateToOrder toRefereshCustomers];
                 NSLog(@"添加陈工,json is %@",json);
                           } failure:^(NSError *error) {
                 NSLog(@"");
@@ -280,7 +305,12 @@
     }else{
     if (![self.nameText.text isEqualToString:@""]&&![self.cardText.text isEqualToString:@""]) {
     [self saveWithRecordAndAddCustomer];
+        if (self.isFromCamer) {
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        }else{
+
     [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
+        }
     }else{
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
     [alert show];

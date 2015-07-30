@@ -81,7 +81,30 @@
         self.logindeleteBT.hidden = YES;
         self.logindeleteLB.hidden = YES;
     }
+    [self setUpleftBarButtonItems];
     [self loadNewData];
+}
+-(void)setUpleftBarButtonItems
+{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+    back.frame = CGRectMake(0, 0, 45, 10);
+    [back setTitle:@"〈返回" forState:UIControlStateNormal];
+    back.titleLabel.font = [UIFont systemFontOfSize:14];
+    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
+    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+}
+- (void)turnOff{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -396,8 +419,16 @@
         for(int i = 0 ;i<_editArr.count;i++){
           //  personIdModel *model = _editArr[i];
             //[arr addObject:model.RecordId];
+        
             personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
-            if ([model.UserName isEqualToString:@""]||[model.CardNum isEqualToString:@""]) {
+            NSLog(@"%@,%@", model.UserName, model.RecordType);
+            NSString * number = @"";
+            if ([model.RecordType isEqualToString:@"1"]) {
+                number = model.CardNum;
+            }else if([model.RecordType isEqualToString:@"2"]){
+                number = model.PassportNum;
+            }
+            if ([model.UserName isEqualToString:@""]||[number isEqualToString:@""]) {
                 UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"抱歉" message:@"姓名或证件号为空，无法保存" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [alertView show];
                 return;

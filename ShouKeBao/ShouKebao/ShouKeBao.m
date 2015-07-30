@@ -432,9 +432,13 @@
 -(void)FromiMessage:(NSNotification *)noti{
     self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
     NSString * urlStr = noti.object;
+    
+    if ([urlStr isEqualToString:@""]) {
+    }else{
     BaseWebViewController * webView = [[BaseWebViewController alloc]init];
     webView.linkUrl = urlStr;
     [self.navigationController pushViewController:webView animated:YES];
+    }
 }
 
 #pragma  - mark程序未死亡时远程推送处理函数
@@ -1305,6 +1309,24 @@
                                     }
                                     
                                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                        
+                                        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+                                        [postDic setObject:@"0" forKey:@"ShareType"];
+                                        if (self.shareDic[@"Url"]) {
+                                            [postDic setObject:self.shareDic[@"Url"]  forKey:@"ShareUrl"];
+                                        }
+                                        [postDic setObject:@"" forKey:@"PageUrl"];
+                                        if (type ==ShareTypeWeixiSession) {
+                                            [postDic setObject:@"0" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeQQ){
+                                            [postDic setObject:@"1" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeQQSpace){
+                                            [postDic setObject:@"2" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeWeixiTimeline){
+                                            [postDic setObject:@"3" forKey:@"ShareWay"];
+                                        }
+
+                                        
                                        
                                         [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"0"} success:^(id json) {
                                                                                     } failure:^(NSError *error) {

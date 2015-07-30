@@ -18,6 +18,7 @@
 @protocol DelegateToOrder2 <NSObject>
 
 - (void)writeDelegate:(NSDictionary *)dic;
+- (void)toRefereshCustomers;
 
 @end
 @interface CardTableViewController : SKTableViewController
@@ -34,6 +35,7 @@
 @property (copy,nonatomic) NSString *PicUrl;
 @property(nonatomic,assign) BOOL isLogin;
 @property(nonatomic,assign) BOOL isFromOrder;
+@property (nonatomic, assign)BOOL isFromeCamer;
 @property (nonatomic, assign)BOOL isIDCard;
 @property (nonatomic, strong)id VC;
 @property (nonatomic, assign)id delegateToOrder;

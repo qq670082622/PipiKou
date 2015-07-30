@@ -62,7 +62,6 @@
     NSLog(@"-------url:%@",overStr);
     NSLog(@"%@", tmp);
     NSLog(@"~~~~~~~~~~~~~~~~~~param:%@~~~~~~~~~~~~~~~~~~",[StrToDic jsonStringWithDicL:tmp]);
-    
     // 1.创建请求管理对象
     AFHTTPRequestOperationManager *mgr = [AFHTTPRequestOperationManager manager];
     mgr.requestSerializer = [AFJSONRequestSerializer serializer];
