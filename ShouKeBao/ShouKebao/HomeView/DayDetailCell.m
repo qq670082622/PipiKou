@@ -128,8 +128,6 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView withTag:(NSInteger)tag
 {
-   
-    
     DayDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
     if (cell == nil) {
         cell = [[DayDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
@@ -390,6 +388,8 @@
 //        [self layoutSubviews];
 //        [self.descripBtn setTitle:@"展开" forState:UIControlStateNormal];
 //    }
+
+    
     
     if (self.frame.size.height == 330) {
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
@@ -552,6 +552,7 @@
    
     
     self.descripLab.text = modal.AdvertText;
+//    NSLog(@"self.descripLab.text = %@  ", self.descripLab.text);
     
     self.descripBtn.titleLabel.textAlignment = NSTextAlignmentLeft;
     self.descripBtn.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];

@@ -40,6 +40,7 @@
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (nonatomic,strong) NSMutableDictionary *tagDic;
 @property (nonatomic,assign) BOOL flag;
+@property (nonatomic, strong)NSIndexPath *index;
 @end
 
 @implementation RecommendViewController
@@ -48,9 +49,10 @@
     [super viewDidLoad];
     
     self.flag = YES;
+   
     [self loadDataSource];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *st = [def objectForKey:@"markStr"];;
+    NSString *st = [def objectForKey:@"markStr"];
     self.markUrl  = [def objectForKey:@"markStr"];
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
     [def setObject:@"" forKey:@"markStr"];
@@ -95,11 +97,11 @@
     [_indicator startAnimation];
     
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    
         [self.tableView reloadData];
         
-    });
+//    });
     
     //
     
@@ -110,9 +112,9 @@
     NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
-    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
+    self.index = [NSIndexPath indexPathForRow:number inSection:0];
 //    NSLog(@"iii = %@", index);
-    [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self.tableView scrollToRowAtIndexPath:self.index atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.tableView.scrollEnabled = YES;
     
 }
@@ -133,12 +135,7 @@
     [MobClick beginLogPageView:@"ShouKeBaoRecommendView"];
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoTodayRecommend" attributes:dict];
-    
-    
-    //
-    
-    
-    
+
     self.view.window.backgroundColor = [UIColor clearColor];
     [self headRefresh];
     // [self setupHead];
@@ -354,21 +351,30 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
+
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
-    
-    
+  
     DayDetail *detail = self.dataSource[indexPath.row];
     cell.detail = detail;
+    if (![detail.PushId isEqualToString:_markUrl]) {
+        [cell.descripBtn setTag:indexPath.row];
+
+    }
+
     
-    [cell.descripBtn setTag:indexPath.row];
-    [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
     
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
         [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
+        
+          cell.isPlain = YES;
+
+
     }
+    
+    [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
+    
     //    if (indexPath.row == 2) {
     //        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
     //
@@ -385,10 +391,10 @@
     return cell;
 }
 
+
 -(void)changeHeight:(id)sender
 {
     UIButton *btn = (UIButton *)sender;
-    
     NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
     
     if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
@@ -400,6 +406,7 @@
     
 }
 #pragma mark - UITableViewDelegate
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -414,13 +421,34 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
+
+
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
-    if ([tag isEqualToString:@"1"]) {
+    DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
+
+//    NSString *ss = [NSString stringWithFormat:@"%ld", self.index.row];
+//        if ([tag isEqualToString:ss]){
+//            NSLog(@"aaaaa  indr = %ld", self.index.row);
+//            return 330;
+//
+//        }
+
+    if ([tag isEqualToString:@"1"] ) {
+         NSLog(@"bbbbbb  indr =");
+        
         return  330;
+    }else if (cell.isPlain){
+        
+        NSLog(@"cell  indr =");
+        return 330;
+    
     }else{
+        NSLog(@"ccccc  indr =");
         return 220;
+        
     }
     
     

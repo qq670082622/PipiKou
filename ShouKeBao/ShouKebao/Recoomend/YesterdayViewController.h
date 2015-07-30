@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface YesterdayViewController : UIViewController
-
+@property (nonatomic,copy) NSString *markUrl;
 @end

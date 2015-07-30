@@ -32,6 +32,9 @@
 @property (nonatomic,copy) NSString *totalCount;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 
+@property (nonatomic, strong)NSIndexPath *index;
+@property (nonatomic, assign)BOOL flag;
+
 
 @end
 
@@ -40,8 +43,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
    
-  
-
+    self.flag = YES;
+    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    self.markUrl = [def objectForKey:@"markStr"];
+    
+    
     self.table.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
 
@@ -114,6 +121,7 @@
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
         // [self hideHud];
+//        NSLog(@"jjjjj  json = %@", json);
         if (json) {
             NSLog(@"aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
@@ -164,6 +172,17 @@
     //}
 }
 
+- (void)scrollTableView
+{
+    NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
+    NSString *num = [mark objectForKey:@"num"];
+    NSInteger number = [num integerValue];
+    self.index = [NSIndexPath indexPathForRow:number inSection:0];
+    //    NSLog(@"iii = %@", index);
+    [self.table scrollToRowAtIndexPath:self.index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    self.table.scrollEnabled = YES;
+    
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -186,10 +205,26 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
+
+   
+    if ([cell.modal.PushId isEqualToString:_markUrl]) {
+        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
+
+
+    }
+    
+    if (self.flag) {
+        [self scrollTableView];
+        self.flag = NO;
+    }
+    
     return cell;
 }
+
+
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
