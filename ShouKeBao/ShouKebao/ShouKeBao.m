@@ -189,7 +189,8 @@
 //    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
 //    NSString *isBack = [appIsBack objectForKey:@"appIsBack"];
     
-     NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
+    
+    NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
     NSString *SKBGuide = [guiDefault objectForKey:@"SKBGuide"];
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];

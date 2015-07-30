@@ -53,17 +53,20 @@
         [MobClick event:@"FromFindProductAll" attributes:dict];
         
     }
-    NSLog(@"%d",self.fromType);
+    NSLog(@"self.fromType ＝ %d",self.fromType);
 
     self.eventArray = @[@"FromQRcode", @"FromRecommend", @"FromStore", @"FromProductSearch",@"FromFindProduct", @"FromHotProduct", @"FromScanHistory"];
+    
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ProductDetailAll" attributes:dict];
 
     NSString * string = [NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]];
+    NSLog(@"string = %@", string);
     [MobClick event:string attributes:dict];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
+    
     NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix = urlSuffix;
     
@@ -133,8 +136,10 @@
     
 }
 #pragma mark - telCall_js
+
 - (void)findIsCall{
     NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
+
     if (string.length != 0) {
         self.telString = string;
         NSLog(@"%@", self.telString);
@@ -255,7 +260,7 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-   
+    NSLog(@"request..... = %@", request);
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？

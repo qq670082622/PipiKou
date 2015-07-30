@@ -79,6 +79,7 @@
     
     // attach to the view and assign a delegate
     [self.camera attachToViewController:self withDelegate:self];
+    
     CGFloat cameraW = [[UIScreen mainScreen] bounds].size.width;
     CGFloat cameraH = [[UIScreen mainScreen] bounds].size.height - 94;
     self.camera.view.frame = CGRectMake(0, 0, cameraW, cameraH);
