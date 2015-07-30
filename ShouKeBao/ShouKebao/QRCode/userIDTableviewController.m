@@ -66,7 +66,7 @@
     self.navigationItem.leftBarButtonItem= leftItem;
     
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.cardNum,self.bornLab,self.nationalLab,self.addressLab, nil]];
-    [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor blueColor] andBorderWidth:0.5 andNeedShadow:NO];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor clearColor ] andBorderWidth:0.5 andNeedShadow:NO];
     
     if (_ModifyDate.length<1) {
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
@@ -86,6 +86,11 @@
         self.saveBtn.hidden = YES;
         self.saveBtn2.hidden = NO;
     }
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.nameText];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.cardText];
+    
+    
+    [self changeButton];
 
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -256,11 +261,15 @@
         NSString * cardtye = self.isIDCard?@"0":@"1";
         NSString * sexx = [self.sex isEqualToString:@"男"]?@"0":@"1";
         NSMutableString * infoString = [NSMutableString string];
-        [infoString appendString:[self.bornText.text componentsSeparatedByString:@"年"][0]];
-        NSString * str2 = [self.bornText.text componentsSeparatedByString:@"年"][1];
-        [infoString appendFormat:@"-%@", [str2 componentsSeparatedByString:@"月"][0]];
-        NSString * str3 = [str2 componentsSeparatedByString:@"月"][1];
-        [infoString appendFormat:@"-%@", [str3 componentsSeparatedByString:@"日"][0]];
+        if (![self.bornText.text isEqualToString:@""]) {
+            if ([self.bornText.text containsString:@"年"]&&[self.bornText.text containsString:@"月"]&&[self.bornText.text containsString:@"日"]) {
+                [infoString appendString:[self.bornText.text componentsSeparatedByString:@"年"][0]];
+                NSString * str2 = [self.bornText.text componentsSeparatedByString:@"年"][1];
+                [infoString appendFormat:@"-%@", [str2 componentsSeparatedByString:@"月"][0]];
+                NSString * str3 = [str2 componentsSeparatedByString:@"月"][1];
+                [infoString appendFormat:@"-%@", [str3 componentsSeparatedByString:@"日"][0]];
+            }
+        }
 
         NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardText.text};
         NSLog(@"%@", dic);
@@ -412,6 +421,28 @@
 
 -(void)cancleCover{
     [self.coverView removeFromSuperview];
+}
+- (void)FieldTextChange:(NSNotification *)noty
+{
+    [self changeButton];
+}
+- (void)changeButton{
+    if (![self.nameText.text isEqualToString:@""]&&![self.cardText.text isEqualToString:@""]) {
+        self.saveBtn.backgroundColor = [UIColor blueColor];
+        self.saveBtn2.backgroundColor = [UIColor blueColor];
+        self.saveBtnFromOrder.backgroundColor = [UIColor blueColor];
+        self.saveBtn.userInteractionEnabled= YES;
+        self.saveBtn2.userInteractionEnabled= YES;
+        self.saveBtnFromOrder.userInteractionEnabled= YES;
+    }else{
+        self.saveBtn.backgroundColor = [UIColor lightGrayColor];
+        self.saveBtn2.backgroundColor = [UIColor lightGrayColor];
+        self.saveBtnFromOrder.backgroundColor = [UIColor lightGrayColor];
+        self.saveBtn.userInteractionEnabled= NO;
+        self.saveBtn2.userInteractionEnabled= NO;
+        self.saveBtnFromOrder.userInteractionEnabled= NO;
+    }
+    
 }
 
 @end
