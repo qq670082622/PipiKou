@@ -12,5 +12,9 @@
 -(void)referesh;
 @end
 @interface BatchAddViewController : SKViewController
+{
+    BOOL All;
+    UIButton *allbutton;
+}
 @property(nonatomic,weak) id<notifiCustomersToReferesh>delegate;
 @end

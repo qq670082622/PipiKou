@@ -437,14 +437,28 @@
 
                                     
                                     [self.warningLab removeFromSuperview];
-                                    if (tmp[@"Url"]) {
                                 
-                                    
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
+                                        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+                                        [postDic setObject:@"0" forKey:@"ShareType"];
+                                        if (_detail.ShareInfo[@"Url"]) {
+                                            [postDic setObject:_detail.ShareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                        }
+                                        [postDic setObject:@"" forKey:@"PageUrl"];
+                                        if (type ==ShareTypeWeixiSession) {
+                                            [postDic setObject:@"0" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeQQ){
+                                            [postDic setObject:@"1" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeQQSpace){
+                                            [postDic setObject:@"2" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeWeixiTimeline){
+                                            [postDic setObject:@"3" forKey:@"ShareWay"];
+                                        }
+
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];
-                                    }
+                                    
                                     //今日推荐
                                     if (type == ShareTypeCopy) {
                                         [MBProgressHUD showSuccess:@"拷贝成功"];

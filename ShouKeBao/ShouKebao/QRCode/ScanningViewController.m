@@ -24,6 +24,7 @@
 #import "StrToDic.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "ShouKeBao.h"
 @interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
@@ -102,7 +103,7 @@
     
     
 
-    if (!self.isLogin || self.isFromOrder) {
+    if (!self.isLogin || self.isFromOrder || self.isFromCostom) {
         
         
         self.pickerData = [NSArray arrayWithObjects:@"身份证",@"护照", nil];
@@ -112,7 +113,7 @@
          [self.camera start];
     
 
-    }else if(self.isLogin && !self.isFromOrder){
+    }else if(self.isLogin && !self.isFromOrder && !self.isFromCostom){
         self.pickerData = [NSArray arrayWithObjects:@"二维码",@"身份证",@"护照", nil];
     }
  
@@ -128,7 +129,7 @@
     self.pickerView.textColor   = [UIColor colorWithRed:147/255.f green:198/255.f blue:228/255.f alpha:1];
     self.pickerView.selectionPoint = CGPointMake(self.pickerView.frame.size.width/2, 0);
   
-    if (!self.isLogin || self.isFromOrder) {
+    if (!self.isLogin || self.isFromOrder || self.isFromCostom) {
             [self.view addSubview:self.personIDVC.view];
             [self setTreeBtnImagesWithYes];
     }
@@ -147,7 +148,8 @@
     
    
     [self addGes];
-    if (self.isFromOrder || !self.isLogin) {
+    NSLog(@"%d, %d", self.isFromOrder, self.isLogin);
+    if (self.isFromOrder || !self.isLogin || self.isFromCostom) {
     if ([[[NSUserDefaults standardUserDefaults]objectForKey:@"huzhaoOrShenfenzheng"]isEqualToString:@"HZ"]) {
         self.title = @"护照扫描";
         [self.pickerView scrollToElement:1 animated:YES];
@@ -188,11 +190,32 @@
         
     
     }
-   
-    
+    [self setUpleftBarButtonItems];
 }
 
+-(void)setUpleftBarButtonItems
+{
+    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+    back.frame = CGRectMake(0, 0, 45, 10);
+    [back setTitle:@"〈返回" forState:UIControlStateNormal];
+    back.titleLabel.font = [UIFont systemFontOfSize:14];
+    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+    
+//    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+//    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
+//    turnOff.frame = CGRectMake(0, 0, 30, 10);
+//    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+//    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+//    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    [self.navigationItem setLeftBarButtonItems:@[backItem] animated:YES];
+}
 
+//- (void)turnOff{
+//    [self.navigationController popViewControllerAnimated:NO];
+//}
 -(void)back
 {
     [self.timer invalidate];
@@ -760,6 +783,7 @@
                             card.isLogin = _isLogin;
                             card.delegate = self;
                             card.isFromOrder = self.isFromOrder;
+                            card.isFromCamer = self.isFromCostom;
                             card.isIDCard = YES;
                             card.VC = self.VC;
                             if (!_isLogin) {//未登录时保存记录
@@ -801,6 +825,7 @@
             card.ModifyDate = json[@"CredentialsPicRecord"][@"ModifyDate"];
             card.PicUrl = json[@"CredentialsPicRecord"][@"PicUrl"];
             card.isFromOrder = self.isFromOrder;
+            card.isFromeCamer = self.isFromCostom;
             card.isIDCard = YES;
             card.VC = self.VC;
             card.isLogin = _isLogin;

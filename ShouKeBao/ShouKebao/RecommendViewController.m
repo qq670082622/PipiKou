@@ -364,6 +364,8 @@
     
     
     if ([detail.PushId isEqualToString:_markUrl]) {
+        cell.isPlain = YES;
+        [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
         
           cell.isPlain = YES;

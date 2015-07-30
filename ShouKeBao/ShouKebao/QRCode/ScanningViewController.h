@@ -15,5 +15,6 @@
 @interface ScanningViewController : SKViewController<V8HorizontalPickerViewDelegate, V8HorizontalPickerViewDataSource,UIScrollViewDelegate>
 @property (nonatomic,assign) BOOL isLogin;
 @property (nonatomic, assign)BOOL isFromOrder;
+@property (nonatomic, assign)BOOL isFromCostom;
 @property (nonatomic, strong)id VC;
 @end

@@ -21,6 +21,7 @@
 #import "MobClick.h"
 #import "EditCustomerDetailViewController.h"
 #import "BaseClickAttribute.h"
+#import "ScanningViewController.h"
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
 
@@ -47,6 +48,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addNew;
 @property (weak, nonatomic) IBOutlet UIButton *importUser;
 @property(nonatomic,copy) NSMutableString *searchK;
+@property (strong, nonatomic) IBOutlet UIButton *cardCamer;
 
 
 
@@ -160,7 +162,7 @@
     
 //    NSLog(@"bbb");
     //下拉
-    [self.table addHeaderWithTarget:self action:@selector(headerPull)];
+    [self.table addHeaderWithTarget:self action:@selector(headerPull2)];
     [self.table headerBeginRefreshing];
     
     self.table.headerPullToRefreshText =@"刷新内容";
@@ -168,14 +170,13 @@
     
 }
 
--(void)headerPull
+-(void)headerPull2
 {
 //    self.imageViewWhenIsNull.hidden = YES;
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
     [self loadDataSource];
-    [self.table headerEndRefreshing];
 }
 
 
@@ -264,6 +265,17 @@
     [self.navigationController pushViewController:add animated:YES];
     
 }
+
+
+- (IBAction)addFormCardCamer:(id)sender {
+    ScanningViewController * scanVC = [[ScanningViewController alloc]init];
+    scanVC.isFromCostom = YES;
+    scanVC.isLogin = YES;
+    scanVC.VC = self;
+    [self.navigationController pushViewController:scanVC animated:YES];
+    
+}
+
 #pragma -mark 添加客户成功后的代理方法（刷新列表）
 -(void)toRefereshCustomers
 {
@@ -314,7 +326,8 @@
         
 //         self.searchCustomerBtnOutlet.titleLabel.text = @"   客户名/电话号码";
         
-        
+        [self.table headerEndRefreshing];
+
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];

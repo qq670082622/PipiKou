@@ -19,6 +19,7 @@
 #import "BaseClickAttribute.h"
 #import "DayDetail.h"
 #import "yesterDayModel.h"
+#import "JSONKit.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
@@ -393,6 +394,14 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+    
+    NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+    [postDic setObject:@"0" forKey:@"ShareType"];
+    if (self.shareInfo[@"Url"]) {
+        [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+    }
+    [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
+    NSLog(@"%@", postDic);
     //构造分享内容
 //    NSString * str = [NSString stringWithFormat:@"%@%@%@", self.shareInfo[@"Title"], self.shareInfo[@"Desc"], self.shareInfo[@"Url"]];
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareInfo];
@@ -449,7 +458,22 @@
                                         [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
                                     }
                                     [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"0"} success:^(id json) {
+                                    if (type ==ShareTypeWeixiSession) {
+                                        [postDic setObject:@"0" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeQQ){
+                                        [postDic setObject:@"1" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeQQSpace){
+                                        [postDic setObject:@"2" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeWeixiTimeline){
+                                        [postDic setObject:@"3" forKey:@"ShareWay"];
+                                    }
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
+                                        NSDictionary * dci = json;
+                                        NSMutableString * string = [NSMutableString string];
+                                        for (id str in dci.allValues) {
+                                            [string appendString:str];
+                                        }
+                                        [[[UIAlertView alloc]initWithTitle:@"aaa" message:string delegate:nil cancelButtonTitle:@"222" otherButtonTitles:nil, nil]show];
                                     } failure:^(NSError *error) {
                                         
                                     }];

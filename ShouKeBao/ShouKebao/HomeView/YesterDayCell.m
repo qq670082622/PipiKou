@@ -256,7 +256,25 @@
                                     [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
 
                                     [self.warningLab removeFromSuperview];
-                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:@{@"ShareType":@"1",@"ShareUrl":tmp[@"Url"]} success:^(id json) {
+                                    
+                                    
+                                    NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+                                    [postDic setObject:@"0" forKey:@"ShareType"];
+                                    if (_modal.ShareInfo[@"Url"]) {
+                                        [postDic setObject:_modal.ShareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                    }
+                                    [postDic setObject:@"" forKey:@"PageUrl"];
+                                    if (type ==ShareTypeWeixiSession) {
+                                        [postDic setObject:@"0" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeQQ){
+                                        [postDic setObject:@"1" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeQQSpace){
+                                        [postDic setObject:@"2" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeWeixiTimeline){
+                                        [postDic setObject:@"3" forKey:@"ShareWay"];
+                                    }
+
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
                                     } failure:^(NSError *error) {
                                         
                                     }];
