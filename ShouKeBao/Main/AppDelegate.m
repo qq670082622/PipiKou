@@ -536,10 +536,10 @@ void UncaughtExceptionHandler(NSException *exception) {
     }
     
     if ([urlString containsString:@"QQ41D9B706"]) {
-//        NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
-//        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
-//        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-//        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
+        NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
+        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
     }
     [ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication

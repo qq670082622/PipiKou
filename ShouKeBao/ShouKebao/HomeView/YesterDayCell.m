@@ -265,13 +265,13 @@
                                     }
                                     [postDic setObject:@"" forKey:@"PageUrl"];
                                     if (type ==ShareTypeWeixiSession) {
-                                        [postDic setObject:@"0" forKey:@"ShareWay"];
-                                    }else if(type == ShareTypeQQ){
                                         [postDic setObject:@"1" forKey:@"ShareWay"];
-                                    }else if(type == ShareTypeQQSpace){
+                                    }else if(type == ShareTypeQQ){
                                         [postDic setObject:@"2" forKey:@"ShareWay"];
-                                    }else if(type == ShareTypeWeixiTimeline){
+                                    }else if(type == ShareTypeQQSpace){
                                         [postDic setObject:@"3" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeWeixiTimeline){
+                                        [postDic setObject:@"4" forKey:@"ShareWay"];
                                     }
 
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {

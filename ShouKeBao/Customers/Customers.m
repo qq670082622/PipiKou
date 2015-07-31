@@ -176,6 +176,9 @@
 //     self.imageViewWhenIsNull.hidden = YES;
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
+    [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateNormal];
+    [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateHighlighted];
+
     [self loadDataSource];
 }
 
@@ -731,6 +734,9 @@
         }else{
            NSString *ni = @"       ";
         self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
+            [self.searchCustomerBtnOutlet setTitle:[ni stringByAppendingString: self.searchK] forState:UIControlStateNormal];
+            [self.searchCustomerBtnOutlet setTitle:[ni stringByAppendingString: self.searchK] forState:UIControlStateHighlighted];
+
         }
     }];
 
