@@ -134,6 +134,7 @@
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductNum" attributes:dict];
+    [MobClick event:@"ShouKeBaoAndFindproductNum" attributes:dict];
 
     
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];

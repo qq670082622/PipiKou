@@ -132,8 +132,6 @@
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
-    [self.SKBNewBtn setTitle:@"我要收客" forState:UIControlStateNormal];
-    [self.SKBNewBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.SKBNewBtn addTarget:self action:@selector(pushToStoreFromButton) forControlEvents:UIControlEventTouchUpInside];
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -436,6 +434,9 @@
     
     if ([urlStr isEqualToString:@""]) {
     }else{
+//        UITextView * textView = [[UITextView alloc]initWithFrame:CGRectMake(0, 150, 320, 350)];
+//        textView.text = urlStr;
+//        [self.view addSubview:textView];
     BaseWebViewController * webView = [[BaseWebViewController alloc]init];
     webView.linkUrl = urlStr;
     [self.navigationController pushViewController:webView animated:YES];
@@ -859,7 +860,8 @@
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoNum" attributes:dict];
 
-    
+    [MobClick event:@"ShouKeBaoAndFindproductNum" attributes:dict];
+
 //    [self getNotifiList];
     
     [self getStationName];
@@ -1318,13 +1320,13 @@
                                         }
                                         [postDic setObject:@"" forKey:@"PageUrl"];
                                         if (type ==ShareTypeWeixiSession) {
-                                            [postDic setObject:@"0" forKey:@"ShareWay"];
-                                        }else if(type == ShareTypeQQ){
                                             [postDic setObject:@"1" forKey:@"ShareWay"];
-                                        }else if(type == ShareTypeQQSpace){
+                                        }else if(type == ShareTypeQQ){
                                             [postDic setObject:@"2" forKey:@"ShareWay"];
-                                        }else if(type == ShareTypeWeixiTimeline){
+                                        }else if(type == ShareTypeQQSpace){
                                             [postDic setObject:@"3" forKey:@"ShareWay"];
+                                        }else if(type == ShareTypeWeixiTimeline){
+                                            [postDic setObject:@"4" forKey:@"ShareWay"];
                                         }
 
                                         

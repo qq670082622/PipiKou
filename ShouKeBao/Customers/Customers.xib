@@ -38,6 +38,7 @@
                     <state key="normal" title="                          " image="fdjBtn">
                         <color key="titleColor" red="0.43529411764705883" green="0.44313725490196076" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <state key="selected" title="客户名/电话号码"/>
                     <connections>
                         <action selector="customSearch:" destination="-1" eventType="touchUpInside" id="Sd9-Dc-d95"/>
                     </connections>

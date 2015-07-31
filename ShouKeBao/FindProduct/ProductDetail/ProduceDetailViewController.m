@@ -447,6 +447,7 @@
                                         [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
 
                                     }
+                                    
                                         [MobClick event:[NSString stringWithFormat:@"%@ShareSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
 
                                     
@@ -459,13 +460,13 @@
                                     }
                                     [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
                                     if (type ==ShareTypeWeixiSession) {
-                                        [postDic setObject:@"0" forKey:@"ShareWay"];
-                                    }else if(type == ShareTypeQQ){
                                         [postDic setObject:@"1" forKey:@"ShareWay"];
-                                    }else if(type == ShareTypeQQSpace){
+                                    }else if(type == ShareTypeQQ){
                                         [postDic setObject:@"2" forKey:@"ShareWay"];
-                                    }else if(type == ShareTypeWeixiTimeline){
+                                    }else if(type == ShareTypeQQSpace){
                                         [postDic setObject:@"3" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeWeixiTimeline){
+                                        [postDic setObject:@"4" forKey:@"ShareWay"];
                                     }
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
                                         NSDictionary * dci = json;
@@ -473,7 +474,7 @@
                                         for (id str in dci.allValues) {
                                             [string appendString:str];
                                         }
-                                        [[[UIAlertView alloc]initWithTitle:@"aaa" message:string delegate:nil cancelButtonTitle:@"222" otherButtonTitles:nil, nil]show];
+//                                        [[[UIAlertView alloc]initWithTitle:@"aaa" message:string delegate:nil cancelButtonTitle:@"222" otherButtonTitles:nil, nil]show];
                                     } failure:^(NSError *error) {
                                         
                                     }];
