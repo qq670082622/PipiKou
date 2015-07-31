@@ -42,12 +42,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   
+     [self loadDataSource];
+    
     self.flag = YES;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     self.markUrl = [def objectForKey:@"markStr"];
     
+    NSLog(@"dd--------markID is %@--------------",_markUrl);
+    
+    [def setObject:@"" forKey:@"markStr"];
+    [def synchronize];
     
     self.table.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -81,7 +86,7 @@
     [self.view bringSubviewToFront:_indicator];
     
     [_indicator startAnimation];
-    [self loadDataSource];
+  
     
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
@@ -133,10 +138,10 @@
                 yesterDayModel *detail = [yesterDayModel modalWithDict:dic];
                 [self.dataArr addObject:detail];
             }
-            [self.table reloadData];
             [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
             
         }
+    [self.table reloadData];
     } failure:^(NSError *error) {
         
     }];
@@ -207,10 +212,14 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
-    cell.modal = self.dataArr[indexPath.row];
-
-   
-    if ([cell.modal.PushId isEqualToString:_markUrl]) {
+//    cell.modal = self.dataArr[indexPath.row];
+    
+    yesterDayModel *yesModel = self.dataArr[indexPath.row];
+    cell.modal = yesModel;
+    
+    if ([yesModel.PushId isEqualToString:_markUrl]) {
+        
+//         NSLog(@"==== markID = %@", self.markUrl);
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
 
 

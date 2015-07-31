@@ -49,7 +49,7 @@
 - (void)applyLayoutAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes
 {
     //    [super applyLayoutAttributes:layoutAttributes];
-    NSLog(@"eeeee  2");
+//    NSLog(@"eeeee  2");
     CGFloat width = layoutAttributes.bounds.size.width;
     CGFloat height = layoutAttributes.bounds.size.height;
     
