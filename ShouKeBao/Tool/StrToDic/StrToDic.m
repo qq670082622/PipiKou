@@ -159,4 +159,13 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
     }
    
 }
++(CGFloat)heightForString:(NSString *)string
+                withWidth:(CGFloat)width
+             withFontsize:(CGFloat)fontSize{
+    NSDictionary * dic  = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:fontSize], NSFontAttributeName, nil];
+    CGRect rect = [string boundingRectWithSize:CGSizeMake(width, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+    return rect.size.height;
+}
+
+
 @end

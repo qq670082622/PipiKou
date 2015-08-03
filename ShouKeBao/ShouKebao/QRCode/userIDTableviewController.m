@@ -34,6 +34,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *saveBtn;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtn2;
 @property (strong, nonatomic) IBOutlet UIButton *saveBtnFromOrder;
+@property (nonatomic, strong)NSMutableDictionary * postDic;
 
 - (IBAction)save:(id)sender;
 
@@ -197,6 +198,7 @@
     
     if (_isLogin) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
+        NSMutableArray * RecordIdsArr = [NSMutableArray array];
         [dic setObject:self.nameText.text forKey:@"UserName"];
         [dic setObject:self.nationalText.text forKey:@"Nationality"];
         [dic setObject:self.cardText.text forKey:@"CardNum"];
@@ -212,26 +214,26 @@
         [arr addObject:dic];
         NSLog(@"%@", dic);
         NSMutableDictionary *mudi = [NSMutableDictionary dictionary];
-        
         [mudi setObject:arr forKey:@"CredentialsPicRecordList"];
-        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:mudi success:^(id json) {
-            NSLog(@"批量导入客户成功 返回json is %@",json);
-            //            2/添加客户
-            NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
-            [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
-            NSLog(@"%@", customerDic);
-            [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
-                self.delegateToOrder = self.VC;
-                [self.delegateToOrder toRefereshCustomers];
-                NSLog(@"添加陈工,json is %@",json);
-                          } failure:^(NSError *error) {
-                NSLog(@"");
-            }];
-            
-        } failure:^(NSError *error) {
-            NSLog(@"批量导入客户失败，返回error is %@",error);
-        }];
+        self.postDic = mudi;
         
+        //判断是否重复
+        [RecordIdsArr addObject:_RecordId];
+        NSMutableDictionary * RecordIdsDic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
+        [RecordIdsDic setObject:RecordIdsArr forKey:@"RecordIds"];
+        NSLog(@"%@", RecordIdsDic);
+        [IWHttpTool WMpostWithURL:@"Customer/IsHaveSameCustomer" params:RecordIdsDic success:^(id json) {
+            NSLog(@"%@", json);
+            if ([[NSString stringWithFormat:@"%@", json[@"IsHaveSameRecord"]]isEqualToString:@"1"]) {
+                UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"客户已存在，是否覆盖" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"覆盖", nil];
+                [alert show];
+            }else{
+                [self saveAfterWith];
+            }
+        } failure:^(NSError *error) {
+            NSLog(@"%@", error);
+        }];
+
     }else if (!_isLogin){
         
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record2"]];
@@ -253,7 +255,34 @@
     }
 
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [self saveAfterWith];
+    }
+}
 
+- (void)saveAfterWith{
+    [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:self.postDic success:^(id json) {
+        NSLog(@"批量导入客户成功 返回json is %@",json);
+        //            2/添加客户
+        NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
+        [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
+        NSLog(@"%@", customerDic);
+        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
+            [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
+
+            self.delegateToOrder = self.VC;
+            [self.delegateToOrder toRefereshCustomers];
+            NSLog(@"添加陈工,json is %@",json);
+        } failure:^(NSError *error) {
+            NSLog(@"");
+        }];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"批量导入客户失败，返回error is %@",error);
+    }];
+
+}
 
 -(void)animationWithLabs:(NSArray *)arr
 {
@@ -308,8 +337,10 @@
         if (self.isFromCamer) {
             [self.navigationController popToRootViewControllerAnimated:YES];
         }else{
-
-    [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
+            if (self.postDic) {
+            }else{
+            [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
+            }
         }
     }else{
     UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"内容识别不全" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];

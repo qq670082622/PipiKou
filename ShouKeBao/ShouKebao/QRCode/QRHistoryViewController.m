@@ -16,6 +16,7 @@
 #import "MobClick.h"
 #import "MJRefresh.h"
 #import "QRCodeCell.h"
+
 @interface QRHistoryViewController ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *table;
@@ -33,6 +34,7 @@
 @property (nonatomic, assign) BOOL isLoadMore;
 @property (nonatomic, assign) BOOL isOver;
 @property (nonatomic, copy) NSString * pageNum;
+@property (nonatomic, strong)NSMutableDictionary * postDic;
 - (IBAction)deleteAction:(id)sender;
 - (IBAction)saveToCustom:(id)sender;
 
@@ -437,21 +439,20 @@
             }
         }
         
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
-        [dic setObject:arr forKey:@"RecordIds"];
-        NSLog(@"%@", dic);
-        [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:dic success:^(id json) {
-            NSLog(@"批量导入客户成功 返回json is %@",json);
-
-            [self.table reloadData];
-            [MBProgressHUD showSuccess:@"操作成功"];
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-                [MBProgressHUD hideHUD];
-                [self.navigationController popViewControllerAnimated:YES];
-            });
-
+        NSMutableDictionary * dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
+        self.postDic = dic;
+        [self.postDic setObject:arr forKey:@"RecordIds"];
+        
+        [IWHttpTool WMpostWithURL:@"Customer/IsHaveSameCustomer" params:self.postDic success:^(id json) {
+            NSLog(@"%@", json);
+            if ([[NSString stringWithFormat:@"%@", json[@"IsHaveSameRecord"]]isEqualToString:@"1"]) {
+               UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"客户已存在，是否覆盖" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"覆盖", nil];
+                [alert show];
+            }else{
+                [self saveAfterWith];
+            }
         } failure:^(NSError *error) {
-            NSLog(@"批量导入客户失败，返回error is %@",error);
+            NSLog(@"%@", error);
         }];
 
     }else if (!_isLogin){
@@ -475,4 +476,25 @@
     
 
 }
+- (void)saveAfterWith{
+    [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:self.postDic success:^(id json) {
+        NSLog(@"批量导入客户成功 返回json is %@",json);
+        [self.table reloadData];
+        [MBProgressHUD showSuccess:@"操作成功"];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+            [MBProgressHUD hideHUD];
+            [self.navigationController popViewControllerAnimated:YES];
+        });
+        
+    } failure:^(NSError *error) {
+        NSLog(@"批量导入客户失败，返回error is %@",error);
+    }];
+
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        [self saveAfterWith];
+    }
+}
+
 @end

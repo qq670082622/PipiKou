@@ -196,7 +196,9 @@
 -(void)setUpleftBarButtonItems
 {
     UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
-    back.frame = CGRectMake(0, 0, 45, 10);
+//    [back setImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    [back setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
+    back.frame = CGRectMake(0, 0, 45, 20);
     [back setTitle:@"〈返回" forState:UIControlStateNormal];
     back.titleLabel.font = [UIFont systemFontOfSize:14];
     [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
