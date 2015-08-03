@@ -530,9 +530,9 @@
       
         
         if (type.length>0) {
-//            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-//
-//            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
+
+            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
             
         [self getVoice];
         }
@@ -1398,7 +1398,7 @@
 
 //   ***************************
     
-//     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
+     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
     
 //   ***************************
     
@@ -1413,10 +1413,10 @@
    
     NSLog(@"applicationIconBadgeNumber = %ld", [self.tabBarItem.badgeValue integerValue]);
 //   ***************************
-//    if ([self.tabBarItem.badgeValue intValue] <= 0) {
-//        self.tabBarItem.badgeValue = nil;
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-//    }
+    if ([self.tabBarItem.badgeValue intValue] <= 0) {
+        self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
     
         [self.navigationController pushViewController:messgeCenter animated:YES];
 //
@@ -1533,11 +1533,11 @@
 {
     HomeBase *model = self.dataSource[indexPath.row];
     
-//    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
-//    if ([self.tabBarItem.badgeValue intValue] <= 0) {
-//        self.tabBarItem.badgeValue = nil;
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
-//    }
+    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+    if ([self.tabBarItem.badgeValue intValue] <= 0) {
+        self.tabBarItem.badgeValue = nil;
+        [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
+    }
 
     if ([model.model isKindOfClass:[HomeList class]]) {
         [MobClick event:@"ShouKeBao_ClickHomeList"];
