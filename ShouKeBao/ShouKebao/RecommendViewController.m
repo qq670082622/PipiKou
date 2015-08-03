@@ -419,9 +419,9 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    DayDetail *detail = self.dataSource[indexPath.row];
-    NSLog(@"^^^^%@", detail);
-    CGFloat describLabHeight = [StrToDic heightForString:detail.AdvertText withWidth:[UIScreen mainScreen].bounds.size.width - 20 withFontsize:13];
+//    DayDetail *detail = self.dataSource[indexPath.row];
+//    NSLog(@"^^^^%@", detail);
+//    CGFloat describLabHeight = [StrToDic heightForString:detail.AdvertText withWidth:[UIScreen mainScreen].bounds.size.width - 20 withFontsize:13];
     
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
     if ([tag isEqualToString:@"1"]) {
