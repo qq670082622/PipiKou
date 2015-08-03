@@ -47,7 +47,7 @@
     self.flag = YES;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    self.markUrl = [def objectForKey:@"markSTr"];
+    self.markUrl = [def objectForKey:@"markStr"];
     
     NSLog(@"dd--------markID is %@--------------",_markUrl);
     
