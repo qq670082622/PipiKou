@@ -42,12 +42,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-     [self loadDataSource];
+    
     
     self.flag = YES;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    self.markUrl = [def objectForKey:@"markStr"];
+    self.markUrl = [def objectForKey:@"markSTr"];
     
     NSLog(@"dd--------markID is %@--------------",_markUrl);
     
@@ -74,7 +74,7 @@
     
     //  [self setNav];
     
-    
+    [self loadDataSource];
     // 第一次加载的时候显示这个hud
     //  [self showHudInView:self.view hint:@"正在加载中"];
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
@@ -89,9 +89,9 @@
   
     
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [self.table reloadData];
-        
+
     });
 
     
@@ -128,7 +128,7 @@
         // [self hideHud];
 //        NSLog(@"jjjjj  json = %@", json);
         if (json) {
-            NSLog(@"aaaaaaaa  %@",json);
+            NSLog(@"....aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
             if (self.isRefresh) {
                 [self.dataArr removeAllObjects];
@@ -137,11 +137,12 @@
             for (NSDictionary *dic in json[@"ProductList"]) {
                 yesterDayModel *detail = [yesterDayModel modalWithDict:dic];
                 [self.dataArr addObject:detail];
+                
             }
+            [self.table reloadData];
             [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
-            
+            NSLog(@"self.dataArr aaaaaaaa  %@",self.dataArr);
         }
-    [self.table reloadData];
     } failure:^(NSError *error) {
         
     }];
@@ -212,14 +213,13 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
-//    cell.modal = self.dataArr[indexPath.row];
+    cell.modal = self.dataArr[indexPath.row];
+
     
-    yesterDayModel *yesModel = self.dataArr[indexPath.row];
-    cell.modal = yesModel;
-    
-    if ([yesModel.PushId isEqualToString:_markUrl]) {
+    if ([cell.modal.PushId isEqualToString:_markUrl]) {
         
-//         NSLog(@"==== markID = %@", self.markUrl);
+         NSLog(@"==== markID = %@", self.markUrl);
+        NSLog(@"cell.modal.PushId= %@", cell.modal.PushId);
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
 
 

@@ -90,7 +90,7 @@
     
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
               if (json) {
-            NSLog(@"aaaaaaaa  %@",json);
+            NSLog(@"aaaaaaaa000  %@",json);
                   NSArray *arr = json[@"ProductList"];
                   if (arr.count == 0) {
                       [self yesterdayAction:nil];
