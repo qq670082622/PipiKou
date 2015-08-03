@@ -24,7 +24,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "StrToDic.h"
-#define pageSize @"10"
+#define pageSize @"11"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
@@ -113,11 +113,12 @@
     NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
+
     NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
-//    NSLog(@"iii = %@", index);
+    NSLog(@"iii = %ld", number);
+
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    self.tableView.scrollEnabled = YES;
-    
+  
 }
 
 
@@ -183,6 +184,7 @@
             [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
             
         }
+         NSLog(@"self.dataSource  %@",self.dataSource);
         //          [self scrollTableView];
         [self.tableView reloadData];
     } failure:^(NSError *error) {
