@@ -437,8 +437,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
 //    }
     
-    
-    
     [UMessage setAutoAlert:NO];
     [UMessage didReceiveRemoteNotification:userInfo];
 

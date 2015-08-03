@@ -1358,11 +1358,11 @@
             // cell的滑动设置
 //            cell.leftSwipeSettings.transition = MGSwipeTransitionStatic;
         
-        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-            
-//            cell.leftButtons = [self createLeftButtons:model];
-        
-        cell.rightButtons = [self createRightButtons:model];
+//        cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+//            
+////            cell.leftButtons = [self createLeftButtons:model];
+//        
+//        cell.rightButtons = [self createRightButtons:model];
         
         return cell;
  

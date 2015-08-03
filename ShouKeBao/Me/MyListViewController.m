@@ -38,11 +38,18 @@
     self.tableView.rowHeight = 160;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.tableFooterView = [[UIView alloc] init];
+    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+    
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.view addGestureRecognizer:recognizer];
     [self iniHeader];
     
     [self setNav];
     
     [self.tableView headerBeginRefreshing];
+}
+-(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
+    [self back];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -276,7 +283,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProductCell *cell = [ProductCell cellWithTableView:tableView];
-    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
+//    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.delegate = self;
     
     cell.isHistory = self.listType == collectionType ? NO : YES;
@@ -285,6 +292,20 @@
     
     cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
     cell.rightButtons = [self createRightButtons:model];
+    
+    
+//    ProductCell *cell = [ProductCell cellWithTableView:tableView];
+//    
+//    ProductModal *model = _dataArr[indexPath.row];
+//    
+//    cell.modal = model;
+//    
+//    cell.delegate = self;
+//    
+//    // cell的滑动设置
+//    
+//    cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+//    cell.rightButtons = [self createRightButtons:model];
     
     return cell;
 }
