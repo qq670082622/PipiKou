@@ -50,11 +50,14 @@
     self.flag = YES;
     [self loadDataSource];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *st = [def objectForKey:@"markStr"];;
+    NSString *st = [def objectForKey:@"markStr"];
     self.markUrl  = [def objectForKey:@"markStr"];
+    
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
-    [def setObject:@"" forKey:@"markStr"];
-    [def synchronize];
+    
+//    [def setObject:@"" forKey:@"markStr"];
+//    [def synchronize];
+    
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
     
@@ -95,7 +98,7 @@
     [_indicator startAnimation];
     
     
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         
         [self.tableView reloadData];
         
@@ -181,7 +184,7 @@
             
         }
         //          [self scrollTableView];
-        
+        [self.tableView reloadData];
     } failure:^(NSError *error) {
         
     }];
@@ -356,8 +359,6 @@
 {
     
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
-    
-    
     DayDetail *detail = self.dataSource[indexPath.row];
     cell.detail = detail;
     
@@ -380,7 +381,7 @@
         self.flag = NO;
     }
     
-    
+
     
     return cell;
 }

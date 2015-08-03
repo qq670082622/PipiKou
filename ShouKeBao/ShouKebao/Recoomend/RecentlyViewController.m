@@ -129,7 +129,7 @@
         [self.table footerEndRefreshing];
         // [self hideHud];
         if (json) {
-            NSLog(@"aaaaaaaa  %@",json);
+            NSLog(@"333aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
             if (self.isRefresh) {
                 [self.dataArr removeAllObjects];
