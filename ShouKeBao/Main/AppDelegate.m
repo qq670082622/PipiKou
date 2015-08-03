@@ -38,8 +38,7 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-
-    
+  
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
@@ -82,11 +81,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    InstallUncaughtExceptionHandler();
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-    
-//        NSLog(@"gggg...");
-//  
-//    
+
 //    float sysVersion=[[UIDevice currentDevice]systemVersion].floatValue;
 //    if (sysVersion>=8.0) {
 //        UIUserNotificationType type=UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
@@ -94,8 +89,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        
 //        [[UIApplication sharedApplication]registerUserNotificationSettings:setting];
 //    }
-//    
-//    [UIApplication sharedApplication].applicationIconBadgeNumber = 10;
+
     
     [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
 
@@ -106,6 +100,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 
     NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     [MobClick setAppVersion:version];
+    
 //    Class cls = NSClassFromString(@"UMANUtil");
 //    SEL deviceIDSelector = @selector(openUDIDString);
 //    NSString *deviceID = nil;
@@ -433,14 +428,14 @@ void UncaughtExceptionHandler(NSException *exception) {
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     
-    NSInteger number = 0;
-    number ++;
-    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
-        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
-        
-    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground){
-        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
-    }
+//    NSInteger number = 0;
+//    number ++;
+//    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+//        
+//    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground){
+//        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
+//    }
     
     
     

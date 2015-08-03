@@ -120,7 +120,7 @@
     
     [super viewDidLoad];
    
-    
+
     [self.view addSubview:self.tableView];
   
     [self checkNewVerSion];
@@ -128,7 +128,7 @@
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     
-
+    
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
@@ -455,9 +455,10 @@
     
 
 //    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isReceveNoti"];
-    
 //    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isReceveNoti"]) {
 //    }
+    
+    
     NSMutableArray *message = noti.object;
     NSLog(@"viewController 里取得值是 is %@",message);
     
@@ -746,7 +747,7 @@
         
 //        设置角标
         self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
-    
+
 //        NSLog(@"0000 self.recommendCount = %ld", self.recommendCount);
 //        NSLog(@"0000 yes = %d", self.yesorno);
 // 为0 隐藏1
@@ -1487,6 +1488,7 @@
         
         // 如果没有数据的话就隐藏这个红点
         self.cell.redTip.hidden = !(self.recommendCount > 0);
+        
 //        self.yesorno = self.cell.redTip.hidden;
 
 //        if (!(self.recommendCount > 0)) {

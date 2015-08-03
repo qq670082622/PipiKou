@@ -143,6 +143,10 @@
         self.count --;
         self.codeBtn.titleLabel.text = [NSString stringWithFormat:@"重新发送(%ld)",(long)self.count];
         [self.codeBtn setTitle:[NSString stringWithFormat:@"重新发送(%ld)",(long)self.count] forState:UIControlStateNormal];
+        [self.codeBtn resignFirstResponder];
+        [self.code becomeFirstResponder];
+        
+        
     }else{
         self.codeBtn.enabled = YES;
         [self.codeBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
