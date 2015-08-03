@@ -216,7 +216,6 @@
     cell.modal = self.dataArr[indexPath.row];
 
  
-
     if ([cell.modal.PushId isEqualToString:_markUrl]) {
         
          NSLog(@"==== markID = %@", self.markUrl);
