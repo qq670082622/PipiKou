@@ -23,6 +23,7 @@
 #import "UMessage.h"
 #import "ShouKeBao.h"
 #import "BaseWebViewController.h"
+#import "UIViewController+MLTransition.h"
 //jpush 1a1249b973c6ce482d68fd4f
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
@@ -96,7 +97,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = 10;
     
-   
+    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
+
     
     
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];

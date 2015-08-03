@@ -325,6 +325,8 @@
 		796FBA011B58AE7B009C75AF /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA001B58AE7B009C75AF /* BaseWebViewController.m */; };
 		796FBA041B58B5BC009C75AF /* MoneyTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */; };
 		7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7975831A1B6734E1008E2908 /* QRCodeCell.m */; };
+		7977912D1B6F121C0075CC70 /* MLTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7977912A1B6F121C0075CC70 /* MLTransitionAnimation.m */; };
+		7977912E1B6F121C0075CC70 /* UIViewController+MLTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7977912C1B6F121C0075CC70 /* UIViewController+MLTransition.m */; };
 		797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797E56591B56569C00154C55 /* NewVersionWebViewController.m */; };
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
 		7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15A1B33ECB8009F878D /* InspectionViewController.m */; };
@@ -909,6 +911,10 @@
 		796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoneyTreeViewController.m; sourceTree = "<group>"; };
 		797583191B6734E1008E2908 /* QRCodeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeCell.h; sourceTree = "<group>"; };
 		7975831A1B6734E1008E2908 /* QRCodeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeCell.m; sourceTree = "<group>"; };
+		797791291B6F121C0075CC70 /* MLTransitionAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MLTransitionAnimation.h; sourceTree = "<group>"; };
+		7977912A1B6F121C0075CC70 /* MLTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTransitionAnimation.m; sourceTree = "<group>"; };
+		7977912B1B6F121C0075CC70 /* UIViewController+MLTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MLTransition.h"; sourceTree = "<group>"; };
+		7977912C1B6F121C0075CC70 /* UIViewController+MLTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MLTransition.m"; sourceTree = "<group>"; };
 		797E56581B56569C00154C55 /* NewVersionWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewVersionWebViewController.h; sourceTree = "<group>"; };
 		797E56591B56569C00154C55 /* NewVersionWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewVersionWebViewController.m; sourceTree = "<group>"; };
 		7982F1561B33C6CB009F878D /* CityPlistTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPlistTool.h; sourceTree = "<group>"; };
@@ -1593,6 +1599,7 @@
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				797791281B6F121C0075CC70 /* MLTransition */,
 				796C4D4E1B60E90C008EBAFE /* JSONKit */,
 				7982F1551B33C68C009F878D /* CityPlistTool */,
 				79EE91651B2BCD0E008C8935 /* TimeTool */,
@@ -2226,6 +2233,17 @@
 			path = JSONKit;
 			sourceTree = "<group>";
 		};
+		797791281B6F121C0075CC70 /* MLTransition */ = {
+			isa = PBXGroup;
+			children = (
+				797791291B6F121C0075CC70 /* MLTransitionAnimation.h */,
+				7977912A1B6F121C0075CC70 /* MLTransitionAnimation.m */,
+				7977912B1B6F121C0075CC70 /* UIViewController+MLTransition.h */,
+				7977912C1B6F121C0075CC70 /* UIViewController+MLTransition.m */,
+			);
+			path = MLTransition;
+			sourceTree = "<group>";
+		};
 		797E56571B56565E00154C55 /* NewVersion */ = {
 			isa = PBXGroup;
 			children = (
@@ -2571,6 +2589,7 @@
 				5A52FC801ACEBF220076DAE6 /* ButtonDetailViewController.m in Sources */,
 				5A52FC5A1ACEBF220076DAE6 /* rightModal3.m in Sources */,
 				5A52FC431ACEBF220076DAE6 /* ConditionModel.m in Sources */,
+				7977912E1B6F121C0075CC70 /* UIViewController+MLTransition.m in Sources */,
 				5A52FC391ACEBF220076DAE6 /* NSString+QD.m in Sources */,
 				5A60FC771AE0A97000CDAC4B /* WelcomePageControl.m in Sources */,
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
@@ -2581,6 +2600,7 @@
 				5A944D281B00BC780004DE89 /* MLPhotoBrowserCustomToolBarView.m in Sources */,
 				5A82161C1AD3843B009388DA /* HomeList.m in Sources */,
 				63E0344C1AFC995300BD714A /* Customers.m in Sources */,
+				7977912D1B6F121C0075CC70 /* MLTransitionAnimation.m in Sources */,
 				5A60FC7A1AE0FC6D00CDAC4B /* ArrowBtn.m in Sources */,
 				63E034511AFC995300BD714A /* RemindDetailViewController.m in Sources */,
 				5A61657C1AE771C700641837 /* QuanViewController.m in Sources */,
