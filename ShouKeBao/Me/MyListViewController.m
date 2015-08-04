@@ -282,6 +282,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%ld", indexPath.row);
     ProductCell *cell = [ProductCell cellWithTableView:tableView];
 //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.delegate = self;
