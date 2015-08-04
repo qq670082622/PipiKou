@@ -42,18 +42,19 @@
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     [super webViewDidFinishLoad:webView];
-     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('lyqwebview_title').value"];
-    if (![title isEqualToString:@""]) {
-        for (NSString * str in [title componentsSeparatedByString:@"摇钱树"]) {
-            if (![str isEqualToString:@""]) {
-                self.title = str;
-            }
-        }
-    }else{
-    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-    }
-    
-    NSLog(@"%@", title);
+//    NSLog(@"%@", webView.request.URL.absoluteString);
+//     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('lyqwebview_title').value"];
+//    if (![title isEqualToString:@""]) {
+//        for (NSString * str in [title componentsSeparatedByString:@"摇钱树"]) {
+//            if (![str isEqualToString:@""]) {
+//                self.title = str;
+//            }
+//        }
+//    }else{
+//    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
+//    }
+//    
+//    NSLog(@"%@", title);
 }
 
 
