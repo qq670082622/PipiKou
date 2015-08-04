@@ -214,9 +214,9 @@
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
 
-    for (NSInteger i = 0; i< self.dataArr.count; i++) {
-        NSLog(@"self.dataArr dd = %@", [[self.dataArr objectAtIndex:i]PushId]);
-    }
+//    for (NSInteger i = 0; i< self.dataArr.count; i++) {
+//        NSLog(@"self.dataArr dd = %@", [[self.dataArr objectAtIndex:i]PushId]);
+//    }
     
     if ([cell.modal.PushId isEqualToString:_markUrl]) {
         
