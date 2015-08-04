@@ -11,4 +11,5 @@
 #import "RecommendViewController.h"
 @interface RecomViewController : SKViewController
 @property (nonatomic,strong) RecommendViewController *todayVC;
+@property (nonatomic, assign)BOOL isFromEmpty;
 @end

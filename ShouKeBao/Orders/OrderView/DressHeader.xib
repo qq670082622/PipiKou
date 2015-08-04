@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
@@ -15,7 +14,7 @@
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cIu-aK-xJu">
                     <rect key="frame" x="240" y="14" width="52" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="52" id="92I-8g-Xkc"/>
+                        <constraint firstAttribute="width" constant="52" id="Be1-nt-q1m"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="确定">
@@ -26,11 +25,21 @@
                         <action selector="confirm:" destination="UGl-jb-UIV" eventType="touchUpInside" id="nPQ-Kn-kEZ"/>
                     </connections>
                 </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0D-UB-bb2">
+                    <rect key="frame" x="68" y="14" width="164" height="22"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                    <state key="normal" title="重置">
+                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </state>
+                    <connections>
+                        <action selector="reset:" destination="UGl-jb-UIV" eventType="touchUpInside" id="yI2-4V-wwb"/>
+                    </connections>
+                </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="faD-mI-f4Y">
                     <rect key="frame" x="8" y="14" width="52" height="22"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="52" id="0GL-Bo-q5L"/>
-                        <constraint firstAttribute="height" constant="22" id="4hp-sg-QhC"/>
+                        <constraint firstAttribute="width" constant="52" id="aDj-jW-C6V"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                     <state key="normal" title="返回" image="backArrowLeft">
@@ -41,34 +50,19 @@
                         <action selector="back:" destination="UGl-jb-UIV" eventType="touchUpInside" id="fwh-lc-5qe"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L0D-UB-bb2">
-                    <rect key="frame" x="124" y="14" width="52" height="22"/>
-                    <constraints>
-                        <constraint firstAttribute="width" constant="52" id="HH2-fB-hRY"/>
-                    </constraints>
-                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                    <state key="normal" title="重置">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
-                        <color key="titleShadowColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                    </state>
-                    <connections>
-                        <action selector="reset:" destination="UGl-jb-UIV" eventType="touchUpInside" id="yI2-4V-wwb"/>
-                    </connections>
-                </button>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
-                <constraint firstItem="L0D-UB-bb2" firstAttribute="top" secondItem="cIu-aK-xJu" secondAttribute="top" id="1hb-ak-juB"/>
-                <constraint firstItem="faD-mI-f4Y" firstAttribute="leading" secondItem="UGl-jb-UIV" secondAttribute="leadingMargin" id="31E-En-gVe"/>
-                <constraint firstItem="cIu-aK-xJu" firstAttribute="trailing" secondItem="UGl-jb-UIV" secondAttribute="trailingMargin" id="5Wy-JJ-7Hd"/>
-                <constraint firstAttribute="bottom" secondItem="faD-mI-f4Y" secondAttribute="bottom" constant="14" id="5nJ-N3-blJ"/>
-                <constraint firstItem="faD-mI-f4Y" firstAttribute="top" secondItem="UGl-jb-UIV" secondAttribute="top" constant="14" id="CnU-Ii-Dlh"/>
-                <constraint firstItem="cIu-aK-xJu" firstAttribute="leading" secondItem="L0D-UB-bb2" secondAttribute="trailing" constant="64" id="GMb-ZY-G2j"/>
-                <constraint firstAttribute="bottom" secondItem="cIu-aK-xJu" secondAttribute="bottom" constant="14" id="PkU-fN-eBY"/>
-                <constraint firstItem="faD-mI-f4Y" firstAttribute="centerY" secondItem="UGl-jb-UIV" secondAttribute="centerY" id="bdb-lH-Veu"/>
-                <constraint firstAttribute="bottom" secondItem="L0D-UB-bb2" secondAttribute="bottom" constant="14" id="nqj-Qi-Uv0"/>
-                <constraint firstItem="faD-mI-f4Y" firstAttribute="top" secondItem="L0D-UB-bb2" secondAttribute="top" id="pCp-BU-vBm"/>
-                <constraint firstItem="faD-mI-f4Y" firstAttribute="leading" secondItem="UGl-jb-UIV" secondAttribute="leading" constant="8" id="rni-RW-H66"/>
+                <constraint firstItem="faD-mI-f4Y" firstAttribute="top" secondItem="UGl-jb-UIV" secondAttribute="top" constant="14" id="6TN-tb-O7m"/>
+                <constraint firstAttribute="bottom" secondItem="L0D-UB-bb2" secondAttribute="bottom" constant="14" id="F0f-ci-VQY"/>
+                <constraint firstAttribute="bottom" secondItem="faD-mI-f4Y" secondAttribute="bottom" constant="14" id="KRY-ix-S56"/>
+                <constraint firstItem="L0D-UB-bb2" firstAttribute="leading" secondItem="faD-mI-f4Y" secondAttribute="trailing" constant="8" id="PaH-hz-3pF"/>
+                <constraint firstItem="L0D-UB-bb2" firstAttribute="top" secondItem="UGl-jb-UIV" secondAttribute="top" constant="14" id="T5g-SV-eJt"/>
+                <constraint firstAttribute="trailing" secondItem="cIu-aK-xJu" secondAttribute="trailing" constant="8" id="XaU-7i-pgV"/>
+                <constraint firstAttribute="bottom" secondItem="cIu-aK-xJu" secondAttribute="bottom" constant="14" id="bty-k1-ZR3"/>
+                <constraint firstItem="cIu-aK-xJu" firstAttribute="leading" secondItem="L0D-UB-bb2" secondAttribute="trailing" constant="8" id="ndP-wU-R6J"/>
+                <constraint firstItem="faD-mI-f4Y" firstAttribute="leading" secondItem="UGl-jb-UIV" secondAttribute="leading" constant="8" id="st2-0x-0fH"/>
+                <constraint firstItem="cIu-aK-xJu" firstAttribute="top" secondItem="UGl-jb-UIV" secondAttribute="top" constant="14" id="zSz-UB-A4M"/>
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>

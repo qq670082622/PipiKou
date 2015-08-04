@@ -24,6 +24,7 @@
 #import "ShouKeBao.h"
 #import "BaseWebViewController.h"
 #import "UIViewController+MLTransition.h"
+#import "BaseClickAttribute.h"
 //jpush 1a1249b973c6ce482d68fd4f
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
@@ -523,16 +524,23 @@ void UncaughtExceptionHandler(NSException *exception) {
          annotation:(id)annotation
 {
     NSLog(@"aaaaaaaabb");
+
     NSString * urlString = url.absoluteString;
     if ([urlString containsString:@"pipikou://"]) {
+//        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//        [MobClick event:@"OpenAppFromShortMessage" attributes:dict];
+        [MobClick event:@"OpenAppFromShortMessage"];
         NSString * webStr = [urlString stringByReplacingOccurrencesOfString:@"pipikou://url=" withString:@""];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
+    }else{
+//        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//        [MobClick event:@"OpenAppFromShareLink" attributes:dict];
     }
     
     if ([urlString containsString:@"QQ41D9B706"]) {
         NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
-        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
+//        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
     }

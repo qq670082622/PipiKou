@@ -10,5 +10,5 @@
 
 @interface RecommendViewController : SKViewController
 @property (nonatomic,copy) NSString *markUrl;
-
+@property (nonatomic, assign)BOOL isFromEmpty;
 @end
