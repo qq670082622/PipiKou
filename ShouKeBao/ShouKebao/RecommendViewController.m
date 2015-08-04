@@ -24,7 +24,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "StrToDic.h"
-#define pageSize @"11"
+#define pageSize @"10"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
@@ -111,10 +111,13 @@
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
 
-    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     NSLog(@"iii = %ld", number);
-
+    
+    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+ 
+    
+//    self.tableView.scrollEnabled = YES;
   
 }
 
@@ -337,6 +340,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 107)];
+
         _tableView.dataSource = self;
         _tableView.delegate = self;
         //_tableView.rowHeight = 80;
@@ -368,12 +372,15 @@
         cell.isPlain = YES;
         [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
+    NSLog(@"indexPath.row iii = %ld", indexPath.row);
     }
     
     //    if (indexPath.row == 2) {
     //        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
     //
     //           }
+    
+    
     
     
     if (self.flag) {
@@ -423,6 +430,7 @@
     
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
     if ([tag isEqualToString:@"1"]) {
+
         return  330;
     }else{
         return 220;
