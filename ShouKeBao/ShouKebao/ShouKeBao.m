@@ -1602,16 +1602,17 @@
     RecomViewController *rec = [[RecomViewController alloc] init];
    [self.navigationController pushViewController:rec animated:YES];
     
-   
+//    NSUserDefaults *change = [NSUserDefaults standardUserDefaults];
+//     [change setBool:YES forKey:@"change"];
+//    [change synchronize];
+    
     // 刷新下 隐藏红点
-    NSLog(@"y_________");
+    NSLog(@"tableView y_________");
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         
       self.recommendCount = 0;
         
-//       NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
-//        [mark setObject:@"0" forKey:@"recomment"];
         
     });
 

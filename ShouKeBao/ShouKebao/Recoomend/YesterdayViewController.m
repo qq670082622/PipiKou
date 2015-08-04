@@ -182,9 +182,12 @@
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
     self.index = [NSIndexPath indexPathForRow:number inSection:0];
-    //    NSLog(@"iii = %@", index);
+ 
     [self.table scrollToRowAtIndexPath:self.index atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.table.scrollEnabled = YES;
+    [mark setObject:@"" forKey:@"num"];
+    [mark synchronize];
+    
     
 }
 - (void)didReceiveMemoryWarning {

@@ -40,6 +40,7 @@
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (nonatomic,strong) NSMutableDictionary *tagDic;
 @property (nonatomic,assign) BOOL flag;
+//@property (nonatomic,assign) BOOL change;
 @end
 
 @implementation RecommendViewController
@@ -53,10 +54,16 @@
     NSString *st = [def objectForKey:@"markStr"];
     self.markUrl  = [def objectForKey:@"markStr"];
     
+//    self.change = [def objectForKey:@"change"];
+    
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
     
-//    [def setObject:@"" forKey:@"markStr"];
-//    [def synchronize];
+//移除掉
+    [def setObject:@"" forKey:@"markStr"];
+//    [def setBool:NO forKey:@"change"];
+    [def synchronize];
+    
+    
     
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
@@ -115,9 +122,10 @@
     
     NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
- 
     
-//    self.tableView.scrollEnabled = YES;
+// 记得移除掉
+    [mark setObject:@"" forKey:@"num"];
+    [mark synchronize];
   
 }
 
@@ -367,7 +375,7 @@
     
     [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
-    
+    NSLog(@"_markUrl = %@", _markUrl);
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
         [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
@@ -429,11 +437,17 @@
 //    CGFloat describLabHeight = [StrToDic heightForString:detail.AdvertText withWidth:[UIScreen mainScreen].bounds.size.width - 20 withFontsize:13];
     
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
-    NSLog(@"%@", tag);
-    
-    if ([tag isEqualToString:@"1"]) {
+    NSLog(@"tag === %@", tag);
 
-        return  330;
+    
+//    if ([tag isEqualToString:@"1"] && self.change) {
+//
+//        return  220;
+//    }else if ([tag isEqualToString:@"1"]){
+//        return 330;
+    
+    if ([tag isEqualToString:@"1"]){
+                return 330;
     }else{
         return 220;
     }
