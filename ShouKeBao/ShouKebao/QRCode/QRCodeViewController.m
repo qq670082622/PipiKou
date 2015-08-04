@@ -37,14 +37,12 @@
 @end
 
 @implementation QRCodeViewController
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor blackColor];
     self.title = @"二维码扫描";
     _captureSession = nil;
     _isReading = NO;
-    
     //判断摄像头访问权限
     NSString * mediaType = AVMediaTypeVideo;
     AVAuthorizationStatus  authorizationStatus = [AVCaptureDevice authorizationStatusForMediaType:mediaType];
@@ -101,6 +99,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    _isOpen = YES;
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoQRCodeView"];
     
@@ -246,6 +245,7 @@
 //}
 
 - (void)openUrl {
+    if (_isOpen) {
     if (self.lblStatus.text.length>3) {
         NSRange range = [self.lblStatus.text rangeOfString:@"lvyouquan"];
         if (range.location == NSNotFound) {
@@ -255,8 +255,8 @@
             URLOpenFromQRCodeViewController *QRcodeWeb = [[URLOpenFromQRCodeViewController alloc] init];
             QRcodeWeb.delegate = self;
             QRcodeWeb.url = self.lblStatus.text;
+            _isOpen = NO;
             [self.navigationController pushViewController:QRcodeWeb animated:YES ];
-            
             NSLog(@"打开了网页:%@",_lblStatus.text);
             
         }else{
@@ -264,15 +264,16 @@
             detail.produceUrl = self.lblStatus.text;
             detail.delegate = self;
             detail.fromType = FromQRcode;
+            _isOpen = NO;
             [self.navigationController pushViewController:detail animated:YES];
         }
         
+    }
     }
     CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;//self.view.bounds.size.width;
     
     CGFloat screenH = [[UIScreen mainScreen] bounds].size.height;
     CGFloat viewH = screenH - 157;
-    
     self.viewPreview.frame = CGRectMake(0, 0, viewW, viewH);
 }
 
