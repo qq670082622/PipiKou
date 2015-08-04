@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
 @interface QRCodeViewController : SKViewController
-
+{
+    BOOL _isOpen;
+}
 @end
