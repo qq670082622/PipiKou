@@ -22,8 +22,8 @@
 @implementation YesterDayCell
 
 + (instancetype)cellWithTableView:(UITableView *)tableView
-{ static NSString *cellID = @"yesterdayCell";
-    YesterDayCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+{    NSString *cellID = [NSString stringWithFormat:@"%ucell", arc4random()];
+        YesterDayCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
         cell = [[YesterDayCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
         cell.separatorInset = UIEdgeInsetsZero;

@@ -28,7 +28,6 @@
 @property (nonatomic,assign) NSInteger pageIndex;
 
 @property (nonatomic,assign) BOOL isRefresh;
-
 @property (nonatomic,copy) NSString *totalCount;
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 
@@ -210,18 +209,15 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
+    NSLog(@"%@", self.markUrl);
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
 
-    for (NSInteger i = 0; i< self.dataArr.count; i++) {
-        NSLog(@"self.dataArr dd = %@", [[self.dataArr objectAtIndex:i]PushId]);
-    }
-    
-    if ([cell.modal.PushId isEqualToString:_markUrl]) {
-        
-         NSLog(@"==== markID = %@", self.markUrl);
-        NSLog(@"cell.modal.PushId= %@", cell.modal.PushId);
+//    for (NSInteger i = 0; i< self.dataArr.count; i++) {
+//        NSLog(@"self.dataArr dd = %@", [[self.dataArr objectAtIndex:i]PushId]);
+//    }
+    NSLog(@"%ld", indexPath.row);
+    if ([[NSString stringWithFormat:@"%ld", (long)indexPath.row]isEqualToString:[[NSUserDefaults  standardUserDefaults]objectForKey:@"num"]]) {
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
 
 
@@ -240,6 +236,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    NSLog(@"%ld", indexPath.row);
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoYesterdayRecommendProductDetailClick" attributes:dict];
     
