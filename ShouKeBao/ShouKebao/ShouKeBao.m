@@ -1536,7 +1536,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     HomeBase *model = self.dataSource[indexPath.row];
-    
+    NSLog(@"self.tabBarItem.badgeValue = %d", [self.tabBarItem.badgeValue intValue]);
     self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
@@ -1566,6 +1566,7 @@
         [def setObject:createDate forKey:@"redTip"];
         [def synchronize];
         [self nitifiToPushRecommendListWithUrl];
+        
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
         
     }else if ([model.model isKindOfClass:[messageModel class]]){
