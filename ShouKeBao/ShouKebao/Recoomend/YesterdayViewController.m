@@ -121,6 +121,7 @@
                             @"PageIndex":[NSString stringWithFormat:@"%ld",(long)self.pageIndex],
                             @"DateRangeType":@"2"};
     [HomeHttpTool getRecommendProductListWithParam:param success:^(id json) {
+        
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
         // [self hideHud];

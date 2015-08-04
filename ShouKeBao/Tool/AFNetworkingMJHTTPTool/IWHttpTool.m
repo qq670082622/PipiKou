@@ -87,9 +87,10 @@
     //组dic
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    
     NSString *mobileID = [[UIDevice currentDevice].identifierForVendor UUIDString];
     //ClientSource 0其他，无需
-    
+
     NSUserDefaults *accoutDefault=[NSUserDefaults standardUserDefaults];
     NSString *subStation =  [accoutDefault stringForKey:@"Substation"];
     NSLog(@"---------subStation is %@-------",subStation);
@@ -134,7 +135,6 @@
     
     [mgr POST:overStr parameters:tmp
       success:^(AFHTTPRequestOperation *operation, id responseObject) {
-          
           if (success) {
               success(responseObject);
           }

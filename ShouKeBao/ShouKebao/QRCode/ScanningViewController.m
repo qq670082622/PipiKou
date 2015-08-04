@@ -75,7 +75,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-  
     self.camera = [[LLSimpleCamera alloc] initWithQuality:CameraQualityPhoto];
     
     // attach to the view and assign a delegate

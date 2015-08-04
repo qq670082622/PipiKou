@@ -80,6 +80,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //{
 //    InstallUncaughtExceptionHandler();
 //}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
 //    float sysVersion=[[UIDevice currentDevice]systemVersion].floatValue;
