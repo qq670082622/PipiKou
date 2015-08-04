@@ -20,7 +20,7 @@
 #import "MobClick.h"
 #import "StationSelect.h"
 #import "BaseClickAttribute.h"
-#define pageSize @"11"
+#define pageSize @"12"
 @interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
@@ -47,10 +47,9 @@
     self.flag = YES;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    self.markUrl = [def objectForKey:@"markStr"];
-    
-    NSLog(@"dd--------markID is %@--------------",_markUrl);
-    
+    NSString *st = [def objectForKey:@"markStr"];
+    self.markUrl  = [def objectForKey:@"markStr"];
+    NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);    
     [def setObject:@"" forKey:@"markStr"];
     [def synchronize];
     
@@ -215,7 +214,10 @@
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
 
- 
+    for (NSInteger i = 0; i< self.dataArr.count; i++) {
+        NSLog(@"self.dataArr dd = %@", [[self.dataArr objectAtIndex:i]PushId]);
+    }
+    
     if ([cell.modal.PushId isEqualToString:_markUrl]) {
         
          NSLog(@"==== markID = %@", self.markUrl);
