@@ -449,7 +449,9 @@
     //orderId ,userId ,recommond ,productId ,messageId
    
     // [self getVoice];
-    self.tabBarItem.badgeValue = nil;
+    
+    
+//    self.tabBarItem.badgeValue = nil;
     [self headerPull];
     [self  getUserInformation];
     
@@ -465,9 +467,9 @@
     
     NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
     
-     NSString *result = [appIsBack objectForKey:@"appIsBack"];
-    
-    if ([result isEqualToString:@"yes"]) {
+//     NSString *result = [appIsBack objectForKey:@"appIsBack"];
+    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
+//    if ([result isEqualToString:@"yes"]) {
         self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
         [appIsBack setObject:@"no" forKey:@"appIsBack"];
         [appIsBack synchronize];
@@ -533,7 +535,7 @@
         if (type.length>0) {
             self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
 
-//            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
+            [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
             
         [self getVoice];
         }

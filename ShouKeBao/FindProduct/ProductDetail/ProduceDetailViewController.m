@@ -107,12 +107,18 @@
     if ([productDetailGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-    
+    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.webView addGestureRecognizer:recognizer];
+
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setUpleftBarButtonItems];
-
+}
+-(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
+    NSLog(@"aaaa");
+    [self back];
 }
 
 -(void)setUpleftBarButtonItems
