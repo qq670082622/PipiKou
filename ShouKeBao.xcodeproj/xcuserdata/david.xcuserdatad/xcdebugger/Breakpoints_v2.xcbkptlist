@@ -27,38 +27,6 @@
             endingLineNumber = "168"
             landmarkName = "-saveWithRecordAndAddCustomer"
             landmarkType = "5">
-            <Locations>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "-[userIDTableviewController saveWithRecordAndAddCustomer]"
-                  moduleName = "ShouKeBao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/David/ShouKeBao/ShouKeBao/ShouKebao/QRCode/userIDTableviewController.m"
-                  timestampString = "458219125.818801"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "1308">
-               </Location>
-               <Location
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "__57-[userIDTableviewController saveWithRecordAndAddCustomer]_block_invoke"
-                  moduleName = "ShouKeBao"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/David/ShouKeBao/ShouKeBao/ShouKebao/QRCode/userIDTableviewController.m"
-                  timestampString = "458219125.818972"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "168"
-                  endingLineNumber = "168"
-                  offsetFromSymbolStart = "40">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

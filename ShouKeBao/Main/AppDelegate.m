@@ -663,6 +663,15 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 - (void)applicationDidEnterBackground:(UIApplication *)application {//进入后台
     
+//    UILocalNotification *notification = [[UILocalNotification alloc]init];
+//    notification.alertBody = @"本地推送测试";
+//    notification.fireDate  = [NSDate dateWithTimeIntervalSinceNow:5];
+//    notification.applicationIconBadgeNumber = 10;
+//    [[UIApplication sharedApplication] scheduleLocalNotification:notification];
+    
+    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isQQReloadView"]) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
+        
     NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
     
     [appIsBack setObject:@"yes" forKey:@"appIsBack"];
@@ -675,7 +684,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     
    // [self prepAudio];
    }
-
+}
 -(void)changeDef
 {
     
@@ -722,12 +731,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     return YES;
 }
 
-- (void)applicationWillEnterForeground:(UIApplication *)application {//进入前台
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isQQReloadView"]) {
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"stopIndictor" object:nil];
-    }
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
