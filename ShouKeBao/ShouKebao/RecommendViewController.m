@@ -61,9 +61,6 @@
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
     
-    
-    
-    
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
     self.pageIndex = 1;

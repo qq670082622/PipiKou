@@ -248,18 +248,22 @@
     NSString *markStr = [self.photosArr objectAtIndex:indexPath.row][@"PushId"];
     
     //取当前arr中的picUrl为标示
-    //    NSString *markStr = self.photosArr[yesInt][@"PushId"];//取单个产品的三级区域名称
-    //    NSLog(@"点击了排第%d个，它的PushId is %@",yesInt,markStr);
+//        NSString *markStr = self.photosArr[yesInt][@"PushId"];//取单个产品的三级区域名称
+//        NSLog(@"点击了排第%d个，它的PushId is %@",yesInt,markStr);
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     [def setObject:markStr forKey:@"markStr"];//标记pushId,在今日推荐中高亮该产品
-    
-    
     [def setObject:_recommend.CreatedDate forKey:@"redTip"];//标记createdate，下次该cell红点不显示
 
     NSString *num = [NSString stringWithFormat:@"%ld", indexPath.row];
     [def setObject:num forKey:@"num"];
     [def synchronize];
+// ************************************
+//    NSString *markYesterday = [self.photosArr objectAtIndex:indexPath.row][@"PushId"];
+//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//    [defaults setObject:markYesterday forKey:@"markYesterday"];
+//     [defaults synchronize];
+  // ************************************
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
     [defaultCenter postNotificationName:@"notifiToPushToRecommed" object:nil];
