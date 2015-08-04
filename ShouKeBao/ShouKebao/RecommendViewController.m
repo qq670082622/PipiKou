@@ -48,7 +48,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
+    if (!self.isFromEmpty) {
+        [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
+    }
     self.flag = YES;
     [self loadDataSource];
     NSString *st = [def objectForKey:@"markStr"];

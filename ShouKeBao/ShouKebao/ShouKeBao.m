@@ -174,7 +174,7 @@
     [self.phoneBtn addGestureRecognizer:longPress];
     
     // 显示提醒
-    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:100 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:10 target:self selector:@selector(showRemind:) userInfo:nil repeats:YES];
     self.pushTime = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.pushTime forMode:NSRunLoopCommonModes];
     
@@ -1600,6 +1600,7 @@
 -(void)nitifiToPushRecommendListWithUrl
 {
     RecomViewController *rec = [[RecomViewController alloc] init];
+    rec.isFromEmpty = YES;
    [self.navigationController pushViewController:rec animated:YES];
     
 //    NSUserDefaults *change = [NSUserDefaults standardUserDefaults];
