@@ -75,7 +75,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-  
+    if (self.isFromOrder) {
+        self.rightBtnOutlet.hidden = YES;
+    }
     self.camera = [[LLSimpleCamera alloc] initWithQuality:CameraQualityPhoto];
     
     // attach to the view and assign a delegate
@@ -635,7 +637,7 @@
     album.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     album.delegate = self;
     [self presentViewController:album animated:YES completion:nil];
-
+    
 }
 
 #pragma -mark pickerViewDelegate//相册选择照片
@@ -646,16 +648,16 @@
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"正在拼命识别";
-   
+    
     UIImage *selectImage = info[UIImagePickerControllerOriginalImage];
     [self getImage:selectImage];
-   
+    
     
     self.photoImg.contentMode = UIViewContentModeScaleAspectFill;
     [self.camera stop];
     self.camera.view.hidden = YES;
     [self loadData];
-
+    
 }
 
 //图片上传之前的处理

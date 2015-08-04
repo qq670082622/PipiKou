@@ -38,10 +38,10 @@
     self.tableView.rowHeight = 160;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.tableFooterView = [[UIView alloc] init];
-    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.view addGestureRecognizer:recognizer];
+//    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+//    
+//    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+//    [self.view addGestureRecognizer:recognizer];
     [self iniHeader];
     
     [self setNav];
