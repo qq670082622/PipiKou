@@ -46,10 +46,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
     self.flag = YES;
     [self loadDataSource];
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *st = [def objectForKey:@"markStr"];
     self.markUrl  = [def objectForKey:@"markStr"];
     
@@ -422,6 +422,8 @@
 //    CGFloat describLabHeight = [StrToDic heightForString:detail.AdvertText withWidth:[UIScreen mainScreen].bounds.size.width - 20 withFontsize:13];
     
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
+    NSLog(@"%@", tag);
+    
     if ([tag isEqualToString:@"1"]) {
         return  330;
     }else{
