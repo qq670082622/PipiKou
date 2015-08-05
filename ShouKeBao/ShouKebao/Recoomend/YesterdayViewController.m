@@ -183,9 +183,12 @@
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
     self.index = [NSIndexPath indexPathForRow:number inSection:0];
-    //    NSLog(@"iii = %@", index);
+ 
     [self.table scrollToRowAtIndexPath:self.index atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.table.scrollEnabled = YES;
+    [mark setObject:@"" forKey:@"num"];
+    [mark synchronize];
+    
     
 }
 - (void)didReceiveMemoryWarning {
@@ -214,20 +217,24 @@
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
 
-//    for (NSInteger i = 0; i< self.dataArr.count; i++) {
-//        NSLog(@"self.dataArr dd = %@", [[self.dataArr objectAtIndex:i]PushId]);
-//    }
-    NSLog(@"%ld", indexPath.row);
-    if ([[NSString stringWithFormat:@"%ld", (long)indexPath.row]isEqualToString:[[NSUserDefaults  standardUserDefaults]objectForKey:@"num"]]) {
+    
+//    if ([[NSString stringWithFormat:@"%ld", (long)indexPath.row]isEqualToString:[[NSUserDefaults  standardUserDefaults]objectForKey:@"num"]]) {
+//         NSLog(@" cccc %ld", indexPath.row);
+    
+    
+        if (cell.modal.PushId == _markUrl) {
+            
+            if (self.flag) {
+                [self scrollTableView];
+                self.flag = NO;
+            }
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
 
-
+            
+            
     }
     
-    if (self.flag) {
-        [self scrollTableView];
-        self.flag = NO;
-    }
+  
     
     return cell;
 }

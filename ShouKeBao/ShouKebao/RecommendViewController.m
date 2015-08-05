@@ -24,7 +24,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "StrToDic.h"
-#define pageSize @"11"
+#define pageSize @"10"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
@@ -40,23 +40,32 @@
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (nonatomic,strong) NSMutableDictionary *tagDic;
 @property (nonatomic,assign) BOOL flag;
+//@property (nonatomic,assign) BOOL change;
 @end
 
 @implementation RecommendViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    if (!self.isFromEmpty) {
+        [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
+    }
     self.flag = YES;
     [self loadDataSource];
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *st = [def objectForKey:@"markStr"];
     self.markUrl  = [def objectForKey:@"markStr"];
     
+//    self.change = [def objectForKey:@"change"];
+    
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);
     
-//    [def setObject:@"" forKey:@"markStr"];
-//    [def synchronize];
+//移除掉
+    [def setObject:@"" forKey:@"markStr"];
+//    [def setBool:NO forKey:@"change"];
+    [def synchronize];
+    
+    
     
     self.title = @"今日推荐";
     [self.view addSubview:self.tableView];
@@ -111,10 +120,14 @@
     NSString *num = [mark objectForKey:@"num"];
     NSInteger number = [num integerValue];
 
-    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     NSLog(@"iii = %ld", number);
-
+    
+    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    
+// 记得移除掉
+    [mark setObject:@"" forKey:@"num"];
+    [mark synchronize];
   
 }
 
@@ -337,6 +350,7 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 107)];
+
         _tableView.dataSource = self;
         _tableView.delegate = self;
         //_tableView.rowHeight = 80;
@@ -363,11 +377,14 @@
     
     [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
-    
+    NSLog(@"_markUrl = %@", _markUrl);
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
         [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
+    NSLog(@"indexPath.row iii = %ld", indexPath.row);
+        
+        
     }
     
     //    if (indexPath.row == 2) {
@@ -422,8 +439,17 @@
 //    CGFloat describLabHeight = [StrToDic heightForString:detail.AdvertText withWidth:[UIScreen mainScreen].bounds.size.width - 20 withFontsize:13];
     
     NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
-    if ([tag isEqualToString:@"1"]) {
-        return  330;
+    NSLog(@"tag === %@", tag);
+
+    
+//    if ([tag isEqualToString:@"1"] && self.change) {
+//
+//        return  220;
+//    }else if ([tag isEqualToString:@"1"]){
+//        return 330;
+    
+    if ([tag isEqualToString:@"1"]){
+                return 330;
     }else{
         return 220;
     }

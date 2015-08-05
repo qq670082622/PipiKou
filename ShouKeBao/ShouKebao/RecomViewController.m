@@ -208,6 +208,7 @@
 {
     if (_todayVC == nil) {
         self.todayVC = [[RecommendViewController alloc] init];
+        self.todayVC.isFromEmpty = self.isFromEmpty;
         [self addChildViewController:_todayVC];
 //        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
 //        CGFloat viewH = self.controllerView.frame.size.height;
