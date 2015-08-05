@@ -239,19 +239,20 @@
     
 }
 - (void)doIfInWebWithUrl:(NSString *)rightUrl{
-    
     if ([rightUrl containsString:@"Product/ProductDetail"]) {
+        self.title = @"产品详情";
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailProductDetailClick" attributes:dict];
     }else if([rightUrl containsString:@"Order/SKBOrderCancel"]){
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailOrderCancelClick" attributes:dict];
-        
+        self.title = @"订单详情";
+    }else{
+    self.title = @"订单详情";
     }
     if ([rightUrl containsString:@"/Order/Detail/"]) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailClick" attributes:dict];
-        
     }
     if (self.isBack) {
         
