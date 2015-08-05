@@ -111,6 +111,7 @@
 @property (nonatomic, copy)NSString * IOSUpdateType;
 @property (nonatomic, assign)BOOL isFromDowmload;
 @property (nonatomic, assign)BOOL isMustUpdate;
+@property (nonatomic, assign)BOOL isEmpty;
 @end
 
 @implementation ShouKeBao
@@ -809,6 +810,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.isEmpty = NO;
 //    if (self.num == 0) {
 //        self.num++;
 //    }else{
@@ -1288,6 +1290,8 @@
                                                   url:self.shareDic[@"Url"]                                          description:self.shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@,地址：%@",_shareDic[@"Tile"],_shareDic[@"Desc"],_shareDic[@"Url"]] image:nil];
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareDic[@"Url"]]];
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
@@ -1559,7 +1563,7 @@
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"RecommendClick" attributes:dict];
 //******************************
-     
+        self.isEmpty = YES;
         Recommend *mo = model.model;
         NSString *createDate = mo.CreatedDate;
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -1601,7 +1605,8 @@
 -(void)nitifiToPushRecommendListWithUrl
 {
     RecomViewController *rec = [[RecomViewController alloc] init];
-    rec.isFromEmpty = YES;
+    NSLog(@"%d", self.isEmpty);
+    rec.isFromEmpty = self.isEmpty;
    [self.navigationController pushViewController:rec animated:YES];
     
 //    NSUserDefaults *change = [NSUserDefaults standardUserDefaults];
@@ -1771,12 +1776,12 @@
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:arr forKey:@"CredentialsPicRecordList"];
         
-[IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
+        [IWHttpTool WMpostWithURL:@"Customer/SyncCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"1上传record成功,json is %@",json);
 
                     NSArray *new = [NSArray array];
             [WriteFileManager saveData:new name:@"record"];
-    [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
+//    [MBProgressHUD showSuccess:@"已同步未登录时的扫描信息"];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
     });

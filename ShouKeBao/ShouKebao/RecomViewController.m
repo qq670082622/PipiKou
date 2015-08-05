@@ -208,6 +208,7 @@
 {
     if (_todayVC == nil) {
         self.todayVC = [[RecommendViewController alloc] init];
+        NSLog(@"%d", self.isFromEmpty);
         self.todayVC.isFromEmpty = self.isFromEmpty;
         [self addChildViewController:_todayVC];
 //        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
@@ -270,7 +271,6 @@
     [self.yesterdayVC.view removeFromSuperview];
     [self.recentlyVC.view removeFromSuperview];
         self.selectIndex = 0;
-
     self.title = @"今日推荐";
    
 

@@ -24,7 +24,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "StrToDic.h"
-#define pageSize @"10"
+#define pageSize @"11"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
@@ -47,16 +47,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-
-    
-    [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
-
     if (!self.isFromEmpty) {
         [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
     }
-
     self.flag = YES;
     [self loadDataSource];
     NSString *st = [def objectForKey:@"markStr"];
@@ -68,7 +62,7 @@
     
 //移除掉
     [def setObject:@"" forKey:@"markStr"];
-
+//    [def setBool:NO forKey:@"change"];
     [def synchronize];
     
     
@@ -110,11 +104,11 @@
     [_indicator startAnimation];
     
     
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-    
-//        [self.tableView reloadData];
-    
-//    });
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        
+        [self.tableView reloadData];
+        
+    });
     
     //
     
@@ -130,7 +124,7 @@
     
     NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
-   
+    
 // 记得移除掉
     [mark setObject:@"" forKey:@"num"];
     [mark synchronize];
@@ -376,12 +370,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.flag) {
-        [self scrollTableView];
-        
-        self.flag = NO;
-    }
-    
     
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
     DayDetail *detail = self.dataSource[indexPath.row];
@@ -390,7 +378,6 @@
     [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
     NSLog(@"_markUrl = %@", _markUrl);
-    
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
         [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
@@ -406,7 +393,10 @@
     //           }
     
     
- 
+    if (self.flag) {
+        [self scrollTableView];
+        self.flag = NO;
+    }
     
 
     
@@ -499,8 +489,11 @@
                                                 title:tmp[@"Title"]
                                                   url:tmp[@"Url"]                                          description:tmp[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", tmp[@"Url"]]];
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
+    
     //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
     
     //弹出分享菜单

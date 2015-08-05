@@ -456,7 +456,8 @@
                                             mediaType:SSPublishContentMediaTypeNews];
    
     [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@,%@",shareDic[@"Tile"],shareDic[@"Desc"],shareDic[@"Url"]] image:nil];
-    
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", shareDic[@"Url"]]];
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
