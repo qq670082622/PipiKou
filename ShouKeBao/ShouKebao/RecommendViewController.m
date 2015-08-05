@@ -62,7 +62,6 @@
     
 //移除掉
     [def setObject:@"" forKey:@"markStr"];
-//    [def setBool:NO forKey:@"change"];
     [def synchronize];
     
     
