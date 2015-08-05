@@ -81,6 +81,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //{
 //    InstallUncaughtExceptionHandler();
 //}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //    [[[UIAlertView alloc]initWithTitle:@"a" message:@"\ue40a" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
