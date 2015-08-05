@@ -83,7 +83,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //}
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
-    
+//    [[[UIAlertView alloc]initWithTitle:@"a" message:@"\ue40a" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
     //    if (sysVersion>=8.0) {
 //        UIUserNotificationType type=UIUserNotificationTypeBadge | UIUserNotificationTypeAlert | UIUserNotificationTypeSound;
 //        UIUserNotificationSettings *setting=[UIUserNotificationSettings settingsForTypes:type categories:nil];

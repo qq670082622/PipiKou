@@ -183,8 +183,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FromiMessage:) name:@"FromiMesseage" object:nil];
 
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithCrash" object:nil];
-    
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithCrash" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUserIcon:) name:@"changUserIcon" object:nil];
+
 //    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
 //    NSString *isBack = [appIsBack objectForKey:@"appIsBack"];
     
@@ -443,6 +444,7 @@
     [self.navigationController pushViewController:webView animated:YES];
     }
 }
+
 
 #pragma  - mark程序未死亡时远程推送处理函数
 -(void)dealPushBackGround:(NSNotification *)noti
@@ -713,7 +715,9 @@
             self.yesterdayVisitors.font = [UIFont systemFontOfSize:11];
         }
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+        
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
+        
 //        self.userName.text = muta[@"ShowName"];
         self.shareLink = muta[@"LinkUrl"];
         if (![muta[@"ShareInfo"] isKindOfClass:[NSNull class]]) {
@@ -860,6 +864,12 @@
 
     
     self.userName.text =  [UserInfo shareUser].userName;
+//    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userhead"]) {
+//    self.userIcon.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults]objectForKey:@"userhead"]];
+//    }else{
+//    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+//    [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
+//    }
     [MobClick beginLogPageView:@"ShouKeBao"];
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];

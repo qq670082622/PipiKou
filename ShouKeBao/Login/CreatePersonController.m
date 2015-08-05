@@ -435,7 +435,10 @@
     // 将图片转成base64字符串
     NSData *imgData = UIImageJPEGRepresentation(image, 0.3);
     NSString *encodedImgStr = [imgData base64EncodedStringWithOptions:0];
-    
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def setObject:UIImageJPEGRepresentation(image, 0.3) forKey:@"userhead"];
+    [def synchronize];
+
     /**
      *  上传头像
      */

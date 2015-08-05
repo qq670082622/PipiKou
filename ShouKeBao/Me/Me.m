@@ -204,8 +204,8 @@
 // 点击头像上传照片
 - (void)didClickHeadIcon
 {
-//        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
-//        [sheet showInView:self.view.window];
+        UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
+        [sheet showInView:self.view.window];
 }
 
 #pragma mark - MeButtonViewDelegate
@@ -571,7 +571,7 @@
     NSData *data = UIImageJPEGRepresentation(newImage, 1.0);
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
     
-    [IWHttpTool postWithURL:@"/File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@1:@2} success:^(id json) {
+    [IWHttpTool postWithURL:@"/File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
         NSLog(@"%@*******", json);
     } failure:^(NSError * error) {
         

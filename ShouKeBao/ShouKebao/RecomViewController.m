@@ -228,6 +228,8 @@
         self.yesterdayVC = [[YesterdayViewController alloc] init];
         [self addChildViewController:_yesterdayVC];
         self.yesterdayVC.view.frame = self.controllerView.frame;
+//        self.yesterdayVC.markUrl = self.markStr;
+        
 //        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
 //        CGFloat viewH = self.controllerView.frame.size.height;
 //        CGFloat viewY = self.controllerView.frame.origin.y;
