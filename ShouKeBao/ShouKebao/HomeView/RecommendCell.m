@@ -262,10 +262,10 @@
     [def setObject:num forKey:@"num"];
     [def synchronize];
 // ************************************
-//    NSString *markYesterday = [self.photosArr objectAtIndex:indexPath.row][@"PushId"];
-//    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//    [defaults setObject:markYesterday forKey:@"markYesterday"];
-//     [defaults synchronize];
+    NSString *markYesterday = [self.photosArr objectAtIndex:indexPath.row][@"PushId"];
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:markYesterday forKey:@"markYesterday"];
+     [defaults synchronize];
   // ************************************
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];

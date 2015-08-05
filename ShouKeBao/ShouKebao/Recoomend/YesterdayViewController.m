@@ -46,10 +46,10 @@
     self.flag = YES;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *st = [def objectForKey:@"markStr"];
-    self.markUrl  = [def objectForKey:@"markStr"];
+    NSString *st = [def objectForKey:@"markYesterday"];
+    self.markUrl  = [def objectForKey:@"markYesterday"];
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);    
-    [def setObject:@"" forKey:@"markStr"];
+    [def setObject:@"" forKey:@"markYesterday"];
     [def synchronize];
     
     self.table.tableFooterView = [[UIView alloc] init];
@@ -212,27 +212,24 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    NSLog(@"%@", self.markUrl);
+
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
 
     
 //    if ([[NSString stringWithFormat:@"%ld", (long)indexPath.row]isEqualToString:[[NSUserDefaults  standardUserDefaults]objectForKey:@"num"]]) {
-//         NSLog(@" cccc %ld", indexPath.row);
     
-    
-        if (cell.modal.PushId == _markUrl) {
-            
-            if (self.flag) {
-                [self scrollTableView];
-                self.flag = NO;
-            }
+    if ([cell.modal.PushId isEqualToString: _markUrl]) { 
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
-
-            
-            
+        
+        NSLog(@"++++ push = %@, mark = %@", cell.modal.PushId, _markUrl);
+        
+        
     }
-    
+    if (self.flag) {
+        [self scrollTableView];
+        self.flag = NO;
+    }
   
     
     return cell;

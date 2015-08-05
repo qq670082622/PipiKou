@@ -68,7 +68,7 @@
     
 //移除掉
     [def setObject:@"" forKey:@"markStr"];
-//    [def setBool:NO forKey:@"change"];
+
     [def synchronize];
     
     
@@ -130,7 +130,7 @@
     
     NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
-    
+   
 // 记得移除掉
     [mark setObject:@"" forKey:@"num"];
     [mark synchronize];
@@ -376,6 +376,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (self.flag) {
+        [self scrollTableView];
+        
+        self.flag = NO;
+    }
+    
     
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
     DayDetail *detail = self.dataSource[indexPath.row];
@@ -384,6 +390,7 @@
     [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
     NSLog(@"_markUrl = %@", _markUrl);
+    
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
         [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
@@ -399,10 +406,7 @@
     //           }
     
     
-    if (self.flag) {
-        [self scrollTableView];
-        self.flag = NO;
-    }
+ 
     
 
     

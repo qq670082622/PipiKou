@@ -12,4 +12,6 @@
 @interface RecomViewController : SKViewController
 @property (nonatomic,strong) RecommendViewController *todayVC;
 @property (nonatomic, assign)BOOL isFromEmpty;
+//@property (nonatomic, strong)NSString *markStr;
+
 @end
