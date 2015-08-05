@@ -413,6 +413,8 @@
                                                   url:tmp[@"Url"]                                          description:tmp[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@ ,  %@",tmp[@"Tile"],tmp[@"Desc"],tmp[@"Url"]] image:nil];
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", tmp[@"Url"]]];
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
     //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];

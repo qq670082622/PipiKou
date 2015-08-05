@@ -154,21 +154,21 @@ void UncaughtExceptionHandler(NSException *exception) {
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104787206"
-                           appSecret:@"v6rYWKc8Fvjjye3n"
+    [ShareSDK connectQZoneWithAppKey:@"1104542403"
+                           appSecret:@"zOYB51wNKimtVaBg"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104787206"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104542403"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx96ff8e3c5c1c313d"
+    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"
                            wechatCls:[WXApi class]];
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx96ff8e3c5c1c313d"   //微信APPID
-                           appSecret:@"3b5a91dfcb30d1286aea9e5009fc069b"  //微信APPSecret
+    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"   //微信APPID
+                           appSecret:@"747908a80a1ee4681b131c384a275a46"  //微信APPSecret
                            wechatCls:[WXApi class]];
     
     //连接短信分享
@@ -538,12 +538,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        [MobClick event:@"OpenAppFromShareLink" attributes:dict];
     }
     
-    if ([urlString containsString:@"QQ41D9B706"]) {
-        NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
-//        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
-        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
-    }
+//    if ([urlString containsString:@"QQ41D9B706"]) {
+//        NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
+////        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
+//        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+//        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
+//    }
     [ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication
                         annotation:annotation

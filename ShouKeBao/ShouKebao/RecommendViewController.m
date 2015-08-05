@@ -24,7 +24,7 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "StrToDic.h"
-#define pageSize @"10"
+#define pageSize @"11"
 
 @interface RecommendViewController ()<UITableViewDataSource,UITableViewDelegate,MGSwipeTableCellDelegate,UIScrollViewDelegate>
 
@@ -489,8 +489,11 @@
                                                 title:tmp[@"Title"]
                                                   url:tmp[@"Url"]                                          description:tmp[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", tmp[@"Url"]]];
+
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
+    
     //    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
     
     //弹出分享菜单

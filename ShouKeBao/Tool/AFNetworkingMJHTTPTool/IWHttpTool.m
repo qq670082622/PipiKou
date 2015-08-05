@@ -46,7 +46,7 @@
     NSString *businessId = [accoutDefault objectForKey:UserInfoKeyBusinessID];
     NSString *distributionId = [accoutDefault objectForKey:UserInfoKeyDistributionID];
     NSString *appUserId = [accoutDefault objectForKey:UserInfoKeyAppUserID];
-    
+    NSLog(@"%@", appUserId);
     // 判断这三个个是否空
     [tmp setObject:businessId ? businessId : @"" forKey:@"BusinessID"];
     [tmp setObject:distributionId ? distributionId : @"" forKey:@"DistributionID"];
