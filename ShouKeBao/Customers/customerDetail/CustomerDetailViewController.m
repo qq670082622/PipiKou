@@ -182,11 +182,24 @@
     edit.teleStr = self.tele.text;
     edit.nameStr = self.userName.text;
     edit.delegate = self;
+    
+    //    添加的内容
+    edit.personCardIDStr = self.userMessageID.text;
+    edit.birthdateStr = self.bornDay.text;
+    edit.nationalityStr = self.countryID.text;
+    edit.nationStr = self.nationalID.text;
+    edit.passportDataStr = self.pasportStartDay.text;
+    edit.passportAddressStr = self.pasportAddress.text;
+    edit.passportValidityStr = self.pasportInUseDay.text;
+    edit.addressStr = self.livingAddress.text;
+    edit.passportStr = self.passPortId.text;
+    
+    
     [self.navigationController pushViewController:edit animated:YES];
 }
 
 #pragma -mark 编辑用户资料后通知更新
--(void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note
+- (void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andCardID:(NSString *)cardID andBirthDate:(NSString *)birthdate andNationablity:(NSString *)nationablity andNation:(NSString *)nation andPassportStart:(NSString *)passPortStart andPassPortAddress:(NSString *)passPortAddress andPassPortEnd:(NSString *)passPortEnd andAddress:(NSString *)address andPassport:(NSString *)passPort andNote:(NSString *)note
 {
     
     self.QQ.text = qq;
@@ -194,7 +207,16 @@
     self.tele.text = phone;
     self.note.text = note;
     self.userName.text = name;
- 
+    //   新添加
+    self.userMessageID.text = cardID;
+    self.bornDay.text = birthdate;
+    self.countryID.text = nationablity;
+    self.nationalID.text = nation;
+    self.passPortId.text = passPortStart;
+    self.pasportAddress.text = passPortAddress;
+    self.pasportInUseDay.text = passPortEnd;
+    self.passPortId.text = passPort;
+    self.livingAddress.text = address;
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
