@@ -74,7 +74,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     if (self.isFromOrder) {
         self.rightBtnOutlet.hidden = YES;
     }
@@ -629,22 +628,15 @@
     return _writeFilePersonIdArr;
 }
 
-
-
 -(void)openAlbum{
-    
     UIImagePickerController *album = [[UIImagePickerController alloc] init];
     album.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     album.delegate = self;
-    //album.allowsEditing = YES;
     [self presentViewController:album animated:YES completion:nil];
-    
 }
-
 #pragma -mark pickerViewDelegate//相册选择照片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
-    NSLog(@"++++%@",[info objectForKey:UIImagePickerControllerMediaType]);
     [picker dismissViewControllerAnimated:YES completion:nil];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

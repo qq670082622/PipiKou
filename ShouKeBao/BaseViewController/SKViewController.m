@@ -8,6 +8,7 @@
 
 #import "SKViewController.h"
 
+#import "UIViewController+MLTransition.h"
 @interface SKViewController ()
 
 @end
@@ -16,6 +17,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   // [SKViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
+
 //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
 //    label.textAlignment = NSTextAlignmentCenter;
 //    label.text = @"版权所有  盗版必究";
