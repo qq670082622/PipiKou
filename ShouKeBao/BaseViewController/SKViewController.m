@@ -8,6 +8,7 @@
 
 #import "SKViewController.h"
 
+#import "UIViewController+MLTransition.h"
 @interface SKViewController ()
 
 @end
@@ -16,6 +17,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+    screenEdge.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdge];
+
 //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
 //    label.textAlignment = NSTextAlignmentCenter;
 //    label.text = @"版权所有  盗版必究";
@@ -28,5 +33,11 @@
     }
     
 }
-
+-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
+    CGPoint sliderdistance = [sender translationInView:self.view];
+    if (sliderdistance.x>self.view.bounds.size.width/3) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    //NSLog(@"%f",sliderdistance.x);
+}
 @end
