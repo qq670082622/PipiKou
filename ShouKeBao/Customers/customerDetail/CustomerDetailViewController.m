@@ -15,12 +15,12 @@
 #import "CustomModel.h"
 #import "MobClick.h"
 #import "attachmentViewController.h"
-
+#import "CustomerOrderViewController.h"
 
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate, UITableViewDelegate, UIAlertViewDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
-
+@property (nonatomic, strong)CustomerOrderViewController * orderVC;
 @end
 
 @implementation CustomerDetailViewController
@@ -30,18 +30,20 @@
     [self customerRightBarItem];
     self.title = @"客户详情";
     self.tableView.delegate = self;
-//    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
-//    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
-//    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
-//    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
-//    [segment setTintColor:[UIColor whiteColor]];
-//    segment.frame = CGRectMake(0, 0, 150, 28);
-//    [segment setSelected:YES];
-//    [segment setSelectedSegmentIndex:0];
-//    [titleView addSubview:segment];
-//    self.segmentControl = segment;
-//    self.navigationItem.titleView = titleView;
-    
+    self.orderVC.view.hidden = YES;
+
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
+    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
+    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
+    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
+    [segment setTintColor:[UIColor whiteColor]];
+    segment.frame = CGRectMake(0, 0, 150, 28);
+    [segment setSelected:YES];
+    [segment setSelectedSegmentIndex:0];
+    [titleView addSubview:segment];
+    self.segmentControl = segment;
+    self.navigationItem.titleView = titleView;
+    [self.view addSubview:self.orderVC.view];
    // [self.SetRemindBtnOutlet setHighlighted:NO];
     
     [self setSubViews];
@@ -65,7 +67,24 @@
     
     
 }
-
+-(CustomerOrderViewController *)orderVC{
+    if (!_orderVC) {
+        _orderVC = [[CustomerOrderViewController alloc]init];
+    }
+    return _orderVC;
+}
+-(void)sex:(id)sender
+{
+    UISegmentedControl *control = (UISegmentedControl *)sender;
+    if (control.selectedSegmentIndex == 0) {
+        self.orderVC.view.hidden = YES;
+        NSLog(@"客户资料" );
+        //    [self.navigationController popViewControllerAnimated:NO];
+    }else if (control.selectedSegmentIndex == 1){
+        NSLog(@"订单详情" );
+        self.orderVC.view.hidden = NO;
+    }
+}
 
 -(void)back
 {

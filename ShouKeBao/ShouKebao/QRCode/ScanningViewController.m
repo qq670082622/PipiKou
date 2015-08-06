@@ -25,6 +25,8 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "ShouKeBao.h"
+#import "UIViewController+MLTransition.h"
+
 @interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
@@ -74,11 +76,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [ScanningViewController removeGestureRecognizer];
     if (self.isFromOrder) {
         self.rightBtnOutlet.hidden = YES;
     }
     self.camera = [[LLSimpleCamera alloc] initWithQuality:CameraQualityPhoto];
-    
+//    for (UIGestureRecognizer * gesture in self.view.gestureRecognizers) {
+//        if ([gesture isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+//            [self.view removeGestureRecognizer:gesture];
+//        }
+//    }
     // attach to the view and assign a delegate
     [self.camera attachToViewController:self withDelegate:self];
     
@@ -628,15 +635,21 @@
     return _writeFilePersonIdArr;
 }
 
+
+
 -(void)openAlbum{
+    
     UIImagePickerController *album = [[UIImagePickerController alloc] init];
     album.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
     album.delegate = self;
     [self presentViewController:album animated:YES completion:nil];
+    
 }
+
 #pragma -mark pickerViewDelegate//相册选择照片
 -(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info
 {
+    
     [picker dismissViewControllerAnimated:YES completion:nil];
     [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

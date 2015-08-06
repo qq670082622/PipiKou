@@ -318,6 +318,9 @@
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
+		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
+		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
+		795E1F051B7337B000072A77 /* CustomerOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795E1F041B7337B000072A77 /* CustomerOrderViewController.m */; };
 		7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */; };
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
 		796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C4D4C1B60CEF6008EBAFE /* WebKit.framework */; };
@@ -898,6 +901,12 @@
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
+		795E1EFD1B72F75300072A77 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		795E1EFE1B72F75300072A77 /* read_me.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = read_me.txt; sourceTree = "<group>"; };
+		795E1EFF1B72F75300072A77 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		795E1F001B72F75300072A77 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
+		795E1F031B7337B000072A77 /* CustomerOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerOrderViewController.h; sourceTree = "<group>"; };
+		795E1F041B7337B000072A77 /* CustomerOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrderViewController.m; sourceTree = "<group>"; };
 		7960A5891B39320C00A69E44 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
 		7964F4EF1B437D6500F56EB2 /* BaseClickAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClickAttribute.h; sourceTree = "<group>"; };
@@ -974,6 +983,7 @@
 				636C8B741AC2E1420097CAE9 /* ShareSDKCoreService.framework in Frameworks */,
 				636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */,
 				636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */,
+				795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */,
 				636C8B711AC2E1420097CAE9 /* AGCommon.framework in Frameworks */,
 				636C8B6F1AC2E1420097CAE9 /* SMSConnection.framework in Frameworks */,
 				636C8B7B1AC2E1420097CAE9 /* ShareSDKShareActionSheet.framework in Frameworks */,
@@ -1995,6 +2005,7 @@
 		63D31E401AB143D00043B3CA /* ShouKeBao */ = {
 			isa = PBXGroup;
 			children = (
+				795E1EFC1B72F75300072A77 /* WeChatSDK_1.5 */,
 				799F3E0A1B3A512400C14FBB /* UMAnalytics_Sdk_3.5.8 */,
 				63E0340D1AFC995300BD714A /* Customers */,
 				636C8B511AC2E1420097CAE9 /* ShareSDK */,
@@ -2111,6 +2122,8 @@
 				63E0341F1AFC995300BD714A /* Customer.storyboard */,
 				63E034201AFC995300BD714A /* CustomerDetailViewController.h */,
 				79A8C53F1B32DED300922CEA /* CustomerDetailViewController.m */,
+				795E1F031B7337B000072A77 /* CustomerOrderViewController.h */,
+				795E1F041B7337B000072A77 /* CustomerOrderViewController.m */,
 				63E034221AFC995300BD714A /* EditCustomerDetailViewController.h */,
 				63E034231AFC995300BD714A /* EditCustomerDetailViewController.m */,
 				63AE28961B21975800BDB8C1 /* attachmentViewController.h */,
@@ -2222,6 +2235,17 @@
 				795C96671B4E0FA1006F996F /* UMessage.h */,
 			);
 			path = UMessage_Sdk_1.1.0;
+			sourceTree = "<group>";
+		};
+		795E1EFC1B72F75300072A77 /* WeChatSDK_1.5 */ = {
+			isa = PBXGroup;
+			children = (
+				795E1EFD1B72F75300072A77 /* libWeChatSDK.a */,
+				795E1EFE1B72F75300072A77 /* read_me.txt */,
+				795E1EFF1B72F75300072A77 /* WXApi.h */,
+				795E1F001B72F75300072A77 /* WXApiObject.h */,
+			);
+			path = WeChatSDK_1.5;
 			sourceTree = "<group>";
 		};
 		796C4D4E1B60E90C008EBAFE /* JSONKit */ = {
@@ -2453,6 +2477,7 @@
 				5A52FC5F1ACEBF220076DAE6 /* Auth.storyboard in Resources */,
 				63E034431AFC995300BD714A /* batchCell.xib in Resources */,
 				5A52FC5C1ACEBF220076DAE6 /* SearchProductViewController.xib in Resources */,
+				795E1F021B72F75300072A77 /* read_me.txt in Resources */,
 				63F1A1841B140D4E00DE9867 /* YesterdayViewController.xib in Resources */,
 				63F1A1891B140D5B00DE9867 /* RecentlyViewController.xib in Resources */,
 				5A52FC6E1ACEBF220076DAE6 /* Me.storyboard in Resources */,
@@ -2534,6 +2559,7 @@
 				63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */,
 				796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
+				795E1F051B7337B000072A77 /* CustomerOrderViewController.m in Sources */,
 				5A52FC6F1ACEBF220076DAE6 /* MeHttpTool.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
@@ -2901,6 +2927,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8",
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8/UMessage_Sdk_1.1.0",
+					"$(PROJECT_DIR)/ShouKeBao/WeChatSDK_1.5",
 				);
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = ShouKeBao;
@@ -2936,6 +2963,7 @@
 					"$(PROJECT_DIR)/ShouKeBao/Lotuseed",
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8",
 					"$(PROJECT_DIR)/ShouKeBao/UMAnalytics_Sdk_3.5.8/UMessage_Sdk_1.1.0",
+					"$(PROJECT_DIR)/ShouKeBao/WeChatSDK_1.5",
 				);
 				PRODUCT_NAME = ShouKeBao;
 				PROVISIONING_PROFILE = "d40ee23e-53ae-4be2-8364-515d57a34ddb";
