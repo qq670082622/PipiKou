@@ -69,7 +69,6 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
-    
    // [WMAnimations WMAnimationToScaleWithLayer:leftBtn.layer andFromValue:@1.0f andToValue:@2.0f];
     
     self.selectIndex = 0;

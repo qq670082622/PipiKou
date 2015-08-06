@@ -31,6 +31,7 @@
 
 @property (nonatomic,assign) BOOL isAutoLogin;
 @property (nonatomic,strong) AVAudioPlayer *player;
+@property (nonatomic, copy)NSString * urlstring;
 @end
 
 @implementation AppDelegate
@@ -93,7 +94,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    }
 
     
-//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
+    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
 
     
     
@@ -527,13 +528,12 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSLog(@"aaaaaaaabb");
 
     NSString * urlString = url.absoluteString;
+    self.urlstring = urlString;
     if ([urlString containsString:@"pipikou://"]) {
+        [self performSelector:@selector(StartGoWebView) withObject:nil afterDelay:0.5];
+
 //        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
 //        [MobClick event:@"OpenAppFromShortMessage" attributes:dict];
-        [MobClick event:@"OpenAppFromShortMessage"];
-        NSString * webStr = [urlString stringByReplacingOccurrencesOfString:@"pipikou://url=" withString:@""];
-        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
     }else{
 //        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
 //        [MobClick event:@"OpenAppFromShareLink" attributes:dict];
@@ -561,7 +561,13 @@ void UncaughtExceptionHandler(NSException *exception) {
     WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:self.window.bounds];
     [self.window addSubview:welceome];
 }
+- (void)StartGoWebView{
+    [MobClick event:@"OpenAppFromShortMessage"];
+    NSString * webStr = [self.urlstring stringByReplacingOccurrencesOfString:@"pipikou://url=" withString:@""];
+    NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+    [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
 
+}
 // 切换到主界面
 -(void)setTabbarRoot
 {

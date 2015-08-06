@@ -46,7 +46,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor) name:@"stopIndictor" object:nil];
 
 
-
     [self.view addSubview:self.webView];
     
     self.webView.delegate = self;
@@ -301,6 +300,7 @@
    // [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
+
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
     [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
     self.navigationItem.leftBarButtonItem.enabled = YES;

@@ -8,6 +8,7 @@
 
 #import "SKViewController.h"
 
+#import "UIViewController+MLTransition.h"
 @interface SKViewController ()
 
 @end
@@ -16,6 +17,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIGestureRecognizer * gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(__MLTransition_HandlePopRecognizer:)];
+    ((UIScreenEdgePanGestureRecognizer*)gestureRecognizer).edges = UIRectEdgeLeft;
+
+   // [SKViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
+
 //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
 //    label.textAlignment = NSTextAlignmentCenter;
 //    label.text = @"版权所有  盗版必究";
@@ -27,6 +33,9 @@
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
     
+}
+- (void)__MLTransition_HandlePopRecognizer:(UIGestureRecognizer *)gest{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 @end

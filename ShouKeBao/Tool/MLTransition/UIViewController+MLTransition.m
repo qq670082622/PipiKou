@@ -127,9 +127,9 @@ void __MLTransition_Swizzle(Class c, SEL origSEL, SEL newSEL)
     //整个程序的生命周期只允许执行一次
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        //设置记录type,并且执行hook
-        __MLTransitionGestureRecognizerType = type;
-        
+//        //设置记录type,并且执行hook
+        //__MLTransitionGestureRecognizerType = type;
+    
         __MLTransition_Swizzle([self class],@selector(viewDidLoad),@selector(__MLTransition_Hook_ViewDidLoad));
         __MLTransition_Swizzle([self class],@selector(viewDidAppear:),@selector(__MLTransition_Hook_ViewDidAppear:));
         __MLTransition_Swizzle([self class],@selector(viewWillDisappear:),@selector(__MLTransition_Hook_ViewWillDisappear:));
