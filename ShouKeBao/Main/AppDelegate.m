@@ -155,12 +155,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey
     //QQ空间
-    [ShareSDK connectQZoneWithAppKey:@"1104542403"
-                           appSecret:@"zOYB51wNKimtVaBg"
+    [ShareSDK connectQZoneWithAppKey:@"1104801944"
+                           appSecret:@"YxOiTnU0E1n2Jazq"
                    qqApiInterfaceCls:[QQApiInterface class]
                      tencentOAuthCls:[TencentOAuth class]];
     //QQ
-    [ShareSDK connectQQWithQZoneAppKey:@"1104542403"
+    [ShareSDK connectQQWithQZoneAppKey:@"1104801944"
                      qqApiInterfaceCls:[QQApiInterface class]
                        tencentOAuthCls:[TencentOAuth class]];
    
@@ -693,15 +693,17 @@ void UncaughtExceptionHandler(NSException *exception) {
     [appIsBack setObject:@"yes" forKey:@"appIsBack"];
      
      [appIsBack synchronize];
-            UILocalNotification *localNotification = UILocalNotification.new;
-            
-            localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
-            localNotification.alertBody = @"You've closed me?!? 😡";
-            localNotification.alertAction = @"Open 😉";
-            localNotification.category = @"default_category";
-            
-            [application scheduleLocalNotification:localNotification];
+        
+//            UILocalNotification *localNotification = UILocalNotification.new;
+//            
+//            localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+//            localNotification.alertBody = @"You've closed me?!? 😡";
+//            localNotification.alertAction = @"Open 😉";
+//            localNotification.category = @"default_category";
+//            
+//            [application scheduleLocalNotification:localNotification];
 
+        
 __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
         [application endBackgroundTask:task];
     }];
