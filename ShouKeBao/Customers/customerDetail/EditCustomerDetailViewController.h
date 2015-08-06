@@ -12,7 +12,7 @@
 
 @protocol notifiToRefereshCustomerDetailInfo<NSObject>
 
--(void)refreshCustomerInfoWithName:(NSString*)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andNote:(NSString *)note;
+-(void)refreshCustomerInfoWithName:(NSString*)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andCardID:(NSString *)cardID andBirthDate:(NSString *)birthdate andNationablity:(NSString *)nationablity andNation:(NSString *)nation andPassportStart:(NSString *)passPortStart andPassPortAddress:(NSString *)passPortAddress andPassPortEnd:(NSString *)passPortEnd andAddress:(NSString *)address andPassport:(NSString *)passPort andNote:(NSString *)note;
 @end
 
 //@protocol initPullDegate <NSObject>
@@ -28,6 +28,17 @@
 @property (nonatomic,copy) NSString *wechatStr;
 @property (nonatomic,copy) NSString *QQStr;
 @property (nonatomic,copy) NSString *noteStr;
+//新添加的编辑选项
+@property (nonatomic,copy) NSString *personCardIDStr;
+@property (nonatomic,copy) NSString *birthdateStr;
+@property (nonatomic,copy) NSString *nationalityStr;
+@property (nonatomic,copy) NSString *nationStr;
+@property (nonatomic,copy) NSString *passportDataStr;
+@property (nonatomic,copy) NSString *passportAddressStr;
+@property (nonatomic,copy) NSString *passportValidityStr;
+@property (nonatomic,copy) NSString *addressStr;
+@property (nonatomic,copy) NSString *passportStr;
+
 
 @property(nonatomic,weak) id<notifiToRefereshCustomerDetailInfo>delegate;
 

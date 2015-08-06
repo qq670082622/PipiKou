@@ -20,6 +20,7 @@
 #import "DayDetail.h"
 #import "yesterDayModel.h"
 #import "JSONKit.h"
+
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
@@ -42,6 +43,8 @@
 //FromProductSearch,
 //FromFindProduct,
 //FromHotProduct
+
+@property (nonatomic, strong)UISwipeGestureRecognizer * recognizer;
 
 @end
 
@@ -107,15 +110,35 @@
     if ([productDetailGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
     }
-    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.webView addGestureRecognizer:recognizer];
+    
+    self.recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+    [self.recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    [self.webView addGestureRecognizer:self.recognizer];
+    
+////    *******************
+//    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(returnAction:)];
+//    [swipeGesture setDirection:(UISwipeGestureRecognizerDirectionRight)];
+//    [self.view addGestureRecognizer:swipeGesture];
+    
+    
+    
+    
 
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setUpleftBarButtonItems];
-}
+    
+    
+ }
+
+//- (void)returnAction:(UISwipeGestureRecognizer *)swip
+//{
+//    [self.navigationController popViewControllerAnimated:YES];
+//}
+
+
+
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
     NSLog(@"aaaa");
     [self back];
@@ -153,6 +176,9 @@
         UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要拨打电话:%@吗?", string] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
+   
+    
+    
 }
 - (void)dealloc
 {
@@ -233,8 +259,7 @@
     if ([_webView canGoBack]) {
         
         [self.webView goBack];
-   }
-    else  {
+   }else  {
         [self.navigationController popViewControllerAnimated:YES];
     }
     

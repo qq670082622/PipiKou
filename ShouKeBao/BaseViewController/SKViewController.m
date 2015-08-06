@@ -17,7 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   // [SKViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
+    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+    screenEdge.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdge];
 
 //    UILabel * label = [[UILabel alloc]initWithFrame:CGRectMake(0, 20, [UIScreen mainScreen].bounds.size.width, 70)];
 //    label.textAlignment = NSTextAlignmentCenter;
@@ -31,5 +33,11 @@
     }
     
 }
-
+-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
+    CGPoint sliderdistance = [sender translationInView:self.view];
+    if (sliderdistance.x>self.view.bounds.size.width/3) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    //NSLog(@"%f",sliderdistance.x);
+}
 @end
