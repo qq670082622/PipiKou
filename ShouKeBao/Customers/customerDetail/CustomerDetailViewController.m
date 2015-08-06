@@ -17,7 +17,7 @@
 #import "attachmentViewController.h"
 
 
-@interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate>
+@interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate, UITableViewDelegate, UIAlertViewDelegate>
 @property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
 
@@ -29,6 +29,7 @@
     [super viewDidLoad];
     [self customerRightBarItem];
     self.title = @"客户详情";
+    self.tableView.delegate = self;
 //    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
 //    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
 //    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
@@ -242,6 +243,61 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 10.0f;
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 0) {
+        NSString * telStr = [NSString stringWithFormat:@"tel://%@", self.tele.text];
+        [[UIApplication sharedApplication]openURL:[NSURL URLWithString:telStr]];
+    }
+
+}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.section == 0) {
+        switch (indexPath.row) {
+            case 0:
+            {
+                if (self.tele.text.length > 6) {
+                    [[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"是否要拨打电话%@", self.tele.text] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil]show];
+                    
+                }else{
+                    [[[UIAlertView alloc]initWithTitle:@"提示" message:@"电话号码不正确" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil]show];
+                }
+            
+            }
+                break;
+            case 1:
+            {
+//                if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"weixin://"]]) {
+//                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"weixin://"]];
+//                }
+
+            }
+                break;
+            case 2:
+            {
+                if (![self joinGroup:nil key:nil]) {
+                    UIAlertView*ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                    [ale show];
+                }
+
+            }
+                break;
+
+            default:
+                break;
+        }
+    }
+
+}
+- (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
+    NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=6481427ed9be2a6b6df78d95f2abf8a0ebaed07baefe3a2bea8bd847cb9d84ed&card_type=group&source=external"];
+    NSURL *url = [NSURL URLWithString:urlStr];
+    if([[UIApplication sharedApplication] canOpenURL:url]){
+        NSString *qqStr = [NSString stringWithFormat:@"mqq://im/chat?chat_type=wpa&uin=%@&version=1&src_type=web",self.QQ.text];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:qqStr]];
+        return YES;
+    }
+    else return NO;
 }
 
 - (IBAction)attachmentAction:(id)sender {

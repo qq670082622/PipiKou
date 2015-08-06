@@ -50,7 +50,7 @@
 @property(nonatomic,copy) NSMutableString *searchK;
 @property (strong, nonatomic) IBOutlet UIButton *cardCamer;
 
-
+@property (nonatomic,strong) NSString *ID;
 
 @end
 
@@ -369,6 +369,31 @@
 
 }
 
+- (void)deleteTableViewCell
+{
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"删除中...";
+    [hudView show:YES];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:self.ID forKey:@"CustomerID"];
+    
+    [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
+        NSLog(@"删除客户信息成功%@",json);
+        hudView.labelText = @"删除成功...";
+        [hudView hide:YES afterDelay:0.4];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"删除客户请求失败%@",error);
+    }];
+    
+    
+    
+    
+    
+}
+
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -426,7 +451,7 @@
         CustomCell *cell = [CustomCell cellWithTableView:tableView];
         CustomModel *model = _dataArr[indexPath.row];
         cell.model = model;
-        
+        self.ID = cell.model.ID;
         
         return cell;
     }
@@ -467,6 +492,40 @@
     }
     return 0;
 }
+
+
+
+
+/*
+ 右滑动删除客户
+ */
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return YES;
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        [self deleteTableViewCell];
+ // 删除这行
+        [self.dataArr removeObjectAtIndex:indexPath.row];
+        [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+    }
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return @"删除";
+}
+
+
+
+
+
+
+
 
 
 -(void)cleanHistory

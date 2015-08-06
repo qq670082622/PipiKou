@@ -107,6 +107,10 @@
  */
 - (IBAction)getCode:(id)sender
 {
+//    移动光标
+    [self.codeBtn resignFirstResponder];
+    [self.code becomeFirstResponder];
+
     if (self.phoneNum.text.length) {
         
         NSDictionary *param = @{@"Mobile" :self.phoneNum.text,
@@ -117,7 +121,8 @@
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             
             if ([json[@"IsSuccess"] integerValue] == 1) {
-
+                
+                
                 [MBProgressHUD showSuccess:@"短信发送成功"];
         
                 self.count = 60;
@@ -143,8 +148,8 @@
         self.count --;
         self.codeBtn.titleLabel.text = [NSString stringWithFormat:@"重新发送(%ld)",(long)self.count];
         [self.codeBtn setTitle:[NSString stringWithFormat:@"重新发送(%ld)",(long)self.count] forState:UIControlStateNormal];
-        [self.codeBtn resignFirstResponder];
-        [self.code becomeFirstResponder];
+//        [self.codeBtn resignFirstResponder];
+//        [self.code becomeFirstResponder];
         
         
     }else{

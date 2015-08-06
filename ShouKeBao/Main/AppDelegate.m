@@ -669,6 +669,13 @@ void UncaughtExceptionHandler(NSException *exception) {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 }
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void(^)())completionHandler NS_AVAILABLE_IOS(8_0){
+//    [[[UIAlertView alloc] initWithTitle:@"Opened!" message:@"This action only open the app... 😀" delegate:nil cancelButtonTitle:@"Ok" otherButtonTitles:nil] show];
+
+
+
+}
+
 - (void)applicationDidEnterBackground:(UIApplication *)application {//进入后台
     
 //    UILocalNotification *notification = [[UILocalNotification alloc]init];
@@ -685,7 +692,15 @@ void UncaughtExceptionHandler(NSException *exception) {
     [appIsBack setObject:@"yes" forKey:@"appIsBack"];
      
      [appIsBack synchronize];
-    
+            UILocalNotification *localNotification = UILocalNotification.new;
+            
+            localNotification.fireDate = [NSDate dateWithTimeIntervalSinceNow:1];
+            localNotification.alertBody = @"You've closed me?!? 😡";
+            localNotification.alertAction = @"Open 😉";
+            localNotification.category = @"default_category";
+            
+            [application scheduleLocalNotification:localNotification];
+
 __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithExpirationHandler:^{
         [application endBackgroundTask:task];
     }];
