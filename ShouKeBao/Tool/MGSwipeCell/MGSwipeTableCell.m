@@ -778,11 +778,10 @@ typedef struct MGSwipeAnimationData {
         if (_swipeOffset != 0.0) {
             return YES; //already swipped, don't need to check buttons or canSwipe delegate
         }
+        
         //make a decision according to existing buttons or using he optional delegate
         if (_delegate && [_delegate respondsToSelector:@selector(swipeTableCell:canSwipe:)]) {
-            
-        //右滑手势关闭， 避免冲突；
-//            allowSwipeLeftToRight = [_delegate swipeTableCell:self canSwipe:MGSwipeDirectionLeftToRight];
+            allowSwipeLeftToRight = [_delegate swipeTableCell:self canSwipe:MGSwipeDirectionLeftToRight];
             allowSwipeRightToLeft = [_delegate swipeTableCell:self canSwipe:MGSwipeDirectionRightToLeft];
         }
         else {
@@ -790,7 +789,7 @@ typedef struct MGSwipeAnimationData {
             allowSwipeLeftToRight = _leftButtons.count > 0;
             allowSwipeRightToLeft = _rightButtons.count > 0;
         }
-        allowSwipeLeftToRight = NO;
+        
         return (allowSwipeLeftToRight && translation.x > 0) || (allowSwipeRightToLeft && translation.x < 0);
     }
     else if (gestureRecognizer == tapRecognizer) {

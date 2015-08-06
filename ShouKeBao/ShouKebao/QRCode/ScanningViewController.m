@@ -25,6 +25,8 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 #import "ShouKeBao.h"
+#import "UIViewController+MLTransition.h"
+
 @interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
 @property (nonatomic,strong)PersonIDViewController *personIDVC;
@@ -74,12 +76,16 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    [ScanningViewController removeGestureRecognizer];
     if (self.isFromOrder) {
         self.rightBtnOutlet.hidden = YES;
     }
     self.camera = [[LLSimpleCamera alloc] initWithQuality:CameraQualityPhoto];
-    
+//    for (UIGestureRecognizer * gesture in self.view.gestureRecognizers) {
+//        if ([gesture isKindOfClass:[UIScreenEdgePanGestureRecognizer class]]) {
+//            [self.view removeGestureRecognizer:gesture];
+//        }
+//    }
     // attach to the view and assign a delegate
     [self.camera attachToViewController:self withDelegate:self];
     
