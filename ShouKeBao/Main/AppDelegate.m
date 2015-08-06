@@ -25,6 +25,7 @@
 #import "BaseWebViewController.h"
 #import "UIViewController+MLTransition.h"
 #import "BaseClickAttribute.h"
+#import "RecomViewController.h"
 //jpush 1a1249b973c6ce482d68fd4f
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()
@@ -92,9 +93,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        [[UIApplication sharedApplication]registerUserNotificationSettings:setting];
 //    }
 
-    
-//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
-
+   [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
     
     
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
