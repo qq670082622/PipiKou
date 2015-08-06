@@ -415,6 +415,8 @@
         detail.picUrl = model.PicUrl;
         detail.customerId = model.ID;
         
+      
+        
         //协议传值5:指定第一页为第二页的代理人
         detail.delegate = self;
         detail.keyWordss = self.searchK;

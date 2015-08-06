@@ -17,9 +17,34 @@
 
 @property (weak, nonatomic) IBOutlet UIView *contentName;
 @property (weak, nonatomic) IBOutlet UIView *contentTel;
-
-
 @property (weak, nonatomic) IBOutlet UITextView *note;
+
+//新添加的编辑选项
+@property (weak, nonatomic) IBOutlet UITextField *personCardID;//身份证
+@property (weak, nonatomic) IBOutlet UITextField *birthdate;//出生日期
+@property (weak, nonatomic) IBOutlet UITextField *nationality;//国籍
+@property (weak, nonatomic) IBOutlet UITextField *nation;//民族
+@property (weak, nonatomic) IBOutlet UITextField *passportData;//护照签发日期
+@property (weak, nonatomic) IBOutlet UITextField *passportAddress;//护照签发地址
+@property (weak, nonatomic) IBOutlet UITextField *passportValidity;//护照有效期
+@property (weak, nonatomic) IBOutlet UITextField *address;//地址
+@property (weak, nonatomic) IBOutlet UITextField *passport;//护照
+
+@property (weak, nonatomic) IBOutlet UIView *contentWechat;
+@property (weak, nonatomic) IBOutlet UIView *contenQQ;
+@property (weak, nonatomic) IBOutlet UIView *contentCardID;
+@property (weak, nonatomic) IBOutlet UIView *contentBirthdate;
+@property (weak, nonatomic) IBOutlet UIView *contentNationality;
+@property (weak, nonatomic) IBOutlet UIView *contentNation;
+@property (weak, nonatomic) IBOutlet UIView *contentPassportStart;
+@property (weak, nonatomic) IBOutlet UIView *contentPassportAddress;
+@property (weak, nonatomic) IBOutlet UIView *contentPassportEnd;
+@property (weak, nonatomic) IBOutlet UIView *contentAddress;
+@property (weak, nonatomic) IBOutlet UIView *contentPassport;
+@property (weak, nonatomic) IBOutlet UIView *contentNote;
+
+
+
 
 - (IBAction)save:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *saveOutlet;
@@ -28,9 +53,25 @@
 
 @implementation EditCustomerDetailViewController
 
+-(void)customerRightBarItem
+{
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40,40)];
+    [button setTitle:@"保存" forState:UIControlStateNormal];
+    
+    button.titleLabel.font = [UIFont systemFontOfSize:14];
+    [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [button addTarget:self action:@selector(save:)forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    
+    self.navigationItem.rightBarButtonItem= barItem;
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"编辑资料";
+    [self customerRightBarItem];
 //    self.saveOutlet.layer.borderColor = [UIColor lightGrayColor].CGColor;
 //    self.saveOutlet.layer.borderWidth = 1;
 //    self.saveOutlet.layer.cornerRadius = 4;
@@ -42,24 +83,89 @@
 //    self.initDelegate = [self.navigationController.viewControllers objectAtIndex:0];
     
   
-    
+  //新添加的编辑内容
     
     UILabel *starName = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 40)];
     starName.textColor = [UIColor redColor];
     starName.text = @"*";
+    UILabel *nameL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    nameL.text = @"姓名";
+    [self.contentName addSubview:nameL];
     [self.contentName addSubview:starName];
     self.name.text = self.nameStr;
     
     UILabel *starTel = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 40)];
     starTel.textColor = [UIColor redColor];
     starTel.text = @"*";
+    UILabel *telL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    telL.text = @"电话";
+    [self.contentTel addSubview:telL];
     [self.contentTel addSubview:starTel];
     self.tele.text = self.teleStr;
     
-    
+    UILabel *wechatL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 100, 40)];
+    wechatL.text = @"微信";
+    [self.contentWechat addSubview:wechatL];
     self.wechat.text = self.wechatStr;
+    
+    UILabel *qqL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    qqL.text = @"QQ";
+    [self.contenQQ addSubview:qqL];
     self.QQ.text = self.QQStr;
+    
+    UILabel *noteL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    noteL.text = @"备注";
+    [self.contentNote addSubview:noteL];
     self.note.text = self.noteStr;
+    
+    UILabel *cardIDL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 120, 40)];
+    cardIDL.text = @"身份证号";
+    [self.contentCardID addSubview:cardIDL];
+    self.personCardID.text = self.personCardIDStr;
+    
+    
+    UILabel *birthdateL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 100, 40)];
+    birthdateL.text = @"出生日期";
+    [self.contentBirthdate addSubview:birthdateL];
+    self.birthdate.text = self.birthdateStr;
+    
+    UILabel *nationalityL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    nationalityL.text = @"国籍";
+    [self.contentNationality addSubview:nationalityL];
+    self.nationality.text = self.nationalityStr;
+    
+    UILabel *nationL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    nationL.text = @"民族";
+    [self.contentNation addSubview:nationL];
+    self.nation.text = self.nationStr;
+    
+    UILabel *passportDataL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 120, 40)];
+    passportDataL.text = @"护照签发日期";
+    [self.contentPassportStart addSubview:passportDataL];
+    self.passportData.text = self.passportDataStr;
+    
+    UILabel *passportAddressL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 120, 40)];
+    passportAddressL.text = @"护照签发地";
+    [self.contentPassportAddress addSubview:passportAddressL];
+    self.passportAddress.text = self.passportAddressStr;
+    
+    UILabel *passportValidityL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 120, 40)];
+    passportValidityL.text = @"护照签有效期";
+    [self.contentPassportEnd addSubview:passportValidityL];
+    self.passportValidity.text = self.passportValidityStr;
+    
+    UILabel *addressL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    addressL.text = @"地址";
+    [self.contentAddress addSubview:addressL];
+    self.address.text = self.addressStr;
+    
+    UILabel *passportL = [[UILabel alloc]initWithFrame:CGRectMake(10, 3, 45, 40)];
+    passportL.text = @"护照";
+    [self.contentPassport addSubview:passportL];
+    self.passport.text = self.passportStr;
+    
+    
+    
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     
@@ -73,6 +179,11 @@
     [self.view addGestureRecognizer:tap];
     
 }
+
+
+
+
+
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"CustomerEditCustomerDetailView"];
@@ -90,22 +201,21 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self.name resignFirstResponder];
-    
-    [self.tele resignFirstResponder];
-    
-    [self.wechat resignFirstResponder];
-    
-    [self.QQ resignFirstResponder];
-    
-    [self.note resignFirstResponder];
+//    [self.name resignFirstResponder];
+//    
+//    [self.tele resignFirstResponder];
+//    
+//    [self.wechat resignFirstResponder];
+//    
+//    [self.QQ resignFirstResponder];
+//    
+//    [self.note resignFirstResponder];
 
+    [self hideKey];
 }
 
 -(void)hideKey
 {
-    
-    
     [self.name resignFirstResponder];
     
     [self.tele resignFirstResponder];
@@ -115,6 +225,19 @@
     [self.QQ resignFirstResponder];
     
     [self.note resignFirstResponder];
+    
+    //    添加   ***************
+    [self.personCardID resignFirstResponder];
+    [self.birthdate resignFirstResponder];
+    [self.nation resignFirstResponder];
+    [self.nationality resignFirstResponder];
+    [self.passportData resignFirstResponder];
+    [self.passportValidity resignFirstResponder];
+    [self.passportAddress resignFirstResponder];
+    [self.passport resignFirstResponder];
+    [self.address resignFirstResponder];
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -123,10 +246,13 @@
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField
 {
-    [self.wechat resignFirstResponder];
-    [self.QQ resignFirstResponder];
-    [self.note resignFirstResponder];
-    [self.tele resignFirstResponder];
+//    [self.wechat resignFirstResponder];
+//    [self.QQ resignFirstResponder];
+//    [self.note resignFirstResponder];
+//    [self.tele resignFirstResponder];
+    [self hideKey];
+    
+    
     return YES;
 }
 -(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
@@ -149,9 +275,10 @@
     return 10.0f;
 }
 
+
+
 - (IBAction)save:(id)sender {
   
-    
     if (self.name.text.length>0 && self.tele.text.length>6) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.name.text forKey:@"Name"];
@@ -160,6 +287,22 @@
         [dic setObject:self.QQ.text forKey:@"QQCode"];
         [dic setObject:self.note.text forKey:@"Remark"];
         [dic setObject:self.ID forKey:@"ID"];
+        
+//        新添加的内容
+        [dic setObject:self.personCardID.text forKey:@"CardNum"];
+        [dic setObject:self.birthdate.text forKey:@"BirthDay"];
+        [dic setObject:self.nationality.text forKey:@"Nationality"];
+        [dic setObject:self.nation.text forKey:@"Country"];
+        [dic setObject:self.passportData.text forKey:@"ValidStartDate"];
+        [dic setObject:self.passportAddress.text forKey:@"ValidAddress"];
+        [dic setObject:self.passportValidity.text forKey:@"ValidEndDate"];
+        [dic setObject:self.address.text forKey:@"Address"];
+        [dic setObject:self.passport.text forKey:@"PassportNum"];
+        
+        
+        
+        
+        
 
        // NSMutableArray *arr = [NSMutableArray array];
         //[arr addObject:dic];kjhkjhjk
@@ -178,8 +321,10 @@
                 UIAlertView * aler = [[UIAlertView alloc]initWithTitle:@"提示" message:json[@"ErrorMsg"] delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
                 [aler show];
             }
-            [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andNote:self.note.text];
-        
+            
+//            [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andNote:self.note.text];
+            
+            [self.delegate refreshCustomerInfoWithName:self.name.text andQQ:self.QQ.text andWeChat:self.wechat.text andPhone:self.tele.text andCardID:self.personCardID.text andBirthDate:self.birthdate.text andNationablity:self.nationality.text andNation:self.nation.text andPassportStart:self.passportData.text andPassPortAddress:self.passportAddress.text andPassPortEnd:self.passportValidity.text andAddress:self.address.text andPassport:self.passport.text andNote:self.note.text];
   
 //             [self.initDelegate reloadMethod];
         

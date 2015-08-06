@@ -93,7 +93,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    }
 
     
-//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypeScreenEdgePan];
+//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
 
     
     
