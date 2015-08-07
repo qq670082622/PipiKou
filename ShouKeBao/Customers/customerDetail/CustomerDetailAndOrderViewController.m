@@ -74,6 +74,7 @@
     if (!_detailVC) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _detailVC = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
+        _detailVC.Nav = self.navigationController;
             _detailVC.QQStr = self.model.QQCode;
             _detailVC.ID = self.model.ID;
             _detailVC.weChatStr = self.model.WeiXinCode;

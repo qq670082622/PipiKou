@@ -37,7 +37,7 @@
 //@property(nonatomic, assign)id<initPullDegate>initDelegate;
 
 
-
+@property (nonatomic, strong)UINavigationController * Nav;
 @property (weak, nonatomic) IBOutlet UILabel *weChat;
 @property (weak, nonatomic) IBOutlet UILabel *QQ;
 @property (weak, nonatomic) IBOutlet UITextView *note;
