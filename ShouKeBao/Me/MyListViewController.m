@@ -50,8 +50,8 @@
 - (void)setNav2{
 
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
-    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
-    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateHighlighted];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
     
     leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
     [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
