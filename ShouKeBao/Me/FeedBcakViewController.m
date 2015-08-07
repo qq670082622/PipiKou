@@ -36,9 +36,13 @@
     [super viewDidLoad];
     [self fitScreen];
     [self setNav];
-    [self setGestureRecognizer];
+//    [self setGestureRecognizer];
+//    UIGestureRecognizer * gestureRecognizer = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(__MLTransition_HandlePopRecognizer2:)];
+//    ((UIScreenEdgePanGestureRecognizer*)gestureRecognizer).edges = UIRectEdgeLeft;
+
     // Do any additional setup after loading the view.
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

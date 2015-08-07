@@ -278,7 +278,7 @@
 
 
 - (IBAction)save:(id)sender {
-  
+    NSLog(@"ddd");
     if (self.name.text.length>0 && self.tele.text.length>6) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.name.text forKey:@"Name"];
@@ -355,7 +355,8 @@
             NSLog(@"-----创建单个客户失败 %@-----",error);
         }];
    
-    }else if(self.name.text.length == 0 && self.tele.text.length<7){
+    }else if(self.name.text.length == 0 || self.tele.text.length<7){
+        NSLog(@"777777");
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"😪，无法保存" message:@"您的客户资料不正确，若不想保存请点击“管客户”按钮返回" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
         [alert show];
     }
