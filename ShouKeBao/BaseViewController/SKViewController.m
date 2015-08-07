@@ -17,6 +17,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self marknavigationItem];
     UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
     screenEdge.edges = UIRectEdgeLeft;
     [self.view addGestureRecognizer:screenEdge];
@@ -31,6 +32,15 @@
     if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
         self.edgesForExtendedLayout = UIRectEdgeNone;
     }
+    
+}
+-(void)marknavigationItem{
+    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+    [leftBtn setBackgroundImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem= leftItem;
     
 }
 -(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
