@@ -94,7 +94,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    }
 
     
-    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
+    //[UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
 
     
     

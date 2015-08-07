@@ -42,8 +42,13 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
+    
+       
     self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
-  
+    
+   
+    
+    
 }
 
 -(void)back
@@ -146,14 +151,12 @@
 
 
 - (IBAction)remond:(id)sender {
-    NSLog(@"gggggggggg");
     
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
     remond.customModel = self.customMoel;
-    [self.navigationController pushViewController:remond animated:YES];
-   
     
+    [self.Nav pushViewController:remond animated:YES];
 }
 
 - (IBAction)deleteCustomer:(id)sender {
@@ -192,7 +195,7 @@
         } failure:^(NSError *error) {
             NSLog(@"删除客户请求失败%@",error);
         }];
-        [self.navigationController popViewControllerAnimated:YES];
+        [self.Nav popViewControllerAnimated:YES];
         
     }
     if (buttonIndex == 1) {
@@ -270,7 +273,7 @@
     att.picUrl = _picUrl;
     att.customerId =  _customerId;
     NSLog(@"%@%@", _customerId, _picUrl);
-    [self.navigationController pushViewController:att animated:YES];
+    [self.Nav pushViewController:att animated:YES];
     
 }
 @end

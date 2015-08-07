@@ -51,7 +51,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *backToTopBtn;
 - (IBAction)backToTop:(id)sender;
-@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
+//@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
+@property (nonatomic, strong) UIButton *pageCountBtn;
+
 
 
 //@property (weak, nonatomic) IBOutlet UIView *blackView;
@@ -95,6 +97,13 @@
 @property(nonatomic,assign) long productCount;
 
 @property(nonatomic,copy) NSMutableString *selectIndex;
+//产品筛选
+@property (weak, nonatomic) IBOutlet UIButton *chooseButton;
+
+- (IBAction)chooseConditions:(id)sender;
+
+
+
 @end
 
 @implementation ProductList
@@ -105,13 +114,20 @@
     
     [self editButtons];
     
-    [self customRightBarItem];
+//    [self customRightBarItem];
     self.table.delegate = self;
     self.table.dataSource = self;
     self.subTable.delegate = self;
     self.subTable.dataSource = self;
     
     self.page = [NSMutableString stringWithFormat:@"1"];
+    
+    self.pageCountBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    [self.pageCountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
+    self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.pageCountBtn.frame = CGRectMake(0, self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    [self.backToTopBtn addSubview:self.pageCountBtn];
     
     
     [self.commondOutlet setSelected:YES];
@@ -601,6 +617,15 @@
 
 
 
+- (IBAction)chooseConditions:(id)sender {
+    
+    
+    [self setSubViewHideNo];
+    
+}
+
+
+
 
 #pragma mark - private
 -(void)customRightBarItem
@@ -819,8 +844,10 @@
         
         self.subView.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
-        
+         NSLog(@"hhhhhhh  ");
         [self.coverView removeFromSuperview];
+       
+        
         // [_dressView removeFromSuperview];
     }];
     
@@ -1151,11 +1178,11 @@
 #pragma -mark -  控制返回顶部按钮的隐藏和显示
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (self.table.contentOffset.y>300) {
-        self.backToTopBtn.hidden = NO;
-    }else if (self.table.contentOffset.y <300){
-        self.backToTopBtn.hidden = YES;
-    }
+//    if (self.table.contentOffset.y>300) {
+//        self.backToTopBtn.hidden = NO;
+//    }else if (self.table.contentOffset.y <300){
+//        self.backToTopBtn.hidden = YES;
+//    }
     
     NSInteger count = self.table.contentOffset.y/1250;
     int totalCount = (int)self.productCount/10;
@@ -2005,7 +2032,9 @@
     [self editButtons];
     self.commondOutlet.selected = YES;
     [self initPullForResetAndCancel];
-    
+//    self.pageCountBtn.hidden = NO;
+    [self.backToTopBtn addSubview:self.pageCountBtn];
+
     
     [UIView animateWithDuration:0.3 animations:^{
         
@@ -2236,4 +2265,5 @@
     
     [self.table scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
+
 @end
