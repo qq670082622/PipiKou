@@ -21,7 +21,7 @@
 #import "yesterDayModel.h"
 #import "JSONKit.h"
 
-@interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
+@interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate,UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UIView *coverView;
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
@@ -51,7 +51,6 @@
 @implementation ProduceDetailViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromFindProductAll" attributes:dict];
@@ -129,8 +128,7 @@
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setUpleftBarButtonItems];
     
-    
- }
+}
 
 //- (void)returnAction:(UISwipeGestureRecognizer *)swip
 //{
