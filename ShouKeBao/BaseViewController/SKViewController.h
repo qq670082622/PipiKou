@@ -9,7 +9,11 @@
 #import <UIKit/UIKit.h>
 
 @interface SKViewController : UIViewController
-
+{
+    UIBarButtonItem *leftItem;
+//    UIButton *turnOff;
+    UIBarButtonItem *turnOffItem;
+}
 
 
 @end

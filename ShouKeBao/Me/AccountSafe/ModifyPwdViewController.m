@@ -33,7 +33,7 @@
     
     [self setNextBtn];
     
-    [self setNav];
+    //[self setNav];
     
     self.currentAcount.text = [[NSUserDefaults standardUserDefaults] objectForKey:@"account"];
     
@@ -46,17 +46,17 @@
     [self.view endEditing:YES];
 }
 
-- (void)setNav
-{
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem = leftItem;
-}
+//- (void)setNav
+//{
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+//    self.navigationItem.leftBarButtonItem = leftItem;
+//}
 
 -(void)back
 {

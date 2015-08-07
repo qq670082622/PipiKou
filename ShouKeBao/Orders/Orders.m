@@ -101,6 +101,7 @@
 #pragma mark - lifeCircle
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = nil;
     self.title = @"理订单";
     [self.dataArr removeAllObjects];// 进来时清空数组 心情舒畅些
     self.pageIndex = 1;// 页码从1开始

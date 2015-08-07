@@ -154,23 +154,24 @@
 
 -(void)setUpleftBarButtonItems
 {
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
-    back.frame = CGRectMake(0, 0, 45, 10);
-    [back setTitle:@"〈返回" forState:UIControlStateNormal];
-    back.titleLabel.font = [UIFont systemFontOfSize:14];
-    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+//    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+//    back.frame = CGRectMake(0, 0, 45, 10);
+//    [back setTitle:@"〈返回" forState:UIControlStateNormal];
+//    back.titleLabel.font = [UIFont systemFontOfSize:14];
+//    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
     
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    
-    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+//    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+//    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
+//    turnOff.frame = CGRectMake(0, 0, 30, 10);
+//    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+//    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+//    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+//    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    self.navigationItem.leftBarButtonItem = leftItem;
+    //[self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
     
 }
 #pragma mark - telCall_js

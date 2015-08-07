@@ -43,15 +43,9 @@
     self.tableView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
     
     [self setHead];
-    
+    [self setNav2];
     [self loadDataSource];
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
     
     // 点击联系电话lab也可以直接打电话
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(phoneLabTap:)];
@@ -60,6 +54,21 @@
     // 点击邮件地址 发送邮件
     UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sendEmail:)];
     [self.emailLab addGestureRecognizer:emailTap];
+}
+- (void)setNav2{
+    
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
+    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateHighlighted];
+    
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 
 -(void)back

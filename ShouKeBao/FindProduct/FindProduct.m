@@ -66,6 +66,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = nil;
     self.leftTable.separatorStyle = UITableViewCellSeparatorStyleNone;
    self.title = @"找产品";
     self.leftTable.delegate = self;

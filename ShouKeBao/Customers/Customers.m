@@ -66,6 +66,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.leftBarButtonItem = nil;
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
