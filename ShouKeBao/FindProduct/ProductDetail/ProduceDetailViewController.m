@@ -128,8 +128,9 @@
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setUpleftBarButtonItems];
-    
-    
+    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+    screenEdge.edges = UIRectEdgeLeft;
+    [self.webView.scrollView addGestureRecognizer:screenEdge];
  }
 
 //- (void)returnAction:(UISwipeGestureRecognizer *)swip
@@ -142,6 +143,13 @@
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
     NSLog(@"aaaa");
     [self back];
+}
+-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
+    CGPoint sliderdistance = [sender translationInView:self.view];
+    if (sliderdistance.x>self.view.bounds.size.width/3) {
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    }
+    //NSLog(@"%f",sliderdistance.x);
 }
 
 -(void)setUpleftBarButtonItems
@@ -506,6 +514,7 @@
                                         for (id str in dci.allValues) {
                                             [string appendString:str];
                                         }
+                                        
 //                                        [[[UIAlertView alloc]initWithTitle:@"aaa" message:string delegate:nil cancelButtonTitle:@"222" otherButtonTitles:nil, nil]show];
                                     } failure:^(NSError *error) {
                                         
