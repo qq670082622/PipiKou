@@ -42,13 +42,8 @@
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
     self.navigationItem.leftBarButtonItem= leftItem;
-    
-       
     self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
-    
-   
-    
-    
+  
 }
 
 -(void)back
@@ -151,11 +146,14 @@
 
 
 - (IBAction)remond:(id)sender {
+    NSLog(@"gggggggggg");
     
     remondViewController *remond = [[remondViewController alloc] init];
     remond.ID = self.ID;
     remond.customModel = self.customMoel;
     [self.navigationController pushViewController:remond animated:YES];
+   
+    
 }
 
 - (IBAction)deleteCustomer:(id)sender {
