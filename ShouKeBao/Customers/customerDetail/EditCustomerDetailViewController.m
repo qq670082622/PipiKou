@@ -7,6 +7,7 @@
 //
 
 #import "EditCustomerDetailViewController.h"
+#import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "MobClick.h"
 @interface EditCustomerDetailViewController ()<UITextFieldDelegate,UITextViewDelegate,UIScrollViewDelegate>
@@ -279,6 +280,12 @@
 
 - (IBAction)save:(id)sender {
     NSLog(@"ddd");
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"保存中...";
+    [hudView show:YES];
+    
+    
     if (self.name.text.length>0 && self.tele.text.length>6) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:self.name.text forKey:@"Name"];
@@ -298,20 +305,13 @@
         [dic setObject:self.passportValidity.text forKey:@"ValidEndDate"];
         [dic setObject:self.address.text forKey:@"Address"];
         [dic setObject:self.passport.text forKey:@"PassportNum"];
-        
-        
-        
-        
-        
 
        // NSMutableArray *arr = [NSMutableArray array];
         //[arr addObject:dic];kjhkjhjk
 
         //       指定第一页为代理人嘛
 //        self.initDelegate = [self.navigationController.viewControllers objectAtIndex:0];
-        
-        
-        
+
         NSMutableDictionary *secondDic = [NSMutableDictionary dictionary];
         [secondDic setObject:dic forKey:@"Customer"];
         
@@ -345,18 +345,18 @@
             //    [dic setObject:self.ID forKey:@"ID"];
             
             //    CustomModel *model = [[CustomModel alloc]initWithDict:dic];
-            
+            hudView.labelText = @"保存成功...";
             [center postNotificationName:@"下班" object:@"开心" userInfo:nil];
-
-        [self.navigationController popViewControllerAnimated:YES];
             
+            [hudView hide:YES afterDelay:0.4];
+        [self.navigationController popViewControllerAnimated:YES];
             
         } failure:^(NSError *error) {
             NSLog(@"-----创建单个客户失败 %@-----",error);
         }];
    
     }else if(self.name.text.length == 0 || self.tele.text.length<7){
-        NSLog(@"777777");
+        [hudView hide:YES afterDelay:0.0];
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"😪，无法保存" message:@"您的客户资料不正确，若不想保存请点击“管客户”按钮返回" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
         [alert show];
     }
