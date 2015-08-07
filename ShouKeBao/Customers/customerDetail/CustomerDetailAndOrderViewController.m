@@ -13,7 +13,7 @@
 #import "Customers.h"
 #import "EditCustomerDetailViewController.h"
 @interface CustomerDetailAndOrderViewController ()
-@property (nonatomic,weak) UISegmentedControl *segmentControl;
+@property (nonatomic, weak) UISegmentedControl *segmentControl;
 @property (nonatomic, strong)CustomerOrderViewController * orderVC;
 @property (nonatomic, strong)CustomerDetailViewController * detailVC;
 
