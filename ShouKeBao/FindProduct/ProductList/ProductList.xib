@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ProductList">
             <connections>
                 <outlet property="backToTopBtn" destination="Iwc-oK-KvS" id="z6V-X0-vln"/>
                 <outlet property="cheapOutlet" destination="kib-3W-YwQ" id="Y4A-0l-eup"/>
+                <outlet property="chooseButton" destination="Ua6-co-PzD" id="Pf6-7Z-eVw"/>
                 <outlet property="commondOutlet" destination="HuI-cE-kBC" id="LYf-ib-EdL"/>
                 <outlet property="jiafanSwitch" destination="Ifm-XW-AOn" id="mGa-bY-9ml"/>
                 <outlet property="jishiSwitch" destination="bbC-q6-hgA" id="1So-PK-F33"/>
                 <outlet property="noProductView" destination="4Lu-Lo-cU7" id="atn-YM-BXb"/>
-                <outlet property="pageCountBtn" destination="fBx-zn-n6z" id="R1j-pc-fU0"/>
                 <outlet property="priceBtnOutlet" destination="khc-Qx-xwZ" id="6ok-uu-934"/>
                 <outlet property="profitOutlet" destination="RGF-At-XCR" id="2p7-Bp-gpi"/>
                 <outlet property="subSubView" destination="V26-8v-Scf" id="F8i-rN-QPQ"/>
@@ -96,25 +96,28 @@
                         <outlet property="delegate" destination="-1" id="BwW-5C-Uys"/>
                     </connections>
                 </tableView>
-                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iwc-oK-KvS">
-                    <rect key="frame" x="245" y="420" width="48" height="48"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
-                    <state key="normal" backgroundImage="toTop">
-                        <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iwc-oK-KvS">
+                    <rect key="frame" x="250" y="420" width="48" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <state key="normal" backgroundImage="ip6+  zhiding ">
+                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
                         <action selector="backToTop:" destination="-1" eventType="touchUpInside" id="sqc-VV-2WL"/>
                     </connections>
                 </button>
-                <button opaque="NO" userInteractionEnabled="NO" alpha="0.74999999999999978" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="fBx-zn-n6z">
-                    <rect key="frame" x="124" y="448" width="73" height="20"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                    <state key="normal" backgroundImage="pageCount">
-                        <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ua6-co-PzD">
+                    <rect key="frame" x="30" y="420" width="210" height="48"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                    <state key="normal" title="产品筛选" backgroundImage="ip6">
+                        <color key="titleColor" red="1" green="0.63061661179999995" blue="0.3291265699" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <connections>
+                        <action selector="chooseConditions:" destination="-1" eventType="touchUpInside" id="wbi-DO-aJ1"/>
+                    </connections>
                 </button>
                 <view hidden="YES" contentMode="scaleToFill" id="4Lu-Lo-cU7" userLabel="onProductview">
                     <rect key="frame" x="0.0" y="43" width="320" height="437"/>
@@ -122,7 +125,7 @@
                     <subviews>
                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="DD3-6I-CQE">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="437"/>
-                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         </imageView>
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -295,8 +298,8 @@
     <resources>
         <image name="backArrowLeft" width="11" height="11"/>
         <image name="content_null" width="177" height="213"/>
-        <image name="pageCount" width="73" height="20"/>
-        <image name="toTop" width="48" height="48"/>
+        <image name="ip6" width="389" height="90"/>
+        <image name="ip6+  zhiding " width="150" height="137"/>
         <image name="xiangyou" width="20" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
