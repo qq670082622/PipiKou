@@ -57,10 +57,16 @@
     
     // #ff00ff
 }
-
+-(instancetype)initWithRootViewController:(UIViewController *)rootViewController{
+    self = [super initWithRootViewController:rootViewController];
+    if (self) {
+    }
+    return self;
+}
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
 //    __weak typeof (self) weakSelf = self;
 //    if ([self respondsToSelector:@selector(interactivePopGestureRecognizer)]) {
 //        self.interactivePopGestureRecognizer.delegate = weakSelf;
