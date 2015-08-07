@@ -33,7 +33,6 @@
 
 - (void)viewDidLoad {
     
-    
     // Do any additional setup after loading the view.
     self.tableView.rowHeight = 160;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -43,11 +42,27 @@
 //    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
 //    [self.view addGestureRecognizer:recognizer];
     [self iniHeader];
-    
-    [self setNav];
+    [self setNav2];
+
     
     [self.tableView headerBeginRefreshing];
 }
+- (void)setNav2{
+
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
+    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateHighlighted];
+    
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+    leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+}
+
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
     [self back];
 }
@@ -121,16 +136,16 @@
 }
 
 #pragma mark - private
-- (void)setNav
-{
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-}
+//- (void)setNav
+//{
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+//    self.navigationItem.leftBarButtonItem= leftItem;
+//}
 
 -(void)back
 {

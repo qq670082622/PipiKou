@@ -9,5 +9,10 @@
 #import <UIKit/UIKit.h>
 
 @interface SKTableViewController : UITableViewController
+{
+    UIBarButtonItem *leftItem;
+    UIBarButtonItem *turnOffItem;
 
+//    UIButton *turnOff;
+}
 @end
