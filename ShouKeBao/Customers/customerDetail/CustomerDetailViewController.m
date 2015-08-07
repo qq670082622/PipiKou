@@ -18,32 +18,15 @@
 #import "CustomerOrderViewController.h"
 
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate, UITableViewDelegate, UIAlertViewDelegate>
-@property (nonatomic,weak) UISegmentedControl *segmentControl;
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
-@property (nonatomic, strong)CustomerOrderViewController * orderVC;
 @end
 
 @implementation CustomerDetailViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self customerRightBarItem];
     self.title = @"客户详情";
     self.tableView.delegate = self;
-    self.orderVC.view.hidden = YES;
-
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
-    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
-    [segment setTintColor:[UIColor whiteColor]];
-    segment.frame = CGRectMake(0, 0, 150, 28);
-    [segment setSelected:YES];
-    [segment setSelectedSegmentIndex:0];
-    [titleView addSubview:segment];
-    self.segmentControl = segment;
-    self.navigationItem.titleView = titleView;
-    [self.view addSubview:self.orderVC.view];
    // [self.SetRemindBtnOutlet setHighlighted:NO];
     
     [self setSubViews];
@@ -66,24 +49,6 @@
    
     
     
-}
--(CustomerOrderViewController *)orderVC{
-    if (!_orderVC) {
-        _orderVC = [[CustomerOrderViewController alloc]init];
-    }
-    return _orderVC;
-}
--(void)sex:(id)sender
-{
-    UISegmentedControl *control = (UISegmentedControl *)sender;
-    if (control.selectedSegmentIndex == 0) {
-        self.orderVC.view.hidden = YES;
-        NSLog(@"客户资料" );
-        //    [self.navigationController popViewControllerAnimated:NO];
-    }else if (control.selectedSegmentIndex == 1){
-        NSLog(@"订单详情" );
-        self.orderVC.view.hidden = NO;
-    }
 }
 
 -(void)back
@@ -158,45 +123,6 @@
 //        [self.navigationController pushViewController:orders animated:NO];
 //    }
 //}
--(void)customerRightBarItem
-{
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    
-    [button setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
-    
-    [button addTarget:self action:@selector(EditCustomerDetail)forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    self.navigationItem.rightBarButtonItem= barItem;
-}
--(void)EditCustomerDetail
-{
-    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-    
-    EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
-    edit.ID = self.ID;
-    edit.QQStr = self.QQ.text;
-    edit.wechatStr = self.weChat.text;
-    edit.noteStr = self.note.text;
-    edit.teleStr = self.tele.text;
-    edit.nameStr = self.userName.text;
-    edit.delegate = self;
-    
-    //    添加的内容
-    edit.personCardIDStr = self.userMessageID.text;
-    edit.birthdateStr = self.bornDay.text;
-    edit.nationalityStr = self.countryID.text;
-    edit.nationStr = self.nationalID.text;
-    edit.passportDataStr = self.pasportStartDay.text;
-    edit.passportAddressStr = self.pasportAddress.text;
-    edit.passportValidityStr = self.pasportInUseDay.text;
-    edit.addressStr = self.livingAddress.text;
-    edit.passportStr = self.passPortId.text;
-    
-    
-    [self.navigationController pushViewController:edit animated:YES];
-}
 
 #pragma -mark 编辑用户资料后通知更新
 - (void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andCardID:(NSString *)cardID andBirthDate:(NSString *)birthdate andNationablity:(NSString *)nationablity andNation:(NSString *)nation andPassportStart:(NSString *)passPortStart andPassPortAddress:(NSString *)passPortAddress andPassPortEnd:(NSString *)passPortEnd andAddress:(NSString *)address andPassport:(NSString *)passPort andNote:(NSString *)note

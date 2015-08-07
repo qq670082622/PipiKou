@@ -22,6 +22,7 @@
 #import "EditCustomerDetailViewController.h"
 #import "BaseClickAttribute.h"
 #import "ScanningViewController.h"
+#import "CustomerDetailAndOrderViewController.h"
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
 
@@ -402,31 +403,32 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
-        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-        CustomerDetailViewController *detail = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
+//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+//        CustomerDetailViewController *detail = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
         CustomModel *model = _dataArr[indexPath.row];
-        detail.QQStr = model.QQCode;
-        detail.ID = model.ID;
-        detail.weChatStr = model.WeiXinCode;
-        detail.teleStr = model.Mobile;
-        detail.noteStr = model.Remark;
-        detail.userNameStr = model.Name;
-        detail.customMoel = model;
-        detail.picUrl = model.PicUrl;
-        detail.customerId = model.ID;
-        
-      
-        
-        //协议传值5:指定第一页为第二页的代理人
-        detail.delegate = self;
-        detail.keyWordss = self.searchK;
-        
+//        detail.QQStr = model.QQCode;
+//        detail.ID = model.ID;
+//        detail.weChatStr = model.WeiXinCode;
+//        detail.teleStr = model.Mobile;
+//        detail.noteStr = model.Remark;
+//        detail.userNameStr = model.Name;
+//        detail.customMoel = model;
+//        detail.picUrl = model.PicUrl;
+//        detail.customerId = model.ID;
+//        
+//      
+//        
+//        //协议传值5:指定第一页为第二页的代理人
+//        detail.delegate = self;
+//        detail.keyWordss = self.searchK;
+//        
 //        detail.initDelegate = self;
         
-
-        
-        
-        [self.navigationController pushViewController:detail animated:YES];
+        CustomerDetailAndOrderViewController * VC = [[CustomerDetailAndOrderViewController  alloc]init];
+        VC.customVC = self;
+        VC.keyWords = self.searchK;
+        VC.model = model;
+        [self.navigationController pushViewController:VC animated:YES];
     }
     if (tableView.tag == 2) {
         self.searchTextField.text = _historyArr[indexPath.row];

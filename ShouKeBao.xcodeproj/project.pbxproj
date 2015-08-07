@@ -325,6 +325,7 @@
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
 		796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C4D4C1B60CEF6008EBAFE /* WebKit.framework */; };
 		796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 796C4D501B60E90C008EBAFE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		796E09D21B74410000FEBE9A /* CustomerDetailAndOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */; };
 		796FBA011B58AE7B009C75AF /* BaseWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA001B58AE7B009C75AF /* BaseWebViewController.m */; };
 		796FBA041B58B5BC009C75AF /* MoneyTreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */; };
 		7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7975831A1B6734E1008E2908 /* QRCodeCell.m */; };
@@ -914,6 +915,8 @@
 		796C4D4C1B60CEF6008EBAFE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		796C4D4F1B60E90C008EBAFE /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		796C4D501B60E90C008EBAFE /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
+		796E09D01B74410000FEBE9A /* CustomerDetailAndOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerDetailAndOrderViewController.h; sourceTree = "<group>"; };
+		796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailAndOrderViewController.m; sourceTree = "<group>"; };
 		796FB9FF1B58AE7A009C75AF /* BaseWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseWebViewController.h; sourceTree = "<group>"; };
 		796FBA001B58AE7B009C75AF /* BaseWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseWebViewController.m; sourceTree = "<group>"; };
 		796FBA021B58B5BC009C75AF /* MoneyTreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoneyTreeViewController.h; sourceTree = "<group>"; };
@@ -2119,11 +2122,13 @@
 		63E0341E1AFC995300BD714A /* customerDetail */ = {
 			isa = PBXGroup;
 			children = (
-				B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */,
 				63E0341F1AFC995300BD714A /* Customer.storyboard */,
 				63E034201AFC995300BD714A /* CustomerDetailViewController.h */,
+				B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */,
 				795E1F031B7337B000072A77 /* CustomerOrderViewController.h */,
 				795E1F041B7337B000072A77 /* CustomerOrderViewController.m */,
+				796E09D01B74410000FEBE9A /* CustomerDetailAndOrderViewController.h */,
+				796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */,
 				63E034221AFC995300BD714A /* EditCustomerDetailViewController.h */,
 				63E034231AFC995300BD714A /* EditCustomerDetailViewController.m */,
 				63AE28961B21975800BDB8C1 /* attachmentViewController.h */,
@@ -2584,6 +2589,7 @@
 				63F1A1881B140D5B00DE9867 /* RecentlyViewController.m in Sources */,
 				632BFFF81AB92A3A003B15AD /* SDWebImageDownloader.m in Sources */,
 				63F1A1AF1B14250E00DE9867 /* MJMember.m in Sources */,
+				796E09D21B74410000FEBE9A /* CustomerDetailAndOrderViewController.m in Sources */,
 				636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */,
 				63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */,
 				5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */,
