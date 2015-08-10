@@ -104,6 +104,7 @@
 
 
 
+
 @end
 
 @implementation ProductList
@@ -781,6 +782,7 @@
 #pragma 筛选navitem
 -(void)setSubViewHideNo
 {
+    
     if (self.dataArr.count>0) {
         UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
@@ -1245,6 +1247,7 @@
             choose.buttons = conditionDic;
             choose.needMonth = @"1";
             self.coverView.hidden = YES;
+            
             [self.navigationController pushViewController:choose animated:YES];
         }else if (!(indexPath.section == 0 && indexPath.row == 2)){
             if (indexPath.section == 0) {
