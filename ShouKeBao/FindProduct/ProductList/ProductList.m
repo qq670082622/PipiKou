@@ -782,7 +782,6 @@
 #pragma 筛选navitem
 -(void)setSubViewHideNo
 {
-    
     if (self.dataArr.count>0) {
         UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];

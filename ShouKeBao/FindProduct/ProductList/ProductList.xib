@@ -133,7 +133,7 @@
             </subviews>
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="519" y="410"/>
+            <point key="canvasLocation" x="560" y="377"/>
         </view>
         <view contentMode="scaleToFill" id="V26-8v-Scf" userLabel="subsSub">
             <rect key="frame" x="0.0" y="0.0" width="320" height="160"/>
@@ -250,6 +250,10 @@
                     <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                     <subviews>
+                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jianbian" id="nAF-10-xYx">
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        </imageView>
                         <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="AN8-3x-RrG">
                             <rect key="frame" x="8" y="12" width="70" height="33"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -300,6 +304,7 @@
         <image name="content_null" width="177" height="213"/>
         <image name="ip6" width="389" height="90"/>
         <image name="ip6+  zhiding " width="150" height="137"/>
+        <image name="jianbian" width="5" height="69"/>
         <image name="xiangyou" width="20" height="18"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
