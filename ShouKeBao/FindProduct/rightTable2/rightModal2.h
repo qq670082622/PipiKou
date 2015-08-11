@@ -12,7 +12,8 @@
 @property(nonatomic,copy) NSString  *title;
 @property (nonatomic,copy) NSString *Name;
 //@property (nonatomic,copy) NSString *SearchKey;
-
+@property (nonatomic, strong)NSMutableArray * subNameArray;
+@property (nonatomic, strong)NSMutableArray * searchKeyArray;
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;
 @end

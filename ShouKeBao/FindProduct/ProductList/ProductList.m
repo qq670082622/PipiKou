@@ -730,14 +730,14 @@
         }
         
         NSMutableArray *conArr = [NSMutableArray array];
-        if (!_isFromSearch && arr.count>0){//走正常进入，需要从找产品取出三级条件
-            NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
-            [conArr addObject:dicNew];
-            for(NSDictionary *dic in json[@"ProductConditionList"] ){
-                [conArr addObject:dic];
-            }
-            
-        }else if(_isFromSearch && arr.count>0){
+//        if (!_isFromSearch && arr.count>0){//走正常进入，需要从找产品取出三级条件
+//            NSDictionary *dicNew = [NSDictionary dictionaryWithObject:_pushedArr forKey:@"destination"];
+//            [conArr addObject:dicNew];
+//            for(NSDictionary *dic in json[@"ProductConditionList"] ){
+//                [conArr addObject:dic];
+//            }
+//            
+//        }else if(_isFromSearch && arr.count>0){
             //走搜索进入，后台直接提供目的地，不过位置被放最后一位，一下操作便是调整位置
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
@@ -748,7 +748,7 @@
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
             }//将其余的条件添加进来
-        }
+//        }
         
         [self.conditionArr removeAllObjects];
         self.conditionArr = conArr;//装载筛选条件数据
