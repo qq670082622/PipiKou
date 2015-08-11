@@ -217,16 +217,16 @@
     YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
     cell.modal = self.dataArr[indexPath.row];
 
-    
+    NSLog(@"---- push = %@, mark = %@", cell.modal.PushId, _markUrl);
+
 //    if ([[NSString stringWithFormat:@"%ld", (long)indexPath.row]isEqualToString:[[NSUserDefaults  standardUserDefaults]objectForKey:@"num"]]) {
     
     if ([cell.modal.PushId isEqualToString: _markUrl]) { 
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
         
         NSLog(@"++++ push = %@, mark = %@", cell.modal.PushId, _markUrl);
-        
-        
     }
+    
     if (self.flag) {
         [self scrollTableView];
         self.flag = NO;

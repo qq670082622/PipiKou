@@ -104,6 +104,7 @@
 
 
 
+
 @end
 
 @implementation ProductList
@@ -1245,6 +1246,7 @@
             choose.buttons = conditionDic;
             choose.needMonth = @"1";
             self.coverView.hidden = YES;
+            
             [self.navigationController pushViewController:choose animated:YES];
         }else if (!(indexPath.section == 0 && indexPath.row == 2)){
             if (indexPath.section == 0) {

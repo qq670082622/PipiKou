@@ -17,6 +17,7 @@
 @property (nonatomic, strong)CustomerOrderViewController * orderVC;
 @property (nonatomic, strong)CustomerDetailViewController * detailVC;
 
+@property (nonatomic, strong)UIButton *button;
 @end
 
 @implementation CustomerDetailAndOrderViewController
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     [self setNavSegementView];
     [self customerRightBarItem];
-
+    self.button.hidden = NO;
     [self.view addSubview:self.detailVC.view];
 }
 - (void)setNavSegementView{
@@ -49,6 +50,7 @@
 {
     UISegmentedControl *control = (UISegmentedControl *)sender;
     if (control.selectedSegmentIndex == 0) {
+        self.button.hidden = NO;
         [self.view addSubview:self.detailVC.view];
         if (self.orderVC) {
             [self.orderVC.view removeFromSuperview];
@@ -56,6 +58,7 @@
         NSLog(@"客户资料" );
         //    [self.navigationController popViewControllerAnimated:NO];
     }else if (control.selectedSegmentIndex == 1){
+        self.button.hidden = YES;
         [self.view addSubview:self.orderVC.view];
         if (self.detailVC) {
             [self.detailVC.view removeFromSuperview];
@@ -64,6 +67,7 @@
     }
 }
 -(CustomerOrderViewController *)orderVC{
+
     if (!_orderVC) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _orderVC = [sb instantiateViewControllerWithIdentifier:@"CustomerOrderID"];
@@ -71,6 +75,7 @@
     return _orderVC;
 }
 -(CustomerDetailViewController *)detailVC{
+
     if (!_detailVC) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _detailVC = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
@@ -92,13 +97,13 @@
 }
 -(void)customerRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    self.button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     
-    [button setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
+    [self.button setImage:[UIImage imageNamed:@"bianji"] forState:UIControlStateNormal];
     
-    [button addTarget:self action:@selector(EditCustomerDetail)forControlEvents:UIControlEventTouchUpInside];
+    [self.button addTarget:self action:@selector(EditCustomerDetail)forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:self.button];
     
     self.navigationItem.rightBarButtonItem= barItem;
 }
