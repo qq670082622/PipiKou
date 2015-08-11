@@ -18,6 +18,7 @@
 #import "HomeHttpTool.h"
 #import "BaseClickAttribute.h"
 #import "MobClick.h"
+#define kScreenSize [UIScreen mainScreen].bounds.size
 @interface RecomViewController ()
 
 - (IBAction)todayAction:(id)sender;
@@ -53,7 +54,6 @@
     [super viewDidLoad];
     [self.todayBtnOutlet setSelected:YES];
     [self.view addSubview:self.todayVC.view];
-    
     CGFloat lineFromX = self.moveLine.center.x;
     CGFloat lineFromY = self.moveLine.center.y;
     self.normalPoint = CGPointMake(lineFromX, lineFromY);
@@ -156,35 +156,68 @@
     
    
     [MobClick beginLogPageView:@"ShouKeBaoRecomView"];
-
-    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    searchBtn.frame = CGRectMake(0, 0, 15, 15);
-  //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill];
-    [searchBtn setBackgroundImage:[UIImage imageNamed:@"fdjForNav"] forState:UIControlStateNormal];
-    [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBtn];
     
-    UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    stationBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    stationBtn.frame = CGRectMake(25, 0, 50, 30);
-    [stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
-    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    NSString *stationName = [def objectForKey:@"SubstationName"];
-    [stationBtn setTitle:[NSString stringWithFormat:@"%@﹀",stationName]  forState:UIControlStateNormal];
-    UIBarButtonItem *stationItem = [[UIBarButtonItem alloc] initWithCustomView:stationBtn];
+//    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+//    searchBtn.frame = CGRectMake(0, 0, 15, 15);
+//  //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
+//    [searchBtn setBackgroundImage:[UIImage imageNamed:@"sousuoa"] forState:UIControlStateNormal];
+//    [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBtn];
+    
+//    UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    stationBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+//    stationBtn.frame = CGRectMake(25, 0, 50, 30);
+//    [stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+//    NSString *stationName = [def objectForKey:@"SubstationName"];
+//    [stationBtn setImage:[UIImage imageNamed:@"xialaa"] forState:UIControlStateNormal];
+//    stationBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 35, 0, 0);
+//    [stationBtn setTitle:[NSString stringWithFormat:@"%@",stationName]  forState:UIControlStateNormal];
+//    stationBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -20, 0, 10);
+//    [stationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//   
+//    UIBarButtonItem *stationItem = [[UIBarButtonItem alloc] initWithCustomView:stationBtn];
    
-   
-      self.leftItem = searchItem;
-    self.rightItem = stationItem;
+    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    moreBtn.frame = CGRectMake(0, 0, 21, 7);
+    //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
+    [moreBtn setBackgroundImage:[UIImage imageNamed:@"gengduoann"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(moreBtn) forControlEvents:UIControlEventTouchUpInside];
+//    [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
+//    [moreBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
+//    moreBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+      //self.leftItem = searchItem;
+    //self.rightItem = stationItem;
     
-    
-    [self.navigationItem setRightBarButtonItems:@[searchItem,stationItem] animated:YES];
+    self.navigationItem.rightBarButtonItem = moreItem;
+    //[self.navigationItem setRightBarButtonItems:@[searchItem,stationItem] animated:YES];
+    leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3, 50, kScreenSize.width/3, kScreenSize.height/5)];
+    leftView.backgroundColor = [UIColor blueColor];
+    leftView.alpha = 0;
+    [self.view addSubview:leftView];
+    isXianShi = NO;
 }
+-(void)moreBtn{
+    if (isXianShi) {
+        leftView.alpha = 0;
+        isXianShi = NO;
+    }else{
+        leftView.alpha = 1;
+        isXianShi = YES;
+    }
+    
+    NSLog(@"正在加载更多");
+  
+}
+
 -(void)viewWillDisappear:(BOOL)animated{
     [super   viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoRecomView"];
 
 }
+//
 -(void)changeStation
 {
     [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
@@ -196,6 +229,29 @@
     [MobClick event:@"RecommendSearchClick" attributes:dict];
 
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
+}
+//此处 添加 动画效果
+-(void)setSubViewUp
+{
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"CustomAddClick" attributes:dict];
+    
+    if (leftView.hidden == YES) {
+        [UIView animateWithDuration:0.8 animations:^{
+            leftView.alpha = 0;
+           leftView.alpha = 1;
+            //leftView.hidden = NO;
+            
+        }];
+        
+    }else if (leftView.hidden == NO){
+        [UIView animateWithDuration:0.8 animations:^{
+           leftView.alpha = 1;
+            leftView.alpha = 0;
+            //self.subView.hidden = YES;
+        }];
+        
+    }
 }
 
 - (void)didReceiveMemoryWarning {
