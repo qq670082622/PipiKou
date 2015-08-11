@@ -22,6 +22,12 @@
 #import "rightModal.h"
 #import "HeaderSectionView.h"
 #import "WMAnimations.h"
+#import "rightModal2.h"
+#import "NormalCollectionCell.h"
+#import "SpecialLineCollectionCell.h"
+#import "WMAnimations.h"
+#import "ProduceDetailViewController.h"
+#import "ProductList.h" 
 @interface FindProductNew ()<UITableViewDataSource, UITableViewDelegate, notifi, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet LeftTableView *leftTableView;
 @property (strong, nonatomic) IBOutlet RightCollectionView *RightCollection;
@@ -30,7 +36,7 @@
 @property (nonatomic, strong) NSMutableArray * leftDataArray;
 @property (nonatomic, strong) NSMutableArray * hottDataArray;
 @property (strong, nonatomic) NSMutableArray *hotSectionArr;
-
+@property (nonatomic, strong)NSMutableArray * NomalDataArray;
 @property (nonatomic, strong)UIView * selectBackGroundView;
 - (IBAction)ProductSearch:(id)sender;
 - (IBAction)selectStaion:(id)sender;
@@ -44,8 +50,6 @@
     [self firstSetView];
     [self loadDataSourceLeft];
     [self loadHotData];
-    
-    // Do any additional setup after loading the view.
 }
 - (void)firstSetView{
     self.leftTableView.delegate = self;
@@ -54,23 +58,9 @@
     self.RightCollection.delegate = self;
     self.RightCollection.dataSource = self;
     self.navigationItem.leftBarButtonItem = nil;
-
+    self.leftSelectType = SelectTypeHot;
     self.title = @"找产品";
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 #pragma mark - lazyLoad
 -(NSMutableArray *)leftDataArray{
     if (!_leftDataArray) {
@@ -91,6 +81,12 @@
     return _hotSectionArr;
 }
 
+-(NSMutableArray *)NomalDataArray{
+    if (!_NomalDataArray) {
+        _NomalDataArray  = [NSMutableArray arrayWithCapacity:1];
+    }
+    return _NomalDataArray;
+}
 
 -(UIView *)selectBackGroundView{
     if (!_selectBackGroundView) {
@@ -101,8 +97,10 @@
 #pragma mark - LoadDataSource
 - (void)loadDataSourceLeft
 {
+    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"加载中...";
+    [hudView show:YES];
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationType" params:nil success:^(id json) {
         [self.leftDataArray removeAllObjects];
         leftModal * model = [[leftModal alloc]init];
@@ -112,24 +110,21 @@
             leftModal *modal = [leftModal modalWithDict:dic];
             [self.leftDataArray addObject:modal];
         }
-        [hudView show:YES];
-        [hudView hide:YES afterDelay:0.5];
+        
+        [hudView hide:YES];
         [self.leftTableView reloadData];
+        //默认选中第一个cell
+        [self.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     } failure:^(NSError *error) {
         NSLog(@"左侧栏请求错误！～～～error is ~~~~~~~~~%@",error);
     }];
 }
 -(void)loadHotData
 {
-    
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
     hudView.labelText = @"加载中...";
-    
     [hudView show:YES];
-    
     [IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
-//         NSLog(@"---------热卖返回json is %@--------",json);
         [self.hottDataArray removeAllObjects];
          [self.hotSectionArr removeAllObjects];
         NSMutableArray *hotDicNameArr = [NSMutableArray array];
@@ -145,10 +140,8 @@
             }
             [self.hottDataArray addObject:tmp];
         }//获得热卖总数组
-        
-         NSLog(@"------------hotarr------------------%@",self.hottDataArray);
-        
         [self.RightCollection reloadData];
+        
         [hudView hide:YES];
     } failure:^(NSError *error) {
         NSLog(@"-----------hot json 请求失败，原因：%@",error);
@@ -156,16 +149,37 @@
     
     
 }
+- (void)loadNomalDataSourceWithType:(NSString *)type
+{
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"加载中...";
+    [hudView show:YES];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:type forKey:@"NavigationType"];
+        [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
+            [self.NomalDataArray removeAllObjects];
+            NSMutableArray *searchKeyArr = [NSMutableArray array];
+            for(NSDictionary *dic in json[@"NavigationMainList"] ){
+                rightModal2 *modal = [rightModal2 modalWithDict:dic];
+                [searchKeyArr addObject:dic[@"ID"]];
+                [self.NomalDataArray addObject:modal];
+                [hudView hide:YES];
+            }
+            [self.RightCollection reloadData];
+        
+            
+        } failure:^(NSError *error) {
+            NSLog(@"左侧栏请求错误！～～～error is ~~~~~~~~~%@",error);
+        }];
+}
 
 #pragma mark - 找产品按钮和分站选择按钮点击
 - (IBAction)ProductSearch:(id)sender {
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductSearchList" attributes:dict];
-    
     SearchProductViewController *SPVC = [[SearchProductViewController alloc] init];
     SPVC.isFromFindProduct = YES;
     [self.navigationController pushViewController:SPVC animated:NO];
-
 }
 
 - (IBAction)selectStaion:(id)sender {
@@ -183,16 +197,13 @@
     return self.leftDataArray.count;
 }
 
-// Row display. Implementers should *always* try to reuse cells by setting each cell's reuseIdentifier and querying for available reusable cells with dequeueReusableCellWithIdentifier:
-// Cell gets various attributes set automatically based on table (separators) and data source (accessory views, editing controls)
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     LeftTableCell * cell = [tableView dequeueReusableCellWithIdentifier:@"ProductLeftCell" forIndexPath:indexPath];
-    cell.selectedBackgroundView.backgroundColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     leftModal * model = self.leftDataArray[indexPath.row];
     if (indexPath.row == 0) {
        cell.leftName.text = @"热门推荐";
-        cell.iconImage.image = [UIImage imageNamed:@"APPhot"];
+        cell.iconImage.image = [UIImage imageNamed:@"APPhot2"];
     }else{
     cell.model = model;
     }
@@ -206,66 +217,152 @@
     return 55;
     }
 }
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row == self.SelectNum) {
+        return;
+    }
+    self.SelectNum = indexPath.row;
+    LeftTableCell * cell = (LeftTableCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if (indexPath.row == 0) {
+        self.leftSelectType = SelectTypeHot;
+        cell.iconImage.image = [UIImage imageNamed:@"APPhot2"];
+        [self loadHotData];
+    }else{
+        leftModal * model = self.leftDataArray[indexPath.row];
+        [cell.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIconFocus] placeholderImage:nil];
+        if ([model.Name isEqualToString:@"邮轮"]) {
+            self.leftSelectType = SelectTypeShip;
+        }else{
+            self.leftSelectType = SelectTypeNomal;
+        }
+        [self loadNomalDataSourceWithType:model.Type];
+    }
 
+}
+- (void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath{
+    LeftTableCell * cell = (LeftTableCell *)[tableView cellForRowAtIndexPath:indexPath];
+    if (indexPath.row==0) {
+        cell.iconImage.image = [UIImage imageNamed:@"APPhot"];
+    }else{
+        leftModal * model = self.leftDataArray[indexPath.row];
+        [cell.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIcon] placeholderImage:nil];
+    }
+}
+
+//右面的collection代理方法
 #pragma mark - collectionViewDelegate
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
-    return [self.hottDataArray[section]count];
+    if (self.leftSelectType == SelectTypeHot) {
+        NSLog(@"%@", self.hottDataArray);
+        return [self.hottDataArray[section]count];
+    }else{
+        rightModal2 * model = self.NomalDataArray[section];
+        return model.subNameArray.count;
+    }
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return self.hotSectionArr.count;
+    if (self.leftSelectType == SelectTypeHot) {
+        return self.hotSectionArr.count;
+    }else{
+        return self.NomalDataArray.count;
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    HotProductCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RighthotCell" forIndexPath:indexPath];
-    rightModal * model = self.hottDataArray[indexPath.section][indexPath.row];
-    cell.modal = model;
-    return cell;
+
+    if (self.leftSelectType == SelectTypeHot) {
+        HotProductCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RighthotCell" forIndexPath:indexPath];
+        rightModal * model = self.hottDataArray[indexPath.section][indexPath.row];
+        cell.modal = model;
+        return cell;
+    }else if(self.leftSelectType == SelectTypeNomal){
+        NormalCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NormalCollectionCell" forIndexPath:indexPath];
+        rightModal2 * model = self.NomalDataArray[indexPath.section];
+        cell.subTatilLab.text = model.subNameArray[indexPath.row];
+        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subTatilLab.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES andCornerRadius:2];
+        return cell;
+    }else{
+        SpecialLineCollectionCell * cell  = [collectionView dequeueReusableCellWithReuseIdentifier:@"SpecialLineCell" forIndexPath:indexPath];
+        rightModal2 * model = self.NomalDataArray[indexPath.section];
+        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.lineDetail.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES andCornerRadius:2];
+        cell.lineDetail.text = model.subNameArray[indexPath.row];
+        return cell;
+    }
+
 }
 #pragma mark - collectionViewFlawlayerout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.leftDataArray) {
+    if (self.leftSelectType == SelectTypeHot) {
         return CGSizeMake(collectionView.frame.size.width, 77);
-        
+    }else if(self.leftSelectType == SelectTypeNomal){
+        return CGSizeMake(80, 50);
     }else{
-        return CGSizeMake(50, 50);
+        rightModal2 * model = self.NomalDataArray[indexPath.section];
+        if ([model.title isEqualToString:@"特价线路"]) {
+            return CGSizeMake(collectionView.frame.size.width - 28, 50);
+        }else{
+            return CGSizeMake(80, 50);
+        }
     }
 }
-//- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-//
-//}
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section{
-//
-//}
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
-//
-//}
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForHeaderInSection:(NSInteger)section{
-//
-//}
-//- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout referenceSizeForFooterInSection:(NSInteger)section{
-//
-//}
-
 
 
 
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     HeaderSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"HeaderSectionView" forIndexPath:indexPath];
-    headerView.nameLab.text = self.hotSectionArr[indexPath.section];
     headerView.spotView.layer.cornerRadius = 7.5;
-    headerView.spotView.backgroundColor = [UIColor redColor];
-
+    //给圆点以及文字设置颜色
+    NSArray * colorArray = @[[UIColor blueColor], [UIColor orangeColor], [UIColor greenColor], [UIColor purpleColor], [UIColor redColor]];
+    headerView.spotView.backgroundColor = colorArray[indexPath.section%5];
+    headerView.allBtn.titleLabel.textColor = colorArray[indexPath.section%5];
+    [headerView.allBtn setTitleColor:colorArray[indexPath.section%5] forState:UIControlStateNormal];
+    [headerView.allBtn setTitleColor:colorArray[indexPath.section%5] forState:UIControlStateHighlighted];
+    if (self.leftSelectType == SelectTypeHot) {
+        headerView.nameLab.text = self.hotSectionArr[indexPath.section];
+    }else{
+        rightModal2 * model = self.NomalDataArray[indexPath.section];
+        headerView.nameLab.text = model.title;
+    }
     return headerView;
+
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-//    HealthCollectionViewCell * cell = (HealthCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
-//    UIStoryboard * SB = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-//    HealthDetailViewController * HDVC = [SB instantiateViewControllerWithIdentifier:@"sb_healthDetail"];
-//    HDVC.searchStr = cell.nameLabel.text;
-//    [self.navigationController pushViewController:HDVC animated:YES];
+    if (self.leftSelectType == SelectTypeHot) {
+        ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+        rightModal *model =  self.hottDataArray[indexPath.section][indexPath.row];
+        NSString *productUrl = model.productUrl;
+        detail.produceUrl = productUrl;
+        detail.fromType = FromHotProduct;
+        detail.m = 1;
+        [self.navigationController pushViewController:detail animated:YES];
+    }else{
+        rightModal2 * model = self.NomalDataArray[indexPath.section];
+        ProductList *list = [[ProductList alloc] init];
+        list.pushedSearchK = model.searchKeyArray[indexPath.row];
+        list.title = model.subNameArray[indexPath.row];;
+//        list.pushedArr = _pushArr;
+        NSDictionary * dic = @{@"TwoSubName":model.searchKeyArray[indexPath.row]};
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+        [MobClick event:@"FindProductList" attributes:dict];
+        
+        [self.navigationController pushViewController:list animated:YES];
+
+    }
 }
 
 
+#pragma  mark - stationSelect delegate
+-(void)notifiToReloadData
+{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *str = [def objectForKey:@"stationSelect"];
+    if ([str isEqualToString:@"yes"]) {
+        [self loadDataSourceLeft];
+        [self loadHotData];
+        [def setObject:@"no" forKey:@"stationSelect"];
+        [def synchronize];
+    }
+}
 
 @end

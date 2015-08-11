@@ -16,6 +16,13 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    if (self.selected) {
+        self.contentView.backgroundColor = [UIColor whiteColor];
+        self.leftName.textColor = [UIColor orangeColor];
+    }else{
+        self.contentView.backgroundColor = [UIColor colorWithRed:220/255.0 green:232/255.0 blue:243/255.0 alpha:1.0];
+        self.leftName.textColor = [UIColor blackColor];
+    }
     // Configure the view for the selected state
 }
 -(void)layoutSubviews
@@ -23,14 +30,12 @@
     UIView * line = [[UIView alloc]initWithFrame:CGRectMake(0, self.frame.size.height - 0.5, self.frame.size.width, 0.5)];
     line.backgroundColor = [UIColor lightGrayColor];
     [self addSubview:line];
-   
 }
 
 -(void)setModel:(leftModal *)model{
     _model = model;
     self.leftName.text = model.Name;
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIcon] placeholderImage:nil];
-    
     
 }
 @end

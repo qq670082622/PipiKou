@@ -1330,7 +1330,7 @@
                                     [self.warningLab removeFromSuperview];
                                     
                                     if (type == ShareTypeCopy) {
-                                        [MBProgressHUD showSuccess:@"拷贝成功"];
+                                        [MBProgressHUD showSuccess:@"复制成功"];
                                     }else{
                                         [MBProgressHUD showSuccess:@"分享成功"];
                                     }

@@ -8,6 +8,13 @@
 
 #import "SKViewController.h"
 
-@interface FindProductNew : SKViewController
+typedef enum{
+    SelectTypeHot,
+    SelectTypeNomal,
+    SelectTypeShip
+}SelectType;
 
+@interface FindProductNew : SKViewController
+@property (nonatomic, assign)SelectType leftSelectType;
+@property (nonatomic, assign)NSInteger SelectNum;
 @end

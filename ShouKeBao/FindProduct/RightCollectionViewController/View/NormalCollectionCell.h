@@ -10,4 +10,5 @@
 
 @interface NormalCollectionCell : UICollectionViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *subTatilLab;
 @end

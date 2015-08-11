@@ -73,7 +73,6 @@
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
 [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-
    // [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     //[self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
  //[self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
@@ -85,7 +84,6 @@
     self.table.delegate = self;
     self.table.dataSource = self;
     self.table.rowHeight = 64;
-    
    
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
@@ -93,7 +91,7 @@
     
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     
-    self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
+    //self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
     
     CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
     UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
@@ -104,9 +102,10 @@
    [self.conditionLine addSubview:lineDown];
     [self.conditionLine addSubview:lineOn];
     
-    self.table.tableFooterView = [[UIView alloc] init];
+    //self.table.tableFooterView = [[UIView alloc] init];
     
-    
+    self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
+    //self.blueLine.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
      [self customerRightBarItem];
     
      [self initPull];
@@ -438,7 +437,6 @@
     }
 }
 
-
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (tableView.tag == 1) {
@@ -449,8 +447,9 @@
     }
     return 0;
 }
-
-
+//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+//    return 1;
+//}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
@@ -518,6 +517,7 @@
  // 删除这行
         [self.dataArr removeObjectAtIndex:indexPath.row];
         [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        [self initPull];
     }
 }
 

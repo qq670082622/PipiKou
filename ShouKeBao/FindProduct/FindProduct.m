@@ -216,7 +216,7 @@
     dispatch_queue_t q = dispatch_queue_create("loadDataSourceRight", DISPATCH_QUEUE_SERIAL);
     dispatch_async(q, ^{
         [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
-            // NSLog(@"-------------dataSourceRight json is %@-----------------",json);
+             NSLog(@"-------------dataSourceRight json is %@-----------------",json);
             
             [self.rightTableArr removeAllObjects];
             NSMutableArray *searchKeyArr = [NSMutableArray array];

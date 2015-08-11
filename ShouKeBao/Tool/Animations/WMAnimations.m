@@ -77,6 +77,20 @@
     }
     
     }
++ (void)WMAnimationMakeBoarderWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(float)borderWid andNeedShadow:(BOOL)needShow andCornerRadius:(float)radius
+{
+    layer.borderColor = color.CGColor;
+    layer.borderWidth = borderWid;
+    layer.cornerRadius = radius;
+    layer.masksToBounds = YES;
+    if (needShow) {
+        layer.shadowColor = [UIColor lightGrayColor].CGColor;
+        layer.shadowOpacity = 0.5;
+        layer.shadowOffset = CGSizeMake(2, 2);
+        
+    }
+    
+}
 
 + (void)WMAnimationMakeBoarderNoCornerRadiosWithLayer:(CALayer *)layer andBorderColor:(UIColor *)color andBorderWidth:(int)borderWid andNeedShadow:(BOOL)needShow//给view增加边框
 {

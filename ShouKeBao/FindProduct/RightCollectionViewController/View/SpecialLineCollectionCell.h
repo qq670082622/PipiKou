@@ -10,4 +10,5 @@
 
 @interface SpecialLineCollectionCell : UICollectionViewCell
 
+@property (strong, nonatomic) IBOutlet UILabel *lineDetail;
 @end

@@ -49,14 +49,14 @@
 }
 - (void)setNav2{
 
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
     
     leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
     [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
-    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
-    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
