@@ -9,7 +9,7 @@
 #import "CalendarViewController.h"
 #import "MyCalendarItem.h"
 #import "MobClick.h"
-
+#import "Orders.h"
 @interface CalendarViewController ()
 
 @property (nonatomic,assign) BOOL isCurrent;
@@ -24,8 +24,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self setup];
-    
-    [self setNavBar];
+    //[self setNavBar];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -44,19 +43,19 @@
     [MobClick endLogPageView:@"OrdersCalendarView"];
 
 }
-- (void)setNavBar
-{
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
-    
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    btn.imageEdgeInsets = UIEdgeInsetsMake(12, 0, 12, 24);
-    [btn setImage:[UIImage imageNamed:@"appzuojiantou"] forState:UIControlStateNormal];
-    
-    [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [cover addSubview:btn];
-    
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cover];
-}
+//- (void)setNavBar
+//{
+//    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 60, 40)];
+//    
+//    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    btn.imageEdgeInsets = UIEdgeInsetsMake(12, 0, 12, 24);
+//    [btn setImage:[UIImage imageNamed:@"appzuojiantou"] forState:UIControlStateNormal];
+//    
+//    [btn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    [cover addSubview:btn];
+//    
+//    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:cover];
+//}
 
 - (void)back
 {

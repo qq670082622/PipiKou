@@ -135,7 +135,7 @@
 }
 -(void)turnOff
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    //[self.navigationController popViewControllerAnimated:YES];
 }
 #pragma -mark getter
 - (UIWebView *)webView

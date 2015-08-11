@@ -94,28 +94,28 @@
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timerr = timer;
     
-    [self setUpleftBarButtonItems];
+    //[self setUpleftBarButtonItems];
    // [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
     // [self Guide];
     
 }
 
--(void)setUpleftBarButtonItems
-{
-    
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-     turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    
-    [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
-
-}
+//-(void)setUpleftBarButtonItems
+//{
+//    
+//    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+//    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
+//    turnOff.frame = CGRectMake(0, 0, 30, 10);
+//    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+//    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+//     turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+//    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+//    
+//    [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
+//
+//}
 #pragma mark - telCall_js
 - (void)findIsCall{
     NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
@@ -280,6 +280,14 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    if ([self.webView canGoBack]) {
+        self.navigationItem.leftBarButtonItem = nil;
+        [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+    }else{
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = leftItem;
+        
+    }
 
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
 

@@ -29,6 +29,9 @@
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
 @interface FindProduct ()<UITableViewDelegate,UITableViewDataSource,headerViewDelegate, notifi>
+{
+    NSInteger t;
+}
 @property (weak, nonatomic) IBOutlet UIView *blackView;
 
 @property (weak, nonatomic) IBOutlet UIView *line;
@@ -77,7 +80,7 @@
     self.rightTable2.dataSource = self;
     self.hotTable.delegate = self;
     self.hotTable.dataSource = self;
-    
+    t=1;
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     self.isHot = YES;
     self.rightTable.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -753,6 +756,7 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
         detail.fromType = FromHotProduct;
+        detail.m = t;
              [self.navigationController pushViewController:detail animated:YES];
     }
 

@@ -1,13 +1,13 @@
 //
-//  Orders.h
+//  LeftTableView.h
 //  ShouKeBao
 //
-//  Created by David on 15/3/12.
+//  Created by 冯坤 on 15/8/10.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-#import "SKViewController.h"
 
-@interface Orders : SKViewController
+@interface LeftTableView : UITableView
+
 @end

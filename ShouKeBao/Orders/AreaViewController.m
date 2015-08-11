@@ -8,7 +8,6 @@
 
 #import "AreaViewController.h"
 #import "OrderTool.h"
-
 #import "MobClick.h"
 @interface AreaViewController ()
 
@@ -23,8 +22,8 @@
     // Do any additional setup after loading the view.
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.isSeleted = NO;
-    
-    [self configure];
+    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+    //[self configure];
     
     [self loadDataSource];
 }
@@ -44,23 +43,25 @@
 
 }
 #pragma mark - private
-- (void)configure
-{
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-}
+//- (void)configure
+//{
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+//    self.navigationItem.leftBarButtonItem= leftItem;
+//}
 
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
-
+-(void)turnOff{
+   [self.navigationController popToRootViewControllerAnimated:YES];
+}
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {

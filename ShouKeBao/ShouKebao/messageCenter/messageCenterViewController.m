@@ -31,16 +31,13 @@
     [super viewDidLoad];
    self.title = @"消息中心";
    // [self loadDataSource];
-    
+
 
     self.table.rowHeight = 75;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
     
     self.table.tableFooterView = [[UIView alloc] init];
     
@@ -166,7 +163,7 @@
     messageDetail.messageURL = model.LinkUrl;
     messageDetail.createDate = model.CreatedDate;
     messageDetail.messageTitle = model.title;
-
+    messageDetail.m = 0;
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShoukeBaoMessageCenterDetailClick" attributes:dict];
 
