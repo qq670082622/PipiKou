@@ -57,6 +57,7 @@
 
 @implementation Customers
 
+
 -(void)dealloc
 {
 //    只要注册一个观察者,一定要在类的dealloc方法中, 移除掉自己的观察者身份

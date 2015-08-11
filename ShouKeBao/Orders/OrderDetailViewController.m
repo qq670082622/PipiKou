@@ -52,6 +52,7 @@
 //    加载url
     self.request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.url]];
     
+    
     [self.webView loadRequest:self.request];
     [self setUpleftBarButtonItems];
 

@@ -247,6 +247,7 @@
     
     NSString *markStr = [self.photosArr objectAtIndex:indexPath.row][@"PushId"];
     
+    NSLog(@"mark = %@", markStr);
     //取当前arr中的picUrl为标示
 //        NSString *markStr = self.photosArr[yesInt][@"PushId"];//取单个产品的三级区域名称
 //        NSLog(@"点击了排第%d个，它的PushId is %@",yesInt,markStr);

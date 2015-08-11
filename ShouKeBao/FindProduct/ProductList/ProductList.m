@@ -1184,8 +1184,9 @@
 //    }else if (self.table.contentOffset.y <300){
 //        self.backToTopBtn.hidden = YES;
 //    }
+
     
-    NSInteger count = self.table.contentOffset.y/1250;
+    NSInteger count = self.table.contentOffset.y/1360;
     int totalCount = (int)self.productCount/10;
     if (self.productCount%10>0) {//如果／10还有余数总页码＋1
         totalCount++;
@@ -1196,7 +1197,8 @@
     //    }else if ([_page integerValue] > 1){
     //        pageCount = [_page integerValue] - 1;
     //    }
-    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount ] forState:UIControlStateNormal];
+    
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];
 }
 
 
