@@ -26,7 +26,6 @@
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-    
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
     self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
@@ -44,16 +43,46 @@
     
     [self.web loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:_messageURL]]];
     
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    [self setNav];
 
+}
+- (void)setNav{
+
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
     
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
-    self.navigationItem.leftBarButtonItem= leftItem;
-
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
+    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    if (self.m == 0) {
+         self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+    }else if(self.m == 1){
+        self.navigationItem.leftBarButtonItem = leftItem;
+    }
+   
+}
+-(void)turnOff
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -67,11 +96,6 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaomessageDetailView"];
 
-}
-
--(void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
@@ -90,6 +114,20 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    if (self.m == 0) {
+        
+    }else if(self.m == 1){
+        if ([self.web canGoBack]) {
+            self.navigationItem.leftBarButtonItem = nil;
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+            
+        }
+
+    }
+    
     [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
    
     

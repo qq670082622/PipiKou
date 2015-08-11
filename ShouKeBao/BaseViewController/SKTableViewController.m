@@ -25,14 +25,6 @@
     }
 }
 - (void)setNav{
-//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,20)];
-//    //[leftBtn setBackgroundImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
-//   // [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
-//    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
-//    leftBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-//    self.navigationItem.leftBarButtonItem = leftItem;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
@@ -59,7 +51,8 @@
 }
 -(void)turnOff
 {
-    [self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
+
 }
 
 - (void)addGest{

@@ -57,27 +57,27 @@
 //    NSDictionary *dictionnary = [[NSDictionary alloc] initWithObjectsAndKeys:newAgent, @"UserAgent", nil];
 //    
 //    [[NSUserDefaults standardUserDefaults] registerDefaults:dictionnary];
-    [self setUpleftBarButtonItems];
+   // [self setUpleftBarButtonItems];
 
 }
 
--(void)setUpleftBarButtonItems
-{
-  
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-     turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    
-    [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
-
-    
-}
-
+//-(void)setUpleftBarButtonItems
+//{
+//  
+//    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+//    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
+//    turnOff.frame = CGRectMake(0, 0, 30, 10);
+//    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+//    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+//     turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+//    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+//    
+//    [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
+//
+//    
+//}
+//
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -197,6 +197,15 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    if ([self.webView canGoBack]) {
+        self.navigationItem.leftBarButtonItem = nil;
+        [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+    }else{
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = leftItem;
+        
+    }
+
     [self.navigationController cancelSGProgress];
 }
 

@@ -22,7 +22,6 @@
 #import "JSONKit.h"
 
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
-
 @property (weak, nonatomic) IBOutlet UIView *coverView;
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
 
@@ -133,7 +132,7 @@
     [self.webView.scrollView addGestureRecognizer:screenEdge];
  }
 
-//- (void)returnAction:(UISwipeGestureRecognizer *)swip
+//- (void)returnAction:(UISwipeGes  tureRecognizer *)swip
 //{
 //    [self.navigationController popViewControllerAnimated:YES];
 //}
@@ -170,7 +169,12 @@
 //    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
 //    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    //self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+    if (self.m == 0) {
+        self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+    }else{
     self.navigationItem.leftBarButtonItem = leftItem;
+    }
     //[self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
     
 }
@@ -355,6 +359,20 @@
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    if (self.m == 0) {
+        
+    }else if(self.m == 1){
+        if ([self.webView canGoBack]) {
+            self.navigationItem.leftBarButtonItem = nil;
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+            
+        }
+        
+    }
+    
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
     NSString *rightUrl = webView.request.URL.absoluteString;
@@ -384,9 +402,23 @@
     }];
 
 }
-//- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
-//    [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
-//}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if (self.m == 0) {
+        
+    }else if(self.m == 1){
+        if ([self.webView canGoBack]) {
+            //self.navigationItem.leftBarButtonItem = nil;
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+           self.navigationItem.leftBarButtonItem = leftItem;
+           
+        }
+
+    }
+        [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
+}
 -(void)addAlert
 {
     

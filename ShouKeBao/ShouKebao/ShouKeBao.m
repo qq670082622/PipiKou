@@ -1588,6 +1588,7 @@
         messageDetailViewController *msgDetail = [[messageDetailViewController alloc] init];
         messageModel *msg = model.model;
         msgDetail.messageURL = msg.LinkUrl;
+        msgDetail.m = 1;
         [self.navigationController pushViewController:msgDetail animated:YES];
         
     }
