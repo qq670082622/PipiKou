@@ -20,6 +20,10 @@
 #import "MobClick.h"
 #import "StationSelect.h"
 #import "BaseClickAttribute.h"
+
+#import "DayDetailCell.h"
+#import "DetailView.h"
+#import "DayDetail.h"
 #define pageSize @"12"
 @interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
 {
@@ -36,6 +40,7 @@
 
 @property (nonatomic, strong)NSIndexPath *index;
 @property (nonatomic, assign)BOOL flag;
+@property (nonatomic,strong) NSMutableDictionary *tagDiction;
 
 
 @end
@@ -137,7 +142,8 @@
             }
             
             for (NSDictionary *dic in json[@"ProductList"]) {
-                yesterDayModel *detail = [yesterDayModel modalWithDict:dic];
+                DayDetail *detail = [DayDetail dayDetailWithDict:dic];
+       
                 [self.dataArr addObject:detail];
                 
             }
@@ -207,7 +213,13 @@
     }
     return _dataArr;
 }
-
+-(NSMutableDictionary *)tagDic
+{
+    if (_tagDiction == nil) {
+        self.tagDiction = [NSMutableDictionary dictionary];
+    }
+    return _tagDiction;
+}
 
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -217,18 +229,35 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
-    cell.modal = self.dataArr[indexPath.row];
+//    YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
+//    cell.modal = self.dataArr[indexPath.row];
+//
+//    NSLog(@"---- push = %@, mark = %@", cell.modal.PushId, _markUrl);
 
-    NSLog(@"---- push = %@, mark = %@", cell.modal.PushId, _markUrl);
-
-//    if ([[NSString stringWithFormat:@"%ld", (long)indexPath.row]isEqualToString:[[NSUserDefaults  standardUserDefaults]objectForKey:@"num"]]) {
+    DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
+    DayDetail *detail = (DayDetail *)self.dataArr[indexPath.row];
+    cell.detail = detail;
     
-    if ([cell.modal.PushId isEqualToString: _markUrl]) { 
+    [cell.descripBtn setTag:indexPath.row];
+    [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if ([detail.PushId isEqualToString:_markUrl]) {
+        cell.isPlain = YES;
+        [self.tagDiction setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
+        NSLog(@"indexPath.row iii = %ld", indexPath.row);
         
-        NSLog(@"++++ push = %@, mark = %@", cell.modal.PushId, _markUrl);
+        
     }
+//
+    
+    
+//    if ([cell.modal.PushId isEqualToString: _markUrl]) {
+//    
+//        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
+//        
+//        NSLog(@"++++ push = %@, mark = %@", cell.modal.PushId, _markUrl);
+//    }
     
     if (self.flag) {
         [self scrollTableView];
@@ -239,7 +268,20 @@
     return cell;
 }
 
-
+-(void)changeHeight:(id)sender
+{
+    UIButton *btn = (UIButton *)sender;
+    
+    NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
+    
+    if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
+        [self.tagDic setObject:@"0" forKey:tag];
+    }else{
+        [self.tagDic setObject:@"1" forKey:tag];}
+    [_table beginUpdates];
+    [_table endUpdates];
+    
+}
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -261,9 +303,14 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-          return 160;
+//          return 160;
     
-    
+    NSString *tag = [self.tagDiction objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
+    if ([tag isEqualToString:@"1"]){
+        return 330;
+    }else{
+        return 220;
+    }
 }
 
 @end

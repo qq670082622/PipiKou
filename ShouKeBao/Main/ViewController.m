@@ -46,13 +46,13 @@
     
     
     
-    UIStoryboard * SB = [UIStoryboard storyboardWithName:@"FindProductNew" bundle:[NSBundle mainBundle]];
-    FindProductNew * FPVC = (FindProductNew *)[SB instantiateViewControllerWithIdentifier:@"FindProductNewSB"];
-    [self addChildVc:FPVC   title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
+//    UIStoryboard * SB = [UIStoryboard storyboardWithName:@"FindProductNew" bundle:[NSBundle mainBundle]];
+//    FindProductNew * FPVC = (FindProductNew *)[SB instantiateViewControllerWithIdentifier:@"FindProductNewSB"];
+//    [self addChildVc:FPVC   title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
 
-//    FindProduct *fdp = [[FindProduct alloc] init];
-//    
-//    [self addChildVc:fdp title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
+    FindProduct *fdp = [[FindProduct alloc] init];
+    
+    [self addChildVc:fdp title:@"找产品" image:@"fenlei2" selectedImage:@"fenlei"];
     
     Orders *ods = [[Orders alloc] init];
     [self addChildVc:ods title:@"理订单" image:@"lidingdan" selectedImage:@"lidingdan2"];

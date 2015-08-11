@@ -287,7 +287,6 @@
 		63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1371B1332AD00DE9867 /* RecentlyCell.m */; };
 		63F1A1781B134D5D00DE9867 /* RecomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1761B134D5D00DE9867 /* RecomViewController.m */; };
 		63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F1A1771B134D5D00DE9867 /* RecomViewController.xib */; };
-		63F1A1831B140D4E00DE9867 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1811B140D4E00DE9867 /* YesterdayViewController.m */; };
 		63F1A1841B140D4E00DE9867 /* YesterdayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F1A1821B140D4E00DE9867 /* YesterdayViewController.xib */; };
 		63F1A1881B140D5B00DE9867 /* RecentlyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1861B140D5B00DE9867 /* RecentlyViewController.m */; };
 		63F1A1891B140D5B00DE9867 /* RecentlyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63F1A1871B140D5B00DE9867 /* RecentlyViewController.xib */; };
@@ -308,7 +307,6 @@
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
 		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
-		795E1F051B7337B000072A77 /* CustomerOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795E1F041B7337B000072A77 /* CustomerOrderViewController.m */; };
 		7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */; };
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
 		796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C4D4C1B60CEF6008EBAFE /* WebKit.framework */; };
@@ -355,6 +353,9 @@
 		B36E57351B74C0D000471AAC /* ProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E57281B74C0D000471AAC /* ProductList.xib */; };
 		B36E57361B74C0D000471AAC /* ProductModal.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E572A1B74C0D000471AAC /* ProductModal.m */; };
 		B3B326981B7379EA0057FB58 /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */; };
+		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
+		B3B82D651B7A0D19009CC320 /* CustomerOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */; };
+		B3B82D681B7A0DD3009CC320 /* Menum.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D671B7A0DD3009CC320 /* Menum.m */; };
 		B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -857,7 +858,6 @@
 		63F1A1761B134D5D00DE9867 /* RecomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RecomViewController.m; path = ../RecomViewController.m; sourceTree = "<group>"; };
 		63F1A1771B134D5D00DE9867 /* RecomViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RecomViewController.xib; path = ../RecomViewController.xib; sourceTree = "<group>"; };
 		63F1A1801B140D4E00DE9867 /* YesterdayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YesterdayViewController.h; sourceTree = "<group>"; };
-		63F1A1811B140D4E00DE9867 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
 		63F1A1821B140D4E00DE9867 /* YesterdayViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = YesterdayViewController.xib; sourceTree = "<group>"; };
 		63F1A1851B140D5B00DE9867 /* RecentlyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecentlyViewController.h; sourceTree = "<group>"; };
 		63F1A1861B140D5B00DE9867 /* RecentlyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecentlyViewController.m; sourceTree = "<group>"; };
@@ -897,7 +897,6 @@
 		795E1EFF1B72F75300072A77 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
 		795E1F001B72F75300072A77 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		795E1F031B7337B000072A77 /* CustomerOrderViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerOrderViewController.h; sourceTree = "<group>"; };
-		795E1F041B7337B000072A77 /* CustomerOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrderViewController.m; sourceTree = "<group>"; };
 		7960A5891B39320C00A69E44 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
 		7964F4EF1B437D6500F56EB2 /* BaseClickAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClickAttribute.h; sourceTree = "<group>"; };
@@ -983,6 +982,10 @@
 		B36E57291B74C0D000471AAC /* ProductModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModal.h; sourceTree = "<group>"; };
 		B36E572A1B74C0D000471AAC /* ProductModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModal.m; sourceTree = "<group>"; };
 		B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
+		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
+		B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrderViewController.m; sourceTree = "<group>"; };
+		B3B82D661B7A0DD3009CC320 /* Menum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menum.h; sourceTree = "<group>"; };
+		B3B82D671B7A0DD3009CC320 /* Menum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menum.m; sourceTree = "<group>"; };
 		B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2130,11 +2133,11 @@
 		63E0341E1AFC995300BD714A /* customerDetail */ = {
 			isa = PBXGroup;
 			children = (
+				B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */,
 				63E0341F1AFC995300BD714A /* Customer.storyboard */,
 				63E034201AFC995300BD714A /* CustomerDetailViewController.h */,
 				B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */,
 				795E1F031B7337B000072A77 /* CustomerOrderViewController.h */,
-				795E1F041B7337B000072A77 /* CustomerOrderViewController.m */,
 				796E09D01B74410000FEBE9A /* CustomerDetailAndOrderViewController.h */,
 				796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */,
 				63E034221AFC995300BD714A /* EditCustomerDetailViewController.h */,
@@ -2149,6 +2152,8 @@
 		63E034241AFC995300BD714A /* customerOrders */ = {
 			isa = PBXGroup;
 			children = (
+				B3B82D661B7A0DD3009CC320 /* Menum.h */,
+				B3B82D671B7A0DD3009CC320 /* Menum.m */,
 				63E034251AFC995300BD714A /* CustomerOrdersUIViewController.h */,
 				63E034261AFC995300BD714A /* CustomerOrdersUIViewController.m */,
 				63E034271AFC995300BD714A /* CustomerOrdersUIViewController.xib */,
@@ -2196,13 +2201,13 @@
 		63F1A17A1B140CF700DE9867 /* Recoomend */ = {
 			isa = PBXGroup;
 			children = (
+				B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */,
 				5ABA4F591AD7A908004AA8F6 /* RecommendViewController.h */,
 				5ABA4F5A1AD7A908004AA8F6 /* RecommendViewController.m */,
 				63F1A1751B134D5D00DE9867 /* RecomViewController.h */,
 				63F1A1761B134D5D00DE9867 /* RecomViewController.m */,
 				63F1A1771B134D5D00DE9867 /* RecomViewController.xib */,
 				63F1A1801B140D4E00DE9867 /* YesterdayViewController.h */,
-				63F1A1811B140D4E00DE9867 /* YesterdayViewController.m */,
 				63F1A1821B140D4E00DE9867 /* YesterdayViewController.xib */,
 				63F1A1851B140D5B00DE9867 /* RecentlyViewController.h */,
 				63F1A1861B140D5B00DE9867 /* RecentlyViewController.m */,
@@ -2618,6 +2623,7 @@
 				5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */,
 				63AE28991B21975800BDB8C1 /* attachmentViewController.m in Sources */,
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
+				B3B82D681B7A0DD3009CC320 /* Menum.m in Sources */,
 				63F1A1B21B14250E00DE9867 /* MJTypeEncoding.m in Sources */,
 				5A69960D1AF855DA002EDD91 /* TravelLoginController.m in Sources */,
 				632BFFCF1AB91FD3003B15AD /* GTMBase65.m in Sources */,
@@ -2633,7 +2639,6 @@
 				63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */,
 				796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
-				795E1F051B7337B000072A77 /* CustomerOrderViewController.m in Sources */,
 				5A52FC6F1ACEBF220076DAE6 /* MeHttpTool.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,
 				B36E57341B74C0D000471AAC /* ProductList.m in Sources */,
@@ -2673,7 +2678,6 @@
 				B36E57361B74C0D000471AAC /* ProductModal.m in Sources */,
 				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
-				63F1A1831B140D4E00DE9867 /* YesterdayViewController.m in Sources */,
 				B36E57321B74C0D000471AAC /* ProductCell.m in Sources */,
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */,
@@ -2755,10 +2759,12 @@
 				63A81B891B39062900D8B37D /* SKBNavBar.m in Sources */,
 				796F36DF1B78641E0089FEE8 /* NormalCollectionCell.m in Sources */,
 				6326131E1AB1C175003AC2DA /* MJRefreshHeaderView.m in Sources */,
+				B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */,
 				5A52FC381ACEBF220076DAE6 /* NSMutableDictionary+QD.m in Sources */,
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,
 				7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
+				B3B82D651B7A0D19009CC320 /* CustomerOrderViewController.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
 				635E70C31B1872AD008EFEB6 /* userIDTableviewController.m in Sources */,

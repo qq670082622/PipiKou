@@ -537,8 +537,13 @@
       
         
         if (type.length>0) {
+            if ([self.tabBarItem.badgeValue intValue]+1 > 99) {
+              
+                self.tabBarItem.badgeValue = @"99+";
+                
+            }else{
             self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue]+1];
-
+            }
             [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
             
         [self getVoice];
@@ -986,7 +991,8 @@
                 if ([json[@"RecommendProduct"][@"Count"] integerValue] > 0) {
                 
 //                    [HomeHttpTool getRecommendProductListWithParam:@{@"DateRangeType":@"1"} success:^(id recommendJson) {
-//                        NSLog(@"-------------今日推荐新接口数据是:%@--------------",recommendJson);
+                    
+            NSLog(@"-------------今日推荐新接口数据是:%@--------------",json[@"RecommendProduct"]);
 //                    } failure:^(NSError *error) {
 //                        
 //                    }];
@@ -1415,8 +1421,19 @@
     self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
 
 //   ***************************
+    NSString *biao = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
     
+    if ([biao intValue] > 99) {
+        
+        self.tabBarItem.badgeValue = @"99+";
+        
+    }else{
      self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - [self.barButton.badgeValue intValue]];
+    }
+    
+    
+    
+  
     
 //   ***************************
     
@@ -1552,7 +1569,18 @@
 {
     HomeBase *model = self.dataSource[indexPath.row];
     NSLog(@"self.tabBarItem.badgeValue = %d", [self.tabBarItem.badgeValue intValue]);
-    self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+    
+    
+    
+    NSString *fff = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+    if ([fff intValue] > 99) {
+        self.tabBarItem.badgeValue = @"99+";
+        
+    }else{
+        self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.tabBarItem.badgeValue intValue] - 1];
+    }
+    
+    
     if ([self.tabBarItem.badgeValue intValue] <= 0) {
         self.tabBarItem.badgeValue = nil;
         [UIApplication sharedApplication].applicationIconBadgeNumber = 0;
