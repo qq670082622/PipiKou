@@ -129,7 +129,7 @@
     self.navigationItem.rightBarButtonItems = @[barItem,allItem];
     
     
-  }
+}
 
 
 -(void)EditCustomerDetail
