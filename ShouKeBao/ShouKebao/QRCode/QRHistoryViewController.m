@@ -60,15 +60,15 @@
     self.table.footerPullToRefreshText = @"上拉刷新";
     self.table.footerRefreshingText = @"正在刷新";
 
+    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
     
-    
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+//    self.navigationItem.leftBarButtonItem= leftItem;
     
     [self stepRightItem];
      self.title = @"识别纪录";
@@ -83,31 +83,12 @@
         self.logindeleteBT.hidden = YES;
         self.logindeleteLB.hidden = YES;
     }
-    [self setUpleftBarButtonItems];
     [self loadNewData];
 }
--(void)setUpleftBarButtonItems
-{
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
-    back.frame = CGRectMake(0, 0, 45, 10);
-    [back setTitle:@"〈返回" forState:UIControlStateNormal];
-    back.titleLabel.font = [UIFont systemFontOfSize:14];
-    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
-    
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
-}
-- (void)turnOff{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
+
+//- (void)turnOff{
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoQRHistoryViewController"];

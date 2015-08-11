@@ -29,6 +29,7 @@ typedef enum{
 @property (weak, nonatomic) IBOutlet UIWebView *webView;
 //@property (nonatomic, assign)BOOL isQRcode;
 //@property (nonatomic, assign)BOOL isRecommend;
+@property (nonatomic) NSInteger m;
 @property (nonatomic, assign)JumpinFrom fromType;
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy,nonatomic) NSString *productName;

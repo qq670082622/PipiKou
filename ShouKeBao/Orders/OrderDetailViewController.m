@@ -70,6 +70,7 @@
     
     NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(findIsCall) userInfo:nil repeats:YES];
     self.timer = timer;
+    self.isBack = NO;
 //    将方法添加到nsrunloop中
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setRightBtn];
@@ -231,12 +232,6 @@
     
 }
 - (void)doIfInWebWithUrl:(NSString *)rightUrl{
-    if ([self.webView canGoBack]) {
-        [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
-    }else{
-        self.navigationItem.leftBarButtonItem = nil;
-        self.navigationItem.leftBarButtonItem = leftItem;
-    }
     if ([rightUrl containsString:@"Product/ProductDetail"]) {
         self.title = @"产品详情";
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -249,12 +244,18 @@
     self.title = @"订单详情";
     }
     if ([rightUrl containsString:@"/Order/Detail/"]) {
-        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        BaseClickAttribute *dict =
+        [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailClick" attributes:dict];
     }
     if (self.isBack) {
-        
-        
+        if ([self.webView canGoBack]) {
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+        }
+
         if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"FromOrderDetailProductPrice" attributes:dict];
@@ -268,17 +269,32 @@
             [MobClick event:@"OrderAll" attributes:dict];
             
         }
+    }else{
+
+        
     }
 
 }
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 
 {
+    if (self.isBack) {
+        if ([self.webView canGoBack]) {
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+        }
+    }else{
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = leftItem;
+    }
+    self.isBack = NO;
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     NSString *rightUrl = webView.request.URL.absoluteString;
     [self doIfInWebWithUrl:rightUrl];
 
-    self.isBack = NO;
+    //self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
 
     self.rightButton.hidden = YES;
@@ -301,6 +317,15 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    if (self.isBack) {
+        if ([self.webView canGoBack]) {
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+        }
+    }
+    self.isBack = NO;
     [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }

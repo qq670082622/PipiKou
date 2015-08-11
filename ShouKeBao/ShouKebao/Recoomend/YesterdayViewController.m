@@ -22,6 +22,9 @@
 #import "BaseClickAttribute.h"
 #define pageSize @"12"
 @interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
+{
+    NSInteger t;
+}
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property(nonatomic,strong) NSMutableArray *dataArr;
 
@@ -56,7 +59,7 @@
     self.automaticallyAdjustsScrollViewInsets = NO;
 
     self.pageIndex = 1;
-    
+    t = 0;
     
     //下啦刷新
     [self.table addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
@@ -248,6 +251,8 @@
     yesterDayModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.detail2  = detail;
+    web.m = t;
+    NSLog(@"+++%ld",web.m);
     web.fromType = FromRecommend;
     web.produceUrl = detail.LinkUrl;
     [self.navigationController pushViewController:web animated:YES];

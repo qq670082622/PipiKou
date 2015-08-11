@@ -18,6 +18,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDataSource];
+    //self.navigationItem.leftBarButtonItem = leftItem;
     self.webView.delegate  = self;
 }
 #pragma mark - loadDataSource
@@ -41,6 +42,15 @@
     [self.webView loadRequest:request];
 }
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
+    if ([self.webView canGoBack]) {
+        self.navigationItem.leftBarButtonItem = nil;
+        [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+    }else{
+        self.navigationItem.leftBarButtonItem = nil;
+        self.navigationItem.leftBarButtonItem = leftItem;
+        
+    }
+
     [super webViewDidFinishLoad:webView];
 //    NSLog(@"%@", webView.request.URL.absoluteString);
 //     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('lyqwebview_title').value"];

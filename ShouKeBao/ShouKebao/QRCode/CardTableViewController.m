@@ -74,13 +74,13 @@
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.sexLab,self.countryLab,self.cardNum,self.bornLab,self.startDayLab,self.startPointLab,self.effectiveLab, nil]];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor blueColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+//    self.navigationItem.leftBarButtonItem= leftItem;
     
     if (_ModifyDate.length<1) {
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
@@ -102,33 +102,33 @@
     }
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.nameText];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FieldTextChange:) name:UITextFieldTextDidChangeNotification object:self.cardNumText];
-
-    [self setUpleftBarButtonItems];
+    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+    //[self setUpleftBarButtonItems];
     [self changeButton];
 
 }
--(void)setUpleftBarButtonItems
-{
-    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
-    back.frame = CGRectMake(0, 0, 45, 10);
-    [back setTitle:@"〈返回" forState:UIControlStateNormal];
-    back.titleLabel.font = [UIFont systemFontOfSize:14];
-    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
-    
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
-}
-- (void)turnOff{
-    [self.navigationController popToRootViewControllerAnimated:YES];
-}
+//-(void)setUpleftBarButtonItems
+//{
+//    UIButton *back = [UIButton buttonWithType:UIButtonTypeSystem];
+//    back.frame = CGRectMake(0, 0, 45, 10);
+//    [back setTitle:@"〈返回" forState:UIControlStateNormal];
+//    back.titleLabel.font = [UIFont systemFontOfSize:14];
+//    [back setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    [back addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] initWithCustomView:back];
+//    
+//    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+//    turnOff.titleLabel.font = [UIFont systemFontOfSize:14];
+//    turnOff.frame = CGRectMake(0, 0, 30, 10);
+//    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+//    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+//    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+//    [self.navigationItem setLeftBarButtonItems:@[backItem,turnOffItem] animated:YES];
+//}
+//- (void)turnOff{
+//    [self.navigationController popToRootViewControllerAnimated:YES];
+//}
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];

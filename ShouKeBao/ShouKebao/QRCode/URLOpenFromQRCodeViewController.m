@@ -25,13 +25,7 @@
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.url]];
     [self.web loadRequest:request];
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
+    [self setNav];
    
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
@@ -43,6 +37,34 @@
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 30)];
     lab.text = _url;
     [self.view.window addSubview:lab];
+}
+- (void)setNav{
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
+    
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    
+   UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    
+    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
+    turnOff.frame = CGRectMake(0, 0, 30, 10);
+    [turnOff addTarget:self action:@selector(turnOff1) forControlEvents:UIControlEventTouchUpInside];
+    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+   UIBarButtonItem * turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+}
+-(void)turnOff1
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
