@@ -49,11 +49,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    
     self.flag = YES;
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    if (!self.isFromEmpty) {
+        [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
+    }
+    
     NSString *st = [def objectForKey:@"markYesterday"];
     self.markUrl  = [def objectForKey:@"markYesterday"];
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);    
@@ -301,10 +303,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//          return 160;
-    
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+
     NSString *tag = [self.tagDiction objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
     if ([tag isEqualToString:@"1"]){
         return 330;
