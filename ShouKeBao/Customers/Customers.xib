@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7702" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="Customers">
@@ -43,11 +43,6 @@
                         <action selector="customSearch:" destination="-1" eventType="touchUpInside" id="Sd9-Dc-d95"/>
                     </connections>
                 </button>
-                <view contentMode="scaleToFill" id="URx-79-hYV" userLabel="blueLine">
-                    <rect key="frame" x="0.0" y="83" width="320" height="22"/>
-                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                    <color key="backgroundColor" red="0.83137254901960789" green="0.87058823529411766" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
-                </view>
                 <view contentMode="scaleToFill" id="JzP-XY-h4A">
                     <rect key="frame" x="0.0" y="45" width="320" height="45"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
@@ -87,11 +82,11 @@
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
                 <view contentMode="scaleToFill" id="Kz6-iZ-cJA" userLabel="tableSuperView">
-                    <rect key="frame" x="0.0" y="100" width="320" height="380"/>
+                    <rect key="frame" x="0.0" y="90" width="320" height="390"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
                         <tableView clipsSubviews="YES" tag="1" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="vxd-KI-xbc">
-                            <rect key="frame" x="0.0" y="0.0" width="320" height="380"/>
+                            <rect key="frame" x="0.0" y="0.0" width="320" height="390"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             <connections>
@@ -193,16 +188,6 @@
                             <rect key="frame" x="0.0" y="55" width="320" height="425"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
-                                <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tQq-UU-4wX">
-                                    <rect key="frame" x="15" y="31" width="290" height="394"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                    <color key="sectionIndexBackgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
-                                    <connections>
-                                        <outlet property="dataSource" destination="-1" id="InX-WV-etH"/>
-                                        <outlet property="delegate" destination="-1" id="lCI-Ql-Ir5"/>
-                                    </connections>
-                                </tableView>
                                 <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="t6A-DR-fU3">
                                     <rect key="frame" x="80" y="88" width="160" height="200"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -214,6 +199,16 @@
                                     <color key="textColor" white="0.55653908639143734" alpha="1" colorSpace="calibratedWhite"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <tableView clipsSubviews="YES" tag="2" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="tQq-UU-4wX">
+                                    <rect key="frame" x="15" y="31" width="290" height="394"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="sectionIndexBackgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                                    <connections>
+                                        <outlet property="dataSource" destination="-1" id="InX-WV-etH"/>
+                                        <outlet property="delegate" destination="-1" id="lCI-Ql-Ir5"/>
+                                    </connections>
+                                </tableView>
                             </subviews>
                             <color key="backgroundColor" red="0.90196078431372551" green="0.90196078431372551" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
                         </view>

@@ -10,7 +10,8 @@
 
 @interface HeaderSectionView : UICollectionReusableView
 @property (strong, nonatomic) IBOutlet UIButton *allBtn;
-
+@property (nonatomic, strong)UINavigationController * FindProductNav;
 @property (strong, nonatomic) IBOutlet UIView *spotView;
 @property (strong, nonatomic) IBOutlet UILabel *nameLab;
+@property (strong, nonatomic) IBOutlet UIView *seperateLine;
 @end
