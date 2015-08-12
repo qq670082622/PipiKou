@@ -479,9 +479,9 @@
 //    NSString * str = [NSString stringWithFormat:@"%@%@%@", self.shareInfo[@"Title"], self.shareInfo[@"Desc"], self.shareInfo[@"Url"]];
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareInfo];
     self.shareInfo = new;
-    NSString * str = [[(NSString *)self.shareInfo[@"Url"] componentsSeparatedByString:@"?"]firstObject];
-    NSLog(@"shareInfoIs %@",new);
-    NSString * title = [(NSString *)self.shareInfo[@"Title"] stringByReplacingCharactersInRange:NSMakeRange(10, 10) withString:@".."];
+//    NSString * str = [[(NSString *)self.shareInfo[@"Url"] componentsSeparatedByString:@"?"]firstObject];
+//    NSLog(@"shareInfoIs %@",new);
+//    NSString * title = [(NSString *)self.shareInfo[@"Title"] stringByReplacingCharactersInRange:NSMakeRange(10, 10) withString:@".."];
 //    if (self.detail) {
 //        self.shareInfo = self.detail.ShareInfo;
 //    }else{
