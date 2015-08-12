@@ -534,8 +534,6 @@
     }else{
        
         NSString *type = message[0];
-      
-        
         if (type.length>0) {
             if ([self.tabBarItem.badgeValue intValue]+1 > 99) {
               
