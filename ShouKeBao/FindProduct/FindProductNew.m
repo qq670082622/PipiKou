@@ -37,6 +37,7 @@
 @property (nonatomic, strong) NSMutableArray * hottDataArray;
 @property (strong, nonatomic) NSMutableArray *hotSectionArr;
 @property (nonatomic, strong)NSMutableArray * NomalDataArray;
+@property (strong, nonatomic) IBOutlet UIButton *stationName;
 @property (nonatomic, strong)UIView * selectBackGroundView;
 - (IBAction)ProductSearch:(id)sender;
 - (IBAction)selectStaion:(id)sender;
@@ -51,6 +52,26 @@
     [self loadDataSourceLeft];
     [self loadHotData];
 }
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [MobClick beginLogPageView:@"FindProduct"];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"FindProductNum" attributes:dict];
+    [MobClick event:@"ShouKeBaoAndFindproductNum" attributes:dict];
+    NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
+    NSString *subStationName = [udf stringForKey:@"SubstationName"];
+    if (subStationName) {
+        [self.stationName setTitle:subStationName forState:UIControlStateNormal];
+    }else if (!subStationName){
+        [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
+    }
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"FindProduct"];
+}
+
 - (void)firstSetView{
     self.leftTableView.delegate = self;
     self.leftTableView.dataSource = self;
@@ -225,6 +246,17 @@
     if (indexPath.row == self.SelectNum) {
         return;
     }
+    leftModal * model = self.leftDataArray[indexPath.row];
+    //左边栏点击事件统计
+    NSDictionary * dic = @{};
+    if (indexPath.row == 0) {
+        dic = @{@"SubName":@"热门推荐"};
+    }else{
+        dic = @{@"SubName":model.Name};
+    }
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+    [MobClick event:@"FindProductSubNameClick" attributes:dict];
+
     self.SelectNum = indexPath.row;
     LeftTableCell * cell = (LeftTableCell *)[tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 0) {
@@ -232,7 +264,6 @@
         cell.iconImage.image = [UIImage imageNamed:@"APPhot2"];
         [self loadHotData];
     }else{
-        leftModal * model = self.leftDataArray[indexPath.row];
         [cell.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIconFocus] placeholderImage:nil];
         if ([model.Name isEqualToString:@"邮轮"]) {
             self.leftSelectType = SelectTypeShip;

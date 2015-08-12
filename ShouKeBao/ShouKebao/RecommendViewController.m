@@ -524,6 +524,7 @@
     
     return YES;
 }
+
 -(void)addAlert
 {
     

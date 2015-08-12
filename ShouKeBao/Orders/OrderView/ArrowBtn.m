@@ -35,7 +35,14 @@
     }
     return self;
 }
-
+-(void)setIconImage:(UIImage *)iconImage{
+    _iconImage = iconImage;
+    self.icon.image = iconImage;
+}
+-(void)setTextColor:(UIColor *)textColor{
+    _textColor = textColor;
+    self.title.textColor = textColor;
+}
 - (void)setText:(NSString *)text
 {
     _text = text;

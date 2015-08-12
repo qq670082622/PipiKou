@@ -23,8 +23,9 @@
 #import "BaseClickAttribute.h"
 #import "ScanningViewController.h"
 #import "CustomerDetailAndOrderViewController.h"
+#import "ArrowBtn.h"
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,UIScrollViewDelegate,UIScrollViewDelegate,addCustomerToReferesh, DeleteCustomerDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,addCustomerToReferesh, DeleteCustomerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -44,7 +45,11 @@
 @property (weak, nonatomic) IBOutlet UIView *historyView;
 @property (weak, nonatomic) IBOutlet UITableView *historyTable;
 @property (nonatomic,strong) NSMutableArray *historyArr;
+//两个button的父视图
 @property (weak, nonatomic) IBOutlet UIView *conditionLine;
+@property (nonatomic, strong)ArrowBtn * timeButton;
+@property (nonatomic, strong)ArrowBtn * wordButton;
+
 @property (weak,nonatomic) IBOutlet UIImageView *imageViewWhenIsNull;
 @property (weak, nonatomic) IBOutlet UIButton *addNew;
 @property (weak, nonatomic) IBOutlet UIButton *importUser;
@@ -79,11 +84,13 @@
     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
      [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    self.timeBtn.hidden = YES;
+    self.wordBtn.hidden = YES;
    self.title = @"管客户";
     self.table.delegate = self;
     self.table.dataSource = self;
     self.table.rowHeight = 64;
-   
+    
     self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -92,14 +99,6 @@
     
     //self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
     
-    CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
-    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
-    lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
-    lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-    
-   [self.conditionLine addSubview:lineDown];
-    [self.conditionLine addSubview:lineOn];
     
     //self.table.tableFooterView = [[UIView alloc] init];
     
@@ -108,7 +107,7 @@
      [self customerRightBarItem];
     
      [self initPull];
-    
+    [self setContentView];
    
     //    通知中心的使用
     //  1,获取通知中心,注册一个观察者和事件
@@ -118,6 +117,38 @@
     //  2, 在通知中心中, 添加在一个观察者和观察的事件
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
    
+}
+- (void)setContentView{
+    CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
+    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
+    lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
+    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
+    lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
+    
+    [self.conditionLine addSubview:lineDown];
+    [self.conditionLine addSubview:lineOn];
+
+    ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
+    [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.conditionLine addSubview:leftBtn];
+    self.timeButton = leftBtn;
+    
+    
+    ArrowBtn *rightBtn = [[ArrowBtn alloc] init];
+    [rightBtn addTarget:self action:@selector(wordOrderAction:) forControlEvents:UIControlEventTouchUpInside];
+    [self.conditionLine addSubview:rightBtn];
+    self.wordButton = rightBtn;
+    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+    
+    self.timeButton.frame = CGRectMake(0, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
+        
+    CGFloat rightX = CGRectGetMaxX(self.timeButton.frame) + 1;
+    self.wordButton.frame = CGRectMake(rightX, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
+    
+    self.timeButton.text = @"时间排序";
+    self.wordButton.text = @"字母排序";
+    [self.conditionLine addSubview:self.timeButton];
+    [self.conditionLine addSubview:self.wordButton];
 }
 //设置区头
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
@@ -200,9 +231,8 @@
 
 -(void)customerRightBarItem
 {
-
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
     
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
     self.navigationItem.rightBarButtonItem= barItem;
 }
 
@@ -377,14 +407,13 @@
 
 }
 
-- (void)deleteTableViewCell
+- (void)deleteTableViewCellwithId:(NSString *)ID
 {
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"删除中...";
     [hudView show:YES];
-    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:self.ID forKey:@"CustomerID"];
+    [dic setObject:ID forKey:@"CustomerID"];
     
     [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
         NSLog(@"删除客户信息成功%@",json);
@@ -518,12 +547,11 @@
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        
-        [self deleteTableViewCell];
+        CustomModel *model = _dataArr[indexPath.row];
+        [self deleteTableViewCellwithId:model.ID];
  // 删除这行
         [self.dataArr removeObjectAtIndex:indexPath.row];
         [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        [self initPull];
     }
 }
 
@@ -634,8 +662,14 @@
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"TimeOrderClick" attributes:dict];
 
+    self.timeButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
+    self.wordButton.textColor = [UIColor blackColor];
+//    if ([self.wordButton.iconImage isEqual:[UIImage imageNamed:@"xiangxiablue"]]) {
+        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxia"];
+//    }else{
+//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangshang"];
+//    }
     
-  //  [self.orderNumBtn setSelected:NO];
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
@@ -649,6 +683,8 @@
         [self.timeBtn setSelected:YES];
          NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
         [accountDefaults setObject:@"2" forKey:@"sortType"];
+        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
+
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
@@ -656,7 +692,10 @@
 
     }else if (self.timeBtn.selected == YES && [self.timeBtn.currentTitle  isEqual: @"时间排序 ↓"]) {
         [self.timeBtn setSelected:YES];
+        
         [self.timeBtn setTitle:@"时间排序 ↑" forState:UIControlStateNormal];
+        //向上箭头设置；
+        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
         [accountDefaults setObject:@"1" forKey:@"sortType"];
         [accountDefaults synchronize];
@@ -666,7 +705,10 @@
 
     }else if (self.timeBtn.selected == YES &&[self.timeBtn.currentTitle isEqual:@"时间排序 ↑"]){
         [self.timeBtn setSelected:YES];
+        [self.timeButton setSelected:YES];
+
         [self.timeBtn setTitle:@"时间排序 ↓" forState:UIControlStateNormal];
+        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
         [accountDefaults setObject:@"2" forKey:@"sortType"];
         [accountDefaults synchronize];
@@ -685,7 +727,13 @@
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"WordOrderClick" attributes:dict];
-
+    self.timeButton.textColor = [UIColor blackColor];
+    self.wordButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
+//    if ([self.timeButton.iconImage isEqual:[UIImage imageNamed:@"xiangshangblue"]]) {
+//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshang"];
+//    }else{
+        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxia"];
+//    }
     
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"加载中...";
@@ -698,13 +746,17 @@
         [self.wordBtn setSelected:YES];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
         [accountDefaults setObject:@"6" forKey:@"sortType"];
+        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
+
         [accountDefaults synchronize];
         [self.dataArr removeAllObjects];
         [self loadDataSource];
         //[self.table reloadData];
     }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↓"]){
         [self.wordBtn setSelected:YES];
+
         [self.wordBtn setTitle:@"字母排序 ↑" forState:UIControlStateNormal];
+           self.wordButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
         [accountDefaults setObject:@"5" forKey:@"sortType"];
         [accountDefaults synchronize];
@@ -714,7 +766,9 @@
 
     }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↑"]){
         [self.wordBtn setSelected:YES];
+
         [self.wordBtn setTitle:@"字母排序 ↓" forState:UIControlStateNormal];
+        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
         [accountDefaults setObject:@"6" forKey:@"sortType"];
         [accountDefaults synchronize];
@@ -843,6 +897,13 @@
     [self initPull];
 }
 
-
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat sectionHeaderHeight = 10;
+    if (scrollView.contentOffset.y<=sectionHeaderHeight&&scrollView.contentOffset.y>=0) {
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    } else if (scrollView.contentOffset.y>=sectionHeaderHeight) {
+        scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
+    }
+}
 
 @end
