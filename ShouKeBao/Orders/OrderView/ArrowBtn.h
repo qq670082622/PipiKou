@@ -11,5 +11,6 @@
 @interface ArrowBtn : UIButton
 
 @property (nonatomic,copy) NSString *text;
-
+@property (nonatomic, strong)UIImage * iconImage;
+@property (nonatomic, strong)UIColor * textColor;
 @end

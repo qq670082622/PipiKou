@@ -48,7 +48,6 @@
         [rightBtn addTarget:self action:@selector(right:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:rightBtn];
         self.rightBtn = rightBtn;
-        
 
         UIView *sep2 = [[UIView alloc] init];
         sep2.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.2];

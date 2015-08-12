@@ -44,7 +44,10 @@
 @end
 
 @implementation RecommendViewController
+-(void)dealloc{
 
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"yincang" object:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
@@ -133,13 +136,10 @@
   
 }
 
-
-
-
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     self.tableView.scrollEnabled = YES;
-    
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"yincang" object:self];
 }
 
 
@@ -352,9 +352,10 @@
 {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height - 107)];
-
+        
         _tableView.dataSource = self;
         _tableView.delegate = self;
+        
         //_tableView.rowHeight = 80;
         // _tableView.separatorInset = UIEdgeInsetsZero;
     }
@@ -524,6 +525,7 @@
     
     return YES;
 }
+
 -(void)addAlert
 {
     

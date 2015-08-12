@@ -466,6 +466,7 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+    NSLog(@"%@", self.shareInfo);
     
     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
     [postDic setObject:@"0" forKey:@"ShareType"];
@@ -478,7 +479,9 @@
 //    NSString * str = [NSString stringWithFormat:@"%@%@%@", self.shareInfo[@"Title"], self.shareInfo[@"Desc"], self.shareInfo[@"Url"]];
     NSMutableDictionary *new =  [StrToDic dicCleanSpaceWithDict:self.shareInfo];
     self.shareInfo = new;
-    NSLog(@"shareInfoIs %@",new);
+//    NSString * str = [[(NSString *)self.shareInfo[@"Url"] componentsSeparatedByString:@"?"]firstObject];
+//    NSLog(@"shareInfoIs %@",new);
+//    NSString * title = [(NSString *)self.shareInfo[@"Title"] stringByReplacingCharactersInRange:NSMakeRange(10, 10) withString:@".."];
 //    if (self.detail) {
 //        self.shareInfo = self.detail.ShareInfo;
 //    }else{
@@ -488,7 +491,7 @@
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
                                                 title:self.shareInfo[@"Title"]
-                                                  url:self.shareInfo[@"Url"]                                          description:self.shareInfo[@"Desc"]
+                                                  url:self.shareInfo[@"Url"]                                           description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
 
     [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
@@ -548,7 +551,6 @@
                                             [string appendString:str];
                                         }
                                         
-//                                        [[[UIAlertView alloc]initWithTitle:@"aaa" message:string delegate:nil cancelButtonTitle:@"222" otherButtonTitles:nil, nil]show];
                                     } failure:^(NSError *error) {
                                         
                                     }];

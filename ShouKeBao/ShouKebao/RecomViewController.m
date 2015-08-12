@@ -19,7 +19,7 @@
 #import "BaseClickAttribute.h"
 #import "MobClick.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
-@interface RecomViewController ()
+@interface RecomViewController ()<UIScrollViewDelegate>
 
 - (IBAction)todayAction:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *todayBtnOutlet;
@@ -57,26 +57,27 @@
     CGFloat lineFromX = self.moveLine.center.x;
     CGFloat lineFromY = self.moveLine.center.y;
     self.normalPoint = CGPointMake(lineFromX, lineFromY);
-
-  
     
+    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
+    moreBtn.frame = CGRectMake(0, 0, 21, 7);
+    [moreBtn setBackgroundImage:[UIImage imageNamed:@"gengduoann"] forState:UIControlStateNormal];
+    [moreBtn addTarget:self action:@selector(setSubViewUp) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
+    self.navigationItem.rightBarButtonItem = moreItem;
     self.title = @"今日推荐";
     
-//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-//  [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-//    
-//    self.navigationItem.leftBarButtonItem= leftItem;
    // [WMAnimations WMAnimationToScaleWithLayer:leftBtn.layer andFromValue:@1.0f andToValue:@2.0f];
     
     self.selectIndex = 0;
     [self addGes];
     
     [self judgeToTurnYesterDay];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(yincang) name:@"yincang" object:nil];
 }
-
+-(void)yincang{
+    leftView.alpha = 0;
+    leftView.hidden = YES;
+}
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
@@ -120,6 +121,7 @@
     
 }
 
+
 -(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
     
         //如果往左滑
@@ -132,7 +134,7 @@
                 [self recentlyAction:nil];
                 self.selectIndex = 2;
             }
-            
+           
             
             
         }else if (recognizer.direction==UISwipeGestureRecognizerDirectionRight)
@@ -147,7 +149,8 @@
             }
             
                   }
-    
+    leftView.alpha = 0;
+    leftView.hidden = YES;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -159,11 +162,11 @@
     
 //    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeSystem];
 //    searchBtn.frame = CGRectMake(0, 0, 15, 15);
-//  //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
+  //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
 //    [searchBtn setBackgroundImage:[UIImage imageNamed:@"sousuoa"] forState:UIControlStateNormal];
 //    [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
 //    UIBarButtonItem *searchItem = [[UIBarButtonItem alloc] initWithCustomView:searchBtn];
-    
+//    
 //    UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
 //    stationBtn.titleLabel.font = [UIFont systemFontOfSize:16];
 //    stationBtn.frame = CGRectMake(25, 0, 50, 30);
@@ -177,58 +180,66 @@
 //    [stationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
 //   
 //    UIBarButtonItem *stationItem = [[UIBarButtonItem alloc] initWithCustomView:stationBtn];
-   
-    UIButton *moreBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-    moreBtn.frame = CGRectMake(0, 0, 21, 7);
-    //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
-    [moreBtn setBackgroundImage:[UIImage imageNamed:@"gengduoann"] forState:UIControlStateNormal];
-    [moreBtn addTarget:self action:@selector(moreBtn) forControlEvents:UIControlEventTouchUpInside];
-//    [moreBtn setTitle:@"更多" forState:UIControlStateNormal];
-//    [moreBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    moreBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 0);
-//    moreBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    UIBarButtonItem *moreItem = [[UIBarButtonItem alloc] initWithCustomView:moreBtn];
-      //self.leftItem = searchItem;
+//    self.navigationItem.rightBarButtonItem = stationItem;
+        //  [searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
+          //self.leftItem = searchItem;
     //self.rightItem = stationItem;
-    
-    self.navigationItem.rightBarButtonItem = moreItem;
-    //[self.navigationItem setRightBarButtonItems:@[searchItem,stationItem] animated:YES];
-    leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3, 50, kScreenSize.width/3, kScreenSize.height/5)];
-    leftView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@""]];
-    
-    leftView.alpha = 0;
-    [self.view addSubview:leftView];
-    isXianShi = NO;
+//
+   
+
+    //self.navigationItem.leftBarButtonItems = @[stationBtn,searchBtn];
 }
--(void)moreBtn{
-    if (isXianShi) {
-        leftView.alpha = 0;
-        isXianShi = NO;
-    }else{
-        leftView.alpha = 1;
-        isXianShi = YES;
-    }
+-(void)viewDidAppear:(BOOL)animated{
+    leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-140, 0, 130, 60)];
+    leftView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lansedia"]];
+    UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    stationBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    stationBtn.frame = CGRectMake(40, 5, 100, 30);
+    [stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+    [stationBtn setImage:[UIImage imageNamed:@"qiehuana"] forState:UIControlStateNormal];
+    stationBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 10);
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *stationName = [def objectForKey:@"SubstationName"];
     
-    NSLog(@"正在加载更多");
-  
+    [stationBtn setTitle:[NSString stringWithFormat:@"切换分站(%@)",stationName]  forState:UIControlStateNormal];
+    stationBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 10);
+    [stationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    
+    UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    searchBtn.frame = CGRectMake(40, 40, 80, 30);
+    //[searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
+    [searchBtn setImage:[UIImage imageNamed:@"bigsousuo"] forState:UIControlStateNormal];
+    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(-20, -61, 0, 10);
+    [searchBtn setTitle:@"查找产品" forState:UIControlStateNormal];
+    searchBtn.titleEdgeInsets = UIEdgeInsetsMake(-20, -47, 0, 10);
+    searchBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
+    
+    [leftView addSubview:searchBtn];
+    [leftView addSubview:stationBtn];
+    leftView.alpha = 0;
+    leftView.hidden = YES;
+    [self.view addSubview:leftView];
+
 }
 
 -(void)viewWillDisappear:(BOOL)animated{
     [super   viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoRecomView"];
-
 }
 //
 -(void)changeStation
 {
-    [self.navigationController pushViewController:[[StationSelect alloc] init] animated:YES];
+    [leftView removeFromSuperview];
+    StationSelect * station =[ [StationSelect alloc] init];
+    [self.navigationController pushViewController:station animated:YES];
 }
 
 -(void)searchAction
 {
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"RecommendSearchClick" attributes:dict];
-
+    [leftView removeFromSuperview];
     [self.navigationController pushViewController:[[SearchProductViewController alloc] init] animated:YES];
 }
 //此处 添加 动画效果
@@ -238,20 +249,21 @@
     [MobClick event:@"CustomAddClick" attributes:dict];
     
     if (leftView.hidden == YES) {
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.6 animations:^{
             leftView.alpha = 0;
            leftView.alpha = 1;
             //leftView.hidden = NO;
-            
+            leftView.hidden = NO;
+            [self.view bringSubviewToFront:leftView];
         }];
-        
+
     }else if (leftView.hidden == NO){
-        [UIView animateWithDuration:0.8 animations:^{
+        [UIView animateWithDuration:0.6 animations:^{
            leftView.alpha = 1;
             leftView.alpha = 0;
-            //self.subView.hidden = YES;
+            leftView.hidden = YES;
         }];
-        
+       
     }
 }
 
@@ -328,7 +340,8 @@
     [self.recentlyVC.view removeFromSuperview];
         self.selectIndex = 0;
     self.title = @"今日推荐";
-   
+    leftView.alpha = 0;
+    leftView.hidden = YES;
 
     CGFloat lineToX = self.todayBtnOutlet.frame.size.width/2;
     CGFloat lineToY = CGRectGetMaxY(self.todayBtnOutlet.frame)+2;
@@ -357,6 +370,8 @@
     
     self.title = @"昨日推荐";
     
+    leftView.alpha = 0;
+    leftView.hidden = YES;
     
     CGFloat lineToX = self.yesterdayBtnOutlet.frame.origin.x + self.yesterdayBtnOutlet.frame.size.width/2;
     CGFloat lineToY = CGRectGetMaxY(self.yesterdayBtnOutlet.frame)+2;
@@ -382,7 +397,8 @@
 //
 //    }
     
-    
+    leftView.alpha = 0;
+    leftView.hidden = YES;
     self.selectIndex = 2;
         [self.recentlyBtnOutlet setSelected:YES];
     [self.todayBtnOutlet setSelected:NO];

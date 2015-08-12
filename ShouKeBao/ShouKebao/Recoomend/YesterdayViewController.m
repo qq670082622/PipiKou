@@ -25,7 +25,7 @@
 #import "DetailView.h"
 #import "DayDetail.h"
 #define pageSize @"12"
-@interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface YesterdayViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 {
     NSInteger t;
 }
@@ -46,7 +46,10 @@
 @end
 
 @implementation YesterdayViewController
-
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"yincang" object:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.flag = YES;
@@ -64,7 +67,7 @@
     
     self.table.tableFooterView = [[UIView alloc] init];
     self.automaticallyAdjustsScrollViewInsets = NO;
-
+    self.table.delegate = self;
     self.pageIndex = 1;
     t = 0;
     
@@ -157,7 +160,10 @@
         
     }];
 }
-
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+ [[NSNotificationCenter defaultCenter] postNotificationName:@"yincang" object:self];
+    
+}
 - (NSInteger)getEndPage
 {
     NSInteger page = [pageSize integerValue];
