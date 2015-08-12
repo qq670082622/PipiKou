@@ -523,7 +523,7 @@
  // 删除这行
         [self.dataArr removeObjectAtIndex:indexPath.row];
         [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
-        [self initPull];
+        //[self initPull];
     }
 }
 

@@ -23,7 +23,7 @@
 #import "StationSelect.h"
 #define pageSize @"10"
 
-@interface RecentlyViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface RecentlyViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;
 - (IBAction)timeAction:(id)sender;
 
@@ -42,7 +42,10 @@
 @end
 //↓近到远，高到低 ↑远到近，低到高
 @implementation RecentlyViewController
-
+-(void)dealloc{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:@"yincang" object:nil];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -67,7 +70,7 @@
     self.table.headerRefreshingText = @"正在刷新中";
     self.table.footerPullToRefreshText = @"加载更多";
     self.table.footerRefreshingText = @"加载中";
-    
+    self.table.delegate = self;
     //  [self setNav];
     
     
@@ -108,6 +111,11 @@
     self.view.window.backgroundColor = [UIColor clearColor];
     [self headRefresh];
     // [self setupHead];
+    
+    
+}
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    [[NSNotificationCenter defaultCenter] postNotificationName:@"yincang" object:self];
     
     
 }

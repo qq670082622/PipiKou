@@ -12,10 +12,10 @@
 @interface RecomViewController : SKViewController
 {
     UIView *leftView;
-    BOOL isXianShi;
 }
 @property (nonatomic,strong) RecommendViewController *todayVC;
 @property (nonatomic, assign)BOOL isFromEmpty;
+@property (nonatomic) UIView *leftView;
 //@property (nonatomic, strong)NSString *markStr;
 
 @end
