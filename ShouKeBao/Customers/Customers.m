@@ -76,7 +76,6 @@
    // [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     //[self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
  //[self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    
     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
      [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
@@ -120,8 +119,15 @@
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
    
 }
-
-
+//设置区头
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 5)];
+    view.backgroundColor = self.table.backgroundColor;
+    return view;
+}
 //收到通知中心的消息时,观察者(self)要调用方法
 - (void)receiveNotification:(NSNotification *)noti
 {

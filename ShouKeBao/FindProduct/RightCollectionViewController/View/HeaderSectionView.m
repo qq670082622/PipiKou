@@ -7,9 +7,13 @@
 //
 
 #import "HeaderSectionView.h"
-
+#import "ProductList.h"
 @implementation HeaderSectionView
 
 - (IBAction)AllClick:(id)sender {
+    ProductList * productList = [[ProductList alloc]init];
+    productList.pushedSearchK = self.nameLab.text;
+    productList.title = self.nameLab.text;
+    [self.FindProductNav pushViewController:productList animated:YES];
 }
 @end

@@ -203,7 +203,11 @@
     leftModal * model = self.leftDataArray[indexPath.row];
     if (indexPath.row == 0) {
        cell.leftName.text = @"热门推荐";
+        if (cell.selected) {
         cell.iconImage.image = [UIImage imageNamed:@"APPhot2"];
+        }else{
+        cell.iconImage.image = [UIImage imageNamed:@"APPhot"];
+        }
     }else{
     cell.model = model;
     }
@@ -318,11 +322,16 @@
     headerView.allBtn.titleLabel.textColor = colorArray[indexPath.section%5];
     [headerView.allBtn setTitleColor:colorArray[indexPath.section%5] forState:UIControlStateNormal];
     [headerView.allBtn setTitleColor:colorArray[indexPath.section%5] forState:UIControlStateHighlighted];
+    headerView.FindProductNav = self.navigationController;
     if (self.leftSelectType == SelectTypeHot) {
         headerView.nameLab.text = self.hotSectionArr[indexPath.section];
+        headerView.seperateLine.hidden = YES;
+        headerView.allBtn.hidden = YES;
     }else{
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         headerView.nameLab.text = model.title;
+        headerView.seperateLine.hidden = NO;
+        headerView.allBtn.hidden = NO;
     }
     return headerView;
 
