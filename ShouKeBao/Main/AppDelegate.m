@@ -345,8 +345,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 //若应用程序在前期，会直接调用
 //若应用程序为关闭状态则调用：didFinishLaunchingWithOptions方法
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-
-    
     [UMessage setAutoAlert:NO];
 
 //    //  新订单消息推送   订单状态变化消息推送//    orderId（订单Id）
@@ -430,16 +428,6 @@ void UncaughtExceptionHandler(NSException *exception) {
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-    
-//    NSInteger number = 0;
-//    number ++;
-//    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
-//        
-//    }else if ([UIApplication sharedApplication].applicationState == UIApplicationStateBackground){
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = number;
-//    }
-    
     [UMessage setAutoAlert:NO];
     [UMessage didReceiveRemoteNotification:userInfo];
 

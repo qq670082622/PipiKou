@@ -2201,13 +2201,13 @@
 		63F1A17A1B140CF700DE9867 /* Recoomend */ = {
 			isa = PBXGroup;
 			children = (
-				B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */,
 				5ABA4F591AD7A908004AA8F6 /* RecommendViewController.h */,
 				5ABA4F5A1AD7A908004AA8F6 /* RecommendViewController.m */,
 				63F1A1751B134D5D00DE9867 /* RecomViewController.h */,
 				63F1A1761B134D5D00DE9867 /* RecomViewController.m */,
 				63F1A1771B134D5D00DE9867 /* RecomViewController.xib */,
 				63F1A1801B140D4E00DE9867 /* YesterdayViewController.h */,
+				B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */,
 				63F1A1821B140D4E00DE9867 /* YesterdayViewController.xib */,
 				63F1A1851B140D5B00DE9867 /* RecentlyViewController.h */,
 				63F1A1861B140D5B00DE9867 /* RecentlyViewController.m */,
