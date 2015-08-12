@@ -194,7 +194,8 @@
     self.navigationItem.rightBarButtonItem = moreItem;
     //[self.navigationItem setRightBarButtonItems:@[searchItem,stationItem] animated:YES];
     leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3, 50, kScreenSize.width/3, kScreenSize.height/5)];
-    leftView.backgroundColor = [UIColor blueColor];
+    leftView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@""]];
+    
     leftView.alpha = 0;
     [self.view addSubview:leftView];
     isXianShi = NO;

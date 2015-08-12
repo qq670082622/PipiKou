@@ -59,7 +59,7 @@
         turnOff.frame = CGRectMake(0, 0, 30, 10);
         [turnOff addTarget:self action:@selector(turnOff1) forControlEvents:UIControlEventTouchUpInside];
         [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-        turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+        turnOff.titleEdgeInsets = UIEdgeInsetsMake(-2, -35, 0, 0);
         [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
 
