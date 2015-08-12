@@ -184,9 +184,7 @@
 //   删除后需要刷新列表的执行的方法
 //   协议传值3:让第二页的代理人(delegate)执行说好的协议方法 
             [self.delegate deleteCustomerWith:self.keyWordss];
-          
-            
-            
+   
 //            NSLog(@"删除客户信息后%@",dic);
             
             hudView.labelText = @"删除成功...";

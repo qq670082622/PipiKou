@@ -52,11 +52,8 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
     CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
-    
     self.leftButton.frame = CGRectMake(0, 0, screenW * 0.5 - 0.5, self.frame.size.height);
-    
     CGFloat sepX = CGRectGetMaxX(self.leftButton.frame);
     self.sep.frame = CGRectMake(sepX, 5, 1, self.frame.size.height - 10);
     

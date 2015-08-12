@@ -2133,11 +2133,11 @@
 		63E0341E1AFC995300BD714A /* customerDetail */ = {
 			isa = PBXGroup;
 			children = (
-				B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */,
 				63E0341F1AFC995300BD714A /* Customer.storyboard */,
 				63E034201AFC995300BD714A /* CustomerDetailViewController.h */,
 				B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */,
 				795E1F031B7337B000072A77 /* CustomerOrderViewController.h */,
+				B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */,
 				796E09D01B74410000FEBE9A /* CustomerDetailAndOrderViewController.h */,
 				796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */,
 				63E034221AFC995300BD714A /* EditCustomerDetailViewController.h */,

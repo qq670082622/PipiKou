@@ -52,10 +52,7 @@
     self.view.backgroundColor = [UIColor whiteColor ];
     
     [self iniHeader];
-    
-    
-    
-    
+
     // Do any additional setup after loading the view.
 }
 
@@ -73,7 +70,6 @@
     self.tableView.footerPullToRefreshText = @"上拉刷新";
     self.tableView.footerRefreshingText = @"正在刷新";
 }
-
 -(void)headRefresh
 {
     if (self.isNUll) {
@@ -112,9 +108,7 @@
         _tableV.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     }
     return _tableV;
-
 }
-
 - (Menum *)meunm
 {
     if (!_meunm) {
@@ -147,7 +141,6 @@
     }
     return _chooseTime;
 }
-
 - (NSMutableArray *)chooseStatus
 {
     if (!_chooseStatus) {
@@ -164,7 +157,7 @@
 - (void)menumLiftButton:(UIButton *)LiftButton
 {
     CGFloat menuX = self.view.frame.size.width * 0.25 - 30;
-    CGRect frame = CGRectMake(menuX, 153, 135, 45 * 6);
+    CGRect frame = CGRectMake(menuX, 113, 135, 45 * 6);
     [self createMenuWithSelectedIndex:self.LselectedIndex frame:frame dataSource:self.chooseTime direct:0];
 }
 
@@ -174,12 +167,13 @@
 - (void)menumRightButton:(UIButton *)rightButton
 {
     CGFloat menuX = self.view.frame.size.width * 0.75 + 30;
-    CGRect frame = CGRectMake(menuX, 153, 135, 45 * 7);
+    CGRect frame = CGRectMake(menuX, 113, 135, 45 * 7);
     [self createMenuWithSelectedIndex:self.RselectedIndex frame:frame dataSource:self.chooseStatus direct:1];
 }
 
 - (void)createMenuWithSelectedIndex:(NSInteger)SelectedIndex frame:(CGRect)frame dataSource:(NSMutableArray *)dataSource direct:(NSInteger)direct
 {
+    NSLog(@"ssss");
     self.qdmenu = [[QDMenu alloc] init];
     self.qdmenu.direct = direct;
     self.qdmenu.currentIndex = SelectedIndex;
@@ -200,7 +194,6 @@
 }
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     self.isNUll = NO;
     if (menu.direct == 0) {// 时间筛选
         NSLog(@"vvvvv");
@@ -223,9 +216,6 @@
         
         [self.tableView headerBeginRefreshing];
     }
-    
-    
-    
 }
 
 
@@ -233,18 +223,15 @@
 {
     [self remove];
 }
-
 - (void)remove
 {
     [_qdmenu removeFromSuperview];
     self.qdmenu = nil;
     self.qdmenu.delegate = nil;
-    
     // 等待渐变动画执行完
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [_coverView removeFromSuperview];
     });
-
 }
 
 
@@ -288,8 +275,8 @@
 //    }
     
     OrderCell *cell = [OrderCell cellWithTableView:tableView];
-    cell.delegate = self;
-    cell.orderDelegate = self;
+//    cell.delegate = self;
+//    cell.orderDelegate = self;
     cell.indexPath = indexPath;
     
 

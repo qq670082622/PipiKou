@@ -620,8 +620,38 @@
 
 - (IBAction)chooseConditions:(id)sender {
     
+//    [UIView animateWithDuration:0.2 animations:^{
     
+//      [self.coverView setFrame:CGRectMake(0, 667, 375, 667)];
+
+        
     [self setSubViewHideNo];
+        CATransition *transition = [CATransition animation];
+        [transition setDuration:0.5];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromTop;
+        [transition setFillMode:kCAFillModeBoth];
+        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        [self.subView.layer addAnimation:transition forKey:nil];
+
+//    }];
+    
+    
+    
+    
+//  [UIView animateWithDuration:1 delay:0.0 options:0 animations:^{
+//      [self.subView setFrame:CGRectMake(0, 0, 375, 667)];
+//  } completion:^(BOOL finished) {
+//      [UIView animateWithDuration:1 delay:0.0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+////          [self.subView setFrame:CGRectMake(0, 0, 320, 0)];
+//      } completion:^(BOOL finished) {
+//           [self setSubViewHideNo];
+//          
+//      }];
+//  }];
+    
+    
+  
     
 }
 
@@ -786,13 +816,13 @@
         UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
         
-        CGFloat W = self.view.frame.size.width * 0.8;
+        CGFloat W = self.view.frame.size.width;
         
         self.subView.frame = CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height);
         [cover addSubview:self.subView];
         self.coverView = cover;
         [self.view.window addSubview:cover];
-        
+
         NSArray *priceData = [WriteFileManager readData:@"priceData"];
         if (priceData.count == 3) {
             [self.priceBtnOutlet setTitle:priceData[2] forState:UIControlStateNormal];
@@ -807,6 +837,7 @@
         
         [UIView animateWithDuration:0.3 animations:^{
             self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
+ 
             
             //  NSString *str = [_pushedArr firstObject][@"Text"];
             if (_pushedArr.count == 0) {
@@ -841,16 +872,22 @@
 
 -(void)clickBlackViewToHide
 {
-    [UIView animateWithDuration:0.3 animations:^{
+    [UIView animateWithDuration:0.0 animations:^{
         
         self.subView.transform = CGAffineTransformIdentity;
+        
     } completion:^(BOOL finished) {
          NSLog(@"hhhhhhh  ");
         [self.coverView removeFromSuperview];
-       
-        
-        // [_dressView removeFromSuperview];
     }];
+    NSLog(@"dffff");
+
+//    [UIView transitionFromView:self.subView toView:nil duration:1 options:UIViewAnimationOptionTransitionFlipFromRight completion:^(BOOL finished) {
+//        self.subView.transform = CGAffineTransformIdentity;
+//        
+//    }];
+//    
+    
     
     
 }
@@ -2039,15 +2076,30 @@
 //    self.pageCountBtn.hidden = NO;
     [self.backToTopBtn addSubview:self.pageCountBtn];
 
+//    
+
     
+//  动画
+//      [UIView transitionFromView:self.subView toView:nil duration:0.5 options:UIViewAnimationOptionTransitionFlipFromBottom completion:^(BOOL finished) {
+//                self.subView.transform = CGAffineTransformIdentity;
+//        [self.coverView removeFromSuperview];
+//            }];
+
     [UIView animateWithDuration:0.3 animations:^{
-        
         self.subView.transform = CGAffineTransformIdentity;
+        CATransition *transition = [CATransition animation];
+        [transition setDuration:0.5];
+        transition.type = kCATransitionPush;
+        transition.subtype = kCATransitionFromBottom;
+        [transition setFillMode:kCAFillModeBoth];
+        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+        [self.subView.layer addAnimation:transition forKey:nil];
     } completion:^(BOOL finished) {
         
         [self.coverView removeFromSuperview];
-        // [_dressView removeFromSuperview];
     }];
+
+    
     
     [self scrollViewDidScroll:nil];
     
