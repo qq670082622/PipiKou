@@ -51,9 +51,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    if (!self.isFromEmpty) {
-        [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
-    }
+//    if (!self.isFromEmpty) {
+//        [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
+//    }
+    
     self.flag = YES;
     [self loadDataSource];
     NSString *st = [def objectForKey:@"markStr"];
@@ -121,18 +122,18 @@
 
 - (void)scrollTableView
 {
-    NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
-    NSString *num = [mark objectForKey:@"num"];
-    NSInteger number = [num integerValue];
-
-    NSLog(@"iii = %ld", number);
+//    NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
+//    NSString *num = [mark objectForKey:@"num"];
+//    NSInteger number = [num integerValue];
+//
+//    NSLog(@"iii = %ld", number);
     
-    NSIndexPath *index = [NSIndexPath indexPathForRow:number inSection:0];
+    NSIndexPath *index = [NSIndexPath indexPathForRow:self.number inSection:0];
     [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
 // 记得移除掉
-    [mark setObject:@"" forKey:@"num"];
-    [mark synchronize];
+//    [mark setObject:@"" forKey:@"num"];
+//    [mark synchronize];
   
 }
 
@@ -192,6 +193,14 @@
                 DayDetail *detail = [DayDetail dayDetailWithDict:dic];
                 [self.dataSource addObject:detail];
             }
+          
+//根据id判断在前一页面点击进入的时候的产品 对应 这个界面数组里面的具体哪一个。来置顶
+            for (NSInteger i = 0; i < self.dataSource.count; i++) {
+                if ([((DayDetail *)self.dataSource[i]).PushId isEqualToString: _markUrl] && !self.isFromEmpty) {
+                    [self.tagDic setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", i]];
+                    self.number = i;
+                }}
+    
             [self.tableView reloadData];
             [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
             
@@ -392,10 +401,8 @@
     
     //    if (indexPath.row == 2) {
     //        [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:13/255.f green:153/255.f blue:252/255.f alpha:1]  andBorderWidth:3 andNeedShadow:normal];
-    //
     //           }
-    
-    
+
     if (self.flag) {
         [self scrollTableView];
         self.flag = NO;
@@ -411,11 +418,12 @@
     UIButton *btn = (UIButton *)sender;
     
     NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
-    
+            NSLog(@" ****  dddd  %@", tag);
     if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
         [self.tagDic setObject:@"0" forKey:tag];
     }else{
         [self.tagDic setObject:@"1" forKey:tag];}
+    NSLog(@"666  %@", self.tagDic);
     [_tableView beginUpdates];
     [_tableView endUpdates];
     
@@ -437,16 +445,13 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
-    NSLog(@"tag === %@", tag);
+    NSString *tag = [self.tagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+//        NSLog(@"222111111  %@", tag);
     if ([tag isEqualToString:@"1"]){
-                return 330;
+        return 330;
     }else{
         return 220;
     }
-    
-    
-    
 }
 
 #pragma mark - MGSwipeTableCellDelegate

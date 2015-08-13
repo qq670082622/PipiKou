@@ -42,6 +42,7 @@
 @property (nonatomic, assign)BOOL flag;
 @property (nonatomic,strong) NSMutableDictionary *tagDiction;
 
+@property(nonatomic, assign)NSInteger number;
 
 @end
 
@@ -53,12 +54,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.flag = YES;
-    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-    if (!self.isFromEmpty) {
-        [self.tagDic setObject:@"1" forKey:[def objectForKey:@"num"]];
-    }
-    
+
     NSString *st = [def objectForKey:@"markYesterday"];
     self.markUrl  = [def objectForKey:@"markYesterday"];
     NSLog(@"-----st is %@---markUrl is %@--------------",st,_markUrl);    
@@ -85,7 +82,7 @@
     
     //  [self setNav];
     
-    [self loadDataSource];
+//    [self loadDataSource];
     // 第一次加载的时候显示这个hud
     //  [self showHudInView:self.view hint:@"正在加载中"];
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
@@ -148,10 +145,18 @@
             
             for (NSDictionary *dic in json[@"ProductList"]) {
                 DayDetail *detail = [DayDetail dayDetailWithDict:dic];
-       
                 [self.dataArr addObject:detail];
-                
             }
+            
+// 这块儿与今日推荐一样 也是为了在这个界面确定点击的是第几个元素，但不同的是 当点击进入“今日” 之后再切换到“昨日”时，得注意判断，因为!self.isFromEmpty是成立的
+
+            for (NSInteger i = 0; i < self.dataArr.count; i++) {
+                if ([((DayDetail *)self.dataArr[i]).PushId isEqualToString: _markUrl] && !self.isFromEmpty) {
+                         NSLog(@"_____%d", self.isFromEmpty);       
+                    [self.tagDiction setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", i]];
+                    self.number = i;
+                }  }
+                
             [self.table reloadData];
             [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
             NSLog(@"self.dataArr aaaaaaaa  %@",self.dataArr);
@@ -196,15 +201,15 @@
 
 - (void)scrollTableView
 {
-    NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
-    NSString *num = [mark objectForKey:@"num"];
-    NSInteger number = [num integerValue];
-    self.index = [NSIndexPath indexPathForRow:number inSection:0];
+//    NSUserDefaults *mark = [NSUserDefaults standardUserDefaults];
+//    NSString *num = [mark objectForKey:@"num"];
+//    NSInteger number = [num integerValue];
+    self.index = [NSIndexPath indexPathForRow:self.number inSection:0];
  
     [self.table scrollToRowAtIndexPath:self.index atScrollPosition:UITableViewScrollPositionTop animated:NO];
     self.table.scrollEnabled = YES;
-    [mark setObject:@"" forKey:@"num"];
-    [mark synchronize];
+//    [mark setObject:@"" forKey:@"num"];
+//    [mark synchronize];
     
     
 }
@@ -221,7 +226,7 @@
     }
     return _dataArr;
 }
--(NSMutableDictionary *)tagDic
+-(NSMutableDictionary *)tagDiction
 {
     if (_tagDiction == nil) {
         self.tagDiction = [NSMutableDictionary dictionary];
@@ -236,19 +241,14 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-
-//    YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
-//    cell.modal = self.dataArr[indexPath.row];
-//
-//    NSLog(@"---- push = %@, mark = %@", cell.modal.PushId, _markUrl);
-
+    
     DayDetailCell *cell = [DayDetailCell cellWithTableView:tableView withTag:indexPath.row];
     DayDetail *detail = (DayDetail *)self.dataArr[indexPath.row];
     cell.detail = detail;
     
     [cell.descripBtn setTag:indexPath.row];
-    [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
-    
+    [cell.descripBtn addTarget:self action:@selector(changeHeightAction:) forControlEvents:UIControlEventTouchUpInside];
+    NSLog(@"^^^^   %ld", cell.descripBtn.tag);
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
         [self.tagDiction setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
@@ -276,20 +276,25 @@
     return cell;
 }
 
--(void)changeHeight:(id)sender
+-(void)changeHeightAction:(id)sender
 {
+   
     UIButton *btn = (UIButton *)sender;
     
     NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
-    
-    if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
-        [self.tagDic setObject:@"0" forKey:tag];
+    NSLog(@" ****  dddd  %@", tag);
+    if ([[self.tagDiction objectForKey:tag] isEqualToString:@"1"]) {
+        [self.tagDiction setObject:@"0" forKey:tag];
     }else{
-        [self.tagDic setObject:@"1" forKey:tag];}
+        [self.tagDiction setObject:@"1" forKey:tag];
+    NSLog(@"666  33333");
+    }
+    NSLog(@"666  %@", self.tagDiction);
     [_table beginUpdates];
     [_table endUpdates];
     
 }
+
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -311,7 +316,8 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
 
-    NSString *tag = [self.tagDiction objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row] ];
+    NSString *tag = [self.tagDiction objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
+    NSLog(@"111111  %@", tag);
     if ([tag isEqualToString:@"1"]){
         return 330;
     }else{
