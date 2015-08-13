@@ -417,13 +417,13 @@
             
             self.subIndicateDataArr2[a] = selectValue;
         }
-        self.coverView.hidden = NO;
+        self.subView.hidden = NO;
         NSLog(@"subindicateArr 1 :------------%@------------- 2:%@--------------- ",_subIndicateDataArr1,_subIndicateDataArr2);
         [self.subTable reloadData];
         //[self loadDataSourceWithCondition];
         
     }else if (!value){
-        self.coverView.hidden = NO;
+        self.subView.hidden = NO;
     }
     
     
@@ -437,7 +437,7 @@
 -(void)passTheMinPrice:(NSString *)min AndMaxPrice:(NSString *)max
 {
     NSLog(@"价格筛选--------%@------------%@------",min,max);
-    self.coverView.hidden = NO;
+    self.subView.hidden = NO;
     
     if (![max  isEqual: @""]) {
         
@@ -469,7 +469,7 @@
 #pragma mark - ChooseDayViewControllerDelegate
 - (void)finishChoosedTimeArr:(NSArray *)timeArr andType:(timeType)type
 {
-    self.coverView.hidden = NO;
+    self.subView.hidden = NO;
     if (type == timePick) {
         self.goDateStart = timeArr[0];
         self.goDateEnd = timeArr[1];
@@ -487,13 +487,13 @@
 }
 - (void)backToDress
 {
-    self.coverView.hidden = NO;
+    self.subView.hidden = NO;
     
 }
 
 -(void)passTheButtonValue:(NSString *)value andName:(NSString *)name
 {
-    self.coverView.hidden = NO;
+    self.subView.hidden = NO;
     [self.conditionDic setObject:value forKey:@"GoDate"];
     self.month = [NSMutableString stringWithFormat:@"%@",name];
     NSLog(@"-----------------productList 获得的name is %@ value is %@",name,value);
@@ -626,13 +626,13 @@
 
         
     [self setSubViewHideNo];
-        CATransition *transition = [CATransition animation];
-        [transition setDuration:0.5];
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromTop;
-        [transition setFillMode:kCAFillModeBoth];
-        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [self.subView.layer addAnimation:transition forKey:nil];
+//        CATransition *transition = [CATransition animation];
+//        [transition setDuration:0.5];
+//        transition.type = kCATransitionPush;
+//        transition.subtype = kCATransitionFromTop;
+//        [transition setFillMode:kCAFillModeBoth];
+//        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//        [self.subView.layer addAnimation:transition forKey:nil];
 
 //    }];
     
@@ -813,15 +813,15 @@
 -(void)setSubViewHideNo
 {
     if (self.dataArr.count>0) {
-        UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-        cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+//        UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+//        cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
         
         CGFloat W = self.view.frame.size.width;
         
-        self.subView.frame = CGRectMake(self.view.frame.size.width, 0, W, self.view.window.bounds.size.height);
-        [cover addSubview:self.subView];
-        self.coverView = cover;
-        [self.view.window addSubview:cover];
+        self.subView.frame = CGRectMake(0, self.view.window.bounds.size.height, W, self.view.window.bounds.size.height);
+//        [cover addSubview:self.subView];
+//        self.coverView = cover;
+        [self.view.window addSubview:self.subView];
 
         NSArray *priceData = [WriteFileManager readData:@"priceData"];
         if (priceData.count == 3) {
@@ -829,14 +829,14 @@
         }
         
         
-        UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
-        [self.coverView addSubview:gestureView];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBlackViewToHide)];
-        [gestureView addGestureRecognizer:tap];
+//        UIView *gestureView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, cover.frame.size.width-self.subView.frame.size.width, cover.frame.size.height)];
+//        [self.coverView addSubview:gestureView];
+//        
+//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickBlackViewToHide)];
+//        [gestureView addGestureRecognizer:tap];
         
         [UIView animateWithDuration:0.3 animations:^{
-            self.subView.transform = CGAffineTransformMakeTranslation(- self.subView.frame.size.width, 0);
+            self.subView.transform = CGAffineTransformMakeTranslation(0, -self.subView.frame.size.height);
  
             
             //  NSString *str = [_pushedArr firstObject][@"Text"];
@@ -872,13 +872,13 @@
 
 -(void)clickBlackViewToHide
 {
-    [UIView animateWithDuration:0.0 animations:^{
+    [UIView animateWithDuration:5 animations:^{
         
         self.subView.transform = CGAffineTransformIdentity;
         
     } completion:^(BOOL finished) {
          NSLog(@"hhhhhhh  ");
-        [self.coverView removeFromSuperview];
+        [self.subView removeFromSuperview];
     }];
     NSLog(@"dffff");
 
@@ -1284,7 +1284,7 @@
             NSDictionary *conditionDic = _conditionArr[a];
             choose.buttons = conditionDic;
             choose.needMonth = @"1";
-            self.coverView.hidden = YES;
+            self.subView.hidden = YES;
             
             [self.navigationController pushViewController:choose animated:YES];
         }else if (!(indexPath.section == 0 && indexPath.row == 2)){
@@ -1400,8 +1400,7 @@
             
             
             //    NSLog(@"-----------conditionVC.conditionDic is %@---------",conditionVC.conditionDic);
-            self.coverView.hidden = YES;
-            
+            self.subView.hidden = YES;
             [self.navigationController pushViewController:conditionVC animated:YES];
         }
     }
@@ -2087,16 +2086,16 @@
 
     [UIView animateWithDuration:0.3 animations:^{
         self.subView.transform = CGAffineTransformIdentity;
-        CATransition *transition = [CATransition animation];
-        [transition setDuration:0.5];
-        transition.type = kCATransitionPush;
-        transition.subtype = kCATransitionFromBottom;
-        [transition setFillMode:kCAFillModeBoth];
-        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-        [self.subView.layer addAnimation:transition forKey:nil];
+//        CATransition *transition = [CATransition animation];
+//        [transition setDuration:0.5];
+//        transition.type = kCATransitionPush;
+//        transition.subtype = kCATransitionFromBottom;
+//        [transition setFillMode:kCAFillModeBoth];
+//        [transition setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//        [self.subView.layer addAnimation:transition forKey:nil];
     } completion:^(BOOL finished) {
         
-        [self.coverView removeFromSuperview];
+        [self.subView removeFromSuperview];
     }];
 
     
@@ -2196,7 +2195,7 @@
     
     mm.delegate = self;
     
-    self.coverView.hidden = YES;
+    self.subView.hidden = YES;
     
     [self.navigationController pushViewController:mm animated:YES];
 }

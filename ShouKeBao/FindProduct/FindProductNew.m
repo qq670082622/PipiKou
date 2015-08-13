@@ -28,6 +28,8 @@
 #import "WMAnimations.h"
 #import "ProduceDetailViewController.h"
 #import "ProductList.h" 
+
+#define Color(R, G, B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1]
 @interface FindProductNew ()<UITableViewDataSource, UITableViewDelegate, notifi, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet LeftTableView *leftTableView;
 @property (strong, nonatomic) IBOutlet RightCollectionView *RightCollection;
@@ -39,6 +41,7 @@
 @property (nonatomic, strong)NSMutableArray * NomalDataArray;
 @property (strong, nonatomic) IBOutlet UIButton *stationName;
 @property (nonatomic, strong)UIView * selectBackGroundView;
+@property (nonatomic, strong)NSMutableDictionary * cacheDic;
 - (IBAction)ProductSearch:(id)sender;
 - (IBAction)selectStaion:(id)sender;
 
@@ -79,6 +82,7 @@
     self.RightCollection.delegate = self;
     self.RightCollection.dataSource = self;
     self.navigationItem.leftBarButtonItem = nil;
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.ProductSearch.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO andCornerRadius:4];
     self.leftSelectType = SelectTypeHot;
     self.title = @"找产品";
 }
@@ -108,13 +112,13 @@
     }
     return _NomalDataArray;
 }
-
--(UIView *)selectBackGroundView{
-    if (!_selectBackGroundView) {
-        _selectBackGroundView = [[UIView alloc]init];
+-(NSMutableDictionary *)cacheDic{
+    if (!_cacheDic) {
+        _cacheDic = [NSMutableDictionary  dictionaryWithCapacity:1];
     }
-    return _selectBackGroundView;
+    return _cacheDic;
 }
+
 #pragma mark - LoadDataSource
 - (void)loadDataSourceLeft
 {
@@ -156,6 +160,7 @@
         for (NSDictionary *dic in json[@"RankingProdctList"]) {
             NSMutableArray *tmp = [NSMutableArray array];
             for (NSDictionary *dict in dic[@"ProductList"]) {
+                NSLog(@"%@", dic[@"ProductList"]);
                 rightModal *modal = [rightModal modalWithDict:dict];
                 [tmp addObject:modal];
             }
@@ -180,15 +185,18 @@
         [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
             [self.NomalDataArray removeAllObjects];
             NSMutableArray *searchKeyArr = [NSMutableArray array];
+            NSMutableArray * arraytemp = [NSMutableArray new];
             for(NSDictionary *dic in json[@"NavigationMainList"] ){
                 rightModal2 *modal = [rightModal2 modalWithDict:dic];
                 [searchKeyArr addObject:dic[@"ID"]];
                 [self.NomalDataArray addObject:modal];
+                [arraytemp addObject:modal];
                 [hudView hide:YES];
             }
+            //将每一个数据源放入缓存字典中，
+            [self.cacheDic setObject:arraytemp forKey:[NSString stringWithFormat:@"%ld", (long)self.SelectNum]];
             [self.RightCollection reloadData];
-        
-            
+            NSLog(@"%@新加载%@", arraytemp, self.cacheDic);
         } failure:^(NSError *error) {
             NSLog(@"左侧栏请求错误！～～～error is ~~~~~~~~~%@",error);
         }];
@@ -262,7 +270,12 @@
     if (indexPath.row == 0) {
         self.leftSelectType = SelectTypeHot;
         cell.iconImage.image = [UIImage imageNamed:@"APPhot2"];
+        //添加一个缓存机制，只要有数据，就不用重新加载；
+        if (self.hottDataArray) {
+            [self.RightCollection reloadData];
+        }else{
         [self loadHotData];
+        }
     }else{
         [cell.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIconFocus] placeholderImage:nil];
         if ([model.Name isEqualToString:@"邮轮"]) {
@@ -270,7 +283,16 @@
         }else{
             self.leftSelectType = SelectTypeNomal;
         }
+        //每一次点击的时候，判断此数据源是否已经加载， 如果已存在，直接给数据元赋值，如果不存在，请求接口， 将数据源放入缓存字典中
+        if ([self.cacheDic objectForKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]]) {
+            //添加缓存机制
+            self.NomalDataArray = [self.cacheDic objectForKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]];
+            NSLog(@"%@", self.cacheDic);
+            [self.RightCollection reloadData];
+        }else{
         [self loadNomalDataSourceWithType:model.Type];
+        }
+        
     }
 
 }
@@ -304,33 +326,23 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-
     if (self.leftSelectType == SelectTypeHot) {
         HotProductCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RighthotCell" forIndexPath:indexPath];
         rightModal * model = self.hottDataArray[indexPath.section][indexPath.row];
         cell.modal = model;
         return cell;
-    }else if(self.leftSelectType == SelectTypeNomal){
+    }else{
         NormalCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NormalCollectionCell" forIndexPath:indexPath];
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         cell.subTatilLab.text = model.subNameArray[indexPath.row];
-        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subTatilLab.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES andCornerRadius:2];
-        return cell;
-    }else{
-        SpecialLineCollectionCell * cell  = [collectionView dequeueReusableCellWithReuseIdentifier:@"SpecialLineCell" forIndexPath:indexPath];
-        rightModal2 * model = self.NomalDataArray[indexPath.section];
-        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.lineDetail.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:YES andCornerRadius:2];
-        cell.lineDetail.text = model.subNameArray[indexPath.row];
+        [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subTatilLab.layer andBorderColor:Color(0xdd, 0xdd, 0xdd) andBorderWidth:0.5 andNeedShadow:NO andCornerRadius:2];
         return cell;
     }
-
 }
 #pragma mark - collectionViewFlawlayerout
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     if (self.leftSelectType == SelectTypeHot) {
         return CGSizeMake(collectionView.frame.size.width, 77);
-    }else if(self.leftSelectType == SelectTypeNomal){
-        return CGSizeMake(80, 50);
     }else{
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         if ([model.title isEqualToString:@"特价线路"]) {
@@ -346,9 +358,10 @@
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     HeaderSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"HeaderSectionView" forIndexPath:indexPath];
-    headerView.spotView.layer.cornerRadius = 7.5;
+    headerView.spotView.layer.cornerRadius = 5;
     //给圆点以及文字设置颜色
-    NSArray * colorArray = @[[UIColor blueColor], [UIColor orangeColor], [UIColor greenColor], [UIColor purpleColor], [UIColor redColor]];
+    
+    NSArray * colorArray = @[Color(26, 153, 218), Color(0xff, 0x99, 0x00), Color(0xcc, 0x66, 0xff), Color(0x00, 0xcc, 0x00), Color(0xff, 0x33, 0x33)];
     headerView.spotView.backgroundColor = colorArray[indexPath.section%5];
     headerView.allBtn.titleLabel.textColor = colorArray[indexPath.section%5];
     [headerView.allBtn setTitleColor:colorArray[indexPath.section%5] forState:UIControlStateNormal];

@@ -20,7 +20,7 @@
         self.contentView.backgroundColor = [UIColor whiteColor];
         self.leftName.textColor = [UIColor orangeColor];
     }else{
-        self.contentView.backgroundColor = [UIColor colorWithRed:220/255.0 green:232/255.0 blue:243/255.0 alpha:1.0];
+        self.contentView.backgroundColor = [UIColor colorWithRed:227/255.0 green:227/255.0 blue:227/255.0 alpha:1.0];
         self.leftName.textColor = [UIColor blackColor];
     }
     // Configure the view for the selected state
