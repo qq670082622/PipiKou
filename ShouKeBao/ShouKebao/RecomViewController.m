@@ -276,7 +276,7 @@
 {
     if (_todayVC == nil) {
         self.todayVC = [[RecommendViewController alloc] init];
-        NSLog(@"%d", self.isFromEmpty);
+        NSLog(@"——————%d", self.isFromEmpty);
         self.todayVC.isFromEmpty = self.isFromEmpty;
         [self addChildViewController:_todayVC];
 //        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
@@ -296,6 +296,7 @@
         self.yesterdayVC = [[YesterdayViewController alloc] init];
         [self addChildViewController:_yesterdayVC];
         self.yesterdayVC.view.frame = self.controllerView.frame;
+        self.yesterdayVC.isFromEmpty = self.isFromEmpty;
 //        self.yesterdayVC.markUrl = self.markStr;
         
 //        CGFloat viewW = [[UIScreen mainScreen] bounds].size.width;
@@ -357,7 +358,7 @@
 
 - (IBAction)yesterdayAction:(id)sender {
     
-    
+//    self.isFromEmpty = 0;
     self.selectIndex = 1;
    
      [self.yesterdayBtnOutlet setSelected:YES];
