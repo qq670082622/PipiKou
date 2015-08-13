@@ -75,15 +75,15 @@
 //    
 //    leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    
+//UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+    //turnOff.titleLabel.font = [UIFont systemFontOfSize:15];
+    //turnOff.frame = CGRectMake(0, 0, 30, 10);
+    //[turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
+    //[turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+    //turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+    //[turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    //UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    //self.navigationItem.leftBarButtonItem = ;
     [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
     
     
