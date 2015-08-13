@@ -190,10 +190,10 @@
     //self.navigationItem.leftBarButtonItems = @[stationBtn,searchBtn];
 }
 -(void)viewDidAppear:(BOOL)animated{
-    leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-140, 0, 130, 60)];
+    leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-140, 0, 130, 68)];
     leftView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lansedia"]];
     UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    stationBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    stationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     stationBtn.frame = CGRectMake(40, 5, 100, 30);
     [stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
     [stationBtn setImage:[UIImage imageNamed:@"qiehuana"] forState:UIControlStateNormal];
@@ -209,10 +209,10 @@
     searchBtn.frame = CGRectMake(40, 40, 80, 30);
     //[searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
     [searchBtn setImage:[UIImage imageNamed:@"bigsousuo"] forState:UIControlStateNormal];
-    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(-20, -61, 0, 10);
+    searchBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -59, 0, 10);
     [searchBtn setTitle:@"查找产品" forState:UIControlStateNormal];
-    searchBtn.titleEdgeInsets = UIEdgeInsetsMake(-20, -47, 0, 10);
-    searchBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    searchBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 10);
+    searchBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
     
     [leftView addSubview:searchBtn];
