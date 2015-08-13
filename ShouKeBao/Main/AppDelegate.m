@@ -519,6 +519,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     self.urlstring = urlString;
     if ([urlString containsString:@"pipikou://"]) {
         [self performSelector:@selector(StartGoWebView) withObject:nil afterDelay:0.5];
+//        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
 
 //        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
 //        [MobClick event:@"OpenAppFromShortMessage" attributes:dict];
@@ -529,7 +530,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     
 //    if ([urlString containsString:@"QQ41D9B706"]) {
 //        NSString * webStr = [urlString componentsSeparatedByString:@"url="][1];
-////        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
 //        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 //        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
 //    }
