@@ -27,7 +27,7 @@
 #import "BaseClickAttribute.h"
 //jpush 1a1249b973c6ce482d68fd4f
 //#import "UncaughtExceptionHandler.h"
-@interface AppDelegate ()
+@interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic,assign) BOOL isAutoLogin;
 @property (nonatomic,strong) AVAudioPlayer *player;
@@ -166,13 +166,18 @@ void UncaughtExceptionHandler(NSException *exception) {
                        tencentOAuthCls:[TencentOAuth class]];
    
     //微信
-    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"
+    [ShareSDK connectWeChatWithAppId:@"wxd8a389cef80dc827"
                            wechatCls:[WXApi class]];
-    //微信
-    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"   //微信APPID
-                           appSecret:@"747908a80a1ee4681b131c384a275a46"  //微信APPSecret
+    //微信(老王－收客宝)
+//    [ShareSDK connectWeChatWithAppId:@"wx911143a1c860ef37"   //微信APPID
+//                           appSecret:@"747908a80a1ee4681b131c384a275a46"  //微信APPSecret
+//                           wechatCls:[WXApi class]];
+    //(企业－收客宝app－微信支付)
+    [ShareSDK connectWeChatWithAppId:@"wxd8a389cef80dc827"   //微信APPID
+                           appSecret:@"c30ee5e1e98bebc7b28a214025feca9d"  //微信APPSecret
                            wechatCls:[WXApi class]];
-    
+    [WXApi registerApp:@"wxd8a389cef80dc827" withDescription:@"ShouKeBao"];
+
     //连接短信分享
     [ShareSDK connectSMS];
     //连接拷贝
@@ -533,13 +538,28 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 //        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
 //    }
+    [WXApi handleOpenURL:url delegate:self];
+
     [ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication
                         annotation:annotation
                         wxDelegate:self];
     return YES;
 }
-
+-(void)onResp:(BaseResp*)resp{
+    if ([resp isKindOfClass:[PayResp class]]){
+        PayResp*response=(PayResp*)resp;
+        switch(response.errCode){
+            case WXSuccess:
+                //服务器端查询支付通知或查询API返回的结果再提示成功
+                NSLog(@"支付成功");
+                break;
+            default:
+                NSLog(@"支付失败，retcode=%d",resp.errCode);
+                break;
+        }
+    }
+}
 #pragma mark - public
 // 设置欢迎界面
 - (void)setWelcome

@@ -185,7 +185,7 @@
         [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
             [self.NomalDataArray removeAllObjects];
             NSMutableArray *searchKeyArr = [NSMutableArray array];
-            NSMutableArray * arraytemp = [NSMutableArray new];
+            NSMutableArray * arraytemp = [NSMutableArray array];
             for(NSDictionary *dic in json[@"NavigationMainList"] ){
                 rightModal2 *modal = [rightModal2 modalWithDict:dic];
                 [searchKeyArr addObject:dic[@"ID"]];
@@ -285,8 +285,9 @@
         }
         //每一次点击的时候，判断此数据源是否已经加载， 如果已存在，直接给数据元赋值，如果不存在，请求接口， 将数据源放入缓存字典中
         if ([self.cacheDic objectForKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]]) {
+            //[self.NomalDataArray removeAllObjects];
             //添加缓存机制
-            self.NomalDataArray = [self.cacheDic objectForKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]];
+            self.NomalDataArray = [[self.cacheDic objectForKey:[NSString stringWithFormat:@"%ld", (long)indexPath.row]] mutableCopy];
             NSLog(@"%@", self.cacheDic);
             [self.RightCollection reloadData];
         }else{

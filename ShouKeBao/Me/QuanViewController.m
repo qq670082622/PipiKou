@@ -12,6 +12,8 @@
 
 #import "BeseWebView.h"
 #import "MobClick.h"
+#import "WXApiObject.h"
+#import "WXApi.h"
 @interface QuanViewController () <UIWebViewDelegate>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -37,7 +39,7 @@
     NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     
     self.urlSuffix2 = urlSuffix2;
-
+    [self WXpaySendRequest];
     self.title = @"圈付宝";
     [self.view addSubview:self.webView];
     
@@ -213,5 +215,25 @@
 {
     [self.navigationController cancelSGProgress];
 }
+- (void)WXpaySendRequest{
+    //此处请求接口；
+    
+    PayReq *request = [[PayReq alloc] init];
+    
+    request.partnerId = @"10000100";
+    
+    request.prepayId= @"1101000000140415649af9fc314aa427";
+    
+    request.package = @"Sign=WXPay";
+    
+    request.nonceStr= @"a462b76e7436e98e0ed6e13c64b4fd1c";
+    NSLog(@"woshi%f",   [[NSDate dateWithTimeIntervalSinceNow:0]timeIntervalSince1970]);
+    request.timeStamp= @"1397527777";
+    
+    request.sign= @"582282D72DD2B03AD892830965F428CB16E7A256";
+    
+    [WXApi sendReq:request];
 
+
+}
 @end

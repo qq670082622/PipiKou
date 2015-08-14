@@ -373,17 +373,77 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-QC-Z5Y">
-                                <rect key="frame" x="0.0" y="-8" width="320" height="576"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="wiy-QC-Z5Y">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="576"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dsf-fR-AMW">
+                                        <rect key="frame" x="0.0" y="0.0" width="960" height="576"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pt9-e3-aDE">
+                                                <rect key="frame" x="640" y="0.0" width="320" height="576"/>
+                                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="320" id="ZIu-a5-d14"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cZL-iP-9di">
+                                                <rect key="frame" x="320" y="0.0" width="320" height="576"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="viewFlipsideBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="320" id="KYY-LZ-6cJ"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnc-rd-FkH">
+                                                <rect key="frame" x="0.0" y="0.0" width="320" height="576"/>
+                                                <subviews>
+                                                    <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="Ca3-21-CU7">
+                                                        <rect key="frame" x="0.0" y="0.0" width="320" height="576"/>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </tableView>
+                                                </subviews>
+                                                <color key="backgroundColor" red="0.40000000600000002" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="320" id="U7T-YX-Zig"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstItem="pt9-e3-aDE" firstAttribute="leading" secondItem="cZL-iP-9di" secondAttribute="trailing" id="6Ob-6f-Pyq"/>
+                                            <constraint firstItem="pt9-e3-aDE" firstAttribute="leading" secondItem="fnc-rd-FkH" secondAttribute="trailing" constant="320" id="Ajp-eH-nBf"/>
+                                            <constraint firstItem="pt9-e3-aDE" firstAttribute="top" secondItem="dsf-fR-AMW" secondAttribute="top" id="DO3-1F-kbp"/>
+                                            <constraint firstAttribute="width" constant="960" id="HdQ-fv-xEZ"/>
+                                            <constraint firstItem="cZL-iP-9di" firstAttribute="top" secondItem="dsf-fR-AMW" secondAttribute="top" id="IZt-oL-cxY"/>
+                                            <constraint firstAttribute="bottom" secondItem="cZL-iP-9di" secondAttribute="bottom" id="o6z-7A-NHV"/>
+                                            <constraint firstItem="fnc-rd-FkH" firstAttribute="top" secondItem="dsf-fR-AMW" secondAttribute="top" id="rH8-HQ-BC6"/>
+                                            <constraint firstAttribute="bottom" secondItem="pt9-e3-aDE" secondAttribute="bottom" id="rVx-VD-XsN"/>
+                                            <constraint firstAttribute="bottom" secondItem="fnc-rd-FkH" secondAttribute="bottom" id="wRa-6h-xW1"/>
+                                            <constraint firstAttribute="trailing" secondItem="pt9-e3-aDE" secondAttribute="trailing" id="y90-UV-gV1"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="dsf-fR-AMW" firstAttribute="top" secondItem="wiy-QC-Z5Y" secondAttribute="top" id="Amh-85-tLw"/>
+                                    <constraint firstAttribute="bottom" secondItem="dsf-fR-AMW" secondAttribute="bottom" id="PXa-ds-PbM"/>
+                                    <constraint firstAttribute="centerY" secondItem="dsf-fR-AMW" secondAttribute="centerY" id="Se5-8m-E4y"/>
+                                    <constraint firstItem="dsf-fR-AMW" firstAttribute="leading" secondItem="wiy-QC-Z5Y" secondAttribute="leading" id="UtI-Vf-j4j"/>
+                                    <constraint firstAttribute="trailing" secondItem="dsf-fR-AMW" secondAttribute="trailing" id="qdB-EC-sBt"/>
+                                </constraints>
                             </scrollView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottomMargin" secondItem="wiy-QC-Z5Y" secondAttribute="bottom" constant="-8" id="2ea-3W-6mn"/>
+                            <constraint firstItem="wiy-QC-Z5Y" firstAttribute="leading" secondItem="TP7-lB-t5N" secondAttribute="leadingMargin" constant="-16" id="Hej-4t-0ms"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="wiy-QC-Z5Y" secondAttribute="trailing" constant="-16" id="Qpm-CL-r1g"/>
+                            <constraint firstItem="wiy-QC-Z5Y" firstAttribute="top" secondItem="TP7-lB-t5N" secondAttribute="topMargin" id="WH5-03-Ro3"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6sz-x2-FHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="611" y="668"/>
+            <point key="canvasLocation" x="575" y="655"/>
         </scene>
     </scenes>
     <resources>
