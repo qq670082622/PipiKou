@@ -357,7 +357,6 @@
 -(void)iniHeader
 {    //下拉刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
-    
     //上拉刷新
     [self.tableView addFooterWithTarget:self action:@selector(footRefresh)];
     //设置文字
@@ -455,6 +454,7 @@
  */
 - (void)removeMenu:(UITapGestureRecognizer *)ges
 {
+    NSLog(@"aaa");
     [self removeMenuFunc];
 }
 
