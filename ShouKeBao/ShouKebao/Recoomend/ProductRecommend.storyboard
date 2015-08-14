@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <scenes>
+        <!--Product Recommend Controller-->
+        <scene sceneID="ceX-tv-Rqp">
+            <objects>
+                <viewController storyboardIdentifier="ProductRecommendVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="9d5-0u-mRw" customClass="ProductRecommendController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VA5-h2-XpV"/>
+                        <viewControllerLayoutGuide type="bottom" id="m7J-Xo-LDv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="FK3-xC-0tq">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TCs-7W-MN4">
+                                <rect key="frame" x="0.0" y="0.0" width="106" height="40"/>
+                                <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="p5G-Lt-PqR"/>
+                                    <constraint firstAttribute="width" constant="106" id="uMf-n1-5c2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="今日推荐">
+                                    <color key="titleColor" white="0.34683199539999998" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected" title="今日推荐">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="todayBtnAction:" destination="9d5-0u-mRw" eventType="touchUpInside" id="XQJ-iw-DJB"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ad2-UK-prA">
+                                <rect key="frame" x="214" y="0.0" width="106" height="40"/>
+                                <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="106" id="fUm-PI-lK0"/>
+                                    <constraint firstAttribute="height" constant="40" id="fci-y6-Nrt"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="近期推荐">
+                                    <color key="titleColor" white="0.3535335436" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="recentlyBtnAction:" destination="9d5-0u-mRw" eventType="touchUpInside" id="dNS-HN-D8d"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tpr-8Y-IGr">
+                                <rect key="frame" x="106" y="0.0" width="108" height="40"/>
+                                <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="upF-Fv-Ng3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="昨日推荐">
+                                    <color key="titleColor" white="0.34648556959999999" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <state key="selected">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="yestodayBtnAction:" destination="9d5-0u-mRw" eventType="touchUpInside" id="dxB-j0-8iQ"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yOt-c4-prJ" userLabel="line">
+                                <rect key="frame" x="0.0" y="40" width="106" height="3"/>
+                                <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="106" id="CJh-di-PUF"/>
+                                    <constraint firstAttribute="height" constant="3" id="iMI-LZ-BZ4"/>
+                                </constraints>
+                            </view>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LhZ-oQ-uyn">
+                                <rect key="frame" x="0.0" y="43" width="320" height="525"/>
+                            </scrollView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="m7J-Xo-LDv" firstAttribute="top" secondItem="LhZ-oQ-uyn" secondAttribute="bottom" id="2Ma-Tm-0CI"/>
+                            <constraint firstItem="tpr-8Y-IGr" firstAttribute="leading" secondItem="TCs-7W-MN4" secondAttribute="trailing" id="8Cp-6j-fzk"/>
+                            <constraint firstItem="LhZ-oQ-uyn" firstAttribute="leading" secondItem="FK3-xC-0tq" secondAttribute="leadingMargin" constant="-16" id="BqG-0s-gx7"/>
+                            <constraint firstItem="TCs-7W-MN4" firstAttribute="leading" secondItem="FK3-xC-0tq" secondAttribute="leadingMargin" constant="-16" id="KIa-wW-9Kb"/>
+                            <constraint firstItem="tpr-8Y-IGr" firstAttribute="top" secondItem="FK3-xC-0tq" secondAttribute="topMargin" id="Lph-c4-rlL"/>
+                            <constraint firstItem="yOt-c4-prJ" firstAttribute="top" secondItem="TCs-7W-MN4" secondAttribute="bottom" id="M2w-On-ZZ4"/>
+                            <constraint firstItem="TCs-7W-MN4" firstAttribute="top" secondItem="FK3-xC-0tq" secondAttribute="topMargin" id="Rft-pL-UCL"/>
+                            <constraint firstItem="ad2-UK-prA" firstAttribute="top" secondItem="FK3-xC-0tq" secondAttribute="topMargin" id="UgO-xZ-T1Q"/>
+                            <constraint firstItem="LhZ-oQ-uyn" firstAttribute="top" secondItem="yOt-c4-prJ" secondAttribute="bottom" id="WND-mn-kg2"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="ad2-UK-prA" secondAttribute="trailing" constant="-16" id="Zcx-hi-gLl"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="LhZ-oQ-uyn" secondAttribute="trailing" constant="-16" id="cnE-f0-byM"/>
+                            <constraint firstItem="yOt-c4-prJ" firstAttribute="leading" secondItem="FK3-xC-0tq" secondAttribute="leadingMargin" constant="-16" id="dDI-52-MfK"/>
+                            <constraint firstItem="ad2-UK-prA" firstAttribute="leading" secondItem="tpr-8Y-IGr" secondAttribute="trailing" id="lnX-f7-Rb3"/>
+                        </constraints>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="mainScrollView" destination="LhZ-oQ-uyn" id="iyD-i1-0Nf"/>
+                        <outlet property="recentlyBtn" destination="ad2-UK-prA" id="ONQ-l7-7Ze"/>
+                        <outlet property="recentlyBtnAction" destination="ad2-UK-prA" id="Keu-cp-ORj"/>
+                        <outlet property="todayBtn" destination="TCs-7W-MN4" id="x4r-LM-XeQ"/>
+                        <outlet property="topLine" destination="yOt-c4-prJ" id="621-s6-EWa"/>
+                        <outlet property="yestodayBtn" destination="tpr-8Y-IGr" id="Ztc-Yv-ZHZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="35m-ru-it4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="221" y="223"/>
+        </scene>
+    </scenes>
+</document>

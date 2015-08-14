@@ -61,6 +61,7 @@
 #import "Me.h"
 #import "StrToDic.h"
 #import "BaseWebViewController.h"
+#import "ProductRecommendController.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 @property (nonatomic, strong)RecommendCell *cell;
 @property (nonatomic, strong)BBBadgeBarButtonItem *barButton;
@@ -1646,7 +1647,9 @@
     NSLog(@"%d", self.isEmpty);
     rec.isFromEmpty = self.isEmpty;
    [self.navigationController pushViewController:rec animated:YES];
-    
+//    UIStoryboard * SB = [UIStoryboard storyboardWithName:@"ProductRecommend" bundle:[NSBundle mainBundle]];
+//    ProductRecommendController * PRVC = (ProductRecommendController *)[SB instantiateViewControllerWithIdentifier:@"ProductRecommendVC"];
+//    [self.navigationController pushViewController:PRVC animated:YES];
 //    NSUserDefaults *change = [NSUserDefaults standardUserDefaults];
 //     [change setBool:YES forKey:@"change"];
 //    [change synchronize];

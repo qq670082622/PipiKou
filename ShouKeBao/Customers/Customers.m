@@ -24,6 +24,8 @@
 #import "ScanningViewController.h"
 #import "CustomerDetailAndOrderViewController.h"
 #import "ArrowBtn.h"
+
+#define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,addCustomerToReferesh, DeleteCustomerDelegate>
 
@@ -57,7 +59,12 @@
 @property (strong, nonatomic) IBOutlet UIButton *cardCamer;
 
 @property (nonatomic,strong) NSString *ID;
-
+//分页
+@property (copy , nonatomic)NSMutableString *pageIndex;// 当前页
+@property (nonatomic,assign) BOOL isRefresh;
+@property (nonatomic,copy) NSString *totalNumber;
+@property (nonatomic, strong)NSMutableArray *arr;
+@property(weak,nonatomic) UILabel *noProductWarnLab;
 @end
 
 @implementation Customers
@@ -72,6 +79,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];// 页码从1开始
+    [self.dataArr removeAllObjects];
+
     self.navigationItem.leftBarButtonItem = nil;
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
@@ -100,7 +111,7 @@
     //self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
     
     
-    //self.table.tableFooterView = [[UIView alloc] init];
+//    self.table.tableFooterView = [[UIView alloc] init];
     
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     //self.blueLine.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
@@ -198,36 +209,66 @@
 
 -(void)initPull
 {
-    
-//    NSLog(@"bbb");
-    //下拉
-    [self.table addHeaderWithTarget:self action:@selector(headerPull2)];
+    //下拉刷新
+    [self.table addHeaderWithTarget:self action:@selector(headPull)dateKey:nil];
     [self.table headerBeginRefreshing];
     
-    self.table.headerPullToRefreshText =@"刷新内容";
-    self.table.headerRefreshingText = @"正在刷新";
+//    上啦加载
+    [self.table addFooterWithTarget:self action:@selector(foodPull)];
+      [self.table footerBeginRefreshing];
     
-}
+    self.table.headerPullToRefreshText = @"下拉刷新";
+    self.table.headerRefreshingText = @"正在刷新中";
+    
+    self.table.footerPullToRefreshText = @"上拉刷新";
+    self.table.footerRefreshingText = @"正在刷新";
 
--(void)headerPull2
+}
+//下拉刷新
+-(void)headPull
 {
-//    self.imageViewWhenIsNull.hidden = YES;
-//     self.imageViewWhenIsNull.hidden = YES;
+    self.isRefresh = YES;
+    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];
+    
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateNormal];
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateHighlighted];
-
     [self loadDataSource];
 }
+//    上啦加载
+- (void)foodPull
+{
+     [self.noProductWarnLab removeFromSuperview];
+    NSLog(@"000  self.page = %@", self.pageIndex);
+    self.isRefresh = NO;
+    
+//    if ([self.pageIndex intValue]< [self getTotalPage]) {
+//           NSLog(@"self.page = %@", self.pageIndex);
+//        [self loadDataSource];
+//    }else{
+//        [self.table footerEndRefreshing];
+//    }
 
+    if ([self.pageIndex intValue] > [self getTotalPage]) {
+        [self.table footerEndRefreshing];
+        [self warning];
+    }else{
+        [self loadDataSource];
+    }
+}
 
-
-
-//-(void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    [self.imageViewWhenIsNull removeFromSuperview];
-//}
+- (NSInteger)getTotalPage
+{
+    NSInteger cos = [self.totalNumber integerValue] % pageSize;
+    if (cos == 0) {
+        return [self.totalNumber integerValue] / pageSize;
+    }else{
+        NSLog(@"[self.totalNumber integerValue] / pageSize = %ld", [self.totalNumber integerValue] / pageSize + 1);
+        return [self.totalNumber integerValue] / pageSize + 1;
+    }
+    
+}
 
 -(void)customerRightBarItem
 {
@@ -348,13 +389,17 @@
 
 -(void)loadDataSource
 {
+     [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@"1" forKey:@"PageIndex"];
-    [dic setObject:@"500" forKey:@"PageSize"];
+//    [dic setObject:@"1" forKey:@"PageIndex"];
+//    [dic setObject:@"500" forKey:@"PageSize"];
+    
+    [dic setObject:[NSString stringWithFormat:@"%@", self.pageIndex] forKey:@"PageIndex"];
+    [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     if (_searchK.length>0) {
         [dic setObject:_searchK forKey:@"SearchKey"];
     }
-   NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     NSString *sortType = [accountDefaults stringForKey:@"sortType"];
     if (sortType) {
         [dic setObject:sortType forKey:@"sortType"];
@@ -364,16 +409,24 @@
     
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         NSLog(@"------管客户json is %@-------",json);
-        
-//         self.searchCustomerBtnOutlet.titleLabel.text = @"   客户名/电话号码";
-        
-        [self.table headerEndRefreshing];
+        if (self.isRefresh) {
+            [self.dataArr removeAllObjects];
+            NSLog(@"TTTTTTTTTTTTTT");
+        }
+        self.totalNumber = json[@"TotalCount"];
+        NSLog(@"__________ %ld", [json[@"CustomerList"]count]);
 
-        [self.dataArr removeAllObjects];
+        // 当再无加载数据时提示没有客户的信息
+       self.arr = json[@"CustomerList"];
+        if (self.arr.count == 0) {
+            [self warning];
+        }else{
+
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
+    
         [self.table reloadData];
         if (_dataArr.count==0) {
             
@@ -382,16 +435,27 @@
             self.imageViewWhenIsNull.hidden = YES ;
           
         }
-//        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window]
-//    animated:YES];
-
+            NSString *page = [NSString stringWithFormat:@"%@",self.pageIndex];
+            self.pageIndex = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+        }
+        [self.table headerEndRefreshing];
+        [self.table footerEndRefreshing];
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
 
    }
 
-
+#pragma mark - 加载完事时显示的内容
+- (void)warning
+{
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 20)];
+    label.text = @"抱歉，没有更多客户了😢";
+    label.textColor = [UIColor orangeColor];
+    label.textAlignment = NSTextAlignmentCenter;
+    self.table.tableFooterView = label;
+    self.noProductWarnLab = label;
+}
 
 -(void)loadHistoryArr
 {

@@ -47,17 +47,14 @@
  
     [self.view addSubview:self.meunm];
     [self.view addSubview:self.tableV];
-
-    self.tableView.sectionHeaderHeight = 0;
-    self.view.backgroundColor = [UIColor whiteColor ];
     
-    [self iniHeader];
+    [self initHeader];
 
     // Do any additional setup after loading the view.
 }
 
 #pragma mark - 刷新～～
--(void)iniHeader
+-(void)initHeader
 {    //下拉刷新
     [self.tableView addHeaderWithTarget:self action:@selector(headRefresh) dateKey:nil];
     
@@ -234,7 +231,7 @@
     });
 }
 
-
+//滑动cell走的方法
 - (NSArray *)createRightButtons:(OrderModel *)model
 {
     NSMutableArray * result = [NSMutableArray array];

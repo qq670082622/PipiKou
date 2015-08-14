@@ -304,6 +304,8 @@
 		63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1A81B14250E00DE9867 /* NSObject+MJKeyValue.m */; };
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
+		791AA5151B7DDB89007C5C6A /* ProductRecommendController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791AA5141B7DDB89007C5C6A /* ProductRecommendController.m */; };
+		791AA5171B7DDBDB007C5C6A /* ProductRecommend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */; };
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
 		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
@@ -890,6 +892,9 @@
 		63F1A1A91B14250E00DE9867 /* NSObject+MJMember.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+MJMember.h"; sourceTree = "<group>"; };
 		63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
+		791AA5131B7DDB89007C5C6A /* ProductRecommendController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductRecommendController.h; sourceTree = "<group>"; };
+		791AA5141B7DDB89007C5C6A /* ProductRecommendController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductRecommendController.m; sourceTree = "<group>"; };
+		791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductRecommend.storyboard; sourceTree = "<group>"; };
 		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		795E1EFD1B72F75300072A77 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -2212,6 +2217,9 @@
 				63F1A1851B140D5B00DE9867 /* RecentlyViewController.h */,
 				63F1A1861B140D5B00DE9867 /* RecentlyViewController.m */,
 				63F1A1871B140D5B00DE9867 /* RecentlyViewController.xib */,
+				791AA5131B7DDB89007C5C6A /* ProductRecommendController.h */,
+				791AA5141B7DDB89007C5C6A /* ProductRecommendController.m */,
+				791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */,
 			);
 			path = Recoomend;
 			sourceTree = "<group>";
@@ -2561,6 +2569,7 @@
 				5A52FC781ACEBF220076DAE6 /* SosHead.xib in Resources */,
 				5A076EA41ACD8B270077611C /* ShouKeBao.xib in Resources */,
 				B36E57331B74C0D000471AAC /* ProductCell.xib in Resources */,
+				791AA5171B7DDBDB007C5C6A /* ProductRecommend.storyboard in Resources */,
 				636C8B731AC2E1420097CAE9 /* Resource.bundle in Resources */,
 				63E0344B1AFC995300BD714A /* CustomerOrdersUIViewController.xib in Resources */,
 				5A944D2C1B00BC780004DE89 /* MLPhotoBrowser.bundle in Resources */,
@@ -2708,6 +2717,7 @@
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,
 				5ABA4F611AD7B26E004AA8F6 /* NSDateFormatter+Category.m in Sources */,
 				5A944D281B00BC780004DE89 /* MLPhotoBrowserCustomToolBarView.m in Sources */,
+				791AA5151B7DDB89007C5C6A /* ProductRecommendController.m in Sources */,
 				5A82161C1AD3843B009388DA /* HomeList.m in Sources */,
 				63E0344C1AFC995300BD714A /* Customers.m in Sources */,
 				7977912D1B6F121C0075CC70 /* MLTransitionAnimation.m in Sources */,
