@@ -143,6 +143,7 @@
     
     self.subDataArr1 = [NSArray arrayWithObjects:@"目的地      ",@"出发城市      ",@"出发日期      ",@"行程天数      ",@"游览线路      ",@"供应商      ", nil];//6
     self.subDataArr2 = [NSArray arrayWithObjects:@"主题推荐      ",@"酒店类型      ",@"出行方式      ",@"邮轮公司      ", nil];//4
+    //self.subDataArr1 = @[@"目的地      ",@"出发城市      ",@"出发日期      ",@"行程天数      ",@"游览线路      ",@"供应商      ",@"主题推荐      ",@"酒店类型      ",@"出行方式      ",@"邮轮公司      "];
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ", nil];
     self.subIndicateDataArr2 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ", nil];
     self.turn = [NSMutableString stringWithFormat:@"Off"];
@@ -303,6 +304,9 @@
 {
     if (_subView == nil) {
         self.subView = [[[NSBundle mainBundle] loadNibNamed:@"ProductList" owner:self options:nil] lastObject];
+        //self.subTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 71, self.view.bounds.size.width, self.view.bounds.size.height-71)];
+        //[self.subView addSubview:self.subTable];
+
     }
     return _subView;
 }

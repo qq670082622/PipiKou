@@ -393,7 +393,7 @@
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = model.searchKeyArray[indexPath.row];
-        list.title = model.subNameArray[indexPath.row];;
+        list.title = model.subNameArray[indexPath.row];
 //        list.pushedArr = _pushArr;
         NSDictionary * dic = @{@"TwoSubName":model.searchKeyArray[indexPath.row]};
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
