@@ -544,6 +544,7 @@
     [self.noProductWarnLab removeFromSuperview];
     [self editButtons ];
     NSString *type = [NSString string];
+    
     if (_selectIndex == nil) {
         self.selectIndex = [NSMutableString stringWithFormat:@"0"];
         type = [NSString stringWithFormat:@"%@",_selectIndex];
