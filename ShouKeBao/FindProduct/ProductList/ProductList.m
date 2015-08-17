@@ -366,6 +366,7 @@
 -(void)passSearchKeyFromSearchVC:(NSString *)searchKey
 {
     self.pushedSearchK = [NSMutableString stringWithFormat:@"%@",searchKey];
+   
 }
 
 
@@ -740,6 +741,7 @@
         NSArray *arr = json[@"ProductList"];
         // NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         [self.dataArr removeAllObjects];
+        NSLog(@"arr = %@", arr);
         if (arr.count==0) {
             self.noProductView.hidden = NO;
             [self.pageCountBtn setTitle:@"没有产品" forState:UIControlStateNormal];
@@ -770,12 +772,17 @@
 //            
 //        }else if(_isFromSearch && arr.count>0){
             //走搜索进入，后台直接提供目的地，不过位置被放最后一位，一下操作便是调整位置
-            for(NSDictionary *dic in json[@"ProductConditionList"] ){
-                [conArr addObject:dic];
-            }
-            NSDictionary *dic2 = [conArr lastObject];//取出被小宝放在最后面的destination
-            [conArr removeAllObjects];
-            [conArr addObject:dic2];//将destination加在头部
+
+        
+//************** ??????没明白这段代码啥意思 注掉不影响信息也不崩了
+//            for(NSDictionary *dic in json[@"ProductConditionList"] ){
+//                [conArr addObject:dic];
+//            }
+//            NSDictionary *dic2 = [conArr lastObject];//取出被小宝放在最后面的destination
+//            [conArr removeAllObjects];
+//            [conArr addObject:dic2];//将destination加在头部
+//      
+        
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
             }//将其余的条件添加进来
@@ -784,7 +791,8 @@
         [self.conditionArr removeAllObjects];
         self.conditionArr = conArr;//装载筛选条件数据
         
-        //NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
+        NSLog(@"________ dic2 = , dic = %@",  dic),
+        NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
         
         
         //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
