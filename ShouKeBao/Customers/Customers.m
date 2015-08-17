@@ -626,12 +626,6 @@
 
 
 
-
-
-
-
-
-
 -(void)cleanHistory
 {
     [self.historyArr removeAllObjects];
