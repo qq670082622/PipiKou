@@ -241,7 +241,7 @@
     
     if (_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↓"]) {
         
-                   [self.priceBtn setTitle:@"价格↑" forState:UIControlStateNormal];
+        [self.priceBtn setTitle:@"价格↑" forState:UIControlStateNormal];
         self.selectIndex = 3;
     }else if(_priceBtn.selected == YES && [_priceBtn.titleLabel.text isEqualToString:@"价格↑"]){
         
@@ -258,8 +258,6 @@
         }
 
     }
-   
-
     [self headRefresh];
 }
 

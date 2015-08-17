@@ -32,7 +32,6 @@
     UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
     screenEdge.edges = UIRectEdgeLeft;
     [self.view addGestureRecognizer:screenEdge];
-
 }
 - (void)setNav{
 //    UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];

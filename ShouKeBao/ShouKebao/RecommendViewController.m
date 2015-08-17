@@ -127,9 +127,7 @@
 //    NSInteger number = [num integerValue];
 //
 //    NSLog(@"iii = %ld", number);
-    
-    NSIndexPath *index = [NSIndexPath indexPathForRow:self.number inSection:0];
-    [self.tableView scrollToRowAtIndexPath:index atScrollPosition:UITableViewScrollPositionTop animated:NO];
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.number inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:NO];
     
 // 记得移除掉
 //    [mark setObject:@"" forKey:@"num"];

@@ -47,6 +47,7 @@
 @property (nonatomic,copy) DayDetail *detail;
 
 @property (nonatomic,assign) BOOL isPlain;
+//@property (nonatomic,assign)NSInteger btnTag;
 
 @property (nonatomic,assign) CGFloat rouHei;
 

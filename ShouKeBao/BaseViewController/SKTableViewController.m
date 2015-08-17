@@ -68,7 +68,7 @@
 -(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
     CGPoint sliderdistance = [sender translationInView:self.view];
     if (sliderdistance.x>self.view.bounds.size.width/3) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
+        [self back];
     }
     //NSLog(@"%f",sliderdistance.x);
 }

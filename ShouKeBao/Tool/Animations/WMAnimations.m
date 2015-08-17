@@ -69,6 +69,10 @@
     layer.borderWidth = borderWid;
     layer.cornerRadius = 9;
     layer.masksToBounds = YES;
+    //将绘制的圆角缓存， 避免影响屏幕帧数；
+//    layer.shouldRasterize = YES;
+//    layer.rasterizationScale = [UIScreen mainScreen].scale;
+
     if (needShow) {
         layer.shadowColor = [UIColor lightGrayColor].CGColor;
         layer.shadowOpacity = 0.5;
@@ -83,6 +87,9 @@
     layer.borderWidth = borderWid;
     layer.cornerRadius = radius;
     layer.masksToBounds = YES;
+    //将绘制的圆角缓存， 避免影响屏幕帧数；
+//    layer.shouldRasterize = YES;
+//    layer.rasterizationScale = [UIScreen mainScreen].scale;
     if (needShow) {
         layer.shadowColor = [UIColor lightGrayColor].CGColor;
         layer.shadowOpacity = 0.5;
@@ -97,6 +104,10 @@
     layer.borderColor = color.CGColor;
     layer.borderWidth = borderWid;
    layer.masksToBounds = YES;
+    //将绘制的圆角缓存， 避免影响屏幕帧数；
+//    layer.shouldRasterize = YES;
+//    layer.rasterizationScale = [UIScreen mainScreen].scale;
+
     if (needShow) {
         layer.shadowColor = [UIColor lightGrayColor].CGColor;
         layer.shadowOpacity = 0.5;
