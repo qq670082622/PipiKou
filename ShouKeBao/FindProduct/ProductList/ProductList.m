@@ -112,7 +112,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self initPull];
-    
     [self editButtons];
     
 //    [self customRightBarItem];
@@ -191,7 +190,6 @@
         [self Guide];
     }
     // [self Guide];
-    
     
 }
 
@@ -1290,7 +1288,7 @@
             choose.buttons = conditionDic;
             choose.needMonth = @"1";
             self.subView.hidden = YES;
-            
+            NSLog(@"---%@",conditionDic);
             [self.navigationController pushViewController:choose animated:YES];
         }else if (!(indexPath.section == 0 && indexPath.row == 2)){
             if (indexPath.section == 0) {
