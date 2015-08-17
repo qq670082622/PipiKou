@@ -251,6 +251,7 @@
     if (selectHistoryKey) {
         self.inputView.text = selectHistoryKey;
         ProductList *list = [[ProductList alloc] init];
+    NSLog(@"select  self.inputView.text = %@", self.inputView.text);
         list.pushedSearchK = self.inputView.text;
         list.isFromSearch = YES;
         self.table.tableFooterView.hidden = NO;
@@ -296,6 +297,9 @@
     NSMutableArray *pushArr = [NSMutableArray array];
     [pushArr addObject:dicNew];
 
+    NSLog(@"self.inputView.text = %@", self.inputView.text);
+//    NSString *dd = [NSMutableString stringWithFormat:@"%@",  self.inputView.text];
+//    self.inputView.text = [dd stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
    
     if (self.inputView.text.length>=1 && ![self.inputView.text hasPrefix:@" "]) {
         if (![self.tableDataArr containsObject:self.inputView.text]) {
@@ -311,6 +315,8 @@
                ProductList *list = [[ProductList alloc] init];
         
        list.pushedSearchK = self.inputView.text;
+        
+        NSLog(@"self.inputView.text = %@", self.inputView.text);
         self.table.tableFooterView.hidden = NO;
         
         list.isFromSearch = YES;

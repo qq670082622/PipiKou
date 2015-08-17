@@ -74,19 +74,7 @@
     self.title = @"编辑资料";
     self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
     [self customerRightBarItem];
-//    self.saveOutlet.layer.borderColor = [UIColor lightGrayColor].CGColor;
-//    self.saveOutlet.layer.borderWidth = 1;
-//    self.saveOutlet.layer.cornerRadius = 4;
-//    self.saveOutlet.layer.masksToBounds = YES;
-//    textColor = [UIColor redColor];
-//    lab.text = @"*";
-//    NSString *star =
-    
-//    self.initDelegate = [self.navigationController.viewControllers objectAtIndex:0];
-    
-  
   //新添加的编辑内容
-    
     UILabel *starName = [[UILabel alloc]initWithFrame:CGRectMake(5, 3, 5, 40)];
     starName.textColor = [UIColor redColor];
     starName.text = @"*";
@@ -203,16 +191,6 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-//    [self.name resignFirstResponder];
-//    
-//    [self.tele resignFirstResponder];
-//    
-//    [self.wechat resignFirstResponder];
-//    
-//    [self.QQ resignFirstResponder];
-//    
-//    [self.note resignFirstResponder];
-
     [self hideKey];
 }
 

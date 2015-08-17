@@ -699,7 +699,7 @@
     
     [hudView show:YES];
     
-    [HomeHttpTool getIndexHeadWithParam:dic success:^(id json) {
+    [HomeHttpTool getIndexHeadWithParam:dic success:^(id json){
         
         NSLog(@"首页个人消息汇总%@",json);
         

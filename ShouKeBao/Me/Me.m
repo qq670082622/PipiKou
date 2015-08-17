@@ -253,8 +253,6 @@
     }
     
     NSString *phone = [NSString stringWithFormat:@"tel://%@",mobile];
-    
-  
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phone]];
 }
 
