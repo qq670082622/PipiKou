@@ -130,6 +130,7 @@
 {
     DayDetailCell *cell = [tableView dequeueReusableCellWithIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
     if (cell == nil) {
+//        cell.btnTag = tag;
         cell = [[DayDetailCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:[NSString stringWithFormat:@"cell%ld",(long)tag]];
         cell.separatorInset = UIEdgeInsetsZero;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -253,7 +254,7 @@
     descBtn.titleLabel.font= [UIFont systemFontOfSize:14];
   [self.contentView addSubview:descBtn];
    self.descripBtn = descBtn;
-    
+//    self.descripBtn.tag = self.btnTag;
    
     UILabel *goLab = [[UILabel alloc] init];
     goLab.textColor = [UIColor grayColor];
@@ -346,7 +347,8 @@
     CGFloat viewW = screenW - 2*gap;
     CGFloat viewH;
     if (_isPlain) {
-        viewH = 130;//[self sizeWithText:self.descripLab.text].height ;
+        viewH = [self heihtofContensStr:self.descripLab.text sysFont:13];
+//        [self sizeWithText:self.descripLab.text].height ;
     }else {
         viewH = 20;
     }
@@ -391,13 +393,13 @@
 
     
     
-    if (self.frame.size.height == 330) {
-        [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
-        self.isPlain = YES;
-        [self layoutSubviews];
-    }else if (self.frame.size.height == 220){
+    if ([self.descripBtn.titleLabel.text isEqualToString:@"收起"]) {
         [self.descripBtn setTitle:@"全文" forState:UIControlStateNormal];
         self.isPlain = NO;
+        [self layoutSubviews];
+    }else if ([self.descripBtn.titleLabel.text isEqualToString:@"全文"]){
+        [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
+        self.isPlain = YES;
         [self layoutSubviews];
     }
 }
@@ -561,12 +563,9 @@
    
     self.descripBtn.backgroundColor = [UIColor colorWithRed:244/255.f green:244/255.f blue:244/255.f alpha:1];
 
-    if (self.frame.size.height == 330) {
-       
+    if (self.isPlain) {
         [self.descripBtn setTitle:@"收起" forState:UIControlStateNormal];
-    
     }else{
-    
     [self.descripBtn setTitle:@"全文" forState:UIControlStateNormal];
     }
 
@@ -601,6 +600,12 @@
     CGSize maxSize = CGSizeMake(maxW, MAXFLOAT);
     return [text boundingRectWithSize:maxSize options:NSStringDrawingUsesLineFragmentOrigin attributes:attrs context:nil].size;
     
+}
+- (CGFloat)heihtofContensStr:(NSString *)str
+                     sysFont:(CGFloat)font{
+    NSDictionary * dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIFont systemFontOfSize:font], NSFontAttributeName, nil];
+    CGRect rect =  [str boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 20, 0) options:NSStringDrawingUsesLineFragmentOrigin attributes:dic context:nil];
+    return rect.size.height;
 }
 
 -(void)addAlert

@@ -190,6 +190,7 @@
     //self.navigationItem.leftBarButtonItems = @[stationBtn,searchBtn];
 }
 -(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
     leftView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-140, 0, 130, 68)];
     leftView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lansedia"]];
     UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];

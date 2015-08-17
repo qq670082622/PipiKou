@@ -146,7 +146,7 @@
 }
 -(void)loadHotData
 {
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hudView.labelText = @"加载中...";
     [hudView show:YES];
     [IWHttpTool WMpostWithURL:@"/Product/GetRankingProduct" params:nil success:^(id json) {
@@ -244,7 +244,7 @@
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     leftModal * model = self.leftDataArray[indexPath.row];
-    if (model.Name.length > 6) {
+    if (model.Name.length > 5) {
         return 75;
     }else{
     return 55;
@@ -349,19 +349,28 @@
         if ([model.title isEqualToString:@"特价线路"]) {
             return CGSizeMake(collectionView.frame.size.width - 28, 50);
         }else{
-            return CGSizeMake(80, 50);
+            if ([UIScreen mainScreen].bounds.size.width == 320) {
+                return CGSizeMake(108.8, 50);
+            }else if([UIScreen mainScreen].bounds.size.width == 414){
+                return CGSizeMake(99.8, 50);
+            }else{
+                return CGSizeMake(89, 50);
+            }
         }
     }
 }
-
-
-
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    if ([UIScreen mainScreen].bounds.size.width == 320) {
+        return UIEdgeInsetsMake(5, 10, 0, 10);
+    }
+    return UIEdgeInsetsMake(5, 10, 0, 10);
+}
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
     HeaderSectionView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"HeaderSectionView" forIndexPath:indexPath];
     headerView.spotView.layer.cornerRadius = 5;
     //给圆点以及文字设置颜色
-    
     NSArray * colorArray = @[Color(26, 153, 218), Color(0xff, 0x99, 0x00), Color(0xcc, 0x66, 0xff), Color(0x00, 0xcc, 0x00), Color(0xff, 0x33, 0x33)];
     headerView.spotView.backgroundColor = colorArray[indexPath.section%5];
     headerView.allBtn.titleLabel.textColor = colorArray[indexPath.section%5];
@@ -394,7 +403,7 @@
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = model.searchKeyArray[indexPath.row];
-        list.title = model.subNameArray[indexPath.row];;
+        list.title = model.subNameArray[indexPath.row];
 //        list.pushedArr = _pushArr;
         NSDictionary * dic = @{@"TwoSubName":model.searchKeyArray[indexPath.row]};
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];

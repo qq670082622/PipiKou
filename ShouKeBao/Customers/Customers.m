@@ -291,9 +291,6 @@
 
 -(void)setSubViewUp
 {
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"CustomAddClick" attributes:dict];
-
     if (self.subView.hidden == YES) {
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 0;
