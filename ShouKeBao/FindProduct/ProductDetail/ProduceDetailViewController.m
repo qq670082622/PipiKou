@@ -127,9 +127,9 @@
     self.timer = timer;
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     [self setUpleftBarButtonItems];
-    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
-    screenEdge.edges = UIRectEdgeLeft;
-    [self.webView.scrollView addGestureRecognizer:screenEdge];
+//    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+//    screenEdge.edges = UIRectEdgeLeft;
+//    [self.webView.scrollView addGestureRecognizer:screenEdge];
  }
 
 //- (void)returnAction:(UISwipeGes  tureRecognizer *)swip
@@ -139,17 +139,6 @@
 
 
 
--(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
-    NSLog(@"aaaa");
-    [self back];
-}
--(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
-    CGPoint sliderdistance = [sender translationInView:self.view];
-    if (sliderdistance.x>self.view.bounds.size.width/3) {
-        [self.navigationController popToRootViewControllerAnimated:YES];
-    }
-    //NSLog(@"%f",sliderdistance.x);
-}
 
 -(void)setUpleftBarButtonItems
 {
@@ -312,7 +301,7 @@
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
     
-
+    [_indicator startAnimation];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
 
     if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
@@ -363,12 +352,11 @@
         
     }else if(self.m == 1){
         if ([self.webView canGoBack]) {
-            self.navigationItem.leftBarButtonItem = nil;
+//            self.navigationItem.leftBarButtonItem = nil;
             [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
         }else{
             self.navigationItem.leftBarButtonItem = nil;
             self.navigationItem.leftBarButtonItem = leftItem;
-            
         }
         
     }
@@ -417,7 +405,7 @@
         }
 
     }
-        [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
+//        [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
 }
 -(void)addAlert
 {

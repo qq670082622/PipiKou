@@ -61,7 +61,8 @@
 #import "Me.h"
 #import "StrToDic.h"
 #import "BaseWebViewController.h"
-#import "ProductRecommendController.h"
+#import "FeedBcakViewController.h"
+#import "ProductRecommendViewController.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
 @property (nonatomic, strong)RecommendCell *cell;
 @property (nonatomic, strong)BBBadgeBarButtonItem *barButton;
@@ -1510,7 +1511,7 @@
         
         self.cell = [RecommendCell cellWithTableView:tableView number:count];
         self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        
+        self.cell.ShouKeBaoNav = self.navigationController;
 
         NSLog(@"self.recommendCount)%ld", self.recommendCount);
 
@@ -1643,13 +1644,16 @@
 
 -(void)nitifiToPushRecommendListWithUrl
 {
-    RecomViewController *rec = [[RecomViewController alloc] init];
-    NSLog(@"%d", self.isEmpty);
-    rec.isFromEmpty = self.isEmpty;
-   [self.navigationController pushViewController:rec animated:YES];
-//    UIStoryboard * SB = [UIStoryboard storyboardWithName:@"ProductRecommend" bundle:[NSBundle mainBundle]];
-//    ProductRecommendController * PRVC = (ProductRecommendController *)[SB instantiateViewControllerWithIdentifier:@"ProductRecommendVC"];
-//    [self.navigationController pushViewController:PRVC animated:YES];
+//    RecomViewController *rec = [[RecomViewController alloc] init];
+//    NSLog(@"%d", self.isEmpty);
+//    rec.isFromEmpty = self.isEmpty;
+//   [self.navigationController pushViewController:rec animated:YES];
+    
+    
+
+    UIStoryboard * SB = [UIStoryboard storyboardWithName:@"ProductRecommend" bundle:[NSBundle mainBundle]];
+    ProductRecommendViewController * PRVC = (ProductRecommendViewController *)[SB instantiateViewControllerWithIdentifier:@"eeee"];
+    [self.navigationController pushViewController:PRVC animated:YES];
 //    NSUserDefaults *change = [NSUserDefaults standardUserDefaults];
 //     [change setBool:YES forKey:@"change"];
 //    [change synchronize];

@@ -32,7 +32,7 @@
 
 @property (nonatomic,weak) UILabel *bottomLab;
 @property (nonatomic,weak) UILabel *bottomLab2;
-
+@property (nonatomic, strong)UINavigationController * ShouKeBaoNav;
 
 
 
