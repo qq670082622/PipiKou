@@ -91,6 +91,7 @@
         cell.tintColor = [UIColor colorWithRed:249/255.0 green:132/255.0 blue:12/255.0 alpha:1];
     }
     cell.textLabel.text = self.dataSource[indexPath.row][@"Text"];
+    NSLog(@"text = %@", self.dataSource);
     
     if (_currentIndex == indexPath.row) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
