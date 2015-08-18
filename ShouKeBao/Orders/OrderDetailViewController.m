@@ -268,7 +268,7 @@
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"FromOrderDetailProductOrderSuccess" attributes:dict];
             [MobClick event:@"OrderAll" attributes:dict];
-            
+            [MobClick event:@"OrderAllJS" attributes:dict counter:3];
         }
     }else{
 

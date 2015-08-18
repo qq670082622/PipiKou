@@ -1186,8 +1186,10 @@
         recom = self.dataSource[recomIndex];
        
         [self.dataSource removeObjectAtIndex:recomIndex];
-        [self.dataSource insertObject:recom atIndex:1];
-            }
+        if (self.dataSource[recomIndex]) {
+            [self.dataSource insertObject:recom atIndex:1];
+        }
+    }
     
 }
 
@@ -1222,6 +1224,9 @@
 
 - (IBAction)phoneToService:(id)sender
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ShouKeBaoSOSClickNum" attributes:dict];
+
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
     sos.isFromMe =NO;
@@ -1276,8 +1281,6 @@
     }else if (screenH == 736){
         labY = 440;
     }
-   
-    
     CGFloat labW = self.view.bounds.size.width;
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
     lab.text = @"您分享出去的内容对外只显示门市价";
@@ -1288,7 +1291,6 @@
     [UIView animateWithDuration:0.4 animations:^{
         lab.transform = CGAffineTransformMakeTranslation(0, labY-screenH);
     }];
-    
     self.warningLab = lab;
 
 }
@@ -1326,7 +1328,8 @@
                                 {
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
-                                    
+                                    [MobClick event:@"ShareSuccessAllJS" attributes:dict counter:3];
+
                                     [self.warningLab removeFromSuperview];
                                     
                                     if (type == ShareTypeCopy) {
