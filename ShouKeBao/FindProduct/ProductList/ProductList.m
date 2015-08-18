@@ -53,7 +53,7 @@
 - (IBAction)backToTop:(id)sender;
 //@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
 @property (nonatomic, strong) UIButton *pageCountBtn;
-
+@property (nonatomic,assign)  CGFloat oldOffset;
 
 
 //@property (weak, nonatomic) IBOutlet UIView *blackView;
@@ -113,7 +113,6 @@
     [super viewDidLoad];
     [self initPull];
     [self editButtons];
-    
 //    [self customRightBarItem];
     self.table.delegate = self;
     self.table.dataSource = self;
@@ -125,10 +124,10 @@
     self.pageCountBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.pageCountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
-    self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:12];
+    self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, 0);
     self.pageCountBtn.frame = CGRectMake(0, self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
     [self.backToTopBtn addSubview:self.pageCountBtn];
-    
     
     [self.commondOutlet setSelected:YES];
     
@@ -192,8 +191,6 @@
     // [self Guide];
     
 }
-
-
 
 #pragma -mark VClife
 -(void)viewWillAppear:(BOOL)animated
@@ -345,7 +342,7 @@
     if (_jiafan == nil) {
         
         self.jiafan = [NSMutableString stringWithFormat:@"0"];
-        
+     
     }
     return _jiafan;
 }
@@ -792,9 +789,9 @@
         
         [self.conditionArr removeAllObjects];
         self.conditionArr = conArr;//装载筛选条件数据
-        
-        NSLog(@"________ dic2 = , dic = %@",  dic),
-        NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
+        NSLog(@"_+++%@",conArr);
+        //NSLog(@"________ dic2 = , dic = %@",  dic),
+        //NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
         
         
         //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
@@ -1226,7 +1223,17 @@
 }
 #pragma -mark -  控制返回顶部按钮的隐藏和显示
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+{/*
+ CIContext *context = [CIContext contextWithOptions:nil];
+ CIImage *image = [CIImage imageWithContentsOfURL:imageURL];
+ CIFilter *filter = [CIFilter filterWithName:@"CIGaussianBlur"];
+ [filter setValue:image forKey:kCIInputImageKey];
+ [filter setValue:@2.0f forKey: @"inputRadius"];
+ CIImage *result = [filter valueForKey:kCIOutputImageKey];
+ CGImageRef outImage = [context createCGImage: result fromRect:[result extent]];
+ UIImage * blurImage = [UIImage imageWithCGImage:outImage];
+ */
+    
 //    if (self.table.contentOffset.y>300) {
 //        self.backToTopBtn.hidden = NO;
 //    }else if (self.table.contentOffset.y <300){
@@ -1246,6 +1253,20 @@
     //        pageCount = [_page integerValue] - 1;
     //    }
     
+    if (scrollView.contentOffset.y > self.oldOffset){
+        NSLog(@"正在向上滚动");
+        if (count+1 == 1){
+            self.chooseButton.alpha = 1;
+        }else{
+            self.chooseButton.alpha = 0;
+        }
+        
+    }else{
+        NSLog(@"正在向下滚动");
+        self.chooseButton.alpha = 1;
+        
+    }
+    self.oldOffset = scrollView.contentOffset.y;
     [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];
 }
 
@@ -1376,11 +1397,12 @@
                 }
             }
             
+            NSLog(@"%d", indexPath.row);
             NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
             
             //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
             NSDictionary *conditionDic = _conditionArr[a];
-            
+            NSLog(@"__________%@",_conditionArr);
             ConditionSelectViewController *conditionVC = [[ConditionSelectViewController alloc] init];
             
             conditionVC.delegate = self;
@@ -1468,7 +1490,7 @@
         
         if (indexPath.section == 0) {
             cell.textLabel.font = [UIFont systemFontOfSize:15];
-            
+            NSLog(@"%@", self.subDataArr1[indexPath.row]);
             cell.textLabel.text =  [NSString stringWithFormat:@"%@",self.subDataArr1[indexPath.row]];
             
             cell.detailTextLabel.font = [UIFont systemFontOfSize:12.0];
@@ -1496,14 +1518,14 @@
                 }
                 
                 //               if (indexPath.row == 0 && _isFromSearch == YES)
-                if (indexPath.row == 0 && self.pushedArr.count == 0)   { //当是从搜索进来时,掩盖第一个cell
-                    
-                    UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-                    coverView.backgroundColor = [UIColor whiteColor];
-                    [cell.contentView addSubview:coverView];
-                    cell.accessoryType = UITableViewCellAccessoryNone;
-                    cell.detailTextLabel.text = @"";
-                }
+//                if (indexPath.row == 0 && self.pushedArr.count == 0)   { //当是从搜索进来时,掩盖第一个cell
+//                    
+//                    UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
+//                    coverView.backgroundColor = [UIColor whiteColor];
+//                    [cell.contentView addSubview:coverView];
+//                    cell.accessoryType = UITableViewCellAccessoryNone;
+//                    cell.detailTextLabel.text = @"";
+//                }
                 
             }
             
