@@ -233,6 +233,9 @@
             break;
         }
         case 2:{ // 搬救兵
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"MeSOSClickNum" attributes:dict];
+
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
             SosViewController *sos = [sb instantiateViewControllerWithIdentifier:@"Sos"];
             sos.isFromMe = YES;

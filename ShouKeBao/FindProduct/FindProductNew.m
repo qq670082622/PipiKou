@@ -123,9 +123,6 @@
 - (void)loadDataSourceLeft
 {
     
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    hudView.labelText = @"加载中...";
-    [hudView show:YES];
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationType" params:nil success:^(id json) {
         [self.leftDataArray removeAllObjects];
         leftModal * model = [[leftModal alloc]init];
@@ -136,7 +133,6 @@
             [self.leftDataArray addObject:modal];
         }
         
-        [hudView hide:YES];
         [self.leftTableView reloadData];
         //默认选中第一个cell
         [self.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -250,10 +246,19 @@
     return 55;
     }
 }
+//设置行间距；
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    if(section==0)
+//    {
+//        return 30.0;
+//    }
+//    else
+//    {
+//        return 50.0;
+//    }
+//}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == self.SelectNum) {
-        return;
-    }
     leftModal * model = self.leftDataArray[indexPath.row];
     //左边栏点击事件统计
     NSDictionary * dic = @{};
@@ -264,6 +269,9 @@
     }
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
     [MobClick event:@"FindProductSubNameClick" attributes:dict];
+    if (indexPath.row == self.SelectNum) {
+        return;
+    }
 
     self.SelectNum = indexPath.row;
     LeftTableCell * cell = (LeftTableCell *)[tableView cellForRowAtIndexPath:indexPath];
@@ -359,12 +367,16 @@
         }
     }
 }
+
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
     if ([UIScreen mainScreen].bounds.size.width == 320) {
         return UIEdgeInsetsMake(5, 10, 0, 10);
     }
     return UIEdgeInsetsMake(5, 10, 0, 10);
+}
+- (UIEdgeInsets)sectionInset{
+    return UIEdgeInsetsMake(50, 50, 50, 50);
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -390,6 +402,7 @@
     return headerView;
 
 }
+
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     if (self.leftSelectType == SelectTypeHot) {
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];

@@ -36,6 +36,9 @@
 @property (nonatomic, copy)NSString *urlSuffix2;
 @property (nonatomic, strong)NSArray *eventArray;
 @property (nonatomic, assign)BOOL isBack;
+@property (nonatomic,strong) UIButton * rightButton;
+@property (nonatomic,assign) BOOL isSave;
+
 //FromQRcode,
 //FromRecommend,
 //FromStore,
@@ -50,7 +53,7 @@
 @implementation ProduceDetailViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromFindProductAll" attributes:dict];
@@ -62,7 +65,7 @@
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ProductDetailAll" attributes:dict];
-
+    [MobClick event:@"ProductDetailAllJS" attributes:dict counter:3];
     NSString * string = [NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]];
     NSLog(@"string = %@", string);
     [MobClick event:string attributes:dict];
@@ -98,8 +101,8 @@
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
   
 
-    [self customRightBarItem];
-  
+    [self customRightBarItemType:1];
+
         [self.webView scalesPageToFit];
      [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
@@ -110,9 +113,9 @@
         [self Guide];
     }
     
-    self.recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-    [self.recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    [self.webView addGestureRecognizer:self.recognizer];
+//    self.recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
+//    [self.recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+//    [self.webView addGestureRecognizer:self.recognizer];
     
 ////    *******************
 //    UISwipeGestureRecognizer *swipeGesture = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(returnAction:)];
@@ -279,16 +282,27 @@
     return _shareInfo;
 }
 
--(void)customRightBarItem
+-(void)customRightBarItemType:(NSInteger)type
 {
+    //分享
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
     
     [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
     
     [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    UIBarButtonItem *shareBarItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
-    self.navigationItem.rightBarButtonItem= barItem;
+    //确定
+    self.rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,40,20)];
+    [self.rightButton setTitle:@"确定" forState:UIControlStateNormal];
+    self.rightButton.titleLabel.font = [UIFont systemFontOfSize:15];
+    [self.rightButton addTarget:self action:@selector(writeVisitorsInfoWebViewGoBack) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:self.rightButton];
+    if (type == 1) {
+        self.navigationItem.rightBarButtonItem= shareBarItem;
+    }else if (type == 2){
+        self.navigationItem.rightBarButtonItem = rightItem;
+    }
 }
 
 
@@ -342,10 +356,20 @@
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductOrderSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
             [MobClick event:@"OrderAll" attributes:dict];
+            [MobClick event:@"OrderAllJS" attributes:dict counter:3];
         }
     }
 
 }
+- (void)writeVisitorsInfoWebViewGoBack{
+    self.isSave = YES;
+    [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"];
+    NSLog(@"$$$$www  %@", [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"]);
+    
+    
+    //    [self.webView goBack];
+}
+
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     if (self.m == 0) {
@@ -367,6 +391,19 @@
     [self doIfInWebWithUrl:rightUrl];
     self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
+    [self customRightBarItemType:1];
+    BOOL isNeedBtn = [[self.webView stringByEvaluatingJavaScriptFromString:@"isShowSaveButtonForApp()"]intValue];
+    if (isNeedBtn) {
+        [self customRightBarItemType:2];;
+    }
+    if (self.isSave) {
+        //        NSLog(@"%ld", self.webView.pageCount);
+        [self.webView goBack];
+        [self.webView goBack];
+    }
+    self.isSave = NO;
+    // [MBProgressHUD showSuccess:@"加载完成"];
+
     self.coverView.hidden = YES;
 
 
@@ -503,6 +540,7 @@
                                     
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
+                                    [MobClick event:@"ShareSuccessAllJS" attributes:dict counter:3];
 
                                     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
                                         [MobClick event:@"FromFindProductAllShareSuccess" attributes:dict];
@@ -514,7 +552,7 @@
                                     
                                         [MobClick event:[NSString stringWithFormat:@"%@ShareSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
 
-                                    
+        
 //                                    [self.warningLab removeFromSuperview];
                                    //精品推荐填1
                                     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];

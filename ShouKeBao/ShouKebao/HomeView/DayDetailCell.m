@@ -437,6 +437,7 @@
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"RecommendShareSuccess" attributes:dict];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
+                                    [MobClick event:@"ShareSuccessAllJS" attributes:dict counter:3];
                                     [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
 
                                     
