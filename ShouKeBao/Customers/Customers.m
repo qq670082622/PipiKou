@@ -252,7 +252,7 @@
 
     if ([self.pageIndex intValue] > [self getTotalPage]) {
         [self.table footerEndRefreshing];
-        [self warning];
+//        [self warning];
     }else{
         [self loadDataSource];
     }
@@ -416,7 +416,7 @@
         // 当再无加载数据时提示没有客户的信息
        self.arr = json[@"CustomerList"];
         if (self.arr.count == 0) {
-            [self warning];
+//            [self warning];
         }else{
 
         for(NSDictionary *dic in  json[@"CustomerList"]){

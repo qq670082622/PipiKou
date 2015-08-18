@@ -233,15 +233,32 @@
                 break;
             case 1:
             {
-//                if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"weixin://"]]) {
+                if ([self.weChat.text isEqualToString:@""]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"微信号码为空！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                    [alert show];
+                }else if(![self.weChat.text isEqualToString:@""] && ![[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"weixin://"]]){
+                    UIAlertView*ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机微信，请安装手机微信后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                    [ale show];
+                }else if([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"weixin://"]] && ![self.weChat.text isEqualToString:@""]){
+                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"weixin://"]];
+
+                    
+                }
+
+         
+                
+//                if ([[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"weixin://"]] && ![self.weChat.text isEqualToString:@""]) {
 //                    [[UIApplication sharedApplication]openURL:[NSURL URLWithString:@"weixin://"]];
 //                }
-
             }
                 break;
             case 2:
             {
-                if (![self joinGroup:nil key:nil]) {
+                if ([self.QQ.text isEqualToString:@""]) {
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"QQ号码为空！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                    [alert show];
+                }
+                if (![self joinGroup:nil key:nil] && ![self.QQ.text isEqualToString:@""]) {
                     UIAlertView*ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
                     [ale show];
                 }
@@ -255,6 +272,11 @@
     }
 
 }
+
+
+
+
+
 - (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
     NSString *urlStr = [NSString stringWithFormat:@"mqqapi://card/show_pslcard?src_type=internal&version=1&uin=6481427ed9be2a6b6df78d95f2abf8a0ebaed07baefe3a2bea8bd847cb9d84ed&card_type=group&source=external"];
     NSURL *url = [NSURL URLWithString:urlStr];
@@ -262,9 +284,17 @@
         NSString *qqStr = [NSString stringWithFormat:@"mqq://im/chat?chat_type=wpa&uin=%@&version=1&src_type=web",self.QQ.text];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:qqStr]];
         return YES;
-    }
-    else return NO;
+    }else
+        return NO;
 }
+
+- (BOOL)joinWet:(NSString *)group key:(NSString *)key{
+    
+    
+    return YES;
+}
+
+
 
 - (IBAction)attachmentAction:(id)sender {
     attachmentViewController *att = [[attachmentViewController alloc] init];

@@ -7,8 +7,9 @@
 //
 
 #import "CustomerOrderViewController.h"
+//#import "CustomerOrderCell.h"
 #import "OrderCell.h"
-
+#import "OrderDetailViewController.h"
 #import "Menum.h"
 #import "ArrowBtn.h"
 #import "MGSwipeButton.h"
@@ -16,8 +17,15 @@
 #import "UIScrollView+MJRefresh.h"
 #import "QDMenu.h"
 #import "NullContentView.h"
+#import "OrderModel.h"
 
-@interface CustomerOrderViewController ()<UITableViewDataSource, UITableViewDelegate, menumDelegate, QDMenuDelegate, UIGestureRecognizerDelegate>
+#import "OrderTool.h"
+#import "MBProgressHUD+MJ.h"
+#define pageSize 10
+
+
+
+@interface CustomerOrderViewController ()<UITableViewDataSource, UITableViewDelegate, menumDelegate, QDMenuDelegate, /*QDMenumDelegate,*/ UIGestureRecognizerDelegate>
 @property (nonatomic, strong)NSMutableArray * dateSource;
 @property (nonatomic,strong) UITableView *tableV;
 
@@ -32,11 +40,10 @@
 @property (nonatomic,strong) UIView *coverView;
 @property (nonatomic,strong) NSMutableArray *chooseTime;// 所有时间
 @property (nonatomic,strong) NSMutableArray *chooseStatus;// 所有状态
-
 @property (nonatomic,copy) NSString *choosedTime;// 选择的时间
 @property (nonatomic,copy) NSString *choosedStatus;// 选择的状态
-
-
+@property (nonatomic,assign) BOOL isHeadRefresh;
+@property (nonatomic,assign) int pageIndex;// 当前页
 @end
 
 @implementation CustomerOrderViewController
@@ -44,12 +51,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
- 
+    self.pageIndex = 1;
+    [self loadDataByCondition];
+//    [self loadDataSuorceByCondition];
+    self.choosedTime = @"";
+    self.choosedStatus = @"0";
     [self.view addSubview:self.meunm];
     [self.view addSubview:self.tableV];
     
-    [self initHeader];
-
+    
+//    [self initHeader];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -78,14 +90,14 @@
 //        self.RselectedIndex = 0;
         
     }
-//    self.pageIndex = 1;
-//    self.isHeadRefresh = YES;
+    self.pageIndex = 1;
+    self.isHeadRefresh = YES;
 //    [self loadDataSuorceByCondition];
 }
 -(void)footRefresh
 {
-//    self.pageIndex ++;
-//    self.isHeadRefresh = NO;
+    self.pageIndex ++;
+    self.isHeadRefresh = NO;
 //    if (self.pageIndex < [self getEndPage]) {
 //        [self loadDataSuorceByCondition];
 //    }else{
@@ -119,12 +131,16 @@
     if (!_coverView) {
         _coverView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
         _coverView.backgroundColor = [UIColor colorWithWhite:1 alpha:0];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeMenu:)];
-        tap.delegate = self;
-        [_coverView addGestureRecognizer:tap];
+
+        UITapGestureRecognizer *tapGestion = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(removeMenum:)];
+        
+        tapGestion.delegate = self;
+//        [self.view addGestureRecognizer:tapGestion];
+        [self.coverView addGestureRecognizer:tapGestion];
     }
     return _coverView;
 }
+
 - (NSMutableArray *)dateSource{
     if (!_dateSource) {
         _dateSource = [NSMutableArray array];
@@ -146,7 +162,15 @@
     return _chooseStatus;
 }
 
-
+#pragma mark - 手势代理
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    if (touch.view == self.coverView) {
+        return YES;
+    }
+    return NO;
+    
+}
 #pragma mark - MenumDelegate
 /**
  *  点击选择左菜单
@@ -170,7 +194,6 @@
 
 - (void)createMenuWithSelectedIndex:(NSInteger)SelectedIndex frame:(CGRect)frame dataSource:(NSMutableArray *)dataSource direct:(NSInteger)direct
 {
-    NSLog(@"ssss");
     self.qdmenu = [[QDMenu alloc] init];
     self.qdmenu.direct = direct;
     self.qdmenu.currentIndex = SelectedIndex;
@@ -189,35 +212,38 @@
     
     [self.view.window addSubview:self.coverView];
 }
+
+//- (void)menum:(QDMenu *)menum didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.isNUll = NO;
     if (menu.direct == 0) {// 时间筛选
         NSLog(@"vvvvv");
-//        NSString *title = menu.dataSource[indexPath.row][@"Text"];
-//        self.meunm.leftButton.text = title;
-//        
-//        self.choosedTime = menu.dataSource[indexPath.row][@"Value"];
-//        [self remove];
-//        self.LselectedIndex = indexPath.row;
+        NSString *title = menu.dataSource[indexPath.row][@"Text"];
+        self.meunm.leftButton.text = title;
+        
+        self.choosedTime = menu.dataSource[indexPath.row][@"Value"];
+        [self remove];
+        self.LselectedIndex = indexPath.row;
         [self.tableView headerBeginRefreshing];
         
         
     }else{// 状态筛选
-//        NSString *title = menu.dataSource[indexPath.row][@"Text"];
-//        self.meunm.reghtButton.text = title;
-//        
-//        self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
-//        [self remove];
-//        self.RselectedIndex = indexPath.row;
+        NSString *title = menu.dataSource[indexPath.row][@"Text"];
+        self.meunm.reghtButton.text = title;
+        
+        self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
+        [self remove];
+        self.RselectedIndex = indexPath.row;
         
         [self.tableView headerBeginRefreshing];
     }
 }
 
 
-- (void)removeMenu:(UITapGestureRecognizer *)ges
+- (void)removeMenum:(UITapGestureRecognizer *)ges
 {
+    NSLog(@"yyyyyy");
     [self remove];
 }
 - (void)remove
@@ -265,28 +291,30 @@
     return 10;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    static NSString * cellID = @"CustomerOrdercell";
-//    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//    if (!cell) {
-//        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-//    }
     
     OrderCell *cell = [OrderCell cellWithTableView:tableView];
 //    cell.delegate = self;
 //    cell.orderDelegate = self;
     cell.indexPath = indexPath;
-    
-
+//
 //    OrderModel *order = self.dateSource[indexPath.section];
 //    cell.model = order;
-//    cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
+    cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
 //    cell.rightButtons = [self createRightButtons:order];
-    
 
-    
     return cell;
     
 }
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+//    OrderDetailViewController *orderDetail = [[OrderDetailViewController alloc]init];
+//    OrderModel *model = self.dateSource[indexPath.section];
+//    orderDetail.url = model.DetailLinkUrl;
+//    [self.navigationController pushViewController:orderDetail animated:YES];
+}
+
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -311,6 +339,78 @@
 //        [self.nullContentView setNullContentIsSearch:self.isSearch];
     }
 }
+
+
+#pragma mark - 数据加载
+- (void)loadDataByCondition
+{
+    self.isNUll = NO;
+    [MBProgressHUD showHUDAddedTo:[UIApplication sharedApplication].delegate.window animated:YES];
+    NSDictionary *param = @{};
+    [OrderTool getOrderConditionWithParam:param success:^(id json) {
+        [MBProgressHUD hideAllHUDsForView:[UIApplication sharedApplication].delegate.window animated:YES];
+        [self.chooseTime removeAllObjects];
+        [self.chooseStatus removeAllObjects];
+        if (json) {
+            NSLog(@"json----%@",json);
+            if ([json[@"IsSuccess"] integerValue] == 1) {
+                
+                for (NSDictionary *timeDic in json[@"DateRangList"]) {
+                    [self.chooseTime addObject:timeDic];
+                }
+                NSLog(@"self.chooseTime = %@", self.chooseTime);
+                
+                for (NSDictionary *statusDic in json[@"StateList"]) {
+                    [self.chooseStatus addObject:statusDic];
+                }
+                
+                // 获取筛选条件后加载默认的列表
+                [self.tableView headerBeginRefreshing];
+            }
+        }
+    } failure:^(NSError *error) {
+    }];
+}
+
+
+- (void)loadDataSuorceByCondition
+{   self.isNUll = NO;
+  
+    NSDictionary *param = @{@"PageIndex":[NSString stringWithFormat:@"%d",self.pageIndex],
+                            @"PageSize":[NSString stringWithFormat:@"%d",pageSize],
+                            @"CreatedDateRang":self.choosedTime,
+                            @"State":self.choosedStatus,
+                           };
+    [OrderTool getOrderListWithParam:param success:^(id json) {
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+        if (json) {
+            NSLog(@"------%@",json);
+            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
+            dispatch_async(q, ^{
+                if (self.isHeadRefresh) {
+                    [self.dateSource removeAllObjects];
+                }
+//                self.totalCount = json[@"TotalCount"];
+                NSLog(@"self.dataSourse = %@", self.dateSource);
+                for (NSDictionary *dic in json[@"OrderList"]) {
+                    OrderModel *order = [OrderModel orderModelWithDict:dic];
+                    [self.dateSource addObject:order];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                  
+                    [self setNullImage];
+                    [self.tableView reloadData];
+                });
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+
+
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
