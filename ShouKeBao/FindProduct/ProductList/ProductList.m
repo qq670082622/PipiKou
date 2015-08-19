@@ -25,11 +25,15 @@
 #import "WMAnimations.h"
 #import "MJRefresh.h"
 #import "WriteFileManager.h"
-
+#import "UIImageView+LBBlurredImage.h"
 #import "ChooseDayViewController.h"
 #import "MobClick.h"
+#import "ShaiXuanViewController.h"
 #import "BaseClickAttribute.h"
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
+{
+    ShaiXuanViewController *ShaiXuan;
+}
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 
@@ -52,6 +56,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *backToTopBtn;
 - (IBAction)backToTop:(id)sender;
 //@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
+@property (weak, nonatomic) IBOutlet UIView *gaosimohuView;
 @property (nonatomic, strong) UIButton *pageCountBtn;
 @property (nonatomic,assign)  CGFloat oldOffset;
 
@@ -108,25 +113,36 @@
 @end
 
 @implementation ProductList
-
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
+     ShaiXuan = [[ShaiXuanViewController alloc] init];
     [self initPull];
     [self editButtons];
 //    [self customRightBarItem];
+    //筛选界面返回调用刷新传值
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(receiveNotification:)
+                                                 name:@"refresh"
+                                               object:nil];
+
+    
     self.table.delegate = self;
     self.table.dataSource = self;
     self.subTable.delegate = self;
     self.subTable.dataSource = self;
-    
+    self.conditionDic = [[NSMutableDictionary alloc] init];
     self.page = [NSMutableString stringWithFormat:@"1"];
-    
+  
     self.pageCountBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.pageCountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 0, 0, 0);
-    self.pageCountBtn.frame = CGRectMake(0, self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 7, 0, 0);
+    
+    self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
     [self.backToTopBtn addSubview:self.pageCountBtn];
     
     [self.commondOutlet setSelected:YES];
@@ -147,6 +163,15 @@
     self.turn = [NSMutableString stringWithFormat:@"Off"];
     
     
+    //高斯模糊效果
+    //UIImageView *gsimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+60, self.view.bounds.size.width, 80)];
+//    gsimageView.image = [UIImage imageNamed:@"gaosimohu"];
+    //gsimageView.alpha = 0.8;
+    //gsimageView.contentMode = UIViewContentModeScaleAspectFill;
+    //[gsimageView setImageToBlur:[UIImage imageNamed:@"gaosimohuc"] blurRadius:kLBBlurredImageDefaultBlurRadius completionBlock:nil];
+
+    //[self.view addSubview:gsimageView];
+    //[self.view addSubview:self.chooseButton];
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width*titleWid, 34)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];//215 237 244
@@ -191,8 +216,23 @@
     // [self Guide];
     
 }
-
+- (void)receiveNotification:(NSNotification *)noti
+{
+    //    NSLog(@"noti.object.Name = %@, %@", [noti.object valueForKey:@"Name"], [noti.object valueForKey:@"Mobile"]);
+    self.conditionDic = noti.userInfo;
+    [self initPull];
+    
+}
 #pragma -mark VClife
+//    //高斯模糊效果
+//    [super viewDidAppear:animated];
+//    UIImageView *gsimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height-70, self.view.bounds.size.width, 70)];
+//    gsimageView.image = [UIImage imageNamed:@"ip6"];
+//    [gsimageView setImageToBlur:[UIImage imageNamed:@"gaosimohu"] blurRadius:kLBBlurredImageDefaultBlurRadius completionBlock:^(NSError *error) {
+//        NSLog(@"高斯模糊实现错误－－error:%@",error);
+//    }];
+//    
+//    [self.view addSubview:gsimageView];
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -345,15 +385,6 @@
      
     }
     return _jiafan;
-}
-
-
--(NSMutableDictionary *)conditionDic
-{
-    if (_conditionDic == nil) {
-        self.conditionDic = [NSMutableDictionary dictionary];
-    }
-    return _conditionDic;
 }
 
 
@@ -585,6 +616,7 @@
     [dic setObject:type forKey:@"ProductSortingType"];
     [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
+    NSLog(@"%@", self.conditionDic);
     [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
     NSLog(@"-----------------footLoad 请求的 dic  is %@-----------------",dic);
     [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
@@ -624,9 +656,17 @@
 //    [UIView animateWithDuration:0.2 animations:^{
     
 //      [self.coverView setFrame:CGRectMake(0, 667, 375, 667)];
-
+    
+    if (self.dataArr.count != 0) {
+        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
+        [self.navigationController pushViewController:ShaiXuan animated:YES];
+    }else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+        [alert show];
+    }
+    
         
-    [self setSubViewHideNo];
+    //[self setSubViewHideNo];
 //        CATransition *transition = [CATransition animation];
 //        [transition setDuration:0.5];
 //        transition.type = kCATransitionPush;
@@ -729,7 +769,8 @@
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
     
     [dic setObject:type forKey:@"ProductSortingType"];
-    [dic addEntriesFromDictionary:[self conditionDic]];//增加筛选条件
+    
+    [dic addEntriesFromDictionary:self.conditionDic];//增加筛选条件
     
     
     NSLog(@"--------------productList load dic  is %@--------------",[StrToDic jsonStringWithDicL:dic] );
@@ -1257,20 +1298,23 @@
         NSLog(@"正在向上滚动");
         if (count+1 == 1){
             self.chooseButton.alpha = 1;
+            self.gaosimohuView.alpha = 0.8;
         }else{
             self.chooseButton.alpha = 0;
+            self.gaosimohuView.alpha = 0;
         }
         
     }else{
         NSLog(@"正在向下滚动");
         self.chooseButton.alpha = 1;
-        
+        self.gaosimohuView.alpha = 0.8;
     }
     self.oldOffset = scrollView.contentOffset.y;
     [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];
 }
-
-
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
+    NSLog(@"开始滚动%f",scrollView.contentOffset.y);
+}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
@@ -1397,12 +1441,11 @@
                 }
             }
             
-            NSLog(@"%d", indexPath.row);
+            NSLog(@"%ld", indexPath.row);
             NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
             
             //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
             NSDictionary *conditionDic = _conditionArr[a];
-            NSLog(@"__________%@",_conditionArr);
             ConditionSelectViewController *conditionVC = [[ConditionSelectViewController alloc] init];
             
             conditionVC.delegate = self;
@@ -2228,7 +2271,7 @@
     
     mm.delegate = self;
     
-    self.subView.hidden = YES;
+   // self.subView.hidden = YES;
     
     [self.navigationController pushViewController:mm animated:YES];
 }

@@ -140,6 +140,7 @@
 		5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */; };
 		5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A151ADB604C00B0E0E5 /* DayDetail.m */; };
 		5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */; };
+		63128FA21B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 63128FA11B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m */; };
 		6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 6326130A1AB1C175003AC2DA /* MJRefresh.bundle */; };
 		6326131B1AB1C175003AC2DA /* MJRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130D1AB1C175003AC2DA /* MJRefreshBaseView.m */; };
 		6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */ = {isa = PBXBuildFile; fileRef = 6326130F1AB1C175003AC2DA /* MJRefreshConst.m */; };
@@ -229,6 +230,8 @@
 		63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A81B8A1B39065F00D8B37D /* SKBNavBar.xib */; };
 		63A81B8E1B39818400D8B37D /* SKBNavBarFor6OrP.m in Sources */ = {isa = PBXBuildFile; fileRef = 63A81B8D1B39818400D8B37D /* SKBNavBarFor6OrP.m */; };
 		63A81B901B3981AA00D8B37D /* SKBNavBarFor6OrP.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63A81B8F1B3981AA00D8B37D /* SKBNavBarFor6OrP.xib */; };
+		63AA23211B847639009CD44D /* ShaiXuanCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AA231E1B847639009CD44D /* ShaiXuanCell.m */; };
+		63AA23221B847639009CD44D /* ShaiXuanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AA23201B847639009CD44D /* ShaiXuanViewController.m */; };
 		63AE28951B206F8700BDB8C1 /* newModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE28941B206F8700BDB8C1 /* newModel.m */; };
 		63AE28991B21975800BDB8C1 /* attachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63AE28971B21975800BDB8C1 /* attachmentViewController.m */; };
 		63AE289A1B21975800BDB8C1 /* attachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63AE28981B21975800BDB8C1 /* attachmentViewController.xib */; };
@@ -615,6 +618,8 @@
 		5AED0A151ADB604C00B0E0E5 /* DayDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetail.m; sourceTree = "<group>"; };
 		5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShowRemindCell.h; sourceTree = "<group>"; };
 		5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowRemindCell.m; sourceTree = "<group>"; };
+		63128FA01B842EBF00FCDF19 /* UIImageView+LBBlurredImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+LBBlurredImage.h"; sourceTree = "<group>"; };
+		63128FA11B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+LBBlurredImage.m"; sourceTree = "<group>"; };
 		6326130A1AB1C175003AC2DA /* MJRefresh.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = MJRefresh.bundle; sourceTree = "<group>"; };
 		6326130B1AB1C175003AC2DA /* MJRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefresh.h; sourceTree = "<group>"; };
 		6326130C1AB1C175003AC2DA /* MJRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshBaseView.h; sourceTree = "<group>"; };
@@ -765,6 +770,10 @@
 		63A81B8C1B39818400D8B37D /* SKBNavBarFor6OrP.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKBNavBarFor6OrP.h; sourceTree = "<group>"; };
 		63A81B8D1B39818400D8B37D /* SKBNavBarFor6OrP.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKBNavBarFor6OrP.m; sourceTree = "<group>"; };
 		63A81B8F1B3981AA00D8B37D /* SKBNavBarFor6OrP.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SKBNavBarFor6OrP.xib; sourceTree = "<group>"; };
+		63AA231D1B847639009CD44D /* ShaiXuanCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaiXuanCell.h; sourceTree = "<group>"; };
+		63AA231E1B847639009CD44D /* ShaiXuanCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaiXuanCell.m; sourceTree = "<group>"; };
+		63AA231F1B847639009CD44D /* ShaiXuanViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShaiXuanViewController.h; sourceTree = "<group>"; };
+		63AA23201B847639009CD44D /* ShaiXuanViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShaiXuanViewController.m; sourceTree = "<group>"; };
 		63AE28931B206F8700BDB8C1 /* newModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = newModel.h; sourceTree = "<group>"; };
 		63AE28941B206F8700BDB8C1 /* newModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = newModel.m; sourceTree = "<group>"; };
 		63AE28961B21975800BDB8C1 /* attachmentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = attachmentViewController.h; sourceTree = "<group>"; };
@@ -1625,9 +1634,19 @@
 			path = CustomView;
 			sourceTree = "<group>";
 		};
+		63128F9F1B842EBF00FCDF19 /* gaosimohu */ = {
+			isa = PBXGroup;
+			children = (
+				63128FA01B842EBF00FCDF19 /* UIImageView+LBBlurredImage.h */,
+				63128FA11B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m */,
+			);
+			path = gaosimohu;
+			sourceTree = "<group>";
+		};
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				63128F9F1B842EBF00FCDF19 /* gaosimohu */,
 				797791281B6F121C0075CC70 /* MLTransition */,
 				796C4D4E1B60E90C008EBAFE /* JSONKit */,
 				7982F1551B33C68C009F878D /* CityPlistTool */,
@@ -2413,6 +2432,10 @@
 		B36E57171B74C0D000471AAC /* ProductList */ = {
 			isa = PBXGroup;
 			children = (
+				63AA231D1B847639009CD44D /* ShaiXuanCell.h */,
+				63AA231E1B847639009CD44D /* ShaiXuanCell.m */,
+				63AA231F1B847639009CD44D /* ShaiXuanViewController.h */,
+				63AA23201B847639009CD44D /* ShaiXuanViewController.m */,
 				B36E57181B74C0D000471AAC /* ConditionModel.h */,
 				B36E57191B74C0D000471AAC /* ConditionModel.m */,
 				B36E571A1B74C0D000471AAC /* ConditionSelectViewController.h */,
@@ -2642,6 +2665,7 @@
 				5A52FC861ACEBF220076DAE6 /* OrderTool.m in Sources */,
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
 				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
+				63AA23221B847639009CD44D /* ShaiXuanViewController.m in Sources */,
 				63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */,
 				5A6996161AF8A5F2002EDD91 /* BackTableViewControllerController.m in Sources */,
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
@@ -2685,6 +2709,7 @@
 				B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */,
 				635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
+				63AA23211B847639009CD44D /* ShaiXuanCell.m in Sources */,
 				B36E57361B74C0D000471AAC /* ProductModal.m in Sources */,
 				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
@@ -2713,6 +2738,7 @@
 				5A52FC391ACEBF220076DAE6 /* NSString+QD.m in Sources */,
 				5A60FC771AE0A97000CDAC4B /* WelcomePageControl.m in Sources */,
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
+				63128FA21B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m in Sources */,
 				5A6996191AF8CD82002EDD91 /* InputhCell.m in Sources */,
 				845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */,
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,

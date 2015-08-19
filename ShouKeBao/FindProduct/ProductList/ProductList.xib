@@ -11,6 +11,7 @@
                 <outlet property="cheapOutlet" destination="kib-3W-YwQ" id="Y4A-0l-eup"/>
                 <outlet property="chooseButton" destination="Ua6-co-PzD" id="Pf6-7Z-eVw"/>
                 <outlet property="commondOutlet" destination="HuI-cE-kBC" id="LYf-ib-EdL"/>
+                <outlet property="gaosimohuView" destination="J2v-3g-LSd" id="Tew-7d-dst"/>
                 <outlet property="jiafanSwitch" destination="Ifm-XW-AOn" id="mGa-bY-9ml"/>
                 <outlet property="jishiSwitch" destination="bbC-q6-hgA" id="1So-PK-F33"/>
                 <outlet property="noProductView" destination="4Lu-Lo-cU7" id="atn-YM-BXb"/>
@@ -97,8 +98,8 @@
                     </connections>
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iwc-oK-KvS">
-                    <rect key="frame" x="267" y="378" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    <rect key="frame" x="267" y="376" width="45" height="45"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="-10" maxX="0.0" maxY="0.0"/>
                     <state key="normal" image="shangjiana" backgroundImage="tuoyuana">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -108,8 +109,13 @@
                         <action selector="backToTop:" destination="-1" eventType="touchUpInside" id="sqc-VV-2WL"/>
                     </connections>
                 </button>
+                <view alpha="0.79999999999999982" contentMode="scaleToFill" id="J2v-3g-LSd">
+                    <rect key="frame" x="0.0" y="425" width="320" height="55"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Ua6-co-PzD">
-                    <rect key="frame" x="15" y="429" width="289" height="44"/>
+                    <rect key="frame" x="33" y="429" width="256" height="44"/>
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="产品筛选" backgroundImage="ip6">
@@ -294,6 +300,17 @@
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="224" y="209"/>
         </view>
+        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" id="eKr-y2-FO4">
+            <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+        </activityIndicatorView>
+        <viewController id="pqm-sb-5Si">
+            <view key="view" contentMode="scaleToFill" id="FvA-kd-DlK">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            </view>
+        </viewController>
     </objects>
     <resources>
         <image name="content_null" width="177" height="213"/>
