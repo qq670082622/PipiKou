@@ -13,4 +13,7 @@
 @end
 @interface addCustomerViewController : SKViewController
 @property(weak,nonatomic) id<addCustomerToReferesh>delegate;
+
+
+
 @end
