@@ -826,11 +826,13 @@
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
             }//将其余的条件添加进来
+        
 //        }
         
         [self.conditionArr removeAllObjects];
         self.conditionArr = conArr;//装载筛选条件数据
-        NSLog(@"_+++%@",conArr);
+        ShaiXuan.conditionArr =self.conditionArr;
+        NSLog(@"_+++%@",ShaiXuan.conditionArr);
         //NSLog(@"________ dic2 = , dic = %@",  dic),
         //NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
         
