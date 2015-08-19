@@ -29,8 +29,8 @@
 @property (nonatomic, strong)NSMutableArray * dateSource;
 @property (nonatomic,strong) UITableView *tableV;
 
-@property (nonatomic,assign) NSInteger LselectedIndex;
-@property (nonatomic,assign) NSInteger RselectedIndex;
+@property (nonatomic,assign) NSInteger LeftselectedIndex;
+@property (nonatomic,assign) NSInteger RightselectedIndex;
 //时间 状态
 @property (nonatomic, strong)Menum *meunm;
 @property (nonatomic, assign)BOOL isNUll;
@@ -86,8 +86,8 @@
 
         self.meunm.reghtButton.text = @"全部";
         self.meunm.leftButton.text = @"不限";
-//        self.LselectedIndex = 0;
-//        self.RselectedIndex = 0;
+        self.LeftselectedIndex = 0;
+        self.RightselectedIndex = 0;
         
     }
     self.pageIndex = 1;
@@ -118,6 +118,7 @@
     }
     return _tableV;
 }
+//筛选button
 - (Menum *)meunm
 {
     if (!_meunm) {
@@ -126,6 +127,7 @@
     }
     return _meunm;
 }
+//弹出框
 - (UIView *)coverView
 {
     if (!_coverView) {
@@ -179,7 +181,7 @@
 {
     CGFloat menuX = self.view.frame.size.width * 0.25 - 30;
     CGRect frame = CGRectMake(menuX, 113, 135, 45 * 6);
-    [self createMenuWithSelectedIndex:self.LselectedIndex frame:frame dataSource:self.chooseTime direct:0];
+    [self createMenuWithSelectedIndex:self.LeftselectedIndex frame:frame dataSource:self.chooseTime direct:0];
 }
 
 /**
@@ -189,7 +191,7 @@
 {
     CGFloat menuX = self.view.frame.size.width * 0.75 + 30;
     CGRect frame = CGRectMake(menuX, 113, 135, 45 * 7);
-    [self createMenuWithSelectedIndex:self.RselectedIndex frame:frame dataSource:self.chooseStatus direct:1];
+    [self createMenuWithSelectedIndex:self.RightselectedIndex frame:frame dataSource:self.chooseStatus direct:1];
 }
 
 - (void)createMenuWithSelectedIndex:(NSInteger)SelectedIndex frame:(CGRect)frame dataSource:(NSMutableArray *)dataSource direct:(NSInteger)direct
@@ -212,8 +214,9 @@
     
     [self.view.window addSubview:self.coverView];
 }
-
-//- (void)menum:(QDMenu *)menum didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+/**
+ *  选择弹出狂上的tableView的方法
+ */
 - (void)menu:(QDMenu *)menu didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.isNUll = NO;
@@ -224,7 +227,7 @@
         
         self.choosedTime = menu.dataSource[indexPath.row][@"Value"];
         [self remove];
-        self.LselectedIndex = indexPath.row;
+        self.LeftselectedIndex = indexPath.row;
         [self.tableView headerBeginRefreshing];
         
         
@@ -234,7 +237,7 @@
         
         self.choosedStatus = menu.dataSource[indexPath.row][@"Value"];
         [self remove];
-        self.RselectedIndex = indexPath.row;
+        self.RightselectedIndex = indexPath.row;
         
         [self.tableView headerBeginRefreshing];
     }
@@ -243,7 +246,6 @@
 
 - (void)removeMenum:(UITapGestureRecognizer *)ges
 {
-    NSLog(@"yyyyyy");
     [self remove];
 }
 - (void)remove
@@ -332,7 +334,6 @@
 
 - (void)setNullImage
 {
-    
     self.nullContentView.hidden = self.dateSource.count;
     if (!self.nullContentView.hidden) {
         self.isNUll = YES;
@@ -342,6 +343,8 @@
 
 
 #pragma mark - 数据加载
+
+//筛选数据加载
 - (void)loadDataByCondition
 {
     self.isNUll = NO;
@@ -372,7 +375,7 @@
     }];
 }
 
-
+//tableview上数据的加载
 - (void)loadDataSuorceByCondition
 {   self.isNUll = NO;
   

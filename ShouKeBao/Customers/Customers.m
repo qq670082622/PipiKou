@@ -10,7 +10,9 @@
 #import "CustomCell.h"
 #import "CustomModel.h"
 #import "CustomerDetailViewController.h"
-#import "addCustomerViewController.h"
+//#import "addCustomerViewController.h"
+#import "AddViewController.h"
+
 #import "BatchAddViewController.h"
 #import "MBProgressHUD+MJ.h"
 #import "WMAnimations.h"
@@ -27,7 +29,7 @@
 
 #define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,addCustomerToReferesh, DeleteCustomerDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -338,10 +340,10 @@
 
 - (IBAction)addNewUser:(id)sender {
     
-    self.subView.hidden = YES;
-    addCustomerViewController *add = [[addCustomerViewController alloc] init];
-    add.delegate = self;
-    [self.navigationController pushViewController:add animated:YES];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+    AddViewController *addVC = [sb instantiateViewControllerWithIdentifier:@"AddCustomer"];
+    addVC.delegate = self;
+    [self.navigationController pushViewController:addVC animated:YES];
     
 }
 
@@ -880,12 +882,13 @@
     [self.searchTextField becomeFirstResponder];
     self.searchTextField.text = self.searchK;
     
-    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    self.navigationController.hidesBarsWhenKeyboardAppears =YES;
     [UIView animateWithDuration:0.3 animations:^{
-        
-        self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
+        self.view.transform = CGAffineTransformMakeTranslation(0, -64);
         self.historyView.hidden = NO;
-    }];
+        
+            }];
     [self loadHistoryArr];
 }
 
@@ -901,6 +904,8 @@
 //    }else if (self.dataArr.count == 0){
 //        self.imageViewWhenIsNull.hidden = NO;
 //   }
+    
+     [self.navigationController setNavigationBarHidden:NO animated:YES];
  
     [UIView animateWithDuration:0.3 animations:^{
         

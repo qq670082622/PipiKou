@@ -17,6 +17,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *wechat;
 @property (weak, nonatomic) IBOutlet UITextField *QQ;
 @property (weak, nonatomic) IBOutlet UITextView *note;
+//新添加的
+
 - (IBAction)save:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *saveOutlet;
 

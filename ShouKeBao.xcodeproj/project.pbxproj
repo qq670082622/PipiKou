@@ -358,6 +358,7 @@
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
 		B3B82D651B7A0D19009CC320 /* CustomerOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */; };
 		B3B82D681B7A0DD3009CC320 /* Menum.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D671B7A0DD3009CC320 /* Menum.m */; };
+		B3B89B601B845EB200315942 /* AddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B89B5F1B845EB200315942 /* AddViewController.m */; };
 		B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -991,6 +992,8 @@
 		B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrderViewController.m; sourceTree = "<group>"; };
 		B3B82D661B7A0DD3009CC320 /* Menum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menum.h; sourceTree = "<group>"; };
 		B3B82D671B7A0DD3009CC320 /* Menum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menum.m; sourceTree = "<group>"; };
+		B3B89B5E1B845EB200315942 /* AddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddViewController.h; sourceTree = "<group>"; };
+		B3B89B5F1B845EB200315942 /* AddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddViewController.m; sourceTree = "<group>"; };
 		B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2116,6 +2119,8 @@
 				63E0340F1AFC995300BD714A /* addCustomerViewController.h */,
 				63E034101AFC995300BD714A /* addCustomerViewController.m */,
 				63E034111AFC995300BD714A /* addCustomerViewController.xib */,
+				B3B89B5E1B845EB200315942 /* AddViewController.h */,
+				B3B89B5F1B845EB200315942 /* AddViewController.m */,
 			);
 			path = addCustomer;
 			sourceTree = "<group>";
@@ -2631,6 +2636,7 @@
 				63B8C7021ACE917E00328C8C /* messageModel.m in Sources */,
 				5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */,
 				63AE28991B21975800BDB8C1 /* attachmentViewController.m in Sources */,
+				B3B89B601B845EB200315942 /* AddViewController.m in Sources */,
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
 				B3B82D681B7A0DD3009CC320 /* Menum.m in Sources */,
 				63F1A1B21B14250E00DE9867 /* MJTypeEncoding.m in Sources */,
