@@ -13,5 +13,7 @@
 
 @property (strong, nonatomic) IBOutlet UILabel *leftName;
 @property (strong, nonatomic) IBOutlet UIImageView *iconImage;
+@property (strong, nonatomic) IBOutlet NSLayoutConstraint *iconImageW;
+
 @property (nonatomic, strong)  leftModal * model;
 @end

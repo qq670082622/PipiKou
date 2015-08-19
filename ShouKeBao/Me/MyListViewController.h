@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
     collectionType,
     previewType,
+    RelatedProductType
 } ListType;
 
 @interface MyListViewController : SKTableViewController

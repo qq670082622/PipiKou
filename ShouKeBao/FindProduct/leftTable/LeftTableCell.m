@@ -11,6 +11,11 @@
 @implementation LeftTableCell
 
 - (void)awakeFromNib {
+    
+    if ([UIScreen mainScreen].bounds.size.width == 414) {
+//        self.iconImage.frame = CGRectMake(21, 8, 32, 18);
+    }
+
     // Initialization code
 }
 

@@ -315,7 +315,6 @@
 		796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 796C4D501B60E90C008EBAFE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		796E09D21B74410000FEBE9A /* CustomerDetailAndOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */; };
 		796F36BE1B78380C0089FEE8 /* FindProductNew.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F36BD1B78380C0089FEE8 /* FindProductNew.m */; };
-		796F36C01B7838420089FEE8 /* FindProductNew.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 796F36BF1B7838420089FEE8 /* FindProductNew.storyboard */; };
 		796F36C61B78438E0089FEE8 /* LeftTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F36C51B78438E0089FEE8 /* LeftTableCell.m */; };
 		796F36D31B7857310089FEE8 /* LeftTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F36D21B7857310089FEE8 /* LeftTableView.m */; };
 		796F36D61B7857DB0089FEE8 /* RightCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 796F36D51B7857DB0089FEE8 /* RightCollectionView.m */; };
@@ -328,6 +327,7 @@
 		7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7975831A1B6734E1008E2908 /* QRCodeCell.m */; };
 		7977912D1B6F121C0075CC70 /* MLTransitionAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7977912A1B6F121C0075CC70 /* MLTransitionAnimation.m */; };
 		7977912E1B6F121C0075CC70 /* UIViewController+MLTransition.m in Sources */ = {isa = PBXBuildFile; fileRef = 7977912C1B6F121C0075CC70 /* UIViewController+MLTransition.m */; };
+		797A5EB91B846DE200751B1D /* FindProductNew.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 797A5EBB1B846DE200751B1D /* FindProductNew.storyboard */; };
 		797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 797E56591B56569C00154C55 /* NewVersionWebViewController.m */; };
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
 		7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15A1B33ECB8009F878D /* InspectionViewController.m */; };
@@ -913,7 +913,6 @@
 		796E09D11B74410000FEBE9A /* CustomerDetailAndOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailAndOrderViewController.m; sourceTree = "<group>"; };
 		796F36BC1B78380C0089FEE8 /* FindProductNew.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FindProductNew.h; sourceTree = "<group>"; };
 		796F36BD1B78380C0089FEE8 /* FindProductNew.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FindProductNew.m; sourceTree = "<group>"; };
-		796F36BF1B7838420089FEE8 /* FindProductNew.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = FindProductNew.storyboard; sourceTree = "<group>"; };
 		796F36C41B78438E0089FEE8 /* LeftTableCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftTableCell.h; sourceTree = "<group>"; };
 		796F36C51B78438E0089FEE8 /* LeftTableCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftTableCell.m; sourceTree = "<group>"; };
 		796F36D11B7857310089FEE8 /* LeftTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftTableView.h; sourceTree = "<group>"; };
@@ -938,6 +937,7 @@
 		7977912A1B6F121C0075CC70 /* MLTransitionAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MLTransitionAnimation.m; sourceTree = "<group>"; };
 		7977912B1B6F121C0075CC70 /* UIViewController+MLTransition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+MLTransition.h"; sourceTree = "<group>"; };
 		7977912C1B6F121C0075CC70 /* UIViewController+MLTransition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+MLTransition.m"; sourceTree = "<group>"; };
+		797A5EBC1B846DF500751B1D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/FindProductNew.storyboard; sourceTree = "<group>"; };
 		797E56581B56569C00154C55 /* NewVersionWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewVersionWebViewController.h; sourceTree = "<group>"; };
 		797E56591B56569C00154C55 /* NewVersionWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewVersionWebViewController.m; sourceTree = "<group>"; };
 		7982F1561B33C6CB009F878D /* CityPlistTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityPlistTool.h; sourceTree = "<group>"; };
@@ -1121,7 +1121,7 @@
 				5A52FB731ACEBF220076DAE6 /* FindProduct.xib */,
 				796F36BC1B78380C0089FEE8 /* FindProductNew.h */,
 				796F36BD1B78380C0089FEE8 /* FindProductNew.m */,
-				796F36BF1B7838420089FEE8 /* FindProductNew.storyboard */,
+				797A5EBB1B846DE200751B1D /* FindProductNew.storyboard */,
 				5A52FB741ACEBF220076DAE6 /* leftTable */,
 				5A52FB7A1ACEBF220076DAE6 /* ProductDetail */,
 				5A52FB931ACEBF220076DAE6 /* rightTable */,
@@ -2590,7 +2590,7 @@
 				636C8B721AC2E1420097CAE9 /* ShareSDKLocalizable.strings in Resources */,
 				5A52FC881ACEBF220076DAE6 /* ContactView.xib in Resources */,
 				5A52FC411ACEBF220076DAE6 /* ProduceDetailViewController.xib in Resources */,
-				796F36C01B7838420089FEE8 /* FindProductNew.storyboard in Resources */,
+				797A5EB91B846DE200751B1D /* FindProductNew.storyboard in Resources */,
 				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
 				635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */,
 				5A52FC8A1ACEBF220076DAE6 /* DetailView.xib in Resources */,
@@ -2902,6 +2902,14 @@
 				63D31E511AB143D00043B3CA /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		797A5EBB1B846DE200751B1D /* FindProductNew.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				797A5EBC1B846DF500751B1D /* Base */,
+			);
+			name = FindProductNew.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

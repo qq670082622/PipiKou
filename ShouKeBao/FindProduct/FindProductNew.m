@@ -51,9 +51,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    if ([self respondsToSelector:@selector(automaticallyAdjustsScrollViewInsets)]) {
+//        // For insetting with a navigation bar
+//        UIEdgeInsets insets = UIEdgeInsetsMake(64, 0, 0, 0);
+//        self.tableView.contentInset = insets;
+//        self.tableView.scrollIndicatorInsets = insets;
+//    }
+   NSLog(@"%f",[self.topLayoutGuide length]);
     [self firstSetView];
     [self loadDataSourceLeft];
     [self loadHotData];
+    self.leftTableView.frame = CGRectMake(5, 100, 10, 123);
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -239,12 +247,12 @@
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    leftModal * model = self.leftDataArray[indexPath.row];
-    if (model.Name.length > 5) {
+//    leftModal * model = self.leftDataArray[indexPath.row];
+//    if (model.Name.length > 5) {
         return 75;
-    }else{
-    return 55;
-    }
+//    }else{
+//    return 55;
+//    }
 }
 //设置行间距；
 //- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section

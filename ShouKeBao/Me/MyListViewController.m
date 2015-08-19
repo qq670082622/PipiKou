@@ -103,7 +103,7 @@
         } failure:^(NSError *error) {
             
         }];
-    }else{
+    }else if(self.listType == previewType){
         self.title = @"客户最近浏览";
         [MeHttpTool getHistoryProductListWithParam:param success:^(id json) {
             [self.tableView headerEndRefreshing];
@@ -123,6 +123,9 @@
         } failure:^(NSError *error) {
             
         }];
+    }else if(self.listType == RelatedProductType){
+        self.title = @"相关产品";
+    
     }
 }
 
@@ -301,7 +304,7 @@
     ProductCell *cell = [ProductCell cellWithTableView:tableView];
 //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.delegate = self;
-    
+    cell.MylistVCNav = self.navigationController;
     cell.isHistory = self.listType == collectionType ? NO : YES;
     ProductModal *model = self.dataSource[indexPath.row];
     cell.modal = model;
@@ -331,7 +334,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProductModal *model = self.dataSource[indexPath.row];
-    
     ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
     detail.produceUrl = model.LinkUrl;
     detail.productName = model.Name;
@@ -341,7 +343,6 @@
         detail.fromType = FromScanHistory;
     }
     [self.navigationController pushViewController:detail animated:YES];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -349,10 +350,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(self.listType == collectionType) {
-        return 140;
-    }else{
+    if(self.listType == previewType) {
         return 170;
+    }else{
+        return 140;
     }
 }
 
