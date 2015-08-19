@@ -260,7 +260,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderSectionView" id="rhD-sY-ddc" customClass="HeaderSectionView">
-                                    <rect key="frame" x="0.0" y="0.0" width="245" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="339" height="40"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EU-EA-jPD">
@@ -364,12 +364,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cKO-Li-12H" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="236" y="285"/>
+            <point key="canvasLocation" x="308" y="255"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="4uS-gt-mui">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="6sz-x2-FHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="0Dx-cF-khf" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="tXe-MA-8Gv"/>
@@ -447,6 +446,7 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6sz-x2-FHy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="575" y="655"/>
         </scene>
