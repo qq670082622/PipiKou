@@ -1,0 +1,30 @@
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "2EU-EA-jPD"; */
+"2EU-EA-jPD.text" = "Label";
+
+/* Class = "UILabel"; text = "一级目录名字"; ObjectID = "71m-sm-1w3"; */
+"71m-sm-1w3.text" = "一级目录名字";
+
+/* Class = "UILabel"; text = "subtitle"; ObjectID = "Ppe-ga-zst"; */
+"Ppe-ga-zst.text" = "subtitle";
+
+/* Class = "UIButton"; normalTitle = "全部〉"; ObjectID = "ZBR-om-88H"; */
+"ZBR-om-88H.normalTitle" = "全部〉";
+
+/* Class = "UIButton"; normalTitle = "  上海"; ObjectID = "f6B-OF-KRR"; */
+"f6B-OF-KRR.normalTitle" = "  上海";
+
+/* Class = "UILabel"; text = "同行起价:"; ObjectID = "hIv-4c-Cid"; */
+"hIv-4c-Cid.text" = "同行起价:";
+
+/* Class = "UILabel"; text = "linedetail"; ObjectID = "iia-ot-d7K"; */
+"iia-ot-d7K.text" = "linedetail";
+
+/* Class = "UIButton"; normalTitle = "  查找产品"; ObjectID = "tLV-Dn-5U8"; */
+"tLV-Dn-5U8.normalTitle" = "  查找产品";
+
+/* Class = "UILabel"; text = "老冯"; ObjectID = "uyg-Bs-NAb"; */
+"uyg-Bs-NAb.text" = "老冯";
+
+/* Class = "UILabel"; text = "RMB2550"; ObjectID = "xTP-Sa-XOa"; */
+"xTP-Sa-XOa.text" = "RMB2550";

@@ -134,6 +134,25 @@
         
     }];
 }
+/**
+ *  获取我的收藏产品信息列表
+ */
++ (void)getRelatedProductListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
+{
+    [IWHttpTool postWithURL:@"Product/GetFavoritesProductList" params:param success:^(id json) {
+        
+        if (success) {
+            success(json);
+        }
+        
+    } failure:^(NSError *error) {
+        
+        if (failure) {
+            failure(error);
+        }
+        
+    }];
+}
 
 /**
  *  获取搬救兵,即我的专属客服信息

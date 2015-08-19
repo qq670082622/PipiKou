@@ -23,6 +23,8 @@
 @property (strong, nonatomic) IBOutlet UIButton *submitBT;
 @property (strong, nonatomic) IBOutlet UIButton *goodBT;
 @property (strong, nonatomic) IBOutlet UIButton *badBT;
+
+
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *goodBT_W;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *goodBT_H;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *badBT_H;

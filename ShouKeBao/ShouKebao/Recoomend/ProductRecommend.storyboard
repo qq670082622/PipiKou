@@ -115,6 +115,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="g10-lG-NVX" secondAttribute="trailing" constant="-16" id="USn-8n-434"/>
                             <constraint firstItem="Vnb-10-YUD" firstAttribute="leading" secondItem="XGA-yS-FwS" secondAttribute="trailing" id="VrL-Ey-4M0"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vnb-10-YUD" secondAttribute="trailing" constant="-16" id="egN-m4-fZa"/>
+                            <constraint firstAttribute="centerX" secondItem="g10-lG-NVX" secondAttribute="centerX" id="ezO-AC-gGV"/>
                             <constraint firstAttribute="centerX" secondItem="g10-lG-NVX" secondAttribute="centerX" id="qbH-Oc-Lg9"/>
                             <constraint firstItem="Vnb-10-YUD" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="rG9-bc-DZA"/>
                         </constraints>

@@ -10,7 +10,8 @@
 #import "UIImageView+WebCache.h"
 #import "textStyle.h"
 #import "UIImage+QD.h"
-
+#import "WMAnimations.h"
+#import "MyListViewController.h"
 @interface ProductCell()
 
 @end
@@ -121,7 +122,28 @@
     flash.image = [UIImage imageNamed:@"sandian"];
     [self.contentView addSubview:flash];
     self.flash = flash;
-    
+    //下架lab
+    UILabel * theView = [[UILabel alloc]init];
+    theView.textAlignment = NSTextAlignmentCenter;
+    theView.textColor = [UIColor lightGrayColor];
+    theView.text = @"此产品已下架";
+    self.undercarriageView = theView;
+    [WMAnimations WMAnimationMakeBoarderWithLayer:theView.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:1.0 andNeedShadow:NO andCornerRadius:3];
+    self.undercarriageView.font = [UIFont systemFontOfSize:14];
+    self.undercarriageView.backgroundColor = [UIColor whiteColor];
+    self.undercarriageView.hidden = YES;
+    [self.contentView addSubview:theView];
+    //相关按钮
+    UIButton * RelatedBt = [[UIButton alloc]init];
+    self.RelatedBtn = RelatedBt;
+    self.RelatedBtn.titleLabel.textColor = [UIColor whiteColor];
+    self.RelatedBtn.backgroundColor = [UIColor blueColor];
+    [self.RelatedBtn setTitle:@"查看相关产品" forState:UIControlStateNormal];
+    [self.RelatedBtn addTarget:self action:@selector(RelatedProductClick) forControlEvents:UIControlEventTouchUpInside];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.RelatedBtn.layer andBorderColor:[UIColor clearColor] andBorderWidth:1.0 andNeedShadow:NO andCornerRadius:3];
+    self.RelatedBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    self.RelatedBtn.hidden = YES;
+    [self.contentView addSubview:RelatedBt];
     //分割线
 //    UIView *line = [[UIView alloc] init];
 //    line.backgroundColor = [UIColor colorWithRed:170/255.f green:170/255.f blue:170/255.f alpha:1];
@@ -172,6 +194,9 @@
     
     self.profits.frame = CGRectMake(nX, cY, pW, 15);//利润
     
+    //下架产品
+    self.undercarriageView.frame = CGRectMake(pX + screenW/10.0, iconY + 30, (screenW*9/10.0 - pX - 10)/2 -2, 30);
+    self.RelatedBtn.frame = CGRectMake(CGRectGetMaxX(self.undercarriageView.frame)+4, iconY + 30, (screenW*9/10.0 - pX - 10)/2 -2, 30);
     /**
      底下的三个按钮
      */
@@ -192,6 +217,10 @@
     
     CGFloat sX = CGRectGetMaxX(self.flash.frame) + 10;
     self.ShanDianBtn.frame = CGRectMake(sX, jY - 2, 60, 20);
+    /******   下架产品的button设置   ******/
+    
+    
+    
     
     //分割线
 //    self.line.frame = CGRectMake(0, 135.5, self.contentView.frame.size.width, 0.5);
@@ -256,7 +285,24 @@
     [self.ShanDianBtn sizeToFit];
     
     self.isFlash = [modal.IsComfirmStockNow integerValue];
+    if (modal.PersonPrice.length == 0) {
+        self.normalPrice.hidden = YES;
+        self.cheapPrice.hidden = YES;
+        self.profits.hidden = YES;
+        self.flash.hidden = YES;
+        self.ShanDianBtn.hidden = YES;
+        self.jiafanBtn.hidden = YES;
+        self.quanBtn.hidden = YES;
+        self.undercarriageView.hidden = NO;
+        self.RelatedBtn.hidden = NO;
+    }
+    
+    
+    
     [self setNeedsLayout];
+    
+    
+    
     
 //    @property (nonatomic, copy) NSString *ID;//产品ID(用于收藏)
 //    @property (nonatomic, copy) NSString *PicUrl;//
@@ -277,7 +323,12 @@
 //    @property (copy,nonatomic) NSString *ContactMobile;//联系人电话
    
 }
-
+- (void)RelatedProductClick{
+    MyListViewController * MLVC = [[MyListViewController alloc]init];
+    MLVC.listType = RelatedProductType;
+    [self.MylistVCNav pushViewController:nil animated:YES];
+    NSLog(@"相关产品");
+}
 
 
 @end
