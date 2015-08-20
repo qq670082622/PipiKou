@@ -57,7 +57,7 @@
 //        self.tableView.contentInset = insets;
 //        self.tableView.scrollIndicatorInsets = insets;
 //    }
-   NSLog(@"%f",[self.topLayoutGuide length]);
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self firstSetView];
     [self loadDataSourceLeft];
     [self loadHotData];
@@ -213,6 +213,8 @@
     SearchProductViewController *SPVC = [[SearchProductViewController alloc] init];
     SPVC.isFromFindProduct = YES;
     [self.navigationController pushViewController:SPVC animated:NO];
+    //打开app设置，iOS8新特性
+//    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
 }
 
 - (IBAction)selectStaion:(id)sender {

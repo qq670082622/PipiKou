@@ -95,7 +95,7 @@
                                     <constraint firstAttribute="height" constant="1" id="Xwn-96-YLN"/>
                                 </constraints>
                             </view>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GbZ-yX-gKh" customClass="RightCollectionView">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GbZ-yX-gKh" customClass="RightCollectionView">
                                 <rect key="frame" x="75" y="42" width="339" height="694"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="PXS-5T-4jD">
@@ -345,6 +345,7 @@
                         </subviews>
                         <color key="backgroundColor" red="0.89411764705882357" green="0.89411764705882357" blue="0.89411764705882357" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="GbZ-yX-gKh" secondAttribute="trailing" id="AKz-Cs-wiP"/>
                             <constraint firstItem="lOZ-Sk-eEf" firstAttribute="top" secondItem="nZv-WK-dWZ" secondAttribute="bottom" id="FEi-SI-SRV"/>
                             <constraint firstItem="nZv-WK-dWZ" firstAttribute="leading" secondItem="koR-Oc-RVt" secondAttribute="leading" id="JMU-E2-5EO"/>
                             <constraint firstItem="MD9-Ym-8ek" firstAttribute="top" secondItem="koR-Oc-RVt" secondAttribute="top" constant="7" id="KwJ-5G-TFo"/>
@@ -352,12 +353,15 @@
                             <constraint firstItem="f6B-OF-KRR" firstAttribute="top" secondItem="koR-Oc-RVt" secondAttribute="top" constant="7" id="WVY-Oo-Mue"/>
                             <constraint firstItem="MD9-Ym-8ek" firstAttribute="leading" secondItem="koR-Oc-RVt" secondAttribute="leading" constant="5" id="Wxh-aa-tgw"/>
                             <constraint firstItem="nZv-WK-dWZ" firstAttribute="top" secondItem="Tpr-Pb-qxO" secondAttribute="bottom" id="XAK-QW-QkI"/>
+                            <constraint firstItem="GbZ-yX-gKh" firstAttribute="top" secondItem="Tpr-Pb-qxO" secondAttribute="bottom" id="Xjc-Qe-L5u"/>
                             <constraint firstAttribute="trailing" secondItem="tLV-Dn-5U8" secondAttribute="trailing" constant="6" id="Yfy-Z0-8gz"/>
                             <constraint firstItem="tLV-Dn-5U8" firstAttribute="leading" secondItem="MD9-Ym-8ek" secondAttribute="trailing" constant="8" id="a4w-6E-KUd"/>
                             <constraint firstItem="Tpr-Pb-qxO" firstAttribute="top" secondItem="f6B-OF-KRR" secondAttribute="bottom" constant="7" id="hUx-MT-jRf"/>
                             <constraint firstItem="f6B-OF-KRR" firstAttribute="leading" secondItem="koR-Oc-RVt" secondAttribute="leading" constant="23" id="isC-wE-vOw"/>
                             <constraint firstItem="tLV-Dn-5U8" firstAttribute="top" secondItem="koR-Oc-RVt" secondAttribute="top" constant="7" id="lNr-Y7-E7P"/>
                             <constraint firstAttribute="trailing" secondItem="Tpr-Pb-qxO" secondAttribute="trailing" id="nUh-5w-cI3"/>
+                            <constraint firstItem="GbZ-yX-gKh" firstAttribute="leading" secondItem="nZv-WK-dWZ" secondAttribute="trailing" id="vfU-Pu-hNX"/>
+                            <constraint firstItem="lOZ-Sk-eEf" firstAttribute="top" secondItem="GbZ-yX-gKh" secondAttribute="bottom" id="wgI-rc-Adb"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
