@@ -13,6 +13,7 @@
 #import "WMAnimations.h"
 #import "MyListViewController.h"
 @interface ProductCell()
+@property (nonatomic, copy)NSString * productId;
 
 @end
 
@@ -230,7 +231,7 @@
 {
     
     _modal = modal;
-    
+    self.productId = modal.ID;
     if (!self.isHistory) {
         self.time.hidden = YES;
         self.sep.hidden = YES;
@@ -326,8 +327,8 @@
 - (void)RelatedProductClick{
     MyListViewController * MLVC = [[MyListViewController alloc]init];
     MLVC.listType = RelatedProductType;
-    [self.MylistVCNav pushViewController:nil animated:YES];
-    NSLog(@"相关产品");
+    MLVC.productId = self.productId;
+    [self.MylistVCNav pushViewController:MLVC animated:YES];
 }
 
 

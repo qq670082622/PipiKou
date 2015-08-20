@@ -17,5 +17,5 @@ typedef enum : NSUInteger {
 @interface MyListViewController : SKTableViewController
 
 @property (nonatomic,assign) ListType listType;
-
+@property (nonatomic, copy)NSString * productId;
 @end

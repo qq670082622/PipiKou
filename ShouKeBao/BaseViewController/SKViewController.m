@@ -23,10 +23,17 @@
     [super viewDidLoad];
     [self setNav];
     [self addGest];
-    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
+//    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0){
+//        self.edgesForExtendedLayout = UIRectEdgeNone;
+//    }
+    if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
+    {
         self.edgesForExtendedLayout = UIRectEdgeNone;
+//        self.extendedLayoutIncludesOpaqueBars = NO;
+//        self.modalPresentationCapturesStatusBarAppearance = NO;
+        
     }
-    
+
 }
 - (void)addGest{
     UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
