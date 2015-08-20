@@ -235,7 +235,7 @@
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
         if (json) {
-            NSLog(@"------%@",json);
+            NSLog(@"1------%@",json);
             dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
                 if (self.isHeadRefresh) {
@@ -751,7 +751,6 @@
 
 - (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
 {
-    NSLog(@"------");
     return YES;
 }
 

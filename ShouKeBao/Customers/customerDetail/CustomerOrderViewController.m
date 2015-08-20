@@ -10,6 +10,7 @@
 //#import "CustomerOrderCell.h"
 #import "OrderCell.h"
 #import "OrderDetailViewController.h"
+#import "ButtonDetailViewController.h"
 #import "Menum.h"
 #import "ArrowBtn.h"
 #import "MGSwipeButton.h"
@@ -18,14 +19,14 @@
 #import "QDMenu.h"
 #import "NullContentView.h"
 #import "OrderModel.h"
-
+#import "DetailView.h"
 #import "OrderTool.h"
 #import "MBProgressHUD+MJ.h"
 #define pageSize 10
 
 
+@interface CustomerOrderViewController ()<UITableViewDataSource, UITableViewDelegate, menumDelegate, QDMenuDelegate, /*QDMenumDelegate,*/ UIGestureRecognizerDelegate, MGSwipeTableCellDelegate, OrderCellDelegate>
 
-@interface CustomerOrderViewController ()<UITableViewDataSource, UITableViewDelegate, menumDelegate, QDMenuDelegate, /*QDMenumDelegate,*/ UIGestureRecognizerDelegate>
 @property (nonatomic, strong)NSMutableArray * dateSource;
 @property (nonatomic,strong) UITableView *tableV;
 
@@ -44,6 +45,8 @@
 @property (nonatomic,copy) NSString *choosedStatus;// 选择的状态
 @property (nonatomic,assign) BOOL isHeadRefresh;
 @property (nonatomic,assign) int pageIndex;// 当前页
+@property (nonatomic, strong) DetailView *detailView;
+
 @end
 
 @implementation CustomerOrderViewController
@@ -58,9 +61,13 @@
     self.choosedStatus = @"0";
     [self.view addSubview:self.meunm];
     [self.view addSubview:self.tableV];
-    
-    
+
 //    [self initHeader];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickImmediateOrder:) name:@"orderCellDidClickButton" object:nil];
+    
+    
+    
     
     // Do any additional setup after loading the view.
 }
@@ -141,6 +148,16 @@
         [self.coverView addGestureRecognizer:tapGestion];
     }
     return _coverView;
+}
+//初始化客户详情信息的弹出框
+- (DetailView *)detailView
+{
+    if (!_detailView) {
+        _detailView = [[DetailView alloc] init];
+        _detailView.center = self.view.window.center;
+        _detailView.bounds = CGRectMake(0, 0, self.view.frame.size.width * 0.8, 272);
+    }
+    return _detailView;
 }
 
 - (NSMutableArray *)dateSource{
@@ -243,7 +260,9 @@
     }
 }
 
-
+/**
+ *  点击其他地方弹出框消失效果
+ */
 - (void)removeMenum:(UITapGestureRecognizer *)ges
 {
     [self remove];
@@ -280,7 +299,6 @@
     contact.model = model;
     
     [button addSubview:contact];
-    
     return result;
 }
 
@@ -295,14 +313,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     OrderCell *cell = [OrderCell cellWithTableView:tableView];
-//    cell.delegate = self;
-//    cell.orderDelegate = self;
+    cell.delegate = self;
+    cell.orderDelegate = self;
     cell.indexPath = indexPath;
 //
 //    OrderModel *order = self.dateSource[indexPath.section];
 //    cell.model = order;
     cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-//    cell.rightButtons = [self createRightButtons:order];
+    cell.rightButtons = [self createRightButtons:nil];
 
     return cell;
     
@@ -320,7 +338,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 172;
+//    OrderModel *order = self.dateSource[indexPath.section];
+//    if (order.buttonList.count) {
+        return 202;
+//    }else{
+//        return 172;
+//    }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
@@ -329,6 +352,50 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 10.0f;
+}
+
+#pragma mark - OrderCellDelegate 弹出框信息
+- (void)checkDetailAtIndex:(NSInteger)index
+{
+    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+    UIView *cover = [[UIView alloc] initWithFrame:window.bounds];
+    cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
+    [window addSubview:cover];
+    [cover addSubview:self.detailView];
+    // 取出模型
+    OrderModel *order = self.dateSource[index];
+    self.detailView.orderId = order.OrderId;
+}
+
+#pragma mark-立即采购页面跳转
+- (void)clickImmediateOrder:(NSNotification *)noty
+{
+    NSString *url = noty.userInfo[@"linkUrl"];
+    NSString *title = noty.userInfo[@"title"];
+    ButtonDetailViewController *detail = [[ButtonDetailViewController alloc] init];
+    detail.linkUrl = url;
+    detail.title = title;
+    [self.navigationController pushViewController:detail animated:YES];
+}
+
+
+#pragma mark-swipTableCellDelegate
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell canSwipe:(MGSwipeDirection)direction
+{
+    if (direction == MGSwipeDirectionRightToLeft) {
+        return YES;
+    }
+    return NO;
+}
+
+- (BOOL)swipeTableCell:(MGSwipeTableCell *)cell tappedButtonAtIndex:(NSInteger)index direction:(MGSwipeDirection)direction fromExpansion:(BOOL)fromExpansion
+{
+    return YES;
+}
+
+- (NSArray *)swipeTableCell:(MGSwipeTableCell *)cell swipeButtonsForDirection:(MGSwipeDirection)direction swipeSettings:(MGSwipeSettings *)swipeSettings expansionSettings:(MGSwipeExpansionSettings *)expansionSettings
+{
+    return [NSArray array];
 }
 
 
