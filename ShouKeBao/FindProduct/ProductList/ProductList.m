@@ -33,6 +33,8 @@
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
 {
     ShaiXuanViewController *ShaiXuan;
+    //定时器
+    NSTimer *_timer;
 }
 @property (copy,nonatomic) NSMutableString *searchKey;
 @property (weak, nonatomic) IBOutlet UIView *subView;
@@ -58,6 +60,7 @@
 //@property (weak, nonatomic) IBOutlet UIButton *pageCountBtn;
 @property (weak, nonatomic) IBOutlet UIView *gaosimohuView;
 @property (nonatomic, strong) UIButton *pageCountBtn;
+@property (nonatomic) BOOL isAnimation;
 @property (nonatomic,assign)  CGFloat oldOffset;
 
 
@@ -119,6 +122,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      ShaiXuan = [[ShaiXuanViewController alloc] init];
+    self.isAnimation = NO;
     [self initPull];
     [self editButtons];
 //    [self customRightBarItem];
@@ -250,7 +254,75 @@
     
 }
 
-
+//停止滚动的时候调用
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView{
+    NSLog(@"停止滚动");
+    /*//首尾式动画
+     31     [UIView beginAnimations:nil context:nil];
+     32     //执行动画
+     33     //设置动画执行时间
+     34     [UIView setAnimationDuration:2.0];
+     35     //设置代理
+     36     [UIView setAnimationDelegate:self];
+     37     //设置动画执行完毕调用的事件
+     38     [UIView setAnimationDidStopSelector:@selector(didStopAnimation)];
+     39     self.customView.center=CGPointMake(200, 300);
+     40     [UIView commitAnimations];*/
+    if (_timer) {
+        [_timer invalidate];//销毁
+        _timer = nil;
+    }
+    _timer = [NSTimer scheduledTimerWithTimeInterval:3 target:self selector:@selector(timerClick) userInfo:nil repeats:YES];
+   // [_timer invalidate];
+}
+-(void)timerClick{
+    NSLog(@"3秒了");
+    /*
+     CABasicAnimation *theAnimation;
+     theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+     theAnimation.duration=1.0;
+     theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
+     theAnimation.toValue=[NSNumber numberWithFloat:0.0];
+     [flowerImageView.layer addAnimation:theAnimation forKey:@"animateOpacity"];
+     
+     [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
+     target:self
+     selector:@selector(targetMethod)
+     userInfo:nil
+     repeats:NO];
+     */
+    CABasicAnimation *theAnimation;
+     theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    theAnimation.duration=1.0;
+    theAnimation.fromValue=[NSNumber numberWithFloat:0.1];
+    theAnimation.toValue=[NSNumber numberWithFloat:1.0];
+    [self.chooseButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];//animateOpacity
+    [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
+                                     target:self
+                                   selector:@selector(targetMethod)
+                                   userInfo:nil
+                                    repeats:NO];
+    CABasicAnimation *gaosiAnimation;
+    gaosiAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+    gaosiAnimation.duration=1.0;
+    gaosiAnimation.fromValue=[NSNumber numberWithFloat:0.1];
+    gaosiAnimation.toValue=[NSNumber numberWithFloat:0.8];
+    [self.gaosimohuView.layer addAnimation:gaosiAnimation forKey:@"animateOpacity"];//animateOpacity
+    [NSTimer scheduledTimerWithTimeInterval:gaosiAnimation.duration
+                                     target:self
+                                   selector:@selector(targetMethod2)
+                                   userInfo:nil
+                                    repeats:NO];
+    [_timer invalidate];
+}
+-(void)targetMethod{
+    self.chooseButton.alpha = 1;
+    self.isAnimation = NO;
+}
+-(void)targetMethod2{
+ self.isAnimation = NO;
+    self.gaosimohuView.alpha = 0.8;
+}
 -(void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
@@ -1263,6 +1335,7 @@
     }
     return 0;
 }
+
 #pragma -mark -  控制返回顶部按钮的隐藏和显示
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {/*
@@ -1298,17 +1371,73 @@
     if (scrollView.contentOffset.y > self.oldOffset){
         NSLog(@"正在向上滚动");
         if (count+1 == 1){
-            self.chooseButton.alpha = 1;
-            self.gaosimohuView.alpha = 0.8;
+            if (self.isAnimation) {
+                CABasicAnimation *gaosiAnimation;
+//                [UIView animateWithDuration:0.4 animations:^{
+//                
+//                } completion:^(BOOL finished) {
+//                    
+//                }];
+                gaosiAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+                gaosiAnimation.duration=1.0;
+                gaosiAnimation.fromValue=[NSNumber numberWithFloat:0.1];
+                gaosiAnimation.toValue=[NSNumber numberWithFloat:0.8];
+                [self.gaosimohuView.layer addAnimation:gaosiAnimation forKey:@"animateOpacity"];//animateOpacity
+                [NSTimer scheduledTimerWithTimeInterval:gaosiAnimation.duration
+                                                 target:self
+                                               selector:@selector(targetMethod2)
+                                               userInfo:nil
+                                                repeats:NO];
+                CABasicAnimation *theAnimation;
+                theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+                theAnimation.duration=1.0;
+                theAnimation.fromValue=[NSNumber numberWithFloat:0.1];
+                theAnimation.toValue=[NSNumber numberWithFloat:1.0];
+                [self.chooseButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];//animateOpacity
+                [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
+                                                 target:self
+                                               selector:@selector(targetMethod)
+                                               userInfo:nil
+                                                repeats:NO];
+                self.isAnimation = NO;
+            }
+            
         }else{
             self.chooseButton.alpha = 0;
             self.gaosimohuView.alpha = 0;
+            self.isAnimation = YES;
         }
         
     }else{
         NSLog(@"正在向下滚动");
-        self.chooseButton.alpha = 1;
-        self.gaosimohuView.alpha = 0.8;
+        if (self.isAnimation) {
+            CABasicAnimation *gaosiAnimation;
+            gaosiAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+            gaosiAnimation.duration=1.0;
+            gaosiAnimation.fromValue=[NSNumber numberWithFloat:0.1];
+            gaosiAnimation.toValue=[NSNumber numberWithFloat:0.8];
+            [self.gaosimohuView.layer addAnimation:gaosiAnimation forKey:@"animateOpacity"];//animateOpacity
+            [NSTimer scheduledTimerWithTimeInterval:gaosiAnimation.duration
+                                             target:self
+                                           selector:@selector(targetMethod2)
+                                           userInfo:nil
+                                            repeats:NO];
+            CABasicAnimation *theAnimation;
+            theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
+            theAnimation.duration=1.0;
+            theAnimation.fromValue=[NSNumber numberWithFloat:0.1];
+            theAnimation.toValue=[NSNumber numberWithFloat:1.0];
+            [self.chooseButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];//animateOpacity
+            [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
+                                             target:self
+                                           selector:@selector(targetMethod)
+                                           userInfo:nil
+                                            repeats:NO];
+            self.isAnimation = NO;
+            
+        }
+//        self.chooseButton.alpha = 1;
+//        self.gaosimohuView.alpha = 0.8;
     }
     self.oldOffset = scrollView.contentOffset.y;
     [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];

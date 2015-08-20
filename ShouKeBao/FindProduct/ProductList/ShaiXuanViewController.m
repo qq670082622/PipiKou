@@ -130,10 +130,10 @@
     
     subTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, kScreenSize.height-64) style:UITableViewStylePlain];
     //分区头颜色
-    UIView *blackSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
-    blackSta.backgroundColor = [UIColor lightGrayColor];
-    blackSta.alpha = 0.3;
-    [subTable addSubview:blackSta];
+//    UIView *blackSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
+//    blackSta.backgroundColor = [UIColor lightGrayColor];
+//    blackSta.alpha = 0.3;
+//    [subTable addSubview:blackSta];
     
     subTable.delegate = self;
     subTable.dataSource = self;
@@ -142,7 +142,7 @@
     [subTable registerClass:[ShaiXuanCell class] forCellReuseIdentifier:@"ShaiXuan"];
     
     //自定义尾视图
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 158)];
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 388)];//原来是158
     UIView *footSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
     footSta.backgroundColor = [UIColor lightGrayColor];
     footSta.alpha = 0.3;
@@ -192,13 +192,54 @@
     [self.button addTarget:self  action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [CellView3 addSubview:self.button];
-    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenSize.width-30, 10,20, 20)];
-    imageView.image = [UIImage imageNamed:@"xiangyou"];
-    [CellView3 addSubview:imageView];
+//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenSize.width-30, 10,20, 20)];
+//    imageView.image = [UIImage imageNamed:@"xiangyou"];
+//    [CellView3 addSubview:imageView];
+   
+    //6个价格button
+    NSArray *jiageArr = @[@"1000以下",@"2000千以下",@"3000千以下",@"4000千以下",@"5000千以下",@"6000千以下"];
+    for (int i = 0; i < 6; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i%3*kScreenSize.width/3+15, i/3*40+150, 80, 26)];
+        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"jiagebian"]];
+        [button setTitle:jiageArr[i] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        button.titleLabel.font = [UIFont systemFontOfSize:12];
+        [button addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        button.tag = 1001+i;
+        [footView addSubview:button];
+    }
+    //自定义价格
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 290, kScreenSize.width/3, 50)];
+    label.text = @"自定义价格";
+    [footView addSubview:label];
     
+    UITextField *lowPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/3+10, 305, 80, 25)];
+    lowPrice.background = [UIImage imageNamed:@"jiagebian"];
+    [footView addSubview:lowPrice];
+    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/2+kScreenSize.width/7, 315, 15, 1)];
+    midView.backgroundColor = [UIColor lightGrayColor];
+    [footView addSubview:midView];
+    
+    UITextField *tallPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3+kScreenSize.width/20, 305, 80, 25)];
+    tallPrice.background = [UIImage imageNamed:@"jiagebian"];
+    [footView addSubview:tallPrice];
+    
+    //确定按钮上面的一条线
+    UIView *qdTop = [[UIView alloc] initWithFrame:CGRectMake(0, 340, kScreenSize.width, 1)];
+    qdTop.backgroundColor = [UIColor lightGrayColor];
+    [footView addSubview:qdTop];
+    //确定按钮
+    UIButton *centerBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 348, kScreenSize.width-30, 30)];
+    centerBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"quedinga"]];
+    [centerBtn setTitle:@"确定" forState:UIControlStateNormal];
+    [centerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [centerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    centerBtn.tag = 107;
+    
+    [footView addSubview:centerBtn];
     [footView addSubview:footSta];
     [footView addSubview:CellView1];
-   [footView addSubview:CellView2];
+    [footView addSubview:CellView2];
     [footView addSubview:footSta1];
     [footView addSubview:CellView3];
     
@@ -301,8 +342,41 @@
                 self.jishi = [NSMutableString stringWithFormat:@"0"];
                 self.jishiswitchisOn = YES;
             }
+        }
+            break;
+        case 107:
+        {//确定按钮
             
+        }
+            break;
+        //以下6个是价格btn
+        case 1001:
+        {
+
+        }
+            break;
+        case 1002:
+        {
             
+        }
+            break;
+        case 1003:
+        {
+            
+        }
+            break;
+        case 1004:
+        {
+            
+        }
+            break;
+        case 1005:
+        {
+            
+        }
+            break;
+        case 1006:
+        {
             
         }
             break;
