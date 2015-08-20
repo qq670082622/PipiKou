@@ -42,6 +42,7 @@
 @property (nonatomic,strong) UILabel * undercarriageView;//下架产品lab
 @property (nonatomic, strong)UIButton * RelatedBtn;//相关产品按钮
 @property (nonatomic, strong)UINavigationController * MylistVCNav;
+
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 
 
