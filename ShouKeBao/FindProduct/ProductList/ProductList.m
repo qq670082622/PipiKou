@@ -166,11 +166,11 @@
     
     
     //高斯模糊效果
-    //UIImageView *gsimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+60, self.view.bounds.size.width, 80)];
-//    gsimageView.image = [UIImage imageNamed:@"gaosimohu"];
-    //gsimageView.alpha = 0.8;
-    //gsimageView.contentMode = UIViewContentModeScaleAspectFill;
-    //[gsimageView setImageToBlur:[UIImage imageNamed:@"gaosimohuc"] blurRadius:kLBBlurredImageDefaultBlurRadius completionBlock:nil];
+    UIImageView *gsimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+60, self.view.bounds.size.width, 80)];
+    gsimageView.image = [UIImage imageNamed:@"gaosimohu"];
+    gsimageView.alpha = 0.8;
+    gsimageView.contentMode = UIViewContentModeScaleAspectFill;
+    [gsimageView setImageToBlur:[UIImage imageNamed:@"gaosimohuc"] blurRadius:kLBBlurredImageDefaultBlurRadius completionBlock:nil];
 
     //[self.view addSubview:gsimageView];
     //[self.view addSubview:self.chooseButton];
