@@ -3,7 +3,6 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Product Recommend View Controller-->
@@ -22,8 +21,8 @@
                                 <rect key="frame" x="0.0" y="0.0" width="106" height="40"/>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="106" id="6Dq-lz-yd4"/>
-                                    <constraint firstAttribute="height" constant="40" id="chO-UH-zSO"/>
+                                    <constraint firstAttribute="height" constant="40" id="SQX-Zo-vsk"/>
+                                    <constraint firstAttribute="width" constant="106" id="rzV-Rj-AjQ"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="今日推荐">
@@ -44,8 +43,8 @@
                                 <rect key="frame" x="214" y="0.0" width="106" height="40"/>
                                 <color key="backgroundColor" red="0.94509803920000002" green="0.94901960780000005" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="5hk-kj-h2U"/>
-                                    <constraint firstAttribute="width" constant="106" id="xmR-pB-wnD"/>
+                                    <constraint firstAttribute="width" constant="106" id="16c-FL-2C7"/>
+                                    <constraint firstAttribute="height" constant="40" id="j1I-0Q-foY"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="近期推荐">
@@ -66,7 +65,7 @@
                                 <rect key="frame" x="106" y="0.0" width="108" height="40"/>
                                 <color key="backgroundColor" white="0.94999999999999996" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="ZPD-gq-NGe"/>
+                                    <constraint firstAttribute="height" constant="40" id="X6S-Wn-SAP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="昨日推荐">
@@ -87,12 +86,15 @@
                                 <rect key="frame" x="0.0" y="40" width="106" height="3"/>
                                 <color key="backgroundColor" red="0.0" green="0.50196081400000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="3" id="Kzd-M9-Z1m"/>
-                                    <constraint firstAttribute="width" constant="106" id="xzE-WX-hCB"/>
+                                    <constraint firstAttribute="width" constant="106" id="A4X-R9-m2D"/>
+                                    <constraint firstAttribute="height" constant="3" id="be0-zm-MCf"/>
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g10-lG-NVX">
                                 <rect key="frame" x="0.0" y="43" width="320" height="525"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="525" id="aCS-JF-ZeB"/>
+                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="tp0-HN-u4t" id="1pG-or-elg"/>
                                 </connections>
@@ -100,27 +102,25 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="A3Z-kk-11o" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leadingMargin" constant="-16" id="3e5-SB-LL1"/>
-                            <constraint firstItem="4N2-ww-gWc" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leadingMargin" constant="-16" id="8bZ-jj-LFI"/>
-                            <constraint firstItem="A3Z-kk-11o" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="ATe-X8-9Bz"/>
-                            <constraint firstItem="4N2-ww-gWc" firstAttribute="top" secondItem="A3Z-kk-11o" secondAttribute="bottom" id="C5Q-yd-qmk"/>
-                            <constraint firstItem="XGA-yS-FwS" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="GIK-h9-Z0U"/>
-                            <constraint firstItem="XGA-yS-FwS" firstAttribute="leading" secondItem="A3Z-kk-11o" secondAttribute="trailing" id="QTv-rA-Hxf"/>
-                            <constraint firstItem="Vnb-10-YUD" firstAttribute="leading" secondItem="XGA-yS-FwS" secondAttribute="trailing" id="VrL-Ey-4M0"/>
-                            <constraint firstItem="g10-lG-NVX" firstAttribute="top" secondItem="4N2-ww-gWc" secondAttribute="bottom" id="aJN-4P-BBX"/>
+                            <constraint firstItem="A3Z-kk-11o" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leading" id="1tI-Qr-Wig"/>
+                            <constraint firstItem="Vnb-10-YUD" firstAttribute="leading" secondItem="XGA-yS-FwS" secondAttribute="trailing" id="6AC-t0-luM"/>
+                            <constraint firstItem="A3Z-kk-11o" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="top" id="8xn-bR-IKo"/>
+                            <constraint firstAttribute="trailing" secondItem="Vnb-10-YUD" secondAttribute="trailing" id="BRx-Ad-fsj"/>
+                            <constraint firstItem="4N2-ww-gWc" firstAttribute="top" secondItem="A3Z-kk-11o" secondAttribute="bottom" id="E0b-qg-ZSJ"/>
+                            <constraint firstItem="XGA-yS-FwS" firstAttribute="leading" secondItem="A3Z-kk-11o" secondAttribute="trailing" id="Xhu-zo-FS7"/>
                             <constraint firstAttribute="trailing" secondItem="g10-lG-NVX" secondAttribute="trailing" id="bpj-q4-00H"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="Vnb-10-YUD" secondAttribute="trailing" constant="-16" id="egN-m4-fZa"/>
+                            <constraint firstItem="XGA-yS-FwS" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="top" id="eCy-Ly-cN3"/>
                             <constraint firstItem="g10-lG-NVX" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leading" id="lzc-DJ-dhe"/>
-                            <constraint firstItem="Vnb-10-YUD" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="rG9-bc-DZA"/>
+                            <constraint firstItem="Vnb-10-YUD" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="top" id="oox-fH-bcQ"/>
                             <constraint firstItem="45u-bw-6lB" firstAttribute="top" secondItem="g10-lG-NVX" secondAttribute="bottom" id="rKT-jM-z9N"/>
+                            <constraint firstItem="4N2-ww-gWc" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leading" id="vkm-8q-b9i"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
-                        <outlet property="LineLeft" destination="8bZ-jj-LFI" id="8cY-cd-MZc"/>
-                        <outlet property="LineWeith" destination="xzE-WX-hCB" id="NK0-01-LXG"/>
                         <outlet property="mainScrollView" destination="g10-lG-NVX" id="24J-J1-eh7"/>
                         <outlet property="recentlyBtn" destination="Vnb-10-YUD" id="8nd-AT-l7j"/>
+                        <outlet property="scrollHeight" destination="aCS-JF-ZeB" id="Xrl-9X-yIy"/>
                         <outlet property="todayBtn" destination="A3Z-kk-11o" id="zK5-eT-Jpd"/>
                         <outlet property="topLine" destination="4N2-ww-gWc" id="a35-OE-fWa"/>
                         <outlet property="yestodayBtn" destination="XGA-yS-FwS" id="sDN-y8-SZN"/>
