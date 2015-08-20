@@ -658,6 +658,10 @@
 //      [self.coverView setFrame:CGRectMake(0, 667, 375, 667)];
     
     if (self.dataArr.count != 0) {
+        //此处增加转场动画
+        CATransition *animation = [CATransition animation];
+        animation.type = @"pageCurl";
+        animation.subtype = @"":
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
         [self.navigationController pushViewController:ShaiXuan animated:YES];
     }else{
