@@ -235,15 +235,9 @@
     switch (button.tag) {
         case 101:
         {//返回
-  //          ProductList *pro = [[ProductList alloc]  init];
-//             [pro initPullForResetAndCancel];
-            
-           // [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh"
-                                                          //      object:nil];
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
-          //  subTable.transform = CGAffineTransformIdentity;
-            //[self popoverPresentationController];
-            [[self navigationController] popViewControllerAnimated:YES];
+          //  [[self navigationController] popViewControllerAnimated:YES];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
             break;
         case 102:
@@ -261,20 +255,15 @@
             [WriteFileManager saveData:priceData name:@"priceData"];
             
             [self.jiafanswitch setOn:NO];
-            //[self jishi];
             self.jishi = [NSMutableString stringWithFormat:@"0"];
             self.jiafan = [NSMutableString stringWithFormat:@"0"];
             [self.jishiswitch setOn:NO];
-            //[self jiafan];
             
             self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ", nil];
             self.goDateStart = [NSMutableString stringWithFormat:@""];
             self.goDateEnd = [NSMutableString stringWithFormat:@""];
             self.month = [NSMutableString stringWithFormat:@""];
             [subTable reloadData];
-            
-            
-           // [self initPullForResetAndCancel];
 
         }
             break;

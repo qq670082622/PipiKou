@@ -140,7 +140,16 @@
     [self.pageCountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 7, 0, 0);
+    //self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 7, 0, 0);
+    
+//    UIDevice *device = [[UIDevice alloc] init];
+//    NSString *name = device.name;       //获取设备所有者的名称
+//    NSString *model = device.name;      //获取设备的类别
+//    NSString *type = device.localizedModel; //获取本地化版本
+//    NSString *systemName = device.systemName;   //获取当前运行的系统
+//    NSString *systemVersion = device.systemVersion;//获取当前系统的版本
+//    
+//    NSLog(@"%@---%@----%@----%@----%@",name,model,type,systemName,systemVersion);
     
     self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
     [self.backToTopBtn addSubview:self.pageCountBtn];
@@ -653,17 +662,10 @@
 
 - (IBAction)chooseConditions:(id)sender {
     
-//    [UIView animateWithDuration:0.2 animations:^{
-    
-//      [self.coverView setFrame:CGRectMake(0, 667, 375, 667)];
     
     if (self.dataArr.count != 0) {
-        //此处增加转场动画
-        CATransition *animation = [CATransition animation];
-        animation.type = @"pageCurl";
-        animation.subtype = @"":
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
-        [self.navigationController pushViewController:ShaiXuan animated:YES];
+        [self presentViewController:nav animated:YES completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
