@@ -93,9 +93,6 @@
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" translatesAutoresizingMaskIntoConstraints="NO" id="g10-lG-NVX">
                                 <rect key="frame" x="0.0" y="43" width="320" height="525"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="525" id="4xR-2E-hhN"/>
-                                </constraints>
                                 <connections>
                                     <outlet property="delegate" destination="tp0-HN-u4t" id="1pG-or-elg"/>
                                 </connections>
@@ -103,21 +100,19 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="45u-bw-6lB" firstAttribute="top" secondItem="g10-lG-NVX" secondAttribute="bottom" id="323-VD-cwX"/>
                             <constraint firstItem="A3Z-kk-11o" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leadingMargin" constant="-16" id="3e5-SB-LL1"/>
-                            <constraint firstItem="g10-lG-NVX" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leadingMargin" constant="-16" id="4Ku-ir-sWn"/>
                             <constraint firstItem="4N2-ww-gWc" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leadingMargin" constant="-16" id="8bZ-jj-LFI"/>
-                            <constraint firstItem="g10-lG-NVX" firstAttribute="top" secondItem="4N2-ww-gWc" secondAttribute="bottom" id="9Zq-bA-JZy"/>
                             <constraint firstItem="A3Z-kk-11o" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="ATe-X8-9Bz"/>
                             <constraint firstItem="4N2-ww-gWc" firstAttribute="top" secondItem="A3Z-kk-11o" secondAttribute="bottom" id="C5Q-yd-qmk"/>
                             <constraint firstItem="XGA-yS-FwS" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="GIK-h9-Z0U"/>
                             <constraint firstItem="XGA-yS-FwS" firstAttribute="leading" secondItem="A3Z-kk-11o" secondAttribute="trailing" id="QTv-rA-Hxf"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="g10-lG-NVX" secondAttribute="trailing" constant="-16" id="USn-8n-434"/>
                             <constraint firstItem="Vnb-10-YUD" firstAttribute="leading" secondItem="XGA-yS-FwS" secondAttribute="trailing" id="VrL-Ey-4M0"/>
+                            <constraint firstItem="g10-lG-NVX" firstAttribute="top" secondItem="4N2-ww-gWc" secondAttribute="bottom" id="aJN-4P-BBX"/>
+                            <constraint firstAttribute="trailing" secondItem="g10-lG-NVX" secondAttribute="trailing" id="bpj-q4-00H"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Vnb-10-YUD" secondAttribute="trailing" constant="-16" id="egN-m4-fZa"/>
-                            <constraint firstAttribute="centerX" secondItem="g10-lG-NVX" secondAttribute="centerX" id="ezO-AC-gGV"/>
-                            <constraint firstAttribute="centerX" secondItem="g10-lG-NVX" secondAttribute="centerX" id="qbH-Oc-Lg9"/>
+                            <constraint firstItem="g10-lG-NVX" firstAttribute="leading" secondItem="yX8-TB-dOR" secondAttribute="leading" id="lzc-DJ-dhe"/>
                             <constraint firstItem="Vnb-10-YUD" firstAttribute="top" secondItem="yX8-TB-dOR" secondAttribute="topMargin" id="rG9-bc-DZA"/>
+                            <constraint firstItem="45u-bw-6lB" firstAttribute="top" secondItem="g10-lG-NVX" secondAttribute="bottom" id="rKT-jM-z9N"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -126,7 +121,6 @@
                         <outlet property="LineWeith" destination="xzE-WX-hCB" id="NK0-01-LXG"/>
                         <outlet property="mainScrollView" destination="g10-lG-NVX" id="24J-J1-eh7"/>
                         <outlet property="recentlyBtn" destination="Vnb-10-YUD" id="8nd-AT-l7j"/>
-                        <outlet property="scrollHeight" destination="4xR-2E-hhN" id="ZAg-Vd-UZ9"/>
                         <outlet property="todayBtn" destination="A3Z-kk-11o" id="zK5-eT-Jpd"/>
                         <outlet property="topLine" destination="4N2-ww-gWc" id="a35-OE-fWa"/>
                         <outlet property="yestodayBtn" destination="XGA-yS-FwS" id="sDN-y8-SZN"/>
