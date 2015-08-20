@@ -99,9 +99,9 @@
                 </tableView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Iwc-oK-KvS">
                     <rect key="frame" x="267" y="376" width="45" height="45"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                     <inset key="contentEdgeInsets" minX="0.0" minY="-10" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" image="shangjiana" backgroundImage="tuoyuana">
+                    <state key="normal" backgroundImage="tuoyuana">
                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
@@ -317,7 +317,6 @@
         <image name="fanhuian2" width="15" height="16"/>
         <image name="ip6" width="389" height="90"/>
         <image name="jianbian" width="5" height="69"/>
-        <image name="shangjiana" width="17" height="18"/>
         <image name="tuoyuana" width="44" height="44"/>
         <image name="xiangyou" width="20" height="18"/>
     </resources>

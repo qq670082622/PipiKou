@@ -141,17 +141,10 @@
     self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:12];
     //self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 7, 0, 0);
-    
-//    UIDevice *device = [[UIDevice alloc] init];
-//    NSString *name = device.name;       //获取设备所有者的名称
-//    NSString *model = device.name;      //获取设备的类别
-//    NSString *type = device.localizedModel; //获取本地化版本
-//    NSString *systemName = device.systemName;   //获取当前运行的系统
-//    NSString *systemVersion = device.systemVersion;//获取当前系统的版本
-//    
-//    NSLog(@"%@---%@----%@----%@----%@",name,model,type,systemName,systemVersion);
-    
-    self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    self.pageCountBtn.userInteractionEnabled = NO;
+        //self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height/2+3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    [self.backToTopBtn setImage:[UIImage imageNamed:@"shangjiana"] forState:UIControlStateNormal];
     [self.backToTopBtn addSubview:self.pageCountBtn];
     
     [self.commondOutlet setSelected:YES];

@@ -68,6 +68,7 @@
     self.title = @"今日推荐";
     self.justDoOnce = YES;
     self.selectIndex = @"2";
+    self.automaticallyAdjustsScrollViewInsets = NO;
     [self setScrollView];
     [self setRightItemBtn];
     self.LineWeith.constant = K_TableWidth / 3;
