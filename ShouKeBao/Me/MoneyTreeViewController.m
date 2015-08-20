@@ -45,6 +45,7 @@
     if ([self.webView canGoBack]) {
         self.navigationItem.leftBarButtonItem = nil;
         [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+//        NSLog(@"xxxxxx");
     }else{
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem = leftItem;
