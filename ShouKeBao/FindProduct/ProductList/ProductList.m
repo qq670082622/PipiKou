@@ -140,9 +140,11 @@
     [self.pageCountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
     self.pageCountBtn.titleLabel.font = [UIFont systemFontOfSize:12];
-    self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 7, 0, 0);
-    
-    self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    //self.pageCountBtn.titleEdgeInsets = UIEdgeInsetsMake(-10, 7, 0, 0);
+    self.pageCountBtn.userInteractionEnabled = NO;
+        //self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height*2/3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    self.pageCountBtn.frame = CGRectMake(0,self.backToTopBtn.frame.size.height/2+3, self.backToTopBtn.frame.size.width, self.backToTopBtn.frame.size.height/3);
+    [self.backToTopBtn setImage:[UIImage imageNamed:@"shangjiana"] forState:UIControlStateNormal];
     [self.backToTopBtn addSubview:self.pageCountBtn];
     
     [self.commondOutlet setSelected:YES];
@@ -653,13 +655,10 @@
 
 - (IBAction)chooseConditions:(id)sender {
     
-//    [UIView animateWithDuration:0.2 animations:^{
-    
-//      [self.coverView setFrame:CGRectMake(0, 667, 375, 667)];
     
     if (self.dataArr.count != 0) {
         UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
-        [self.navigationController pushViewController:ShaiXuan animated:YES];
+        [self presentViewController:nav animated:YES completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
