@@ -256,6 +256,7 @@
         [self.table footerEndRefreshing];
 //        [self warning];
     }else{
+        NSLog(@"###################");
         [self loadDataSource];
     }
 }
@@ -266,7 +267,7 @@
     if (cos == 0) {
         return [self.totalNumber integerValue] / pageSize;
     }else{
-        NSLog(@"[self.totalNumber integerValue] / pageSize = %ld", [self.totalNumber integerValue] / pageSize + 1);
+        NSLog(@"[self.totalNumber integerValue] / pageSize = %d", [self.totalNumber integerValue] / pageSize + 1);
         return [self.totalNumber integerValue] / pageSize + 1;
     }
     
@@ -410,10 +411,10 @@
         NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
-            NSLog(@"TTTTTTTTTTTTTT");
+//            NSLog(@"TTTTTTTTTTTTTT");
         }
         self.totalNumber = json[@"TotalCount"];
-        NSLog(@"__________ %ld", [json[@"CustomerList"]count]);
+        NSLog(@"__________ %d", [json[@"CustomerList"]count]);
 
         // 当再无加载数据时提示没有客户的信息
        self.arr = json[@"CustomerList"];

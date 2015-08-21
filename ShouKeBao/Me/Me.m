@@ -573,7 +573,6 @@
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
     
     [IWHttpTool postWithURL:@"/File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
-        NSLog(@"%@*******", json);
     } failure:^(NSError * error) {
         
     }];
