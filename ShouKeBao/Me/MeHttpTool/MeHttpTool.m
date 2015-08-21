@@ -121,7 +121,6 @@
 + (void)getFavoritesProductListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
     [IWHttpTool postWithURL:@"Product/GetFavoritesProductList" params:param success:^(id json) {
-        
         if (success) {
             success(json);
         }

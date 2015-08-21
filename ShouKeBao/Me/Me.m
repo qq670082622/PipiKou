@@ -572,8 +572,13 @@
     NSData *data = UIImageJPEGRepresentation(newImage, 1.0);
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
     
-    [IWHttpTool postWithURL:@"/File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
+    [IWHttpTool postWithURL:@"Business/UploadBusinessHeader" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
         NSLog(@"%@*******", json);
+        if (![json[@"PicUrl"]isEqualToString:@""]) {
+            [[NSUserDefaults standardUserDefaults]setObject:json[@"PicUrl"] forKey:UserInfoKeyLoginAvatar];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        }
+        
     } failure:^(NSError * error) {
         
     }];

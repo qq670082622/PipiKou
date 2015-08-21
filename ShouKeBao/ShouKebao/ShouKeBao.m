@@ -829,7 +829,6 @@
 //    [self.view addSubview:self.tableView];
     
 //    }
-    NSLog(@"[super viewWillAppear:animated];");
     
 //    NSLog(@"serrr = %@", self.tabBarItem.badgeValue);
 //    NSLog(@"serrrself.recommendCount = %ld", self.recommendCount);
@@ -869,8 +868,11 @@
 //    
 //    [UIApplication sharedApplication].applicationIconBadgeNumber  = [self.barButton.badgeValue intValue];
 
-    
+    //我界面更改头像和名字之后  首页的同步
     self.userName.text =  [UserInfo shareUser].userName;
+    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+    [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
+
 //    if ([[NSUserDefaults standardUserDefaults]objectForKey:@"userhead"]) {
 //    self.userIcon.image = [UIImage imageWithData:[[NSUserDefaults standardUserDefaults]objectForKey:@"userhead"]];
 //    }else{

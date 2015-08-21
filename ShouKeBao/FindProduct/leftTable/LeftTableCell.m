@@ -40,7 +40,11 @@
 -(void)setModel:(leftModal *)model{
     _model = model;
     self.leftName.text = model.Name;
+    if (self.isSelected) {
+        [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIconFocus] placeholderImage:nil];
+    }else{
     [self.iconImage sd_setImageWithURL:[NSURL URLWithString:model.MaxIcon] placeholderImage:nil];
+    }
     
 }
 @end

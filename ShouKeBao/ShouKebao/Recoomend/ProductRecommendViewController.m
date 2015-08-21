@@ -112,6 +112,7 @@
     tableView.headerRefreshingText = @"正在刷新中";
     tableView.footerPullToRefreshText = @"加载更多";
     tableView.footerRefreshingText = @"加载中";
+    tableView.rowHeight = 800;
 }
 //设置scrollview
 - (void)setScrollView{

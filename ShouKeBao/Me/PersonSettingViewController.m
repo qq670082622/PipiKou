@@ -76,9 +76,8 @@
     CityViewController * cityVC = [[CityViewController alloc]init];
     cityVC.delegate = self;
     cityVC.selectedCityName = self.place.titleLabel.text;
-    [self presentViewController:cityVC animated:YES completion:^{
-        
-    }];
+    UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:cityVC];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 #pragma mark - loadDataSource

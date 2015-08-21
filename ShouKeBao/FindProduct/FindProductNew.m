@@ -130,7 +130,6 @@
 #pragma mark - LoadDataSource
 - (void)loadDataSourceLeft
 {
-    
     [IWHttpTool WMpostWithURL:@"/Product/GetNavigationType" params:nil success:^(id json) {
         [self.leftDataArray removeAllObjects];
         leftModal * model = [[leftModal alloc]init];
