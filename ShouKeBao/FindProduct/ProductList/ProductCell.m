@@ -138,7 +138,7 @@
     UIButton * RelatedBt = [[UIButton alloc]init];
     self.RelatedBtn = RelatedBt;
     self.RelatedBtn.titleLabel.textColor = [UIColor whiteColor];
-    self.RelatedBtn.backgroundColor = [UIColor blueColor];
+    self.RelatedBtn.backgroundColor = [UIColor colorWithRed:50/255.0 green:132/255.0 blue:250/155.0 alpha:1.0];
     [self.RelatedBtn setTitle:@"查看相关产品" forState:UIControlStateNormal];
     [self.RelatedBtn addTarget:self action:@selector(RelatedProductClick) forControlEvents:UIControlEventTouchUpInside];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.RelatedBtn.layer andBorderColor:[UIColor clearColor] andBorderWidth:1.0 andNeedShadow:NO andCornerRadius:3];

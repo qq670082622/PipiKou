@@ -98,11 +98,14 @@
     }
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView reloadData];
-//    [self.navigationController popViewControllerAnimated:YES];
     [self dismissViewControllerAnimated:YES completion:^{
         
     }];
 
+}
+-(void)back
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 @end

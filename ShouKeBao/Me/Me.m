@@ -161,9 +161,9 @@
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
         _meheader.isPerson = self.isPerson;
-//        if (!self.isPerson) {
-//            _meheader.personType.hidden = YES;
-//        }
+        _meheader.headIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
+        _meheader.headIcon.clipsToBounds = YES;
+        _meheader.headIcon.contentMode = UIViewContentModeScaleAspectFill;
         _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
     }
     return _meheader;
@@ -572,7 +572,13 @@
     NSData *data = UIImageJPEGRepresentation(newImage, 1.0);
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
     
-    [IWHttpTool postWithURL:@"/File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
+    [IWHttpTool postWithURL:@"Business/UploadBusinessHeader" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
+        NSLog(@"%@*******", json);
+        if (![json[@"PicUrl"]isEqualToString:@""]) {
+            [[NSUserDefaults standardUserDefaults]setObject:json[@"PicUrl"] forKey:UserInfoKeyLoginAvatar];
+            [[NSUserDefaults standardUserDefaults]synchronize];
+        }
+        
     } failure:^(NSError * error) {
         
     }];

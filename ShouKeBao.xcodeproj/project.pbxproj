@@ -252,6 +252,9 @@
 		63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */; };
 		63B8F5441AF2218900A162DC /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 63B8F5431AF2218800A162DC /* message.wav */; };
 		63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8F5451AF221AC00A162DC /* AudioToolbox.framework */; };
+		63BB94B91B86D02200DB306F /* WLRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B41B86D02200DB306F /* WLRangeSlider.m */; };
+		63BB94BA1B86D02200DB306F /* WLSliderThumbLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */; };
+		63BB94BB1B86D02200DB306F /* WLTrackLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B81B86D02200DB306F /* WLTrackLayer.m */; };
 		63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE06051B203D44008B98B0 /* LLSimpleCamera.m */; };
 		63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE06071B203D44008B98B0 /* UIImage+FixOrientation.m */; };
 		63D31E441AB143D00043B3CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D31E431AB143D00043B3CA /* main.m */; };
@@ -804,6 +807,12 @@
 		63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageDetailViewController.xib; sourceTree = "<group>"; };
 		63B8F5431AF2218800A162DC /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
 		63B8F5451AF221AC00A162DC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		63BB94B31B86D02200DB306F /* WLRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRangeSlider.h; sourceTree = "<group>"; };
+		63BB94B41B86D02200DB306F /* WLRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRangeSlider.m; sourceTree = "<group>"; };
+		63BB94B51B86D02200DB306F /* WLSliderThumbLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSliderThumbLayer.h; sourceTree = "<group>"; };
+		63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSliderThumbLayer.m; sourceTree = "<group>"; };
+		63BB94B71B86D02200DB306F /* WLTrackLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTrackLayer.h; sourceTree = "<group>"; };
+		63BB94B81B86D02200DB306F /* WLTrackLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTrackLayer.m; sourceTree = "<group>"; };
 		63CE06041B203D44008B98B0 /* LLSimpleCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSimpleCamera.h; sourceTree = "<group>"; };
 		63CE06051B203D44008B98B0 /* LLSimpleCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSimpleCamera.m; sourceTree = "<group>"; };
 		63CE06061B203D44008B98B0 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
@@ -1649,6 +1658,7 @@
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				63BB94B21B86D02200DB306F /* WLRangeSlider */,
 				63128F9F1B842EBF00FCDF19 /* gaosimohu */,
 				797791281B6F121C0075CC70 /* MLTransition */,
 				796C4D4E1B60E90C008EBAFE /* JSONKit */,
@@ -2001,6 +2011,19 @@
 				63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */,
 			);
 			path = messageCenter;
+			sourceTree = "<group>";
+		};
+		63BB94B21B86D02200DB306F /* WLRangeSlider */ = {
+			isa = PBXGroup;
+			children = (
+				63BB94B31B86D02200DB306F /* WLRangeSlider.h */,
+				63BB94B41B86D02200DB306F /* WLRangeSlider.m */,
+				63BB94B51B86D02200DB306F /* WLSliderThumbLayer.h */,
+				63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */,
+				63BB94B71B86D02200DB306F /* WLTrackLayer.h */,
+				63BB94B81B86D02200DB306F /* WLTrackLayer.m */,
+			);
+			path = WLRangeSlider;
 			sourceTree = "<group>";
 		};
 		63CE06021B203D1F008B98B0 /* cameraTool */ = {
@@ -2781,6 +2804,7 @@
 				63E034401AFC995300BD714A /* BatchAddViewController.m in Sources */,
 				5A6DAE6D1AE8C23000B814C3 /* LoginCell.m in Sources */,
 				5A52FC741ACEBF220076DAE6 /* MeButtonView.m in Sources */,
+				63BB94B91B86D02200DB306F /* WLRangeSlider.m in Sources */,
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
 				7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */,
 				5A52FC771ACEBF220076DAE6 /* ProductHistoryCell.m in Sources */,
@@ -2796,6 +2820,7 @@
 				633263D71AB851590021553B /* AFURLConnectionOperation.m in Sources */,
 				8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */,
 				63E0343E1AFC995300BD714A /* addCustomerViewController.m in Sources */,
+				63BB94BA1B86D02200DB306F /* WLSliderThumbLayer.m in Sources */,
 				63D31E911AB16EC30043B3CA /* WMNavigationController.m in Sources */,
 				796F36D31B7857310089FEE8 /* LeftTableView.m in Sources */,
 				63A81B891B39062900D8B37D /* SKBNavBar.m in Sources */,
@@ -2865,6 +2890,7 @@
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
 				5A944D251B00BC780004DE89 /* UIImage+MLBrowserPhotoImageForBundle.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,
+				63BB94BB1B86D02200DB306F /* WLTrackLayer.m in Sources */,
 				5A944D241B00BC780004DE89 /* MLPhotoBrowserPhoto.m in Sources */,
 				633263D31AB851590021553B /* AFHTTPRequestOperationManager.m in Sources */,
 				633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */,

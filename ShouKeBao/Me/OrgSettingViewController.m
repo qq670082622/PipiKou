@@ -126,7 +126,10 @@
         NSLog(@"----");
         CityViewController *city = [[CityViewController alloc] init];
         city.delegate = self;
-        [self.navigationController pushViewController:city animated:YES];
+
+        UINavigationController * nav = [[UINavigationController alloc]initWithRootViewController:city];
+        [self presentViewController:nav animated:YES completion:nil];
+//        [self.navigationController pushViewController:city animated:YES];
     }
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
