@@ -257,7 +257,7 @@
     
     // 拼接所有参数
     [tmp addEntriesFromDictionary:params];
-    
+    NSLog(@"parms = %@", params);
     NSLog(@"-------url:%@",overStr);
     NSLog(@"~~~~~~~~~~~~~~~~~~param:%@~~~~~~~~~~~~~~~~~~",[StrToDic jsonStringWithDicL:tmp]);
 

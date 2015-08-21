@@ -248,12 +248,12 @@
     
     [cell.descripBtn setTag:indexPath.row];
     [cell.descripBtn addTarget:self action:@selector(changeHeightAction:) forControlEvents:UIControlEventTouchUpInside];
-    NSLog(@"^^^^   %ld", cell.descripBtn.tag);
+    NSLog(@"^^^^   %d", cell.descripBtn.tag);
     if ([detail.PushId isEqualToString:_markUrl]) {
         cell.isPlain = YES;
-        [self.tagDiction setObject:@"1" forKey:[NSString stringWithFormat:@"%ld", indexPath.row]];
+        [self.tagDiction setObject:@"1" forKey:[NSString stringWithFormat:@"%d", indexPath.row]];
         [WMAnimations WMAnimationMakeBoarderNoCornerRadiosWithLayer:cell.contentView.layer andBorderColor:[UIColor colorWithRed:41/255.f green:147/255.f blue:250/255.f alpha:1] andBorderWidth:1 andNeedShadow:YES];
-        NSLog(@"indexPath.row iii = %ld", indexPath.row);
+        NSLog(@"indexPath.row iii = %d", indexPath.row);
         
         
     }
@@ -278,11 +278,9 @@
 
 -(void)changeHeightAction:(id)sender
 {
-   
     UIButton *btn = (UIButton *)sender;
     
     NSString  *tag = [NSString stringWithFormat:@"%ld",(long)btn.tag];
-    NSLog(@" ****  dddd  %@", tag);
     if ([[self.tagDiction objectForKey:tag] isEqualToString:@"1"]) {
         [self.tagDiction setObject:@"0" forKey:tag];
     }else{
@@ -299,7 +297,7 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld", indexPath.row);
+    NSLog(@"%d", indexPath.row);
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ShouKeBaoYesterdayRecommendProductDetailClick" attributes:dict];
     
@@ -307,7 +305,7 @@
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.detail2  = detail;
     web.m = t;
-    NSLog(@"+++%ld",web.m);
+    NSLog(@"+++%d",web.m);
     web.fromType = FromRecommend;
     web.produceUrl = detail.LinkUrl;
     [self.navigationController pushViewController:web animated:YES];

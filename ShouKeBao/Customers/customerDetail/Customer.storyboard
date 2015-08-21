@@ -1370,7 +1370,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="姓名" minimumFontSize="17" id="IVu-Lc-GdI">
-                                                    <rect key="frame" x="20.000000272856727" y="7" width="280" height="30"/>
+                                                    <rect key="frame" x="20.00000037619666" y="7" width="280" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -1393,7 +1393,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="电话" minimumFontSize="17" id="zCZ-W9-aoS">
-                                                    <rect key="frame" x="20.000000272856727" y="7" width="280" height="30"/>
+                                                    <rect key="frame" x="20.00000037619666" y="7" width="280" height="30"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
@@ -1601,6 +1601,22 @@
                             <outlet property="delegate" destination="LWs-CQ-rMl" id="ZEh-3K-Yv1"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="QQ" destination="itP-1F-KZ6" id="lNZ-Wc-zVK"/>
+                        <outlet property="address" destination="Lf9-Lc-wrE" id="w1D-rs-W35"/>
+                        <outlet property="birthday" destination="FpT-cD-mD7" id="nYc-C0-hXE"/>
+                        <outlet property="name" destination="IVu-Lc-GdI" id="fTi-8e-RTH"/>
+                        <outlet property="nation" destination="kdW-eL-CVP" id="xAd-jH-zjt"/>
+                        <outlet property="nationality" destination="f1Q-cg-JHY" id="CQu-MC-AWU"/>
+                        <outlet property="note" destination="Sbw-GU-0X0" id="sAE-8z-92i"/>
+                        <outlet property="passportAddress" destination="VPo-Ff-7UO" id="yIq-rJ-LVy"/>
+                        <outlet property="passportDate" destination="eGl-2C-udH" id="G8X-0y-ezO"/>
+                        <outlet property="passportID" destination="kfJ-wO-jNs" id="Lz8-Xs-hOW"/>
+                        <outlet property="passportValidite" destination="PdQ-RC-e44" id="Myt-gt-sxQ"/>
+                        <outlet property="personID" destination="Exl-q5-mIw" id="cZm-CL-uim"/>
+                        <outlet property="tele" destination="zCZ-W9-aoS" id="PAh-Lk-gnH"/>
+                        <outlet property="wechat" destination="ah8-CD-sW2" id="UJO-0E-iCB"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ilr-Od-X8R" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

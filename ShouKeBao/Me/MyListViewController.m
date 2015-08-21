@@ -330,7 +330,6 @@
 }
 
 
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ProductModal *model = self.dataSource[indexPath.row];
