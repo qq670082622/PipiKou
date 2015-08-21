@@ -277,51 +277,31 @@
 }
 -(void)timerClick{
     NSLog(@"3秒了");
-    /*
-     CABasicAnimation *theAnimation;
-     theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-     theAnimation.duration=1.0;
-     theAnimation.fromValue=[NSNumber numberWithFloat:1.0];
-     theAnimation.toValue=[NSNumber numberWithFloat:0.0];
-     [flowerImageView.layer addAnimation:theAnimation forKey:@"animateOpacity"];
-     
-     [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
-     target:self
-     selector:@selector(targetMethod)
-     userInfo:nil
-     repeats:NO];
-     */
-    CABasicAnimation *theAnimation;
-     theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    theAnimation.duration=1.0;
-    theAnimation.fromValue=[NSNumber numberWithFloat:0.1];
-    theAnimation.toValue=[NSNumber numberWithFloat:1.0];
-    [self.chooseButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];//animateOpacity
-    [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
-                                     target:self
-                                   selector:@selector(targetMethod)
-                                   userInfo:nil
-                                    repeats:NO];
-    CABasicAnimation *gaosiAnimation;
-    gaosiAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-    gaosiAnimation.duration=1.0;
-    gaosiAnimation.fromValue=[NSNumber numberWithFloat:0.1];
-    gaosiAnimation.toValue=[NSNumber numberWithFloat:0.8];
-    [self.gaosimohuView.layer addAnimation:gaosiAnimation forKey:@"animateOpacity"];//animateOpacity
-    [NSTimer scheduledTimerWithTimeInterval:gaosiAnimation.duration
-                                     target:self
-                                   selector:@selector(targetMethod2)
-                                   userInfo:nil
-                                    repeats:NO];
+    if (self.isAnimation) {
+        [UIView animateWithDuration:0.6 animations:^{
+            CGPoint gaosi = self.gaosimohuView.center;
+            CGPoint choose = self.chooseButton.center;
+            gaosi.y -=100;
+            NSLog(@"%f,%f,%f",self.chooseButton.bounds.size.height,self.chooseButton.alpha,gaosi.y);
+            choose.y -=100;
+            self.gaosimohuView.center = gaosi;
+            self.chooseButton.center = choose;
+            NSLog(@"%f---%f",gaosi.y,choose.y);
+        } completion:^(BOOL finished) {
+            NSLog(@"执行动画失败");
+        }];
+
+    }
+   
     [_timer invalidate];
 }
 -(void)targetMethod{
-    self.chooseButton.alpha = 1;
+    //self.chooseButton.alpha = 1;
     self.isAnimation = NO;
 }
 -(void)targetMethod2{
  self.isAnimation = NO;
-    self.gaosimohuView.alpha = 0.8;
+   // self.gaosimohuView.alpha = 0.8;
 }
 -(void)viewWillDisappear:(BOOL)animated
 {
@@ -1372,72 +1352,58 @@
         NSLog(@"正在向上滚动");
         if (count+1 == 1){
             if (self.isAnimation) {
-                CABasicAnimation *gaosiAnimation;
-//                [UIView animateWithDuration:0.4 animations:^{
-//                
-//                } completion:^(BOOL finished) {
-//                    
-//                }];
-                gaosiAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-                gaosiAnimation.duration=1.0;
-                gaosiAnimation.fromValue=[NSNumber numberWithFloat:0.1];
-                gaosiAnimation.toValue=[NSNumber numberWithFloat:0.8];
-                [self.gaosimohuView.layer addAnimation:gaosiAnimation forKey:@"animateOpacity"];//animateOpacity
-                [NSTimer scheduledTimerWithTimeInterval:gaosiAnimation.duration
-                                                 target:self
-                                               selector:@selector(targetMethod2)
-                                               userInfo:nil
-                                                repeats:NO];
-                CABasicAnimation *theAnimation;
-                theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-                theAnimation.duration=1.0;
-                theAnimation.fromValue=[NSNumber numberWithFloat:0.1];
-                theAnimation.toValue=[NSNumber numberWithFloat:1.0];
-                [self.chooseButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];//animateOpacity
-                [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
-                                                 target:self
-                                               selector:@selector(targetMethod)
-                                               userInfo:nil
-                                                repeats:NO];
+                [UIView animateWithDuration:0.6 animations:^{
+                    CGPoint gaosi = self.gaosimohuView.center;
+                    CGPoint choose = self.chooseButton.center;
+                    gaosi.y -=100;
+                    choose.y -= 100;
+                    self.gaosimohuView.center = gaosi;
+                    self.chooseButton.center = choose;
+                    NSLog(@"%f---%f",gaosi.y,choose.y);
+                } completion:^(BOOL finished) {
+                    NSLog(@"执行动画失败");
+                }];
                 self.isAnimation = NO;
             }
             
         }else{
-            self.chooseButton.alpha = 0;
-            self.gaosimohuView.alpha = 0;
+
+            if (!self.isAnimation) {
+            [UIView animateWithDuration:0.6 animations:^{
+                CGPoint gaosi = self.gaosimohuView.center;
+                CGPoint choose = self.chooseButton.center;
+                
+                gaosi.y +=100;
+                choose.y +=100;
+                self.gaosimohuView.center = gaosi;
+                self.chooseButton.center = choose;
+                NSLog(@"%f---%f",gaosi.y,choose.y);
+            } completion:^(BOOL finished) {
+                NSLog(@"执行动画完毕");
+            }];
             self.isAnimation = YES;
+            }
         }
         
     }else{
         NSLog(@"正在向下滚动");
         if (self.isAnimation) {
-            CABasicAnimation *gaosiAnimation;
-            gaosiAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-            gaosiAnimation.duration=1.0;
-            gaosiAnimation.fromValue=[NSNumber numberWithFloat:0.1];
-            gaosiAnimation.toValue=[NSNumber numberWithFloat:0.8];
-            [self.gaosimohuView.layer addAnimation:gaosiAnimation forKey:@"animateOpacity"];//animateOpacity
-            [NSTimer scheduledTimerWithTimeInterval:gaosiAnimation.duration
-                                             target:self
-                                           selector:@selector(targetMethod2)
-                                           userInfo:nil
-                                            repeats:NO];
-            CABasicAnimation *theAnimation;
-            theAnimation=[CABasicAnimation animationWithKeyPath:@"opacity"];
-            theAnimation.duration=1.0;
-            theAnimation.fromValue=[NSNumber numberWithFloat:0.1];
-            theAnimation.toValue=[NSNumber numberWithFloat:1.0];
-            [self.chooseButton.layer addAnimation:theAnimation forKey:@"animateOpacity"];//animateOpacity
-            [NSTimer scheduledTimerWithTimeInterval:theAnimation.duration
-                                             target:self
-                                           selector:@selector(targetMethod)
-                                           userInfo:nil
-                                            repeats:NO];
+            [UIView animateWithDuration:0.6 animations:^{
+                CGPoint gaosi = self.gaosimohuView.center;
+                CGPoint choose = self.chooseButton.center;
+                gaosi.y -=100;
+                choose.y -= 100;
+                self.gaosimohuView.center = gaosi;
+                NSLog(@"%f",self.view.center.y);
+                self.chooseButton.center = choose;
+                NSLog(@"%f---%f",gaosi.y,choose.y);
+            } completion:^(BOOL finished) {
+                NSLog(@"执行动画完毕");
+            }];
+
             self.isAnimation = NO;
-            
         }
-//        self.chooseButton.alpha = 1;
-//        self.gaosimohuView.alpha = 0.8;
+
     }
     self.oldOffset = scrollView.contentOffset.y;
     [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];

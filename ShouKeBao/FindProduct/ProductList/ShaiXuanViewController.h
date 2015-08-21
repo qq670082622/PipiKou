@@ -12,7 +12,9 @@
 {
     UITableView *subTable;
     NSArray *dataArr;
-    
+    //CALayer *lowlayer;
+    UILabel *lowPlabel;
+    UILabel *tallPlabel;
 }
 @property(nonatomic,strong) NSMutableArray *pushedArr;
 @property (strong,nonatomic) NSMutableArray *conditionArr;//post装载的条件数据
