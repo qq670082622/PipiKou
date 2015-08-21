@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShouKeBao/FindProduct/ProductList/ProductList.m"
-            timestampString = "461761125.69591"
+            timestampString = "461840298.200799"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1574"
-            endingLineNumber = "1574"
+            startingLineNumber = "1540"
+            endingLineNumber = "1540"
             landmarkName = "-tableView:didSelectRowAtIndexPath:"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShouKeBao/FindProduct/ProductList/ProductList.m"
-            timestampString = "461758342.71765"
+            timestampString = "461818423.187971"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "544"
-            endingLineNumber = "544"
+            startingLineNumber = "524"
+            endingLineNumber = "524"
             landmarkName = "-passTheMinPrice:AndMaxPrice:"
             landmarkType = "5">
          </BreakpointContent>

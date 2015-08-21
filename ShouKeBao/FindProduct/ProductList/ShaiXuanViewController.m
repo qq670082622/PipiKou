@@ -15,6 +15,7 @@
 #import "WriteFileManager.h"
 #import "MinMaxPriceSelectViewController.h"
 #import "ProductList.h"
+#import "WLRangeSlider.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice>
 @property (strong,nonatomic) NSMutableDictionary *conditionDic;//当前条件开关
@@ -31,12 +32,15 @@
 @property(nonatomic,assign) BOOL jishiswitchisOn;
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
+@property (nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
 @end
 
 @implementation ShaiXuanViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    lowPlabel = [[UILabel alloc] init];
+    tallPlabel = [[UILabel alloc] init];
     // Do any additional setup after loading the view.
     //self.view.window.rootViewController = [[UINavigationController alloc] init];
     dataArr = [[NSArray alloc] init];
@@ -197,7 +201,7 @@
 //    [CellView3 addSubview:imageView];
    
     //6个价格button
-    NSArray *jiageArr = @[@"1000以下",@"2000千以下",@"3000千以下",@"4000千以下",@"5000千以下",@"6000千以下"];
+    NSArray *jiageArr = @[@"1000以下",@"2000以下",@"3000以下",@"4000以下",@"5000以下",@"6000以下"];
     for (int i = 0; i < 6; i++) {
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i%3*kScreenSize.width/3+15, i/3*40+150, 80, 26)];
         button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"jiagebian"]];
@@ -208,6 +212,27 @@
         button.tag = 1001+i;
         [footView addSubview:button];
     }
+    //价格区间滑杆
+    _rangeSlider = [[WLRangeSlider alloc] initWithFrame:CGRectMake(15,260 , kScreenSize.width-30, 30)];
+     [_rangeSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventAllTouchEvents];
+    [footView addSubview:_rangeSlider];
+    //自定义layer
+//    lowlayer = [CALayer layer];
+//    lowlayer.backgroundColor = [UIColor orangeColor].CGColor;
+//    lowlayer.bounds = CGRectMake(90, 0, 30, 30); //设置layer的区域
+//    lowlayer.position = CGPointMake(20, 250); //设置layer坐标
+//    lowlayer.name =@"¥";
+//    [footView.layer addSublayer:lowlayer];
+    lowPlabel.frame = CGRectMake(20, 240, 40, 30);
+    lowPlabel.text = @"¥0";
+    lowPlabel.font = [UIFont systemFontOfSize:12];
+    lowPlabel.textColor = [UIColor orangeColor];
+    [footView addSubview:lowPlabel];
+    tallPlabel.frame = CGRectMake(kScreenSize.width-kScreenSize.width/7, 240, 490, 30);
+    tallPlabel.text = @"¥10000";
+    tallPlabel.font = [UIFont systemFontOfSize:12];
+    tallPlabel.textColor = [UIColor orangeColor];
+    [footView addSubview:tallPlabel];
     //自定义价格
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 290, kScreenSize.width/3, 50)];
     label.text = @"自定义价格";
@@ -227,6 +252,7 @@
     //确定按钮上面的一条线
     UIView *qdTop = [[UIView alloc] initWithFrame:CGRectMake(0, 340, kScreenSize.width, 1)];
     qdTop.backgroundColor = [UIColor lightGrayColor];
+    qdTop.alpha = 0.8;
     [footView addSubview:qdTop];
     //确定按钮
     UIButton *centerBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 348, kScreenSize.width-30, 30)];
@@ -246,6 +272,20 @@
     subTable.tableFooterView = footView;
     [self.view addSubview:subTable];
     
+}
+//滑杆出发事件
+- (void)valueChanged:(WLRangeSlider *)slider{
+    NSLog(@"左滑动按钮:%ld-右滑动按钮:%ld",(NSInteger)slider.leftValue,(NSInteger)slider.rightValue);
+    lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.leftValue];
+    CGPoint lowLab = lowPlabel.center;
+    lowLab.x =slider.leftValue/10000*_rangeSlider.frame.size.width+30;
+    lowPlabel.center = lowLab;
+    
+    tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.rightValue];
+    CGPoint tallLab = tallPlabel.center;
+    //NSLog(@"%f    %f",slider.rightValue,tallPlabel.frame.size.width);
+    tallLab.x = slider.rightValue/10000*_rangeSlider.frame.size.width+kScreenSize.width/3*2+30;
+    tallPlabel.center = tallLab;
 }
 -(NSMutableDictionary *)conditionDic
 {
@@ -346,7 +386,8 @@
             break;
         case 107:
         {//确定按钮
-            
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
+            [self dismissViewControllerAnimated:YES completion:nil];
         }
             break;
         //以下6个是价格btn
