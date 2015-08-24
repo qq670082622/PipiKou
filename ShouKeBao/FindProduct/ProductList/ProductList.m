@@ -30,6 +30,7 @@
 #import "MobClick.h"
 #import "ShaiXuanViewController.h"
 #import "BaseClickAttribute.h"
+#define kScreenSize [UIScreen mainScreen].bounds.size
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
 {
     ShaiXuanViewController *ShaiXuan;
@@ -122,6 +123,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
      ShaiXuan = [[ShaiXuanViewController alloc] init];
+    //判断能否执行动画
     self.isAnimation = NO;
     [self initPull];
     [self editButtons];
@@ -170,11 +172,11 @@
     
     
     //高斯模糊效果
-    UIImageView *gsimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+60, self.view.bounds.size.width, 80)];
-    gsimageView.image = [UIImage imageNamed:@"gaosimohu"];
-    gsimageView.alpha = 0.8;
-    gsimageView.contentMode = UIViewContentModeScaleAspectFill;
-    [gsimageView setImageToBlur:[UIImage imageNamed:@"gaosimohuc"] blurRadius:kLBBlurredImageDefaultBlurRadius completionBlock:nil];
+//    UIImageView *gsimageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, self.view.bounds.size.height+60, self.view.bounds.size.width, 80)];
+//    gsimageView.image = [UIImage imageNamed:@"gaosimohu"];
+//    gsimageView.alpha = 0.8;
+//    gsimageView.contentMode = UIViewContentModeScaleAspectFill;
+//    [gsimageView setImageToBlur:[UIImage imageNamed:@"gaosimohuc"] blurRadius:kLBBlurredImageDefaultBlurRadius completionBlock:nil];
 
     //[self.view addSubview:gsimageView];
     //[self.view addSubview:self.chooseButton];
@@ -281,16 +283,20 @@
         [UIView animateWithDuration:0.6 animations:^{
             CGPoint gaosi = self.gaosimohuView.center;
             CGPoint choose = self.chooseButton.center;
-            gaosi.y -=100;
-            NSLog(@"%f,%f,%f",self.chooseButton.bounds.size.height,self.chooseButton.alpha,gaosi.y);
-            choose.y -=100;
+            //gaosi.y = kScreenSize.height-self.gaosimohuView.frame.size.height/2;
+            //NSLog(@"%f",gaosi.y);
+            //choose.y = kScreenSize.height-self.chooseButton.frame.size.height/2;
+            //NSLog(@"%f",choose.y);
+            gaosi.y -=60;
+            //NSLog(@"%f,%f,%f",self.chooseButton.bounds.size.height,self.chooseButton.alpha,gaosi.y);
+            choose.y -= 60;
             self.gaosimohuView.center = gaosi;
             self.chooseButton.center = choose;
             NSLog(@"%f---%f",gaosi.y,choose.y);
         } completion:^(BOOL finished) {
-            NSLog(@"执行动画失败");
+            NSLog(@"执行动画完毕");
         }];
-
+        self.isAnimation = NO;
     }
    
     [_timer invalidate];
@@ -1349,32 +1355,33 @@
     //    }
     
     if (scrollView.contentOffset.y > self.oldOffset){
-        NSLog(@"正在向上滚动");
+        NSLog(@"向上滚动，应该隐藏");
         if (count+1 == 1){
-            if (self.isAnimation) {
-                [UIView animateWithDuration:0.6 animations:^{
-                    CGPoint gaosi = self.gaosimohuView.center;
-                    CGPoint choose = self.chooseButton.center;
-                    gaosi.y -=100;
-                    choose.y -= 100;
-                    self.gaosimohuView.center = gaosi;
-                    self.chooseButton.center = choose;
-                    NSLog(@"%f---%f",gaosi.y,choose.y);
-                } completion:^(BOOL finished) {
-                    NSLog(@"执行动画失败");
-                }];
-                self.isAnimation = NO;
-            }
+//            if (self.isAnimation) {
+//                [UIView animateWithDuration:0.6 animations:^{
+//                    CGPoint gaosi = self.gaosimohuView.center;
+//                    CGPoint choose = self.chooseButton.center;
+//                    gaosi.y -= 60;
+//                    choose.y -= 60;
+//                    self.gaosimohuView.center = gaosi;
+//                    self.chooseButton.center = choose;
+//                    NSLog(@"%f---%f",gaosi.y,choose.y);
+//                } completion:^(BOOL finished) {
+//                    NSLog(@"执行动画完毕");
+//                }];
+//                self.isAnimation = NO;
+//            }
             
         }else{
 
-            if (!self.isAnimation) {
+            
+            if (self.isAnimation == NO) {
             [UIView animateWithDuration:0.6 animations:^{
                 CGPoint gaosi = self.gaosimohuView.center;
                 CGPoint choose = self.chooseButton.center;
                 
-                gaosi.y +=100;
-                choose.y +=100;
+                gaosi.y +=60;
+                choose.y +=60;
                 self.gaosimohuView.center = gaosi;
                 self.chooseButton.center = choose;
                 NSLog(@"%f---%f",gaosi.y,choose.y);
@@ -1386,24 +1393,27 @@
         }
         
     }else{
-        NSLog(@"正在向下滚动");
-        if (self.isAnimation) {
-            [UIView animateWithDuration:0.6 animations:^{
-                CGPoint gaosi = self.gaosimohuView.center;
-                CGPoint choose = self.chooseButton.center;
-                gaosi.y -=100;
-                choose.y -= 100;
-                self.gaosimohuView.center = gaosi;
-                NSLog(@"%f",self.view.center.y);
-                self.chooseButton.center = choose;
-                NSLog(@"%f---%f",gaosi.y,choose.y);
-            } completion:^(BOOL finished) {
-                NSLog(@"执行动画完毕");
-            }];
+        NSLog(@"向下滚动,应该显示");
+        
+           
+            if (self.isAnimation) {
+                [UIView animateWithDuration:0.6 animations:^{
+                    CGPoint gaosi = self.gaosimohuView.center;
+                    CGPoint choose = self.chooseButton.center;
+                    gaosi.y -=60;
+                    choose.y -= 60;
+                    self.gaosimohuView.center = gaosi;
+                    NSLog(@"%f",self.view.center.y);
+                    self.chooseButton.center = choose;
+                    NSLog(@"%f---%f",gaosi.y,choose.y);
+                } completion:^(BOOL finished) {
+                    NSLog(@"执行动画完毕");
+                }];
+                
+                self.isAnimation = NO;
+            }
 
-            self.isAnimation = NO;
-        }
-
+        
     }
     self.oldOffset = scrollView.contentOffset.y;
     [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];
