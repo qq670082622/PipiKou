@@ -290,7 +290,7 @@
     [self.price setAttributedText:attrStr];
     
     if ([model.IsCruiseShip integerValue] == 1) {
-        NSString *count = [NSString stringWithFormat:@"%ld",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
+        NSString *count = [NSString stringWithFormat:@"%d",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
         self.childCount.text = [NSString stringWithFormat:@"人数%@",count];
     }else{
         // 成人个数
@@ -333,9 +333,9 @@
             b.contentEdgeInsets = UIEdgeInsetsMake(6, 6, 6, 6);
             b.linkUrl = btn.linkurl;
             b.text = btn.text;
-//            NSLog(@"btn.text= %@", btn.text);
-//            NSLog(@"b.text= %@", b.text);
-
+            NSLog(@"btn.text= %@", btn.text);
+            NSLog(@"b.text= %@", b.text);
+            NSLog(@"model.buttonList.count = %d", model.buttonList.count);
             [b addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
             
             [self.bottomView addSubview:b];
@@ -344,6 +344,9 @@
         [self layoutButtons];
         
     }else{
+  
+        NSLog(@"2 model.buttonList.count = %d", model.buttonList.count);
+
         CGFloat x = [UIScreen mainScreen].bounds.size.width - 90 - gap;
         UILabel *doneLab = [[UILabel alloc] initWithFrame:CGRectMake(x, 5, 90, 25)];
         doneLab.font = [UIFont boldSystemFontOfSize:20];
