@@ -80,7 +80,6 @@
                     [muta setValue:@"" forKey:key];
                 }
             }
-            
             self.companyName.text = muta[@"Name"];
             self.address.text = muta[@"Address"];
             self.contactName.text = muta[@"ContactName"];

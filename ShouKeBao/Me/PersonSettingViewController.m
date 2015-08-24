@@ -41,7 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"修改资料";
-    
+    self.tableView.tableHeaderView.hidden = YES;
   //  [self setNav];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleBordered target:self action:@selector(submit)];
@@ -115,7 +115,6 @@
 #pragma mark - private
 - (void)submit
 {
-    
     NSDictionary *param = @{@"Distribution":@{@"ID":self.trader.ID,
                                               @"Name":self.nickName.text,
                                               @"Sex":self.maleBtn.selected ? @"1" : @"2",
@@ -156,7 +155,6 @@
 //    
 //    self.navigationItem.leftBarButtonItem= leftItem;
 //}
-
 -(void)back
 {
     [self.navigationController popViewControllerAnimated:YES];
