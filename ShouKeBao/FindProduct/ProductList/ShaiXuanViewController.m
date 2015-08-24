@@ -17,7 +17,7 @@
 #import "ProductList.h"
 #import "WLRangeSlider.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
-@interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice>
+@interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice,UITextFieldDelegate>
 @property (strong,nonatomic) NSMutableDictionary *conditionDic;//当前条件开关
 
 @property(copy,nonatomic) NSMutableString *goDateStart;
@@ -98,46 +98,11 @@
     [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
    UIBarButtonItem * turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
     self.navigationItem.rightBarButtonItem = turnOffItem;
-    
-    
-    
-//    UIView *NavView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 64)];
-//    NavView.backgroundColor = [UIColor colorWithPatternImage:[ UIImage imageNamed:@"jianbian"]];
-//    //返回按钮
-//    UIButton *backbtn = [[UIButton alloc] initWithFrame:CGRectMake(10, 30, 40, 30)];
-//    [backbtn setTitle:@"返回" forState:UIControlStateNormal];
-//    [backbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    backbtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//    backbtn.tag = 101;
-//    [backbtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    //筛选按钮
-//    UIButton *ShaiXbtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenSize.width/2-15, 25, 40, 30)];
-//    [ShaiXbtn setTitle:@"筛选" forState:UIControlStateNormal];;
-//    [ShaiXbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    ShaiXbtn.titleLabel.font = [UIFont systemFontOfSize:17];
-//    ShaiXbtn.tag = 102;
-//    [ShaiXbtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    //重置按钮
-//    UIButton *newbtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenSize.width-55, 30, 40, 30)];
-//    [newbtn setTitle:@"重置" forState:UIControlStateNormal];
-//    [newbtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-//    newbtn.titleLabel.font = [UIFont systemFontOfSize:14];
-//    newbtn.tag = 103;
-//    [newbtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    [NavView addSubview:newbtn];
-//    [NavView addSubview:ShaiXbtn];
-//    [NavView addSubview:backbtn];
-//    [self.view addSubview:NavView];
+
 }
 -(void)creatUI{
     
     subTable = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, kScreenSize.height-64) style:UITableViewStylePlain];
-    //分区头颜色
-//    UIView *blackSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
-//    blackSta.backgroundColor = [UIColor lightGrayColor];
-//    blackSta.alpha = 0.3;
-//    [subTable addSubview:blackSta];
     
     subTable.delegate = self;
     subTable.dataSource = self;
@@ -146,7 +111,7 @@
     [subTable registerClass:[ShaiXuanCell class] forCellReuseIdentifier:@"ShaiXuan"];
     
     //自定义尾视图
-    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 388)];//原来是158
+    UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 433)];//原来是158，388
     UIView *footSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
     footSta.backgroundColor = [UIColor lightGrayColor];
     footSta.alpha = 0.3;
@@ -162,10 +127,9 @@
     jiafanlabel.text = @"加返";
     [CellView1 addSubview:jiafanlabel];
     //加返switch
-   self.jiafanswitch = [[UISwitch alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/4, 10, kScreenSize.width/5, 40)];
+    self.jiafanswitch = [[UISwitch alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/4, 10, kScreenSize.width/5, 40)];
     [self.jiafanswitch addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventValueChanged];
     self.jiafanswitch.tag = 105;
-    
     [CellView1 addSubview:self.jiafanswitch];
     
     //自定义及时确定cell
@@ -173,6 +137,7 @@
     UILabel *jishiLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 10,kScreenSize.width/3, 40)];
     jishiLabel.text = @"及时确定";
     [CellView2 addSubview:jishiLabel];
+    
     //及时确定switch
     self.jishiswitch = [[UISwitch alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/4, 10, kScreenSize.width/5, 40)];
     [self.jishiswitch addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventValueChanged];
@@ -188,17 +153,15 @@
     UIView *CellView3 = [[UIView alloc]initWithFrame:CGRectMake(0, 108, kScreenSize.width, 50)];
     self.button = [[UIButton alloc] initWithFrame:CGRectMake(0 , 15, kScreenSize.width-50, 50)];
     [self.button setTitle:@"价格区间" forState:UIControlStateNormal];
-//    self.button.titleEdgeInsets = UIEdgeInsetsMake(-40, -180, 0, 0) ;
+    //self.button.titleEdgeInsets = UIEdgeInsetsMake(-40, -180, 0, 0) ;
     self.button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.button.titleEdgeInsets = UIEdgeInsetsMake(-40, 10, 0, 0);
     self.button.titleLabel.font = [UIFont systemFontOfSize:17];
     self.button.tag = 104;
+    self.button.enabled = NO;
     [self.button addTarget:self  action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [CellView3 addSubview:self.button];
-//    UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenSize.width-30, 10,20, 20)];
-//    imageView.image = [UIImage imageNamed:@"xiangyou"];
-//    [CellView3 addSubview:imageView];
    
     //6个价格button
     NSArray *jiageArr = @[@"1000以下",@"2000以下",@"3000以下",@"4000以下",@"5000以下",@"6000以下"];
@@ -207,22 +170,19 @@
         button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"jiagebian"]];
         [button setTitle:jiageArr[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+        [button setBackgroundImage:[UIImage imageNamed:@"jiagebiana"] forState:UIControlStateSelected];
         button.titleLabel.font = [UIFont systemFontOfSize:12];
         [button addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
         button.tag = 1001+i;
         [footView addSubview:button];
     }
+    
     //价格区间滑杆
     _rangeSlider = [[WLRangeSlider alloc] initWithFrame:CGRectMake(15,260 , kScreenSize.width-30, 30)];
      [_rangeSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventAllTouchEvents];
     [footView addSubview:_rangeSlider];
-    //自定义layer
-//    lowlayer = [CALayer layer];
-//    lowlayer.backgroundColor = [UIColor orangeColor].CGColor;
-//    lowlayer.bounds = CGRectMake(90, 0, 30, 30); //设置layer的区域
-//    lowlayer.position = CGPointMake(20, 250); //设置layer坐标
-//    lowlayer.name =@"¥";
-//    [footView.layer addSublayer:lowlayer];
+    
     lowPlabel.frame = CGRectMake(20, 240, 40, 30);
     lowPlabel.text = @"¥0";
     lowPlabel.font = [UIFont systemFontOfSize:12];
@@ -234,28 +194,33 @@
     tallPlabel.textColor = [UIColor orangeColor];
     [footView addSubview:tallPlabel];
     //自定义价格
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 290, kScreenSize.width/3, 50)];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 310, kScreenSize.width/3, 50)];//原290
     label.text = @"自定义价格";
     [footView addSubview:label];
     
-    UITextField *lowPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/3+10, 305, 80, 25)];
+    lowPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/3+6, 325, 80, 25)];
     lowPrice.background = [UIImage imageNamed:@"jiagebian"];
+    lowPrice.delegate = self;
+    lowPrice.tag = 210;
+    
     [footView addSubview:lowPrice];
-    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/2+kScreenSize.width/7, 315, 15, 1)];
+    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/2+kScreenSize.width/8, 335, 15, 1)];
     midView.backgroundColor = [UIColor lightGrayColor];
     [footView addSubview:midView];
     
-    UITextField *tallPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3+kScreenSize.width/20, 305, 80, 25)];
+    tallPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3+kScreenSize.width/20, 325, 80, 25)];
     tallPrice.background = [UIImage imageNamed:@"jiagebian"];
+    tallPrice.delegate = self;
+    tallPrice.tag = 220;
     [footView addSubview:tallPrice];
     
     //确定按钮上面的一条线
-    UIView *qdTop = [[UIView alloc] initWithFrame:CGRectMake(0, 340, kScreenSize.width, 1)];
+    UIView *qdTop = [[UIView alloc] initWithFrame:CGRectMake(0, 380, kScreenSize.width, 1)];
     qdTop.backgroundColor = [UIColor lightGrayColor];
     qdTop.alpha = 0.8;
     [footView addSubview:qdTop];
     //确定按钮
-    UIButton *centerBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 348, kScreenSize.width-30, 30)];
+    UIButton *centerBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 388, kScreenSize.width-30, 30)];
     centerBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"quedinga"]];
     [centerBtn setTitle:@"确定" forState:UIControlStateNormal];
     [centerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -273,19 +238,60 @@
     [self.view addSubview:subTable];
     
 }
+//收键盘
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [lowPrice resignFirstResponder];
+    [tallPrice resignFirstResponder];
+    return YES;
+}
+#pragma  - mark 判断字符串内容是否为纯数字
+- (BOOL)isPureInt:(NSString*)string{
+    
+    NSScanner* scan = [NSScanner scannerWithString:string];
+    
+    int val;
+    
+    if ([scan scanInt:&val] && [scan isAtEnd]) {
+        return YES;
+    }else if([string isEqualToString:@""] && [scan isAtEnd]){
+        return YES;
+    }
+    return NO;
+}
+#pragma  - mark TextFieldDelegate
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+    if (textField.tag == 210) {
+        [self.conditionDic setObject:textField.text forKey:@"MinPrice"];
+        NSLog(@"textfield--:%@",textField.text);
+    }else if(textField.tag == 220){
+        [self.conditionDic setObject:textField.text forKey:@"MaxPrice"];
+        NSLog(@"textfield--:%@",textField.text);
+    }
+    [lowPrice resignFirstResponder];
+    [tallPrice resignFirstResponder];
+}
+
 //滑杆出发事件
 - (void)valueChanged:(WLRangeSlider *)slider{
-    NSLog(@"左滑动按钮:%ld-右滑动按钮:%ld",(NSInteger)slider.leftValue,(NSInteger)slider.rightValue);
+    //NSLog(@"左滑动按钮:%ld-右滑动按钮:%ld",(NSInteger)slider.leftValue,(NSInteger)slider.rightValue);
+    
     lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.leftValue];
-    CGPoint lowLab = lowPlabel.center;
-    lowLab.x =slider.leftValue/10000*_rangeSlider.frame.size.width+30;
-    lowPlabel.center = lowLab;
+    NSInteger po =(NSInteger)slider.leftValue;
+    float ty = (float)po/10000;
+    float haha = _rangeSlider.frame.size.width-30;
+    lowPlabel.frame = CGRectMake(ty*haha+15, 240, 40, 30);
+    
     
     tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.rightValue];
-    CGPoint tallLab = tallPlabel.center;
-    //NSLog(@"%f    %f",slider.rightValue,tallPlabel.frame.size.width);
-    tallLab.x = slider.rightValue/10000*_rangeSlider.frame.size.width+kScreenSize.width/3*2+30;
-    tallPlabel.center = tallLab;
+    NSInteger qw =(NSInteger)slider.rightValue;
+    float er = (float)qw/10000;
+    NSLog(@"%0.4f---%ld",(float)qw/10000,(NSInteger)slider.rightValue);
+    float heihei = _rangeSlider.frame.size.width-30;
+    tallPlabel.frame = CGRectMake(er*heihei+15, 240, 40, 30);
+
+    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.leftValue]  forKey:@"MinPrice"];
+    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.rightValue] forKey:@"MaxPrice"];
 }
 -(NSMutableDictionary *)conditionDic
 {
@@ -313,11 +319,20 @@
 }
 
 -(void)btnClick:(UIButton *)button{
+    for (NSInteger qw =1001; qw<1007; qw++) {
+        if (button.tag == qw) {
+            button.selected = YES;
+            
+        }else{
+            UIButton *myButton1 = [self.view viewWithTag:qw];
+            myButton1.selected = NO;
+        }
+    }
     switch (button.tag) {
         case 101:
         {//返回
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
-          //  [[self navigationController] popViewControllerAnimated:YES];
+            //NSLog(@"++++%@",self.conditionDic);
+           // [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
             [self dismissViewControllerAnimated:YES completion:nil];
         }
             break;
@@ -326,11 +341,8 @@
             NSLog(@"点击重置");
             self.conditionDic = nil;
             [self refereshSelectData];
-          //  [self editButtons];
             [self.button setTitle:@"价格区间" forState:UIControlStateNormal];
             NSMutableAttributedString *pric = [[NSMutableAttributedString alloc] initWithString:@"价格区间"];
-//            [self.priceBtnOutlet setAttributedTitle:pric forState:UIControlStateNormal];
-            //[self.priceBtnOutlet setTitle:pric forState:UIControlStateNormal];
             
             NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
             [WriteFileManager saveData:priceData name:@"priceData"];
@@ -351,11 +363,11 @@
         case 104:
         {//价格区间
             NSLog(@"点击价格区间");
-            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-            [MobClick event:@"FindProductPriceRangeSX" attributes:dict];
-            MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
-            mm.delegate = self;
-            [self.navigationController pushViewController:mm animated:YES];
+            //BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            //[MobClick event:@"FindProductPriceRangeSX" attributes:dict];
+            //MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
+            //mm.delegate = self;
+            //[self.navigationController pushViewController:mm animated:YES];
         }
             break;
         case 105:
@@ -386,39 +398,78 @@
             break;
         case 107:
         {//确定按钮
-            [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
-            [self dismissViewControllerAnimated:YES completion:nil];
+            BOOL minBool = [self isPureInt:lowPrice.text];
+            BOOL maxBool = [self isPureInt:tallPrice.text];
+            long minPrice = [lowPrice.text longLongValue];
+            long maxPrice = [tallPrice.text longLongValue];
+            BOOL minBiger = minPrice>maxPrice;
+            if (minBool  && maxBool && !minBiger) {
+                NSLog(@"符合条件");
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
+                [self dismissViewControllerAnimated:YES completion:nil];
+            }
+            else if(!minBool || !maxBool ){
+                
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您的输入并非纯数字，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+                [alert show];
+                lowPrice.text = @"";
+                tallPrice.text = @"";
+                
+            }else if (minBiger){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"您输入的最小价格大于最大价格，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+                [alert show];
+                lowPrice.text = @"";
+                tallPrice.text = @"";
+            }else if ( maxPrice == 0){
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"价格不能为0，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+                [alert show];
+                lowPrice.text = @"";
+                tallPrice.text = @"";
+            }
+
         }
             break;
         //以下6个是价格btn
         case 1001:
         {
-
+            NSLog(@"1000以下");
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"1000" forKey:@"MaxPrice"];
         }
             break;
         case 1002:
         {
-            
+            NSLog(@"2000以下");
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"2000" forKey:@"MaxPrice"];
         }
             break;
         case 1003:
         {
-            
+            NSLog(@"3000以下");
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"3000" forKey:@"MaxPrice"];
         }
             break;
         case 1004:
         {
-            
+            NSLog(@"4000以下");
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"4000" forKey:@"MaxPrice"];
         }
             break;
         case 1005:
         {
-            
+            NSLog(@"5000以下");
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"5000" forKey:@"MaxPrice"];
         }
             break;
         case 1006:
         {
-            
+            NSLog(@"6000以下");
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"6000" forKey:@"MaxPrice"];
         }
             break;
             
@@ -439,7 +490,7 @@
 {
     NSLog(@"价格筛选--------%@------------%@------",min,max);
     //self.subView.hidden = NO;
-    
+  
     if (![max  isEqual: @""]) {
         
         [self.conditionDic setObject:min forKey:@"MinPrice"];

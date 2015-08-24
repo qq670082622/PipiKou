@@ -34,10 +34,11 @@
     _leftValue = 1;
     _rightValue = 9999;
     _thumbColor = [UIColor whiteColor];
+    //_thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hualun"]];
    // _trackHighlightTintColor = [UIColor colorWithRed:0.0 green:0.45 blue:0.94 alpha:1.0];
     _trackHighlightTintColor = [UIColor orangeColor];
     _trackColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    _cornorRadiusScale = 1000;
+    _cornorRadiusScale = 1;
     
     _trackLayer = [WLTrackLayer layer];
     _trackLayer.contentsScale = [UIScreen mainScreen].scale;
