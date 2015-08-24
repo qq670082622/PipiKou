@@ -63,7 +63,7 @@
     [self.view addSubview:self.tableV];
 
 //    [self initHeader];
-    
+//    立即采购button
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickImmediateOrder:) name:@"orderCellDidClickButton" object:nil];
     
     
