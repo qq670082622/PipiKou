@@ -63,7 +63,11 @@
 #import "BaseWebViewController.h"
 #import "FeedBcakViewController.h"
 #import "ProductRecommendViewController.h"
-@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate>
+@interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
+//定位使用
+@property (nonatomic, retain)CLLocationManager *locationManager;
+@property (nonatomic, retain)CLLocation *loc;
+
 @property (nonatomic, strong)RecommendCell *cell;
 @property (nonatomic, strong)BBBadgeBarButtonItem *barButton;
 @property (nonatomic, assign) NSInteger num;
@@ -120,11 +124,63 @@
 @implementation ShouKeBao
 
 
+#pragma mark - 定位
+- (void)locationMethod
+{
+    self.locationManager = [[CLLocationManager alloc] init];
+    self.locationManager.delegate = self;
+    if ([CLLocationManager locationServicesEnabled]) {
+        self.locationManager.distanceFilter = 100;//设置为100米
+        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+        [self.locationManager requestWhenInUseAuthorization];//或者下一句
+        //        [self.locationManager requestAlwaysAuthorization];
+        [self.locationManager startUpdatingLocation];
+//        NSLog(@"111111");
+    } else {
+        NSLog(@"请检查网络");
+    }
+}
+
+//   实现CLLocationManagerDelegate的代理方法
+//   获取到位置数据，返回的是一个CLLocation的数组
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    self.loc = [locations lastObject];
+    NSLog(@"纬度 = %f, 经度 = %f", self.loc.coordinate.latitude, self.loc.coordinate.longitude);
+}
+
+//获取用户位置数据失败的回调方法，在此通知用户
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    if ([error code] == kCLErrorDenied) {
+        NSLog(@"访问被拒绝");
+        UIAlertView *theAlertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"访问被拒绝,推荐您切换分站到上海" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [theAlertView show];
+        [self.view addSubview:theAlertView];
+
+    }else if ([error code] == kCLErrorLocationUnknown){
+        NSLog(@"无法获取位置信息");
+        static NSInteger i = 1;
+        if (i == 1) {
+            UIAlertView *theAlertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"无法获取位置信息,推荐您切换分站到上海" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+            [theAlertView show];
+            [self.view addSubview:theAlertView];
+        }
+        i++;
+        
+    }
+}
+//离开页面时,关闭定位
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [self.locationManager stopUpdatingLocation];
+}
+
+
 - (void)viewDidLoad {
     
     [super viewDidLoad];
-   
-
     [self.view addSubview:self.tableView];
   
     [self checkNewVerSion];
@@ -662,7 +718,8 @@
 }
 
 
--(void)getStationName
+//-(void)getStationName
+-(void)getStationName:(NSString *)latitude Longgitude:(NSString *)longitude
 {
     //确定分站
     [IWHttpTool WMpostWithURL:@"/Product/GetSubstation" params:nil success:^(id json) {
@@ -822,51 +879,9 @@
 {
     [super viewWillAppear:animated];
     self.isEmpty = NO;
-//    if (self.num == 0) {
-//        self.num++;
-//    }else{
-//    [self.tableView reloadData];
-//    [self.view addSubview:self.tableView];
     
-//    }
-    
-//    NSLog(@"serrr = %@", self.tabBarItem.badgeValue);
-//    NSLog(@"serrrself.recommendCount = %ld", self.recommendCount);
-////    self.barButton.badgeValue = @"5";
-////设置tableBar上的角标
-//    
-//    if (self.num == 0) {
-//        NSLog(@"num = %ld", self.num);
-//        if (self.recommendCount != 0) {
-////            tabBar上图标
-//            self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.barButton.badgeValue intValue]+1];
-////            App图标上的角标
-//               [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
-//            
-//            NSLog(@"se00 = %@", self.tabBarItem.badgeValue);
-//        }else{
-//            NSLog(@"se = %@", self.tabBarItem.badgeValue);
-//            if ([self.barButton.badgeValue intValue] == 0) {
-//                self.tabBarItem.badgeValue = nil;
-//    //            App图标上的角标
-//                [UIApplication sharedApplication].applicationIconBadgeNumber  = 0;
-//                NSLog(@"s1e = %@", self.tabBarItem.badgeValue);
-//            }else{
-//                self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",[self.barButton.badgeValue intValue]+1];
-//                
-//                [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
-//                NSLog(@"s2e = %@", self.tabBarItem.badgeValue);
-//                
-//            }
-//        }
-//        self.num ++;
-//    }
-////    else{
-////        NSLog(@"self.num = %ld", self.num);
-////        self.tabBarItem.badgeValue = self.barButton.badgeValue;
-////    }
-//    
-//    [UIApplication sharedApplication].applicationIconBadgeNumber  = [self.barButton.badgeValue intValue];
+//    视图将要出现时定位
+//    [self locationMethod];
 
     //我界面更改头像和名字之后  首页的同步
     self.userName.text =  [UserInfo shareUser].userName;
@@ -888,7 +903,13 @@
 
 //    [self getNotifiList];
     
-    [self getStationName];
+    NSString *latitude = [NSString stringWithFormat:@"%f", self.loc.coordinate.latitude];
+    NSString *longitude = [NSString stringWithFormat:@"%f", self.loc.coordinate.longitude];
+    
+//    向接口传入经度纬度
+    [self getStationName:latitude Longgitude:longitude];
+    
+//    [self getStationName];
     
    [self loadContentDataSource];
 

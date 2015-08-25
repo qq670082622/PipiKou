@@ -362,6 +362,7 @@
 		B36E57351B74C0D000471AAC /* ProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E57281B74C0D000471AAC /* ProductList.xib */; };
 		B36E57361B74C0D000471AAC /* ProductModal.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E572A1B74C0D000471AAC /* ProductModal.m */; };
 		B3B326981B7379EA0057FB58 /* CustomerDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */; };
+		B3B56BE11B8C47CB002E01B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */; };
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
 		B3B82D651B7A0D19009CC320 /* CustomerOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */; };
 		B3B82D681B7A0DD3009CC320 /* Menum.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D671B7A0DD3009CC320 /* Menum.m */; };
@@ -1009,6 +1010,7 @@
 		B36E57291B74C0D000471AAC /* ProductModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModal.h; sourceTree = "<group>"; };
 		B36E572A1B74C0D000471AAC /* ProductModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModal.m; sourceTree = "<group>"; };
 		B3B326971B7379EA0057FB58 /* CustomerDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerDetailViewController.m; sourceTree = "<group>"; };
+		B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
 		B3B82D641B7A0D19009CC320 /* CustomerOrderViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerOrderViewController.m; sourceTree = "<group>"; };
 		B3B82D661B7A0DD3009CC320 /* Menum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menum.h; sourceTree = "<group>"; };
@@ -1024,6 +1026,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B3B56BE11B8C47CB002E01B6 /* CoreLocation.framework in Frameworks */,
 				796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */,
 				636C8B891AC2E23C0097CAE9 /* MessageUI.framework in Frameworks */,
 				636C8B871AC2E22D0097CAE9 /* Security.framework in Frameworks */,
@@ -2040,6 +2043,7 @@
 		63D31E351AB143D00043B3CA = {
 			isa = PBXGroup;
 			children = (
+				B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */,
 				796C4D4C1B60CEF6008EBAFE /* WebKit.framework */,
 				63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */,
 				63D31E401AB143D00043B3CA /* ShouKeBao */,

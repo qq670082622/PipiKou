@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
-
+#import <CoreLocation/CoreLocation.h>
 @interface ShouKeBao : SKViewController
 @property(nonatomic,weak) UILabel *warningLab;
 
