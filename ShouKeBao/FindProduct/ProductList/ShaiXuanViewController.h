@@ -16,6 +16,7 @@
     UILabel *tallPlabel;
     UITextField *lowPrice;
     UITextField *tallPrice;
+    UIButton *sixbutton;
 }
 @property(nonatomic,strong) NSMutableArray *pushedArr;
 @property (strong,nonatomic) NSMutableArray *conditionArr;//post装载的条件数据

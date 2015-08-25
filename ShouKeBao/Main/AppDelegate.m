@@ -549,13 +549,19 @@ void UncaughtExceptionHandler(NSException *exception) {
 -(void)onResp:(BaseResp*)resp{
     if ([resp isKindOfClass:[PayResp class]]){
         PayResp*response=(PayResp*)resp;
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"SuccessPayBack" object:nil];
         switch(response.errCode){
             case WXSuccess:
                 //服务器端查询支付通知或查询API返回的结果再提示成功
                 NSLog(@"支付成功");
+                
+                [[[UIAlertView alloc]initWithTitle:@"微信支付" message:@"支付成功" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+
                 break;
             default:
                 NSLog(@"支付失败，retcode=%d",resp.errCode);
+                [[[UIAlertView alloc]initWithTitle:@"微信支付" message:@"支付失败" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+
                 break;
         }
     }
