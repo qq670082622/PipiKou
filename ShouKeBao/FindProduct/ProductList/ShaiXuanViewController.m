@@ -166,21 +166,22 @@
     //6个价格button
     NSArray *jiageArr = @[@"1000以下",@"2000以下",@"3000以下",@"4000以下",@"5000以下",@"6000以下"];
     for (int i = 0; i < 6; i++) {
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(i%3*kScreenSize.width/3+15, i/3*40+150, 80, 26)];
-        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"jiagebian"]];
-        [button setTitle:jiageArr[i] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-        [button setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
-        [button setBackgroundImage:[UIImage imageNamed:@"jiagebiana"] forState:UIControlStateSelected];
-        button.titleLabel.font = [UIFont systemFontOfSize:12];
-        [button addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-        button.tag = 1001+i;
-        [footView addSubview:button];
+        sixbutton = [[UIButton alloc] initWithFrame:CGRectMake(i%3*kScreenSize.width/3+15, i/3*40+150, 80, 26)];
+        sixbutton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"jiagebian"]];
+        [sixbutton setTitle:jiageArr[i] forState:UIControlStateNormal];
+        [sixbutton setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
+        [sixbutton setTitleColor:[UIColor orangeColor] forState:UIControlStateSelected];
+        [sixbutton setBackgroundImage:[UIImage imageNamed:@"jiagebiana"] forState:UIControlStateSelected];
+        sixbutton.titleLabel.font = [UIFont systemFontOfSize:12];
+        [sixbutton addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+        sixbutton.tag = 1001+i;
+        [footView addSubview:sixbutton];
     }
     
     //价格区间滑杆
     _rangeSlider = [[WLRangeSlider alloc] initWithFrame:CGRectMake(15,260 , kScreenSize.width-30, 30)];
      [_rangeSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventAllTouchEvents];
+
     [footView addSubview:_rangeSlider];
     
     lowPlabel.frame = CGRectMake(20, 240, 40, 30);
@@ -202,7 +203,7 @@
     lowPrice.background = [UIImage imageNamed:@"jiagebian"];
     lowPrice.delegate = self;
     lowPrice.tag = 210;
-    
+    lowPrice.placeholder = @"¥";
     [footView addSubview:lowPrice];
     UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/2+kScreenSize.width/8, 335, 15, 1)];
     midView.backgroundColor = [UIColor lightGrayColor];
@@ -212,6 +213,7 @@
     tallPrice.background = [UIImage imageNamed:@"jiagebian"];
     tallPrice.delegate = self;
     tallPrice.tag = 220;
+    tallPrice.placeholder = @"¥";
     [footView addSubview:tallPrice];
     
     //确定按钮上面的一条线
@@ -270,28 +272,50 @@
     }
     [lowPrice resignFirstResponder];
     [tallPrice resignFirstResponder];
+    
+    //改变六个button和滑杆的选种状态
+    lowPlabel.textColor = [UIColor lightGrayColor];
+    tallPlabel.textColor = [UIColor lightGrayColor];
+    _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
+    for (NSInteger qw =1001; qw<1007; qw++) {
+        UIButton *myButton1 = [self.view viewWithTag:qw];
+        myButton1.selected = NO;
+    }
+    
 }
 
 //滑杆出发事件
 - (void)valueChanged:(WLRangeSlider *)slider{
-    //NSLog(@"左滑动按钮:%ld-右滑动按钮:%ld",(NSInteger)slider.leftValue,(NSInteger)slider.rightValue);
-    
+    lowPrice.text = nil;
+    tallPrice.text = nil;
+    //左滑动按钮
     lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.leftValue];
     NSInteger po =(NSInteger)slider.leftValue;
     float ty = (float)po/10000;
     float haha = _rangeSlider.frame.size.width-30;
     lowPlabel.frame = CGRectMake(ty*haha+15, 240, 40, 30);
     
-    
+    //右滑动按钮
     tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.rightValue];
     NSInteger qw =(NSInteger)slider.rightValue;
     float er = (float)qw/10000;
     NSLog(@"%0.4f---%ld",(float)qw/10000,(NSInteger)slider.rightValue);
     float heihei = _rangeSlider.frame.size.width-30;
     tallPlabel.frame = CGRectMake(er*heihei+15, 240, 40, 30);
-
+    
+    //增加筛选条件
     [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.leftValue]  forKey:@"MinPrice"];
     [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.rightValue] forKey:@"MaxPrice"];
+    
+    //改变button的不选中效果
+    for (NSInteger qw =1001; qw<1007; qw++) {
+        UIButton *myButton1 = [self.view viewWithTag:qw];
+            myButton1.selected = NO;
+    }
+    //改变滑杆的选种效果
+    lowPlabel.textColor = [UIColor orangeColor];
+    tallPlabel.textColor = [UIColor orangeColor];
+    _rangeSlider.trackHighlightTintColor=[UIColor orangeColor];
 }
 -(NSMutableDictionary *)conditionDic
 {
@@ -339,9 +363,14 @@
         case 102:
         {//重置
             NSLog(@"点击重置");
+            //筛选条件置为nil
             self.conditionDic = nil;
+            
+            //两个输入框置为nil
+            lowPrice.text = nil;
+            tallPrice.text = nil;
+            
             [self refereshSelectData];
-            [self.button setTitle:@"价格区间" forState:UIControlStateNormal];
             NSMutableAttributedString *pric = [[NSMutableAttributedString alloc] initWithString:@"价格区间"];
             
             NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
@@ -357,17 +386,15 @@
             self.goDateEnd = [NSMutableString stringWithFormat:@""];
             self.month = [NSMutableString stringWithFormat:@""];
             [subTable reloadData];
-
+            //改变滑杆的选种效果以及位置
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 104:
         {//价格区间
             NSLog(@"点击价格区间");
-            //BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-            //[MobClick event:@"FindProductPriceRangeSX" attributes:dict];
-            //MinMaxPriceSelectViewController *mm = [[MinMaxPriceSelectViewController alloc] init];
-            //mm.delegate = self;
-            //[self.navigationController pushViewController:mm animated:YES];
         }
             break;
         case 105:
@@ -435,6 +462,9 @@
             NSLog(@"1000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:@"1000" forKey:@"MaxPrice"];
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 1002:
@@ -442,6 +472,9 @@
             NSLog(@"2000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:@"2000" forKey:@"MaxPrice"];
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 1003:
@@ -449,6 +482,9 @@
             NSLog(@"3000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:@"3000" forKey:@"MaxPrice"];
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 1004:
@@ -456,6 +492,9 @@
             NSLog(@"4000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:@"4000" forKey:@"MaxPrice"];
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 1005:
@@ -463,6 +502,9 @@
             NSLog(@"5000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:@"5000" forKey:@"MaxPrice"];
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 1006:
@@ -470,6 +512,9 @@
             NSLog(@"6000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:@"6000" forKey:@"MaxPrice"];
+            lowPlabel.textColor = [UIColor lightGrayColor];
+            tallPlabel.textColor = [UIColor lightGrayColor];
+            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
             

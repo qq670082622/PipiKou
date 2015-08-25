@@ -1353,6 +1353,12 @@
     //    }else if ([_page integerValue] > 1){
     //        pageCount = [_page integerValue] - 1;
     //    }
+    if (count+1 == 1) {
+        self.backToTopBtn.alpha = 0;
+    }else{
+        self.backToTopBtn.alpha = 1;
+    }
+    //页码在第一页不能显示
     
     if (scrollView.contentOffset.y > self.oldOffset){
         NSLog(@"向上滚动，应该隐藏");
