@@ -125,6 +125,22 @@
         }];
     }else if(self.listType == RelatedProductType){
         self.title = @"相关产品";
+        [MeHttpTool getRelatedProductListWithParam:@{@"productId":self.productId} success:^(id json) {
+            [self.tableView headerEndRefreshing];
+            [self.tableView footerEndRefreshing];
+            if (json) {
+            if (self.pageIndex == 1) {
+                [self.dataSource removeAllObjects];
+            }
+            for (NSDictionary *dic in json[@"ProductList"]) {
+                ProductModal *model = [ProductModal modalWithDict:dic];
+                [self.dataSource addObject:model];
+            }
+            }
+            [self.tableView reloadData];
+
+        } failure:^(NSError *error) {
+        }];
     
     }
 }
@@ -190,10 +206,11 @@
 -(void)footRefresh
 {
     self.pageIndex ++;
-    if (self.pageIndex < [self getEndPage]) {
-        [self loadDataSource];
-    }else{
+    if (self.pageIndex >= [self getEndPage]) {
         [self.tableView footerEndRefreshing];
+    }else{
+        [self loadDataSource];
+
     }
 }
 
@@ -299,15 +316,13 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%ld", indexPath.row);
     ProductCell *cell = [ProductCell cellWithTableView:tableView];
 //    cell.selectionStyle = UITableViewCellSelectionStyleDefault;
     cell.delegate = self;
     cell.MylistVCNav = self.navigationController;
-    cell.isHistory = self.listType == collectionType ? NO : YES;
+    cell.isHistory = self.listType == previewType ? YES : NO;
     ProductModal *model = self.dataSource[indexPath.row];
     cell.modal = model;
-    
     cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
     cell.rightButtons = [self createRightButtons:model];
     

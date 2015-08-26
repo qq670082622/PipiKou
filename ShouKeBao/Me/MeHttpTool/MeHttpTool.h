@@ -34,6 +34,10 @@
  *  获取客户最近浏览记录信息
  */
 + (void)getHistoryProductListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+/**
+ *  获取下架产品相关产品列表
+ */
++ (void)getRelatedProductListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
 /**
  *  获取我的收藏产品信息列表

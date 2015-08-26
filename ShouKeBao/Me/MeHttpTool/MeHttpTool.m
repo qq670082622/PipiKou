@@ -134,11 +134,11 @@
     }];
 }
 /**
- *  获取我的收藏产品信息列表
+ *  获取相关产品
  */
 + (void)getRelatedProductListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure
 {
-    [IWHttpTool postWithURL:@"Product/GetFavoritesProductList" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"Product/GetMoreSimilarProductList" params:param success:^(id json) {
         
         if (success) {
             success(json);

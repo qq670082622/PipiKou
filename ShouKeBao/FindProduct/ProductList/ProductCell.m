@@ -286,7 +286,8 @@
     [self.ShanDianBtn sizeToFit];
     
     self.isFlash = [modal.IsComfirmStockNow integerValue];
-    if (modal.PersonPrice.length == 0) {
+    if ([modal.IsOffLine isEqualToString:@"1"]) {
+        NSLog(@"%@", modal.ID);
         self.normalPrice.hidden = YES;
         self.cheapPrice.hidden = YES;
         self.profits.hidden = YES;
@@ -296,6 +297,16 @@
         self.quanBtn.hidden = YES;
         self.undercarriageView.hidden = NO;
         self.RelatedBtn.hidden = NO;
+    }else{
+        self.normalPrice.hidden = NO;
+        self.cheapPrice.hidden = NO;
+        self.profits.hidden = NO;
+        self.flash.hidden = NO;
+        self.ShanDianBtn.hidden = NO;
+        self.jiafanBtn.hidden = NO;
+        self.quanBtn.hidden = NO;
+        self.undercarriageView.hidden = YES;
+        self.RelatedBtn.hidden = YES;
     }
     
     
