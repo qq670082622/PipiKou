@@ -12,7 +12,8 @@
 @implementation Recommend
 
 -(void)encodeWithCoder:(NSCoder *)aCoder{
-    
+    [aCoder encodeObject:self.TitleText forKey:@"TitleText"];
+    [aCoder encodeObject:self.PriceText forKey:@"PriceText"];
     [aCoder encodeObject:self.Count forKey:@"Count"];
     [aCoder encodeObject:self.CreatedDate forKey:@"CreatedDate"];
     [aCoder encodeObject:self.Price forKey:@"Price"];
@@ -23,6 +24,8 @@
 -(id)initWithCoder:(NSCoder *)aDecoder{
     self = [super init];
     if (self) {
+        self.TitleText = [aDecoder decodeObjectForKey:@"TitleText"];
+        self.PriceText = [aDecoder decodeObjectForKey:@"PriceText"];
         self.Count =  [aDecoder decodeObjectForKey:@"Count"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
         self.Price = [aDecoder decodeObjectForKey:@"Price"];
@@ -43,7 +46,8 @@
     if (self) {
         NSMutableDictionary *muta = [NSMutableDictionary cleanNullResult:dict];
        
-      
+        self.TitleText = muta[@"TitleText"];
+        self.PriceText = muta[@"PriceText"];
         self.Count = muta[@"Count"];
         self.CreatedDate = muta[@"CreatedDate"];
         self.Price = muta[@"Price"];
@@ -54,7 +58,8 @@
 
 - (NSString *)Price
 {
-    return [NSString stringWithFormat:@"￥%@",_Price];
+    return [NSString stringWithFormat:@"%@",_Price];
+    
 }
 
 

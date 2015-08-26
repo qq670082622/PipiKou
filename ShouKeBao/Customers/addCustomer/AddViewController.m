@@ -144,10 +144,10 @@
         
         [IWHttpTool WMpostWithURL:@"/Customer/CreateCustomerList" params:secondDic success:^(id json) {
             NSLog(@"----创建单个客户成功 %@------",json);
-            
-            [MBProgressHUD showSuccess:@"添加成功"];
+           
             [self.delegate toRefereshCustomers];
-            
+            [MBProgressHUD showSuccess:@"添加成功"];
+        
         } failure:^(NSError *error) {
             NSLog(@"-----创建单个客户失败 %@-----",error);
         }];
