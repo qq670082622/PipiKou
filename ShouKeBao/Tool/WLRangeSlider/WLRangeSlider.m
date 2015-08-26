@@ -13,7 +13,7 @@
 @property (nonatomic,strong) WLSliderThumbLayer *rightThumbLayer;
 @property (nonatomic,strong) WLTrackLayer *trackLayer;
 @property (nonatomic) CGPoint previousLoction;
-
+@property (nonatomic) NSInteger m;
 @end
 
 @implementation WLRangeSlider
@@ -28,7 +28,7 @@
 }
 
 - (void)initLayers{
-    
+    self.m = 1;
     _maxValue = 10000;
     _minValue = 0;
     _leftValue = 1;
@@ -110,19 +110,17 @@
 - (void)updateLayerFrames{
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-    
+
     _trackLayer.frame = CGRectInset(self.bounds, 0, [self thumbWidth]/3+4);
     [_trackLayer setNeedsDisplay];
-    
     CGFloat leftThumbCenter = [self positionForValue:_leftValue];
-    _leftThumbLayer.frame = CGRectMake(leftThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
-    [_leftThumbLayer setNeedsDisplay];
-    
     CGFloat rightThumbCenter = [self positionForValue:_rightValue];
-    _rightThumbLayer.frame = CGRectMake(rightThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
+        _leftThumbLayer.frame = CGRectMake(leftThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
+        _rightThumbLayer.frame = CGRectMake(rightThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
+    [_leftThumbLayer setNeedsDisplay];
     [_rightThumbLayer setNeedsDisplay];
-    
     [CATransaction commit];
+   // self.m = 2;
 }
 
 - (CGFloat)positionForValue:(CGFloat)value{
