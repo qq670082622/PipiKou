@@ -224,6 +224,7 @@
     
     self.table.footerPullToRefreshText = @"上拉刷新";
     self.table.footerRefreshingText = @"正在刷新";
+    
 
 }
 //下拉刷新
@@ -236,15 +237,15 @@
     self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateNormal];
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateHighlighted];
+     NSLog(@"1,,,,,,,");
     [self loadDataSource];
 }
 //    上啦加载
 - (void)foodPull
 {
      [self.noProductWarnLab removeFromSuperview];
-    NSLog(@"000  self.page = %@", self.pageIndex);
     self.isRefresh = NO;
-    
+    NSLog(@"2,,,,,,,");
 //    if ([self.pageIndex intValue]< [self getTotalPage]) {
 //           NSLog(@"self.page = %@", self.pageIndex);
 //        [self loadDataSource];
@@ -254,6 +255,7 @@
 
     if ([self.pageIndex intValue] > [self getTotalPage]) {
         [self.table footerEndRefreshing];
+        [self.table headerEndRefreshing];
 //        [self warning];
     }else{
         NSLog(@"###################");
@@ -361,12 +363,14 @@
 #pragma -mark 添加客户成功后的代理方法（刷新列表）
 -(void)toRefereshCustomers
 {
-    [self initPull];
+    [self.table headerBeginRefreshing];
+    
 }
 #pragma  -mark batchAdd delegate
 -(void)referesh
 {
-    [self initPull];
+    [self.table headerBeginRefreshing];
+
 }
 
 - (IBAction)importUser:(id)sender {
@@ -389,6 +393,7 @@
 
 -(void)loadDataSource
 {
+    NSLog(@"n = 66666");
      [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 //    [dic setObject:@"1" forKey:@"PageIndex"];
@@ -429,7 +434,6 @@
     
         [self.table reloadData];
         if (_dataArr.count==0) {
-            
            self.imageViewWhenIsNull.hidden = NO ;
         }else if (_dataArr.count>0){
             self.imageViewWhenIsNull.hidden = YES ;

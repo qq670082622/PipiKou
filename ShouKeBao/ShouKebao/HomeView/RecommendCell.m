@@ -518,10 +518,42 @@
     //self.goDate.text = [NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price];
     self.goDate.numberOfLines = 0;
     self.goDate.textAlignment = NSTextAlignmentLeft;
-    NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price]];
+    
+//    NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"本次共向您推荐%@条精品线路\n最低价%@起",recommend.Count,recommend.Price]];
+
+   
+    
+    
+//改写方式
+    NSString *newTitleText = [recommend.TitleText stringByReplacingOccurrencesOfString:@"{0}" withString:recommend.Count];
+    NSString *newPriceText = [recommend.PriceText stringByReplacingOccurrencesOfString:@"{0}" withString:recommend.Price];
+//    NSLog(@"recommend.PriceText = %@", recommend.PriceText);
+    NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", newTitleText, newPriceText]];
+  
     NSString *visitors = [NSString stringWithFormat:@"%@",recommend.Price];
     
-    NSInteger startIndex = [recommend.Count integerValue]>9?18:17;
+    NSRange startIndex2;
+//    if ([recommend.TitleText rangeOfString:@"{0}"].location != NSNotFound) {
+        NSLog(@"包含{0}");
+         startIndex2 = [newPriceText rangeOfString:recommend.Price];
+  
+//    }else{
+//        NSString *d = recommend.PriceText;
+//       NSString *pattern = @"\\d";//@"[0-9]"
+//        NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+//        NSArray *results = [regular matchesInString:d options:0 range:NSMakeRange(0, d.length)];
+//        NSLog(@"result = %d, %@", results.count, results[0]);
+//        for (NSTextCheckingResult *result in results) {
+//            NSLog(@"%@   %@", NSStringFromRange(result.range), [d substringWithRange:result.range]);
+//        }
+//       startIndex2 = [newPriceText rangeOfString:@"3200"];
+//        NSLog(@"不包含{0}");
+//        
+//    }
+
+    NSInteger num = newTitleText.length + (NSInteger)startIndex2.location;
+    NSInteger startIndex = [recommend.Count integerValue]>9?num+1:num;
+
     [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(startIndex,visitors.length)];
     self.goDate.attributedText = newStr;
     

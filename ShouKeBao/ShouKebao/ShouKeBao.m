@@ -993,9 +993,7 @@
 #pragma mark - loadDataSource
 - (void)loadContentDataSource
 {
-
     NSDictionary *param = @{};// 基本参数即可
-
     [HomeHttpTool getIndexContentWithParam:param success:^(id json) {
         NSLog(@"------------------------新接口是%@---------------------",json);
 //        if (self.pushTime) {
@@ -1027,6 +1025,7 @@
                     base.model = recommend;
                     base.idStr = @"recommend";
                     [self.dataSource addObject:base];
+                 
                 }
                 
                 // 添加订单

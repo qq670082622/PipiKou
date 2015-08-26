@@ -17,8 +17,9 @@
 @property (nonatomic,copy) NSString *Price;
 
 @property (nonatomic,strong) NSArray *RecommendIndexProductList;
-
-
+//新增
+@property (nonatomic, copy)NSString *TitleText;
+@property (nonatomic, copy)NSString *PriceText;
 
 + (instancetype)recommendWithDict:(NSDictionary *)dict;
 
