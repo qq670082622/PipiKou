@@ -286,6 +286,7 @@
 
 //滑杆出发事件
 - (void)valueChanged:(WLRangeSlider *)slider{
+    
     lowPrice.text = nil;
     tallPrice.text = nil;
     //左滑动按钮

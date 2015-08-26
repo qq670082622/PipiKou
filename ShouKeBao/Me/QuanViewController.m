@@ -159,7 +159,7 @@
     //    NSString *encryptedData = [self encryptUseDES:@"www.lvyouquantest.cn" key:key];
     //    NSLog(@"加密后的数据是:%@", encryptedData);
     //从url里面获取到js传过来的值；
-    if ([rightUrl containsString:@"objectc:LYQSKBAPP_WeixinPay"]) {
+    if ([rightUrl rangeOfString:@"objectc:LYQSKBAPP_WeixinPay"].location != NSNotFound) {
         //从url里面取出加密json串
         NSString * DESString = [rightUrl componentsSeparatedByString:@"?"][1];
         //将json串解密
@@ -223,12 +223,13 @@
     [self.navigationController cancelSGProgress];
 }
 - (void)SuccessPayBack{
-//    [self loadWithUrl:self.linkUrl];
     for (int i = 0; i < 5; i++) {
         if ([self.webView canGoBack]) {
             [self.webView goBack];
         }
     }
+    [self loadWithUrl:self.linkUrl];
+//    [self.webView reload];
 }
 - (void)WXpaySendRequestWithDic:(NSDictionary *)dic{
     //此处请求接口；

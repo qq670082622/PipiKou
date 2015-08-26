@@ -310,8 +310,9 @@
         NSMutableDictionary *customerDic = [NSMutableDictionary dictionary];
         [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
-            [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
-
+            if (!self.isFromeCamer) {
+                [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
+            }
             self.delegateToOrder = self.VC;
             [self.delegateToOrder toRefereshCustomers];
             NSLog(@"添加陈工");
