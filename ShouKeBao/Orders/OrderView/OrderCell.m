@@ -335,7 +335,7 @@
             b.text = btn.text;
             NSLog(@"btn.text= %@", btn.text);
             NSLog(@"b.text= %@", b.text);
-            NSLog(@"model.buttonList.count = %d", model.buttonList.count);
+            NSLog(@"model.buttonList.count = %ld", model.buttonList.count);
             [b addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
             
             [self.bottomView addSubview:b];
@@ -345,7 +345,7 @@
         
     }else{
   
-        NSLog(@"2 model.buttonList.count = %d", model.buttonList.count);
+        NSLog(@"2 model.buttonList.count = %ld", model.buttonList.count);
 
         CGFloat x = [UIScreen mainScreen].bounds.size.width - 90 - gap;
         UILabel *doneLab = [[UILabel alloc] initWithFrame:CGRectMake(x, 5, 90, 25)];
@@ -388,6 +388,7 @@
 {
     if (sender.linkUrl.length) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"orderCellDidClickButton" object:nil userInfo:@{@"linkUrl":sender.linkUrl,@"title":sender.text}];
+        NSLog(@"kkkkk  /////");
     }else{
         if (_orderDelegate && [_orderDelegate respondsToSelector:@selector(checkDetailAtIndex:)]) {
             [_orderDelegate checkDetailAtIndex:self.indexPath.section];
