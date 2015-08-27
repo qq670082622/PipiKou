@@ -9,13 +9,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShouKeBao/Customers/addCustomer/AddViewController.m"
-            timestampString = "462271766.518308"
+            filePath = "ShouKeBao/ShouKebao/QRCode/CardTableViewController.m"
+            timestampString = "462275508.711356"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "146"
-            endingLineNumber = "146"
-            landmarkName = "-saveCustomer:"
+            startingLineNumber = "519"
+            endingLineNumber = "519"
+            landmarkName = "-cancleCover"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -25,13 +25,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShouKeBao/ShouKebao/QRCode/CardTableViewController.m"
-            timestampString = "462275508.711356"
+            filePath = "ShouKeBao/Tool/WLRangeSlider/WLSliderThumbLayer.m"
+            timestampString = "462335618.231747"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "519"
-            endingLineNumber = "519"
-            landmarkName = "-cancleCover"
+            startingLineNumber = "13"
+            endingLineNumber = "13"
+            landmarkName = "-drawInContext:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
