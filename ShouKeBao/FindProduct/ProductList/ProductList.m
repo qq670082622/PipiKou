@@ -63,7 +63,7 @@
 @property (nonatomic, strong) UIButton *pageCountBtn;
 @property (nonatomic) BOOL isAnimation;
 @property (nonatomic,assign)  CGFloat oldOffset;
-
+@property (nonatomic)NSInteger primaryNu;//传过来的价格区间预选值
 
 //@property (weak, nonatomic) IBOutlet UIView *blackView;
 
@@ -227,7 +227,10 @@
 - (void)receiveNotification:(NSNotification *)noti
 {
     //    NSLog(@"noti.object.Name = %@, %@", [noti.object valueForKey:@"Name"], [noti.object valueForKey:@"Mobile"]);
-    self.conditionDic = noti.userInfo;
+    self.primaryNu = noti.object;
+    self.conditionDic = (NSMutableDictionary *)noti.userInfo;
+    NSLog(@"%@",self.conditionDic);
+    NSLog(@"%@",self.primaryNu);
     [self initPull];
     
 }
@@ -712,10 +715,15 @@
 
 
 - (IBAction)chooseConditions:(id)sender {
-    
-    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
     if (self.dataArr.count != 0) {
-        UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
+        if (self.conditionDic.count != 0) {
+            
+            ShaiXuan.MinPricecondition = self.conditionDic[@"MinPrice"];
+            ShaiXuan.MaxPricecondition = self.conditionDic[@"MaxPrice"];
+            //ShaiXuan.primaryNum = self.primaryNu;
+        }
+        
         [self presentViewController:nav animated:YES completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];

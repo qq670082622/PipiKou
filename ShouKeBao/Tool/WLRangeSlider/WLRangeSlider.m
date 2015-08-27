@@ -13,7 +13,7 @@
 @property (nonatomic,strong) WLSliderThumbLayer *rightThumbLayer;
 @property (nonatomic,strong) WLTrackLayer *trackLayer;
 @property (nonatomic) CGPoint previousLoction;
-@property (nonatomic) NSInteger m;
+@property (nonatomic) BOOL ret;
 @end
 
 @implementation WLRangeSlider
@@ -28,12 +28,11 @@
 }
 
 - (void)initLayers{
-    self.m = 1;
-    _maxValue = 10000;
+    self.ret = YES;
+    _maxValue = 60000;
     _minValue = 0;
-    _leftValue = 1;
-    _rightValue = 9999;
-    //_thumbColor = [UIColor whiteColor];
+    _leftValue = 0;
+    _rightValue = 60000;
     _thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tuoyuantest"]];
     _trackHighlightTintColor = [UIColor orangeColor];
     _trackColor = [UIColor colorWithWhite:0.9 alpha:1.0];
@@ -110,17 +109,16 @@
 - (void)updateLayerFrames{
     [CATransaction begin];
     [CATransaction setDisableActions:YES];
-
-    _trackLayer.frame = CGRectInset(self.bounds, 0, [self thumbWidth]/3+4);
-    [_trackLayer setNeedsDisplay];
+   
     CGFloat leftThumbCenter = [self positionForValue:_leftValue];
     CGFloat rightThumbCenter = [self positionForValue:_rightValue];
         _leftThumbLayer.frame = CGRectMake(leftThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
         _rightThumbLayer.frame = CGRectMake(rightThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
+        _trackLayer.frame = CGRectInset(self.bounds, 0, [self thumbWidth]/3+4);
+     [_trackLayer setNeedsDisplay];
     [_leftThumbLayer setNeedsDisplay];
     [_rightThumbLayer setNeedsDisplay];
     [CATransaction commit];
-   // self.m = 2;
 }
 
 - (CGFloat)positionForValue:(CGFloat)value{

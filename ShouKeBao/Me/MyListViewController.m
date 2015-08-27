@@ -43,10 +43,13 @@
 //    [self.view addGestureRecognizer:recognizer];
     [self iniHeader];
     [self setNav2];
-
     
     [self.tableView headerBeginRefreshing];
 }
+
+
+
+
 - (void)setNav2{
 
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
@@ -63,9 +66,11 @@
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
--(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
-    [self back];
-}
+//-(void)handleSwipeFrom:(UISwipeGestureRecognizer *)recognizer{
+//    [self back];
+//    
+//    
+//}
 -(void)viewWillAppear:(BOOL)animated
 {
     [MobClick beginLogPageView:@"MeMyFavoritesView"];

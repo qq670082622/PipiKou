@@ -28,6 +28,24 @@
     [segment setSelectedSegmentIndex:1];
     [titleView addSubview:segment];
     self.navigationItem.titleView = titleView;
+    [self addGest];
+}
+- (void)addGest{
+    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+    screenEdge.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdge];
+}
+-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
+    CGPoint sliderdistance = [sender translationInView:self.view];
+    if (sliderdistance.x>self.view.bounds.size.width/3) {
+        [self back];
+}
+    //NSLog(@"%f",sliderdistance.x);
+}
+-(void)back
+{
+    //[self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 -(void)sex:(id)sender
 {

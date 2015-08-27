@@ -38,7 +38,7 @@
     // Do any additional setup after loading the view.
     self.title = @"搬救兵";
     self.automaticallyAdjustsScrollViewInsets = NO;
-    
+    [self addGest];
     self.tableView.tableFooterView = [[UIView alloc] init];
     self.tableView.backgroundColor = [UIColor colorWithRed:245/255.0 green:245/255.0 blue:245/255.0 alpha:1];
     
@@ -54,6 +54,23 @@
     // 点击邮件地址 发送邮件
     UITapGestureRecognizer *emailTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(sendEmail:)];
     [self.emailLab addGestureRecognizer:emailTap];
+}
+- (void)addGest{
+    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+    screenEdge.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdge];
+}
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
+    CGPoint sliderdistance = [sender translationInView:self.view];
+    if (sliderdistance.x>self.view.bounds.size.width/3) {
+        [self back];
+    }
+    //NSLog(@"%f",sliderdistance.x);
 }
 - (void)setNav2{
     
@@ -71,10 +88,7 @@
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
--(void)back
-{
-    [self.navigationController popViewControllerAnimated:YES];
-}
+
 
 - (void)viewWillAppear:(BOOL)animated
 {
