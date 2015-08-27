@@ -290,27 +290,27 @@
     lowPrice.text = nil;
     tallPrice.text = nil;
     //左滑动按钮
-    lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.leftValue];
+    lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(long)slider.leftValue];
     NSInteger po =(NSInteger)slider.leftValue;
     float ty = (float)po/10000;
     float haha = _rangeSlider.frame.size.width-30;
     lowPlabel.frame = CGRectMake(ty*haha+15, 240, 40, 30);
     
     //右滑动按钮
-    tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.rightValue];
+    tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(long)slider.rightValue];
     NSInteger qw =(NSInteger)slider.rightValue;
     float er = (float)qw/10000;
-    NSLog(@"%0.4f---%ld",(float)qw/10000,(NSInteger)slider.rightValue);
+    NSLog(@"%0.4f---%ld",(float)qw/10000,(long)slider.rightValue);
     float heihei = _rangeSlider.frame.size.width-30;
     tallPlabel.frame = CGRectMake(er*heihei+15, 240, 40, 30);
     
     //增加筛选条件
-    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.leftValue]  forKey:@"MinPrice"];
-    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.rightValue] forKey:@"MaxPrice"];
+    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(long)slider.leftValue]  forKey:@"MinPrice"];
+    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(long)slider.rightValue] forKey:@"MaxPrice"];
     
     //改变button的不选中效果
     for (NSInteger qw =1001; qw<1007; qw++) {
-        UIButton *myButton1 = [self.view viewWithTag:qw];
+        UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
             myButton1.selected = NO;
     }
     //改变滑杆的选种效果
