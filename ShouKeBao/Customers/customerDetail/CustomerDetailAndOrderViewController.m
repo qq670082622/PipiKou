@@ -75,6 +75,7 @@
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _orderVC = [sb instantiateViewControllerWithIdentifier:@"CustomerOrderID"];
         _orderVC.customerId = self.model.ID;
+        _orderVC.mainNav = self.navigationController;
         
         
     }

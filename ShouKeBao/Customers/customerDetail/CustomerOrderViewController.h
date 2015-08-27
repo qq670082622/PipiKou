@@ -7,7 +7,8 @@
 //
 
 #import "SKTableViewController.h"
-
-@interface CustomerOrderViewController : SKTableViewController
+#import "SKViewController.h"
+@interface CustomerOrderViewController : SKViewController
 @property (nonatomic, copy)NSString *customerId;
+@property (nonatomic, strong)UINavigationController * mainNav;
 @end

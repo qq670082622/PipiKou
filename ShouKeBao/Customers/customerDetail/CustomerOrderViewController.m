@@ -46,6 +46,7 @@
 @property (nonatomic,assign) BOOL isHeadRefresh;
 @property (nonatomic,assign) int pageIndex;// 当前页
 @property (nonatomic, strong) DetailView *detailView;
+@property (nonatomic, assign)BOOL *dataIsNull;
 
 @end
 
@@ -57,18 +58,17 @@
     self.pageIndex = 1;
     [self loadDataByCondition];
     [self loadDataSuorceByCondition];
-    self.choosedTime = @"";
-    self.choosedStatus = @"0";
-    [self.view addSubview:self.meunm];
+    
+//    隐掉筛选
+//    self.choosedTime = @"";
+//    self.choosedStatus = @"0";
+//    [self.view addSubview:self.meunm];
     [self.view addSubview:self.tableV];
 
     [self initHeader];
 //    立即采购button
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickImmediateOrder:) name:@"orderCellDidClickButton" object:nil];
-    
-    
-    
-    
+
     // Do any additional setup after loading the view.
 }
 
@@ -89,15 +89,13 @@
 -(void)headRefresh
 {
     if (self.isNUll) {
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"DressViewClickReset" object:nil];
-
         self.meunm.reghtButton.text = @"全部";
         self.meunm.leftButton.text = @"不限";
         self.LeftselectedIndex = 0;
         self.RightselectedIndex = 0;
         
     }
-    self.pageIndex = 1;
+//    self.pageIndex = 1;
     self.isHeadRefresh = YES;
     [self loadDataSuorceByCondition];
 }
@@ -116,7 +114,7 @@
 -(UITableView *)tableV
 {
     if (!_tableV) {
-        _tableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 45, self.view.frame.size.width, self.view.frame.size.height - 45-44) style:UITableViewStyleGrouped];
+        _tableV = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height -44) style:UITableViewStyleGrouped];
         _tableV.separatorInset = UIEdgeInsetsZero;
         _tableV.dataSource = self;
         _tableV.delegate = self;
@@ -159,7 +157,20 @@
     }
     return _detailView;
 }
-
+#pragma mark - getter
+- (NullContentView *)nullContentView
+{
+    if (!_nullContentView) {
+        _nullContentView = [[NullContentView alloc] init];
+        CGFloat viewW = self.view.frame.size.width;
+        CGFloat viewH = self.tableV.frame.size.height - 54 - 50;
+        CGFloat viewY = 50;
+        _nullContentView.frame = CGRectMake(0, viewY, viewW, viewH);
+        _nullContentView.hidden = YES;
+        [self.tableV addSubview:_nullContentView];
+    }
+    return _nullContentView;
+}
 - (NSMutableArray *)dateSource{
     if (!_dateSource) {
         _dateSource = [NSMutableArray array];
@@ -180,6 +191,7 @@
     }
     return _chooseStatus;
 }
+
 
 #pragma mark - 手势代理
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
@@ -320,7 +332,7 @@
     OrderModel *order = self.dateSource[indexPath.section];
     cell.model = order;
     cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
-    cell.rightButtons = [self createRightButtons:nil];
+    cell.rightButtons = [self createRightButtons: order];
 
     return cell;
     
@@ -328,10 +340,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    OrderDetailViewController *orderDetail = [[OrderDetailViewController alloc]init];
-//    OrderModel *model = self.dateSource[indexPath.section];
-//    orderDetail.url = model.DetailLinkUrl;
-//    [self.navigationController pushViewController:orderDetail animated:YES];
+    OrderDetailViewController *orderDetailVC = [[OrderDetailViewController alloc]initWithStyle:UITableViewStyleGrouped];
+    OrderModel *model = self.dateSource[indexPath.section];
+    orderDetailVC.url = model.DetailLinkUrl;
+    NSLog(@"uel = %@", model.DetailLinkUrl);
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [self.mainNav pushViewController:orderDetailVC animated:YES];
+//    [self presentViewController:orderDetailVC animated:YES completion:^{
+//    }];
 }
 
 
@@ -340,23 +356,20 @@
 {
     OrderModel *order = self.dateSource[indexPath.section];
     if (order.buttonList.count) {
-          NSLog(@"fff......");
+        
         return 202;
-      
     }else{
-        NSLog(@"11fff......");
-
         return 172;
 
     }
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    return 0.01f;
+    return 10.0f;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 10.0f;
+    return 0.01f;
 }
 
 #pragma mark - OrderCellDelegate 弹出框信息
@@ -380,7 +393,7 @@
     ButtonDetailViewController *detail = [[ButtonDetailViewController alloc] init];
     detail.linkUrl = url;
     detail.title = title;
-    [self.navigationController pushViewController:detail animated:YES];
+    [self.mainNav pushViewController:detail animated:YES];
 }
 
 
@@ -409,7 +422,8 @@
     self.nullContentView.hidden = self.dateSource.count;
     if (!self.nullContentView.hidden) {
         self.isNUll = YES;
-//        [self.nullContentView setNullContentIsSearch:self.isSearch];
+        NSLog(@"rrrrrrrrrr  ");
+        [self.nullContentView setNullContentIsSearch:self.dataIsNull];
     }
 }
 
@@ -450,8 +464,12 @@
 //tableview上数据的加载
 - (void)loadDataSuorceByCondition
 {   self.isNUll = NO;
-  
+
     NSDictionary *param = @{@"CustomerID":self.customerId};
+    
+//    NSDictionary *param = @{@"CustomerID":self.customerId,
+//                            @"CreatedDateRang":self.choosedTime,
+//                            @"State":self.choosedStatus};
     
     [OrderTool CustomgetOrderListWithParam:param success:^(id json) {
         [self.tableV headerEndRefreshing];
@@ -470,8 +488,11 @@
 //                      NSLog(@"self.dataSourse = %@", self.dateSource);
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
-                  
-                    [self setNullImage];
+                    if (self.dateSource.count == 0) {
+                        [self setNullImage];
+//                        NSLog(@"////////////////// %ld", self.dateSource.count);
+                    }
+                   
                     [self.tableV reloadData];
                 });
             });

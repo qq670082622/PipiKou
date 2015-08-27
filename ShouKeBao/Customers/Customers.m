@@ -245,20 +245,12 @@
 {
      [self.noProductWarnLab removeFromSuperview];
     self.isRefresh = NO;
-    NSLog(@"2,,,,,,,");
-//    if ([self.pageIndex intValue]< [self getTotalPage]) {
-//           NSLog(@"self.page = %@", self.pageIndex);
-//        [self loadDataSource];
-//    }else{
-//        [self.table footerEndRefreshing];
-//    }
-
+ 
+    
     if ([self.pageIndex intValue] > [self getTotalPage]) {
         [self.table footerEndRefreshing];
-        [self.table headerEndRefreshing];
 //        [self warning];
     }else{
-        NSLog(@"###################");
         [self loadDataSource];
     }
 }
@@ -269,7 +261,7 @@
     if (cos == 0) {
         return [self.totalNumber integerValue] / pageSize;
     }else{
-        NSLog(@"[self.totalNumber integerValue] / pageSize = %d", [self.totalNumber integerValue] / pageSize + 1);
+        NSLog(@"[self.totalNumber integerValue] / pageSize = %ld", [self.totalNumber integerValue] / pageSize + 1);
         return [self.totalNumber integerValue] / pageSize + 1;
     }
     
@@ -277,7 +269,6 @@
 
 -(void)customerRightBarItem
 {
-    
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
     self.navigationItem.rightBarButtonItem= barItem;
 }
@@ -370,7 +361,6 @@
 -(void)referesh
 {
     [self.table headerBeginRefreshing];
-
 }
 
 - (IBAction)importUser:(id)sender {
@@ -401,6 +391,8 @@
     
     [dic setObject:[NSString stringWithFormat:@"%@", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
+    
+    
     if (_searchK.length>0) {
         [dic setObject:_searchK forKey:@"SearchKey"];
     }
@@ -412,14 +404,15 @@
         [dic setObject:@"1" forKey:@"sortType"];
 }
     
+    
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-        NSLog(@"------管客户json is %@-------",json);
+//        NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
-//            NSLog(@"TTTTTTTTTTTTTT");
         }
         self.totalNumber = json[@"TotalCount"];
-        NSLog(@"__________ %d", [json[@"CustomerList"]count]);
+        
+        NSLog(@"__________ %ld", [json[@"CustomerList"]count]);
 
         // 当再无加载数据时提示没有客户的信息
        self.arr = json[@"CustomerList"];

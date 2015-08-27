@@ -693,6 +693,7 @@
     NSLog(@"%@22%@", order.StateText, order.DetailLinkUrl);
     OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
     detail.url = order.DetailLinkUrl;
+    NSLog(@"url = %@", order.DetailLinkUrl);
     detail.title = @"订单详情";
         [self.navigationController pushViewController:detail animated:YES];
     
