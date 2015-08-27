@@ -13,7 +13,6 @@
         CGFloat cornorRadius = CGRectGetHeight(tempFrame) * _rangeSlider.cornorRadiusScale / 2.0;
         UIBezierPath *thumbPath = [UIBezierPath bezierPathWithRoundedRect:tempFrame cornerRadius:cornorRadius];
         
-        //UIColor *shadowColor = [UIColor grayColor];
         UIColor *shadowColor = [UIColor lightGrayColor];
         CGContextSetShadowWithColor(ctx, CGSizeMake(0.0,0.0), 3.0, shadowColor.CGColor);
         CGContextSetFillColorWithColor(ctx, _rangeSlider.thumbColor.CGColor);
