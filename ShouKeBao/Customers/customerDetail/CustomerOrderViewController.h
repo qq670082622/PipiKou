@@ -9,5 +9,5 @@
 #import "SKTableViewController.h"
 
 @interface CustomerOrderViewController : SKTableViewController
-
+@property (nonatomic, copy)NSString *customerId;
 @end

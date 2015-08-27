@@ -46,14 +46,16 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
--(void)sex:(id)sender
+-(void)sex:(UISegmentedControl *)sender
 {
     UISegmentedControl *control = (UISegmentedControl *)sender;
+    
     if (control.selectedSegmentIndex == 0) {
         self.button.hidden = NO;
         [self.view addSubview:self.detailVC.view];
         if (self.orderVC) {
             [self.orderVC.view removeFromSuperview];
+            
         }
         NSLog(@"客户资料" );
         //    [self.navigationController popViewControllerAnimated:NO];
@@ -62,6 +64,7 @@
         [self.view addSubview:self.orderVC.view];
         if (self.detailVC) {
             [self.detailVC.view removeFromSuperview];
+          
         }
         NSLog(@"订单详情" );
     }
@@ -71,6 +74,9 @@
     if (!_orderVC) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _orderVC = [sb instantiateViewControllerWithIdentifier:@"CustomerOrderID"];
+        _orderVC.customerId = self.model.ID;
+        
+        
     }
     return _orderVC;
 }
