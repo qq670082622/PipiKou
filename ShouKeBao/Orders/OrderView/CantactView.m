@@ -51,6 +51,7 @@
     [self.mobile setTitle:model.FollowPerson[@"Tel"] forState:UIControlStateNormal];
     
     [self.qqNum setTitle:model.FollowPerson[@"QQ"] forState:UIControlStateNormal];
+    NSLog(@"self.name.text = %@, %@", self.name.text, model.FollowPerson[@"Name"]);
 }
 
 - (IBAction)callPhone:(id)sender
