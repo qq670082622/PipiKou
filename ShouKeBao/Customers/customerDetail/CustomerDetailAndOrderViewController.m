@@ -28,6 +28,7 @@
     [self customerRightBarItem];
     self.button.hidden = NO;
     [self.view addSubview:self.detailVC.view];
+    
 }
 - (void)setNavSegementView{
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
@@ -41,7 +42,9 @@
     [titleView addSubview:segment];
     self.segmentControl = segment;
     self.navigationItem.titleView = titleView;
+
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

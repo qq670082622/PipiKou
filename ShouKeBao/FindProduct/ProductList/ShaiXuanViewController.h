@@ -20,4 +20,7 @@
 }
 @property(nonatomic,strong) NSMutableArray *pushedArr;
 @property (strong,nonatomic) NSMutableArray *conditionArr;//post装载的条件数据
+@property (copy,nonatomic) NSMutableString * MinPricecondition;
+@property (copy,nonatomic) NSMutableString * MaxPricecondition;
+@property(nonatomic) NSInteger primaryNum;//价格区间的预选值
 @end

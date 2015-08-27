@@ -16,5 +16,6 @@
 @property (nonatomic,strong) UIColor *trackHighlightTintColor;      //highlighted color for track ,defualt is [UIColor colorWithRed:0.0 green:0.45 blue:0.94 alpha:1.0]
 
 - (CGFloat)positionForValue:(CGFloat)value;                         //to caculate the position for a given value,what's more the value should be set between 0 and 1
-
+-(void)initLayers;
+-(void)updateLayerFrames;
 @end
