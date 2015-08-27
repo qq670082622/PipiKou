@@ -255,11 +255,18 @@
                 if ([self.QQ.text isEqualToString:@""]) {
                     UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"QQ号码为空!" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
                     [alert show];
+                }else{
+                    if (![self joinGroup:nil key:nil]) {
+                        UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                        [ale show];
+                    }
                 }
-                if (![self joinGroup:nil key:nil] && ![self.QQ.text isEqualToString:@""]) {
-                    UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
-                    [ale show];
-                }
+                
+//                
+//                if (![self joinGroup:nil key:nil] && ![self.QQ.text isEqualToString:@""]) {
+//                    UIAlertView *ale = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机QQ，请安装手机QQ后重试，或用PC进行操作。" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+//                    [ale show];
+//                }
             }
     
                 
