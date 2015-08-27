@@ -34,4 +34,8 @@
  */
 + (void)getThirdLevelAreaWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
 
+
+
++ (void)CustomgetOrderListWithParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
 @end

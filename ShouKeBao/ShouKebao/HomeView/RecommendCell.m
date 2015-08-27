@@ -527,7 +527,7 @@
 //改写方式
     NSString *newTitleText = [recommend.TitleText stringByReplacingOccurrencesOfString:@"{0}" withString:recommend.Count];
     NSString *newPriceText = [recommend.PriceText stringByReplacingOccurrencesOfString:@"{0}" withString:recommend.Price];
-//    NSLog(@"recommend.PriceText = %@", recommend.PriceText);
+    NSLog(@"recommend.PriceText = %@", recommend.PriceText);
     NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", newTitleText, newPriceText]];
   
     NSString *visitors = [NSString stringWithFormat:@"%@",recommend.Price];
