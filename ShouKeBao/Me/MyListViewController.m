@@ -38,16 +38,29 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableView.tableFooterView = [[UIView alloc] init];
 //    UISwipeGestureRecognizer * recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleSwipeFrom:)];
-//    
+//
 //    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
 //    [self.view addGestureRecognizer:recognizer];
     [self iniHeader];
     [self setNav2];
+    [self addGest];
     
     [self.tableView headerBeginRefreshing];
 }
 
 
+- (void)addGest{
+    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
+    screenEdge.edges = UIRectEdgeLeft;
+    [self.view addGestureRecognizer:screenEdge];
+}
+-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
+    CGPoint sliderdistance = [sender translationInView:self.view];
+    if (sliderdistance.x>self.view.bounds.size.width/3) {
+        [self back];
+    }
+    //NSLog(@"%f",sliderdistance.x);
+}
 
 
 - (void)setNav2{

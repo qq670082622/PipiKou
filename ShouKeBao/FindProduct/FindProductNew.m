@@ -419,6 +419,7 @@
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
         detail.fromType = FromHotProduct;
+        //判断下个页面能否有关闭按钮
         detail.m = 1;
         [self.navigationController pushViewController:detail animated:YES];
     }else{

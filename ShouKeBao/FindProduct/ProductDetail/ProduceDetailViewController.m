@@ -53,7 +53,6 @@
 @implementation ProduceDetailViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
-
     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromFindProductAll" attributes:dict];
@@ -89,7 +88,7 @@
     [_indicator setLoadText:@"拼命加载中..."];
     [self.view addSubview:_indicator];
 
-    self.title = @"产品详情";
+    self.title = @"	";
        NSLog(@"--------link is %@ ",_produceUrl);
     
    // NSString *newUrl = [self.produceUrl stringByAppendingString:urlSuffix];
@@ -139,7 +138,6 @@
 //{
 //    [self.navigationController popViewControllerAnimated:YES];
 //}
-
 
 
 
