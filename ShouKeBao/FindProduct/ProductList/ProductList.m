@@ -121,7 +121,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 - (void)viewDidLoad {
-    [super viewDidLoad];
+    [super viewDidLoad];			
      ShaiXuan = [[ShaiXuanViewController alloc] init];
     //判断能否执行动画
     self.isAnimation = NO;
@@ -396,7 +396,6 @@
     [self.cheapOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
     
 }
-
 #pragma  -mark getter
 -(UIView *)subView
 {

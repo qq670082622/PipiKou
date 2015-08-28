@@ -579,7 +579,7 @@
             [self.navigationController pushViewController:messageDetail animated:YES];
         }
         
-        else if ([message[0] isEqualToString:@"Other"]){
+        else if ([message[0] isEqualToString:@"OtherId"]){
             NSString * otherUrl = message[2];
             NSString * otherTitle = message[3];
             BaseWebViewController * webView = [[BaseWebViewController alloc]init];
