@@ -62,7 +62,7 @@
 
 @property (nonatomic,strong) NSString *ID;
 //分页
-@property (copy , nonatomic)NSMutableString *pageIndex;// 当前页
+@property (nonatomic,assign)int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL isRefresh;
 @property (nonatomic,copy) NSString *totalNumber;
 @property (nonatomic, strong)NSMutableArray *arr;
@@ -82,7 +82,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];// 页码从1开始
+//    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];// 页码从1开始
+    self.pageIndex = 1;
     [self.dataArr removeAllObjects];
 
     self.navigationItem.leftBarButtonItem = nil;
@@ -231,8 +232,8 @@
 -(void)headPull
 {
     self.isRefresh = YES;
-    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];
-    
+//    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];
+    self.pageIndex = 1;
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateNormal];
@@ -245,14 +246,14 @@
 {
      [self.noProductWarnLab removeFromSuperview];
     self.isRefresh = NO;
- 
-    
-    if ([self.pageIndex intValue] > [self getTotalPage]) {
+    self.pageIndex++;
+    if (self.pageIndex  > [self getTotalPage]) {
         [self.table footerEndRefreshing];
 //        [self warning];
     }else{
         [self loadDataSource];
     }
+   
 }
 
 - (NSInteger)getTotalPage
@@ -383,13 +384,13 @@
 
 -(void)loadDataSource
 {
-    NSLog(@"n = 66666");
+    NSLog(@"n = 66666, %d", self.pageIndex);
      [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 //    [dic setObject:@"1" forKey:@"PageIndex"];
 //    [dic setObject:@"500" forKey:@"PageSize"];
     
-    [dic setObject:[NSString stringWithFormat:@"%@", self.pageIndex] forKey:@"PageIndex"];
+    [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     
     if (_searchK.length>0) {
@@ -431,8 +432,8 @@
             self.imageViewWhenIsNull.hidden = YES ;
           
         }
-            NSString *page = [NSString stringWithFormat:@"%@",self.pageIndex];
-            self.pageIndex = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
+//            NSString *page = [NSString stringWithFormat:@"%d",self.pageIndex];
+//            self.pageIndex = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
         }
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
@@ -732,7 +733,7 @@
     
     [self.wordBtn setSelected:NO];
     
-    
+    self.pageIndex = 1;
     if (self.timeBtn.selected == NO) {
         [self.timeBtn setSelected:YES];
          NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
@@ -788,7 +789,7 @@
 //    }else{
         self.timeButton.iconImage = [UIImage imageNamed:@"xiangxia"];
 //    }
-    
+    self.pageIndex = 1;
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     hudView.labelText = @"加载中...";
     [hudView show:YES];
