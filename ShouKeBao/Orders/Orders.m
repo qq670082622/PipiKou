@@ -306,6 +306,7 @@
         return [self.totalCount integerValue] / pageSize;
     }else{
         return [self.totalCount integerValue] / pageSize + 1;
+        
     }
 }
 
@@ -390,11 +391,19 @@
 {
     self.pageIndex ++;
     self.isHeadRefresh = NO;
-    if (self.pageIndex < [self getEndPage]) {
-        [self loadDataSuorceByCondition];
-    }else{
+//    if (self.pageIndex < [self getEndPage]) {
+//        [self loadDataSuorceByCondition];
+//    }else{
+//        [self.tableView footerEndRefreshing];
+//    }
+
+    if (self.pageIndex  > [self getEndPage]) {
         [self.tableView footerEndRefreshing];
+    }else{
+        [self loadDataSuorceByCondition];
     }
+    
+    
 }
 
 // 右边滑动的按钮

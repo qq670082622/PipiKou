@@ -24,7 +24,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setNavSegementView];
+//    [self setNavSegementView];
+     self.title = @"客户资料";
     [self customerRightBarItem];
     self.button.hidden = NO;
     [self.view addSubview:self.detailVC.view];
