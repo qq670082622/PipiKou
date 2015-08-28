@@ -575,9 +575,9 @@
         //以下6个是价格btn
         case 1001:
         {
-            NSLog(@"1000以下");
+            //NSLog(@"10000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"5000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"10000" forKey:@"MaxPrice"];
             lowPlabel.textColor = [UIColor lightGrayColor];
             tallPlabel.textColor = [UIColor lightGrayColor];
             _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
@@ -588,9 +588,9 @@
             break;
         case 1002:
         {
-            NSLog(@"2000以下");
+           // NSLog(@"20000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"10000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"20000" forKey:@"MaxPrice"];
             lowPlabel.textColor = [UIColor lightGrayColor];
             tallPlabel.textColor = [UIColor lightGrayColor];
             _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
@@ -601,9 +601,9 @@
             break;
         case 1003:
         {
-            NSLog(@"3000以下");
+           // NSLog(@"30000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"15000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"30000" forKey:@"MaxPrice"];
             lowPlabel.textColor = [UIColor lightGrayColor];
             tallPlabel.textColor = [UIColor lightGrayColor];
             _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
@@ -614,9 +614,9 @@
             break;
         case 1004:
         {
-            NSLog(@"4000以下");
+            //NSLog(@"40000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"20000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"40000" forKey:@"MaxPrice"];
             lowPlabel.textColor = [UIColor lightGrayColor];
             tallPlabel.textColor = [UIColor lightGrayColor];
             _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
@@ -627,9 +627,9 @@
             break;
         case 1005:
         {
-            NSLog(@"5000以下");
+            //NSLog(@"50000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"25000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"50000" forKey:@"MaxPrice"];
             lowPlabel.textColor = [UIColor lightGrayColor];
             tallPlabel.textColor = [UIColor lightGrayColor];
             _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
@@ -640,9 +640,9 @@
             break;
         case 1006:
         {
-            NSLog(@"6000以下");
+            //NSLog(@"60000以下");
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"30000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"60000" forKey:@"MaxPrice"];
             lowPlabel.textColor = [UIColor lightGrayColor];
             tallPlabel.textColor = [UIColor lightGrayColor];
             _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
