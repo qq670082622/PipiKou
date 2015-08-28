@@ -392,7 +392,6 @@
     [dic setObject:[NSString stringWithFormat:@"%@", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     
-    
     if (_searchK.length>0) {
         [dic setObject:_searchK forKey:@"SearchKey"];
     }
