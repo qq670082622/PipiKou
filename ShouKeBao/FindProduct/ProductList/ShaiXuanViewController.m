@@ -144,6 +144,7 @@
 -(void)back
 {
     //[self.navigationController popViewControllerAnimated:YES];
+     self.primaryNum = 0;
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -161,8 +162,6 @@
         lowPrice.text = self.MinPricecondition;
         tallPrice.text = self.MaxPricecondition;
     }
-//    [self creatNav];
-//    [self creatUI];
     
 }
 -(void)creatNav{
@@ -464,8 +463,7 @@
     switch (button.tag) {
         case 101:
         {//返回
-            //NSLog(@"++++%@",self.conditionDic);
-           // [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:nil userInfo:self.conditionDic];
+            self.primaryNum = 0;
             [self dismissViewControllerAnimated:YES completion:nil];
         }
             break;
@@ -745,25 +743,7 @@
         }else{
             cell.contentStr = self.subIndicateDataArr1[indexPath.row];
         }
-        
-        //               if (indexPath.row == 0 && _isFromSearch == YES)
-//        if (indexPath.row == 0 && self.pushedArr.count == 0)   { //当是从搜索进来时,掩盖第一个cell
-//            
-//            UIView *coverView = [[UIView alloc] initWithFrame:cell.contentView.frame];
-//            coverView.backgroundColor = [UIColor whiteColor];
-//            [cell.contentView addSubview:coverView];
-//            cell.accessoryType = UITableViewCellAccessoryNone;
-//            cell.contentStr = @"";
-//        }
-        
     }
-    
-//    NSRange range = [cell.detailTextLabel.text rangeOfString:@"不限"];
-//    if( range.location == NSNotFound){
-//        cell.detailTextLabel.textColor = [UIColor orangeColor];
-//    }else{
-//       // cell. = [UIColor lightGrayColor];
-//    }
 
     
     [cell showdataWithString:cell.str];

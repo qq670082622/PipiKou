@@ -39,10 +39,10 @@
     
     self.title = @"添加客户";
 
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,40)];
-    [button setTitle:@"保存添加" forState:UIControlStateNormal];
-    
-    button.titleLabel.font = [UIFont systemFontOfSize:14];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,50,40)];
+    [button setTitle:@"保存" forState:UIControlStateNormal];
+    button.titleLabel.font = [UIFont systemFontOfSize:15];
+    button.titleEdgeInsets = UIEdgeInsetsMake(-2, 20, 0, 0);
     [button setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [button addTarget:self action:@selector(saveCustomer:)forControlEvents:UIControlEventTouchUpInside];
     
