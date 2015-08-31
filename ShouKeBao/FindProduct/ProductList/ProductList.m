@@ -218,9 +218,9 @@
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     NSString *productListGuide = [guideDefault objectForKey:@"productListGuide"];
-    if ([productListGuide integerValue] != 1) {// 是否第一次打开app
-        [self Guide];
-    }
+//    if ([productListGuide integerValue] != 1) {// 是否第一次打开app
+//        [self Guide];
+//    }
     // [self Guide];
     
 }
