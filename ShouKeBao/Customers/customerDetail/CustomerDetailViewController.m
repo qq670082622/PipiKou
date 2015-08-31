@@ -236,7 +236,7 @@
             case 1:
             {
                 if ([self.weChat.text isEqualToString:@""]) {
-                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"微信号码为空！" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+                    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"微信号码为空！" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
                     [alert show];
                 }else if(![self.weChat.text isEqualToString:@""] && ![[UIApplication sharedApplication]canOpenURL:[NSURL URLWithString:@"weixin://"]]){
                     UIAlertView*ale=[[UIAlertView alloc] initWithTitle:@"提示" message:@"您没有安装手机微信，请安装手机微信后重试，或用PC进行操作。" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
@@ -280,9 +280,6 @@
     }
 
 }
-
-
-
 
 
 - (BOOL)joinGroup:(NSString *)groupUin key:(NSString *)key{
