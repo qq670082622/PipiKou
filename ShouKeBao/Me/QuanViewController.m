@@ -167,6 +167,7 @@
         //将解密后的json串转化成字典
         NSDictionary * jsonDic = [self dictionaryWithJsonString:jsonString];
         //用字典请求微信支付
+        NSLog(@"jsonDic = %@", jsonDic);
         [self WXpaySendRequestWithDic:jsonDic];
         return NO;
     }
