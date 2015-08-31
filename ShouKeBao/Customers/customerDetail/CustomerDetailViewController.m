@@ -138,7 +138,7 @@
     self.bornDay.text = birthdate;
     self.countryID.text = nationablity;
     self.nationalID.text = nation;
-    self.passPortId.text = passPortStart;
+    self.pasportStartDay.text = passPortStart;
     self.pasportAddress.text = passPortAddress;
     self.pasportInUseDay.text = passPortEnd;
     self.passPortId.text = passPort;

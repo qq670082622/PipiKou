@@ -30,6 +30,11 @@
 #import "ProductList.h" 
 
 #define Color(R, G, B) [UIColor colorWithRed:R/255.0 green:G/255.0 blue:B/255.0 alpha:1]
+
+/**
+ **找产品主导航页
+ **/
+
 @interface FindProductNew ()<UITableViewDataSource, UITableViewDelegate, notifi, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 @property (strong, nonatomic) IBOutlet LeftTableView *leftTableView;
 @property (strong, nonatomic) IBOutlet RightCollectionView *RightCollection;
@@ -248,25 +253,8 @@
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    leftModal * model = self.leftDataArray[indexPath.row];
-//    if (model.Name.length > 5) {
         return 75;
-//    }else{
-//    return 55;
-//    }
 }
-//设置行间距；
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    if(section==0)
-//    {
-//        return 30.0;
-//    }
-//    else
-//    {
-//        return 50.0;
-//    }
-//}
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     leftModal * model = self.leftDataArray[indexPath.row];
     //左边栏点击事件统计
@@ -379,13 +367,7 @@
 
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
 {
-    if ([UIScreen mainScreen].bounds.size.width == 320) {
-        return UIEdgeInsetsMake(5, 10, 0, 10);
-    }
     return UIEdgeInsetsMake(5, 10, 0, 10);
-}
-- (UIEdgeInsets)sectionInset{
-    return UIEdgeInsetsMake(50, 50, 50, 50);
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
 {
@@ -413,6 +395,7 @@
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    //当前列表是热门推荐点击事件
     if (self.leftSelectType == SelectTypeHot) {
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         rightModal *model =  self.hottDataArray[indexPath.section][indexPath.row];
@@ -423,6 +406,7 @@
         detail.m = 1;
         [self.navigationController pushViewController:detail animated:YES];
     }else{
+        //当前列表页非热门推荐
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = model.searchKeyArray[indexPath.row];
@@ -437,6 +421,22 @@
     }
 }
 
+////设置行间距；
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+//{
+//    if(section==0)
+//    {
+//        return 30.0;
+//    }
+//    else
+//    {
+//        return 50.0;
+//    }
+//}
+////设置左右最小间距
+//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
+//    return 0.f;
+//}
 
 #pragma  mark - stationSelect delegate
 -(void)notifiToReloadData

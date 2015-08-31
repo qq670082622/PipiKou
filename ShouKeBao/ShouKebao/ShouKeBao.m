@@ -167,7 +167,6 @@
             [self.view addSubview:theAlertView];
         }
         i++;
-        
     }
 }
 //离开页面时,关闭定位
@@ -1202,18 +1201,14 @@
        if ([base.model isKindOfClass:[Recommend class]]) {
             recomIndex = i;
         }
-        }
-   
+    }
     if (recomIndex>1) {
-    
         recom = self.dataSource[recomIndex];
-       
-        [self.dataSource removeObjectAtIndex:recomIndex];
         if (self.dataSource[recomIndex]) {
             [self.dataSource insertObject:recom atIndex:1];
         }
+        [self.dataSource removeObjectAtIndex:recomIndex + 1];
     }
-    
 }
 
 -(void)pushToStore

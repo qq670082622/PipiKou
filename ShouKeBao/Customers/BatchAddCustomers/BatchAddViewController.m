@@ -149,7 +149,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
         [dic setObject:arr forKey:@"CustomerList"];
-   
+    NSLog(@"%@", dic);
     [IWHttpTool WMpostWithURL:@"/Customer/CreateCustomerList" params:dic success:^(id json) {
         NSLog(@"批量导入客户成功 返回json is %@",json);
         [self.delegate referesh];

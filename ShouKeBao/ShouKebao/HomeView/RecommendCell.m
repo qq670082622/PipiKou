@@ -510,7 +510,6 @@
     
     //self.titleLab.textColor = [UIColor colorWithRed:202/255.f green:118/255.f blue:252/255.f alpha:1];
     self.titleLab.textColor = [UIColor blackColor];
-    
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[recommend.CreatedDate doubleValue]];
     self.timeLab.text = [createDate formattedTime];
     
@@ -552,9 +551,9 @@
 //    }
 
     NSInteger num = newTitleText.length + (NSInteger)startIndex2.location;
-    NSInteger startIndex = [recommend.Count integerValue]>9?num+1:num;
+    NSInteger startIndex = num;
 
-    [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(startIndex,visitors.length)];
+    [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(startIndex,visitors.length+1)];
     self.goDate.attributedText = newStr;
     
     
