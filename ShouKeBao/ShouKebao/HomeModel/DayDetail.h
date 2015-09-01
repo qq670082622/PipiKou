@@ -46,6 +46,9 @@
 @property (nonatomic,copy) NSString *PushDate;//推送日期
 @property (nonatomic,copy) NSString *PushId;//唯一标示
 @property (nonatomic,strong) NSDictionary *ShareInfo;
+//新加字段
+@property (nonatomic, copy)NSString *PersonAlternateCash;//成人抵用券
+@property (nonatomic, copy)NSString *SendCashCoupon;//下单送券金额
 
 
 

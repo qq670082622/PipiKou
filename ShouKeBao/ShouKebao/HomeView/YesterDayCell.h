@@ -7,8 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "yesterDayModel.h"
-@class yesterDayModel;
+@class DayDetail;
 @interface YesterDayCell : UITableViewCell
 @property (weak, nonatomic) UILabel *title;
 @property (weak, nonatomic) UIImageView *icon;
@@ -45,7 +44,7 @@
 
 
 
-@property (strong, nonatomic) yesterDayModel *modal;
+@property (strong, nonatomic)  DayDetail*modal;
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
 

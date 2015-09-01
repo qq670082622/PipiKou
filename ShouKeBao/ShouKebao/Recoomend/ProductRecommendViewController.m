@@ -202,7 +202,7 @@
             for (NSDictionary *dic in json[@"ProductList"]) {
                     DayDetail *detail = [DayDetail dayDetailWithDict:dic];
                     [dataArray addObject:detail];
-                NSLog(@"%@", dataArray);
+                NSLog(@"%@%@", dataArray, detail.PersonAlternateCash);
             }
             //根据id判断在前一页面点击进入的时候的产品 对应 这个界面数组里面的具体哪一个。来置顶
             for (NSInteger i = 0; i < dataArray.count; i++) {
@@ -496,10 +496,16 @@
     if (tableView.tag == 2013) {
         tag = [self.todayTagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         DayDetail * model = self.todayDataArray[indexPath.row];
+        if ([model.AdvertText isEqualToString:@""]) {
+            return 160;
+        }
         height = [self heihtofContensStr:model.AdvertText sysFont:13];
     }else if(tableView.tag == 2014){
         tag = [self.yestdayTagDic objectForKey:[NSString stringWithFormat:@"%ld",(long)indexPath.row]];
         DayDetail * model = self.yestdayDataArray[indexPath.row];
+        if ([model.AdvertText isEqualToString:@""]) {
+            return 160;
+        }
         height = [self heihtofContensStr:model.AdvertText sysFont:13];
     }else{
         return 160;
@@ -526,6 +532,12 @@
             detail = self.todayDataArray[indexPath.row];
         }else{
             detail= self.yestdayDataArray[indexPath.row];
+        }
+        //当详细介绍的软文为空的时候，另一种布局
+        if ([detail.AdvertText isEqualToString:@""]) {
+            YesterDayCell *cell = [YesterDayCell cellWithTableView:tableView];
+            cell.modal = detail;
+            return cell;
         }
         [cell.descripBtn addTarget:self action:@selector(changeHeight:) forControlEvents:UIControlEventTouchUpInside];
         cell.descripBtn.tag = indexPath.row;
