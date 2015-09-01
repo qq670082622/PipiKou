@@ -34,6 +34,7 @@
     _leftValue = 0;
     _rightValue = 60000;
     _thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tuoyuantest"]];
+    //_thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hualun"]];
     _trackHighlightTintColor = [UIColor orangeColor];
     _trackColor = [UIColor colorWithWhite:0.9 alpha:1.0];
     _cornorRadiusScale = 1;
@@ -114,7 +115,7 @@
     CGFloat rightThumbCenter = [self positionForValue:_rightValue];
         _leftThumbLayer.frame = CGRectMake(leftThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
         _rightThumbLayer.frame = CGRectMake(rightThumbCenter - [self thumbWidth] / 2.0, 0.0, [self thumbWidth], [self thumbWidth]);
-        _trackLayer.frame = CGRectInset(self.bounds, 0, [self thumbWidth]/3+4);
+        _trackLayer.frame = CGRectInset(self.bounds, 2, [self thumbWidth]/3+4);
      [_trackLayer setNeedsDisplay];
     [_leftThumbLayer setNeedsDisplay];
     [_rightThumbLayer setNeedsDisplay];

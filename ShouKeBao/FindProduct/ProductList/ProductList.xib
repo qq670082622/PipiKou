@@ -126,7 +126,7 @@
                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                     <fontDescription key="fontDescription" type="system" pointSize="20"/>
                     <state key="normal" title="产品筛选" backgroundImage="chanpinsxbk">
-                        <color key="titleColor" red="1" green="0.63061661179999995" blue="0.3291265699" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="titleColor" red="1" green="0.51372549019607838" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
                     <connections>
