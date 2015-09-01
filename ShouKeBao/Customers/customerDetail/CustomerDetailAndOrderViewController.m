@@ -28,23 +28,39 @@
      self.title = @"客户资料";
     [self customerRightBarItem];
     self.button.hidden = NO;
+    [self addGest];
     [self.view addSubview:self.detailVC.view];
     
 }
-- (void)setNavSegementView{
-    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
-    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
-    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
-    [segment setTintColor:[UIColor whiteColor]];
-    segment.frame = CGRectMake(0, 0, 150, 28);
-    [segment setSelected:YES];
-    [segment setSelectedSegmentIndex:0];
-    [titleView addSubview:segment];
-    self.segmentControl = segment;
-    self.navigationItem.titleView = titleView;
-
+- (void)addGest{
+    UISwipeGestureRecognizer *recognizer = recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleScreen:)];
+    
+    [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    
+    [[self view] addGestureRecognizer:recognizer];
 }
+-(void)back
+{
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)handleScreen:(UISwipeGestureRecognizer *)sender{
+        [self back];
+}
+//- (void)setNavSegementView{
+//    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
+//    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
+//    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
+//    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
+//    [segment setTintColor:[UIColor whiteColor]];
+//    segment.frame = CGRectMake(0, 0, 150, 28);
+//    [segment setSelected:YES];
+//    [segment setSelectedSegmentIndex:0];
+//    [titleView addSubview:segment];
+//    self.segmentControl = segment;
+//    self.navigationItem.titleView = titleView;
+//
+//}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
