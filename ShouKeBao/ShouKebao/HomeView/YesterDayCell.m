@@ -18,6 +18,7 @@
 #import "StrToDic.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "DayDetail.h"
 #define gap 10
 @implementation YesterDayCell
 
@@ -87,17 +88,31 @@
      */
     UIButton *jiafanBtn = [[UIButton alloc] init];
     [jiafanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [jiafanBtn setBackgroundImage:[UIImage imageNamed:@"jiafan"] forState:UIControlStateNormal];
+    [jiafanBtn setBackgroundImage:[UIImage imageNamed:@"dihesong"] forState:UIControlStateNormal];
     jiafanBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:jiafanBtn];
     self.jiafanBtn = jiafanBtn;
+    UILabel * diLab = [[UILabel alloc]initWithFrame:CGRectMake(4, 0, 15, 15)];
+    diLab.text = @"抵";
+    diLab.font = [UIFont systemFontOfSize:13.0];
+    diLab.textColor = [UIColor redColor];
+    [jiafanBtn  addSubview:diLab];
+
     
     UIButton *quanBtn = [[UIButton alloc] init];
     [quanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [quanBtn setBackgroundImage:[UIImage imageNamed:@"quan"] forState:UIControlStateNormal];
+    [quanBtn setBackgroundImage:[UIImage imageNamed:@"songhedi"] forState:UIControlStateNormal];
     quanBtn.titleLabel.font = [UIFont systemFontOfSize:11];
     [self.contentView addSubview:quanBtn];
     self.quanBtn = quanBtn;
+    UILabel * songLab = [[UILabel alloc]initWithFrame:CGRectMake(4, 0, 15, 15)];
+    songLab.text = @"送";
+    songLab.font = [UIFont systemFontOfSize:13.0];
+    songLab.textColor = [UIColor colorWithRed:253/255.0 green:134/255.0 blue:39/255.0 alpha:1.0];
+    [quanBtn addSubview:songLab];
+
+    
+    
     
     UIButton *ShanDianBtn = [[UIButton alloc] init];
     [ShanDianBtn setTitleColor:[UIColor colorWithRed:0 green:91/255.0 blue:1 alpha:1] forState:UIControlStateNormal];
@@ -304,7 +319,7 @@
     
 }
 
-- (void)setModal:(yesterDayModel *)modal
+- (void)setModal:(DayDetail *)modal
 {
     
     _modal = modal;
@@ -323,8 +338,8 @@
     self.goDateLab.text = modal.PushDate;
     
     
-    self.fanIsZero = [modal.PersonBackPrice integerValue];
-    self.quanIsZero = [modal.PersonCashCoupon integerValue];
+    self.fanIsZero = [modal.PersonAlternateCash integerValue];
+    self.quanIsZero = [modal.SendCashCoupon integerValue];
     
     // self.icon.image = [UIImage imageNamed:modal.PicUrl];
     NSLog(@"=========%@",modal.PicUrl);
@@ -359,8 +374,8 @@
     /**
      *  底部按钮
      */
-    [self.jiafanBtn setTitle:[NSString stringWithFormat:@"      ￥%@",modal.PersonBackPrice] forState:UIControlStateNormal];
-    [self.quanBtn setTitle:[NSString stringWithFormat:  @"      ￥%@",modal.PersonCashCoupon] forState:UIControlStateNormal];
+    [self.jiafanBtn setTitle:[NSString stringWithFormat:@"     ￥%@",modal.PersonAlternateCash] forState:UIControlStateNormal];
+    [self.quanBtn setTitle:[NSString stringWithFormat:  @"     ￥%@",modal.SendCashCoupon] forState:UIControlStateNormal];
     [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@出发",modal.StartCityName] forState:UIControlStateNormal];
     if ([modal.StartCityName isEqualToString:@"不限"]) {
         [self.ShanDianBtn setTitle:[NSString stringWithFormat:@"%@",modal.StartCityName] forState:UIControlStateNormal];

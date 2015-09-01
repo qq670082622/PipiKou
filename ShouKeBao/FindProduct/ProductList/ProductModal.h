@@ -37,6 +37,9 @@
 @property (nonatomic , copy)NSString * PushDate;
 
 
+//新加字段
+@property (nonatomic, copy)NSString *PersonAlternateCash;//成人抵用券
+@property (nonatomic, copy)NSString *SendCashCoupon;//下单送券金额
 
 + (instancetype)modalWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDict:(NSDictionary *)dict;

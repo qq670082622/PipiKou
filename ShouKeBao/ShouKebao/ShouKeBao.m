@@ -241,13 +241,6 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FromiMessage:) name:@"FromiMesseage" object:nil];
 
     
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushForeground:) name:@"pushWithCrash" object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(changeUserIcon:) name:@"changUserIcon" object:nil];
-
-//    NSUserDefaults *appIsBack = [NSUserDefaults standardUserDefaults];
-//    NSString *isBack = [appIsBack objectForKey:@"appIsBack"];
-    
     
     NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
     NSString *SKBGuide = [guiDefault objectForKey:@"SKBGuide"];
