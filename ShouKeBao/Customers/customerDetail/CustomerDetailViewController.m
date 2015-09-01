@@ -37,7 +37,7 @@
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
 
     
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn addTarget:self action:@selector(back1) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
@@ -51,11 +51,14 @@
     
 }
 
+
+
 -(void)back
 {
 //     [self.initDelegate reloadMethod];
     [self.navigationController popViewControllerAnimated:YES];
 }
+
 
 //-(BOOL)textFieldShouldReturn:(UITextField *)textField
 //{
