@@ -15,6 +15,7 @@
 
 @protocol OrderCellDelegate <NSObject>
 
+//- (void)checkDetailAtIndex:(NSInteger)index button:(UIButton *)button;
 - (void)checkDetailAtIndex:(NSInteger)index;
 
 @end

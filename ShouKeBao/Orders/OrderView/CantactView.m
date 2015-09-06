@@ -56,7 +56,7 @@
 
 - (IBAction)callPhone:(id)sender
 {
-    NSLog(@"-------");
+    NSLog(@"-------%@",self.model.FollowPerson[@"Tel"]);
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"OrderListCallPhone" attributes:dict];
 

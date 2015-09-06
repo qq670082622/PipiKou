@@ -483,13 +483,11 @@
     } failure:^(NSError *error) {
         NSLog(@"删除客户请求失败%@",error);
     }];
-    
-    
-    
-    
-    
 }
-
+- (void)deselect
+{
+    [self.table deselectRowAtIndexPath:[self.table indexPathForSelectedRow] animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -511,19 +509,16 @@
 //        detail.customMoel = model;
 //        detail.picUrl = model.PicUrl;
 //        detail.customerId = model.ID;
-//        
-//      
-//        
 //        //协议传值5:指定第一页为第二页的代理人
 //        detail.delegate = self;
 //        detail.keyWordss = self.searchK;
-//        
 //        detail.initDelegate = self;
         
         CustomerDetailAndOrderViewController * VC = [[CustomerDetailAndOrderViewController  alloc]init];
         VC.customVC = self;
         VC.keyWords = self.searchK;
         VC.model = model;
+        [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
         [self.navigationController pushViewController:VC animated:YES];
     }
     if (tableView.tag == 2) {
@@ -547,8 +542,10 @@
 //}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (tableView.tag == 1) {
         CustomCell *cell = [CustomCell cellWithTableView:tableView];
+        cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         CustomModel *model = _dataArr[indexPath.row];
         cell.model = model;
         self.ID = cell.model.ID;

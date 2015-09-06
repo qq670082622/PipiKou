@@ -313,14 +313,17 @@
 // 自定义导航按钮
 -(void)customRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,50,50)];
     
-    [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
+//    [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(25,15,20,20)];
+    [imageView setImage:[UIImage imageNamed:@"APPsaixuan"]];
     
     [button addTarget:self action:@selector(selectAction)forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
+    [button addSubview:imageView];
     self.navigationItem.rightBarButtonItem = barItem;
 }
 
@@ -738,8 +741,9 @@
     [window addSubview:cover];
     
     [cover addSubview:self.detailView];
-//    [UIView animateWithDuration:0.4 animations:^{
+//    [UIView animateWithDuration:0.5 animations:^{
 //        _detailView.bounds = CGRectMake(0, 0, self.view.frame.size.width * 0.8, 272);
+//     [button setBackgroundColor:[UIColor clearColor]];
 //    } completion:^(BOOL finished) {
 //        
 //    }];
@@ -748,6 +752,7 @@
     OrderModel *order = self.dataArr[index];
 //    self.detailView.data = order.SKBOrder;
     self.detailView.orderId = order.OrderId;
+
 }
 
 #pragma mark - MGSwipeTableCellDelegate
