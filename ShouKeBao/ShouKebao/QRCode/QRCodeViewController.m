@@ -256,9 +256,20 @@
             URLOpenFromQRCodeViewController *QRcodeWeb = [[URLOpenFromQRCodeViewController alloc] init];
             QRcodeWeb.delegate = self;
             QRcodeWeb.url = self.lblStatus.text;
+//            [[[UIAlertView alloc]initWithTitle:@"huoqu" message:self.lblStatus.text delegate:nil cancelButtonTitle:self.title otherButtonTitles:nil, nil]show];
+
             _isOpen = NO;
-            if (loginRange.location != NSNotFound) {
-                QRcodeWeb.titleStr = @" ";
+//            if (loginRange.location != NSNotFound) {
+//                QRcodeWeb.titleStr = @" ";
+//            }
+            if ([self.lblStatus.text containsString:@"QRCodeTitle="]) {
+                NSString * tempStr = [self.lblStatus.text componentsSeparatedByString:@"QRCodeTitle="][1];
+                if ([tempStr containsString:@"&"]) {
+                   NSString * titleStr = [tempStr componentsSeparatedByString:@"&"][0];
+                    QRcodeWeb.titleStr = [titleStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                }else{
+                    QRcodeWeb.titleStr = [tempStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+                }
             }
             [self.navigationController pushViewController:QRcodeWeb animated:YES ];
             NSLog(@"打开了网页:%@",_lblStatus.text);

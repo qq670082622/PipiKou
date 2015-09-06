@@ -24,7 +24,9 @@
     [super viewDidLoad];
     if (!self.titleStr) {
         self.title = @"二维码网页";
-    }
+    }else{
+        self.title = self.titleStr;
+        }
     [WMAnimations WMNewWebWithScrollView:self.web.scrollView];
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.url]];
@@ -104,7 +106,7 @@
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
-    
+//    [[[UIAlertView alloc]initWithTitle:@"URL" message:rightUrl delegate:nil cancelButtonTitle:self.title otherButtonTitles:@"que", nil]show];
     [_indicator startAnimation];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
     

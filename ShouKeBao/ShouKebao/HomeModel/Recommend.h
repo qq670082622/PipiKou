@@ -13,7 +13,7 @@
 @property (nonatomic,copy) NSString *Count;
 
 @property (nonatomic,copy) NSString *CreatedDate;
-
+@property (nonatomic, copy)NSString *StaticPrice;
 @property (nonatomic,copy) NSString *Price;
 
 @property (nonatomic,strong) NSArray *RecommendIndexProductList;

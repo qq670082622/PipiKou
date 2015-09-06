@@ -1125,11 +1125,11 @@
 {
     NSLog(@"-----remind-");
     NSArray *remindArr = [WriteFileManager readData:@"remindData"];
+    NSLog(@"%@", remindArr);
     for (remondModel *remind in remindArr) {
         NSDate *now = [NSDate date];
         NSTimeInterval time = [now timeIntervalSince1970];
         if ([remind.RemindTime integerValue] == (NSInteger)time) {
-            
             HomeBase *base = [[HomeBase alloc] init];
             base.time = remind.RemindTime;
             base.model = remind;
@@ -1419,8 +1419,12 @@
     
    self.barButton.shouldHideBadgeAtZero = YES;
     
+    //增大点选面积；
     self.navigationItem.leftBarButtonItem = self.barButton;
-    
+    UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-15, -15, 50, 50)];
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(ringAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem.leftBarButtonItem.customView addSubview:button];
    
 }
 
@@ -1432,6 +1436,13 @@
     [btn setImage:[UIImage imageNamed:@"itemsaomiao"] forState:UIControlStateNormal];
    UIBarButtonItem *item = [[UIBarButtonItem alloc] initWithCustomView:btn];
     self.navigationItem.rightBarButtonItem = item;
+    
+    //增大点选面积；
+    UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-15, -15, 50, 50)];
+    button.backgroundColor = [UIColor clearColor];
+    [button addTarget:self action:@selector(codeAction) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem.rightBarButtonItem.customView addSubview:button];
+
     
 }
 
@@ -1573,7 +1584,7 @@
         
          NSLog(@" -----self.yesorno = %d --- self.recommendCount)%ld", self.yesorno, self.recommendCount);
 
-#warning 设置铃铛角标
+#warning 铃铛角标刷新
         [self getNotifiList];
         
         return self.cell;

@@ -52,6 +52,7 @@
         self.CreatedDate = muta[@"CreatedDate"];
         self.Price = muta[@"Price"];
         self.RecommendIndexProductList = muta[@"RecommendIndexProductList"];
+        self.StaticPrice = muta[@"StaticPrice"];
     }
     return self;
 }
