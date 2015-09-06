@@ -13,4 +13,5 @@
 @interface URLOpenFromQRCodeViewController : UIViewController
 @property (nonatomic,copy) NSString *url;
 @property(nonatomic,weak) id<notifiQRCodeToRefresh>delegate;
+@property (nonatomic, copy)NSString * titleStr;
 @end

@@ -13,14 +13,18 @@
 @interface URLOpenFromQRCodeViewController ()<UIWebViewDelegate>
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (weak, nonatomic) IBOutlet UIWebView *web;
+@property (nonatomic, copy)NSString *urlSuffix;
+@property (nonatomic, copy)NSString *urlSuffix2;
+
 @end
 
 @implementation URLOpenFromQRCodeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"二维码网页";
-    
+    if (!self.titleStr) {
+        self.title = @"二维码网页";
+    }
     [WMAnimations WMNewWebWithScrollView:self.web.scrollView];
     
     NSURLRequest *request = [[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.url]];
@@ -37,29 +41,40 @@
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, 100, self.view.frame.size.width, 30)];
     lab.text = _url;
     [self.view.window addSubview:lab];
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix2 = urlSuffix2;
+
+    
+    
 }
 - (void)setNav{
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
     
     leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
     [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
-    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
-    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
    UIBarButtonItem * leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
-    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
-    turnOff.frame = CGRectMake(0, 0, 30, 10);
-    [turnOff addTarget:self action:@selector(turnOff1) forControlEvents:UIControlEventTouchUpInside];
-    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
-    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-   UIBarButtonItem * turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+//    UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
+//    turnOff.titleLabel.font = [UIFont systemFontOfSize:16];
+//    turnOff.frame = CGRectMake(0, 0, 30, 10);
+//    [turnOff addTarget:self action:@selector(turnOff1) forControlEvents:UIControlEventTouchUpInside];
+//    [turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
+//    turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
+//    [turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+//   UIBarButtonItem * turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
+    self.navigationItem.leftBarButtonItems = @[leftItem];
 }
 -(void)turnOff1
 {
@@ -83,8 +98,37 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-     [_indicator startAnimation];
+    NSLog(@"request..... = %@", request);
+    NSString *rightUrl = request.URL.absoluteString;
+    NSLog(@"rightStr is %@--------",rightUrl);
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
+    
+    [_indicator startAnimation];
+    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
+    
+    if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
+        [self.web loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+        //        [self doIfInWebWithUrl:rightUrl];
+        return YES;
+    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
+        [self.web loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+        //        [self doIfInWebWithUrl:rightUrl];
+        
+        return YES;
+    }else{
+        //        [self doIfInWebWithUrl:rightUrl];
+        [_indicator startAnimation];
+    }
+    
+    if ([rightUrl containsString:@"objectc:LYQSKBAPP_LoginBackHomeView"]) {
+        [self LoginBackHomeView];
+    }
     return YES;
+}
+- (void)LoginBackHomeView{
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 

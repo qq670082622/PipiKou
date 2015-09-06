@@ -32,6 +32,7 @@ typedef enum{
 @property (nonatomic) NSInteger m;
 @property (nonatomic, assign)JumpinFrom fromType;
 @property (copy,nonatomic) NSString *produceUrl;//
+@property (copy, nonatomic)NSString * titleName;
 @property (copy,nonatomic) NSString *productName;
 @property (nonatomic, strong) DayDetail *detail;
 @property (nonatomic , strong)yesterDayModel *detail2;

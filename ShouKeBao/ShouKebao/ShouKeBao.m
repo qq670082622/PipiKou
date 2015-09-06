@@ -63,6 +63,8 @@
 #import "BaseWebViewController.h"
 #import "FeedBcakViewController.h"
 #import "ProductRecommendViewController.h"
+#import "ProductList.h"
+#import "FindProductNew.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
 @property (nonatomic, retain)CLLocationManager *locationManager;
@@ -186,7 +188,7 @@
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
-    
+
     
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -239,9 +241,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];//若程序在前台，直接调用，在后台被点击则调用
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FromiMessage:) name:@"FromiMesseage" object:nil];
-
-    
-    
     NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
     NSString *SKBGuide = [guiDefault objectForKey:@"SKBGuide"];
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
@@ -483,17 +482,31 @@
 
 
 -(void)FromiMessage:(NSNotification *)noti{
+
     self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
-    NSString * urlStr = noti.object;
-    
-    if ([urlStr isEqualToString:@""]) {
+    NSString * webStr = noti.object;
+    if ([webStr containsString:@"&title="]) {
+        NSArray * webArray = [webStr componentsSeparatedByString:@"&title="];
+        if (webArray.count) {
+            NSString * tempStr = webArray[1];
+            NSArray * temparray = [tempStr componentsSeparatedByString:@"&type="];
+            NSString * titleStr = temparray[0];
+            NSString * typeStr = temparray[1];
+            [[[UIAlertView alloc]initWithTitle:@"chanpin" message:titleStr delegate:nil cancelButtonTitle:nil otherButtonTitles:typeStr, nil]show];
+            
+            if ([typeStr isEqualToString:@"product"]) {
+                ProduceDetailViewController * Product = [[ProduceDetailViewController alloc]init];
+                Product.produceUrl = webArray[0];
+                Product.titleName = titleStr;
+                [self.navigationController pushViewController:Product animated:YES];
+            }
+        }
     }else{
-//        UITextView * textView = [[UITextView alloc]initWithFrame:CGRectMake(0, 150, 320, 350)];
-//        textView.text = urlStr;
-//        [self.view addSubview:textView];
-    BaseWebViewController * webView = [[BaseWebViewController alloc]init];
-    webView.linkUrl = urlStr;
-    [self.navigationController pushViewController:webView animated:YES];
+        BaseWebViewController * webView = [[BaseWebViewController alloc]init];
+        webView.linkUrl = webStr;
+        [[[UIAlertView alloc]initWithTitle:@"putong" message:@"2" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"3", nil]show];
+
+        [self.navigationController pushViewController:webView animated:YES];
     }
 }
 
@@ -1560,7 +1573,7 @@
         
          NSLog(@" -----self.yesorno = %d --- self.recommendCount)%ld", self.yesorno, self.recommendCount);
 
-        
+#warning 设置铃铛角标
         [self getNotifiList];
         
         return self.cell;

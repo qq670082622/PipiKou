@@ -37,6 +37,7 @@
 {
     MeButton *collectionBtn = [[MeButton alloc] init];
     collectionBtn.tag = 0;
+    [collectionBtn setBackgroundImage:[UIImage imageNamed:@"lightgraybg"] forState:UIControlStateHighlighted];
     [collectionBtn setTitle:@"我的收藏" forState:UIControlStateNormal];
     [self setWithButton:collectionBtn];
     [self addSubview:collectionBtn];
@@ -44,7 +45,7 @@
     
     MeButton *previewBtn = [[MeButton alloc] init];
     previewBtn.tag = 1;
-    [previewBtn setBackgroundImage:[UIImage imageNamed:@"kong"] forState:UIControlStateNormal];
+    [previewBtn setBackgroundImage:[UIImage imageNamed:@"lightgraybg"] forState:UIControlStateHighlighted];
     [previewBtn setTitle:@"客户最近浏览" forState:UIControlStateNormal];
     [self setWithButton:previewBtn];
     [self addSubview:previewBtn];
@@ -52,6 +53,7 @@
     
     MeButton *sosBtn = [[MeButton alloc] init];
     sosBtn.tag = 2;
+    [sosBtn setBackgroundImage:[UIImage imageNamed:@"lightgraybg"] forState:UIControlStateHighlighted];
     [sosBtn setTitle:@"搬救兵" forState:UIControlStateNormal];
     [self setWithButton:sosBtn];
     [self addSubview:sosBtn];
