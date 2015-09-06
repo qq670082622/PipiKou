@@ -9,6 +9,7 @@
 #import "ConditionSelectViewController.h"
 #import "WriteFileManager.h"
 #import "MobClick.h"
+#import "FindProductNew.h"
 @interface ConditionSelectViewController ()
 @property (nonatomic,copy)NSMutableString *passValue;
 @property (nonatomic,copy)NSMutableString *selectKey;
@@ -28,14 +29,14 @@
     [self loadDataSource];
    
     self.navigationController.title = self.conditionTitle;
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+    self.navigationItem.leftBarButtonItem =leftItem;
  
     self.table.tableFooterView = [[UIView alloc] init];
     
@@ -44,7 +45,6 @@
     self.conditionSelectArr = [NSMutableArray arrayWithArray:[WriteFileManager WMreadData:@"conditionSelect"]];
     
 }
-
 -(void)changeSelectKey
 {
     if ([_selectKey isEqualToString:@"ProductBrowseTag"]) {

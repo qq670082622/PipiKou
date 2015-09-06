@@ -34,7 +34,6 @@
 @property(nonatomic) UIButton *button;//价格
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
 
-
 @end
 
 @implementation ShaiXuanViewController
@@ -107,6 +106,7 @@
     } completion:^(BOOL finished) {
         NSLog(@"执行动画完毕");
     }];
+    
 }
 
 
@@ -127,7 +127,6 @@
     CGRect subtab = subTable.frame;
     subtab.size.height+=height;
     subTable.frame = subtab;
-    
 }
 //- (void)addGest{
 //    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
@@ -341,18 +340,20 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat tabscr = subTable.contentOffset.y;
+
     if (tabscr <= 0) {
         CGPoint point = CGPointMake(0, 0);
         subTable.contentOffset = point;
     }
 }
 //收键盘
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    [lowPrice resignFirstResponder];
-    [tallPrice resignFirstResponder];
-    return YES;
-}
+//-(BOOL)textFieldShouldReturn:(UITextField *)textField
+//{
+//    [lowPrice resignFirstResponder];
+//    [tallPrice resignFirstResponder];
+//    return YES;
+//}
+
 #pragma  - mark 判断字符串内容是否为纯数字
 - (BOOL)isPureInt:(NSString*)string{
     
@@ -368,18 +369,8 @@
     return NO;
 }
 #pragma  - mark TextFieldDelegate
--(void)textFieldDidEndEditing:(UITextField *)textField{
+-(void)textFieldDidBeginEditing:(UITextField *)textField{
     self.primaryNum = 8;
-    if (textField.tag == 210) {
-        [self.conditionDic setObject:textField.text forKey:@"MinPrice"];
-        NSLog(@"textfield--:%@",textField.text);
-    }else if(textField.tag == 220){
-        [self.conditionDic setObject:textField.text forKey:@"MaxPrice"];
-        NSLog(@"textfield--:%@",textField.text);
-    }
-    [lowPrice resignFirstResponder];
-    [tallPrice resignFirstResponder];
-    
     //改变六个button和滑杆的选种状态
     lowPlabel.textColor = [UIColor lightGrayColor];
     tallPlabel.textColor = [UIColor lightGrayColor];
@@ -388,6 +379,30 @@
         UIButton *myButton1 = [self.view viewWithTag:qw];
         myButton1.selected = NO;
     }
+
+}
+-(void)textFieldDidEndEditing:(UITextField *)textField{
+  //  self.primaryNum = 8;
+    if (textField.tag == 210) {
+        if(textField.text.integerValue == 0){
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:@"60000" forKey:@"MaxPrice"];
+        }else{
+            [self.conditionDic setObject:textField.text forKey:@"MinPrice"];
+        }
+        NSLog(@"%@",textField.text);
+    }else if(textField.tag == 220){
+        if(textField.text.integerValue == 0){
+            [self.conditionDic setObject:@"60000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+        }else{
+            [self.conditionDic setObject:textField.text forKey:@"MaxPrice"];
+        }
+      
+        NSLog(@"textfield--:%@",textField.text);
+    }
+    [lowPrice resignFirstResponder];
+    [tallPrice resignFirstResponder];
     
 }
 
@@ -424,6 +439,9 @@
     lowPlabel.textColor = [UIColor orangeColor];
     tallPlabel.textColor = [UIColor orangeColor];
     _rangeSlider.trackHighlightTintColor=[UIColor orangeColor];
+    //收键盘
+    [lowPrice resignFirstResponder];
+    [tallPrice resignFirstResponder];
 }
 -(NSMutableDictionary *)conditionDic
 {
