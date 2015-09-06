@@ -1200,7 +1200,7 @@
     [self.dataSource addObjectsFromArray:tmp];
   //将今日推荐排在第二
    
-    HomeBase *recom = [[HomeBase alloc] init];
+    HomeBase *recom;
     int recomIndex = 0;
     for (int i = 0 ; i<self.dataSource.count; i++) {
         HomeBase *base = self.dataSource[i];

@@ -258,8 +258,9 @@
         [customerDic setObject:[NSArray arrayWithObject:_RecordId] forKey:@"RecordIds"];
         NSLog(@"%@", customerDic);
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
+            if (!self.isFromCamer) {
             [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,民族%@,身份证号%@,出生日期%@,地址%@",self.nameText.text,self.nationalText.text,self.cardText.text,self.bornText.text,self.addressText.text]];
-
+            }
             self.delegateToOrder = self.VC;
             [self.delegateToOrder toRefereshCustomers];
             NSLog(@"添加陈工,json is %@",json);

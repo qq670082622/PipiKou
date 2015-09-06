@@ -354,12 +354,13 @@
 #pragma -mark 添加客户成功后的代理方法（刷新列表）
 -(void)toRefereshCustomers
 {
+    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
     [self.table headerBeginRefreshing];
-    
 }
 #pragma  -mark batchAdd delegate
 -(void)referesh
 {
+    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
     [self.table headerBeginRefreshing];
 }
 
@@ -400,7 +401,7 @@
     if (sortType) {
         [dic setObject:sortType forKey:@"sortType"];
     }else if (!sortType){
-        [dic setObject:@"1" forKey:@"sortType"];
+        [dic setObject:@"2" forKey:@"sortType"];
 }
     
     

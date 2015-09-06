@@ -275,12 +275,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     leftModal * model = self.leftDataArray[indexPath.row];
     //左边栏点击事件统计
-    NSDictionary * dic = @{};
+    NSDictionary * dic;
     if (indexPath.row == 0) {
         dic = @{@"SubName":@"热门推荐"};
     }else{
         dic = @{@"SubName":model.Name};
     }
+    NSLog(@"%@", dic);
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
     [MobClick event:@"FindProductSubNameClick" attributes:dict];
     if (indexPath.row == self.SelectNum) {

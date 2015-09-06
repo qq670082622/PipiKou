@@ -768,6 +768,7 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [lowPrice resignFirstResponder];
     [tallPrice resignFirstResponder];
     if (indexPath.row == 2) {

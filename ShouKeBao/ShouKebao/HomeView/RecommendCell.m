@@ -528,12 +528,12 @@
     NSLog(@"recommend.PriceText = %@", recommend.PriceText);
     NSMutableAttributedString *newStr = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@\n%@", newTitleText, newPriceText]];
   
-    NSString *visitors = [NSString stringWithFormat:@"%@",recommend.Price];
+    NSString *visitors = [NSString stringWithFormat:@"%@",recommend.StaticPrice];
     
     NSRange startIndex2;
 //    if ([recommend.TitleText rangeOfString:@"{0}"].location != NSNotFound) {
         NSLog(@"包含{0}");
-         startIndex2 = [newPriceText rangeOfString:recommend.Price];
+         startIndex2 = [newPriceText rangeOfString:recommend.StaticPrice];
   
 //    }else{
 //        NSString *d = recommend.PriceText;
@@ -550,8 +550,7 @@
 //    }
 
     NSInteger num = newTitleText.length + (NSInteger)startIndex2.location;
-    NSInteger startIndex = num;
-
+    int startIndex = (int)num;
     [newStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(startIndex,visitors.length+1)];
     self.goDate.attributedText = newStr;
     
