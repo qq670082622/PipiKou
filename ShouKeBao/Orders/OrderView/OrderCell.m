@@ -337,7 +337,6 @@
             NSLog(@"b.text= %@", b.text);
             NSLog(@"model.buttonList.count = %ld", model.buttonList.count);
             [b addTarget:self action:@selector(clickButton:) forControlEvents:UIControlEventTouchUpInside];
-            
             [self.bottomView addSubview:b];
             [self.buttonArr addObject:b];
         }
@@ -386,14 +385,22 @@
 
 - (void)clickButton:(LinkButton *)sender
 {
+//    [sender setBackgroundColor:[UIColor grayColor]];
+//    sender.showsTouchWhenHighlighted = YES;
+    
+  [sender setBackgroundImage:[UIImage imageNamed:@"lightgraybg"] forState:UIControlStateHighlighted];
+    
     if (sender.linkUrl.length) {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"orderCellDidClickButton" object:nil userInfo:@{@"linkUrl":sender.linkUrl,@"title":sender.text}];
         NSLog(@"kkkkk  /////");
     }else{
         if (_orderDelegate && [_orderDelegate respondsToSelector:@selector(checkDetailAtIndex:)]) {
-            [_orderDelegate checkDetailAtIndex:self.indexPath.section];
+              NSLog(@"2kkkkk  /////");
+//            [_orderDelegate checkDetailAtIndex:self.indexPath.section button:sender];
+            [_orderDelegate checkDetailAtIndex:self.indexPath.section ];
         }
     }
+   
 }
 
 @end

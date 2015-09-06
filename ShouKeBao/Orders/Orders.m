@@ -730,7 +730,7 @@
 }
 
 #pragma mark - OrderCellDelegate
-- (void)checkDetailAtIndex:(NSInteger)index
+- (void)checkDetailAtIndex:(NSInteger)index button:(UIButton *)button
 {
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     UIView *cover = [[UIView alloc] initWithFrame:window.bounds];
@@ -738,16 +738,18 @@
     [window addSubview:cover];
     
     [cover addSubview:self.detailView];
-//    [UIView animateWithDuration:0.4 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
 //        _detailView.bounds = CGRectMake(0, 0, self.view.frame.size.width * 0.8, 272);
-//    } completion:^(BOOL finished) {
-//        
-//    }];
+     [button setBackgroundColor:[UIColor clearColor]];
+    } completion:^(BOOL finished) {
+        
+    }];
 
     // 取出模型
     OrderModel *order = self.dataArr[index];
 //    self.detailView.data = order.SKBOrder;
     self.detailView.orderId = order.OrderId;
+
 }
 
 #pragma mark - MGSwipeTableCellDelegate
