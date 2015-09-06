@@ -42,9 +42,8 @@
     
     
     [self setFoot];
-    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+    self.navigationItem.leftBarButtonItem = leftItem;
    // [self setNav];
-    
     if ([_needMonth isEqualToString:@"1"]) {
         [self getMonths];
     }

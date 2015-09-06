@@ -45,8 +45,9 @@
   //  [self setNav];
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"保存" style:UIBarButtonItemStyleBordered target:self action:@selector(submit)];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
     
+    self.navigationItem.rightBarButtonItem.enabled = NO;
+        
     [self.maleBtn setBackgroundImage:[UIImage imageNamed:@"nan0"] forState:UIControlStateNormal];
     [self.maleBtn setBackgroundImage:[UIImage imageNamed:@"nan1"] forState:UIControlStateSelected];
     

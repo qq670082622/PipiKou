@@ -67,9 +67,6 @@
     [self loadDataSourceLeft];
     [self loadHotData];
     self.leftTableView.frame = CGRectMake(5, 100, 10, 123);
-    //推送跳到产品搜索
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGroundFindProduct:) name:@"pushWithBackGroundFindProduct" object:nil];//若程序在前台，直接调用，在后台被点击则调用
-
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -82,29 +79,30 @@
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
         [self.stationName setTitle:subStationName forState:UIControlStateNormal];
+//        [self.stationName setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     }else if (!subStationName){
         [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
+//        [self.stationName setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     }
-
+    [self.stationName addTarget:self action:@selector(certaindown) forControlEvents:UIControlEventTouchDown];
+    [self.stationName addTarget:self action:@selector(selectout) forControlEvents:UIControlEventTouchUpOutside];
+}
+//只要点击分站，就会调用下面的方法
+-(void)certaindown{
+    NSLog(@"已经点击");
+    self.selectStation.selected = YES;
+    [self.selectStation setBackgroundImage:[UIImage imageNamed:@"selestatioinbg"] forState:UIControlStateSelected];
+}
+//点击分站之后向外滑动，分站选中效果取消
+-(void)selectout{
+    self.selectStation.selected = NO;
+    NSLog(@"已经向外滑动");
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"FindProduct"];
 }
--(void)dealPushBackGroundFindProduct:(NSNotification *)noti
-{
-    NSMutableArray *message = noti.object;
-    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
-        if ([message[0] isEqualToString:@"SearchProduct"]) {
-            self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:1];
-            ProductList *list = [[ProductList alloc] init];
-            list.pushedSearchK = message[3];
-            [self.navigationController pushViewController:list animated:YES];
-        }else{
-            self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
-        }
-    }
-}
+
 - (void)firstSetView{
     self.leftTableView.delegate = self;
     self.leftTableView.dataSource = self;
@@ -239,9 +237,11 @@
 }
 
 - (IBAction)selectStaion:(id)sender {
+
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductStationClick" attributes:dict];
-    
+//由于分站时两个button，点击一个时候给大的button增加浅灰背景，下面是取消选中
+    self.selectStation.selected = NO;
     StationSelect *station = [[StationSelect alloc] init];
     station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
@@ -267,6 +267,7 @@
     }else{
     cell.model = model;
     }
+    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -349,16 +350,22 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    UIView *viw = [[UIView alloc] init];
+    viw.alpha = 0.2;
+    viw.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1];
     if (self.leftSelectType == SelectTypeHot) {
         HotProductCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RighthotCell" forIndexPath:indexPath];
         rightModal * model = self.hottDataArray[indexPath.section][indexPath.row];
         cell.modal = model;
+        cell.selectedBackgroundView = viw;
         return cell;
     }else{
         NormalCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NormalCollectionCell" forIndexPath:indexPath];
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         cell.subTatilLab.text = model.subNameArray[indexPath.row];
         [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subTatilLab.layer andBorderColor:Color(0xdd, 0xdd, 0xdd) andBorderWidth:0.5 andNeedShadow:NO andCornerRadius:2];
+        cell.selectedBackgroundView = viw;
+        
         return cell;
     }
 }
@@ -408,6 +415,7 @@
         headerView.allBtn.hidden = NO;
     }
     return headerView;
+
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -420,6 +428,7 @@
         detail.fromType = FromHotProduct;
         //判断下个页面能否有关闭按钮
         detail.m = 1;
+        [collectionView cellForItemAtIndexPath:indexPath].selected = NO;
         [self.navigationController pushViewController:detail animated:YES];
     }else{
         //当前列表页非热门推荐
