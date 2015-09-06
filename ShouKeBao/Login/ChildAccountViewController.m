@@ -189,11 +189,10 @@
                 [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
             }
             [def synchronize];
-            
-            // 给用户打上jpush标签
-//            [APService setAlias:[def objectForKey:@"BusinessID"] callbackSelector:nil object:nil];
+
+            [UMessage removeAllTags:^(id responseObject, NSInteger remain, NSError *error) {
+            }];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
-//            [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
             
             //给用户打上友盟标签
             [UMessage addTag:tag

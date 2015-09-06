@@ -278,7 +278,7 @@
     
 //    NSString *alias = [def objectForKey:UserInfoKeyBusinessID];
 //    [APService setAlias:alias callbackSelector:nil object:nil];
-   
+    [UMessage removeAllTags:nil];
     NSString *tag = [NSString stringWithFormat:@"substation_%@",[def objectForKey:UserInfoKeySubstation]];
 //    [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
 //
