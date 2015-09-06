@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "ProductRecommendViewController.h"
 #import "ImageCollectionViewCell.h"
+static NSString * cellid = @"reuse";
 
 #define picViewGap 45
 
@@ -30,11 +31,18 @@
 + (instancetype)cellWithTableView:(UITableView *)tableView number:(NSInteger)number
 {
 //    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
-    static NSString *cellID = @"RecommendCell";
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+//    static NSString *cellID = @"RecommendCell";
+//    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+//    if (!cell) {
+//        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+//    }
+    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
+    
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
     }
+
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     
@@ -95,7 +103,7 @@
     cell.collectionView.delegate = cell;
     cell.collectionView.dataSource = cell;
     cell.collectionView.scrollEnabled = NO;
-    [cell.collectionView registerClass:[ImageCollectionCell class] forCellWithReuseIdentifier:@"reuse"];
+    [cell.collectionView registerClass:[ImageCollectionCell class] forCellWithReuseIdentifier:cellid];
     
     [cell addSubview:cell.collectionView];
     
@@ -134,7 +142,7 @@
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSLog(@"mmm2 m");
-    ImageCollectionCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:@"reuse" forIndexPath:indexPath];
+    ImageCollectionCell *imageCell = [collectionView dequeueReusableCellWithReuseIdentifier:cellid forIndexPath:indexPath];
     //    Recommend *recommend = self.recommend;
     //    NSLog(@"%@", recommend);
     //    imageCell.recommend = recommend;
