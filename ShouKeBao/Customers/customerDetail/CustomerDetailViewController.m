@@ -37,11 +37,11 @@
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
 
     
-    [leftBtn addTarget:self action:@selector(back1) forControlEvents:UIControlEventTouchUpInside];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
     
-    self.navigationItem.leftBarButtonItem= leftItem;
+    self.navigationItem.leftBarButtonItem = leftItem;
     
        
     self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
@@ -297,11 +297,19 @@
 }
 
 - (BOOL)joinWet:(NSString *)group key:(NSString *)key{
-    
-    
     return YES;
 }
 
+- (IBAction)clickButtonCaling:(id)sender {
+    if (self.tele.text.length > 6) {
+        [[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"是否要拨打电话%@", self.tele.text] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil]show];
+        
+    }else{
+        [[[UIAlertView alloc]initWithTitle:@"提示" message:@"电话号码不正确" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil]show];
+    }
+    
+
+}
 
 
 - (IBAction)attachmentAction:(id)sender {

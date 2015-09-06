@@ -313,14 +313,17 @@
 // 自定义导航按钮
 -(void)customRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,50,50)];
     
-    [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
+//    [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
+    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(25,15,20,20)];
+    [imageView setImage:[UIImage imageNamed:@"APPsaixuan"]];
     
     [button addTarget:self action:@selector(selectAction)forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     
+    [button addSubview:imageView];
     self.navigationItem.rightBarButtonItem = barItem;
 }
 
@@ -730,7 +733,7 @@
 }
 
 #pragma mark - OrderCellDelegate
-- (void)checkDetailAtIndex:(NSInteger)index button:(UIButton *)button
+- (void)checkDetailAtIndex:(NSInteger)index
 {
     UIWindow *window = [UIApplication sharedApplication].delegate.window;
     UIView *cover = [[UIView alloc] initWithFrame:window.bounds];
@@ -738,12 +741,12 @@
     [window addSubview:cover];
     
     [cover addSubview:self.detailView];
-    [UIView animateWithDuration:0.5 animations:^{
+//    [UIView animateWithDuration:0.5 animations:^{
 //        _detailView.bounds = CGRectMake(0, 0, self.view.frame.size.width * 0.8, 272);
-     [button setBackgroundColor:[UIColor clearColor]];
-    } completion:^(BOOL finished) {
-        
-    }];
+//     [button setBackgroundColor:[UIColor clearColor]];
+//    } completion:^(BOOL finished) {
+//        
+//    }];
 
     // 取出模型
     OrderModel *order = self.dataArr[index];
