@@ -18,7 +18,10 @@
     [aCoder encodeObject:self.CreatedDate forKey:@"CreatedDate"];
     [aCoder encodeObject:self.Price forKey:@"Price"];
     [aCoder encodeObject:self.RecommendIndexProductList forKey:@"RecommendIndexProductList"];
+    [aCoder encodeObject:self.StaticPrice forKey:@"StaticPrice"];
+
 }
+
 
 
 -(id)initWithCoder:(NSCoder *)aDecoder{
@@ -29,7 +32,9 @@
         self.Count =  [aDecoder decodeObjectForKey:@"Count"];
         self.CreatedDate =  [aDecoder decodeObjectForKey:@"CreatedDate"];
         self.Price = [aDecoder decodeObjectForKey:@"Price"];
+        self.StaticPrice = [aDecoder decodeObjectForKey:@"StaticPrice"];
         self.RecommendIndexProductList = [aDecoder decodeObjectForKey:@"RecommendIndexProductList"];
+        
     }
     
     return self;

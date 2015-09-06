@@ -1623,9 +1623,8 @@
         cell.rightSwipeSettings.transition = MGSwipeTransitionStatic;
         
         //            cell.leftButtons = [self createLeftButtons:model];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
         cell.rightButtons = [self createRightButtons:model];
-        
         return cell;
         
         //        }
@@ -1636,7 +1635,8 @@
     if (tableView.tag == 2) {
         
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cellID"];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+
         if (cell == nil) {
             
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"cellID"];

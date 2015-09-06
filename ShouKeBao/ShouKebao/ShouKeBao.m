@@ -278,7 +278,7 @@
     
 //    NSString *alias = [def objectForKey:UserInfoKeyBusinessID];
 //    [APService setAlias:alias callbackSelector:nil object:nil];
-   
+    [UMessage removeAllTags:nil];
     NSString *tag = [NSString stringWithFormat:@"substation_%@",[def objectForKey:UserInfoKeySubstation]];
 //    [APService setTags:[NSSet setWithObject:tag] callbackSelector:nil object:nil];
 //
@@ -1200,7 +1200,7 @@
     [self.dataSource addObjectsFromArray:tmp];
   //将今日推荐排在第二
    
-    HomeBase *recom = [[HomeBase alloc] init];
+    HomeBase *recom;
     int recomIndex = 0;
     for (int i = 0 ; i<self.dataSource.count; i++) {
         HomeBase *base = self.dataSource[i];

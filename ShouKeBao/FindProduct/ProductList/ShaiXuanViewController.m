@@ -17,7 +17,7 @@
 #import "ProductList.h"
 #import "WLRangeSlider.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
-@interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice,UITextFieldDelegate>
+@interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice,UITextFieldDelegate,UIGestureRecognizerDelegate>
 @property (strong,nonatomic) NSMutableDictionary *conditionDic;//当前条件开关
 
 @property(copy,nonatomic) NSMutableString *goDateStart;
@@ -128,18 +128,77 @@
     subtab.size.height+=height;
     subTable.frame = subtab;
 }
-//- (void)addGest{
-//    UIScreenEdgePanGestureRecognizer *screenEdge = [[UIScreenEdgePanGestureRecognizer alloc] initWithTarget:self action:@selector(handleScreen:)];
-//    screenEdge.edges = UIRectEdgeLeft;
-//    [self.view addGestureRecognizer:screenEdge];
-//}
-//-(void)handleScreen:(UIScreenEdgePanGestureRecognizer *)sender{
-//    CGPoint sliderdistance = [sender translationInView:self.view];
-//    if (sliderdistance.x>self.view.bounds.size.width/3) {
-//        [self back];
-//    }
-//    //NSLog(@"%f",sliderdistance.x);
-//}
+
+- (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
+{
+    
+    NSLog(@"单指单击");
+    
+}
+//tableview与单击手势冲突，走下面方法
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
+    self.primaryNum = 7;
+    lowPrice.text = nil;
+    tallPrice.text = nil;
+    //改变button的不选中效果
+    for (NSInteger qw =1001; qw<1007; qw++) {
+        UIButton *myButton1 = [self.view viewWithTag:qw];
+        myButton1.selected = NO;
+    }
+    //改变滑杆的选种效果
+    lowPlabel.textColor = [UIColor orangeColor];
+    tallPlabel.textColor = [UIColor orangeColor];
+    _rangeSlider.trackHighlightTintColor=[UIColor orangeColor];
+    //收键盘
+    [lowPrice resignFirstResponder];
+    [tallPrice resignFirstResponder];
+    
+    CGPoint pc = [touch locationInView:_rangeSlider];
+    NSLog(@"%f",pc.x);
+    
+    //距离左边
+    NSInteger fromleft =(NSInteger)pc.x/_rangeSlider.frame.size.width*60000 - (NSInteger)_rangeSlider.leftValue;
+    NSInteger fromeright =(NSInteger)_rangeSlider.rightValue - (NSInteger)pc.x/_rangeSlider.frame.size.width*60000;
+    if (fromleft > fromeright) {
+        NSLog(@"改变右边的滑轮");
+        NSInteger tallTx = pc.x/_rangeSlider.frame.size.width*60000;
+       tallPlabel.text = [NSString stringWithFormat:@"¥%ld",tallTx];
+        _rangeSlider.rightValue = tallTx;
+        tallPlabel.frame = CGRectMake(pc.x, 250, 50, 30);
+        //增加筛选条件
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.leftValue]  forKey:@"MinPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",tallTx] forKey:@"MaxPrice"];
+        NSLog(@"___%@",self.conditionDic);
+    }else if((pc.x-_rangeSlider.leftValue) < (_rangeSlider.rightValue-pc.x)){
+        NSLog(@"改变左边的滑轮");
+        NSInteger lowTx = pc.x/_rangeSlider.frame.size.width*60000;
+        lowPlabel.text = [NSString stringWithFormat:@"¥%ld",lowTx];
+        _rangeSlider.leftValue = lowTx;
+        lowPlabel.frame = CGRectMake(pc.x+10, 250, 50, 30);
+        
+        //增加筛选条件
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",lowTx]  forKey:@"MinPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.rightValue] forKey:@"MaxPrice"];
+        
+    }else{
+        NSLog(@"选的是中间，默认改变左边");
+        NSInteger lowTx = pc.x/_rangeSlider.frame.size.width*60000;
+        lowPlabel.text = [NSString stringWithFormat:@"¥%ld",lowTx];
+        _rangeSlider.leftValue = lowTx;
+        lowPlabel.frame = CGRectMake(pc.x+15, 250, 50, 30);
+        
+        //增加筛选条件
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",lowTx]  forKey:@"MinPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.rightValue] forKey:@"MaxPrice"];
+    }
+    
+    // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
+    if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
+        return NO;
+    }
+    return  YES;
+}
 -(void)back
 {
     //[self.navigationController popViewControllerAnimated:YES];
@@ -315,7 +374,7 @@
     [centerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [centerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
     centerBtn.tag = 107;
-    
+    _rangeSlider.userInteractionEnabled = YES;
 
     
     
@@ -334,8 +393,16 @@
     [footView addSubview:CellView3];
     
     subTable.tableFooterView = footView;
+    //subTable.userInteractionEnabled = NO;
     [self.view addSubview:subTable];
-    
+    //给价格区间增加点击手势
+    UITapGestureRecognizer *singleFingerOne = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                      action:@selector(handleSingleFingerEvent:)];
+    singleFingerOne.numberOfTouchesRequired = 1; //手指数
+    singleFingerOne.numberOfTapsRequired = 1; //tap次数
+    singleFingerOne.delegate = self;
+    [_rangeSlider addGestureRecognizer:singleFingerOne];
+
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -346,13 +413,6 @@
         subTable.contentOffset = point;
     }
 }
-//收键盘
-//-(BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    [lowPrice resignFirstResponder];
-//    [tallPrice resignFirstResponder];
-//    return YES;
-//}
 
 #pragma  - mark 判断字符串内容是否为纯数字
 - (BOOL)isPureInt:(NSString*)string{
@@ -766,8 +826,10 @@
     [cell showdataWithString:cell.str];
     return cell;
 }
+
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [lowPrice resignFirstResponder];
     [tallPrice resignFirstResponder];
     if (indexPath.row == 2) {

@@ -661,7 +661,7 @@ void UncaughtExceptionHandler(NSException *exception) {
             // 保存分站
             [def setObject:[NSString stringWithFormat:@"%ld",(long)[json[@"SubstationId"] integerValue]] forKey:UserInfoKeySubstation];
             [def synchronize];
-            
+            [UMessage removeAllTags:nil];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
             //给用户打上友盟标签
             [UMessage addTag:tag

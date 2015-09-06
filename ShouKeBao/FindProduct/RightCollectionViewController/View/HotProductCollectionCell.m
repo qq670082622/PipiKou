@@ -16,4 +16,12 @@
     self.rightDescrip.text = modal.rightDescrip;
     self.rightPrice.text = [NSString stringWithFormat:@"￥%@",modal.rightPrice];
 }
+-(void)setSelected:(BOOL)selected{
+    if (selected) {
+        self.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1];
+    }else{
+        self.backgroundColor = [UIColor clearColor];
+    }
+
+}
 @end

@@ -267,7 +267,6 @@
     }else{
     cell.model = model;
     }
-    
     return cell;
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -276,12 +275,13 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     leftModal * model = self.leftDataArray[indexPath.row];
     //左边栏点击事件统计
-    NSDictionary * dic = @{};
+    NSDictionary * dic;
     if (indexPath.row == 0) {
         dic = @{@"SubName":@"热门推荐"};
     }else{
         dic = @{@"SubName":model.Name};
     }
+    NSLog(@"%@", dic);
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
     [MobClick event:@"FindProductSubNameClick" attributes:dict];
     if (indexPath.row == self.SelectNum) {
@@ -350,22 +350,16 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
-    UIView *viw = [[UIView alloc] init];
-    viw.alpha = 0.2;
-    viw.backgroundColor = [UIColor colorWithRed:217/255.0 green:217/255.0 blue:217/255.0 alpha:1];
     if (self.leftSelectType == SelectTypeHot) {
         HotProductCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"RighthotCell" forIndexPath:indexPath];
         rightModal * model = self.hottDataArray[indexPath.section][indexPath.row];
         cell.modal = model;
-        cell.selectedBackgroundView = viw;
         return cell;
     }else{
         NormalCollectionCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"NormalCollectionCell" forIndexPath:indexPath];
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         cell.subTatilLab.text = model.subNameArray[indexPath.row];
         [WMAnimations WMAnimationMakeBoarderWithLayer:cell.subTatilLab.layer andBorderColor:Color(0xdd, 0xdd, 0xdd) andBorderWidth:0.5 andNeedShadow:NO andCornerRadius:2];
-        cell.selectedBackgroundView = viw;
-        
         return cell;
     }
 }
@@ -376,14 +370,14 @@
     }else{
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         if ([model.title isEqualToString:@"特价线路"]) {
-            return CGSizeMake(collectionView.frame.size.width - 28, 50);
+            return CGSizeMake(collectionView.frame.size.width - 28, 45);
         }else{
             if ([UIScreen mainScreen].bounds.size.width == 320) {
-                return CGSizeMake(108.8, 50);
+                return CGSizeMake(108.8, 45);
             }else if([UIScreen mainScreen].bounds.size.width == 414){
-                return CGSizeMake(99.8, 50);
+                return CGSizeMake(99.8, 45);
             }else{
-                return CGSizeMake(89, 50);
+                return CGSizeMake(89, 45);
             }
         }
     }
@@ -417,8 +411,19 @@
     return headerView;
 
 }
+//设置选中状态
+//cell点击高亮状态
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    [collectionView cellForItemAtIndexPath:indexPath].selected = YES;
+    return YES;
+}
+//cell取消高亮状态
+- (void)collectionView:(UICollectionView *)collectionView didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath{
+    [collectionView cellForItemAtIndexPath:indexPath].selected = NO;
+}
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
+    [collectionView deselectItemAtIndexPath:indexPath animated:YES];
     //当前列表是热门推荐点击事件
     if (self.leftSelectType == SelectTypeHot) {
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
@@ -428,7 +433,6 @@
         detail.fromType = FromHotProduct;
         //判断下个页面能否有关闭按钮
         detail.m = 1;
-        [collectionView cellForItemAtIndexPath:indexPath].selected = NO;
         [self.navigationController pushViewController:detail animated:YES];
     }else{
         //当前列表页非热门推荐
@@ -440,24 +444,23 @@
         NSDictionary * dic = @{@"TwoSubName":model.searchKeyArray[indexPath.row]};
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
         [MobClick event:@"FindProductList" attributes:dict];
-        
         [self.navigationController pushViewController:list animated:YES];
 
     }
 }
 
-////设置行间距；
-//- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
-//{
-//    if(section==0)
-//    {
-//        return 30.0;
-//    }
-//    else
-//    {
-//        return 50.0;
-//    }
-//}
+//设置行间距；
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    if(self.leftSelectType == SelectTypeHot)
+    {
+        return 0.0;
+    }
+    else
+    {
+        return 6.0;
+    }
+}
 ////设置左右最小间距
 //- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section{
 //    return 0.f;
