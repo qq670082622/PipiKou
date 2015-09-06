@@ -157,7 +157,7 @@
     }
     
     if(self.name.text.length == 0 || self.tele.text.length<7){
-        NSLog(@"self.name.text.length = %d, self.tele.text.length = %d", self.name.text.length, self.tele.text.length);
+        NSLog(@"self.name.text.length = %ld, self.tele.text.length = %ld", self.name.text.length, self.tele.text.length);
         UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"抱歉😪,无法保存" message:@"您的客户资料有误" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
         [alert show];
     }

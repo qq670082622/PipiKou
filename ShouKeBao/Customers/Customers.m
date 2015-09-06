@@ -475,7 +475,7 @@
     [hudView show:YES];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:ID forKey:@"CustomerID"];
-    
+
     [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
         NSLog(@"删除客户信息成功%@",json);
         hudView.labelText = @"删除成功...";
@@ -543,7 +543,6 @@
 //}
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if (tableView.tag == 1) {
         CustomCell *cell = [CustomCell cellWithTableView:tableView];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;

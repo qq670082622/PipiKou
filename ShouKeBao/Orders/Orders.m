@@ -313,18 +313,30 @@
 // 自定义导航按钮
 -(void)customRightBarItem
 {
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,50,50)];
-    
+//    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
 //    [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:CGRectMake(25,15,20,20)];
-    [imageView setImage:[UIImage imageNamed:@"APPsaixuan"]];
+//    [button addTarget:self action:@selector(selectAction)forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+//    self.navigationItem.rightBarButtonItem = barItem;
+//    
+//    UIButton * button1 = [[UIButton alloc]initWithFrame:CGRectMake(-30, -17, 65, 48)];
+//    button1.backgroundColor = [UIColor redColor];
+//    [button1 addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
+//    [self.navigationItem.rightBarButtonItem.customView addSubview:button1];
+
     
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(-30, -17, 65, 40)];
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(25,10,20,20)];
+    button.backgroundColor = [UIColor clearColor];
+    image.image = [UIImage imageNamed:@"APPsaixuan"];
     [button addTarget:self action:@selector(selectAction)forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
-    [button addSubview:imageView];
+//    [button addSubview:image];
     self.navigationItem.rightBarButtonItem = barItem;
+      [barItem.customView addSubview:image];
+    
+    
+    
 }
 
 // 点击筛选
@@ -335,8 +347,6 @@
     tap.delegate = self;
     [cover addGestureRecognizer:tap];
     self.cover = cover;
-    
-    
     // 筛选视图
     [cover addSubview:self.dressView];
     [self.view.window addSubview:cover];

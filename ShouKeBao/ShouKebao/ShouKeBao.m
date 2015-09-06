@@ -1418,7 +1418,6 @@
     self.barButton = [[BBBadgeBarButtonItem alloc] initWithCustomUIButton:customButton];
     
    self.barButton.shouldHideBadgeAtZero = YES;
-    
     //增大点选面积；
     self.navigationItem.leftBarButtonItem = self.barButton;
     UIButton * button = [[UIButton alloc]initWithFrame:CGRectMake(-15, -15, 50, 50)];
