@@ -40,6 +40,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    //增加监听获取键盘高度
+    [self monitor];
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
     // Do any additional setup after loading the view.
@@ -69,8 +71,7 @@
     }else if ([_jishi isEqual:@"1"]){
         self.jishiswitch.on = YES;
     }
-    //增加监听获取键盘高度
-    [self monitor];
+  
 }
 -(void)monitor{
     //增加监听，当键盘出现或改变时收出消息
