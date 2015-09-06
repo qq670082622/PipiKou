@@ -103,11 +103,11 @@ static int const BBoriginY = -9;
     minWidth = (minWidth < minHeight) ? minHeight : expectedLabelSize.width;
     
     // Animate the size modification just in case
-    [UIView animateWithDuration:0.2 animations:^{
-        self.badge.frame = CGRectMake(BBoriginX, BBoriginY, minWidth + BBBadgeMargin, minHeight + BBBadgeMargin);
-        self.badge.layer.cornerRadius   = (minHeight + BBBadgeMargin) / 2;
-        self.badge.layer.masksToBounds = YES;
-    }];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        self.badge.frame = CGRectMake(BBoriginX, BBoriginY, minWidth + BBBadgeMargin, minHeight + BBBadgeMargin);
+//        self.badge.layer.cornerRadius   = (minHeight + BBBadgeMargin) / 2;
+//        self.badge.layer.masksToBounds = YES;
+//    }];
     //此处修改圆点位置
     self.badge.frame = CGRectMake(BBoriginX/2, BBoriginY/2, minWidth + BBBadgeMargin-3, minHeight + BBBadgeMargin-3);
     self.badge.layer.cornerRadius   = (minHeight + BBBadgeMargin) / 2;

@@ -67,6 +67,9 @@
     [self loadDataSourceLeft];
     [self loadHotData];
     self.leftTableView.frame = CGRectMake(5, 100, 10, 123);
+    //推送跳到产品搜索
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGroundFindProduct:) name:@"pushWithBackGroundFindProduct" object:nil];//若程序在前台，直接调用，在后台被点击则调用
+
 }
 -(void)viewWillAppear:(BOOL)animated
 {
@@ -82,12 +85,26 @@
     }else if (!subStationName){
         [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
     }
+
 }
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"FindProduct"];
 }
-
+-(void)dealPushBackGroundFindProduct:(NSNotification *)noti
+{
+    NSMutableArray *message = noti.object;
+    if([UIApplication sharedApplication].applicationState ==UIApplicationStateInactive){
+        if ([message[0] isEqualToString:@"SearchProduct"]) {
+            self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:1];
+            ProductList *list = [[ProductList alloc] init];
+            list.pushedSearchK = message[3];
+            [self.navigationController pushViewController:list animated:YES];
+        }else{
+            self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
+        }
+    }
+}
 - (void)firstSetView{
     self.leftTableView.delegate = self;
     self.leftTableView.dataSource = self;
@@ -391,7 +408,6 @@
         headerView.allBtn.hidden = NO;
     }
     return headerView;
-
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{

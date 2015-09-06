@@ -62,31 +62,7 @@
 }
 -(void)setUpleftBarButtonItems
 {
-    
-//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,20)];
-//    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateNormal];
-//    [leftBtn setImage:[UIImage imageNamed:@"ip6"] forState:UIControlStateHighlighted];
-//    
-//    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
-//    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
-//    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-48, 0, 0);
-//    leftBtn.titleLabel.font = [UIFont systemFontOfSize:16];
-//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-//UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
-    //turnOff.titleLabel.font = [UIFont systemFontOfSize:15];
-    //turnOff.frame = CGRectMake(0, 0, 30, 10);
-    //[turnOff addTarget:self action:@selector(turnOff) forControlEvents:UIControlEventTouchUpInside];
-    //[turnOff setTitle:@"关闭"  forState:UIControlStateNormal];
-    //turnOff.titleEdgeInsets = UIEdgeInsetsMake(0, -35, 0, 0);
-    //[turnOff setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    //UIBarButtonItem *turnOffItem = [[UIBarButtonItem alloc] initWithCustomView:turnOff];
-    //self.navigationItem.leftBarButtonItem = ;
     [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:YES];
-    
-    
 }
 
 -(void)back

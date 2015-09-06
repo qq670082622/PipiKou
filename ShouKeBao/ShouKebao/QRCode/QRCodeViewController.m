@@ -248,7 +248,8 @@
     if (_isOpen) {
     if (self.lblStatus.text.length>3) {
         NSRange range = [self.lblStatus.text rangeOfString:@"lvyouquan"];
-        if (range.location == NSNotFound) {
+        NSRange loginRange = [self.lblStatus.text rangeOfString:@"CodeForLogin"];
+        if (range.location == NSNotFound | loginRange.location != NSNotFound) {
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"MeCancelMyStore" attributes:dict];
 
@@ -256,6 +257,9 @@
             QRcodeWeb.delegate = self;
             QRcodeWeb.url = self.lblStatus.text;
             _isOpen = NO;
+            if (loginRange.location != NSNotFound) {
+                QRcodeWeb.titleStr = @" ";
+            }
             [self.navigationController pushViewController:QRcodeWeb animated:YES ];
             NSLog(@"打开了网页:%@",_lblStatus.text);
             
@@ -264,6 +268,7 @@
             detail.produceUrl = self.lblStatus.text;
             detail.delegate = self;
             detail.fromType = FromQRcode;
+            
             _isOpen = NO;
             [self.navigationController pushViewController:detail animated:YES];
         }

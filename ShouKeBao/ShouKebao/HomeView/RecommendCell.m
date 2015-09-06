@@ -29,13 +29,12 @@
 
 + (instancetype)cellWithTableView:(UITableView *)tableView number:(NSInteger)number
 {
-    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
-    
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
+    static NSString *cellID = @"RecommendCell";
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-    
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
     

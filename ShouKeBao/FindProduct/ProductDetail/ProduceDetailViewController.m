@@ -87,8 +87,11 @@
     self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
     [_indicator setLoadText:@"拼命加载中..."];
     [self.view addSubview:_indicator];
-
-    self.title = @"	";
+    if (!self.titleName) {
+        self.title = @"产品详情";
+    }else{
+        self.title = self.titleName;
+    }
        NSLog(@"--------link is %@ ",_produceUrl);
     
    // NSString *newUrl = [self.produceUrl stringByAppendingString:urlSuffix];
@@ -138,7 +141,6 @@
 //{
 //    [self.navigationController popViewControllerAnimated:YES];
 //}
-
 
 
 -(void)setUpleftBarButtonItems
@@ -329,9 +331,6 @@
 //        [self doIfInWebWithUrl:rightUrl];
         [_indicator startAnimation];
     }
-    
-    
-    
         return YES;
   
 }
