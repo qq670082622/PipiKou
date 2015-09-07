@@ -41,17 +41,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //增加监听获取键盘高度
-    //增加监听，当键盘出现或改变时收出消息
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    //增加监听，当键退出时收出消息
-   [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+    [self monitor];
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
     // Do any additional setup after loading the view.
@@ -82,7 +72,19 @@
     }
   
 }
-
+-(void)monitor{
+    //增加监听，当键盘出现或改变时收出消息
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    //增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
 //当键盘出现或改变时调用
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
@@ -105,7 +107,7 @@
 //        NSLog(@"执行动画完毕");
 //    }];
     CGRect subtab = subTable.frame;
-    subtab.size.height=subtab.size.height - height/2;
+    subtab.size.height-=height;
     subTable.frame = subtab;
 }
 
@@ -125,7 +127,7 @@
     int height = keyboardRect.size.height;
     NSLog(@"键盘高度%d",height);
     CGRect subtab = subTable.frame;
-    subtab.size.height=subtab.size.height + height/2;
+    subtab.size.height+=height;
     subTable.frame = subtab;
 }
 
