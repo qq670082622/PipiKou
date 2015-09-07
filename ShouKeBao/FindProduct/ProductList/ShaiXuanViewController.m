@@ -41,11 +41,15 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //增加监听获取键盘高度
+        self.keybdnum = 0;
     //增加监听，当键盘出现或改变时收出消息
-    self.keybdnum = 0;
+//    [[NSNotificationCenter defaultCenter] addObserver:self
+//                                             selector:@selector(keyboardWillShow:)
+//                                                 name:UIKeyboardWillShowNotification
+//                                               object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
+                                                 name:UIKeyboardDidShowNotification
                                                object:nil];
     //增加监听，当键退出时收出消息
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -127,12 +131,15 @@
     
     int height = keyboardRect.size.height;
     NSLog(@"键盘高度%d",height);
-   
+    if (self.keybdnum == 1) {
         CGRect subtab = subTable.frame;
         subtab.size.height+=height;
         subTable.frame = subtab;
+        self.keybdnum = 0;
+    }
     
-    self.keybdnum = 0;
+    
+   
 }
 
 - (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
