@@ -173,20 +173,11 @@
     view.backgroundColor = self.table.backgroundColor;
     return view;
 }
-//收到通知中心的消息时,观察者(self)要调用方法
+//4,收到通知中心的消息时,观察者(self)要调用方法
 - (void)receiveNotification:(NSNotification *)noti
 {
-//    //    4,
-//    NSLog(@"noti.object.Name = %@, %@", [noti.object valueForKey:@"Name"], [noti.object valueForKey:@"Mobile"]);
-    
     [self initPull];
-    
 }
-
-//- (void)reloadMethod{
-//    [self.table reloadData];
-//}
-
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
@@ -202,8 +193,6 @@
 
     [MobClick beginLogPageView:@"Customers"];
 }
-
-
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -226,19 +215,16 @@
     self.table.footerPullToRefreshText = @"上拉刷新";
     self.table.footerRefreshingText = @"正在刷新";
     
-
 }
 //下拉刷新
 -(void)headPull
 {
     self.isRefresh = YES;
-//    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];
     self.pageIndex = 1;
     self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateNormal];
     [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateHighlighted];
-     NSLog(@"1,,,,,,,");
     [self loadDataSource];
 }
 //    上啦加载
@@ -264,7 +250,6 @@
         NSLog(@"[self.totalNumber integerValue] / pageSize = %ld", [self.totalNumber integerValue] / pageSize + 1);
         return [self.totalNumber integerValue] / pageSize + 1;
     }
-    
 }
 
 -(void)customerRightBarItem
@@ -282,8 +267,6 @@
         self.subView.hidden = YES;
     }];
 }
-
-
 
 -(void)setSubViewUp
 {
@@ -305,7 +288,7 @@
     }
 }
 
-#pragma -mark geeter
+#pragma -mark getter
 
 -(NSMutableArray *)dataArr
 {
@@ -384,7 +367,6 @@
 
 -(void)loadDataSource
 {
-    NSLog(@"n = 66666, %d", self.pageIndex);
      [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
 //    [dic setObject:@"1" forKey:@"PageIndex"];
@@ -403,8 +385,6 @@
     }else if (!sortType){
         [dic setObject:@"2" forKey:@"sortType"];
 }
-    
-    
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
 //        NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
@@ -431,10 +411,7 @@
         }else if (_dataArr.count>0){
             self.imageViewWhenIsNull.hidden = YES ;
           
-        }
-//            NSString *page = [NSString stringWithFormat:@"%d",self.pageIndex];
-//            self.pageIndex = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
-        }
+        } }
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
     } failure:^(NSError *error) {
@@ -467,7 +444,7 @@
     NSLog(@"sssss");
 
 }
-
+#pragma mark - 删除客户时调代内容
 - (void)deleteTableViewCellwithId:(NSString *)ID
 {
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
@@ -538,9 +515,7 @@
     }
     return 0;
 }
-//-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-//    return 1;
-//}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (tableView.tag == 1) {
@@ -589,10 +564,6 @@
     }
     return 0;
 }
-
-
-
-
 /*
  右滑动删除客户
  */
@@ -834,12 +805,10 @@
 
 
 - (IBAction)customSearch:(id)sender {
-   
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"CustomSearchClick" attributes:dict];
 
-    
    if (self.subView.hidden == NO){
        
         [UIView animateWithDuration:0.2 animations:^{
@@ -848,8 +817,6 @@
             self.subView.hidden = YES;
            
         }];
-
-       
      }else if (self.subView.hidden == YES){
 //       self.imageViewWhenIsNull.hidden = YES;
 //       self.searchTextField.hidden = NO;
@@ -907,9 +874,8 @@
         self.historyView.hidden = YES;
         
         if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]||[self.searchK isEqualToString:@"  "] || [self.searchK isEqualToString:@"   "] || [self.searchK isEqualToString:@"    "]|| [self.searchK isEqualToString:@"     "]|| [self.searchK isEqualToString:@"      "]) {
-            NSString *ni = @" ";
+            NSString *ni = @"";
             self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
-            
         }else{
            NSString *ni = @"       ";
         self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
