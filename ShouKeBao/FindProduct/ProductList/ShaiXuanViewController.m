@@ -40,13 +40,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //增加监听获取键盘高度
-
-
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
-    // Do any additional setup after loading the view.
-    //self.view.window.rootViewController = [[UINavigationController alloc] init];
     dataArr = [[NSArray alloc] init];
     dataArr = @[@"目的地",@"出发城市",@"出发日期",@"行程天数",@"游览线路",@"供应商",@"主题推荐",@"酒店类型",@"出行方式",@"邮轮公司"];
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ", nil];
@@ -54,7 +49,7 @@
     self.jiafanswitchisOn = YES;
     self.jishiswitchisOn = YES;
     self.title = @"筛选";
-   // self.navigationController.navigationBarHidden = YES;
+   
     //自定义导航栏
     [self creatNav];
     //自定义界面
@@ -80,8 +75,8 @@
     //获取键盘的高度
     NSDictionary *userInfo = [aNotification userInfo];
     
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
+    //NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
     CGRect keyboardRect = [aValue CGRectValue];
     
     int height = keyboardRect.size.height;
@@ -114,8 +109,8 @@
     
     NSDictionary *userInfo = [aNotification userInfo];
     
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
+    //NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
     CGRect keyboardRect = [aValue CGRectValue];
     
     int height = keyboardRect.size.height;
