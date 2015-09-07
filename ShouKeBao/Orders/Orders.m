@@ -325,7 +325,7 @@
 //    [self.navigationItem.rightBarButtonItem.customView addSubview:button1];
 
     
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(-30, -17, 65, 40)];
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(-20, -17, 50, 40)];
     UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(25,10,20,20)];
     button.backgroundColor = [UIColor clearColor];
     image.image = [UIImage imageNamed:@"APPsaixuan"];
