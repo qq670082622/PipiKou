@@ -33,13 +33,14 @@
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
-@property(nonatomic)int keybdnum;//弹键盘执行次数
+@property(nonatomic)int myheight;//弹键盘执行次数
 @end
 
 @implementation ShaiXuanViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.myheight = 0;
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
     dataArr = [[NSArray alloc] init];
@@ -75,8 +76,8 @@
     //获取键盘的高度
     NSDictionary *userInfo = [aNotification userInfo];
     
-    //NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
     CGRect keyboardRect = [aValue CGRectValue];
     
     int height = keyboardRect.size.height;
@@ -87,7 +88,7 @@
         CGRect subtab = subTable.frame;
         subtab.size.height-=height;
         subTable.frame = subtab;
-
+        self.myheight = height;
     }
    // }
 //    [UIView animateWithDuration:0.5 animations:^{
@@ -107,17 +108,17 @@
 {
     //获取键盘的高度
     
-    NSDictionary *userInfo = [aNotification userInfo];
+    //NSDictionary *userInfo = [aNotification userInfo];
     
     //NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
-    CGRect keyboardRect = [aValue CGRectValue];
+    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
+    //CGRect keyboardRect = [aValue CGRectValue];
     
-    int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",height);
+    //int height = keyboardRect.size.height;
+    NSLog(@"键盘高度%d",self.myheight);
     if (subTable.frame.size.height <= kScreenSize.height-64) {
         CGRect subtab = subTable.frame;
-        subtab.size.height+=height;
+        subtab.size.height+=self.myheight;
         subTable.frame = subtab;
     }
     
