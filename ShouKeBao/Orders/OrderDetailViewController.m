@@ -386,7 +386,6 @@
 //js调取原生app的方法
 -(void)LYQSKBAPP_OpenCardScanning
 {
-
     ScanningViewController *scan = [[ScanningViewController alloc] init];
     scan.isFromOrder = YES;
     scan.isLogin = YES;
