@@ -188,7 +188,6 @@
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
-
     
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -916,8 +915,7 @@
     
 //    [self getStationName];
     
-   [self loadContentDataSource];
-
+    [self loadContentDataSource];
     [self setCoverOnTitileViewWithFrame:self.titleViewFrame];
     self.navBarView.userInteractionEnabled = YES;
     if (self.isFromDowmload && self.isMustUpdate) {
@@ -1007,8 +1005,8 @@
 
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
             
-            dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
-            dispatch_async(q, ^{
+//            dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
+//            dispatch_async(q, ^{
                 NSLog(@"-----count %lu",(unsigned long)[json[@"OrderList"] count]);
                 [self.dataSource removeAllObjects];
                
@@ -1064,10 +1062,10 @@
                 // 清理数据 看有没有隐藏的 有就不要显示
                 [self cleanDataSource];
                 
-                dispatch_async(dispatch_get_main_queue(), ^{
+//                dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
-                });
-            });
+//                });
+//            });
             
 
         }
@@ -1543,50 +1541,50 @@
         Recommend *rmodel = model.model;
         NSUInteger count = rmodel.RecommendIndexProductList.count;
         
-//      RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
+        //      RecommendCell *cell = [RecommendCell cellWithTableView:tableView];
         
         
-        self.cell = [RecommendCell cellWithTableView:tableView number:count];
-        self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.cell.ShouKeBaoNav = self.navigationController;
-
+        RecommendCell *cell = [RecommendCell cellWithTableView:tableView number:count];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.ShouKeBaoNav = self.navigationController;
+        
         NSLog(@"self.recommendCount)%ld", self.recommendCount);
-
-//
-        self.cell.selectionStyle = UITableViewCellSelectionStyleNone;
-
-        self.cell.recommend = model.model;
+        
+        //
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
+        cell.recommend = model.model;
         
         // 如果没有数据的话就隐藏这个红点
-        self.cell.redTip.hidden = !(self.recommendCount > 0);
+        cell.redTip.hidden = !(self.recommendCount > 0);
         
-//        self.yesorno = self.cell.redTip.hidden;
-
-//        if (!(self.recommendCount > 0)) {
-//            self.cell.redTip.hidden = !(self.recommendCount > 0);
-////            隐藏
-//            self.yesorno = 0;
-//        }else{
-//           
-////          显示
-//            self.yesorno = 1;
-//
-//        }
+        //        self.yesorno = self.cell.redTip.hidden;
+        
+        //        if (!(self.recommendCount > 0)) {
+        //            self.cell.redTip.hidden = !(self.recommendCount > 0);
+        ////            隐藏
+        //            self.yesorno = 0;
+        //        }else{
+        //
+        ////          显示
+        //            self.yesorno = 1;
+        //
+        //        }
         
         
-        if ([self.cell.redTip.backgroundColor isEqual:[UIColor clearColor]]) {
+        if ([cell.redTip.backgroundColor isEqual:[UIColor clearColor]]) {
             self.yesorno = YES;
         }else{
             self.yesorno = NO;
         }
         
         
-         NSLog(@" -----self.yesorno = %d --- self.recommendCount)%ld", self.yesorno, self.recommendCount);
-
+        NSLog(@" -----self.yesorno = %d --- self.recommendCount)%ld", self.yesorno, self.recommendCount);
+        
 #warning 铃铛角标刷新
         [self getNotifiList];
         
-        return self.cell;
+        return cell;
         
         
     }else{//客户提醒

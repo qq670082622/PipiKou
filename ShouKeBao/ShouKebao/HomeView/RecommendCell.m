@@ -13,7 +13,7 @@
 #import "ProductRecommendViewController.h"
 #import "ImageCollectionViewCell.h"
 static NSString * cellid = @"reuse";
-
+NSInteger theNumbe;
 #define picViewGap 45
 
 @interface RecommendCell()<UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
@@ -31,89 +31,26 @@ static NSString * cellid = @"reuse";
 + (instancetype)cellWithTableView:(UITableView *)tableView number:(NSInteger)number
 {
 //    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
-//    static NSString *cellID = @"RecommendCell";
-//    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
-//    if (!cell) {
-//        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
-//    }
-    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
-    
-    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+    theNumbe = number;
+    static NSString *cellID = @"RecommendCell";
+    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (!cell) {
-        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
+//    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
+//    
+//    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
+//    if (!cell) {
+//        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
+//    }
 
-    
-    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
-    
-
-    //    int row = (int)(number + 3 - 1)/3;
-//        NSInteger number = 3;
-    //判断屏幕的高度
-    
-    CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
-    double radious = screenH/667;
-    
-//    double radiousW = screenW/375;
-//     NSLog(@"222   = %f", [UIScreen mainScreen].bounds.size.width);
-    
-    
-    if ((number/3 == 0 && number != 1)||number == 3) {
-        NSLog(@"1kkk");
-        if (screenH == 480) {
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, ((180*radious+25)-2*picViewGap)*3, (180*radious+25)-2*picViewGap) collectionViewLayout:flowLayout];
-        }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (180*radious-2*picViewGap)*3, 180*radious-2*picViewGap) collectionViewLayout:flowLayout];
-        
-    }else if (number == 4){
-        
-        if (screenH == 480) {
-            
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
-            
-        }
-        NSLog(@"2kkk");
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
-        
-    }else if (number == 1){
-        if (screenH == 480) {
-            
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (270*radious+25)-2*picViewGap, (270*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
-        }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap,  270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
-        
-    }else if (number == 5 || number == 6){
-        if (screenH == 480) {
-           
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, (((260*radious+25)-2*picViewGap)-gap)*3/2+2*gap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
-        }
-        
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, ((270*radious-2*picViewGap)-gap)*3/2+2*gap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
-    }else{
-        NSLog(@"3kkk");
-        if (screenH == 480) {
-            cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, (400*radious+25)-2*picViewGap, (400*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
-        }
-        cell.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, 368*radious-2*picViewGap, 368*radious-2*picViewGap)collectionViewLayout:flowLayout];
-        //        NSLog(@"aaa  %f", cell.bounds.size.height);
-    }
-    
-
-    cell.collectionView.backgroundColor = [UIColor whiteColor];
-    cell.collectionView.delegate = cell;
-    cell.collectionView.dataSource = cell;
-    cell.collectionView.scrollEnabled = NO;
-    [cell.collectionView registerClass:[ImageCollectionCell class] forCellWithReuseIdentifier:cellid];
-    
-    [cell addSubview:cell.collectionView];
-    
-    
     return cell;
 }
 
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
+    NSLog(@"%ld", theNumbe);
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         self.leftLab.font = [UIFont systemFontOfSize:13];
@@ -125,6 +62,68 @@ static NSString * cellid = @"reuse";
         [self.contentView addSubview:redTip];
         self.redTip = redTip;
         NSLog(@"%f",self.bounds.size.height);
+        UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc]init];
+        
+        
+        //    int row = (int)(number + 3 - 1)/3;
+        //        NSInteger number = 3;
+        //判断屏幕的高度
+        
+        CGFloat screenH = [UIScreen mainScreen].bounds.size.height;
+        double radious = screenH/667;
+        
+        //    double radiousW = screenW/375;
+        //     NSLog(@"222   = %f", [UIScreen mainScreen].bounds.size.width);
+        
+        
+        if ((theNumbe/3 == 0 && theNumbe != 1)||theNumbe == 3) {
+            NSLog(@"1kkk");
+            if (screenH == 480) {
+                self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, ((180*radious+25)-2*picViewGap)*3, (180*radious+25)-2*picViewGap) collectionViewLayout:flowLayout];
+            }
+            self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (180*radious-2*picViewGap)*3, 180*radious-2*picViewGap) collectionViewLayout:flowLayout];
+            
+        }else if (theNumbe == 4){
+            
+            if (screenH == 480) {
+                
+                self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (260*radious+25)-2*picViewGap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+                
+            }
+            NSLog(@"2kkk");
+            self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, 270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+            
+        }else if (theNumbe == 1){
+            if (screenH == 480) {
+                
+                self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, (270*radious+25)-2*picViewGap, (270*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            }
+            self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap,  270*radious-2*picViewGap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+            
+        }else if (theNumbe == 5 || theNumbe == 6){
+            if (screenH == 480) {
+                
+                self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, (((260*radious+25)-2*picViewGap)-gap)*3/2+2*gap, (260*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            }
+            
+            self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, ((270*radious-2*picViewGap)-gap)*3/2+2*gap, 270*radious-2*picViewGap)collectionViewLayout:flowLayout];
+        }else{
+            NSLog(@"3kkk");
+            if (screenH == 480) {
+                self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap , picViewGap*2-gap, (400*radious+25)-2*picViewGap, (400*radious+25)-2*picViewGap)collectionViewLayout:flowLayout];
+            }
+            self.collectionView = [[UICollectionView alloc]initWithFrame:CGRectMake(picViewGap+gap, picViewGap*2-gap, 368*radious-2*picViewGap, 368*radious-2*picViewGap)collectionViewLayout:flowLayout];
+            //        NSLog(@"aaa  %f", cell.bounds.size.height);
+        }
+        
+        
+        self.collectionView.backgroundColor = [UIColor whiteColor];
+        self.collectionView.delegate = self;
+        self.collectionView.dataSource = self;
+        self.collectionView.scrollEnabled = NO;
+        [self.collectionView registerClass:[ImageCollectionCell class] forCellWithReuseIdentifier:cellid];
+        [self addSubview:self.collectionView];
+
         
     }
     return self;
