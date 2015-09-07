@@ -73,8 +73,15 @@
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
+    
     //获取键盘的高度
     NSDictionary *userInfo = [aNotification userInfo];
+    
+    //键盘弹出的时间
+    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSTimeInterval animationDuration;
+    [animationDurationValue getValue:&animationDuration];
+    NSLog(@"%f",animationDuration);
     
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
     //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
@@ -85,19 +92,16 @@
     NSLog(@"+++%f",subTable.frame.size.height);
    // if (self.keybdnum == 0) {
     if (subTable.frame.size.height >= kScreenSize.height-64) {
-        CGRect subtab = subTable.frame;
-        subtab.size.height-=height;
-        subTable.frame = subtab;
-        self.myheight = height;
+        [UIView animateWithDuration:0.5 animations:^{
+            CGRect subtab = subTable.frame;
+            subtab.size.height-=height;
+            subTable.frame = subtab;
+            self.myheight = height;
+        } completion:^(BOOL finished) {
+            NSLog(@"执行动画完毕");
+        }];
     }
-   // }
-//    [UIView animateWithDuration:0.5 animations:^{
-//    CGRect subtab = subTable.frame;
-//    subtab.size.height-=height;
-//    subTable.frame = subtab;
-//    } completion:^(BOOL finished) {
-//        NSLog(@"执行动画完毕");
-//    }];
+
     
 }
 
@@ -106,16 +110,7 @@
 
 - (void)keyboardWillHide:(NSNotification *)aNotification
 {
-    //获取键盘的高度
-    
-    //NSDictionary *userInfo = [aNotification userInfo];
-    
-    //NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
-    //CGRect keyboardRect = [aValue CGRectValue];
-    
-    //int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",self.myheight);
+
     if (subTable.frame.size.height <= kScreenSize.height-64) {
         CGRect subtab = subTable.frame;
         subtab.size.height+=self.myheight;
@@ -573,7 +568,7 @@
             tallPrice.text = nil;
             
             [self refereshSelectData];
-            NSMutableAttributedString *pric = [[NSMutableAttributedString alloc] initWithString:@"价格区间"];
+            //NSMutableAttributedString *pric = [[NSMutableAttributedString alloc] initWithString:@"价格区间"];
             
             NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
             [WriteFileManager saveData:priceData name:@"priceData"];
@@ -657,7 +652,6 @@
                 lowPrice.text = @"";
                 tallPrice.text = @"";
             }
-
         }
             break;
         //以下6个是价格btn
@@ -834,8 +828,6 @@
             cell.contentStr = self.subIndicateDataArr1[indexPath.row];
         }
     }
-
-    
     [cell showdataWithString:cell.str];
     return cell;
 }
@@ -984,11 +976,7 @@
 //    }else if (!value){
 //        self.subView.hidden = NO;
 //    }
-    
-    
-    
     NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
-    
 }
 }
 -(void)viewDidDisappear:(BOOL)animated{
@@ -1001,7 +989,6 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 /*
 #pragma mark - Navigation
 
