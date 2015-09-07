@@ -668,8 +668,9 @@
     else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
         //精品推荐界面
         //无需参数，直接跳转到精品推荐
-        RecomViewController *rec = [[RecomViewController alloc] init];
-        [self.navigationController pushViewController:rec animated:YES];
+        UIStoryboard * SB = [UIStoryboard storyboardWithName:@"ProductRecommend" bundle:[NSBundle mainBundle]];
+        ProductRecommendViewController * PRVC = (ProductRecommendViewController *)[SB instantiateViewControllerWithIdentifier:@"eeee"];
+        [self.navigationController pushViewController:PRVC animated:YES];
     }
     
     else if ([message[0] isEqualToString:@"productId"]){
