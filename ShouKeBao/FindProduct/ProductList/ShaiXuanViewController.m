@@ -99,14 +99,16 @@
     int height = keyboardRect.size.height;
     NSLog(@"键盘高度%d",height);
 
-    [UIView animateWithDuration:0.5 animations:^{
+//    [UIView animateWithDuration:0.5 animations:^{
+//    CGRect subtab = subTable.frame;
+//    subtab.size.height-=height;
+//    subTable.frame = subtab;
+//    } completion:^(BOOL finished) {
+//        NSLog(@"执行动画完毕");
+//    }];
     CGRect subtab = subTable.frame;
     subtab.size.height-=height;
     subTable.frame = subtab;
-    } completion:^(BOOL finished) {
-        NSLog(@"执行动画完毕");
-    }];
-    
 }
 
 
