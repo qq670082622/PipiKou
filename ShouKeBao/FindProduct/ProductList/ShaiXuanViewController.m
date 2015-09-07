@@ -71,55 +71,55 @@
 }
 //当键盘出现或改变时调用
 
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-    
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    
-    //键盘弹出的时间
-    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
-    NSTimeInterval animationDuration;
-    [animationDurationValue getValue:&animationDuration];
-    NSLog(@"%f",animationDuration);
-    
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
-    CGRect keyboardRect = [aValue CGRectValue];
-    
-    int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",height);
-    NSLog(@"+++%f",subTable.frame.size.height);
-   // if (self.keybdnum == 0) {
-    if (subTable.frame.size.height >= kScreenSize.height-64) {
-        [UIView animateWithDuration:0.5 animations:^{
-            CGRect subtab = subTable.frame;
-            subtab.size.height-=height;
-            subTable.frame = subtab;
-            self.myheight = height;
-        } completion:^(BOOL finished) {
-            NSLog(@"执行动画完毕");
-        }];
-    }
-
-    
-}
+//- (void)keyboardWillShow:(NSNotification *)aNotification
+//{
+//    
+//    //获取键盘的高度
+//    NSDictionary *userInfo = [aNotification userInfo];
+//    
+//    //键盘弹出的时间
+//    NSValue *animationDurationValue = [userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+//    NSTimeInterval animationDuration;
+//    [animationDurationValue getValue:&animationDuration];
+//    NSLog(@"%f",animationDuration);
+//    
+//    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+//    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
+//    CGRect keyboardRect = [aValue CGRectValue];
+//    
+//    int height = keyboardRect.size.height;
+//    NSLog(@"键盘高度%d",height);
+//    NSLog(@"+++%f",subTable.frame.size.height);
+//   // if (self.keybdnum == 0) {
+//    if (subTable.frame.size.height >= kScreenSize.height-64) {
+//        [UIView animateWithDuration:0.5 animations:^{
+//            CGRect subtab = subTable.frame;
+//            subtab.size.height-=height;
+//            subTable.frame = subtab;
+//            self.myheight = height;
+//        } completion:^(BOOL finished) {
+//            NSLog(@"执行动画完毕");
+//        }];
+//    }
+//
+//    
+//}
 
 
 //当键退出时调用
 
-- (void)keyboardWillHide:(NSNotification *)aNotification
-{
-
-    if (subTable.frame.size.height <= kScreenSize.height-64) {
-        CGRect subtab = subTable.frame;
-        subtab.size.height+=self.myheight;
-        subTable.frame = subtab;
-    }
-    
-    
-   
-}
+//- (void)keyboardWillHide:(NSNotification *)aNotification
+//{
+//
+//    if (subTable.frame.size.height <= kScreenSize.height-64) {
+//        CGRect subtab = subTable.frame;
+//        subtab.size.height+=self.myheight;
+//        subTable.frame = subtab;
+//    }
+//    
+//    
+//   
+//}
 
 - (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
 {
@@ -201,15 +201,18 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     //增加监听，当键盘出现或改变时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self
+     //                                        selector:@selector(keyboardWillShow:)
+       //                                          name:UIKeyboardWillShowNotification
+         //                                      object:nil];
+    
     //    增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+    //[[NSNotificationCenter defaultCenter] addObserver:self
+           //                                  selector:@selector(keyboardWillHide:)
+             //                                    name:UIKeyboardWillHideNotification
+               //                                object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     //根据预选值，选择相应的价格区间
     NSLog(@"%ld",self.primaryNum);
     if (self.primaryNum>1000) {
@@ -223,6 +226,26 @@
         tallPrice.text = self.MaxPricecondition;
     }
     
+}
+- (void)keyboardWillChangeFrame:(NSNotification *)notification
+{
+    NSDictionary *info = [notification userInfo];
+    CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
+    CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
+    CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
+    NSLog(@"%f",yOffset);
+    CGRect heightw = subTable.frame;
+//    CGRect inputFieldRect = self.inputTextField.frame;
+//    CGRect moreBtnRect = self.moreInputTypeBtn.frame;
+//    
+//    inputFieldRect.origin.y += yOffset;
+//    moreBtnRect.origin.y += yOffset;
+    heightw.size.height +=yOffset;
+    [UIView animateWithDuration:0.4 animations:^{
+        subTable.frame = heightw;
+    }];
 }
 -(void)creatNav{
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
@@ -982,8 +1005,9 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     _month = nil;
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    //[[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
+   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
