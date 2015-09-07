@@ -41,21 +41,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //增加监听获取键盘高度
-        self.keybdnum = 0;
-    //增加监听，当键盘出现或改变时收出消息
-//    [[NSNotificationCenter defaultCenter] addObserver:self
-//                                             selector:@selector(keyboardWillShow:)
-//                                                 name:UIKeyboardWillShowNotification
-//                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardDidShowNotification
-                                               object:nil];
-    //增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
+
+
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
     // Do any additional setup after loading the view.
@@ -100,12 +87,14 @@
     int height = keyboardRect.size.height;
     NSLog(@"键盘高度%d",height);
     NSLog(@"+++%f",subTable.frame.size.height);
-    if (self.keybdnum == 0) {
+   // if (self.keybdnum == 0) {
+    if (subTable.frame.size.height >= kScreenSize.height-64) {
         CGRect subtab = subTable.frame;
         subtab.size.height-=height;
         subTable.frame = subtab;
-        self.keybdnum = 1;
+
     }
+   // }
 //    [UIView animateWithDuration:0.5 animations:^{
 //    CGRect subtab = subTable.frame;
 //    subtab.size.height-=height;
@@ -131,11 +120,10 @@
     
     int height = keyboardRect.size.height;
     NSLog(@"键盘高度%d",height);
-    if (self.keybdnum == 1) {
+    if (subTable.frame.size.height <= kScreenSize.height-64) {
         CGRect subtab = subTable.frame;
         subtab.size.height+=height;
         subTable.frame = subtab;
-        self.keybdnum = 0;
     }
     
     
@@ -221,6 +209,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //增加监听，当键盘出现或改变时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    //    增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     //根据预选值，选择相应的价格区间
     NSLog(@"%ld",self.primaryNum);
     if (self.primaryNum>1000) {
@@ -1000,6 +998,8 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     _month = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
