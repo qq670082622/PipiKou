@@ -33,7 +33,7 @@
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
-@property(nonatomic)int height;//键盘高度
+@property(nonatomic)int keybdnum;//弹键盘执行次数
 @end
 
 @implementation ShaiXuanViewController
@@ -42,7 +42,7 @@
     [super viewDidLoad];
     //增加监听获取键盘高度
     //增加监听，当键盘出现或改变时收出消息
-    
+    self.keybdnum = 0;
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
@@ -93,12 +93,14 @@
     
     CGRect keyboardRect = [aValue CGRectValue];
     
-    self.height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",self.height);
-    if (self.height != 0) {
+    int height = keyboardRect.size.height;
+    NSLog(@"键盘高度%d",height);
+    NSLog(@"+++%f",subTable.frame.size.height);
+    if (self.keybdnum == 0) {
         CGRect subtab = subTable.frame;
-        subtab.size.height-=self.height;
+        subtab.size.height-=height;
         subTable.frame = subtab;
+        self.keybdnum = 1;
     }
 //    [UIView animateWithDuration:0.5 animations:^{
 //    CGRect subtab = subTable.frame;
@@ -123,14 +125,14 @@
     
     CGRect keyboardRect = [aValue CGRectValue];
     
-    //int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",self.height);
+    int height = keyboardRect.size.height;
+    NSLog(@"键盘高度%d",height);
    
         CGRect subtab = subTable.frame;
-        subtab.size.height+=self.height;
+        subtab.size.height+=height;
         subTable.frame = subtab;
     
-    self.height = 0;
+    self.keybdnum = 0;
 }
 
 - (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
