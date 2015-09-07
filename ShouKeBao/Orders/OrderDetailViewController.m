@@ -175,7 +175,6 @@
 - (void)writeVisitorsInfoWebViewGoBack{
     self.isSave = YES;
     [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"];
-    NSLog(@"$$$$www  %@", [self.webView stringByEvaluatingJavaScriptFromString:@"saveCustomer()"]);
     
     
     //    [self.webView goBack];
