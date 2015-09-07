@@ -20,6 +20,9 @@
 #import "JSONKit.h"
 #import "userIDTableviewController.h"
 #import "CardTableViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import "StrToDic.h"
+
 //#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
@@ -34,6 +37,7 @@
 
 @property(nonatomic,copy) NSString *urlSuffix;
 @property(nonatomic,copy) NSString *urlSuffix2;
+@property (nonatomic, strong)UIButton * shareBtn;
 @property(nonatomic,assign)BOOL isBack;
 @end
 
@@ -366,4 +370,118 @@
 -(void)writeDelegate:(NSDictionary *)dic{
     [self giveJSCardScanningCallBackJson:dic];
 }
+
+#pragma mark - share 出团通知书分享
+- (void)addshare{
+    //分享
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
+    
+    [button setImage:[UIImage imageNamed:@"APPfenxiang"] forState:UIControlStateNormal];
+    self.shareBtn = button;
+    self.shareBtn.hidden = NO;
+    [button addTarget:self action:@selector(shareIt:)forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *shareBarItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    self.navigationItem.rightBarButtonItem= shareBarItem;
+
+}
+/*
+-(void)shareIt:(id)sender
+{
+    NSDictionary *shareDic = [NSDictionary dictionary];
+    shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
+    //@"http://r.lvyouquan.cn/KEPicFolder/default/attached/image/20150329/20150329162426_7341.jpg"
+    //http://r.lvyouquan.cn/KEPicFolder/default/attached/skbhead/2015-07-10/5a1c7a31-0dca-47a7-9188-a9f12a89243f.jpg
+    NSLog(@"shareDic is %@",shareDic);
+    //构造分享内容
+    id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
+                                       defaultContent:shareDic[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:shareDic[@"Pic"] ]
+                                                title: shareDic[@"Title"]
+                                                  url:shareDic[@"Url"]                                          description:shareDic[@"Desc"]
+                                            mediaType:SSPublishContentMediaTypeNews];
+    
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@   ,  %@,%@",shareDic[@"Tile"],shareDic[@"Desc"],shareDic[@"Url"]] image:nil];
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", shareDic[@"Url"]]];
+    
+    //创建弹出菜单容器
+    id<ISSContainer> container = [ShareSDK container];
+    [container setIPadContainerWithView:sender  arrowDirect:UIPopoverArrowDirectionUp];
+    
+    //弹出分享菜单
+    [ShareSDK showShareActionSheet:container
+                         shareList:nil
+                           content:publishContent
+                     statusBarTips:YES
+                       authOptions:nil
+                      shareOptions:nil
+                            result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+                                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                [MobClick event:@"ShouKeBaoStoreShareSuccess" attributes:dict];
+                                [MobClick event:@"ShouKeBaoStoreShareSuccessJS" attributes:dict counter:3];
+                                [MobClick event:@"ShareSuccessAll" attributes:dict];
+                                [MobClick event:@"ShareSuccessAllJS" attributes:dict counter:3];
+                                
+                                if (state == SSResponseStateSuccess)
+                                {
+                                    NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+                                    [postDic setObject:@"0" forKey:@"ShareType"];
+                                    if (shareDic[@"Url"]) {
+                                        [postDic setObject:shareDic[@"Url"]  forKey:@"ShareUrl"];
+                                    }
+                                    [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
+                                    if (type ==ShareTypeWeixiSession) {
+                                        [postDic setObject:@"1" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeQQ){
+                                        [postDic setObject:@"2" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeQQSpace){
+                                        [postDic setObject:@"3" forKey:@"ShareWay"];
+                                    }else if(type == ShareTypeWeixiTimeline){
+                                        [postDic setObject:@"4" forKey:@"ShareWay"];
+                                    }
+                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
+                                    } failure:^(NSError *error) {
+                                        
+                                    }];
+                                    
+                                    //店铺详情
+                                    if (type == ShareTypeCopy) {
+                                        [MBProgressHUD showSuccess:@"复制成功"];
+                                    }else{
+                                        [MBProgressHUD showSuccess:@"分享成功"];
+                                    }
+                                    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                                        [MBProgressHUD hideHUD];
+                                    });
+                                    
+                                }
+                                else if (state == SSResponseStateFail)
+                                {
+                                    [self.warningLab removeFromSuperview];
+                                    NSLog( @"shareDic is %@分享失败,错误码:%ld,错误描述:%@",shareDic,(long)[error errorCode], [error errorDescription]);
+                                }else if (state == SSResponseStateCancel){
+                                    [self.warningLab removeFromSuperview];
+                                }
+                            }];
+    
+    NSLog(@"--------------分享出去的url is %@--------------",shareDic[@"Url"]);
+    
+}
+*/
+
+
+
+
+
+
+
+
+
+
 @end
+
+
+
+
+
+
+
