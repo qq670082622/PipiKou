@@ -307,7 +307,6 @@
 
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"request..... = %@", request);
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
@@ -319,15 +318,11 @@
 
     if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-//        [self doIfInWebWithUrl:rightUrl];
          return YES;
     }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
         [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-//        [self doIfInWebWithUrl:rightUrl];
-
          return YES;
     }else{
-//        [self doIfInWebWithUrl:rightUrl];
         [_indicator startAnimation];
     }
         return YES;
@@ -405,6 +400,7 @@
 
     NSLog(@"right Str is %@",rightUrl);
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
     [dic setObject:rightUrl forKey:@"PageUrl"];
      [self.shareInfo removeAllObjects];
     

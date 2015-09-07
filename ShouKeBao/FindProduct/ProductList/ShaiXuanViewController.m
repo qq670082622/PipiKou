@@ -33,19 +33,16 @@
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
-
+@property(nonatomic)int myheight;//弹键盘执行次数
 @end
 
 @implementation ShaiXuanViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //增加监听获取键盘高度
-    [self monitor];
+    self.myheight = 0;
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
-    // Do any additional setup after loading the view.
-    //self.view.window.rootViewController = [[UINavigationController alloc] init];
     dataArr = [[NSArray alloc] init];
     dataArr = @[@"目的地",@"出发城市",@"出发日期",@"行程天数",@"游览线路",@"供应商",@"主题推荐",@"酒店类型",@"出行方式",@"邮轮公司"];
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ", nil];
@@ -53,7 +50,7 @@
     self.jiafanswitchisOn = YES;
     self.jishiswitchisOn = YES;
     self.title = @"筛选";
-   // self.navigationController.navigationBarHidden = YES;
+   
     //自定义导航栏
     [self creatNav];
     //自定义界面
@@ -72,19 +69,6 @@
     }
   
 }
--(void)monitor{
-    //增加监听，当键盘出现或改变时收出消息
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    //增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-}
 //当键盘出现或改变时调用
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
@@ -93,19 +77,27 @@
     NSDictionary *userInfo = [aNotification userInfo];
     
     NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    
+    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
     CGRect keyboardRect = [aValue CGRectValue];
     
     int height = keyboardRect.size.height;
     NSLog(@"键盘高度%d",height);
-
-    [UIView animateWithDuration:0.5 animations:^{
-    CGRect subtab = subTable.frame;
-    subtab.size.height-=height;
-    subTable.frame = subtab;
-    } completion:^(BOOL finished) {
-        NSLog(@"执行动画完毕");
-    }];
+    NSLog(@"+++%f",subTable.frame.size.height);
+   // if (self.keybdnum == 0) {
+    if (subTable.frame.size.height >= kScreenSize.height-64) {
+        CGRect subtab = subTable.frame;
+        subtab.size.height-=height;
+        subTable.frame = subtab;
+        self.myheight = height;
+    }
+   // }
+//    [UIView animateWithDuration:0.5 animations:^{
+//    CGRect subtab = subTable.frame;
+//    subtab.size.height-=height;
+//    subTable.frame = subtab;
+//    } completion:^(BOOL finished) {
+//        NSLog(@"执行动画完毕");
+//    }];
     
 }
 
@@ -116,17 +108,22 @@
 {
     //获取键盘的高度
     
-    NSDictionary *userInfo = [aNotification userInfo];
+    //NSDictionary *userInfo = [aNotification userInfo];
     
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    //NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    //NSValue *aValue = [userInfo     objectForKey:@"UIKeyboardBoundsUserInfoKey"];
+    //CGRect keyboardRect = [aValue CGRectValue];
     
-    CGRect keyboardRect = [aValue CGRectValue];
+    //int height = keyboardRect.size.height;
+    NSLog(@"键盘高度%d",self.myheight);
+    if (subTable.frame.size.height <= kScreenSize.height-64) {
+        CGRect subtab = subTable.frame;
+        subtab.size.height+=self.myheight;
+        subTable.frame = subtab;
+    }
     
-    int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",height);
-    CGRect subtab = subTable.frame;
-    subtab.size.height+=height;
-    subTable.frame = subtab;
+    
+   
 }
 
 - (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
@@ -208,6 +205,16 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //增加监听，当键盘出现或改变时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    //    增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     //根据预选值，选择相应的价格区间
     NSLog(@"%ld",self.primaryNum);
     if (self.primaryNum>1000) {
@@ -987,6 +994,8 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     _month = nil;
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillShowNotification object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillHideNotification object:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
