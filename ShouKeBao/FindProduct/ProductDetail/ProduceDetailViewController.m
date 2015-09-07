@@ -405,6 +405,7 @@
 
     NSLog(@"right Str is %@",rightUrl);
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    
     [dic setObject:rightUrl forKey:@"PageUrl"];
      [self.shareInfo removeAllObjects];
     
