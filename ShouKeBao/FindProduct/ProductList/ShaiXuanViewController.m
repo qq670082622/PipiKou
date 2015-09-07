@@ -59,7 +59,6 @@
     //自定义界面
     [self creatUI];
     NSLog(@"-------------------初始化时加返：%@及时:%@------------",_jiafan,_jishi);
-  //  [self addGest];
     if ([_jiafan  isEqual: @"0"]) {
         self.jiafanswitch.on = NO;
         
@@ -404,6 +403,12 @@
     singleFingerOne.delegate = self;
     [_rangeSlider addGestureRecognizer:singleFingerOne];
 
+}
+//return 收键盘
+-(BOOL)textFieldShouldReturn:(UITextField *)textField{
+    [lowPrice resignFirstResponder];
+    [tallPrice resignFirstResponder];
+    return YES;
 }
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
