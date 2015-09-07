@@ -33,7 +33,7 @@
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
-
+@property(nonatomic)int height;//键盘高度
 @end
 
 @implementation ShaiXuanViewController
@@ -41,7 +41,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     //增加监听获取键盘高度
-    [self monitor];
+    //增加监听，当键盘出现或改变时收出消息
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    //增加监听，当键退出时收出消息
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
     lowPlabel = [[UILabel alloc] init];
     tallPlabel = [[UILabel alloc] init];
     // Do any additional setup after loading the view.
@@ -72,19 +82,6 @@
     }
   
 }
--(void)monitor{
-    //增加监听，当键盘出现或改变时收出消息
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    //增加监听，当键退出时收出消息
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillHide:)
-                                                 name:UIKeyboardWillHideNotification
-                                               object:nil];
-}
 //当键盘出现或改变时调用
 
 - (void)keyboardWillShow:(NSNotification *)aNotification
@@ -96,9 +93,13 @@
     
     CGRect keyboardRect = [aValue CGRectValue];
     
-    int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",height);
-
+    self.height = keyboardRect.size.height;
+    NSLog(@"键盘高度%d",self.height);
+    if (self.height != 0) {
+        CGRect subtab = subTable.frame;
+        subtab.size.height-=self.height;
+        subTable.frame = subtab;
+    }
 //    [UIView animateWithDuration:0.5 animations:^{
 //    CGRect subtab = subTable.frame;
 //    subtab.size.height-=height;
@@ -106,9 +107,7 @@
 //    } completion:^(BOOL finished) {
 //        NSLog(@"执行动画完毕");
 //    }];
-    CGRect subtab = subTable.frame;
-    subtab.size.height-=height;
-    subTable.frame = subtab;
+    
 }
 
 
@@ -124,11 +123,14 @@
     
     CGRect keyboardRect = [aValue CGRectValue];
     
-    int height = keyboardRect.size.height;
-    NSLog(@"键盘高度%d",height);
-    CGRect subtab = subTable.frame;
-    subtab.size.height+=height;
-    subTable.frame = subtab;
+    //int height = keyboardRect.size.height;
+    NSLog(@"键盘高度%d",self.height);
+   
+        CGRect subtab = subTable.frame;
+        subtab.size.height+=self.height;
+        subTable.frame = subtab;
+    
+    self.height = 0;
 }
 
 - (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
