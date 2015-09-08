@@ -265,6 +265,8 @@
     }else{
     self.title = @"订单详情";
     }
+    
+    
     if ([rightUrl containsString:@"/Order/Detail/"]) {
         BaseClickAttribute *dict =
         [BaseClickAttribute attributeWithDic:nil];

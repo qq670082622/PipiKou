@@ -249,7 +249,8 @@
     if (self.lblStatus.text.length>3) {
         NSRange range = [self.lblStatus.text rangeOfString:@"lvyouquan"];
         NSRange loginRange = [self.lblStatus.text rangeOfString:@"CodeForLogin"];
-        if (range.location == NSNotFound | loginRange.location != NSNotFound) {
+        NSRange downloadRang = [self.lblStatus.text.lowercaseString rangeOfString:@"downloadskbapp"];//扫码下载
+        if (range.location == NSNotFound | loginRange.location != NSNotFound | downloadRang.location != NSNotFound) {
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"MeCancelMyStore" attributes:dict];
 
@@ -270,6 +271,9 @@
                 }else{
                     QRcodeWeb.titleStr = [tempStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 }
+            }
+            if (downloadRang.location != NSNotFound) {
+                QRcodeWeb.titleStr = @"扫码下载";
             }
             [self.navigationController pushViewController:QRcodeWeb animated:YES ];
             NSLog(@"打开了网页:%@",_lblStatus.text);
