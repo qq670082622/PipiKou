@@ -29,7 +29,6 @@
 @interface ProductRecommendViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *LineWeith;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollHeight;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *LineLeft;
 @property (strong, nonatomic) IBOutlet UIView *topLine;
 @property (strong, nonatomic) IBOutlet UIScrollView *mainScrollView;//承载三个tableView的主scrollview
 @property (nonatomic, strong)UIView * recentlyHeaderView;
@@ -194,7 +193,8 @@
             NSLog(@"aaaaaaaa  %@",json);
             self.totalCount = json[@"TotalCount"];
             if ([json[@"ProductList"]count] == 0&&self.TPageNum == 1&&tableView.tag!=2015) {
-                [self yestodayBtnAction:nil];
+                [self.mainScrollView setContentOffset:CGPointMake(K_TableWidth, 0) animated:NO];
+                self.topLine.frame = CGRectMake(self.mainScrollView.contentOffset.x/3, self.topLine.frame.origin.y, self.topLine.frame.size.width, 3);
             }
             if (pageNum == 1) {
                 [dataArray removeAllObjects];
