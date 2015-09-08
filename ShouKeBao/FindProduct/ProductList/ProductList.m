@@ -208,14 +208,14 @@
     
     searchVC.delegate = self;
     
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
-    
+//    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
+//    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+//    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+//    
+//    self.navigationItem.leftBarButtonItem= leftItem;
+    self.navigationItem.leftBarButtonItem = leftItem;
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     NSString *productListGuide = [guideDefault objectForKey:@"productListGuide"];
 //    if ([productListGuide integerValue] != 1) {// 是否第一次打开app
