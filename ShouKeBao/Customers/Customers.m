@@ -67,6 +67,7 @@
 @property (nonatomic,copy) NSString *totalNumber;
 @property (nonatomic, strong)NSMutableArray *arr;
 @property(weak,nonatomic) UILabel *noProductWarnLab;
+@property (nonatomic, assign)NSInteger flag;
 @end
 
 @implementation Customers
@@ -81,7 +82,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    self.flag = 1;
 //    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];// 页码从1开始
     self.pageIndex = 1;
     [self.dataArr removeAllObjects];
@@ -166,6 +167,9 @@
 }
 //设置区头
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView.tag == 2) {
+        return 0;
+    }
     return 10;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -363,8 +367,6 @@
   //  }
 }
 
-
-
 -(void)loadDataSource
 {
      [self.noProductWarnLab removeFromSuperview];
@@ -399,12 +401,10 @@
         if (self.arr.count == 0) {
 //            [self warning];
         }else{
-
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
-    
         [self.table reloadData];
         if (_dataArr.count==0) {
            self.imageViewWhenIsNull.hidden = NO ;
@@ -564,6 +564,7 @@
     }
     return 0;
 }
+
 /*
  右滑动删除客户
  */
@@ -617,18 +618,14 @@
 //self.searchCustomerBtnOutlet.titleLabel.text);
 //    }
     
-    
     [self.searchTextField resignFirstResponder];
    
-
     //    这个居中不知道为啥不好使
     //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
     
-    
     [UIView animateWithDuration:0.3 animations:^{
-        
         self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
-        
+
     }];
     [self.historyArr addObject:self.searchTextField.text];
     if (self.historyArr.count > 6) {
@@ -637,8 +634,6 @@
     NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
     [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
     
-    
-    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
@@ -646,9 +641,6 @@
     self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
 //    self.searchTextField.text = self.searchK;
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-        
-        
-        
         NSLog(@"------管客户搜索结果的json is %@-------",json);
         [self.dataArr removeAllObjects];
         for(NSDictionary *dic in json[@"CustomerList"]){
@@ -662,18 +654,7 @@
         }else if (self.dataArr.count >0){
             self.imageViewWhenIsNull.hidden = YES;
         }
-        
-        
-//            NSString *ni = @"    ";
-//        
-//            if ([self.searchK isEqualToString:@""]) {
-//                self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
-//           
-//       
-//            }
-        
-        
-        
+    
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
@@ -808,7 +789,6 @@
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"CustomSearchClick" attributes:dict];
-
    if (self.subView.hidden == NO){
        
         [UIView animateWithDuration:0.2 animations:^{
@@ -843,13 +823,18 @@
     [self.searchTextField becomeFirstResponder];
     self.searchTextField.text = self.searchK;
     
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//解决搜索界面闪动的情况
+    if (self.flag == 1) {
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        self.flag += 1;
+    }else{
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
 //    self.navigationController.hidesBarsWhenKeyboardAppears =YES;
     [UIView animateWithDuration:0.3 animations:^{
         self.view.transform = CGAffineTransformMakeTranslation(0, -64);
         self.historyView.hidden = NO;
-        
-            }];
+    }];
     [self loadHistoryArr];
 }
 
@@ -874,7 +859,7 @@
         self.historyView.hidden = YES;
         
         if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]||[self.searchK isEqualToString:@"  "] || [self.searchK isEqualToString:@"   "] || [self.searchK isEqualToString:@"    "]|| [self.searchK isEqualToString:@"     "]|| [self.searchK isEqualToString:@"      "]) {
-            NSString *ni = @"";
+            NSString *ni = @" ";
             self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
         }else{
            NSString *ni = @"       ";
@@ -892,7 +877,6 @@
 //    [dic setObject:@"1" forKey:@"PageIndex"];
 //    [dic setObject:@"100" forKey:@"PageSize"];
 //    [dic setObject:keyWords forKey:@"SearchKey"];
-//    
 ////    NSLog(@"%@**************", keyWords);
 //    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
 //        
