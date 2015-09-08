@@ -27,29 +27,27 @@
 #import "CustomerDetailAndOrderViewController.h"
 #import "ArrowBtn.h"
 
-#import "SKSearchBar.h"
-#import "SKSearckDisplayController.h"
-#define searchDefaultPlaceholder @"客户名/电话号码"
-#define searchHistoryPlaceholder @"请输入客户姓名/电话"
-#import "SearchView.h"
-
 #define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
 - (IBAction)importUser:(id)sender;
 @property (weak, nonatomic) IBOutlet UIView *subView;
+@property (weak, nonatomic) IBOutlet UITextField *searchTextField;
 @property (weak, nonatomic) IBOutlet UIButton *timeBtn;
 //@property (weak, nonatomic) IBOutlet UIButton *orderNumBtn;
 @property (weak, nonatomic) IBOutlet UIButton *wordBtn;
+@property (weak, nonatomic) IBOutlet UIButton *cancelSearchOutlet;
+@property (weak, nonatomic) IBOutlet UIButton *searchCustomerBtnOutlet;
 @property (copy,nonatomic) NSMutableString *callingPhoneNum;
+- (IBAction)cancelSearch;
 @property (weak, nonatomic) IBOutlet UIButton *batchCustomerBtn;
 
 //1、 时间顺序;2、时间倒序; 3-订单数顺序;4、订单数倒序 5,字母顺序 6，字母倒序
-@property (nonatomic,weak) SearchView *historyView;
-//@property (weak, nonatomic) IBOutlet UITableView *historyTable;
+@property (weak, nonatomic) IBOutlet UIView *historyView;
+@property (weak, nonatomic) IBOutlet UITableView *historyTable;
 @property (nonatomic,strong) NSMutableArray *historyArr;
 //两个button的父视图
 @property (weak, nonatomic) IBOutlet UIView *conditionLine;
@@ -59,7 +57,7 @@
 @property (weak,nonatomic) IBOutlet UIImageView *imageViewWhenIsNull;
 @property (weak, nonatomic) IBOutlet UIButton *addNew;
 @property (weak, nonatomic) IBOutlet UIButton *importUser;
-@property(nonatomic,copy) NSString *searchK;
+@property(nonatomic,copy) NSMutableString *searchK;
 @property (strong, nonatomic) IBOutlet UIButton *cardCamer;
 
 @property (nonatomic,strong) NSString *ID;
@@ -69,10 +67,7 @@
 @property (nonatomic,copy) NSString *totalNumber;
 @property (nonatomic, strong)NSMutableArray *arr;
 @property(weak,nonatomic) UILabel *noProductWarnLab;
-//搜索改写
-@property (nonatomic,strong) SKSearchBar *searchBar;
-@property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
-@property (nonatomic,weak) UIView *sep2;
+@property (nonatomic, assign)NSInteger flag;
 @end
 
 @implementation Customers
@@ -84,24 +79,26 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self.view addSubview:self.searchBar];
-    [self.view sendSubviewToBack:self.searchBar];
-    [self searchDisplay];
-    
+    self.flag = 1;
+//    self.pageIndex = [NSMutableString stringWithFormat:@"%d", 1];// 页码从1开始
     self.pageIndex = 1;
     [self.dataArr removeAllObjects];
-    
+
     self.navigationItem.leftBarButtonItem = nil;
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+[self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+   // [self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    //[self.orderNumBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+ //[self.orderNumBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
     self.timeBtn.hidden = YES;
     self.wordBtn.hidden = YES;
    self.title = @"管客户";
@@ -109,10 +106,17 @@
     self.table.dataSource = self;
     self.table.rowHeight = 64;
     
-//    self.searchTextField.delegate = self;
+    self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
-//    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
+    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
+    
     self.table.separatorStyle = UITableViewCellAccessoryNone;
+    
+    //self.historyTable.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 1)];
+    
+    
+//    self.table.tableFooterView = [[UIView alloc] init];
+    
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     //self.blueLine.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
      [self customerRightBarItem];
@@ -127,7 +131,7 @@
     
     //  2, 在通知中心中, 添加在一个观察者和观察的事件
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
-  
+   
 }
 - (void)setContentView{
     CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
@@ -163,6 +167,9 @@
 }
 //设置区头
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (tableView.tag == 2) {
+        return 0;
+    }
     return 10;
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -189,7 +196,6 @@
 //    [customer synchronize];
 
     [MobClick beginLogPageView:@"Customers"];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"CustomerHistorySearch" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -219,8 +225,10 @@
 {
     self.isRefresh = YES;
     self.pageIndex = 1;
-//    self.searchK = [NSMutableString stringWithFormat:@""];
-    self.searchBar.placeholder = searchDefaultPlaceholder;
+    self.searchK = [NSMutableString stringWithFormat:@""];
+    self.searchCustomerBtnOutlet.titleLabel.text = @" 客户名/电话号码";
+    [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateNormal];
+    [self.searchCustomerBtnOutlet  setTitle:@" 客户名/电话号码" forState:UIControlStateHighlighted];
     [self loadDataSource];
 }
 //    上啦加载
@@ -310,31 +318,7 @@
     }
     return _callingPhoneNum;
 }
-- (SKSearchBar *)searchBar
-{
-    if (_searchBar == nil) {
-        _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 45)];
-        _searchBar.delegate = self;
-        _searchBar.barStyle = UISearchBarStyleDefault;
-        _searchBar.translucent = NO;
-        _searchBar.placeholder = searchDefaultPlaceholder;
-        _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    
-    }
-    
-    return _searchBar;
-}
-- (SKSearckDisplayController *)searchDisplay
-{
-    if (!_searchDisplay) {
-        _searchDisplay = [[SKSearckDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-        _searchDisplay.delegate = self;
-        _searchDisplay.searchResultsTableView.backgroundColor = [UIColor clearColor];
-        _searchDisplay.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
-    return _searchDisplay;
-}
+
 - (IBAction)addNewUser:(id)sender {
     
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
@@ -383,18 +367,19 @@
   //  }
 }
 
-
-
 -(void)loadDataSource
 {
      [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:@"1" forKey:@"PageIndex"];
+//    [dic setObject:@"500" forKey:@"PageSize"];
+    
     [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     
-//    if (_searchK.length>0) {
-//        [dic setObject:_searchK forKey:@"SearchKey"];
-//    }
+    if (_searchK.length>0) {
+        [dic setObject:_searchK forKey:@"SearchKey"];
+    }
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     NSString *sortType = [accountDefaults stringForKey:@"sortType"];
     if (sortType) {
@@ -416,12 +401,10 @@
         if (self.arr.count == 0) {
 //            [self warning];
         }else{
-
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
         }
-    
         [self.table reloadData];
         if (_dataArr.count==0) {
            self.imageViewWhenIsNull.hidden = NO ;
@@ -457,7 +440,7 @@
 
 //    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
 //    self.historyArr = searchArr;
-//    [self.historyTable reloadData];
+    [self.historyTable reloadData];
     NSLog(@"sssss");
 
 }
@@ -491,7 +474,7 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    if (tableView.tag == 1) {
+    if (tableView.tag == 1) {
 //        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
 //        CustomerDetailViewController *detail = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
         CustomModel *model = _dataArr[indexPath.row];
@@ -515,16 +498,27 @@
         VC.model = model;
         [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
         [self.navigationController pushViewController:VC animated:YES];
-//    }
+    }
+    if (tableView.tag == 2) {
+        self.searchTextField.text = _historyArr[indexPath.row];
+        [self textFieldShouldReturn:self.searchTextField];
+    }
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArr.count;
+    if (tableView.tag == 1) {
+          return self.dataArr.count;
+    }
+    if (tableView.tag == 2) {
+        return self.historyArr.count;
+    }
+    return 0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (tableView.tag == 1) {
         CustomCell *cell = [CustomCell cellWithTableView:tableView];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         CustomModel *model = _dataArr[indexPath.row];
@@ -532,17 +526,45 @@
         self.ID = cell.model.ID;
         
         return cell;
-
+    }
+    if (tableView.tag == 2) {
+        static NSString *historyID = @"history";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:historyID];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:historyID];
+        }
+        cell.textLabel.text = self.historyArr[indexPath.row];
+        return cell;
+    }
+    return 0;
 }
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (tableView.tag == 2) {
+        UIView *foot = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.historyTable.frame.size.width, 44)];
+        UIButton *clean = [UIButton buttonWithType:UIButtonTypeCustom];
+        [clean setTitle:@"清除历史纪录" forState:UIControlStateNormal];
+        [clean setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+        clean.frame = foot.frame;
+        [clean addTarget:self action:@selector(cleanHistory) forControlEvents:UIControlEventTouchUpInside];
+        [foot addSubview:clean];
+        
+        return foot;
+    }
+    return 0;
+}
+
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-//    if (tableView.tag == 2) {
-//        return 44;
-//    }
+    if (tableView.tag == 2) {
+        return 44;
+    }
     return 0;
 }
+
 /*
  右滑动删除客户
  */
@@ -568,6 +590,77 @@
 }
 
 
+
+-(void)cleanHistory
+{
+    [self.historyArr removeAllObjects];
+    //[self.historyArr addObject:@""];
+    [WriteFileManager WMsaveData:_historyArr name:@"customerSearch"];
+    [self.historyTable reloadData];
+}
+
+
+#pragma mark - textField delegate method
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    //    [self.tableDataArr addObject:self.inputView.text];
+    //    if (self.tableDataArr.count > 6) {
+    //        [self.tableDataArr removeObjectAtIndex:0];
+    //    }
+    //    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.tableDataArr];
+    //    [WriteFileManager saveFileWithArray:tmp Name:@"searchHistory"];
+    
+//    NSString *ni = @"       ";
+//    if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]) {
+//        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
+//    }else{
+//    self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:self.searchK];
+//self.searchCustomerBtnOutlet.titleLabel.text);
+//    }
+    
+    [self.searchTextField resignFirstResponder];
+   
+    //    这个居中不知道为啥不好使
+    //    self.searchCustomerBtnOutlet.titleLabel.textAlignment = NSTextAlignmentCenter;
+    
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
+
+    }];
+    [self.historyArr addObject:self.searchTextField.text];
+    if (self.historyArr.count > 6) {
+        [self.historyArr removeObjectAtIndex:0];
+    }
+    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
+    [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:@1 forKey:@"PageIndex"];
+    [dic setObject:@"100" forKey:@"PageSize"];
+    [dic setObject:self.searchTextField.text forKey:@"SearchKey"];
+    self.searchK = [NSMutableString stringWithFormat:@"%@",self.searchTextField.text];
+//    self.searchTextField.text = self.searchK;
+    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
+        NSLog(@"------管客户搜索结果的json is %@-------",json);
+        [self.dataArr removeAllObjects];
+        for(NSDictionary *dic in json[@"CustomerList"]){
+            CustomModel *model = [CustomModel modalWithDict:dic];
+            [self.dataArr addObject:model];
+        }
+        
+        [self.table reloadData];
+        if (self.dataArr.count == 0) {
+            self.imageViewWhenIsNull.hidden = NO;
+        }else if (self.dataArr.count >0){
+            self.imageViewWhenIsNull.hidden = YES;
+        }
+    
+    } failure:^(NSError *error) {
+        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
+    }];
+    [self cancelSearch];
+    return YES;
+}
 - (IBAction)timeOrderAction:(id)sender {
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"TimeOrderClick" attributes:dict];
@@ -627,7 +720,9 @@
       //  [self.table reloadData];
 
     }
+    
     [hudView hide:YES];
+    
 }
 
 
@@ -689,8 +784,120 @@
 
 }
 
+
+- (IBAction)customSearch:(id)sender {
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"CustomSearchClick" attributes:dict];
+   if (self.subView.hidden == NO){
+       
+        [UIView animateWithDuration:0.2 animations:^{
+            self.subView.alpha = 1;
+            self.subView.alpha = 0;
+            self.subView.hidden = YES;
+           
+        }];
+     }else if (self.subView.hidden == YES){
+//       self.imageViewWhenIsNull.hidden = YES;
+//       self.searchTextField.hidden = NO;
+//       self.cancelSearchOutlet.hidden = NO;
+//       self.searchCustomerBtnOutlet.hidden = YES;
+//       
+//       [self.searchTextField becomeFirstResponder];
+//       self.searchTextField.text = self.searchK;
+//       
+//       [UIView animateWithDuration:0.3 animations:^{
+//           
+//           self.view.window.transform = CGAffineTransformMakeTranslation(0, -64);
+//           self.historyView.hidden = NO;
+//                 }];
+//    
+//    [self loadHistoryArr];
+   
+   }
+    self.imageViewWhenIsNull.hidden = YES;
+    self.searchTextField.hidden = NO;
+    self.cancelSearchOutlet.hidden = NO;
+    self.searchCustomerBtnOutlet.hidden = YES;
+    
+    [self.searchTextField becomeFirstResponder];
+    self.searchTextField.text = self.searchK;
+    
+//解决搜索界面闪动的情况
+    if (self.flag == 1) {
+        [self.navigationController setNavigationBarHidden:YES animated:NO];
+        self.flag += 1;
+    }else{
+        [self.navigationController setNavigationBarHidden:YES animated:YES];
+    }
+//    self.navigationController.hidesBarsWhenKeyboardAppears =YES;
+    [UIView animateWithDuration:0.3 animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(0, -64);
+        self.historyView.hidden = NO;
+    }];
+    [self loadHistoryArr];
+}
+
+
+- (IBAction)cancelSearch {
+    self.cancelSearchOutlet.hidden = YES;
+    self.searchTextField.hidden = YES;
+    self.searchCustomerBtnOutlet.hidden = NO;
+    self.searchTextField.text = @"";
+    [self.searchTextField resignFirstResponder];
+//    if (self.dataArr.count > 0) {
+//        self.imageViewWhenIsNull.hidden = YES;
+//    }else if (self.dataArr.count == 0){
+//        self.imageViewWhenIsNull.hidden = NO;
+//   }
+    
+     [self.navigationController setNavigationBarHidden:NO animated:YES];
+ 
+    [UIView animateWithDuration:0.3 animations:^{
+        
+        self.view.window.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.historyView.hidden = YES;
+        
+        if ([self.searchK isEqualToString:@""] || [self.searchK isEqualToString:@" "]||[self.searchK isEqualToString:@"  "] || [self.searchK isEqualToString:@"   "] || [self.searchK isEqualToString:@"    "]|| [self.searchK isEqualToString:@"     "]|| [self.searchK isEqualToString:@"      "]) {
+            NSString *ni = @" ";
+            self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString:@"客户名/电话号码"];
+        }else{
+           NSString *ni = @"       ";
+        self.searchCustomerBtnOutlet.titleLabel.text = [ni stringByAppendingString: self.searchK];
+            [self.searchCustomerBtnOutlet setTitle:[ni stringByAppendingString: self.searchK] forState:UIControlStateNormal];
+            [self.searchCustomerBtnOutlet setTitle:[ni stringByAppendingString: self.searchK] forState:UIControlStateHighlighted];
+
+        }
+    }];
+
+}
 //协议传值6:由第一页实现协议方法
 - (void)deleteCustomerWith:(NSString *)keyWords{
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:@"1" forKey:@"PageIndex"];
+//    [dic setObject:@"100" forKey:@"PageSize"];
+//    [dic setObject:keyWords forKey:@"SearchKey"];
+////    NSLog(@"%@**************", keyWords);
+//    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
+//        
+//        NSLog(@"------管客户搜索结果的json is %@-------",json);
+//        [self.dataArr removeAllObjects];
+//        for(NSDictionary *dic in json[@"CustomerList"]){
+//            CustomModel *model = [CustomModel modalWithDict:dic];
+//            [self.dataArr addObject:model];
+//        }
+//        
+//        [self.table reloadData];
+//        if (self.dataArr.count == 0) {
+//            self.imageViewWhenIsNull.hidden = NO;
+//        }else if (self.dataArr.count >0){
+//            self.imageViewWhenIsNull.hidden = YES;
+//        }
+//    } failure:^(NSError *error) {
+//        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
+//    }];
+//    [self cancelSearch];
+  
     [self initPull];
 }
 
@@ -702,160 +909,5 @@
         scrollView.contentInset = UIEdgeInsetsMake(-sectionHeaderHeight, 0, 0, 0);
     }
 }
-
-#pragma mark - UISearchBar的delegate
-- (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"CustomSearchClick" attributes:dict];
-    [searchBar setShowsCancelButton:YES animated:YES];
-    return YES;
-}
-// 这个方法里面纯粹调样式
-- (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
-{
-    for (UIView *searchbuttons in [[searchBar.subviews objectAtIndex:0] subviews])
-    {if ([searchbuttons isKindOfClass:[UIButton class]])
-        {
-            UIButton *cancelButton = (UIButton *)searchbuttons;
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"取消"];
-            NSMutableDictionary *muta = [NSMutableDictionary dictionary];
-            [muta setObject:[UIColor colorWithRed:68/255.0 green:122/255.0 blue:208/255.0 alpha:1] forKey:NSForegroundColorAttributeName];
-            [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
-            [attr addAttributes:muta range:NSMakeRange(0, 2)];
-            [cancelButton setAttributedTitle:attr forState:UIControlStateNormal];
-            
-            break;
-        }else{
-            UITextField *textField = (UITextField *)searchbuttons;
-            // 边界线
-            CGFloat sepX = CGRectGetMaxX(textField.frame);
-            UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 0.5, 34)];
-            sep2.backgroundColor = [UIColor lightGrayColor];
-            sep2.alpha = 0.3;
-            [self.view.window addSubview:sep2];
-            self.sep2 = sep2;
-        }
-    }
-}
-
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
-    NSString *trimStr = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    self.searchK = trimStr;
-}
-
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-{
-    return YES;
-}
-
-- (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
-{
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"OrderSearchClick" attributes:dict];
-     [self searchLoadData];
-    [self.searchDisplayController setActive:NO animated:YES];
-    
-    if (self.searchK.length) {
-        [searchBar endEditing:YES];
-        
-        NSMutableArray *tmp = [NSMutableArray array];
-        
-        // 先取出原来的记录
-        NSArray *arr = [WriteFileManager readFielWithName:@"CustomerHistorySearch"];
-        [tmp addObjectsFromArray:arr];
-        
-        // 再加上新的搜索记录
-        [tmp addObject:self.searchK];
-        
-        // 并保存
-        [WriteFileManager saveFileWithArray:tmp Name:@"CustomerHistorySearch"];
-       
-    }
-}
-
-- (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar
-{
-    [searchBar resignFirstResponder];
-    [searchBar setShowsCancelButton:NO animated:YES];
-}
-
-#pragma mark - UISearchDisplayDelegate
--(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
-{// 纯粹调节样式
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
-    self.searchBar.barTintColor = [UIColor whiteColor];
-    
-    // 历史记录的界面
-    SearchView *searchView = [[SearchView alloc] initWithFrame:CGRectMake(0, 64, self.view.frame.size.width, self.view.frame.size.height + 49)];
-    searchView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
-    [self.view.window addSubview:searchView];
-    self.historyView = searchView;
-    
-    self.searchBar.placeholder = searchHistoryPlaceholder;
-    self.searchBar.text = self.searchK;
-}
-
--(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
-    [self.sep2 removeFromSuperview];
-    [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
-    self.searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-    [self.historyView removeFromSuperview];
-    if (self.searchK.length){
-        self.searchBar.placeholder = self.searchK;
-        NSLog(@"self.searchK = %@", self.searchK);
-    }else{
-        self.searchBar.placeholder = searchDefaultPlaceholder;
-    }
-
-
-}
-- (void)historySearch:(NSNotification *)noty
-{
-    self.searchK = noty.userInfo[@"historyKey"];
-    [self.searchDisplayController setActive:NO animated:YES];
-    [self searchLoadData];
-}
-- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
-{
-    tableView.hidden = YES;
-}
-
-#pragma mark - textField delegate method
-- (void)searchLoadData
-{
-    if (self.historyArr.count > 6) {
-        [self.historyArr removeObjectAtIndex:0];
-    }
-    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
-    [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@1 forKey:@"PageIndex"];
-    [dic setObject:@"100" forKey:@"PageSize"];
-    [dic setObject:self.searchK forKey:@"SearchKey"];
-
-    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-        NSLog(@"------管客户搜索结果的json is %@-------",json);
-        [self.dataArr removeAllObjects];
-        for(NSDictionary *dic in json[@"CustomerList"]){
-            CustomModel *model = [CustomModel modalWithDict:dic];
-            [self.dataArr addObject:model];
-        }
-        
-        [self.table reloadData];
-        if (self.dataArr.count == 0) {
-            self.imageViewWhenIsNull.hidden = NO;
-        }else if (self.dataArr.count >0){
-            self.imageViewWhenIsNull.hidden = YES;
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
-    }];
-}
-
-
-
-
 
 @end

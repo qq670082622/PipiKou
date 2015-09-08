@@ -341,7 +341,6 @@
 		B3076C951B9EE96C00414D4C /* CustomerOrdersUIViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3076C681B9EE96C00414D4C /* CustomerOrdersUIViewController.m */; };
 		B3076C961B9EE96C00414D4C /* CustomerOrdersUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3076C691B9EE96C00414D4C /* CustomerOrdersUIViewController.xib */; };
 		B3076C971B9EE96C00414D4C /* Menum.m in Sources */ = {isa = PBXBuildFile; fileRef = B3076C6B1B9EE96C00414D4C /* Menum.m */; };
-		B3076C981B9EE96C00414D4C /* SearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3076C6D1B9EE96C00414D4C /* SearchView.m */; };
 		B3076C991B9EE96C00414D4C /* Customers.m in Sources */ = {isa = PBXBuildFile; fileRef = B3076C6F1B9EE96C00414D4C /* Customers.m */; };
 		B3076C9A1B9EE96C00414D4C /* Customers.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3076C701B9EE96C00414D4C /* Customers.xib */; };
 		B3076C9B1B9EE96C00414D4C /* CustomModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3076C721B9EE96C00414D4C /* CustomModel.m */; };
@@ -978,8 +977,6 @@
 		B3076C691B9EE96C00414D4C /* CustomerOrdersUIViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomerOrdersUIViewController.xib; sourceTree = "<group>"; };
 		B3076C6A1B9EE96C00414D4C /* Menum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Menum.h; sourceTree = "<group>"; };
 		B3076C6B1B9EE96C00414D4C /* Menum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Menum.m; sourceTree = "<group>"; };
-		B3076C6C1B9EE96C00414D4C /* SearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchView.h; sourceTree = "<group>"; };
-		B3076C6D1B9EE96C00414D4C /* SearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchView.m; sourceTree = "<group>"; };
 		B3076C6E1B9EE96C00414D4C /* Customers.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Customers.h; sourceTree = "<group>"; };
 		B3076C6F1B9EE96C00414D4C /* Customers.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Customers.m; sourceTree = "<group>"; };
 		B3076C701B9EE96C00414D4C /* Customers.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Customers.xib; sourceTree = "<group>"; };
@@ -2427,8 +2424,6 @@
 				B3076C691B9EE96C00414D4C /* CustomerOrdersUIViewController.xib */,
 				B3076C6A1B9EE96C00414D4C /* Menum.h */,
 				B3076C6B1B9EE96C00414D4C /* Menum.m */,
-				B3076C6C1B9EE96C00414D4C /* SearchView.h */,
-				B3076C6D1B9EE96C00414D4C /* SearchView.m */,
 			);
 			path = customerOrders;
 			sourceTree = "<group>";
@@ -2718,7 +2713,6 @@
 				797B37931B8C1D8700411DBA /* DESSecreat.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
 				5A52FC6F1ACEBF220076DAE6 /* MeHttpTool.m in Sources */,
-				B3076C981B9EE96C00414D4C /* SearchView.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,
 				B36E57341B74C0D000471AAC /* ProductList.m in Sources */,
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
