@@ -530,7 +530,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 
     NSString * urlString = url.absoluteString;
     self.urlstring = urlString;
-    if ([urlString containsString:@"pipikou://"]) {
+    if ([urlString containsString:@"pipikou://url="]) {
         [self performSelector:@selector(StartGoWebView) withObject:nil afterDelay:0.5];
 //        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
 

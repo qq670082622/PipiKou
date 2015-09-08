@@ -490,20 +490,21 @@
             NSString * tempStr = webArray[1];
             NSArray * temparray = [tempStr componentsSeparatedByString:@"&type="];
             NSString * titleStr = temparray[0];
+            
             NSString * typeStr = temparray[1];
-            [[[UIAlertView alloc]initWithTitle:@"chanpin" message:titleStr delegate:nil cancelButtonTitle:nil otherButtonTitles:typeStr, nil]show];
+//            [[[UIAlertView alloc]initWithTitle:@"chanpin" message:titleStr delegate:nil cancelButtonTitle:nil otherButtonTitles:typeStr, nil]show];
             
             if ([typeStr isEqualToString:@"product"]) {
                 ProduceDetailViewController * Product = [[ProduceDetailViewController alloc]init];
                 Product.produceUrl = webArray[0];
-                Product.titleName = titleStr;
+                Product.titleName = [titleStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 [self.navigationController pushViewController:Product animated:YES];
             }
         }
     }else{
         BaseWebViewController * webView = [[BaseWebViewController alloc]init];
         webView.linkUrl = webStr;
-        [[[UIAlertView alloc]initWithTitle:@"putong" message:@"2" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"3", nil]show];
+//        [[[UIAlertView alloc]initWithTitle:@"putong" message:webStr delegate:nil cancelButtonTitle:nil otherButtonTitles:@"3", nil]show];
 
         [self.navigationController pushViewController:webView animated:YES];
     }
@@ -520,7 +521,7 @@
     
 //    self.tabBarItem.badgeValue = nil;
     [self headerPull];
-    [self  getUserInformation];
+    [self getUserInformation];
     
 
 //    [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isReceveNoti"];

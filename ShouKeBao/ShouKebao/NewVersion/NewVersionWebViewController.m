@@ -20,7 +20,7 @@
     [self.webView scalesPageToFit];
     [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
     [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
-
+    self.title = @"更新软件";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:self.LinkUrl]];
     [self.webView loadRequest:request];
 //    [self.navigationItem setHidesBackButton:YES animated:YES];
@@ -51,6 +51,7 @@
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     NSLog(@"%@", request.URL.absoluteString);
+//    [[[UIAlertView alloc]initWithTitle:@"url" message:request.URL.absoluteString delegate:nil cancelButtonTitle:@"✅" otherButtonTitles:nil, nil]show];
     return YES;
 }
 /*
