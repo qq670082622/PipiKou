@@ -260,6 +260,7 @@ NSInteger theNumbe;
     UIStoryboard * SB = [UIStoryboard storyboardWithName:@"ProductRecommend" bundle:[NSBundle mainBundle]];
     ProductRecommendViewController * PRVC = (ProductRecommendViewController *)[SB instantiateViewControllerWithIdentifier:@"eeee"];
     PRVC.pushId = markStr;
+
     [self.ShouKeBaoNav pushViewController:PRVC animated:YES];
 
 }
