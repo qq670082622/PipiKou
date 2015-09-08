@@ -112,8 +112,7 @@
     
     _meheader.nickName.text = [UserInfo shareUser].userName;
 
-    
-    
+
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
