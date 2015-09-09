@@ -14,6 +14,7 @@
 #import "ScanningViewController.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "NSString+FKTools.h"
 //
 @interface QRCodeViewController ()<AVCaptureMetadataOutputObjectsDelegate,notifiQRCodeToRefresh,notiQRCToStartRuning>
 @property (weak, nonatomic) IBOutlet UIView *viewPreview;
@@ -263,9 +264,9 @@
 //            if (loginRange.location != NSNotFound) {
 //                QRcodeWeb.titleStr = @" ";
 //            }
-            if ([self.lblStatus.text containsString:@"QRCodeTitle="]) {
+            if ([self.lblStatus.text myContainsString:@"QRCodeTitle="]) {
                 NSString * tempStr = [self.lblStatus.text componentsSeparatedByString:@"QRCodeTitle="][1];
-                if ([tempStr containsString:@"&"]) {
+                if ([tempStr myContainsString:@"&"]) {
                    NSString * titleStr = [tempStr componentsSeparatedByString:@"&"][0];
                     QRcodeWeb.titleStr = [titleStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 }else{

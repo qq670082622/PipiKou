@@ -77,7 +77,7 @@
     //
     //        NSLog(@"self.moneyLable.text= %@", self.moneyLable.text);
     //    }
-    
+    NSLog(@"%@", recommend);
     NSString *pic = [recommend valueForKey:@"PicUrl"];
     NSURL *url = [NSURL URLWithString:pic];
     [self.imageView sd_setImageWithURL:url];
@@ -85,7 +85,7 @@
     self.countryLable.text = [recommend valueForKey: @"ThirdAreaName"];
     NSString *money = [recommend valueForKey:@"MinPeerPrice"];
     self.moneyLable.text =  [NSString stringWithFormat:@"¥%@", money];
-    
+    NSLog(@"%@", money);
     
 }
 

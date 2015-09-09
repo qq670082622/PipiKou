@@ -10,6 +10,7 @@
 #import "YYAnimationIndicator.h"
 #import "WMAnimations.h"
 #import "MobClick.h"
+#import "NSString+FKTools.h"
 @interface URLOpenFromQRCodeViewController ()<UIWebViewDelegate>
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
 @property (weak, nonatomic) IBOutlet UIWebView *web;
@@ -124,7 +125,7 @@
         [_indicator startAnimation];
     }
     
-    if ([rightUrl containsString:@"objectc:LYQSKBAPP_LoginBackHomeView"]) {
+    if ([rightUrl myContainsString:@"objectc:LYQSKBAPP_LoginBackHomeView"]) {
         [self LoginBackHomeView];
     }
     return YES;

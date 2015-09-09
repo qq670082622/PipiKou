@@ -202,12 +202,17 @@
         NSLog(@"---%@",json);
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
-        if ([json[@"IsSuccess"] integerValue] == 1) {
-
+        if ([json[@"IsSuccess"] integerValue] == 1 || ([self.phoneNum.text isEqualToString:@"15838378342"]&&[self.code.text isEqualToString:@"910621"])) {
             // 保存AppUserID
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-            [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
-            [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            //苹果商城绿色通道
+            if ([self.phoneNum.text isEqualToString:@"15838378342"]) {
+                [def setObject:@"bdc45124fa474c7889414b55449e573e" forKey:UserInfoKeyAppUserID];
+                [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            }else{
+                [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+                [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            }
             [def synchronize];
             
             // 去更改手机独立密码
@@ -239,12 +244,18 @@
         NSLog(@"---%@",json);
         [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
         
-        if ([json[@"IsSuccess"] integerValue] == 1 || [self.code.text isEqualToString:@"920427"]) {
+        if ([json[@"IsSuccess"] integerValue] == 1 || ([self.phoneNum.text isEqualToString:@"15838378342"]&&[self.code.text isEqualToString:@"910621"])) {
             
             // 保存AppUserID
             NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+            //苹果商城绿色通道
+            if ([self.phoneNum.text isEqualToString:@"15838378342"]) {
+                [def setObject:@"bdc45124fa474c7889414b55449e573e" forKey:UserInfoKeyAppUserID];
+                [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            }else{
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
             [def setObject:self.phoneNum.text forKey:UserInfoKeyPoneNum];
+            }
             [def synchronize];
             
             // 跳转到选择分销人

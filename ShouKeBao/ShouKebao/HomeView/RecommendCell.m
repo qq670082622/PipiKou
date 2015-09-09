@@ -37,13 +37,6 @@ NSInteger theNumbe;
     if (!cell) {
         cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellID];
     }
-//    NSString *ID = [NSString stringWithFormat:@"reconmendcell%d",((arc4random() % 2500) + 1)];
-//    
-//    RecommendCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
-//    if (!cell) {
-//        cell = [[RecommendCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
-//    }
-
     return cell;
 }
 
@@ -145,7 +138,7 @@ NSInteger theNumbe;
     //    Recommend *recommend = self.recommend;
     //    NSLog(@"%@", recommend);
     //    imageCell.recommend = recommend;
-    
+    NSLog(@"%@", self.photosArr);
     Recommend *recommend = [self.photosArr objectAtIndex:indexPath.row];
     NSLog(@"recommend = %@", recommend);
     imageCell.recommend = recommend;
@@ -510,7 +503,9 @@ NSInteger theNumbe;
     //    String
     //    MinPeerPrice 最小同行价格  decimal
     self.photosArr = recommend.RecommendIndexProductList;//photoArr 其实是数组
-    
+    [self.collectionView reloadData];
+
+    NSLog(@"%@", self.photosArr);
     self.iconView.image = [UIImage imageNamed:@"jinxuan"];
     
     self.titleLab.text = @"今日推荐";

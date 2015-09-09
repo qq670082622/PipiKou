@@ -16,6 +16,7 @@
 #import "WXApi.h"
 #import <CommonCrypto/CommonCryptor.h>
 #import "GTMBase64.h"
+#import "NSString+FKTools.h"
 #define secret_key @"1LlYyQq2"
 @interface QuanViewController () <UIWebViewDelegate>
 

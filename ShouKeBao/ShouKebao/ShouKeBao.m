@@ -65,6 +65,7 @@
 #import "ProductRecommendViewController.h"
 #import "ProductList.h"
 #import "FindProductNew.h"
+#import "NSString+FKTools.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
 @property (nonatomic, retain)CLLocationManager *locationManager;
@@ -188,8 +189,6 @@
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
-    
-
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.SKBNewBtn.layer andBorderColor:[UIColor redColor] andBorderWidth:0.5 andNeedShadow:NO ];
     [self.SKBNewBtn addTarget:self action:@selector(pushToStoreFromButton) forControlEvents:UIControlEventTouchUpInside];
@@ -484,7 +483,7 @@
 
     self.navigationController.tabBarController.selectedViewController = [self.navigationController.tabBarController.viewControllers objectAtIndex:0];
     NSString * webStr = noti.object;
-    if ([webStr containsString:@"&title="]) {
+    if ([webStr myContainsString:@"&title="]) {
         NSArray * webArray = [webStr componentsSeparatedByString:@"&title="];
         if (webArray.count) {
             NSString * tempStr = webArray[1];
@@ -564,8 +563,9 @@
         else if ([message[0] isEqualToString:@"recommond"]){//精品推荐
             //精品推荐界面
             //无需参数，直接跳转到精品推荐
-            RecomViewController *rec = [[RecomViewController alloc] init];
-            [self.navigationController pushViewController:rec animated:YES];
+            UIStoryboard * SB = [UIStoryboard storyboardWithName:@"ProductRecommend" bundle:[NSBundle mainBundle]];
+            ProductRecommendViewController * PRVC = (ProductRecommendViewController *)[SB instantiateViewControllerWithIdentifier:@"eeee"];
+            [self.navigationController pushViewController:PRVC animated:YES];
         }
         
         else if ([message[0] isEqualToString:@"productId"]){

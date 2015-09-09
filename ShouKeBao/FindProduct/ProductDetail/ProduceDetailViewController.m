@@ -20,7 +20,7 @@
 #import "DayDetail.h"
 #import "yesterDayModel.h"
 #import "JSONKit.h"
-
+#import "NSString+FKTools.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *coverView;
 @property (nonatomic,strong) NSMutableDictionary *shareInfo;
@@ -330,7 +330,7 @@
 }
 
 - (void)doIfInWebWithUrl:(NSString *)rightUrl{
-//    if ([rightUrl containsString:@"mqq://"]) {
+//    if ([rightUrl myContainsString:@"mqq://"]) {
 //        NSLog(@"%@", rightUrl);
 //    }
     

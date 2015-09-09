@@ -93,20 +93,6 @@
                                     <constraint firstAttribute="height" constant="1" id="Xwn-96-YLN"/>
                                 </constraints>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6B-OF-KRR" userLabel="上海">
-                                <rect key="frame" x="23" y="7" width="40" height="27"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="27" id="HQV-7g-Drh"/>
-                                    <constraint firstAttribute="width" constant="40" id="TOo-9d-mSb"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <state key="normal" title="  上海">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="selectStaion:" destination="SpD-L2-0pP" eventType="touchUpInside" id="qZc-Io-q98"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLV-Dn-5U8">
                                 <rect key="frame" x="78" y="7" width="330" height="27"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -263,7 +249,7 @@
                                     </collectionViewCell>
                                 </cells>
                                 <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="HeaderSectionView" id="rhD-sY-ddc" customClass="HeaderSectionView">
-                                    <rect key="frame" x="0.0" y="0.0" width="339" height="40"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="339" height="50"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2EU-EA-jPD">
@@ -284,8 +270,8 @@
                                                 <constraint firstAttribute="width" constant="0.5" id="gYp-RS-A3K"/>
                                             </constraints>
                                         </view>
-                                        <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QiI-LO-hzL" userLabel="line">
-                                            <rect key="frame" x="0.0" y="39" width="339" height="0.5"/>
+                                        <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QiI-LO-hzL" userLabel="line">
+                                            <rect key="frame" x="0.0" y="49" width="339" height="0.5"/>
                                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="0.5" id="lkw-ed-I9M"/>
@@ -340,6 +326,20 @@
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f6B-OF-KRR" userLabel="上海">
+                                <rect key="frame" x="30" y="7" width="40" height="27"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="27" id="HQV-7g-Drh"/>
+                                    <constraint firstAttribute="width" constant="40" id="TOo-9d-mSb"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <state key="normal" title="  上海">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="selectStaion:" destination="SpD-L2-0pP" eventType="touchUpInside" id="qZc-Io-q98"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.89411764705882357" green="0.89411764705882357" blue="0.89411764705882357" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -355,7 +355,7 @@
                             <constraint firstAttribute="trailing" secondItem="tLV-Dn-5U8" secondAttribute="trailing" constant="6" id="Yfy-Z0-8gz"/>
                             <constraint firstItem="tLV-Dn-5U8" firstAttribute="leading" secondItem="MD9-Ym-8ek" secondAttribute="trailing" constant="8" id="a4w-6E-KUd"/>
                             <constraint firstItem="Tpr-Pb-qxO" firstAttribute="top" secondItem="f6B-OF-KRR" secondAttribute="bottom" constant="7" id="hUx-MT-jRf"/>
-                            <constraint firstItem="f6B-OF-KRR" firstAttribute="leading" secondItem="koR-Oc-RVt" secondAttribute="leading" constant="23" id="isC-wE-vOw"/>
+                            <constraint firstItem="f6B-OF-KRR" firstAttribute="leading" secondItem="koR-Oc-RVt" secondAttribute="leading" constant="30" id="isC-wE-vOw"/>
                             <constraint firstItem="tLV-Dn-5U8" firstAttribute="top" secondItem="koR-Oc-RVt" secondAttribute="top" constant="7" id="lNr-Y7-E7P"/>
                             <constraint firstAttribute="trailing" secondItem="Tpr-Pb-qxO" secondAttribute="trailing" id="nUh-5w-cI3"/>
                             <constraint firstItem="GbZ-yX-gKh" firstAttribute="leading" secondItem="nZv-WK-dWZ" secondAttribute="trailing" id="vfU-Pu-hNX"/>

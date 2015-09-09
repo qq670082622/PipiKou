@@ -312,6 +312,7 @@
 		7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15A1B33ECB8009F878D /* InspectionViewController.m */; };
 		7982F15E1B382852009F878D /* MeProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F15D1B382852009F878D /* MeProgressView.m */; };
 		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
+		798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */; };
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
 		79C2272A1B27CF93001EE081 /* FeedBcakViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C227291B27CF93001EE081 /* FeedBcakViewController.m */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
@@ -925,6 +926,8 @@
 		7982F15D1B382852009F878D /* MeProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeProgressView.m; sourceTree = "<group>"; };
 		7982F15F1B391C6A009F878D /* BaseModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseModel.h; sourceTree = "<group>"; };
 		7982F1601B391C6A009F878D /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
+		798BB6621B9FCBC300D8C070 /* NSString+FKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FKTools.h"; sourceTree = "<group>"; };
+		798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FKTools.m"; sourceTree = "<group>"; };
 		799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		799F3E0C1B3A512400C14FBB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -1663,6 +1666,7 @@
 		632613081AB1C16E003AC2DA /* Tool */ = {
 			isa = PBXGroup;
 			children = (
+				798BB6611B9FCB8B00D8C070 /* NSString+tool */,
 				797B37901B8C1D6000411DBA /* DES */,
 				63BB94B21B86D02200DB306F /* WLRangeSlider */,
 				63128F9F1B842EBF00FCDF19 /* gaosimohu */,
@@ -2285,6 +2289,15 @@
 			path = CityPlistTool;
 			sourceTree = "<group>";
 		};
+		798BB6611B9FCB8B00D8C070 /* NSString+tool */ = {
+			isa = PBXGroup;
+			children = (
+				798BB6621B9FCBC300D8C070 /* NSString+FKTools.h */,
+				798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */,
+			);
+			path = "NSString+tool";
+			sourceTree = "<group>";
+		};
 		799F3E0A1B3A512400C14FBB /* UMAnalytics_Sdk_3.5.8 */ = {
 			isa = PBXGroup;
 			children = (
@@ -2696,6 +2709,7 @@
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
 				63F1A1B21B14250E00DE9867 /* MJTypeEncoding.m in Sources */,
 				5A69960D1AF855DA002EDD91 /* TravelLoginController.m in Sources */,
+				798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */,
 				632BFFCF1AB91FD3003B15AD /* GTMBase65.m in Sources */,
 				5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */,
 				63F1A1351B13329E00DE9867 /* YesterDayCell.m in Sources */,

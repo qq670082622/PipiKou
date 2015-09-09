@@ -25,7 +25,7 @@
 #import "BaseWebViewController.h"
 #import "UIViewController+MLTransition.h"
 #import "BaseClickAttribute.h"
-//jpush 1a1249b973c6ce482d68fd4f
+#import "NSString+FKTools.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -35,8 +35,6 @@
 @end
 
 @implementation AppDelegate
-// NSString *string = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/us/app/id%@?mt=8", @"797395756"];
-//[[UIApplication sharedApplication] openURL:[NSURL URLWithString:string]];根据ID跳转到appstore
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -530,7 +528,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 
     NSString * urlString = url.absoluteString;
     self.urlstring = urlString;
-    if ([urlString containsString:@"pipikou://url="]) {
+    if ([urlString myContainsString:@"pipikou://url="]) {
         [self performSelector:@selector(StartGoWebView) withObject:nil afterDelay:0.5];
 //        [[[UIAlertView alloc]initWithTitle:@"aaaa" message:urlString delegate:nil cancelButtonTitle:@"bbbbb" otherButtonTitles:nil, nil]show];
 

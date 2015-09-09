@@ -15,6 +15,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "NSString+FKTools.h"
 @interface userIDTableviewController ()<UITextFieldDelegate, UITextViewDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
 @property (weak, nonatomic) IBOutlet UITextField *nameText;
@@ -306,7 +307,7 @@
         NSString * sexx = [self.sex isEqualToString:@"男"]?@"0":@"1";
         NSMutableString * infoString = [NSMutableString string];
         if (![self.bornText.text isEqualToString:@""]) {
-            if ([self.bornText.text containsString:@"年"]&&[self.bornText.text containsString:@"月"]&&[self.bornText.text containsString:@"日"]) {
+            if ([self.bornText.text myContainsString:@"年"]&&[self.bornText.text myContainsString:@"月"]&&[self.bornText.text myContainsString:@"日"]) {
                 [infoString appendString:[self.bornText.text componentsSeparatedByString:@"年"][0]];
                 NSString * str2 = [self.bornText.text componentsSeparatedByString:@"年"][1];
                 [infoString appendFormat:@"-%@", [str2 componentsSeparatedByString:@"月"][0]];

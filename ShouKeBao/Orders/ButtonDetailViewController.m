@@ -17,6 +17,7 @@
 #import "userIDTableviewController.h"  
 #import "CardTableViewController.h"
 #import "JSONKit.h"
+#import "NSString+FKTools.h"
 @interface ButtonDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -183,7 +184,7 @@
 //        return YES;
     }
     
-    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
+    if ([rightUrl myContainsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
         [self codeAction];
 //        return NO;
     }

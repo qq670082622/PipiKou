@@ -23,6 +23,7 @@
 #import <ShareSDK/ShareSDK.h>
 #import "StrToDic.h"
 #import "IWHttpTool.h"
+#import "NSString+FKTools.h"
 //#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
@@ -241,7 +242,7 @@
         
     }
     
-    if ([rightUrl containsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
+    if ([rightUrl myContainsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
         [self LYQSKBAPP_OpenCardScanning];
 //        return NO;
     }
@@ -254,11 +255,11 @@
     
 }
 - (void)doIfInWebWithUrl:(NSString *)rightUrl{
-    if ([rightUrl containsString:@"Product/ProductDetail"]) {
+    if ([rightUrl myContainsString:@"Product/ProductDetail"]) {
         self.title = @"产品详情";
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailProductDetailClick" attributes:dict];
-    }else if([rightUrl containsString:@"Order/SKBOrderCancel"]){
+    }else if([rightUrl myContainsString:@"Order/SKBOrderCancel"]){
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailOrderCancelClick" attributes:dict];
         self.title = @"订单详情";
@@ -267,7 +268,7 @@
     }
     
     
-    if ([rightUrl containsString:@"/Order/Detail/"]) {
+    if ([rightUrl myContainsString:@"/Order/Detail/"]) {
         BaseClickAttribute *dict =
         [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrderDetailClick" attributes:dict];
@@ -280,14 +281,14 @@
             self.navigationItem.leftBarButtonItem = leftItem;
         }
 
-        if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
+        if ([rightUrl myContainsString:@"/ProductDetailExt/"]) {//订单价格
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"FromOrderDetailProductPrice" attributes:dict];
-        }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
+        }else if([rightUrl myContainsString:@"/Order/Create?"]){//填写联系人
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"FromOrderDetailProductWritecontacts" attributes:dict];
             
-        }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
+        }else if([rightUrl myContainsString:@"/Order/CreateSuccess/"]){//提交成功
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"FromOrderDetailProductOrderSuccess" attributes:dict];
             [MobClick event:@"OrderAll" attributes:dict];
