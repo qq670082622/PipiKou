@@ -25,9 +25,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.title = @"客户详情";
+//    self.title = @"客户详情";
     self.tableView.delegate = self;
-   // [self.SetRemindBtnOutlet setHighlighted:NO];
+    [self.SetRemindBtnOutlet setHighlighted:NO];
     
     [self setSubViews];
     if (self.note.text == nil) {
@@ -40,15 +40,9 @@
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
     self.navigationItem.leftBarButtonItem = leftItem;
-    
-       
     self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
-    
-   
-    
-    
+
 }
 
 

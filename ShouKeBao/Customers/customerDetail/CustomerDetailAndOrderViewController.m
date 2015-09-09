@@ -16,7 +16,7 @@
 @property (nonatomic, weak) UISegmentedControl *segmentControl;
 @property (nonatomic, strong)CustomerOrderViewController * orderVC;
 @property (nonatomic, strong)CustomerDetailViewController * detailVC;
-
+@property (nonatomic, strong)UISegmentedControl *control;
 @property (nonatomic, strong)UIButton *button;
 @end
 
@@ -24,19 +24,25 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self setNavSegementView];
+    [self setNavSegementView];
      self.title = @"客户资料";
     [self customerRightBarItem];
     self.button.hidden = NO;
-    [self addGest];
+//    [self addGest];
     [self.view addSubview:self.detailVC.view];
+    
+//    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
+//    scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*2, [UIScreen mainScreen].bounds.size.height);
+//    scrollView.pagingEnabled = YES;
+//    [self.view addSubview:scrollView];
+//    [scrollView addSubview:self.detailVC.view];
+
+    
     
 }
 - (void)addGest{
     UISwipeGestureRecognizer *recognizer = recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleScreen:)];
-    
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
-    
     [[self view] addGestureRecognizer:recognizer];
 }
 -(void)back
@@ -47,20 +53,20 @@
 -(void)handleScreen:(UISwipeGestureRecognizer *)sender{
         [self back];
 }
-//- (void)setNavSegementView{
-//    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
-//    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
-//    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
-//    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
-//    [segment setTintColor:[UIColor whiteColor]];
-//    segment.frame = CGRectMake(0, 0, 150, 28);
-//    [segment setSelected:YES];
-//    [segment setSelectedSegmentIndex:0];
-//    [titleView addSubview:segment];
-//    self.segmentControl = segment;
-//    self.navigationItem.titleView = titleView;
-//
-//}
+- (void)setNavSegementView{
+    UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
+    NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"客户资料",@"订单详情",nil];
+    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
+    [segment addTarget:self action:@selector(sex:)forControlEvents:UIControlEventValueChanged];
+    [segment setTintColor:[UIColor whiteColor]];
+    segment.frame = CGRectMake(0, 0, 150, 28);
+    [segment setSelected:YES];
+    [segment setSelectedSegmentIndex:0];
+    [titleView addSubview:segment];
+    self.segmentControl = segment;
+    self.navigationItem.titleView = titleView;
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -68,9 +74,9 @@
 }
 -(void)sex:(UISegmentedControl *)sender
 {
-    UISegmentedControl *control = (UISegmentedControl *)sender;
+    self.control = (UISegmentedControl *)sender;
     
-    if (control.selectedSegmentIndex == 0) {
+    if (self.control.selectedSegmentIndex == 0) {
         self.button.hidden = NO;
         [self.view addSubview:self.detailVC.view];
         if (self.orderVC) {
@@ -79,7 +85,7 @@
         }
         NSLog(@"客户资料" );
         //    [self.navigationController popViewControllerAnimated:NO];
-    }else if (control.selectedSegmentIndex == 1){
+    }else if (self.control.selectedSegmentIndex == 1){
         self.button.hidden = YES;
         [self.view addSubview:self.orderVC.view];
         if (self.detailVC) {
@@ -96,8 +102,7 @@
         _orderVC = [sb instantiateViewControllerWithIdentifier:@"CustomerOrderID"];
         _orderVC.customerId = self.model.ID;
         _orderVC.mainNav = self.navigationController;
-        
-        
+    
     }
     return _orderVC;
 }
