@@ -33,6 +33,7 @@
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
+@property(nonatomic,strong) NSArray *keydataArr;//返回字典的key名字
 @end
 
 @implementation ShaiXuanViewController
@@ -44,6 +45,9 @@
     dataArr = [[NSArray alloc] init];
     dataArr = @[@"目的地",@"出发城市",@"出发日期",@"行程天数",@"游览线路",@"供应商",@"主题推荐",@"酒店类型",@"出行方式",@"邮轮公司"];
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ", nil];
+  
+    self.keydataArr = [[NSArray alloc] init];
+    self.keydataArr = @[@"Destination",@"StartCity",@"GoDate",@"ScheduleDays",@"ProductBrowseTag",@"Supplier",@"ProductThemeTag",@"HotelStandard",@"TrafficType",@"CruiseShipCompany"];
     self.month = [NSMutableString stringWithFormat:@""];
     self.jiafanswitchisOn = YES;
     self.jishiswitchisOn = YES;
@@ -264,6 +268,8 @@
     [CellView3 addSubview:self.button];
     //6个价格button
     NSArray *jiageArr = @[@"10000以下",@"20000以下",@"30000以下",@"40000以下",@"50000以下",@"60000以下"];
+    //NSArray *overseas = @[@"5K以下",@"5K-10K",@"10K-20K",@"20K-30K",@"30K-40K",@"40K以上"];
+    //NSArray *domesticArr = @[@"2K以下",@"2K-3K",@"3K-4K",@"4K-5K",@"5K-6K",@"6K以上"];国内
     for (int i = 0; i < 6; i++) {
         sixbutton = [[UIButton alloc] initWithFrame:CGRectMake(i%3*kScreenSize.width/3+kScreenSize.width/21, i/3*kScreenSize.height/12+150, 80, 26)];
         sixbutton.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"sixbtnbg"]];
@@ -790,13 +796,18 @@
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FindProductStartTimeSX" attributes:dict];
         
-        NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
-        NSDictionary *conditionDic = _conditionArr[a];
-        NSLog(@"______%@",_conditionArr[a]);
+        //NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
+        NSDictionary *conditionDic;//= _conditionArr[a];
+        //NSLog(@"______%@",_conditionArr[a]);
+        for (NSInteger i = 0 ; i<[_conditionArr count]; i++) {
+            if ([[_conditionArr objectAtIndex:i] objectForKey:self.keydataArr[indexPath.row]]) {
+                conditionDic = _conditionArr[i];
+            }
+        }
         choose.buttons = conditionDic;
         choose.needMonth = @"1";
         //subTable.hidden = YES;
-        NSLog(@"__%@",_conditionArr[a]);
+        //NSLog(@"__%@",_conditionArr[a]);
         [self.navigationController pushViewController:choose animated:YES];
     }else if(indexPath.row != 2){
         switch (indexPath.row) {
@@ -865,9 +876,14 @@
             default:
                 break;
         }
-        NSInteger a = indexPath.row;//获得当前点击的row行数
+        //NSInteger a = indexPath.row;//获得当前点击的row行数
         //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
-        NSDictionary *conditionDic = _conditionArr[a];
+        NSDictionary *conditionDic;// = _conditionArr[a];
+        for (NSInteger i = 0 ; i<[_conditionArr count]; i++) {
+            if ([[_conditionArr objectAtIndex:i] objectForKey:self.keydataArr[indexPath.row]]) {
+                conditionDic = _conditionArr[i];
+            }
+        }
         NSLog(@"------%@",_conditionArr[indexPath.row]);
         ConditionSelectViewController *conditionVC = [[ConditionSelectViewController alloc] init];
         

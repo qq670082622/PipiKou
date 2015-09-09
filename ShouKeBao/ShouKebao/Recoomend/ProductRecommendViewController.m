@@ -26,7 +26,7 @@
 #define  K_TableWidth [UIScreen mainScreen].bounds.size.width
 //整个屏幕的高度减去导航栏和按钮的高度
 #define K_TableHeight [UIScreen mainScreen].bounds.size.height - 107
-@interface ProductRecommendViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+@interface ProductRecommendViewController ()<UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate,notifi>
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *LineWeith;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *scrollHeight;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *LineLeft;
@@ -59,6 +59,8 @@
 @property (nonatomic, strong)UIButton * timeOrderBtn;
 @property (nonatomic, strong)UIButton * priceOrderBtn;
 @property (nonatomic, strong)UIView * moreBtnShowView;
+@property (nonatomic,copy)NSString *stationName;//分站名字
+@property (nonatomic)UIButton *stationBtn;//分站按钮
 @end
 
 @implementation ProductRecommendViewController
@@ -78,6 +80,9 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"ShouKeBaoRecomView"];
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    self.stationName = [def objectForKey:@"SubstationName"];
+    [self.stationBtn setTitle:[NSString stringWithFormat:@"切换分站(%@)",self.stationName]  forState:UIControlStateNormal];
 }
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
@@ -104,7 +109,7 @@
     tableView.delegate = self;
     tableView.dataSource = self;
     //下啦刷新
-    [tableView addHeaderWithTarget:self action:@selector(loadNewData) ];
+    [tableView addHeaderWithTarget:self action:@selector(loadNewData)];
     // 上啦加载更多
     [tableView addFooterWithTarget:self action:@selector(loadMoreData)];
     //设置文字
@@ -321,17 +326,17 @@
     if (!_moreBtnShowView) {
         self.moreBtnShowView = [[UIView alloc] initWithFrame:CGRectMake(K_TableWidth-140, 0, 130, 68)];
         self.moreBtnShowView.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"lansedia"]];
-        UIButton *stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        stationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        stationBtn.frame = CGRectMake(40, 5, 100, 30);
-        [stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
-        [stationBtn setImage:[UIImage imageNamed:@"qiehuana"] forState:UIControlStateNormal];
-        stationBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 10);
+        self.stationBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.stationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+        self.stationBtn.frame = CGRectMake(40, 5, 100, 30);
+        [self.stationBtn addTarget:self action:@selector(changeStation) forControlEvents:UIControlEventTouchUpInside];
+        [self.stationBtn setImage:[UIImage imageNamed:@"qiehuana"] forState:UIControlStateNormal];
+        self.stationBtn.imageEdgeInsets = UIEdgeInsetsMake(0, -45, 0, 10);
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-        NSString *stationName = [def objectForKey:@"SubstationName"];
-        [stationBtn setTitle:[NSString stringWithFormat:@"切换分站(%@)",stationName]  forState:UIControlStateNormal];
-        stationBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 10);
-        [stationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        self.stationName = [def objectForKey:@"SubstationName"];
+        [self.stationBtn setTitle:[NSString stringWithFormat:@"切换分站(%@)",self.stationName]  forState:UIControlStateNormal];
+        self.stationBtn.titleEdgeInsets = UIEdgeInsetsMake(0, -30, 0, 10);
+        [self.stationBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
         UIButton *searchBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         searchBtn.frame = CGRectMake(40, 40, 80, 30);
         //[searchBtn setContentMode:UIViewContentModeScaleAspectFill]fdjForNav;
@@ -342,7 +347,7 @@
         searchBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         [searchBtn addTarget:self action:@selector(searchAction) forControlEvents:UIControlEventTouchUpInside];
         [self.moreBtnShowView addSubview:searchBtn];
-        [self.moreBtnShowView addSubview:stationBtn];
+        [self.moreBtnShowView addSubview:self.stationBtn];
         self.moreBtnShowView.alpha = 0;
         self.moreBtnShowView.hidden = YES;
     }
@@ -428,9 +433,18 @@
     self.moreBtnShowView.alpha = 0;
     self.moreBtnShowView.hidden = YES;
     StationSelect * station =[[StationSelect alloc] init];
+    station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
 }
 
+#pragma mark - 实现切换分站刷新界面的代理
+-(void)notifiToReloadData{
+    //self.stationName = stationName;
+    //NSLog(@"%@",stationName);
+    //[self.stationBtn setTitle:[NSString stringWithFormat:@"切换分站(%@)",self.stationName]  forState:UIControlStateNormal];
+    [self loadNewData];
+    
+}
 -(void)searchAction
 {
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];

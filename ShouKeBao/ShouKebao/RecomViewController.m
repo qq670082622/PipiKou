@@ -233,6 +233,7 @@
 {
     [leftView removeFromSuperview];
     StationSelect * station =[ [StationSelect alloc] init];
+    station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
 }
 
