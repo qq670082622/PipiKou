@@ -314,6 +314,7 @@
         NSString *testStr = dicTest[@"Title"];
         if (testStr.length>0) {
             [self.shareArr removeAllObjects];
+            NSLog(@"%@", self.shareArr);
             [self.shareArr addObject:json[@"ShareInfo"]];
         }
         if (_needOpenShare) {

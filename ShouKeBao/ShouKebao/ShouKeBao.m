@@ -285,7 +285,7 @@
     //给用户打上友盟标签
     [UMessage addTag:tag
             response:^(id responseObject, NSInteger remain, NSError *error) {
-                //add your codes
+                
             }];
     NSString * string = [NSString stringWithFormat:@"business_%@", [def objectForKey:UserInfoKeyBusinessID]];
 //    [UMessage addTag:string response:nil];
@@ -714,8 +714,6 @@
     }
     return _shareDic;
 }
-
-
 #pragma -mark massegeCenterDelegate
 -(void)refreshSKBMessgaeCount:(int)count
 {
@@ -924,8 +922,6 @@
         [self checkNewVerSion];
     }
 }
-
-
 
 
 -(void)viewWillDisappear:(BOOL)animated
@@ -1405,8 +1401,7 @@
     
      [self addAlert];
    
-    
-}
+    }
 
 
 -(void)customLeftBarItem
@@ -1917,7 +1912,6 @@
    
    
 }
-
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter]removeObserver:self];
