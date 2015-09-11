@@ -379,7 +379,6 @@
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
     NSString *rightUrl = webView.request.URL.absoluteString;
-    [self doIfInWebWithUrl:rightUrl];
     self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
     [self customRightBarItemType:1];
@@ -417,6 +416,7 @@
         
         NSLog(@"分享请求数据失败，原因：%@",error);
     }];
+    [self doIfInWebWithUrl:rightUrl];
 
 }
 

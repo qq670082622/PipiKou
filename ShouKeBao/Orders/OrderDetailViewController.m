@@ -70,7 +70,6 @@
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
     
     self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
-    [_indicator setLoadText:@"拼命加载中..."];
     [self.view addSubview:_indicator];
    
     
@@ -223,6 +222,7 @@
 //    显示详情界面的url
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
+    [_indicator setLoadText:@"拼命加载中..."];
 
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
@@ -315,7 +315,6 @@
         self.navigationItem.leftBarButtonItem = leftItem;
     }
     self.isBack = NO;
-    [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
     NSString *rightUrl = webView.request.URL.absoluteString;
     [self doIfInWebWithUrl:rightUrl];
 
@@ -376,7 +375,6 @@
         }
     }
     self.isBack = NO;
-    [_indicator stopAnimationWithLoadText:@"加载失败" withType:YES];
     self.navigationItem.leftBarButtonItem.enabled = YES;
 }
 - (void)dealloc
