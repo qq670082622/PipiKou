@@ -363,6 +363,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    //判断是否显示关闭按钮
     if (self.m == 0) {
         
     }else if(self.m == 1){
@@ -421,6 +422,7 @@
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    //判断是否应该显示关闭按钮
     if (self.m == 0) {
         
     }else if(self.m == 1){

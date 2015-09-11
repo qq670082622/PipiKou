@@ -45,14 +45,12 @@
     dataArr = [[NSArray alloc] init];
     dataArr = @[@"目的地",@"出发城市",@"出发日期",@"行程天数",@"游览线路",@"供应商",@"主题推荐",@"酒店类型",@"出行方式",@"邮轮公司"];
     self.subIndicateDataArr1 = [NSMutableArray arrayWithObjects:@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ",@" ", nil];
-  
     self.keydataArr = [[NSArray alloc] init];
     self.keydataArr = @[@"Destination",@"StartCity",@"GoDate",@"ScheduleDays",@"ProductBrowseTag",@"Supplier",@"ProductThemeTag",@"HotelStandard",@"TrafficType",@"CruiseShipCompany"];
     self.month = [NSMutableString stringWithFormat:@""];
     self.jiafanswitchisOn = YES;
     self.jishiswitchisOn = YES;
     self.title = @"筛选";
-   
     //自定义导航栏
     [self creatNav];
     //自定义界面
@@ -70,7 +68,6 @@
         self.jishiswitch.on = YES;
     }
 }
-
 - (void)handleSingleFingerEvent:(UITapGestureRecognizer *)sender
 {
     NSLog(@"单指单击");
@@ -83,7 +80,7 @@
     tallPrice.text = nil;
     //改变button的不选中效果
     for (NSInteger qw =1001; qw<1007; qw++) {
-        UIButton *myButton1 = [self.view viewWithTag:qw];
+        UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
         myButton1.selected = NO;
     }
     //改变滑杆的选种效果
@@ -153,7 +150,7 @@
     //根据预选值，选择相应的价格区间
     NSLog(@"%ld",self.primaryNum);
     if (self.primaryNum>1000) {
-        UIButton *but = [self.view viewWithTag:self.primaryNum];
+        UIButton *but = (UIButton *)[self.view viewWithTag:self.primaryNum];
         but.selected = YES;
     }else if(self.primaryNum == 7){
         _rangeSlider.leftValue = self.MinPricecondition.floatValue;
@@ -167,12 +164,10 @@
 - (void)keyboardWillChangeFrame:(NSNotification *)notification
 {
     NSDictionary *info = [notification userInfo];
-    CGFloat duration = [[info objectForKey:UIKeyboardAnimationDurationUserInfoKey] floatValue];
     CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
     CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
     
     CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
-    NSLog(@"%f",yOffset);
     CGRect heightw = subTable.frame;
     heightw.size.height +=yOffset;
     [UIView animateWithDuration:0.4 animations:^{
@@ -282,11 +277,9 @@
         sixbutton.tag = 1001+i;
         [footView addSubview:sixbutton];
     }
-    
     //价格区间滑杆
     _rangeSlider = [[WLRangeSlider alloc] initWithFrame:CGRectMake(15,270 , kScreenSize.width-30, 30)];
      [_rangeSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventAllTouchEvents];
-
     [footView addSubview:_rangeSlider];
     
     lowPlabel.frame = CGRectMake(18, 250, 50, 30);
@@ -303,7 +296,6 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 322, kScreenSize.width/3, 50)];//原290
     label.text = @"自定义价格";
     
-    
     lowPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/3+6, 335, 80, 25)];
     lowPrice.background = [UIImage imageNamed:@"jiagebian"];
     lowPrice.delegate = self;
@@ -312,7 +304,6 @@
    [lowPrice setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
     UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/2+kScreenSize.width/8, 345, 15, 1)];
     midView.backgroundColor = [UIColor lightGrayColor];
-    
     
     tallPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width-kScreenSize.width/3+kScreenSize.width/20, 335, 80, 25)];
     tallPrice.background = [UIImage imageNamed:@"jiagebian"];
@@ -335,8 +326,6 @@
     centerBtn.tag = 107;
     _rangeSlider.userInteractionEnabled = YES;
 
-    
-    
     [footView addSubview:lowPlabel];
     [footView addSubview:tallPlabel];
     [footView addSubview:label];
@@ -361,7 +350,6 @@
     singleFingerOne.numberOfTapsRequired = 1; //tap次数
     singleFingerOne.delegate = self;
     [_rangeSlider addGestureRecognizer:singleFingerOne];
-
 }
 //return 收键盘
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
@@ -372,7 +360,6 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat tabscr = subTable.contentOffset.y;
-
     if (tabscr <= 0) {
         CGPoint point = CGPointMake(0, 0);
         subTable.contentOffset = point;
@@ -401,7 +388,7 @@
     tallPlabel.textColor = [UIColor lightGrayColor];
     _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
     for (NSInteger qw =1001; qw<1007; qw++) {
-        UIButton *myButton1 = [self.view viewWithTag:qw];
+        UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
         myButton1.selected = NO;
     }
 
@@ -457,7 +444,7 @@
     
     //改变button的不选中效果
     for (NSInteger qw =1001; qw<1007; qw++) {
-        UIButton *myButton1 = [self.view viewWithTag:qw];
+        UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
             myButton1.selected = NO;
     }
     //改变滑杆的选种效果
@@ -491,16 +478,19 @@
 }
 
 -(void)btnClick:(UIButton *)button{
-    [lowPrice resignFirstResponder];
-    [tallPrice resignFirstResponder];
+   
     for (NSInteger qw =1001; qw<1007; qw++) {
         if (button.tag == qw) {
             button.selected = YES;
             
         }else{
-            UIButton *myButton1 = [self.view viewWithTag:qw];
+            UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
             myButton1.selected = NO;
         }
+    }
+    if(button.tag != 107){
+        [lowPrice resignFirstResponder];
+        [tallPrice resignFirstResponder];
     }
     switch (button.tag) {
         case 101:
@@ -581,7 +571,7 @@
             long minPrice = [lowPrice.text longLongValue];
             long maxPrice = [tallPrice.text longLongValue];
             BOOL minBiger = minPrice>maxPrice;
-            
+           
             if (minBool  && maxBool && !minBiger) {
                 NSLog(@"符合条件");
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:[NSString stringWithFormat:@"%ld",self.primaryNum] userInfo:self.conditionDic];
@@ -898,10 +888,7 @@
         //取出conditionVC的navTile
         //NSString *conditionVCTile;
         conditionVC.title = dataArr[indexPath.row];
-       //self.subView.hidden = YES;
         [self.navigationController pushViewController:conditionVC animated:YES];
-        //[self presentViewController:conditionVC animated:YES completion:nil] ;
-
     }
 }
 #pragma  mark - conditionDetail delegate//key 指大字典的key value指字典中某一子value的值
@@ -937,7 +924,7 @@
 //        self.subView.hidden = NO;
 //    }
     NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
-}
+    }
 }
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
