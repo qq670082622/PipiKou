@@ -16,7 +16,7 @@
 @property (nonatomic, weak) UISegmentedControl *segmentControl;
 @property (nonatomic, strong)CustomerOrderViewController * orderVC;
 @property (nonatomic, strong)CustomerDetailViewController * detailVC;
-@property (nonatomic, strong)UISegmentedControl *control;
+
 @property (nonatomic, strong)UIButton *button;
 @end
 
@@ -25,24 +25,18 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setNavSegementView];
-     self.title = @"客户资料";
+//     self.title = @"客户资料";
     [self customerRightBarItem];
     self.button.hidden = NO;
-//    [self addGest];
+    [self addGest];
     [self.view addSubview:self.detailVC.view];
-    
-//    UIScrollView *scrollView = [[UIScrollView alloc]initWithFrame:[UIScreen mainScreen].bounds];
-//    scrollView.contentSize = CGSizeMake([UIScreen mainScreen].bounds.size.width*2, [UIScreen mainScreen].bounds.size.height);
-//    scrollView.pagingEnabled = YES;
-//    [self.view addSubview:scrollView];
-//    [scrollView addSubview:self.detailVC.view];
-
-    
     
 }
 - (void)addGest{
     UISwipeGestureRecognizer *recognizer = recognizer = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(handleScreen:)];
+    
     [recognizer setDirection:(UISwipeGestureRecognizerDirectionRight)];
+    
     [[self view] addGestureRecognizer:recognizer];
 }
 -(void)back
@@ -74,9 +68,9 @@
 }
 -(void)sex:(UISegmentedControl *)sender
 {
-    self.control = (UISegmentedControl *)sender;
+    UISegmentedControl *control = (UISegmentedControl *)sender;
     
-    if (self.control.selectedSegmentIndex == 0) {
+    if (control.selectedSegmentIndex == 0) {
         self.button.hidden = NO;
         [self.view addSubview:self.detailVC.view];
         if (self.orderVC) {
@@ -85,7 +79,7 @@
         }
         NSLog(@"客户资料" );
         //    [self.navigationController popViewControllerAnimated:NO];
-    }else if (self.control.selectedSegmentIndex == 1){
+    }else if (control.selectedSegmentIndex == 1){
         self.button.hidden = YES;
         [self.view addSubview:self.orderVC.view];
         if (self.detailVC) {
@@ -102,7 +96,8 @@
         _orderVC = [sb instantiateViewControllerWithIdentifier:@"CustomerOrderID"];
         _orderVC.customerId = self.model.ID;
         _orderVC.mainNav = self.navigationController;
-    
+        
+        
     }
     return _orderVC;
 }

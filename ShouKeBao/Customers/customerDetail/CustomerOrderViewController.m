@@ -63,7 +63,6 @@
 //    self.choosedTime = @"";
 //    self.choosedStatus = @"0";
 //    [self.view addSubview:self.meunm];
-    
     [self.view addSubview:self.tableV];
 
     [self initHeader];
