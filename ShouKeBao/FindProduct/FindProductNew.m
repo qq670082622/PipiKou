@@ -78,21 +78,21 @@
     NSUserDefaults *udf = [NSUserDefaults standardUserDefaults];
     NSString *subStationName = [udf stringForKey:@"SubstationName"];
     if (subStationName) {
-        [self.stationName setTitle:subStationName forState:UIControlStateNormal];
-//        [self.stationName setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.selectStation setTitle:subStationName forState:UIControlStateNormal];
+        self.selectStation.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 10);
     }else if (!subStationName){
-        [self.stationName setTitle:@"上海" forState:UIControlStateNormal];
-//        [self.stationName setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+        [self.selectStation setTitle:@"上海" forState:UIControlStateNormal];
+        self.selectStation.titleEdgeInsets = UIEdgeInsetsMake(0, 20, 0, 10);
     }
-    [self.stationName addTarget:self action:@selector(certaindown) forControlEvents:UIControlEventTouchDown];
-    [self.stationName addTarget:self action:@selector(selectout) forControlEvents:UIControlEventTouchUpOutside];
+    //[self.selectStation addTarget:self action:@selector(certaindown) forControlEvents:UIControlEventTouchDown];
+    [self.selectStation addTarget:self action:@selector(selectout) forControlEvents:UIControlEventTouchUpOutside];
 }
 //只要点击分站，就会调用下面的方法
--(void)certaindown{
-    NSLog(@"已经点击");
-    self.selectStation.selected = YES;
-    [self.selectStation setBackgroundImage:[UIImage imageNamed:@"selestatioinbg"] forState:UIControlStateSelected];
-}
+//-(void)certaindown{
+//    NSLog(@"已经点击");
+//    self.selectStation.selected = YES;
+//    [self.selectStation setBackgroundImage:[UIImage imageNamed:@"selestatioinbg"] forState:UIControlStateSelected];
+//}
 //点击分站之后向外滑动，分站选中效果取消
 -(void)selectout{
     self.selectStation.selected = NO;
@@ -240,7 +240,7 @@
 
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductStationClick" attributes:dict];
-//由于分站时两个button，点击一个时候给大的button增加浅灰背景，下面是取消选中
+    //由于分站时两个button，点击一个时候给大的button增加浅灰背景，下面是取消选中
     self.selectStation.selected = NO;
     StationSelect *station = [[StationSelect alloc] init];
     station.delegate = self;

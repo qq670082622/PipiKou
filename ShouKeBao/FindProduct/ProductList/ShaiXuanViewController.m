@@ -263,7 +263,7 @@
     [CellView3 addSubview:self.button];
     //6个价格button
     NSArray *jiageArr = @[@"10000以下",@"20000以下",@"30000以下",@"40000以下",@"50000以下",@"60000以下"];
-    //NSArray *overseas = @[@"5K以下",@"5K-10K",@"10K-20K",@"20K-30K",@"30K-40K",@"40K以上"];
+    //NSArray *overseas = @[@"5K以下",@"5K-10K",@"10K-20K",@"20K-30K",@"30K-40K",@"40K以上"];//国外
     //NSArray *domesticArr = @[@"2K以下",@"2K-3K",@"3K-4K",@"4K-5K",@"5K-6K",@"6K以上"];国内
     for (int i = 0; i < 6; i++) {
         sixbutton = [[UIButton alloc] initWithFrame:CGRectMake(i%3*kScreenSize.width/3+kScreenSize.width/21, i/3*kScreenSize.height/12+150, 80, 26)];
