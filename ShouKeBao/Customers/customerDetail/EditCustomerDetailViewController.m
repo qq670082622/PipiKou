@@ -336,7 +336,7 @@
    
     }else if(self.name.text.length == 0 || self.tele.text.length<7){
         [hudView hide:YES afterDelay:0.0];
-        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"😪，无法保存" message:@"您的客户资料不正确，若不想保存请点击“管客户”按钮返回" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"😪，无法保存" message:@"您的客户资料不正确!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
         [alert show];
     }
 
