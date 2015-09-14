@@ -153,10 +153,10 @@
     [IWHttpTool WMpostWithURL:@"/Customer/CreateCustomerList" params:dic success:^(id json) {
         NSLog(@"批量导入客户成功 返回json is %@",json);
         [self.delegate referesh];
+        [self.navigationController popViewControllerAnimated:YES];
     } failure:^(NSError *error) {
         NSLog(@"批量导入客户失败，返回error is %@",error);
     }];
-    [self.navigationController popViewControllerAnimated:YES];
     
 }
 

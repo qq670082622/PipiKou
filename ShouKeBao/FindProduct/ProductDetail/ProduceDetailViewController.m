@@ -312,7 +312,7 @@
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
-    
+    NSRange shareRange = [rightUrl rangeOfString:@"objectc:LYQSKBAPP_OpenShareProduct"];
     [_indicator startAnimation];
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
 
@@ -325,6 +325,9 @@
     }else{
         [_indicator startAnimation];
     }
+    if (shareRange.location != NSNotFound) {
+        [self shareIt:nil];
+    }
         return YES;
   
 }
@@ -335,15 +338,15 @@
 //    }
     
     if (!self.isBack) {
-        if ([rightUrl containsString:@"/ProductDetailExt/"]) {//订单价格
+        if ([rightUrl myContainsString:@"/ProductDetailExt/"]) {//订单价格
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             NSLog(@"%@", [NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]]);
             [MobClick event:[NSString stringWithFormat:@"%@ProductPrice", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
-        }else if([rightUrl containsString:@"/Order/Create?"]){//填写联系人
+        }else if([rightUrl myContainsString:@"/Order/Create?"]){//填写联系人
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductWritecontacts", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
             
-        }else if([rightUrl containsString:@"/Order/CreateSuccess/"]){//提交成功
+        }else if([rightUrl myContainsString:@"/Order/CreateSuccess/"]){//提交成功
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:[NSString stringWithFormat:@"%@ProductOrderSuccess", [self.eventArray objectAtIndex:self.fromType]] attributes:dict];
             [MobClick event:@"OrderAll" attributes:dict];
@@ -363,6 +366,7 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    //判断是否显示关闭按钮
     if (self.m == 0) {
         
     }else if(self.m == 1){
@@ -379,7 +383,6 @@
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
 
     NSString *rightUrl = webView.request.URL.absoluteString;
-    [self doIfInWebWithUrl:rightUrl];
     self.isBack = NO;
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
     [self customRightBarItemType:1];
@@ -417,10 +420,12 @@
         
         NSLog(@"分享请求数据失败，原因：%@",error);
     }];
+    [self doIfInWebWithUrl:rightUrl];
 
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    //判断是否应该显示关闭按钮
     if (self.m == 0) {
         
     }else if(self.m == 1){
