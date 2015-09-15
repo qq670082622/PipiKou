@@ -14,8 +14,8 @@
 
 
 
-#define formalRUL @"http://app.lvyouquan.cn/"
-//#define formalRUL @"http://apptest.lvyouquan.cn/"
+//#define formalRUL @"http://app.lvyouquan.cn/"
+#define formalRUL @"http://apptest.lvyouquan.cn/"
 @interface IWHttpTool : NSObject
 /**
  *  发送一个POST请求

@@ -138,7 +138,7 @@
     lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
     
     [self.conditionLine addSubview:lineDown];
-    [self.conditionLine addSubview:lineOn];
+//    [self.conditionLine addSubview:lineOn];
 
     ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
     [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -162,15 +162,7 @@
     [self.conditionLine addSubview:self.timeButton];
     [self.conditionLine addSubview:self.wordButton];
 }
-//设置区头
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 0;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 5)];
-    view.backgroundColor = self.table.backgroundColor;
-    return view;
-}
+
 //4,收到通知中心的消息时,观察者(self)要调用方法
 - (void)receiveNotification:(NSNotification *)noti
 {
@@ -404,7 +396,7 @@
         [dic setObject:@"2" forKey:@"sortType"];
 }
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-//        NSLog(@"------管客户json is %@-------",json);
+        NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
         }
@@ -533,14 +525,22 @@
         return cell;
 
 }
-
+//设置区头
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 5.0f;
+}
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 5)];
+    view.backgroundColor = self.table.backgroundColor;
+    return view;
+}
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
 //    if (tableView.tag == 2) {
 //        return 44;
 //    }
-    return 0;
+    return 0.01f;
 }
 /*
  右滑动删除客户
