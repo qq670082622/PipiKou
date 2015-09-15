@@ -60,7 +60,23 @@
     _model = model;
     self.userIcon.image =  [UIImage imageNamed:@"quanquange"];
     self.userName.text = model.Name;
-    self.userTele.text = [NSString stringWithFormat:@"电话：%@",model.Mobile];
+    
+//    利用正则法则处理电话号码
+    NSString *pattern = @"\\d";//@"[0-9]"
+    NSRegularExpression *regular = [[NSRegularExpression alloc]initWithPattern:pattern options:NSRegularExpressionCaseInsensitive error:nil];
+    NSArray *results = [regular matchesInString:model.Mobile options:0 range:NSMakeRange(0, model.Mobile.length)];
+    
+    NSMutableArray *arr = [NSMutableArray array];
+    for (NSTextCheckingResult *result in results) {
+//        NSLog(@"%@   %@", NSStringFromRange(result.range), [d substringWithRange:result.range]);
+        [arr addObject:[model.Mobile substringWithRange:result.range]];
+    }
+    NSString *tel = [NSString string];
+    for (NSInteger i = 0; i < arr.count; i++) {
+        tel = [tel stringByAppendingString:arr[i]];
+    }
+   
+    self.userTele.text = [NSString stringWithFormat:@"电话：%@",tel];
     self.userOders.text = [NSString stringWithFormat:@"订单数：%@",model.OrderCount];
     }
 

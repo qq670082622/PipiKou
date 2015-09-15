@@ -109,11 +109,8 @@
    return 10.0f;
 }
 
+- (void)saveCustomer:(UIButton *)save{
 
-
-
-- (void)saveCustomer:(UIBarButtonItem *)save{
-    
     NSLog(@"self.tele.text.length = %@", self.tele.text);
     if (self.name.text.length>0 && self.tele.text.length>6) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
