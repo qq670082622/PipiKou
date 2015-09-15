@@ -476,26 +476,26 @@
         [self.tableV footerEndRefreshing];
         if (json) {
             NSLog(@"aa------%@",json);
-            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
-            dispatch_async(q, ^{
-                if (self.isHeadRefresh) {
-                    [self.dateSource removeAllObjects];
-                }
-              
-                for (NSDictionary *dic in json[@"OrderList"]) {
-                    OrderModel *order = [OrderModel orderModelWithDict:dic];
-                    [self.dateSource addObject:order];
-//                      NSLog(@"self.dataSourse = %@", self.dateSource);
-                }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    if (self.dateSource.count == 0) {
-                        [self setNullImage];
-//                        NSLog(@"////////////////// %ld", self.dateSource.count);
-                    }
-                   
-                    [self.tableV reloadData];
-                });
-            });
+            //            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
+            //            dispatch_async(q, ^{
+            if (self.isHeadRefresh) {
+                [self.dateSource removeAllObjects];
+            }
+            
+            for (NSDictionary *dic in json[@"OrderList"]) {
+                OrderModel *order = [OrderModel orderModelWithDict:dic];
+                [self.dateSource addObject:order];
+                //                      NSLog(@"self.dataSourse = %@", self.dateSource);
+            }
+            //                dispatch_async(dispatch_get_main_queue(), ^{
+            if (self.dateSource.count == 0) {
+                [self setNullImage];
+                //                        NSLog(@"////////////////// %ld", self.dateSource.count);
+            }
+            
+            [self.tableV reloadData];
+            //                });
+            //            });
         }
     } failure:^(NSError *error) {
         

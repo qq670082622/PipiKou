@@ -396,7 +396,7 @@
         [dic setObject:@"2" forKey:@"sortType"];
 }
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-//        NSLog(@"------管客户json is %@-------",json);
+        NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
         }
