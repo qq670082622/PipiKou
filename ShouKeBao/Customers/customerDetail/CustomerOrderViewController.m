@@ -466,7 +466,7 @@
 {   self.isNUll = NO;
 
     NSDictionary *param = @{@"CustomerID":self.customerId};
-    
+    NSLog(@"self.customer = %@", self.customerId);
 //    NSDictionary *param = @{@"CustomerID":self.customerId,
 //                            @"CreatedDateRang":self.choosedTime,
 //                            @"State":self.choosedStatus};

@@ -403,6 +403,7 @@
         self.totalNumber = json[@"TotalCount"];
         
         NSLog(@"__________ %ld", [json[@"CustomerList"]count]);
+        NSLog(@"__________ %@", json[@"CustomerList"]);
 
         // 当再无加载数据时提示没有客户的信息
        self.arr = json[@"CustomerList"];
