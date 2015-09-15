@@ -311,19 +311,7 @@
     tallPrice.tag = 220;
     tallPrice.placeholder = @"  ¥";
     [tallPrice setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
-    
-    //确定按钮上面的一条线
-    UIView *qdTop = [[UIView alloc] initWithFrame:CGRectMake(0, 390, kScreenSize.width, 1)];
-    qdTop.backgroundColor = [UIColor lightGrayColor];
-    qdTop.alpha = 0.8;
-    
-    //确定按钮
-    UIButton *centerBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 398, kScreenSize.width-30, 30)];
-    centerBtn.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"quedingbg"]];
-    [centerBtn setTitle:@"确定" forState:UIControlStateNormal];
-    [centerBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [centerBtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
-    centerBtn.tag = 107;
+
     _rangeSlider.userInteractionEnabled = YES;
 
     [footView addSubview:lowPlabel];
@@ -332,8 +320,6 @@
     [footView addSubview:lowPrice];
     [footView addSubview:midView];
     [footView addSubview:tallPrice];
-    [footView addSubview:qdTop];
-    [footView addSubview:centerBtn];
     [footView addSubview:footSta];
     [footView addSubview:CellView1];
     [footView addSubview:CellView2];
@@ -342,7 +328,17 @@
     
     subTable.tableFooterView = footView;
     //subTable.userInteractionEnabled = NO;
+    
     [self.view addSubview:subTable];
+    
+    UIButton *surebtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kScreenSize.height-114, kScreenSize.width, 50)];
+    surebtn.backgroundColor = [UIColor orangeColor];
+    [surebtn setTitle:@"确定" forState:UIControlStateNormal];
+    [surebtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [surebtn addTarget:self action:@selector(btnClick:) forControlEvents:UIControlEventTouchUpInside];
+    surebtn.tag = 107;
+    [self.view addSubview:surebtn];
+    
     //给价格区间增加点击手势
     UITapGestureRecognizer *singleFingerOne = [[UITapGestureRecognizer alloc] initWithTarget:self
                                                                                       action:@selector(handleSingleFingerEvent:)];
