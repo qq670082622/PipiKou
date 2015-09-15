@@ -76,6 +76,7 @@
 //    [self.view addSubview:pro];
     // 设置头像
     NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+    NSLog(@"%@",head);
     if (head) {
         [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
     }
@@ -85,7 +86,6 @@
     NSDictionary * dic = @{};
     [MeHttpTool inspectionWithParam:dic success:^(id json) {
         self.versionInfoDic = json[@"NewVersion"];
-        NSLog(@"self.versionInfoDic = %@", self.versionInfoDic);
         [self.tableView reloadData];
     } failure:^(NSError *error) {
         
@@ -111,7 +111,6 @@
 
     
     _meheader.nickName.text = [UserInfo shareUser].userName;
-
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
@@ -205,6 +204,7 @@
 {
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
         [sheet showInView:self.view.window];
+
 }
 
 #pragma mark - MeButtonViewDelegate

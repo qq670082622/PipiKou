@@ -90,6 +90,7 @@
     [jiafanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [jiafanBtn setBackgroundImage:[UIImage imageNamed:@"dihesong"] forState:UIControlStateNormal];
     jiafanBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+    jiafanBtn.userInteractionEnabled = NO;
     [self.contentView addSubview:jiafanBtn];
     self.jiafanBtn = jiafanBtn;
     UILabel * diLab = [[UILabel alloc]initWithFrame:CGRectMake(4, 0, 15, 15)];
@@ -103,6 +104,7 @@
     [quanBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [quanBtn setBackgroundImage:[UIImage imageNamed:@"songhedi"] forState:UIControlStateNormal];
     quanBtn.titleLabel.font = [UIFont systemFontOfSize:11];
+    quanBtn.userInteractionEnabled = NO;
     [self.contentView addSubview:quanBtn];
     self.quanBtn = quanBtn;
     UILabel * songLab = [[UILabel alloc]initWithFrame:CGRectMake(4, 0, 15, 15)];
@@ -120,6 +122,7 @@
     [ShanDianBtn setBackgroundImage:[UIImage resizedImageWithName:@"chufa"] forState:UIControlStateNormal];
     ShanDianBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     ShanDianBtn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    ShanDianBtn.userInteractionEnabled = NO;
     [self.contentView addSubview:ShanDianBtn];
     self.ShanDianBtn = ShanDianBtn;
     
