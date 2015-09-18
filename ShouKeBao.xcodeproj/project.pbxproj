@@ -369,6 +369,7 @@
 		B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A6641BA6A25F0043DF7C /* remondViewController.m */; };
 		B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */; };
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
+		B3C01DEC1BABAF41005E4BB5 /* SwipeView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DEB1BABAF41005E4BB5 /* SwipeView.m */; };
 		B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */; };
 /* End PBXBuildFile section */
 
@@ -1023,6 +1024,8 @@
 		B3B7A6641BA6A25F0043DF7C /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
 		B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
 		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
+		B3C01DEA1BABAF41005E4BB5 /* SwipeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SwipeView.h; sourceTree = "<group>"; };
+		B3C01DEB1BABAF41005E4BB5 /* SwipeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SwipeView.m; sourceTree = "<group>"; };
 		B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -1377,6 +1380,8 @@
 		5A52FBDD1ACEBF220076DAE6 /* MeView */ = {
 			isa = PBXGroup;
 			children = (
+				B3C01DEA1BABAF41005E4BB5 /* SwipeView.h */,
+				B3C01DEB1BABAF41005E4BB5 /* SwipeView.m */,
 				5A52FBDE1ACEBF220076DAE6 /* MeButton.h */,
 				5A52FBDF1ACEBF220076DAE6 /* MeButton.m */,
 				7982F15C1B382852009F878D /* MeProgressView.h */,
@@ -2837,6 +2842,7 @@
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
 				7982F15B1B33ECB8009F878D /* InspectionViewController.m in Sources */,
 				5A52FC771ACEBF220076DAE6 /* ProductHistoryCell.m in Sources */,
+				B3C01DEC1BABAF41005E4BB5 /* SwipeView.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
 				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
 				845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */,
