@@ -140,6 +140,10 @@ void UncaughtExceptionHandler(NSException *exception) {
     if ([isFirst integerValue] != 1) {
         // 如果是第一次 就去登录旅行社 绑定手机 并显示欢迎界面
         [self setWelcome];//初次登录进入欢迎界面
+        NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+        NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+        NSDictionary * dict = @{@"Version":currentVersion};
+        [MobClick event:@"APPSetUpNumber" attributes:dict];
     }else{
         // 如果不是第一次就 显示常规登录
         if (self.isAutoLogin){
@@ -544,7 +548,9 @@ void UncaughtExceptionHandler(NSException *exception) {
 //        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
 //        [defaultCenter postNotificationName:@"FromiMesseage" object:webStr];
 //    }
-    [WXApi handleOpenURL:url delegate:self];
+    
+//    [[[UIAlertView alloc]initWithTitle:@"zhifu" message:url.absoluteString delegate:nil cancelButtonTitle:@"a" otherButtonTitles:nil, nil]show];
+//    [WXApi handleOpenURL:url delegate:self];
 
     [ShareSDK handleOpenURL:url
                  sourceApplication:sourceApplication

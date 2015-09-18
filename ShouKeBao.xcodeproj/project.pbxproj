@@ -283,6 +283,7 @@
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		791AA5171B7DDBDB007C5C6A /* ProductRecommend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */; };
+		791C712D1BAAB3F200C63EAE /* TravelConsultantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 791C712C1BAAB3F200C63EAE /* TravelConsultantViewController.m */; };
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
 		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
@@ -870,6 +871,8 @@
 		63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductRecommend.storyboard; sourceTree = "<group>"; };
+		791C712B1BAAB3F200C63EAE /* TravelConsultantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewController.h; sourceTree = "<group>"; };
+		791C712C1BAAB3F200C63EAE /* TravelConsultantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewController.m; sourceTree = "<group>"; };
 		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		795E1EFD1B72F75300072A77 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -1334,6 +1337,8 @@
 				5A61657B1AE771C700641837 /* QuanViewController.m */,
 				796FBA021B58B5BC009C75AF /* MoneyTreeViewController.h */,
 				796FBA031B58B5BC009C75AF /* MoneyTreeViewController.m */,
+				791C712B1BAAB3F200C63EAE /* TravelConsultantViewController.h */,
+				791C712C1BAAB3F200C63EAE /* TravelConsultantViewController.m */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -2818,6 +2823,7 @@
 				5A52FC6A1ACEBF220076DAE6 /* ReBindViewController.m in Sources */,
 				635E70A81B1806E8008EFEB6 /* ScanningViewController.m in Sources */,
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
+				791C712D1BAAB3F200C63EAE /* TravelConsultantViewController.m in Sources */,
 				B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */,
 				B3B7A6731BA6A25F0043DF7C /* CustomerDetailAndOrderViewController.m in Sources */,
 				632B00021AB92A3A003B15AD /* UIView+WebCacheOperation.m in Sources */,

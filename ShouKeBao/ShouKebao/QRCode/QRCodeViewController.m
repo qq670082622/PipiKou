@@ -281,6 +281,7 @@
             
         }else{
             ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+            detail.noShareInfo = YES;
             detail.produceUrl = self.lblStatus.text;
             detail.delegate = self;
             detail.fromType = FromQRcode;

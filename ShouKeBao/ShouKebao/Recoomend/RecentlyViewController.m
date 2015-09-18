@@ -282,6 +282,7 @@
 
     recentlyModel *detail = self.dataArr[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
+    web.shareInfo = detail.ShareInfo;
     web.produceUrl = detail.LinkUrl;
     web.fromType = FromRecommend;
     [self.navigationController pushViewController:web animated:YES];

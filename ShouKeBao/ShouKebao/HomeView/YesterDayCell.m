@@ -241,8 +241,12 @@
 
 -(void)shareIt
 {
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ClickShareAll" attributes:dict];
     NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_modal.ShareInfo];
     NSLog(@"-------------tmp is %@----------",tmp);
+
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
@@ -313,6 +317,9 @@
                                 {
                                     [self.warningLab removeFromSuperview];
                                     NSLog(@"TEXT_ShARE_FAI, 分享失败,错误码:%ld,错误描述:%@",(long)[error errorCode], [error errorDescription]) ;
+                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                        [MobClick event:@"ShareFailAll" attributes:dict];
+
                                 }else if (state == SSResponseStateCancel){
                                     [self.warningLab removeFromSuperview];
                                 }
