@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<<<<<<< HEAD
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
-=======
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
->>>>>>> 72ceec68f9fbc854aafad723beaa0090c4bbc801
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -968,8 +965,6 @@
             </objects>
             <point key="canvasLocation" x="729" y="411"/>
         </scene>
-<<<<<<< HEAD
-=======
         <!--Travel Consultant View Controller-->
         <scene sceneID="LCD-Ph-SpK">
             <objects>
@@ -1057,7 +1052,6 @@
             </objects>
             <point key="canvasLocation" x="740" y="1019"/>
         </scene>
->>>>>>> 72ceec68f9fbc854aafad723beaa0090c4bbc801
         <!--Inspection View Controller-->
         <scene sceneID="LmV-Ev-WKm">
             <objects>
