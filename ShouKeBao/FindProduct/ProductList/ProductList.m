@@ -30,6 +30,7 @@
 #import "MobClick.h"
 #import "ShaiXuanViewController.h"
 #import "BaseClickAttribute.h"
+#import "SwipeView.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface ProductList ()<UITableViewDelegate,UITableViewDataSource,MGSwipeTableCellDelegate,passValue,passSearchKey,UITextFieldDelegate,passThePrice,ChooseDayViewControllerDelegate>
 {
@@ -1046,12 +1047,12 @@
 - (NSArray *)createRightButtons:(ProductModal *)model
 {
     NSMutableArray * result = [NSMutableArray array];
-    NSString *add = [NSString stringWithFormat:@"最近班期:%@\n\n供应商:%@",model.LastScheduleDate,model.SupplierName];
-    NSString* titles[2] = {@"", add};
+//    NSString *add = [NSString stringWithFormat:@"最近班期:%@\n\n供应商:%@",model.LastScheduleDate,model.SupplierName];
+//    NSString* titles[2] = {@"", add};
     UIColor * colors[2] = {[UIColor clearColor], [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1]};
     for (int i = 0; i < 2; i ++)
     {
-        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:titles[i] backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
+        MGSwipeButton *button = [MGSwipeButton buttonWithTitle:nil backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
             NSLog(@"Convenience callback received (right). %d",i);
             return YES;
         }];
@@ -1060,16 +1061,19 @@
             NSString *img = [model.IsFavorites isEqualToString:@"1"] ? @"uncollection_icon" : @"collection_icon";
             [button setBackgroundImage:[UIImage imageNamed:img] forState:UIControlStateNormal];
         }else{
-            button.titleLabel.numberOfLines = 0;
+//            button.titleLabel.numberOfLines = 0;
             button.enabled = NO;
         }
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-        button.titleLabel.font = [UIFont systemFontOfSize:12];
+//        button.titleLabel.font = [UIFont systemFontOfSize:12];
         [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
         CGRect frame = button.frame;
         frame.size.width = i == 1 ? 200 : 42;
         button.frame = frame;
-        
+        if (i == 1) {
+            SwipeView *swipe = [SwipeView addSubViewLable:button Model:model];
+            [button addSubview:swipe];
+        }
         [result addObject:button];
     }
     return result;

@@ -290,7 +290,7 @@
     [self.price setAttributedText:attrStr];
     
     if ([model.IsCruiseShip integerValue] == 1) {
-        NSString *count = [NSString stringWithFormat:@"%d",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
+        NSString *count = [NSString stringWithFormat:@"%ld",[model.PersonCount integerValue] + [model.ChildCount integerValue]];
         self.childCount.text = [NSString stringWithFormat:@"人数%@",count];
     }else{
         // 成人个数

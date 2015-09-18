@@ -88,12 +88,9 @@
     [super viewDidLoad];
     [self.view addSubview:self.searchBar];
     [self.view sendSubviewToBack:self.searchBar];
-    
     [self searchDisplay];
-    
     self.pageIndex = 1;
     [self.dataArr removeAllObjects];
-    
     self.navigationItem.leftBarButtonItem = nil;
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
@@ -125,7 +122,6 @@
     //  1,获取通知中心,注册一个观察者和事件
     //    这事一个单例类
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    
     //  2, 在通知中心中, 添加在一个观察者和观察的事件
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
   
@@ -136,15 +132,12 @@
     lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
     UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
     lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-    
     [self.conditionLine addSubview:lineDown];
 //    [self.conditionLine addSubview:lineOn];
-
     ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
     [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.conditionLine addSubview:leftBtn];
     self.timeButton = leftBtn;
-    
     
     ArrowBtn *rightBtn = [[ArrowBtn alloc] init];
     [rightBtn addTarget:self action:@selector(wordOrderAction:) forControlEvents:UIControlEventTouchUpInside];
@@ -175,12 +168,10 @@
 //    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
 //    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
 //    NSLog(@"appIsBack---- %@", appIsBack);
-//    
 //    if ([appIsBack isEqualToString:@"no"]) {
 //        [self initPull];
 //    }
 //    [customer synchronize];
-
     [MobClick beginLogPageView:@"Customers"];
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"CustomerHistorySearch" object:nil];
 }
@@ -192,17 +183,12 @@
 
 -(void)initPull
 {
-    //下拉刷新
     [self.table addHeaderWithTarget:self action:@selector(headPull)dateKey:nil];
     [self.table headerBeginRefreshing];
-    
-//    上啦加载
     [self.table addFooterWithTarget:self action:@selector(foodPull)];
-      [self.table footerBeginRefreshing];
-    
+    [self.table footerBeginRefreshing];
     self.table.headerPullToRefreshText = @"下拉刷新";
     self.table.headerRefreshingText = @"正在刷新中";
-    
     self.table.footerPullToRefreshText = @"上拉刷新";
     self.table.footerRefreshingText = @"正在刷新";
     
@@ -212,19 +198,18 @@
 {
     self.isRefresh = YES;
     self.pageIndex = 1;
-//    self.searchK = [NSMutableString stringWithFormat:@""];
     self.searchBar.placeholder = searchDefaultPlaceholder;
     [self loadDataSource];
 }
-//    上啦加载
+//  上啦加载
 - (void)foodPull
 {
-     [self.noProductWarnLab removeFromSuperview];
+    [self.noProductWarnLab removeFromSuperview];
     self.isRefresh = NO;
     self.pageIndex++;
     if (self.pageIndex  > [self getTotalPage]) {
         [self.table footerEndRefreshing];
-//        [self warning];
+        //        [self warning];
     }else{
         [self loadDataSource];
     }
@@ -250,11 +235,7 @@
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [UIView animateWithDuration:0.8 animations:^{
-        self.subView.alpha = 1;
-        self.subView.alpha = 0;
-        self.subView.hidden = YES;
-    }];
+    [self subViewHidden];
 }
 
 -(void)setSubViewUp
@@ -264,17 +245,17 @@
             self.subView.alpha = 0;
             self.subView.alpha = 1;
            self.subView.hidden = NO;
-            
         }];
-        
     }else if (self.subView.hidden == NO){
-       [UIView animateWithDuration:0.8 animations:^{
-           self.subView.alpha = 1;
-           self.subView.alpha = 0;
-             self.subView.hidden = YES;
-       }];
-      
+        [self subViewHidden];
     }
+}
+- (void)subViewHidden{
+    [UIView animateWithDuration:0.8 animations:^{
+        self.subView.alpha = 1;
+        self.subView.alpha = 0;
+        self.subView.hidden = YES;
+    }];
 }
 
 #pragma -mark getter
