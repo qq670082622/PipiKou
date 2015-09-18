@@ -54,6 +54,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.coverView.hidden = YES;
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor) name:@"stopIndictor" object:nil];
 
     self.title = @"店铺详情";
@@ -292,7 +293,6 @@
     [[NSUserDefaults standardUserDefaults]setBool:NO forKey:@"isQQReloadView"];
 
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
-    self.coverView.hidden = YES;
    
     NSString *rightStr = webView.request.URL.absoluteString;
         
@@ -449,9 +449,14 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ClickShareAll" attributes:dict];
+
     self.needOpenShare = NO;
    NSDictionary *shareDic = [NSDictionary dictionary];
         shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
+
  //@"http://r.lvyouquan.cn/KEPicFolder/default/attached/image/20150329/20150329162426_7341.jpg"
     //http://r.lvyouquan.cn/KEPicFolder/default/attached/skbhead/2015-07-10/5a1c7a31-0dca-47a7-9188-a9f12a89243f.jpg
     NSLog(@"shareDic is %@",shareDic);
@@ -524,6 +529,8 @@
                                 {
                                     [self.warningLab removeFromSuperview];
                                     NSLog( @"shareDic is %@分享失败,错误码:%ld,错误描述:%@",shareDic,(long)[error errorCode], [error errorDescription]);
+                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                        [MobClick event:@"ShareFailAll" attributes:dict];
                                 }else if (state == SSResponseStateCancel){
                                     [self.warningLab removeFromSuperview];
                                 }

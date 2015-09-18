@@ -109,6 +109,8 @@
 @property(nonatomic,copy) NSMutableString *selectIndex;
 //产品筛选
 @property (weak, nonatomic) IBOutlet UIButton *chooseButton;
+//筛选界面 的滑轮数据
+@property (nonatomic)NSDictionary *siftDic;
 
 - (IBAction)chooseConditions:(id)sender;
 
@@ -449,7 +451,12 @@
     }
     return _jiafan;
 }
-
+-(NSDictionary *)siftDic{
+    if (_siftDic == nil) {
+        self.siftDic = [[NSDictionary alloc] init];
+    }
+    return _siftDic;
+}
 
 #pragma - mark stationSelect delegate
 -(void)passStation:(NSString *)stationName andStationNum:(NSNumber *)stationNum
@@ -723,7 +730,8 @@
             ShaiXuan.MaxPricecondition = self.conditionDic[@"MaxPrice"];
             //ShaiXuan.primaryNum = self.primaryNu;
         }
-        
+        ShaiXuan.siftHLDic = self.siftDic;
+        NSLog(@"%@",ShaiXuan.siftHLDic);
         [self presentViewController:nav animated:YES completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
@@ -839,7 +847,7 @@
     
     
     NSLog(@"--------------productList load dic  is %@--------------",[StrToDic jsonStringWithDicL:dic] );
-    [IWHttpTool WMpostWithURL:@"Product/GetProductList" params:dic success:^(id json) {
+    [IWHttpTool WMpostWithURL:@"Product/GetProductList_V2" params:dic success:^(id json) {
         
         NSLog(@"--------------productList load json is   %@------------]",json);
         
@@ -857,6 +865,7 @@
         }else if (arr.count>0){
             //self.table.tableFooterView.hidden = YES;
             self.noProductView.hidden = YES;
+            
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
@@ -891,7 +900,7 @@
             for(NSDictionary *dic in json[@"ProductConditionList"] ){
                 [conArr addObject:dic];
             }//将其余的条件添加进来
-        
+        self.siftDic = json[@"ProductCondition"];
 //        }
         
         [self.conditionArr removeAllObjects];
@@ -1453,7 +1462,8 @@
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         
         detail.produceUrl = productUrl;
-        
+        detail.shareInfo = model.ShareInfo;
+        NSLog(@"%@", detail.shareInfo);
         detail.productName = productName;
         
         

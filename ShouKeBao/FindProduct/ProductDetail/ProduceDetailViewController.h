@@ -31,6 +31,8 @@ typedef enum{
 //@property (nonatomic, assign)BOOL isRecommend;
 @property (nonatomic) NSInteger m;
 @property (nonatomic, assign)JumpinFrom fromType;
+@property (nonatomic, strong)NSMutableDictionary * shareInfo;
+@property (nonatomic, assign)BOOL noShareInfo;
 @property (copy,nonatomic) NSString *produceUrl;//
 @property (copy, nonatomic)NSString * titleName;
 @property (copy,nonatomic) NSString *productName;

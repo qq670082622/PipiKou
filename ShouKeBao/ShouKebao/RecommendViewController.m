@@ -434,6 +434,7 @@
     
     DayDetail *detail = self.dataSource[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
+    web.shareInfo = detail.ShareInfo;
     web.detail = detail;
     web.fromType = FromRecommend;
     web.produceUrl = detail.LinkUrl;

@@ -23,6 +23,7 @@
         self.rightDescrip = dict[@"Name"];
            self.rightPrice = dict[@"PersonPeerPrice"];
     self.productUrl = dict[@"LinkUrl"];
+    NSLog(@"%@", dict[@"ShareInfo"]);
     self.ShareInfo = dict[@"ShareInfo"];
 //    }
     return self;

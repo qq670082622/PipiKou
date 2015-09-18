@@ -499,6 +499,8 @@
     DayDetail *detail = currentArray[indexPath.row];
     ProduceDetailViewController *web = [[ProduceDetailViewController alloc] init];
     web.produceUrl = detail.LinkUrl;
+    web.shareInfo = detail.ShareInfo;
+    NSLog(@"%@", web.shareInfo);
     web.fromType = FromRecommend;
     [self.navigationController pushViewController:web animated:YES];
     [tableView deselectRowAtIndexPath:indexPath animated:YES];

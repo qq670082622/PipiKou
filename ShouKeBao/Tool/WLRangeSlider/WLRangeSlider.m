@@ -6,7 +6,7 @@
 #import "WLSliderThumbLayer.h"
 #import "WLTrackLayer.h"
 #import <QuartzCore/QuartzCore.h>
-
+#import "ShaiXuanViewController.h"
 @interface WLRangeSlider()
 
 @property (nonatomic,strong) WLSliderThumbLayer *leftThumbLayer;
@@ -29,8 +29,13 @@
 
 - (void)initLayers{
     self.ret = YES;
-    _maxValue = 60000;
-    _minValue = 0;
+    ShaiXuanViewController *ShaiXuan = [[ShaiXuanViewController alloc] init];
+//    _maxValue = [NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
+//    _minValue =[NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MinPrice"]].floatValue;
+//    _leftValue =[NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MinPrice"]].floatValue;
+//    _rightValue = [NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
+    _maxValue  = 60000;
+    _minValue =0;
     _leftValue = 0;
     _rightValue = 60000;
     _thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tuoyuantest"]];

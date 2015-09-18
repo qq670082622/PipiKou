@@ -424,6 +424,8 @@
 }
 -(void)shareIt
 {
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ClickShareAll" attributes:dict];
     NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_detail.ShareInfo];
         //构造分享内容
     NSLog(@"%@", tmp);
@@ -497,6 +499,9 @@
                                 else if (state == SSResponseStateFail)
                                 {
                                     [self.warningLab removeFromSuperview];
+                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                        [MobClick event:@"ShareFailAll" attributes:dict];
+
                                     //NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                    // NSLog(@"分享失败%ld,%@",(long)[error errorCode],[error errorDescription]);
                                 }else if (state == SSResponseStateCancel){
@@ -593,24 +598,6 @@
     [self.shareBtn setTitle:@"分享给客户" forState:UIControlStateNormal];
     [self.shareBtn setTitleColor:[UIColor blueColor] forState:UIControlStateNormal];
     [self setNeedsLayout];
-    
-    //    @property (nonatomic, copy) NSString *ID;//产品ID(用于收藏)
-    //    @property (nonatomic, copy) NSString *PicUrl;//
-    //    @property (nonatomic, copy) NSString *Name;//产品介绍
-    //    @property (nonatomic, copy) NSString *Code;//产品编号
-    //    @property (nonatomic, copy) NSString *PersonPrice;//门市价
-    //    @property (nonatomic, copy) NSString *PersonPeerPrice;//同行价
-    //    @property (nonatomic, copy) NSString *PersonProfit;//利润
-    //    @property (nonatomic, copy) NSString *PersonBackPrice;//加返
-    //    @property (nonatomic, copy) NSString *PersonCashCoupon;//券
-    //    @property (nonatomic, copy) NSString *StartCityName;//出发城市名称
-    //    @property (assign , nonatomic) BOOL *IsComfirmStockNow;//是否闪电发班
-    //    @property (assign , nonatomic) NSNumber *StartCity;//出发城市编号
-    //    @property (copy,nonatomic) NSString *LastScheduleDate;//最近班期
-    //    @property (copy,nonatomic) NSString *SupplierName;//供应商
-    //    @property (assign , nonatomic) BOOL *IsFavorites;//是否收藏
-    //    @property (copy,nonatomic) NSString *ContactName;//联系人名称
-    //    @property (copy,nonatomic) NSString *ContactMobile;//联系人电话
     
 }
 - (CGSize)sizeWithText:(NSString *)text

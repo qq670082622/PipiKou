@@ -495,6 +495,7 @@
             
             if ([typeStr isEqualToString:@"product"]) {
                 ProduceDetailViewController * Product = [[ProduceDetailViewController alloc]init];
+                Product.noShareInfo = YES;
                 Product.produceUrl = webArray[0];
                 Product.titleName = [titleStr stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
                 [self.navigationController pushViewController:Product animated:YES];
@@ -573,9 +574,9 @@
             //产品详情h5
             ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
             detail.produceUrl = message[2];
+            detail.noShareInfo = YES;
             [self.navigationController pushViewController:detail animated:YES];
         }
-        
         else if ([message[0] isEqualToString:@"messageId"]){//公告
             //进入h5
             NSString *messageURL = message[2];
@@ -679,6 +680,7 @@
         //产品详情h5
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         detail.produceUrl = message[2];
+        detail.noShareInfo = YES;
         [self.navigationController pushViewController:detail animated:YES];
     }
     

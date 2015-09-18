@@ -23,7 +23,7 @@
 #import "NSString+FKTools.h"
 @interface ProduceDetailViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIView *coverView;
-@property (nonatomic,strong) NSMutableDictionary *shareInfo;
+//@property (nonatomic,strong) NSMutableDictionary *shareInfo;
 
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
@@ -53,19 +53,21 @@
 @implementation ProduceDetailViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.coverView.hidden = YES;
+
+    
+    
     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromFindProductAll" attributes:dict];
         
     }
-    NSLog(@"self.fromType ＝ %d",self.fromType);
     self.eventArray = @[@"FromQRcode", @"FromRecommend", @"FromStore", @"FromProductSearch",@"FromFindProduct", @"FromHotProduct", @"FromScanHistory"];
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ProductDetailAll" attributes:dict];
     [MobClick event:@"ProductDetailAllJS" attributes:dict counter:3];
     NSString * string = [NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]];
-    NSLog(@"string = %@", string);
     [MobClick event:string attributes:dict];
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -273,13 +275,13 @@
 {
     [self.navigationController popViewControllerAnimated:YES];
 }
--(NSMutableDictionary *)shareInfo
-{
-    if ( _shareInfo == nil ) {
-        self.shareInfo = [NSMutableDictionary dictionary];
-    }
-    return _shareInfo;
-}
+//-(NSMutableDictionary *)shareInfo
+//{
+//    if ( _shareInfo == nil ) {
+//        self.shareInfo = [NSMutableDictionary dictionary];
+//    }
+//    return _shareInfo;
+//}
 
 -(void)customRightBarItemType:(NSInteger)type
 {
@@ -366,6 +368,8 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    
+
     //判断是否显示关闭按钮
     if (self.m == 0) {
         
@@ -388,7 +392,7 @@
     [self customRightBarItemType:1];
     BOOL isNeedBtn = [[self.webView stringByEvaluatingJavaScriptFromString:@"isShowSaveButtonForApp()"]intValue];
     if (isNeedBtn) {
-        [self customRightBarItemType:2];;
+        [self customRightBarItemType:2];
     }
     if (self.isSave) {
         //        NSLog(@"%ld", self.webView.pageCount);
@@ -398,28 +402,48 @@
     self.isSave = NO;
     // [MBProgressHUD showSuccess:@"加载完成"];
 
-    self.coverView.hidden = YES;
 
 
-    NSLog(@"right Str is %@",rightUrl);
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    
-    [dic setObject:rightUrl forKey:@"PageUrl"];
-     [self.shareInfo removeAllObjects];
-    
-    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+//    NSLog(@"right Str is %@",rightUrl);
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    
+//    [dic setObject:rightUrl forKey:@"PageUrl"];
+//     [self.shareInfo removeAllObjects];
+//
+//    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+//        
+//        NSLog(@"-----分享返回数据json is %@------",json);
+//      NSString *str =  json[@"ShareInfo"][@"Desc"];
+//        if(str.length>1){
+//          // [self.shareInfo removeAllObjects];
+//            self.shareInfo = json[@"ShareInfo"];
+//            NSLog(@"%@99999", self.shareInfo);
+//        }
+//    } failure:^(NSError *error) {
+//        
+//        NSLog(@"分享请求数据失败，原因：%@",error);
+//    }];
+    //如果没有shareInfo，请求接口
+    if (self.noShareInfo) {
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:webView.request.URL.absoluteString forKey:@"PageUrl"];
+        [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+            NSLog(@"-----分享返回数据json is %@------",json);
+            NSString *str =  json[@"ShareInfo"][@"Desc"];
+//            [[[UIAlertView alloc]initWithTitle:str message:@"11" delegate:nil cancelButtonTitle:json[@"ShareInfo"][@"Url"] otherButtonTitles:nil, nil]show];
+            if(str.length>1){
+                // [self.shareInfo removeAllObjects];
+                self.shareInfo = json[@"ShareInfo"];
+                NSLog(@"%@99999", self.shareInfo);
+                
+            }
+        } failure:^(NSError *error) {
+            
+            NSLog(@"分享请求数据失败，原因：%@",error);
+        }];
         
-        NSLog(@"-----分享返回数据json is %@------",json);
-      NSString *str =  json[@"ShareInfo"][@"Desc"];
-        if(str.length>1){
-          // [self.shareInfo removeAllObjects];
-            self.shareInfo = json[@"ShareInfo"];
-            NSLog(@"%@99999", self.shareInfo);
-        }
-    } failure:^(NSError *error) {
-        
-        NSLog(@"分享请求数据失败，原因：%@",error);
-    }];
+    }
+
     [self doIfInWebWithUrl:rightUrl];
 
 }
@@ -488,6 +512,10 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"ClickShareAll" attributes:dict];
+
     NSLog(@"%@", self.shareInfo);
     
     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
@@ -593,6 +621,9 @@
                                 else if (state == SSResponseStateFail)
                                 {
 //                                    [self.warningLab removeFromSuperview];
+                                        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                                        [MobClick event:@"ShareFailAll" attributes:dict];
+
                                     NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
                                 }else if (state == SSResponseStateCancel){
 //                                [self.warningLab removeFromSuperview];
