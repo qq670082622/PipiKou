@@ -375,8 +375,6 @@
     ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
     detail.produceUrl = model.LinkUrl;
     detail.productName = model.Name;
-    detail.shareInfo = model.ShareInfo;
-    NSLog(@"%@", detail.shareInfo);
     if (self.listType == collectionType) {
         detail.fromType = FromStore;
     }else{
