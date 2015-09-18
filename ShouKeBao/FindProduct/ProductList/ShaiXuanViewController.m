@@ -120,24 +120,24 @@
     //label显示的价格值
     CGFloat ab = pc.x/_rangeSlider.frame.size.width;
     double percentage = difNum/_rangeSlider.maxValue;
-    NSInteger a = ab * _rangeSlider.maxValue * percentage+_rangeSlider.minValue;
+    NSInteger finalValue = ab * _rangeSlider.maxValue * percentage+_rangeSlider.minValue;
     
     if (fromLeft > fromRight) {
-       tallPlabel.text = [NSString stringWithFormat:@"¥%ld",a];
+       tallPlabel.text = [NSString stringWithFormat:@"¥%ld",finalValue];
         _rangeSlider.rightValue = pc.x/_rangeSlider.frame.size.width*(_rangeSlider.maxValue-_rangeSlider.minValue)+_rangeSlider.minValue;
         NSInteger aaa = _rangeSlider.frame.size.width-15;
         tallPlabel.frame = CGRectMake(ab*aaa, 250, 50, 30);
         
         //增加筛选条件
         [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.leftValue]  forKey:@"MinPrice"];
-        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",a] forKey:@"MaxPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",finalValue] forKey:@"MaxPrice"];
     }else if(fromLeft <= fromRight){
             NSLog(@"改变左边的滑轮");
-        lowPlabel.text = [NSString stringWithFormat:@"¥%ld",a];
-        _rangeSlider.leftValue = a;
+        lowPlabel.text = [NSString stringWithFormat:@"¥%ld",finalValue];
+        _rangeSlider.leftValue = finalValue;
         lowPlabel.frame = CGRectMake(ab*_rangeSlider.frame.size.width+15, 250, 50, 30);
         //增加筛选条件
-        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",a]  forKey:@"MinPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",finalValue]  forKey:@"MinPrice"];
         [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.rightValue] forKey:@"MaxPrice"];
     }
     // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
@@ -413,16 +413,16 @@
   //  self.primaryNum = 8;
     if (textField.tag == 210) {
         if(textField.text.integerValue == 0){
-            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
-            [self.conditionDic setObject:@"60000" forKey:@"MaxPrice"];
+            [self.conditionDic setObject:[NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]] forKey:@"MinPrice"];
+            [self.conditionDic setObject:[NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]] forKey:@"MaxPrice"];
         }else{
             [self.conditionDic setObject:textField.text forKey:@"MinPrice"];
         }
         NSLog(@"%@",textField.text);
     }else if(textField.tag == 220){
         if(textField.text.integerValue == 0){
-            [self.conditionDic setObject:@"60000" forKey:@"MaxPrice"];
-            [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
+            [self.conditionDic setObject:[NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]] forKey:@"MaxPrice"];
+            [self.conditionDic setObject:[NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]] forKey:@"MinPrice"];
         }else{
             [self.conditionDic setObject:textField.text forKey:@"MaxPrice"];
         }
