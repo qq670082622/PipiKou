@@ -67,7 +67,7 @@
 {
     layer.borderColor = color.CGColor;
     layer.borderWidth = borderWid;
-    layer.cornerRadius = 9;
+    layer.cornerRadius = 4;
     layer.masksToBounds = YES;
     //将绘制的圆角缓存， 避免影响屏幕帧数；
 //    layer.shouldRasterize = YES;

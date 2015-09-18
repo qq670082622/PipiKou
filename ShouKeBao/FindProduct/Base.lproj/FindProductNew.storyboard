@@ -315,7 +315,7 @@
                                     </connections>
                                 </collectionReusableView>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD9-Ym-8ek">
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MD9-Ym-8ek" userLabel="上海">
                                 <rect key="frame" x="5" y="7" width="65" height="27"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="27" id="Key-cI-Qno"/>

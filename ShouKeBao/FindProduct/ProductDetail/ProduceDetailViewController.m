@@ -388,7 +388,7 @@
     [self customRightBarItemType:1];
     BOOL isNeedBtn = [[self.webView stringByEvaluatingJavaScriptFromString:@"isShowSaveButtonForApp()"]intValue];
     if (isNeedBtn) {
-        [self customRightBarItemType:2];;
+        [self customRightBarItemType:2];
     }
     if (self.isSave) {
         //        NSLog(@"%ld", self.webView.pageCount);
