@@ -44,7 +44,7 @@
 @property (nonatomic, strong) NSMutableArray * hottDataArray;
 @property (strong, nonatomic) NSMutableArray *hotSectionArr;
 @property (nonatomic, strong)NSMutableArray * NomalDataArray;
-@property (strong, nonatomic) IBOutlet UIButton *stationName;
+//@property (strong, nonatomic) IBOutlet UIButton *stationName;
 @property (nonatomic, strong)UIView * selectBackGroundView;
 @property (nonatomic, strong)NSMutableDictionary * cacheDic;
 - (IBAction)ProductSearch:(id)sender;
@@ -240,8 +240,6 @@
 
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"FindProductStationClick" attributes:dict];
-    //由于分站时两个button，点击一个时候给大的button增加浅灰背景，下面是取消选中
-    self.selectStation.selected = NO;
     StationSelect *station = [[StationSelect alloc] init];
     station.delegate = self;
     [self.navigationController pushViewController:station animated:YES];
