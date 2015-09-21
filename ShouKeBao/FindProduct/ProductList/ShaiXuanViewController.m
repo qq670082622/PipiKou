@@ -17,6 +17,9 @@
 #import "ProductList.h"
 #import "WLRangeSlider.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
+
+
+//123
 @interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice,UITextFieldDelegate,UIGestureRecognizerDelegate>
 @property (strong,nonatomic) NSMutableDictionary *conditionDic;//当前条件开关
 
@@ -35,7 +38,7 @@
 @property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
 @property(nonatomic,strong) NSArray *keydataArr;//返回字典的key名字
 @property(nonatomic) NSArray *sixbtndata;//6个价格区间数据(不一定是6个)
-@property(nonatomic) NSInteger TextFieldNum;
+//@property(nonatomic) NSInteger TextFieldNum;
 
 @end
 
@@ -43,10 +46,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.TextFieldNum = 1;
-    //增加键盘变化的观察者
-    
-    for (NSInteger i =  0; i < _conditionArr.count; i++) {
+   // self.TextFieldNum = 1;
+       for (NSInteger i =  0; i < _conditionArr.count; i++) {
         if ([[_conditionArr objectAtIndex:i] objectForKey:@"PriceRange"]) {
             _sixbtndata = [[_conditionArr objectAtIndex:i] objectForKey:@"PriceRange"];
         }
@@ -100,7 +101,7 @@
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
     
-    self.TextFieldNum = 1;
+    //self.TextFieldNum = 1;
     self.primaryNum = 7;
     lowPrice.text = nil;
     tallPrice.text = nil;
@@ -156,7 +157,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)TextField {
     
     if (TextField == lowPrice || TextField == tallPrice) {
-        self.TextFieldNum = 1;
+     //   self.TextFieldNum = 1;
         [self putTextField];
         
     }
@@ -170,7 +171,9 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    //增加键盘变化的观察者
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+
     //根据预选值，选择相应的价格区间
     NSLog(@"%ld",self.primaryNum);
     if (self.primaryNum>1000) {
@@ -188,8 +191,8 @@
 //收键盘
 - (void)keyboardWillChangeFrame:(NSNotification *)notification
 {
-    if (self.TextFieldNum == 1) {
-        self.TextFieldNum =2;
+   // if (self.TextFieldNum == 1) {
+     //   self.TextFieldNum =2;
         NSDictionary *info = [notification userInfo];
         CGRect beginKeyboardRect = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue];
         CGRect endKeyboardRect = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue];
@@ -197,16 +200,16 @@
         CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
         CGRect heightw = subTable.frame;
         heightw.size.height +=yOffset;
-//        [UIView animateWithDuration:0.4 animations:^{
-//            subTable.frame = heightw;
-//        }];
         [UIView animateWithDuration:0.4 animations:^{
             subTable.frame = heightw;
-        } completion:^(BOOL finished) {
-            self.TextFieldNum = 1;
         }];
+//        [UIView animateWithDuration:0.4 animations:^{
+//            subTable.frame = heightw;
+//        } completion:^(BOOL finished) {
+//            self.TextFieldNum = 1;
+//        }];
 
-    }
+  //  }
 }
 -(void)creatNav{
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
@@ -412,7 +415,7 @@
 }
 #pragma  - mark TextFieldDelegate
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
-    self.TextFieldNum = 1;
+    //self.TextFieldNum = 1;
     self.primaryNum = 8;
     //改变六个button和滑杆的选种状态
     lowPlabel.textColor = [UIColor lightGrayColor];
@@ -450,7 +453,7 @@
 
 //滑杆出发事件
 - (void)valueChanged:(WLRangeSlider *)slider{
-    self.TextFieldNum = 1;
+   // self.TextFieldNum = 1;
     self.primaryNum = 7;
     lowPrice.text = nil;
     tallPrice.text = nil;
@@ -508,7 +511,7 @@
 }
 
 -(void)btnClick:(UIButton *)button{
-   self.TextFieldNum = 1;
+   //self.TextFieldNum = 1;
     for (NSInteger qw =1001; qw<1007; qw++) {
         if (button.tag == qw) {
             button.selected = YES;
@@ -825,7 +828,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.TextFieldNum = 1;
+    //self.TextFieldNum = 1;
     [self putTextField];
     if (indexPath.row == 2) {
         ChooseDayViewController *choose = [[ChooseDayViewController alloc]init];
