@@ -197,8 +197,13 @@
         CGFloat yOffset = endKeyboardRect.origin.y - beginKeyboardRect.origin.y;
         CGRect heightw = subTable.frame;
         heightw.size.height +=yOffset;
+//        [UIView animateWithDuration:0.4 animations:^{
+//            subTable.frame = heightw;
+//        }];
         [UIView animateWithDuration:0.4 animations:^{
             subTable.frame = heightw;
+        } completion:^(BOOL finished) {
+            self.TextFieldNum = 1;
         }];
 
     }
@@ -478,8 +483,7 @@
     tallPlabel.textColor = [UIColor orangeColor];
     _rangeSlider.trackHighlightTintColor=[UIColor orangeColor];
     //收键盘
-    [lowPrice resignFirstResponder];
-    [tallPrice resignFirstResponder];
+   [self putTextField];
 }
 -(NSMutableDictionary *)conditionDic
 {
