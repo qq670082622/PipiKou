@@ -1767,9 +1767,7 @@
                
                 return 270*radious+25;
             }
-
-        
-            return 270*radious;
+            return 180*radious;
         }else{
             if (screenH == 480) {
                 

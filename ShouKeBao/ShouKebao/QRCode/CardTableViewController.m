@@ -194,7 +194,7 @@
         [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(4, 2)]];
         [infoString appendFormat:@"-%@",[self.bornText.text substringWithRange:NSMakeRange(6, 2)]];
         }
-        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardNumText.text};
+        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardNumText.text,@"PicUrl":self.PicUrl,@"RecordId":self.RecordId};
         NSLog(@"%@", dic);
         self.delegateToOrder = self.VC;
         [self.delegateToOrder writeDelegate:dic];

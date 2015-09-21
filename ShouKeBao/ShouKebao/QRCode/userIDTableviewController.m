@@ -58,7 +58,8 @@
     
     [self animationWithLabs:[NSArray arrayWithObjects:self.nameLab,self.cardNum,self.bornLab,self.nationalLab,self.addressLab, nil]];
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.saveBtn.layer andBorderColor:[UIColor clearColor ] andBorderWidth:0.5 andNeedShadow:NO];
-    
+    NSLog(@"%@, %@", self.PicUrl, self.RecordId);
+
     if (_ModifyDate.length<1) {
         self.ModifyDate = [NSMutableString stringWithFormat:@""];
     }
@@ -315,8 +316,8 @@
                 [infoString appendFormat:@"-%@", [str3 componentsSeparatedByString:@"日"][0]];
             }
         }
-
-        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardText.text};
+        NSLog(@"%@, %@", self.PicUrl, self.RecordId);
+        NSDictionary * dic = @{@"Name":self.nameText.text,@"Sex":sexx,@"CardType":cardtye,@"Birthday":infoString,@"CardNum":self.cardText.text,@"PicUrl":self.PicUrl,@"RecordId":self.RecordId};
         NSLog(@"%@", dic);
         self.delegateToOrder = self.VC;
         [self.delegateToOrder writeDelegate:dic];
