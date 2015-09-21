@@ -2,7 +2,7 @@
 //  ShaiXuanViewController.m
 //  ShouKeBao
 //
-//  Created by 吴铭 on 15/8/17.
+//  Created by 韩世民 on 15/8/17.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
@@ -125,8 +125,8 @@
     if (fromLeft > fromRight) {
        tallPlabel.text = [NSString stringWithFormat:@"¥%ld",finalValue];
         _rangeSlider.rightValue = pc.x/_rangeSlider.frame.size.width*(_rangeSlider.maxValue-_rangeSlider.minValue)+_rangeSlider.minValue;
-        NSInteger aaa = _rangeSlider.frame.size.width-15;
-        tallPlabel.frame = CGRectMake(ab*aaa, 250, 50, 30);
+        NSInteger parmar = _rangeSlider.frame.size.width-30;
+        tallPlabel.frame = CGRectMake(ab*parmar+15, 250, 50, 30);
         
         //增加筛选条件
         [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.leftValue]  forKey:@"MinPrice"];
@@ -135,7 +135,8 @@
             NSLog(@"改变左边的滑轮");
         lowPlabel.text = [NSString stringWithFormat:@"¥%ld",finalValue];
         _rangeSlider.leftValue = finalValue;
-        lowPlabel.frame = CGRectMake(ab*_rangeSlider.frame.size.width+15, 250, 50, 30);
+        NSInteger parma = _rangeSlider.frame.size.width-30;
+        lowPlabel.frame = CGRectMake(ab*parma+15, 250, 50, 30);
         //增加筛选条件
         [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",finalValue]  forKey:@"MinPrice"];
         [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.rightValue] forKey:@"MaxPrice"];

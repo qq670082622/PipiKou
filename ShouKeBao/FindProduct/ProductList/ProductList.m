@@ -231,6 +231,7 @@
 {
     //    NSLog(@"noti.object.Name = %@, %@", [noti.object valueForKey:@"Name"], [noti.object valueForKey:@"Mobile"]);
     self.primaryNu = noti.object;
+    NSLog(@"%@",noti.object);
     self.conditionDic = (NSMutableDictionary *)noti.userInfo;
     NSLog(@"%@",self.conditionDic);
     //NSLog(@"%@",self.primaryNu);
