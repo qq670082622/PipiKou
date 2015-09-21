@@ -45,7 +45,7 @@
     [super viewDidLoad];
     self.TextFieldNum = 1;
     //增加键盘变化的观察者
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
+    
     for (NSInteger i =  0; i < _conditionArr.count; i++) {
         if ([[_conditionArr objectAtIndex:i] objectForKey:@"PriceRange"]) {
             _sixbtndata = [[_conditionArr objectAtIndex:i] objectForKey:@"PriceRange"];
@@ -170,7 +170,7 @@
 
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     //根据预选值，选择相应的价格区间
     NSLog(@"%ld",self.primaryNum);
     if (self.primaryNum>1000) {
@@ -976,7 +976,7 @@
 -(void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     _month = nil;
-//   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
+   [[NSNotificationCenter defaultCenter] removeObserver:self name:UIKeyboardWillChangeFrameNotification object:nil];
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
