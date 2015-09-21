@@ -17,6 +17,9 @@
 #import "ProductList.h"
 #import "WLRangeSlider.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
+
+
+//123
 @interface ShaiXuanViewController ()<UITableViewDataSource,UITableViewDelegate,ChooseDayViewControllerDelegate,passValue,passThePrice,UITextFieldDelegate,UIGestureRecognizerDelegate>
 @property (strong,nonatomic) NSMutableDictionary *conditionDic;//当前条件开关
 
