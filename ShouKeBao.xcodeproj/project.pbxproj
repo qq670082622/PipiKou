@@ -261,6 +261,7 @@
 		63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */ = {isa = PBXBuildFile; fileRef = 63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */; };
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		791AA5171B7DDBDB007C5C6A /* ProductRecommend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */; };
+		792482FB1BAFF232005D1801 /* TravelConsultantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */; };
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
 		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
@@ -830,6 +831,8 @@
 		63F1A1AA1B14250E00DE9867 /* NSObject+MJMember.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+MJMember.m"; sourceTree = "<group>"; };
 		63F7A67B1B15BA7500D8D654 /* music.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = music.mp3; sourceTree = "<group>"; };
 		791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductRecommend.storyboard; sourceTree = "<group>"; };
+		792482F91BAFF232005D1801 /* TravelConsultantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewController.h; sourceTree = "<group>"; };
+		792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewController.m; sourceTree = "<group>"; };
 		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		795E1EFD1B72F75300072A77 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -2458,6 +2461,8 @@
 				B3C01E221BAC10FC005E4BB5 /* SosViewController.m */,
 				B3C01E231BAC10FC005E4BB5 /* SuggestViewController.h */,
 				B3C01E241BAC10FC005E4BB5 /* SuggestViewController.m */,
+				792482F91BAFF232005D1801 /* TravelConsultantViewController.h */,
+				792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -2736,6 +2741,7 @@
 				63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */,
 				796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */,
 				797B37931B8C1D8700411DBA /* DESSecreat.m in Sources */,
+				792482FB1BAFF232005D1801 /* TravelConsultantViewController.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
 				B3B7A66D1BA6A25F0043DF7C /* batchModel.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,

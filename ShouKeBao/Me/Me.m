@@ -35,6 +35,7 @@
 #import "BaseClickAttribute.h"
 #import "NewVersionWebViewController.h"
 #import "MoneyTreeViewController.h"
+#import "TravelConsultantViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -61,7 +62,7 @@
     self.title = @"我";
     
     self.tableView.rowHeight = 50;
-    self.desArr = @[@[@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[/*@[@"我的分享"],*/@[/*@"旅游顾问",*/@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -285,27 +286,30 @@
     }
     
     cell.textLabel.text = self.desArr[indexPath.section][indexPath.row];
-    
-    // 前两个section的行
-    if (indexPath.section != 2) {
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
+    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
+    switch (indexPath.section) {
+//        case 0://第一个分区
+//            
+//            break;
+        case 0://第二个分区
+            /*if (indexPath.row == 0) {
+                cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
+            }else */if(indexPath.row == 0){
                 if (self.isPerson) {
                     cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
                 }else{
                     cell.textLabel.text = nil;
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
+
             }else if(indexPath.row == 1){
                 cell.imageView.image = [UIImage imageNamed:@"money"];
-                
 
-                
-                
-            }else{
-/**
-* *摇钱树图片设置
-**/
+            }else if(indexPath.row == 2){
+                /**
+                 * *摇钱树图片设置
+                 **/
                 cell.imageView.image = [UIImage imageNamed:@"ip600003"];
                 //第一次加载
                 if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]) {
@@ -313,39 +317,39 @@
                     imgView.image = [UIImage imageNamed:@"yaoqianshu"];
                     [cell.contentView addSubview:imgView];
                 }
+ 
             }
-        }else{
+            break;
+        case 1://第三个分区
             cell.imageView.image = [UIImage imageNamed:@"zhanghu-anquan"];
-        }
-    }
-    
-    // 第三组的第一行
-    if (indexPath.section == 2 && indexPath.row == 0) {
-        cell.detailTextLabel.text = @"23时至次日8时将不会有消息";
-        
-        // 添加一个开关
-        UISwitch *btn = [[UISwitch alloc] init];
-        [btn addTarget:self action:@selector(changePushMode:) forControlEvents:UIControlEventValueChanged];
-        btn.on = [[UserInfo shareUser].pushMode integerValue];
-        cell.accessoryView = btn;
-    }
-    NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
-    NSLog(@"%@", currentVersion);
-    if (indexPath.section == 2 && indexPath.row == 3) {
-        if (self.versionInfoDic) {
-            if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
-                UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
-                imgView.image = [UIImage imageNamed:@"yaoqianshu"];
-                [cell.contentView addSubview:imgView];
-            }else{
-                [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:@"已是最新版本" withImage:nil
-                 ];
+            break;
+        case 2://第四个分区
+            if (indexPath.row == 0) {
+                cell.detailTextLabel.text = @"23时至次日8时将不会有消息";
+                
+                // 添加一个开关
+                UISwitch *btn = [[UISwitch alloc] init];
+                [btn addTarget:self action:@selector(changePushMode:) forControlEvents:UIControlEventValueChanged];
+                btn.on = [[UserInfo shareUser].pushMode integerValue];
+                cell.accessoryView = btn;
+            }else if(indexPath.row == 2){
+                [WMAnimations  WMNewTableViewCellWithCell:cell withRightStr:[NSString stringWithFormat:@"当前V%@", currentVersion] withImage:nil];
+            }else if(indexPath.row == 3){
+                if (self.versionInfoDic) {
+                    if (![self.versionInfoDic[@"VersionCode"] isEqualToString:currentVersion]) {
+                        UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
+                        imgView.image = [UIImage imageNamed:@"yaoqianshu"];
+                        [cell.contentView addSubview:imgView];
+                    }else{
+                        [WMAnimations WMNewTableViewCellWithCell:cell withRightStr:@"已是最新版本" withImage:nil
+                         ];
+                    }
+                }
             }
-        }
-    }
-    if (indexPath.section == 2 && indexPath.row == 2) {
-        [WMAnimations  WMNewTableViewCellWithCell:cell withRightStr:[NSString stringWithFormat:@"当前V%@", currentVersion] withImage:nil];
+            break;
+ 
+        default:
+            break;
     }
     return cell;
 }
@@ -353,99 +357,96 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
-       // 下面的四个
-    if (indexPath.section == 2) {
-        switch (indexPath.row) {
-            case 0:{
-                
-                break;
-            }
-            case 1:{
-              
-                FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
-                [self.navigationController pushViewController:feedBackVC animated:YES];
-                break;
-            }
-                
-            case 2:{
-                
-                UIWindow *window = [UIApplication sharedApplication].delegate.window;
-                WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
-                welceome.alpha = 0;
-                [window addSubview:welceome];
-                // 为了看起来不突兀一些
-                [UIView animateWithDuration:0.3 animations:^{
-                    welceome.alpha = 1;
-                }];
-                
-                break;
-            }
-            case 3:{
-                [self checkNewVerSion];
-/*
-                UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"需要发布之后, 才能到appstore评分" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
-                [alertView show];
- */
-//                NSString *str = [NSString stringWithFormat:
-//                                 @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",
-//                                 587767923];
-//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-                break;
-            }
-            case 4:{
-               //                InspectionViewController * InspectionVC = [sb instantiateViewControllerWithIdentifier:@"InspectionViewController"];
-//                [self.navigationController pushViewController:InspectionVC animated:YES];
-                
-            
-                [self checkNewVerSion];
-            
-                
-                break;
-            }
-
-            default:
-                break;
-        }
-    }else{
-        if (indexPath.section == 0) {
-            // 第一组的两个
-            if (indexPath.row == 0) {
+    switch (indexPath.section) {
+        case 0:
+            // 第一组的三个
+           /* if (indexPath.row == 0) {
+                TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"MeTravelConsultantVCClick" attributes:dict];
+                [self.navigationController pushViewController:TCVC animated:YES];
+            }else*/ if(indexPath.row == 0){
                 MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeOrgViewClick" attributes:dict];
-
+                
                 [self.navigationController pushViewController:myOrg animated:YES];
+
             }else if(indexPath.row == 1){
                 // 圈付宝
                 QuanViewController *quan = [[QuanViewController alloc] init];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeQFBClick" attributes:dict];
-
+                
                 [self.navigationController pushViewController:quan animated:YES];
 
-            }else{
+            }else if(indexPath.row == 2){
                 MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
                 moneyTreeVC.webTitle = @"摇钱树";
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
-                
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeMoenyTreeClick" attributes:dict];
-
                 [self.navigationController pushViewController:moneyTreeVC animated:YES];
+
             }
-        }else{
+            break;
+        case 1:
             // 第二组 单个 账号安全
-          
+            {
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
             SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
             BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
             [MobClick event:@"MeAccountSafety" attributes:dict];
-
             safe.isPerson = self.isPerson;
             [self.navigationController pushViewController:safe animated:YES];
-        }
+            }
+            break;
+        case 2:
+            switch (indexPath.row) {
+                case 1:{
+                    FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
+                    [self.navigationController pushViewController:feedBackVC animated:YES];
+                    break;
+                }
+                case 2:{
+                    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+                    WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
+                    welceome.alpha = 0;
+                    [window addSubview:welceome];
+                    // 为了看起来不突兀一些
+                    [UIView animateWithDuration:0.3 animations:^{
+                        welceome.alpha = 1;
+                    }];
+                    break;
+                }
+                case 3:{
+                    [self checkNewVerSion];
+                    /*
+                     UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"需要发布之后, 才能到appstore评分" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                     [alertView show];
+                     */
+                    //                NSString *str = [NSString stringWithFormat:
+                    //                                 @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",
+                    //                                 587767923];
+                    //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+                    break;
+                }
+                case 4:{
+                    [self checkNewVerSion];
+                    break;
+                }
+                    
+                default:
+                    break;
+            }
+            break;
+        case 3:
+            
+            break;
+ 
+        default:
+            break;
     }
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -459,9 +460,6 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
-    //    if (!self.isPerson && section == 0 ) {
-    //        return 0.01f;
-    //    }
     return 8.0f;
 }
 
