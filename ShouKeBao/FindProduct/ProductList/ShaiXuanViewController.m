@@ -322,9 +322,6 @@
     self.Slider.maximumValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
     
     self.Slider.upperValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
-    float differenceNum = self.Slider.maximumValue - self.Slider.lowerValue;
-    //self.Slider.minimumRange = differenceNum/17.0;
-    self.Slider.minimumRange = 17/self.Slider.frame.size.width * differenceNum;
     [self.Slider addTarget:self action:@selector(updateSliderLabels) forControlEvents:UIControlEventAllTouchEvents];
     
     lowPlabel.frame = CGRectMake(20, 240, 50, 30);
@@ -357,8 +354,14 @@
     tallPrice.placeholder = @"  ¥";
     [tallPrice setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
 
-    //_rangeSlider.userInteractionEnabled = YES;
     self.Slider.lowerValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]].floatValue;
+    float differenceNum = self.Slider.maximumValue - self.Slider.lowerValue;
+    //self.Slider.minimumRange = differenceNum/17.0;
+    CGFloat aac = kScreenSize.width/12/self.Slider.frame.size.width;
+    // 17/self.Slider.frame.size.width * differenceNum;
+    self.Slider.minimumRange =aac*differenceNum;
+    NSLog(@"%f--%f---%f",self.Slider.minimumRange,aac,differenceNum);
+    NSLog(@"%f--%f--%f--%f",self.Slider.minimumValue,self.Slider.lowerValue,self.Slider.maximumValue,self.Slider.upperValue);
 
     [footView addSubview:_Slider];
     [footView addSubview:lowPlabel];
@@ -432,6 +435,7 @@
     tallPlabel.frame = CGRectMake(kScreenSize.width-kScreenSize.width/7, 240, 50, 30);
 
 }
+//改变六个button和滑杆的选种状态
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat tabscr = subTable.contentOffset.y;
     if (tabscr <= 0) {
