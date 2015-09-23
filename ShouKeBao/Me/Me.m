@@ -51,7 +51,6 @@
 @property (nonatomic, strong)MeProgressView *progressView;
 @property (nonatomic, strong)NSDictionary * versionInfoDic;
 @property (nonatomic, copy)NSString * IOSUpdateType;
-
 @end
 
 @implementation Me
@@ -60,7 +59,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"我";
-    
     self.tableView.rowHeight = 50;
     self.desArr = @[/*@[@"我的分享"],*/@[@"旅游顾问",@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     

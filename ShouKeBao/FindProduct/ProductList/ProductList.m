@@ -478,6 +478,7 @@
 
 -(void)clickPush
 {
+    
     //    NSDictionary *dic = [NSDictionary dictionary];
     //    dic = [_pushedArr firstObject];
     //    if ([dic[@"Text"] isEqualToString:@"暂无"]) {
@@ -679,7 +680,7 @@
     
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    
+   
     //  [dic setObject:@"10" forKey:@"Substation"];
     [dic setObject:@"10" forKey:@"PageSize"];
     [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
@@ -831,7 +832,6 @@
     }
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    
     self.page = [NSMutableString stringWithFormat:@"1"];
     //  [dic setObject:@"10" forKey:@"Substation"];
     [dic setObject:@"10" forKey:@"PageSize"];
@@ -840,9 +840,9 @@
     [dic setObject:[self jiafan] forKey:@"IsPersonBackPrice"];
     
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
-    
     [dic setObject:type forKey:@"ProductSortingType"];
-    
+    [dic setObject:[NSString stringWithFormat:@"%d",self.productListFrom+1] forKey:@"SearchSource"];
+    NSLog(@"%@",dic[@"SearchSource"]);
     [dic addEntriesFromDictionary:self.conditionDic];//增加筛选条件
     
     
