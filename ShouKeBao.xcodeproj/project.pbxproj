@@ -2440,16 +2440,12 @@
 			isa = PBXGroup;
 			children = (
 				B3C01DEE1BAC10FC005E4BB5 /* AccountSafe */,
-				B3C01DF61BAC10FC005E4BB5 /* FeedBcakViewController.h */,
-				B3C01DF71BAC10FC005E4BB5 /* FeedBcakViewController.m */,
-				B3C01DF81BAC10FC005E4BB5 /* InspectionViewController.h */,
-				B3C01DF91BAC10FC005E4BB5 /* InspectionViewController.m */,
-				B3C01DFA1BAC10FC005E4BB5 /* Me.h */,
-				B3C01DFB1BAC10FC005E4BB5 /* Me.m */,
-				B3C01DFC1BAC10FC005E4BB5 /* Me.storyboard */,
 				B3C01DFD1BAC10FC005E4BB5 /* MeHttpTool */,
 				B3C01E001BAC10FC005E4BB5 /* MeModel */,
 				B3C01E071BAC10FC005E4BB5 /* MeView */,
+				B3C01DFA1BAC10FC005E4BB5 /* Me.h */,
+				B3C01DFB1BAC10FC005E4BB5 /* Me.m */,
+				B3C01DFC1BAC10FC005E4BB5 /* Me.storyboard */,
 				B3C01E151BAC10FC005E4BB5 /* MoneyTreeViewController.h */,
 				B3C01E161BAC10FC005E4BB5 /* MoneyTreeViewController.m */,
 				B3C01E171BAC10FC005E4BB5 /* MyListViewController.h */,
@@ -2468,6 +2464,10 @@
 				B3C01E241BAC10FC005E4BB5 /* SuggestViewController.m */,
 				792482F91BAFF232005D1801 /* TravelConsultantViewController.h */,
 				792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */,
+				B3C01DF61BAC10FC005E4BB5 /* FeedBcakViewController.h */,
+				B3C01DF71BAC10FC005E4BB5 /* FeedBcakViewController.m */,
+				B3C01DF81BAC10FC005E4BB5 /* InspectionViewController.h */,
+				B3C01DF91BAC10FC005E4BB5 /* InspectionViewController.m */,
 			);
 			path = Me;
 			sourceTree = "<group>";

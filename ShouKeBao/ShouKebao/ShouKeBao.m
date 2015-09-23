@@ -609,7 +609,7 @@
             }
             [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue integerValue];
             
-        [self getVoice];
+//        [self getVoice];
         }
         if ([message[0] isEqualToString:@"messageId"]){//新公告
             self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;

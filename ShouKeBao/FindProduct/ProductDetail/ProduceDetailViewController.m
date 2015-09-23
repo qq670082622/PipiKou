@@ -369,7 +369,7 @@
 -(void)webViewDidFinishLoad:(UIWebView *)webView
 {
     
-
+    NSLog(@"%@",webView.request.URL.absoluteString);
     //判断是否显示关闭按钮
     if (self.m == 0) {
         
@@ -632,7 +632,7 @@
 
     [self addAlert];
     
-    }
+}
 
 -(void)reloadStateWithType:(ShareType)type
 {
