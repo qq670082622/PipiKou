@@ -792,13 +792,36 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
+    NSString * commandWords = [self getWordOfCommand];
+    if (commandWords) {
+        [[[UIAlertView alloc]initWithTitle:@"进入应用" message:commandWords delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+    }
+    
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
-
+- (NSString *)getWordOfCommand{
+    UIPasteboard *board = [UIPasteboard generalPasteboard];
+    NSString * string = board.string;
+    if (!string) {
+        string = @"";
+    }
+    //创建正则表达式；pattern规则；
+    NSString * pattern = @"¥.+¥";
+    NSRegularExpression * regex = [[NSRegularExpression alloc]initWithPattern:pattern options:0 error:nil];
+    //测试字符串；
+    NSArray * result = [regex matchesInString:string options:0 range:NSMakeRange(0,string.length)];
+    if (result.count) {
+        //获取口令后，清空剪切版
+        board.string = @"";
+        //获取筛选出来的字符串
+        NSString * resultStr = [string substringWithRange:((NSTextCheckingResult *)result[0]).range];
+       return [resultStr stringByReplacingOccurrencesOfString:@"¥" withString:@""];
+    }
+    return nil;
+}
 
 
 

@@ -1096,7 +1096,7 @@
 
 -(void)click
 {
-        self.guideIndex++;
+    self.guideIndex++;
     
     NSString *str = [NSString stringWithFormat:@"GuideSKB%d",self.guideIndex+1];
     self.guideImageView.image = [UIImage imageNamed:str];
