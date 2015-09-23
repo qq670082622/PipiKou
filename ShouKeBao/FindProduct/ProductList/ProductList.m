@@ -724,7 +724,7 @@
 
 - (IBAction)chooseConditions:(id)sender {
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:ShaiXuan];
-    if (self.dataArr.count != 0) {
+    if (self.dataArr.count > 1) {
         if (self.conditionDic.count != 0) {
             
             ShaiXuan.MinPricecondition = self.conditionDic[@"MinPrice"];
@@ -732,7 +732,6 @@
             //ShaiXuan.primaryNum = self.primaryNu;
         }
         ShaiXuan.siftHLDic = self.siftDic;
-        NSLog(@"%@",ShaiXuan.siftHLDic);
         [self presentViewController:nav animated:YES completion:nil];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
