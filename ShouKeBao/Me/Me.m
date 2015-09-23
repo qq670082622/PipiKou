@@ -294,7 +294,7 @@
 //            break;
         case 0://第二个分区
             if (indexPath.row == 0) {
-                cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
+                cell.imageView.image = [UIImage imageNamed:@"lygw"];
             }else if(indexPath.row == 1){
                 if (self.isPerson) {
                     cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
@@ -451,7 +451,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.isPerson && indexPath.section == 0 && indexPath.row == 0) {
+    if (!self.isPerson && indexPath.section == 0 && indexPath.row == 1) {
         return 0.5;
     }
     return 50;

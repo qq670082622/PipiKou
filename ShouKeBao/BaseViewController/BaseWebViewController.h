@@ -15,6 +15,6 @@
 @property (nonatomic,strong) BeseWebView *webView;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
-
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
 
 @end
