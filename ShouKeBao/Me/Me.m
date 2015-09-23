@@ -60,7 +60,7 @@
     [super viewDidLoad];
     self.title = @"我";
     self.tableView.rowHeight = 50;
-    self.desArr = @[/*@[@"我的分享"],*/@[@"旅游顾问",@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[/*@[@"我的分享"],*/@[/*@"旅游顾问",*/@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -291,9 +291,9 @@
 //            
 //            break;
         case 0://第二个分区
-            if (indexPath.row == 0) {
+            /*if (indexPath.row == 0) {
                 cell.imageView.image = [UIImage imageNamed:@"lygw"];
-            }else if(indexPath.row == 1){
+            }else*/ if(indexPath.row == 0){
                 if (self.isPerson) {
                     cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
                 }else{
@@ -301,10 +301,10 @@
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
 
-            }else if(indexPath.row == 2){
+            }else if(indexPath.row == 1){
                 cell.imageView.image = [UIImage imageNamed:@"money"];
 
-            }else if(indexPath.row == 3){
+            }else if(indexPath.row == 2){
                 /**
                  * *摇钱树图片设置
                  **/
@@ -357,19 +357,19 @@
     switch (indexPath.section) {
         case 0:
             // 第一组的三个
-           if (indexPath.row == 0) {
+           /*if (indexPath.row == 0) {
                 TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeTravelConsultantVCClick" attributes:dict];
                 [self.navigationController pushViewController:TCVC animated:YES];
-            }else if(indexPath.row == 1){
+            }else*/ if(indexPath.row == 0){
                 MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeOrgViewClick" attributes:dict];
                 
                 [self.navigationController pushViewController:myOrg animated:YES];
 
-            }else if(indexPath.row == 2){
+            }else if(indexPath.row == 1){
                 // 圈付宝
                 QuanViewController *quan = [[QuanViewController alloc] init];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -377,7 +377,7 @@
                 
                 [self.navigationController pushViewController:quan animated:YES];
 
-            }else if(indexPath.row == 3){
+            }else if(indexPath.row == 2){
                 MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
                 moneyTreeVC.webTitle = @"摇钱树";
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
@@ -449,7 +449,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.isPerson && indexPath.section == 0 && indexPath.row == 1) {
+    if (!self.isPerson && indexPath.section == 0 && indexPath.row == 0) {
         return 0.5;
     }
     return 50;
