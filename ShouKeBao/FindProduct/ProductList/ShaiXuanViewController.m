@@ -15,7 +15,7 @@
 #import "WriteFileManager.h"
 #import "MinMaxPriceSelectViewController.h"
 #import "ProductList.h"
-#import "WLRangeSlider.h"
+#import "NMRangeSlider.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 
 
@@ -35,7 +35,7 @@
 @property(nonatomic,assign) BOOL jishiswitchisOn;
 @property(nonatomic) UIButton *priceBtnOutlet;
 @property(nonatomic) UIButton *button;//价格
-@property(nonatomic,strong)WLRangeSlider *rangeSlider;//滑杆
+@property(nonatomic) NMRangeSlider *Slider;
 @property(nonatomic,strong) NSArray *keydataArr;//返回字典的key名字
 @property(nonatomic) NSArray *sixbtndata;//6个价格区间数据(不一定是6个)
 //@property(nonatomic) NSInteger TextFieldNum;
@@ -46,8 +46,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   // self.TextFieldNum = 1;
-       for (NSInteger i =  0; i < _conditionArr.count; i++) {
+    //self.TextFieldNum = 1;
+    //筛选数据
+    for (NSInteger i =  0; i < _conditionArr.count; i++) {
         if ([[_conditionArr objectAtIndex:i] objectForKey:@"PriceRange"]) {
             _sixbtndata = [[_conditionArr objectAtIndex:i] objectForKey:@"PriceRange"];
         }
@@ -100,53 +101,54 @@
 //tableview与单击手势冲突，走下面方法
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    
-    //self.TextFieldNum = 1;
     self.primaryNum = 7;
-    lowPrice.text = nil;
-    tallPrice.text = nil;
+    [self setTextFieldnil];
     //改变button的不选中效果
     for (NSInteger qw =1001; qw<1007; qw++) {
         UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
         myButton1.selected = NO;
     }
-    //改变滑杆的选种效果
-    lowPlabel.textColor = [UIColor orangeColor];
-    tallPlabel.textColor = [UIColor orangeColor];
-    _rangeSlider.trackHighlightTintColor=[UIColor orangeColor];
+
     
     //收键盘
     [self putTextField];
-    CGPoint pc = [touch locationInView:_rangeSlider];
-    
-    //距离两边的距离(判断是否改变哪个按钮)
-    NSInteger difNum = _rangeSlider.maxValue - _rangeSlider.minValue;
-    NSInteger fromLeft = (pc.x-15)/_rangeSlider.frame.size.width*difNum-_rangeSlider.leftValue + _rangeSlider.minValue;
-    NSInteger fromRight =_rangeSlider.rightValue - _rangeSlider.minValue- (pc.x-15)/_rangeSlider.frame.size.width*difNum;
+    CGPoint pc = [touch locationInView:_Slider];
+    NSLog(@"%f",pc.x);
+    NSString *aab = [NSString stringWithFormat:@"%f",self.Slider.minimumValue];
+    NSLog(@"%@",aab);
+    CGFloat difNum = _Slider.maximumValue - aab.floatValue;
     
     //label显示的价格值
-    CGFloat ab = pc.x/_rangeSlider.frame.size.width;
-    double percentage = difNum/_rangeSlider.maxValue;
-    NSInteger finalValue = ab * _rangeSlider.maxValue * percentage+_rangeSlider.minValue;
+    CGFloat ab = pc.x/_Slider.frame.size.width;
+   // double percentage = difNum/_Slider.maximumValue;
+    CGFloat finalValue = ab * _Slider.maximumValue * difNum/_Slider.maximumValue + aab.intValue;
+    //CGFloat finaNum = ab *_Slider.maximumValue;
+    NSLog(@"%0.f",finalValue);
     
-    if (fromLeft > fromRight) {
-       tallPlabel.text = [NSString stringWithFormat:@"¥%ld",finalValue];
-        _rangeSlider.rightValue = pc.x/_rangeSlider.frame.size.width*(_rangeSlider.maxValue-_rangeSlider.minValue)+_rangeSlider.minValue;
-        NSInteger parmar = _rangeSlider.frame.size.width-30;
-        tallPlabel.frame = CGRectMake(ab*parmar+15, 250, 50, 30);
-        
+    if (pc.x-self.Slider.lowerCenter.x > self.Slider.upperCenter.x - pc.x) {
+        //改变右边
+        tallPlabel.text = [NSString stringWithFormat:@"¥%0.f",finalValue];
+
+        _Slider.upperValue = finalValue;
+        NSInteger parmar = _Slider.frame.size.width-30;
+        tallPlabel.frame = CGRectMake(ab*parmar+15, 240, 50, 30);
         //增加筛选条件
-        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.leftValue]  forKey:@"MinPrice"];
-        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",finalValue] forKey:@"MaxPrice"];
-    }else if(fromLeft <= fromRight){
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%0.f",_Slider.lowerValue]  forKey:@"MinPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%0.f",finalValue] forKey:@"MaxPrice"];
+        NSLog(@"%@",self.conditionDic);
+    }else if(pc.x-self.Slider.lowerCenter.x <= self.Slider.upperCenter.x - pc.x){
             NSLog(@"改变左边的滑轮");
-        lowPlabel.text = [NSString stringWithFormat:@"¥%ld",finalValue];
-        _rangeSlider.leftValue = finalValue;
-        NSInteger parma = _rangeSlider.frame.size.width-30;
-        lowPlabel.frame = CGRectMake(ab*parma+15, 250, 50, 30);
+        lowPlabel.text = [NSString stringWithFormat:@"¥%0.f",finalValue];
+        
+        _Slider.lowerValue = finalValue;
+        NSInteger parma = _Slider.frame.size.width-15;
+        CGFloat an = (pc.x-15)/_Slider.frame.size.width;
+        lowPlabel.frame = CGRectMake(an*parma+30, 240, 50, 30);
         //增加筛选条件
-        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",finalValue]  forKey:@"MinPrice"];
-        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_rangeSlider.rightValue] forKey:@"MaxPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%0.f",finalValue]  forKey:@"MinPrice"];
+        [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)_Slider.upperValue] forKey:@"MaxPrice"];
+        NSLog(@"%@",self.conditionDic);
+ 
     }
     // 若为UITableViewCellContentView（即点击了tableViewCell），则不截获Touch事件
     if ([NSStringFromClass([touch.view class]) isEqualToString:@"UITableViewCellContentView"]) {
@@ -180,13 +182,17 @@
         UIButton *but = (UIButton *)[self.view viewWithTag:self.primaryNum];
         but.selected = YES;
     }else if(self.primaryNum == 7){
-        _rangeSlider.leftValue = self.MinPricecondition.floatValue;
-        _rangeSlider.rightValue = self.MaxPricecondition.floatValue;
+        if (self.MinPricecondition == nil) {
+            NSLog(@"我是空");
+        }else{
+            self.Slider.lowerValue = self.MinPricecondition.floatValue;
+            self.Slider.upperValue = self.MaxPricecondition.floatValue;
+        }
     }else if(self.primaryNum == 8){
         lowPrice.text = self.MinPricecondition;
         tallPrice.text = self.MaxPricecondition;
     }
-    
+    NSLog(@"%f--%f--%f--%f",self.Slider.minimumValue,self.Slider.lowerValue,self.Slider.maximumValue,self.Slider.upperValue);
 }
 //收键盘
 - (void)keyboardWillChangeFrame:(NSNotification *)notification
@@ -311,21 +317,22 @@
         [footView addSubview:sixbutton];
     }
     //价格区间滑杆
-     self.rangeSlider = [[WLRangeSlider alloc] initWithFrame:CGRectMake(15,270 , kScreenSize.width-30, 30)];
-    _rangeSlider.minValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]].floatValue;
-    _rangeSlider.maxValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
-    _rangeSlider.leftValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]].floatValue;
-    _rangeSlider.rightValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
-     [_rangeSlider addTarget:self action:@selector(valueChanged:) forControlEvents:UIControlEventAllTouchEvents];
-    [footView addSubview:_rangeSlider];
+    self.Slider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(15,270 , kScreenSize.width-30, 30)];
+    self.Slider.minimumValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]].floatValue;
+    self.Slider.maximumValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
     
-    lowPlabel.frame = CGRectMake(18, 250, 50, 30);
+    self.Slider.upperValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
+    float differenceNum = self.Slider.maximumValue - self.Slider.lowerValue;
+    //self.Slider.minimumRange = differenceNum/17.0;
+    self.Slider.minimumRange = 17/self.Slider.frame.size.width * differenceNum;
+    [self.Slider addTarget:self action:@selector(updateSliderLabels) forControlEvents:UIControlEventAllTouchEvents];
+    
+    lowPlabel.frame = CGRectMake(20, 240, 50, 30);
     lowPlabel.text = [NSString stringWithFormat:@"¥%@",[self.siftHLDic objectForKey:@"MinPrice"]] ;
-    NSLog(@"%@",[self.siftHLDic objectForKey:@"MinPrice"]);
     lowPlabel.font = [UIFont systemFontOfSize:12];
     lowPlabel.textColor = [UIColor orangeColor];
    
-    tallPlabel.frame = CGRectMake(kScreenSize.width-kScreenSize.width/7, 250, 50, 30);
+    tallPlabel.frame = CGRectMake(kScreenSize.width-50, 240, 50, 30);
     tallPlabel.text =  [NSString stringWithFormat:@"¥%@",[self.siftHLDic objectForKey:@"MaxPrice"]];
     tallPlabel.font = [UIFont systemFontOfSize:12];
     tallPlabel.textColor = [UIColor orangeColor];
@@ -350,8 +357,10 @@
     tallPrice.placeholder = @"  ¥";
     [tallPrice setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
 
-    _rangeSlider.userInteractionEnabled = YES;
+    //_rangeSlider.userInteractionEnabled = YES;
+    self.Slider.lowerValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]].floatValue;
 
+    [footView addSubview:_Slider];
     [footView addSubview:lowPlabel];
     [footView addSubview:tallPlabel];
     [footView addSubview:label];
@@ -382,15 +391,47 @@
     singleFingerOne.numberOfTouchesRequired = 1; //手指数
     singleFingerOne.numberOfTapsRequired = 1; //tap次数
     singleFingerOne.delegate = self;
-    [_rangeSlider addGestureRecognizer:singleFingerOne];
+//[_rangeSlider addGestureRecognizer:singleFingerOne];
+    [self.Slider addGestureRecognizer:singleFingerOne];
     
 }
+- (void) updateSliderLabels
+{
+    // You get get the center point of the slider handles and use this to arrange other subviews
+    
+    CGPoint lowerCenter;
+    lowerCenter.x = (self.Slider.lowerCenter.x + self.Slider.frame.origin.x+10);
+    lowerCenter.y = (self.Slider.center.y - 30.0f);
+    lowPlabel.center = lowerCenter;
+    
+    lowPlabel.text = [NSString stringWithFormat:@"¥%d", (int)self.Slider.lowerValue];
+    //NSLog(@"--%@",lowPlabel.text);
+    CGPoint upperCenter;
+    upperCenter.x = (self.Slider.upperCenter.x + self.Slider.frame.origin.x+10);
+    upperCenter.y = (self.Slider.center.y - 30.0f);
+    tallPlabel.center = upperCenter;
+    tallPlabel.text = [NSString stringWithFormat:@"¥%d", (int)self.Slider.upperValue];
+    NSLog(@"--%@",tallPlabel.text);
+}
+
 //return 收键盘
 -(void)putTextField{
     [lowPrice resignFirstResponder];
     [tallPrice resignFirstResponder];
 }
+//TextField置为nil
+-(void)setTextFieldnil{
+    lowPrice.text = nil;
+    tallPrice.text = nil;
+}
+//重置滑轮的位置
+-(void)replacereplace{
+    self.Slider.lowerValue = self.Slider.minimumValue;
+    self.Slider.upperValue = self.Slider.maximumValue;
+    lowPlabel.frame = CGRectMake(20, 240, 50, 30);
+    tallPlabel.frame = CGRectMake(kScreenSize.width-kScreenSize.width/7, 240, 50, 30);
 
+}
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     CGFloat tabscr = subTable.contentOffset.y;
     if (tabscr <= 0) {
@@ -417,10 +458,8 @@
 -(void)textFieldDidBeginEditing:(UITextField *)textField{
     //self.TextFieldNum = 1;
     self.primaryNum = 8;
+    [self replacereplace];
     //改变六个button和滑杆的选种状态
-    lowPlabel.textColor = [UIColor lightGrayColor];
-    tallPlabel.textColor = [UIColor lightGrayColor];
-    _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
     for (NSInteger qw =1001; qw<1007; qw++) {
         UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
         myButton1.selected = NO;
@@ -451,43 +490,6 @@
     
 }
 
-//滑杆出发事件
-- (void)valueChanged:(WLRangeSlider *)slider{
-   // self.TextFieldNum = 1;
-    self.primaryNum = 7;
-    lowPrice.text = nil;
-    tallPrice.text = nil;
-    //左滑动按钮
-    lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.leftValue];
-    NSInteger po =(NSInteger)slider.leftValue;
-    float ty = (float)(po-_rangeSlider.minValue)/(_rangeSlider.maxValue-_rangeSlider.minValue);
-    float haha = _rangeSlider.frame.size.width-30;
-    lowPlabel.frame = CGRectMake(ty*haha+15, 250, 50, 30);
-    
-    //右滑动按钮
-    tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger)slider.rightValue];
-    NSInteger qw =(NSInteger)slider.rightValue;
-    float er = (float)(qw-_rangeSlider.minValue)/(_rangeSlider.maxValue-_rangeSlider.minValue);
-
-    float heihei = _rangeSlider.frame.size.width-30;
-    tallPlabel.frame = CGRectMake(er*heihei+15, 250, 50, 30);
-    
-    //增加筛选条件
-    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.leftValue]  forKey:@"MinPrice"];
-    [self.conditionDic setObject:[NSString stringWithFormat:@"%ld",(NSInteger)slider.rightValue] forKey:@"MaxPrice"];
-    //现在已经困的
-        //改变button的不选中效果
-    for (NSInteger qw =1001; qw<1007; qw++) {
-        UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
-            myButton1.selected = NO;
-    }
-    //改变滑杆的选种效果
-    lowPlabel.textColor = [UIColor orangeColor];
-    tallPlabel.textColor = [UIColor orangeColor];
-    _rangeSlider.trackHighlightTintColor=[UIColor orangeColor];
-    //收键盘
-   [self putTextField];
-}
 -(NSMutableDictionary *)conditionDic
 {
     if (_conditionDic == nil) {
@@ -515,7 +517,7 @@
     for (NSInteger qw =1001; qw<1007; qw++) {
         if (button.tag == qw) {
             button.selected = YES;
-            
+            [self replacereplace];
         }else{
             UIButton *myButton1 = (UIButton *)[self.view viewWithTag:qw];
             myButton1.selected = NO;
@@ -536,14 +538,10 @@
             NSLog(@"点击重置");
             //筛选条件置为nil
             self.conditionDic = nil;
-            _rangeSlider.leftValue = _rangeSlider.minValue;
-            _rangeSlider.rightValue = _rangeSlider.maxValue;
-            [_rangeSlider updateLayerFrames];
-            [self valueChanged:_rangeSlider];
+            [self replacereplace];
             //两个输入框置为nil
-            lowPrice.text = nil;
-            tallPrice.text = nil;
-            
+            [self setTextFieldnil];
+
             [self refereshSelectData];
             
             NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
@@ -559,10 +557,6 @@
             self.goDateEnd = [NSMutableString stringWithFormat:@""];
             self.month = [NSMutableString stringWithFormat:@""];
             [subTable reloadData];
-            //改变滑杆的选种效果以及位置
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
         }
             break;
         case 104:
@@ -639,11 +633,9 @@
             [self.conditionDic setObject:@"0" forKey:@"MinPrice"];
             [self.conditionDic setObject:[str substringFromIndex:NSMaxRange(str1)] forKey:@"MaxPrice"];
             NSLog(@"=====%@",self.conditionDic);
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
-            lowPrice.text = nil;
-            tallPrice.text = nil;
+
+            //_rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
+            [self setTextFieldnil];
             self.primaryNum =1001;
         }
             break;
@@ -652,14 +644,11 @@
             NSString *str =  [_sixbtndata[1] objectForKey:@"Value"];
             NSRange str1 = [str rangeOfString:@"-"];
             
-            [self.conditionDic setObject:[str substringToIndex:NSMaxRange(str1)-1] forKey:@"MinPrice"];//[_sixbtndata[i] objectForKey:@"Text"]
+            [self.conditionDic setObject:[str substringToIndex:NSMaxRange(str1)-1] forKey:@"MinPrice"];
             [self.conditionDic setObject:[str substringFromIndex:NSMaxRange(str1)] forKey:@"MaxPrice"];
             NSLog(@"%@",self.conditionDic);
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
-            lowPrice.text = nil;
-            tallPrice.text = nil;
+
+            [self setTextFieldnil];
             self.primaryNum =1002;
         }
             break;
@@ -667,15 +656,10 @@
         {
             NSString *str =  [_sixbtndata[2] objectForKey:@"Value"];
             NSRange str1 = [str rangeOfString:@"-"];
-            
             [self.conditionDic setObject:[str substringToIndex:NSMaxRange(str1)-1] forKey:@"MinPrice"];
             [self.conditionDic setObject:[str substringFromIndex:NSMaxRange(str1)] forKey:@"MaxPrice"];
             NSLog(@"%@",self.conditionDic);
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
-            lowPrice.text = nil;
-            tallPrice.text = nil;
+            [self setTextFieldnil];
             self.primaryNum =1003;
         }
             break;
@@ -687,11 +671,7 @@
             [self.conditionDic setObject:[str substringToIndex:NSMaxRange(str1)-1] forKey:@"MinPrice"];
             [self.conditionDic setObject:[str substringFromIndex:NSMaxRange(str1)] forKey:@"MaxPrice"];
             NSLog(@"%@",self.conditionDic);
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
-            lowPrice.text = nil;
-            tallPrice.text = nil;
+            [self setTextFieldnil];
             self.primaryNum =1004;
         }
             break;
@@ -703,11 +683,7 @@
             [self.conditionDic setObject:[str substringToIndex:NSMaxRange(str1)-1] forKey:@"MinPrice"];
             [self.conditionDic setObject:[str substringFromIndex:NSMaxRange(str1)] forKey:@"MaxPrice"];
             NSLog(@"%@",self.conditionDic);
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
-            lowPrice.text = nil;
-            tallPrice.text = nil;
+            [self setTextFieldnil];
             self.primaryNum =1005;
         }
             break;
@@ -715,15 +691,10 @@
         {
             NSString *str =  [_sixbtndata[5] objectForKey:@"Value"];
             NSRange str1 = [str rangeOfString:@"-"];
-            
             [self.conditionDic setObject:[str substringToIndex:NSMaxRange(str1)-1] forKey:@"MinPrice"];
             [self.conditionDic setObject:@"0" forKey:@"MaxPrice"];
             NSLog(@"%@",self.conditionDic);
-            lowPlabel.textColor = [UIColor lightGrayColor];
-            tallPlabel.textColor = [UIColor lightGrayColor];
-            _rangeSlider.trackHighlightTintColor=[UIColor lightGrayColor];
-            lowPrice.text = nil;
-            tallPrice.text = nil;
+           [self setTextFieldnil];
             self.primaryNum =1006;
         }
             break;
@@ -779,13 +750,9 @@
     if (type == timePick) {
         self.goDateStart = timeArr[0];
         self.goDateEnd = timeArr[1];
-        // self.dressView.goDateText = [NSString stringWithFormat:@"%@~%@",self.goDateStart,self.goDateEnd];
     }else{
         self.goDateStart = timeArr[0];
         self.goDateEnd = timeArr[1];
-        // self.createDateStart = timeArr[0];
-        // self.createDateEnd = timeArr[1];
-        // self.dressView.createDateText = [NSString stringWithFormat:@"%@~%@",self.createDateStart,self.createDateEnd];
     }
     [self.conditionDic setObject:_goDateStart forKey:@"StartDate"];
     [self.conditionDic setObject:_goDateEnd forKey:@"EndDate"];
@@ -801,7 +768,6 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     ShaiXuanCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ShaiXuan" forIndexPath:indexPath];
     cell.str = dataArr[indexPath.row];
-    NSLog(@"%@",cell.str);
     if (indexPath.row == 2) {
         if (_goDateEnd.length>3) {
             cell.contentStr = [NSString stringWithFormat:@"%@~%@",_goDateStart,_goDateEnd];
@@ -847,7 +813,6 @@
         choose.buttons = conditionDic;
         choose.needMonth = @"1";
         //subTable.hidden = YES;
-        //NSLog(@"__%@",_conditionArr[a]);
         [self.navigationController pushViewController:choose animated:YES];
     }else if(indexPath.row != 2){
         switch (indexPath.row) {
@@ -928,9 +893,8 @@
         ConditionSelectViewController *conditionVC = [[ConditionSelectViewController alloc] init];
         
         conditionVC.delegate = self;
-        
+
         conditionVC.conditionDic = conditionDic;
-        
         NSArray *arr = [NSArray arrayWithObjects:[NSString  stringWithFormat:@"%ld",(long)
                                                   indexPath.section],[NSString  stringWithFormat:@"%ld",(long)indexPath.row], nil];
         conditionVC.superViewSelectIndexPath = arr;//取出第几行被选择
@@ -946,33 +910,12 @@
 {
     //确认列表选择值
     // self.conditionDic = [NSMutableDictionary dictionary];
-    
     if (value) {
         [self.conditionDic setObject:value forKey:key];
-        
         NSLog(@"-------------传过来的key is %@------------",key);
-//        if ([selectIndexPath[0]isEqualToString:@"0"]) {
-//            
-//            NSInteger a = [selectIndexPath[1] integerValue];//分析selected IndexPath.row的值
-//            
-//            self.subIndicateDataArr1[a] = selectValue;
-//            
-//        }else if ([selectIndexPath[0] isEqualToString:@"1"]){
-//            
-//            NSInteger a = [selectIndexPath[1] integerValue];
-//            
-//            self.subIndicateDataArr2[a] = selectValue;
-//        }
          NSInteger a = [selectIndexPath[1] integerValue];
         self.subIndicateDataArr1[a] = selectValue;
-        //self.subView.hidden = NO;
-        //NSLog(@"subindicateArr 1 :------------%@------------- 2:%@--------------- ",_subIndicateDataArr1,_subIndicateDataArr2);
         [subTable reloadData];
-        //[self loadDataSourceWithCondition];
-        
-//    }else if (!value){
-//        self.subView.hidden = NO;
-//    }
     NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
     }
 }
@@ -985,14 +928,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

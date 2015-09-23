@@ -29,20 +29,14 @@
 
 - (void)initLayers{
     self.ret = YES;
-    ShaiXuanViewController *ShaiXuan = [[ShaiXuanViewController alloc] init];
-//    _maxValue = [NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
-//    _minValue =[NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MinPrice"]].floatValue;
-//    _leftValue =[NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MinPrice"]].floatValue;
-//    _rightValue = [NSString stringWithFormat:@"%@",[self.ShaiXuan.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
     _maxValue  = 60000;
     _minValue =0;
     _leftValue = 0;
     _rightValue = 60000;
     _thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"tuoyuantest"]];
-    //_thumbColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"hualun"]];
     _trackHighlightTintColor = [UIColor orangeColor];
     _trackColor = [UIColor colorWithWhite:0.9 alpha:1.0];
-    _cornorRadiusScale = 1;
+    _cornorRadiusScale = 10000;
     
     _trackLayer = [WLTrackLayer layer];
     _trackLayer.contentsScale = [UIScreen mainScreen].scale;
@@ -152,9 +146,16 @@
     CGFloat deltaX = point.x - _previousLoction.x;
     CGFloat deltaValue = (_maxValue - _minValue) * deltaX / (CGRectGetWidth(self.bounds) - [self thumbWidth]);
     _previousLoction = point;
+    NSLog(@"%f",deltaValue);
     if (_leftThumbLayer.highlighted) {
-        self.leftValue += deltaValue;
-        self.leftValue = [self boundaryForValue:_leftValue minValue:_minValue maxValue:_rightValue];
+        //if (CGRectIntersectsRect(_leftThumbLayer.frame, _rightThumbLayer.frame)) {
+          //  NSLog(@"已经交替了，别拉了，我擦擦");
+            _leftThumbLayer.delegate = self;
+        //}else{
+            self.leftValue += deltaValue;
+            self.leftValue = [self boundaryForValue:_leftValue minValue:_minValue maxValue:_rightValue];
+        //}
+        
     }else if (_rightThumbLayer.highlighted){
         self.rightValue += deltaValue;
         self.rightValue = [self boundaryForValue:_rightValue minValue:_leftValue maxValue:_maxValue];
