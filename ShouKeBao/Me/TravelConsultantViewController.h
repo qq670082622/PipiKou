@@ -7,7 +7,7 @@
 //
 
 #import "SKTableViewController.h"
-
-@interface TravelConsultantViewController : SKTableViewController
+#import "SKViewController.h"
+@interface TravelConsultantViewController : SKViewController    
 
 @end

@@ -9,6 +9,9 @@
 #import "TravelConsultantViewController.h"
 
 @interface TravelConsultantViewController ()
+@property (strong, nonatomic) IBOutlet UILabel *bindingNum;//绑定数
+@property (strong, nonatomic) IBOutlet UILabel *shareNum;//分享数
+@property (strong, nonatomic) IBOutlet UILabel *reserveNum;//预订数
 
 @end
 
