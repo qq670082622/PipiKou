@@ -622,7 +622,7 @@
                 [alert show];
                 lowPrice.text = @"";
                 tallPrice.text = @"";
-            }else if ( maxPrice == 0){
+            }else if (maxPrice == 0){
                 UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"价格不能为0，请重新输入" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
                 [alert show];
                 lowPrice.text = @"";
