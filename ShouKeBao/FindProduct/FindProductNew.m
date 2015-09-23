@@ -438,6 +438,8 @@
         //当前列表页非热门推荐
         rightModal2 * model = self.NomalDataArray[indexPath.section];
         ProductList *list = [[ProductList alloc] init];
+        list.productListFrom = FromKeyWord;
+        
         list.pushedSearchK = model.searchKeyArray[indexPath.row];
         list.title = model.subNameArray[indexPath.row];
 //        list.pushedArr = _pushArr;

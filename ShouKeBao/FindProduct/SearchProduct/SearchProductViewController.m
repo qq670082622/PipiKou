@@ -30,6 +30,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *table;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 //@property (weak,nonatomic) UIView *footView;
+@property (nonatomic) int isun;
 
 @end
 
@@ -256,6 +257,7 @@
         list.isFromSearch = YES;
         self.table.tableFooterView.hidden = NO;
         //self.footView.hidden = NO;
+        list.productListFrom = FromKeyWord;
         [self.navigationController pushViewController:list animated:YES];
     }
     
@@ -296,7 +298,7 @@
     [dicNew setObject:@"暂无" forKey:@"Value"];
     NSMutableArray *pushArr = [NSMutableArray array];
     [pushArr addObject:dicNew];
-
+    
     NSLog(@"self.inputView.text = %@", self.inputView.text);
 //    NSString *dd = [NSMutableString stringWithFormat:@"%@",  self.inputView.text];
 //    self.inputView.text = [dd stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -312,15 +314,18 @@
             [WriteFileManager WMsaveData:_tableDataArr name:@"searchHistory"];
             
             }
-               ProductList *list = [[ProductList alloc] init];
-        
+        ProductList *list = [[ProductList alloc] init];
+    
+        if (self.isun != FromKeyWord) {
+            self.isun = FromSearch;
+        }
        list.pushedSearchK = self.inputView.text;
         
         NSLog(@"self.inputView.text = %@", self.inputView.text);
         self.table.tableFooterView.hidden = NO;
         
         list.isFromSearch = YES;
-       
+        list.productListFrom = self.isun;
         [self.navigationController pushViewController:list animated:YES];
     
     }else if (self.inputView.text.length<1 ){
@@ -339,7 +344,7 @@
         
         ProductList *list = [[ProductList alloc] init];
         list.pushedSearchK = self.inputView.text;
-       
+        list.productListFrom = FromSearch;
        self.table.tableFooterView.hidden = NO;
         
         list.isFromSearch = YES;
@@ -366,7 +371,7 @@
        
         list.pushedSearchK = self.inputView.text;
         self.table.tableFooterView.hidden = NO;
-       
+        list.productListFrom = FromSearch;
         list.isFromSearch = YES;
         [self.navigationController pushViewController:list animated:YES];
     }
@@ -401,6 +406,7 @@
 
     UIButton *btn = (UIButton *)sender;
     self.inputView.text = btn.currentTitle;
+    self.isun = FromKeyWord;
     [self search];
  
 }

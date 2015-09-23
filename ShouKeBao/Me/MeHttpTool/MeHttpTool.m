@@ -243,6 +243,7 @@
         
         if (success) {
             success(json);
+            NSLog(@"%@",json);
         }
         
     } failure:^(NSError *error) {
