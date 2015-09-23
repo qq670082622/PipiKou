@@ -294,7 +294,7 @@
 //            break;
         case 0://第二个分区
             if (indexPath.row == 0) {
-                cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
+                cell.imageView.image = [UIImage imageNamed:@"lygw"];
             }else if(indexPath.row == 1){
                 if (self.isPerson) {
                     cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
