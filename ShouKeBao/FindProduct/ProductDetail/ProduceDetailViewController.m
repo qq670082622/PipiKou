@@ -329,6 +329,7 @@
     }
     if (shareRange.location != NSNotFound) {
         [self shareIt:nil];
+        [_indicator stopAnimationWithLoadText:@"" withType:YES];
     }
         return YES;
   
