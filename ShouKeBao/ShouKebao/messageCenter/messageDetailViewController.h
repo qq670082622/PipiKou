@@ -20,6 +20,8 @@
 @property (nonatomic,copy) NSString *messageURL;
 @property (nonatomic,copy) NSString *createDate;
 @property (nonatomic,copy) NSString *messageTitle;
+@property (nonatomic, strong)NSMutableDictionary * shareInfo;
+
 @property (nonatomic) NSInteger m;
 
 @end

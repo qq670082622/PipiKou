@@ -75,6 +75,7 @@
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStyleBordered target:self action:@selector(EditCustomerDetail)];
     
     self.navigationItem.rightBarButtonItem= barItem;
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 -(void)EditCustomerDetail
 {

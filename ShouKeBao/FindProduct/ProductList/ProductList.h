@@ -9,9 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "ProduceDetailViewController.h"
 #import "SKViewController.h"
+typedef enum{
+    FromSearch,
+    FromKeyWord
+}ProductListFrom;
+
 @interface ProductList : SKViewController//<passValue>
+
+
 @property (nonatomic,copy) NSString *pushedSearchK;
 //@property (nonatomic,copy) NSString *productTitle;
 @property(nonatomic,strong) NSMutableArray *pushedArr;
 @property(nonatomic,assign) BOOL isFromSearch;
+@property (nonatomic, assign)ProductListFrom productListFrom;
 @end
