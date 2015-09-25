@@ -10,6 +10,17 @@
 #import "BaseModel.h"
 @interface HomeHttpTool : BaseModel
 
+
+
+
+/**
+ *  根据粘贴板的口令信息获取产品详情的model（运营需求）
+ */
++ (void)getAProductDetailWithCommandParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure;
+
+
+
+
 /**
  *  获取首页登录用户的相关汇总信息
  */
