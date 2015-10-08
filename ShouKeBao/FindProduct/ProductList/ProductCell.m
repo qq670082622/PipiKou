@@ -219,9 +219,9 @@
     //默认宽为60
     CGFloat jW = self.fanIsZero ? 60 : 0 ;
     CGFloat qW = self.quanIsZero ? 60 : 0 ;
-    
+//    抵
     self.jiafanBtn.frame = CGRectMake(pX, jY, jW, 15);//加返按钮
-    
+//   送
     CGFloat qX = CGRectGetMaxX(self.jiafanBtn.frame)+5;
     self.quanBtn.frame = CGRectMake(qX, jY, qW, 15);//券
     
