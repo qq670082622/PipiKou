@@ -630,7 +630,8 @@
 //                                [self.warningLab removeFromSuperview];
                                 }
                             }];
-
+    
+    NSLog(@"%@",self.shareInfo[@"Url"]);
     [self addAlert];
     
 }
