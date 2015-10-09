@@ -66,6 +66,7 @@
 #import "ProductList.h"
 #import "FindProductNew.h"
 #import "NSString+FKTools.h"
+#import "CommandTo.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
 @property (nonatomic, retain)CLLocationManager *locationManager;

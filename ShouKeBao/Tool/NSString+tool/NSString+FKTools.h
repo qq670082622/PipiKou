@@ -18,4 +18,7 @@
                    withWidth:(CGFloat)width;
 //一行字体的宽度
 - (CGFloat)widthWithsysFont:(CGFloat)font;
+//半透明的背景
++(void)showbackgroundgray;
++(void)showcommendToDetailbody:(NSString *)body Di:(NSString *)Di song:(NSString *)song retailsales:(NSString *)retailsalesLabel Nav:(UINavigationController *)nav;
 @end
