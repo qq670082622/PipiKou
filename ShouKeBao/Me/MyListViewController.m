@@ -239,19 +239,15 @@
 - (NSArray *)createRightButtons:(ProductModal *)model
 {
     NSMutableArray * result = [NSMutableArray array];
-    //    NSString *add = [NSString stringWithFormat:@"最近班期:\n%@\n\n供应商:\n%@",model.LastScheduleDate,model.SupplierName];
-    
+    //    NSString *add = [NSString stringWithFormat:@"最近班期:%@\n\n供应商:%@",model.LastScheduleDate,model.SupplierName];
     //    NSString* titles[2] = {@"", add};
     UIColor * colors[2] = {[UIColor clearColor], [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1]};
-    
-    
     for (int i = 0; i < 2; i ++)
     {
         MGSwipeButton *button = [MGSwipeButton buttonWithTitle:nil backgroundColor:colors[i] callback:^BOOL(MGSwipeTableCell * sender){
             NSLog(@"Convenience callback received (right). %d",i);
             return YES;
         }];
-        
         
         if (i == 0) {
             NSString *img = [model.IsFavorites isEqualToString:@"1"] ? @"uncollection_icon" : @"collection_icon";
@@ -260,13 +256,15 @@
             //            button.titleLabel.numberOfLines = 0;
             button.enabled = NO;
         }
-        
         button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
         //        button.titleLabel.font = [UIFont systemFontOfSize:12];
         [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
         CGRect frame = button.frame;
-        CGFloat cancelW = self.listType == collectionType ? 42 : 47;
-        frame.size.width = i == 1 ? [UIScreen mainScreen].bounds.size.width*9/20 : cancelW;
+        if (self.listType == previewType) {
+            frame.size.height = 160;
+        }
+        frame.size.height = 120;
+        frame.size.width = i == 1 ? 140 : 42;
         button.frame = frame;
         if (i == 1) {
             SwipeView *swipe = [SwipeView addSubViewLable:button Model:model];
@@ -389,9 +387,10 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(self.listType == previewType) {
-        return 170;
+        //        return self.view.frame.size.height/4;
+        return 160;
     }else{
-        return 140;
+        return 120;
     }
 }
 

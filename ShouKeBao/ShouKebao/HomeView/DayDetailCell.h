@@ -20,11 +20,19 @@
 @property (weak, nonatomic) UILabel *cheapPrice;
 @property (weak, nonatomic) UILabel *profits;
 
-@property (weak, nonatomic) UIButton *jiafanBtn;
-@property (weak, nonatomic) UIButton *quanBtn;
+@property (weak, nonatomic) UILabel *diLab;
+@property (weak, nonatomic) UILabel *songLab;
+@property (nonatomic,weak) UIView *line;// xixian
+@property (nonatomic,weak) UIView *longLine;// 分割线
+
+@property (weak, nonatomic) UIButton *li;
+@property (weak, nonatomic) UIButton *di;
+@property (weak, nonatomic) UIButton *song;
+//@property (weak, nonatomic) UIButton *jiafanBtn;
+//@property (weak, nonatomic) UIButton *quanBtn;
 @property (weak, nonatomic) UIButton *ShanDianBtn;
 
-@property (nonatomic,weak) UIImageView *flash;
+@property (nonatomic,weak) UIButton *flash;
 
 @property (nonatomic,assign) BOOL isFlash;
 @property (nonatomic,assign) BOOL quanIsZero;
