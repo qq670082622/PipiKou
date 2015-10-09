@@ -1081,6 +1081,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52B33AD91BB3966F0035A406 /* CommandToProductDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = CommandToProductDetail;
+			sourceTree = "<group>";
+		};
 		5A076E7B1ACD89DA0077611C /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -1093,6 +1100,7 @@
 		5A076E951ACD8B270077611C /* ShouKebao */ = {
 			isa = PBXGroup;
 			children = (
+				52B33AD91BB3966F0035A406 /* CommandToProductDetail */,
 				797E56571B56565E00154C55 /* NewVersion */,
 				63F1A17A1B140CF700DE9867 /* Recoomend */,
 				5A8216141AD36AD7009388DA /* HomeHttpTool */,
@@ -3118,6 +3126,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -3145,6 +3154,7 @@
 				PRODUCT_NAME = ShouKeBao;
 				PROVISIONING_PROFILE = "d40ee23e-53ae-4be2-8364-515d57a34ddb";
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -3154,6 +3164,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
