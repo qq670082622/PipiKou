@@ -1,12 +1,12 @@
 //
-//  MoneyTreeViewController.m
+//  LvYouGuWenViewController.m
 //  ShouKeBao
 //
-//  Created by 冯坤 on 15/7/17.
+//  Created by 冯坤 on 15/9/30.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
-#import "MoneyTreeViewController.h"
+#import "LvYouGuWenViewController.h"
 #import "MeHttpTool.h"
 #import "BeseWebView.h"
 #import <ShareSDK/ShareSDK.h>
@@ -15,27 +15,33 @@
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "NSString+FKTools.h"
-@interface MoneyTreeViewController ()<UIWebViewDelegate>
+
+@interface LvYouGuWenViewController ()<UIWebViewDelegate>
 @property(nonatomic,weak) UILabel *warningLab;
 
 @end
 
-@implementation MoneyTreeViewController
+@implementation LvYouGuWenViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self loadDataSource];
     //self.navigationItem.leftBarButtonItem = leftItem;
+    self.title = @"旅游顾问";
     self.webView.delegate  = self;
+    [self setShateButtonHidden:NO];
+
 }
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {
     [MeHttpTool getMeIndexWithParam:@{} success:^(id json) {
         if (json) {
-            NSLog(@"-----%@",json);
-            [self loadWithUrl:json[@"MoneyTreeUrl"]];
-            self.linkUrl = json[@"MoneyTreeUrl"];
+            NSLog(@"-----**%@",json);
+            [self loadWithUrl:json[@"ConsultantUrl"]];
+            self.linkUrl = json[@"ConsultantUrl"];
+            self.shareInfo = json[@"ConsultanShareInfo"];
+            NSLog(@"%@", self.linkUrl);
         }
     }failure:^(NSError *error){
         
@@ -54,7 +60,7 @@
     if (hidden) {
         self.navigationItem.rightBarButtonItem = nil;
     }else{
-    self.navigationItem.rightBarButtonItem = shareBarItem;
+        self.navigationItem.rightBarButtonItem = shareBarItem;
     }
 }
 -(void)shareIt:(id)sender
@@ -152,7 +158,7 @@
                                 }
                             }];
     
-    [self addAlert];
+//    [self addAlert];
     
 }
 -(void)addAlert
@@ -201,26 +207,29 @@
 #pragma mark - loadWebView
 - (void)loadWithUrl:(NSString *)url
 {
-//        url = @"http://www.myie9.com/useragent/";
+    //    url = @"http://www.myie9.com/useragent/";
     NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:url]];
     [self.webView loadRequest:request];
 }
-//- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
-//    if ([webView.request.URL.absoluteString myContainsString:@"Product/ProductDetail"]) {
-//        [self setShateButtonHidden:NO];
-//    }else{
-//        [self setShateButtonHidden:YES];
-//    }
-//    [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-//
-//    return YES;
-//}
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
+    NSLog(@"%@", webView.request.URL.absoluteString);
+
+    [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
+    
+    NSLog(@"aaa%@", request.URL.absoluteString);
+
+    if ([request.URL.absoluteString myContainsString:@"objectc:LYQSKBAPP_OpenShareDialog"]) {
+        [self shareIt:nil];
+        return NO;
+    }
+    return YES;
+}
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView{
     if ([self.webView canGoBack]) {
         self.navigationItem.leftBarButtonItem = nil;
         [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
-//        NSLog(@"xxxxxx");
+        //        NSLog(@"xxxxxx");
     }else{
         self.navigationItem.leftBarButtonItem = nil;
         self.navigationItem.leftBarButtonItem = leftItem;
@@ -230,42 +239,9 @@
     if (isNeedShareButton) {
         [self setShateButtonHidden:NO];
     }else{
-        [self setShateButtonHidden:YES];
+        [self setShateButtonHidden:NO];
     }
-    
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:webView.request.URL.absoluteString forKey:@"PageUrl"];
-    NSLog(@"%@", dic);
-    [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
-        NSLog(@"-----分享返回数据json is %@------",json);
-        NSString *str =  json[@"ShareInfo"][@"Desc"];
-        //            [[[UIAlertView alloc]initWithTitle:str message:@"11" delegate:nil cancelButtonTitle:json[@"ShareInfo"][@"Url"] otherButtonTitles:nil, nil]show];
-        if(str.length>1){
-            // [self.shareInfo removeAllObjects];
-            self.shareInfo = json[@"ShareInfo"];
-            NSLog(@"%@99999", self.shareInfo);
-            
-        }
-    } failure:^(NSError *error) {
-        
-        NSLog(@"分享请求数据失败，原因：%@",error);
-    }];
-
     [super webViewDidFinishLoad:webView];
-//    NSLog(@"%@", webView.request.URL.absoluteString);
-//     NSString *title = [webView stringByEvaluatingJavaScriptFromString:@"document.getElementById('lyqwebview_title').value"];
-//    if (![title isEqualToString:@""]) {
-//        for (NSString * str in [title componentsSeparatedByString:@"摇钱树"]) {
-//            if (![str isEqualToString:@""]) {
-//                self.title = str;
-//            }
-//        }
-//    }else{
-//    self.title = [webView stringByEvaluatingJavaScriptFromString:@"document.title"];
-//    }
-//    
-//    NSLog(@"%@", title);
 }
-
 
 @end

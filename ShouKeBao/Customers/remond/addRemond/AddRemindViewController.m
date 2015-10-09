@@ -77,13 +77,19 @@
 - (void)setNav
 {
     // 左边箭头
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
-    [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
+    
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
-    self.navigationItem.leftBarButtonItem= leftItem;
+    leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
+    self.navigationItem.leftBarButtonItem = leftItem;
+
     
     // 右边完成
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];

@@ -226,7 +226,6 @@
 		63B8C7021ACE917E00328C8C /* messageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C7011ACE917E00328C8C /* messageModel.m */; };
 		63B8C7061ACE9C3F00328C8C /* messageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C7041ACE9C3F00328C8C /* messageDetailViewController.m */; };
 		63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */; };
-		63B8F5441AF2218900A162DC /* message.wav in Resources */ = {isa = PBXBuildFile; fileRef = 63B8F5431AF2218800A162DC /* message.wav */; };
 		63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8F5451AF221AC00A162DC /* AudioToolbox.framework */; };
 		63BB94B91B86D02200DB306F /* WLRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B41B86D02200DB306F /* WLRangeSlider.m */; };
 		63BB94BA1B86D02200DB306F /* WLSliderThumbLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */; };
@@ -263,6 +262,7 @@
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		791AA5171B7DDBDB007C5C6A /* ProductRecommend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */; };
 		792482FB1BAFF232005D1801 /* TravelConsultantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */; };
+		793F4C191BBB8374004A0436 /* message.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 793F4C181BBB8374004A0436 /* message.mp3 */; };
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
 		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
@@ -291,6 +291,7 @@
 		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
 		798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */; };
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
+		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EE91671B2BCDE2008C8935 /* TimeTool.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
@@ -767,7 +768,6 @@
 		63B8C7031ACE9C3F00328C8C /* messageDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageDetailViewController.h; sourceTree = "<group>"; };
 		63B8C7041ACE9C3F00328C8C /* messageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageDetailViewController.m; sourceTree = "<group>"; };
 		63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageDetailViewController.xib; sourceTree = "<group>"; };
-		63B8F5431AF2218800A162DC /* message.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = message.wav; sourceTree = "<group>"; };
 		63B8F5451AF221AC00A162DC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		63BB94B31B86D02200DB306F /* WLRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRangeSlider.h; sourceTree = "<group>"; };
 		63BB94B41B86D02200DB306F /* WLRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRangeSlider.m; sourceTree = "<group>"; };
@@ -836,6 +836,7 @@
 		791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductRecommend.storyboard; sourceTree = "<group>"; };
 		792482F91BAFF232005D1801 /* TravelConsultantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewController.h; sourceTree = "<group>"; };
 		792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewController.m; sourceTree = "<group>"; };
+		793F4C181BBB8374004A0436 /* message.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = message.mp3; sourceTree = "<group>"; };
 		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
 		795E1EFD1B72F75300072A77 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
@@ -892,6 +893,8 @@
 		799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		799F3E0C1B3A512400C14FBB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		79AEC90E1BBB8EA000A1E83D /* LvYouGuWenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LvYouGuWenViewController.h; sourceTree = "<group>"; };
+		79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvYouGuWenViewController.m; sourceTree = "<group>"; };
 		79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeseWebView.h; sourceTree = "<group>"; };
 		79D8D8201B2ACF2900AE4464 /* BeseWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeseWebView.m; sourceTree = "<group>"; };
 		79EE91661B2BCDE2008C8935 /* TimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTool.h; sourceTree = "<group>"; };
@@ -2022,7 +2025,7 @@
 			children = (
 				637EA9CE1B1DB76A00E5AC22 /* caremaCut.wav */,
 				63F7A67B1B15BA7500D8D654 /* music.mp3 */,
-				63B8F5431AF2218800A162DC /* message.wav */,
+				793F4C181BBB8374004A0436 /* message.mp3 */,
 				5ABA4F621AD7B8EA004AA8F6 /* Localizable.strings */,
 				5A076C9A1ACD1C0F0077611C /* area.plist */,
 				63D31E421AB143D00043B3CA /* Info.plist */,
@@ -2448,6 +2451,8 @@
 				B3C01DFC1BAC10FC005E4BB5 /* Me.storyboard */,
 				B3C01E151BAC10FC005E4BB5 /* MoneyTreeViewController.h */,
 				B3C01E161BAC10FC005E4BB5 /* MoneyTreeViewController.m */,
+				79AEC90E1BBB8EA000A1E83D /* LvYouGuWenViewController.h */,
+				79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */,
 				B3C01E171BAC10FC005E4BB5 /* MyListViewController.h */,
 				B3C01E181BAC10FC005E4BB5 /* MyListViewController.m */,
 				B3C01E191BAC10FC005E4BB5 /* MyOrgViewController.h */,
@@ -2577,7 +2582,7 @@
 				TargetAttributes = {
 					63D31E3D1AB143D00043B3CA = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = ZE6MJL8P7K;
+						DevelopmentTeam = WS6NM65Y2F;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -2620,13 +2625,13 @@
 				B3C01E361BAC10FC005E4BB5 /* SosHead.xib in Resources */,
 				5A5B1AD61AFA220E00B6E16B /* ChildCell.xib in Resources */,
 				B36E57351B74C0D000471AAC /* ProductList.xib in Resources */,
+				793F4C191BBB8374004A0436 /* message.mp3 in Resources */,
 				63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */,
 				63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */,
 				B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */,
 				B36E572D1B74C0D000471AAC /* ConditionSelectViewController.xib in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
-				63B8F5441AF2218900A162DC /* message.wav in Resources */,
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
 				637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */,
 				B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */,
@@ -2731,6 +2736,7 @@
 				5A69960D1AF855DA002EDD91 /* TravelLoginController.m in Sources */,
 				798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */,
 				632BFFCF1AB91FD3003B15AD /* GTMBase65.m in Sources */,
+				79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */,
 				5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */,
 				52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */,
 				63F1A1351B13329E00DE9867 /* YesterDayCell.m in Sources */,
@@ -3118,7 +3124,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -3154,7 +3160,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Shanghai Pipikou Network Technology Co., Ltd.";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
