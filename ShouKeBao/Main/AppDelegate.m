@@ -22,7 +22,6 @@
 #import "MobClick.h"
 #import "UMessage.h"
 #import "ShouKeBao.h"
-#import "BaseWebViewController.h"
 #import "UIViewController+MLTransition.h"
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"

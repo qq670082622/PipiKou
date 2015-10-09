@@ -215,7 +215,10 @@
     NSLog(@"%@", webView.request.URL.absoluteString);
 
     [super webView:webView shouldStartLoadWithRequest:request navigationType:navigationType];
-    if ([webView.request.URL.absoluteString myContainsString:@"objectc:LYQSKBAPP_OpenShareDialog"]) {
+    
+    NSLog(@"aaa%@", request.URL.absoluteString);
+
+    if ([request.URL.absoluteString myContainsString:@"objectc:LYQSKBAPP_OpenShareDialog"]) {
         [self shareIt:nil];
         return NO;
     }
