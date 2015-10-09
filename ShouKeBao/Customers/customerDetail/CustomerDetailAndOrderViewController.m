@@ -115,6 +115,7 @@
             _detailVC.userNameStr = self.model.Name;
             _detailVC.customMoel = self.model;
             _detailVC.picUrl = self.model.PicUrl;
+            NSLog(@"%@22222", _detailVC.picUrl);
             _detailVC.customerId = self.model.ID;
             //协议传值5:指定第一页为第二页的代理人
             _detailVC.delegate = self.customVC;

@@ -486,6 +486,7 @@
         VC.customVC = self;
         VC.keyWords = self.searchK;
         VC.model = model;
+    NSLog(@"%@",         model);
         [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
         [self.navigationController pushViewController:VC animated:YES];
 //    }
