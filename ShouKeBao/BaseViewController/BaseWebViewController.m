@@ -10,11 +10,9 @@
 #import "BeseWebView.h"
 #import "UINavigationController+SGProgress.h"
 #import "MeHttpTool.h"
-#import "YYAnimationIndicator.h"
 @interface BaseWebViewController ()<UIWebViewDelegate>
 @property (nonatomic, copy)NSString *urlSuffix;
 @property (nonatomic, copy)NSString *urlSuffix2;
-@property (nonatomic,strong) YYAnimationIndicator *indicator;
 
 @end
 

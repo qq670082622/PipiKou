@@ -7,12 +7,15 @@
 //
 
 #import "SKViewController.h"
+#import "YYAnimationIndicator.h"
+
 @class BeseWebView;
 @interface BaseWebViewController : SKViewController
 
 @property(nonatomic, copy)NSString * linkUrl;
 @property (nonatomic, copy)NSString * webTitle;
 @property (nonatomic,strong) BeseWebView *webView;
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType;
