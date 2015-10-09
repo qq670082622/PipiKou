@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
+		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
+		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
 		5A076C9B1ACD1C0F0077611C /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A076C9A1ACD1C0F0077611C /* area.plist */; };
 		5A076CA11ACD24050077611C /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076CA01ACD24050077611C /* CityViewController.m */; };
 		5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E7D1ACD89DA0077611C /* WMAnimations.m */; };
@@ -227,9 +229,6 @@
 		63B8C7061ACE9C3F00328C8C /* messageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C7041ACE9C3F00328C8C /* messageDetailViewController.m */; };
 		63B8C7071ACE9C3F00328C8C /* messageDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */; };
 		63B8F5461AF221AC00A162DC /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8F5451AF221AC00A162DC /* AudioToolbox.framework */; };
-		63BB94B91B86D02200DB306F /* WLRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B41B86D02200DB306F /* WLRangeSlider.m */; };
-		63BB94BA1B86D02200DB306F /* WLSliderThumbLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */; };
-		63BB94BB1B86D02200DB306F /* WLTrackLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 63BB94B81B86D02200DB306F /* WLTrackLayer.m */; };
 		63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE06051B203D44008B98B0 /* LLSimpleCamera.m */; };
 		63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */ = {isa = PBXBuildFile; fileRef = 63CE06071B203D44008B98B0 /* UIImage+FixOrientation.m */; };
 		63D31E441AB143D00043B3CA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D31E431AB143D00043B3CA /* main.m */; };
@@ -389,6 +388,9 @@
 /* Begin PBXFileReference section */
 		52A4C1541BB1053200614BFF /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
 		52A4C1551BB1053200614BFF /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
+		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
+		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
+		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
 		5A076C9A1ACD1C0F0077611C /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		5A076C9F1ACD24050077611C /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		5A076CA01ACD24050077611C /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
@@ -769,12 +771,6 @@
 		63B8C7041ACE9C3F00328C8C /* messageDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageDetailViewController.m; sourceTree = "<group>"; };
 		63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = messageDetailViewController.xib; sourceTree = "<group>"; };
 		63B8F5451AF221AC00A162DC /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
-		63BB94B31B86D02200DB306F /* WLRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLRangeSlider.h; sourceTree = "<group>"; };
-		63BB94B41B86D02200DB306F /* WLRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLRangeSlider.m; sourceTree = "<group>"; };
-		63BB94B51B86D02200DB306F /* WLSliderThumbLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLSliderThumbLayer.h; sourceTree = "<group>"; };
-		63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLSliderThumbLayer.m; sourceTree = "<group>"; };
-		63BB94B71B86D02200DB306F /* WLTrackLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WLTrackLayer.h; sourceTree = "<group>"; };
-		63BB94B81B86D02200DB306F /* WLTrackLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WLTrackLayer.m; sourceTree = "<group>"; };
 		63CE06041B203D44008B98B0 /* LLSimpleCamera.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LLSimpleCamera.h; sourceTree = "<group>"; };
 		63CE06051B203D44008B98B0 /* LLSimpleCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LLSimpleCamera.m; sourceTree = "<group>"; };
 		63CE06061B203D44008B98B0 /* UIImage+FixOrientation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+FixOrientation.h"; sourceTree = "<group>"; };
@@ -788,7 +784,7 @@
 		63D31E5C1AB143D00043B3CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63D31E5D1AB143D00043B3CA /* ShouKeBaoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShouKeBaoTests.m; sourceTree = "<group>"; };
 		63D31E891AB16EA00043B3CA /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		63D31E8A1AB16EA00043B3CA /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		63D31E8A1AB16EA00043B3CA /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; wrapsLines = 0; };
 		63D31E8B1AB16EA00043B3CA /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		63D31E8C1AB16EA00043B3CA /* ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		63D31E8F1AB16EC30043B3CA /* WMNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WMNavigationController.h; sourceTree = "<group>"; };
@@ -1084,6 +1080,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		52B858451BC76D4C00B15483 /* CommendToDetail */ = {
+			isa = PBXGroup;
+			children = (
+				52B858461BC76D4C00B15483 /* CommandTo.h */,
+				52B858471BC76D4C00B15483 /* CommandTo.m */,
+				52B858481BC76D4C00B15483 /* CommandTo.xib */,
+			);
+			path = CommendToDetail;
+			sourceTree = "<group>";
+		};
 		5A076E7B1ACD89DA0077611C /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -1096,6 +1102,7 @@
 		5A076E951ACD8B270077611C /* ShouKebao */ = {
 			isa = PBXGroup;
 			children = (
+				52B858451BC76D4C00B15483 /* CommendToDetail */,
 				797E56571B56565E00154C55 /* NewVersion */,
 				63F1A17A1B140CF700DE9867 /* Recoomend */,
 				5A8216141AD36AD7009388DA /* HomeHttpTool */,
@@ -1597,7 +1604,6 @@
 				52A4C1551BB1053200614BFF /* NMRangeSlider.m */,
 				798BB6611B9FCB8B00D8C070 /* NSString+tool */,
 				797B37901B8C1D6000411DBA /* DES */,
-				63BB94B21B86D02200DB306F /* WLRangeSlider */,
 				63128F9F1B842EBF00FCDF19 /* gaosimohu */,
 				797791281B6F121C0075CC70 /* MLTransition */,
 				796C4D4E1B60E90C008EBAFE /* JSONKit */,
@@ -1939,19 +1945,6 @@
 				63B8C7051ACE9C3F00328C8C /* messageDetailViewController.xib */,
 			);
 			path = messageCenter;
-			sourceTree = "<group>";
-		};
-		63BB94B21B86D02200DB306F /* WLRangeSlider */ = {
-			isa = PBXGroup;
-			children = (
-				63BB94B31B86D02200DB306F /* WLRangeSlider.h */,
-				63BB94B41B86D02200DB306F /* WLRangeSlider.m */,
-				63BB94B51B86D02200DB306F /* WLSliderThumbLayer.h */,
-				63BB94B61B86D02200DB306F /* WLSliderThumbLayer.m */,
-				63BB94B71B86D02200DB306F /* WLTrackLayer.h */,
-				63BB94B81B86D02200DB306F /* WLTrackLayer.m */,
-			);
-			path = WLRangeSlider;
 			sourceTree = "<group>";
 		};
 		63CE06021B203D1F008B98B0 /* cameraTool */ = {
@@ -2688,6 +2681,7 @@
 				B3B7A6671BA6A25F0043DF7C /* addCustomerViewController.xib in Resources */,
 				797A5EB91B846DE200751B1D /* FindProductNew.storyboard in Resources */,
 				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
+				52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */,
 				B3B7A66A1BA6A25F0043DF7C /* BatchAddViewController.xib in Resources */,
 				635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */,
 				5A52FC8A1ACEBF220076DAE6 /* DetailView.xib in Resources */,
@@ -2863,7 +2857,6 @@
 				B3C01E311BAC10FC005E4BB5 /* MeButton.m in Sources */,
 				5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */,
 				5A6DAE6D1AE8C23000B814C3 /* LoginCell.m in Sources */,
-				63BB94B91B86D02200DB306F /* WLRangeSlider.m in Sources */,
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
 				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
@@ -2875,7 +2868,6 @@
 				B3B7A6691BA6A25F0043DF7C /* BatchAddViewController.m in Sources */,
 				633263D71AB851590021553B /* AFURLConnectionOperation.m in Sources */,
 				8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */,
-				63BB94BA1B86D02200DB306F /* WLSliderThumbLayer.m in Sources */,
 				63D31E911AB16EC30043B3CA /* WMNavigationController.m in Sources */,
 				796F36D31B7857310089FEE8 /* LeftTableView.m in Sources */,
 				63A81B891B39062900D8B37D /* SKBNavBar.m in Sources */,
@@ -2940,12 +2932,12 @@
 				5A944D261B00BC780004DE89 /* MLPhotoBrowserSignleViewController.m in Sources */,
 				5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */,
 				5A52FC551ACEBF220076DAE6 /* rightModal2.m in Sources */,
+				52B858491BC76D4C00B15483 /* CommandTo.m in Sources */,
 				797B37971B8C38CF00411DBA /* GTMBase64.m in Sources */,
 				635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */,
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
 				5A944D251B00BC780004DE89 /* UIImage+MLBrowserPhotoImageForBundle.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,
-				63BB94BB1B86D02200DB306F /* WLTrackLayer.m in Sources */,
 				5A944D241B00BC780004DE89 /* MLPhotoBrowserPhoto.m in Sources */,
 				633263D31AB851590021553B /* AFHTTPRequestOperationManager.m in Sources */,
 				633263DA1AB851590021553B /* AFURLSessionManager.m in Sources */,

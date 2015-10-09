@@ -25,6 +25,7 @@
 #import "UIViewController+MLTransition.h"
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"
+#import "CommandTo.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -793,7 +794,13 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     NSString * commandWords = [self getWordOfCommand];
     if (commandWords) {
-        [[[UIAlertView alloc]initWithTitle:@"进入应用" message:commandWords delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+//        [[[UIAlertView alloc]initWithTitle:@"进入应用" message:commandWords delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+//                口令显示界面 [[UIApplication sharedApplication].delegate window]
+        [NSString showbackgroundgray];
+        UINavigationController * nav = (UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController;
+        NSLog(@"%@", nav);
+        [NSString showcommendToDetailbody:@"这只是一个测试，不要在意这些细节,这只是一个测试，不要在意这些细节,这只是一个测试，不要在意这些细节，重要的事说三遍" Di:@"500" song:@"500" retailsales:@"12345门市" Nav:nav];
+        //SLog(@"%@", self.window.rootViewController.childViewControllers[0]);
     }
     
 }
