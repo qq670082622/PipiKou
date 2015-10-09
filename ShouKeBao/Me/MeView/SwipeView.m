@@ -65,34 +65,37 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    
     CGFloat w = self.frame.size.width;
-    CGFloat h = 140;
-   
+    CGFloat h = self.bounds.size.height;
+    NSLog(@"ww = %f, %f", w, self.frame.size.height);
+    
     CGFloat H1 = [self.lastScheduleDate.text heigthWithsysFont:13 withWidth:w*5/6];
-    self.lastScheduleDate.frame = CGRectMake(w/6, 2*H1, w*2/3, H1);
+    self.lastScheduleDate.frame = CGRectMake(w/12, h/10, w*5/6, H1);
+    //    self.lastScheduleDate.backgroundColor = [UIColor yellowColor];
     self.lastScheduleDate.font = [UIFont systemFontOfSize:13];
     self.lastScheduleDate.textColor = [UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1];
     
-    CGFloat H1_1 = [self.lastScheduleDateStr.text heigthWithsysFont:12 withWidth:w*2/3];
+    CGFloat H1_1 = [self.lastScheduleDateStr.text heigthWithsysFont:12 withWidth:w*5/6];
     self.lastScheduleDateStr.font = [UIFont systemFontOfSize:12];
-    self.lastScheduleDateStr.frame = CGRectMake(w/6, 3*H1, w*2/3, H1_1);
+    self.lastScheduleDateStr.frame = CGRectMake(w/12, CGRectGetMaxY(self.lastScheduleDate.frame), w*5/6, H1_1);
     self.lastScheduleDateStr.textColor = [UIColor grayColor];
     self.lastScheduleDateStr.numberOfLines = 0;
     
     
-//    self.SupplierName.text = @"供应商:";
+    //    self.SupplierName.text = @"供应商:";
     CGFloat H2 = [self.SupplierName.text heigthWithsysFont:13 withWidth:w*5/6];
-    self.SupplierName.frame = CGRectMake(w/6, h/2, w*2/3, H2);
+    self.SupplierName.frame = CGRectMake(w/12, CGRectGetMaxY(self.lastScheduleDateStr.frame)+5, w*5/6, H2);
     self.SupplierName.font = [UIFont systemFontOfSize:13];
     self.SupplierName.textColor = [UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1];
     
     self.SupplierNameStr.font = [UIFont systemFontOfSize:12];
-    CGFloat H2_2 = [self.SupplierNameStr.text heigthWithsysFont:12 withWidth:w*2/3];
-    self.SupplierNameStr.frame = CGRectMake(w/6, h/2 + H2, w*2/3,H2_2);
+    CGFloat H2_2 = [self.SupplierNameStr.text heigthWithsysFont:12 withWidth:w*5/6];
+    self.SupplierNameStr.frame = CGRectMake(w/12, CGRectGetMaxY(self.SupplierName.frame), w*5/6, H2_2);
     self.SupplierNameStr.textColor = [UIColor grayColor];
     self.SupplierNameStr.numberOfLines = 0;
     
-
+    
 }
 
 

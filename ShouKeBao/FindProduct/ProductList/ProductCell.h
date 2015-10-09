@@ -15,25 +15,31 @@
 @class ProductModal;
 @interface ProductCell : MGSwipeTableCell
 
+
 @property (weak, nonatomic) UILabel *title;
 @property (weak, nonatomic) UIImageView *icon;
 @property (weak, nonatomic) UILabel *productNum;
 @property (weak, nonatomic) UILabel *normalPrice;
 @property (weak, nonatomic) UILabel *cheapPrice;
 @property (weak, nonatomic) UILabel *profits;
+@property (weak, nonatomic) UILabel *diLab;
+@property (weak, nonatomic) UILabel *songLab;
 
+@property (weak, nonatomic) UIButton *li;
+@property (weak, nonatomic) UIButton *di;
+@property (weak, nonatomic) UIButton *song;
 @property (weak, nonatomic) UIButton *jiafanBtn;
 @property (weak, nonatomic) UIButton *quanBtn;
 @property (weak, nonatomic) UIButton *ShanDianBtn;
 
-@property (nonatomic,weak) UIImageView *flash;
+@property (nonatomic,weak) UIButton *flash;
 
 @property (nonatomic,assign) BOOL isFlash;
 @property (nonatomic,assign) BOOL quanIsZero;
 @property (nonatomic,assign) BOOL fanIsZero;
 
 @property (nonatomic,weak) UILabel *time;// 浏览时间
-
+@property (nonatomic,weak) UIView *line;// xixian
 @property (nonatomic,weak) UIView *sep;// 线条
 
 @property (strong, nonatomic) ProductModal *modal;
@@ -44,6 +50,8 @@
 @property (nonatomic, strong)UINavigationController * MylistVCNav;
 
 +(instancetype)cellWithTableView:(UITableView *)tableView;
+
+
 
 
 @end
