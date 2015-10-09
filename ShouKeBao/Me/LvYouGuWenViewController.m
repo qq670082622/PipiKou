@@ -18,7 +18,7 @@
 
 @interface LvYouGuWenViewController ()<UIWebViewDelegate>
 @property(nonatomic,weak) UILabel *warningLab;
-
+@property (nonatomic, assign)BOOL isShow;
 @end
 
 @implementation LvYouGuWenViewController
@@ -28,8 +28,8 @@
     [self loadDataSource];
     //self.navigationItem.leftBarButtonItem = leftItem;
     self.title = @"旅游顾问";
+    self.isShow = YES;
     self.webView.delegate  = self;
-    [self setShateButtonHidden:NO];
 
 }
 #pragma mark - loadDataSource
@@ -102,6 +102,7 @@
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
                                 [self.warningLab removeFromSuperview];
+                                self.isShow = YES;
                                 if (state == SSResponseStateSuccess)
                                 {
                                     
@@ -218,8 +219,10 @@
     
     NSLog(@"aaa%@", request.URL.absoluteString);
 
-    if ([request.URL.absoluteString myContainsString:@"objectc:LYQSKBAPP_OpenShareDialog"]) {
+    if (self.isShow&&[request.URL.absoluteString myContainsString:@"objectc:LYQSKBAPP_OpenShareDialog"]) {
         [self shareIt:nil];
+        self.isShow = NO;
+        [self.indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
         return NO;
     }
     return YES;
@@ -239,7 +242,7 @@
     if (isNeedShareButton) {
         [self setShateButtonHidden:NO];
     }else{
-        [self setShateButtonHidden:NO];
+        [self setShateButtonHidden:YES];
     }
     [super webViewDidFinishLoad:webView];
 }
