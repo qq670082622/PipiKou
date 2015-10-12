@@ -129,7 +129,7 @@
 @property (nonatomic, assign)BOOL flag;
 @property (nonatomic, assign)BOOL shareFlag;
 @property (nonatomic, assign)NSInteger zzm;
-
+@property (nonatomic, strong)NSMutableDictionary * shareInfo;
 
 @end
 
@@ -139,7 +139,6 @@
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
-    //    self.flag = YES;
     ShaiXuan = [[ShaiXuanViewController alloc] init];
     //判断能否执行动画
     self.isAnimation = NO;
@@ -151,20 +150,16 @@
                                              selector:@selector(receiveNotification:)
                                                  name:@"refresh"
                                                object:nil];
-    
-    self.listArray = @[@"推荐", @"利润从高到低", @"利润从低到高", @"同行价从高到低", @"同行价从低到高"];
-    
     self.table.delegate = self;
     self.table.dataSource = self;
     self.subTable.delegate = self;
     self.subTable.dataSource = self;
     self.listTableView.dataSource = self;
     self.listTableView.delegate = self;
-    
-    
+    self.listArray = @[@"推荐", @"利润从高到低", @"利润从低到高", @"同行价从高到低", @"同行价从低到高"];
     self.conditionDic = [[NSMutableDictionary alloc] init];
     self.page = [NSMutableString stringWithFormat:@"1"];
-    
+
     self.pageCountBtn = [UIButton buttonWithType:UIButtonTypeSystem];
     [self.pageCountBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.pageCountBtn.titleLabel.textAlignment = NSTextAlignmentCenter;
@@ -178,12 +173,8 @@
     
     [self.commondOutlet setSelected:YES];
     
-    
-    
     [self.profitOutlet setTitle:@"利润 ↑" forState:UIControlStateNormal ];
-    
     [self.cheapOutlet setTitle:@"同行价 ↑" forState:UIControlStateNormal ];
-    
     self.subTable.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.subDataArr1 = [NSArray arrayWithObjects:@"目的地      ",@"出发城市      ",@"出发日期      ",@"行程天数      ",@"游览线路      ",@"供应商      ", nil];//6
@@ -209,7 +200,6 @@
     [btn setBackgroundImage:[UIImage imageNamed:@"sousuoBackView"] forState:UIControlStateNormal];
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn2 setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
-    
     
     btn2.frame = CGRectMake(28, 0, self.view.frame.size.width*titleWid-28, 34);
     [btn2 setContentHorizontalAlignment:UIControlContentHorizontalAlignmentLeft];
@@ -268,9 +258,7 @@
 //    
 //    [self.view addSubview:gsimageView];
 -(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    
+{  [super viewWillAppear:animated];
     NSIndexPath *selected = [self.subTable indexPathForSelectedRow];
     if(selected) [self.subTable deselectRowAtIndexPath:selected animated:NO];
     
@@ -279,7 +267,6 @@
     self.table.tableFooterView = line;
     
     // [self loadDataSource];
-    
 }
 
 //停止滚动的时候调用
@@ -343,10 +330,7 @@
     
 }
 
-
-
 #pragma -mark private
-
 //第一次开机引导
 -(void)Guide
 {
@@ -356,18 +340,15 @@
     [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
     self.guideImageView.image = [UIImage imageNamed:@"detail1"];
     
-    
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     [guideDefault setObject:@"1" forKey:@"productListGuide"];
     [guideDefault synchronize];
-    
     [self.guideView addSubview:_guideImageView];
     [[[UIApplication sharedApplication].delegate window] addSubview:_guideView];
 }
 -(void)click
 {
     self.guideIndex++;
-    
     NSString *str = [NSString stringWithFormat:@"detail%d",self.guideIndex+1];
     self.guideImageView.image = [UIImage imageNamed:str];
     
@@ -380,16 +361,12 @@
     if (self.guideIndex == 2) {
         [self.guideView removeFromSuperview];
     }
-    
-    
     NSLog(@"被店家－－－－－－－－－－－－－indexi is %d－－",_guideIndex);
-    
 }
 -(void)back
 {
     [self refereshSelectData];
     [self.pushedArr removeAllObjects];
-    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -397,9 +374,6 @@
 {
     NSArray *priceData = [NSArray arrayWithObject:@"价格区间"];
     [WriteFileManager saveData:priceData name:@"priceData"];
-    
-    
-    
     NSMutableArray *arr = [NSMutableArray arrayWithObjects:@{@"123":@"456"} ,nil];
     [WriteFileManager WMsaveData:arr name:@"conditionSelect"];
 }
@@ -407,7 +381,6 @@
 
 -(void)editButtons
 {
-    
     [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
     [self.commondOutlet setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
     [self.commondOutlet setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
@@ -455,8 +428,6 @@
     }else if (_jishi && self.jishiSwitch.on == NO){
         self.jishi = [NSMutableString stringWithFormat:@"0"];
     }
-    
-    
 }
 -(void)changeJiaFan
 {
@@ -465,9 +436,7 @@
         
     }else if (_jiafan && self.jiafanSwitch.on == NO){
         self.jiafan = [NSMutableString stringWithFormat:@"0"];
-        
     }
-    
 }
 
 -(NSMutableString *)jiafan
@@ -475,7 +444,6 @@
     if (_jiafan == nil) {
         
         self.jiafan = [NSMutableString stringWithFormat:@"0"];
-     
     }
     return _jiafan;
 }
@@ -486,6 +454,30 @@
     return _siftDic;
 }
 
+
+
+#pragma mark - getter
+- (NSMutableArray *)dataArr
+{
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+    
+    return _dataArr;
+    
+}
+
+
+
+-(NSMutableArray *)conditionArr
+{
+    if (_conditionArr == nil) {
+        _conditionArr = [NSMutableArray array];
+    }
+    return _conditionArr;
+}
+
+
 #pragma - mark stationSelect delegate
 -(void)passStation:(NSString *)stationName andStationNum:(NSNumber *)stationNum
 {
@@ -494,12 +486,10 @@
 -(void)passSearchKeyFromSearchVC:(NSString *)searchKey
 {
     self.pushedSearchK = [NSMutableString stringWithFormat:@"%@",searchKey];
-   
 }
 
 -(void)clickPush
 {
-    
     //    NSDictionary *dic = [NSDictionary dictionary];
     //    dic = [_pushedArr firstObject];
     //    if ([dic[@"Text"] isEqualToString:@"暂无"]) {
@@ -517,14 +507,11 @@
 }
 
 
-
-
 #pragma  mark - conditionDetail delegate//key 指大字典的key value指字典中某一子value的值
 -(void)passKey:(NSString *)key andValue:(NSString *)value andSelectIndexPath:(NSArray *)selectIndexPath andSelectValue:(NSString *)selectValue
 {
     //确认列表选择值
     // self.conditionDic = [NSMutableDictionary dictionary];
-    
     if (value) {
         [self.conditionDic setObject:value forKey:key];
         
@@ -549,11 +536,7 @@
     }else if (!value){
         self.subView.hidden = NO;
     }
-    
-    
-    
     NSLog(@"-----------conditionDic is %@--------",self.conditionDic);
-    
 }
 
 
@@ -562,9 +545,7 @@
 {
     NSLog(@"价格筛选--------%@------------%@------",min,max);
     self.subView.hidden = NO;
-    
     if (![max  isEqual: @""]) {
-        
         [self.conditionDic setObject:min forKey:@"MinPrice"];
         [self.conditionDic setObject:max forKey:@"MaxPrice"];
         
@@ -612,7 +593,6 @@
 - (void)backToDress
 {
     self.subView.hidden = NO;
-    
 }
 
 -(void)passTheButtonValue:(NSString *)value andName:(NSString *)name
@@ -654,9 +634,7 @@
 #pragma  -mark 下来刷新数据
 -(void)headerPull
 {
-    
     [self loadDataSource];
-    
 }
 
 
@@ -738,11 +716,7 @@
     } failure:^(NSError *error) {
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
     }];
-    
-    
 }
-
-
 
 - (IBAction)chooseConditions:(id)sender {
     if (self.flag ) {
@@ -779,9 +753,7 @@
 //        [self.subView.layer addAnimation:transition forKey:nil];
 
 //    }];
-    
-    
-    
+  
     
 //  [UIView animateWithDuration:1 delay:0.0 options:0 animations:^{
 //      [self.subView setFrame:CGRectMake(0, 0, 375, 667)];
@@ -793,38 +765,24 @@
 //          
 //      }];
 //  }];
-    
-    
-  
-    
+   
 }
-
-
-
 
 #pragma mark - private
 -(void)customRightBarItem
 {
     UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0,0,20,20)];
-    
     [button setImage:[UIImage imageNamed:@"APPsaixuan"] forState:UIControlStateNormal];
-    
     [button addTarget:self action:@selector(setSubViewHideNo)forControlEvents:UIControlEventTouchUpInside];
-    
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    
     self.navigationItem.rightBarButtonItem= barItem;
 }
-
-
 
 - (void)loadDataSource
 {
     //推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
-    
     [self editButtons ];
-    
     [self.noProductWarnLab removeFromSuperview];
     self.table.tableFooterView = nil;
     self.table.tableFooterView.hidden = YES;
@@ -878,10 +836,8 @@
     NSLog(@"--------------productList load dic  is %@--------------",[StrToDic jsonStringWithDicL:dic] );
     [IWHttpTool WMpostWithURL:@"Product/GetProductList_V2" params:dic success:^(id json) {
         
-        NSLog(@"--------------productList load json is   %@------------]",json);
-        
+//        NSLog(@"--------------productList load json is   %@------------]",json);
         NSArray *arr = json[@"ProductList"];
-        // NSLog(@"------------arr.cont is %lu---------",(unsigned long)arr.count);
         [self.dataArr removeAllObjects];
         NSLog(@"arr = %@", arr);
         if (arr.count==0) {
@@ -894,15 +850,12 @@
         }else if (arr.count>0){
             //self.table.tableFooterView.hidden = YES;
             self.noProductView.hidden = YES;
-            
             for (NSDictionary *dic in json[@"ProductList"]) {
                 ProductModal *modal = [ProductModal modalWithDict:dic];
                 [self.dataArr addObject:modal];
             }
             NSString *str = json[@"TotalCount"];
             self.productCount = [str integerValue];
-            
-            
         }
         
         NSMutableArray *conArr = [NSMutableArray array];
@@ -916,7 +869,6 @@
 //        }else if(_isFromSearch && arr.count>0){
             //走搜索进入，后台直接提供目的地，不过位置被放最后一位，一下操作便是调整位置
 
-        
 //************** ??????没明白这段代码啥意思 注掉不影响信息也不崩了
 //            for(NSDictionary *dic in json[@"ProductConditionList"] ){
 //                [conArr addObject:dic];
@@ -939,29 +891,21 @@
         //NSLog(@"________ dic2 = , dic = %@",  dic),
         //NSLog(@"---------!!!!!!dataArr is %@!!!!!! conditionArr is %@------",_dataArr,_conditionArr);
         
-        
         //        [MBProgressHUD hideAllHUDsForView:[[UIApplication sharedApplication].delegate window] animated:YES];
-        
         
         NSString *page = [NSString stringWithFormat:@"%@",_page];
         self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
         
         if (_dataArr != nil) {
-            
-            
             [self.table reloadData];
             [self.subTable reloadData];
             [self.table headerEndRefreshing];
             [self scrollViewDidScroll:nil];
         }
-        
     } failure:^(NSError *error) {
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
     }];
-    
 }
-
-
 
 #pragma 筛选navitem
 -(void)setSubViewHideNo
@@ -969,7 +913,6 @@
     if (self.dataArr.count>0) {
 //        UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
 //        cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-        
         CGFloat W = self.view.frame.size.width;
         
         self.subView.frame = CGRectMake(0, self.view.window.bounds.size.height, W, self.view.window.bounds.size.height);
@@ -991,13 +934,10 @@
         
         [UIView animateWithDuration:0.3 animations:^{
             self.subView.transform = CGAffineTransformMakeTranslation(0, -self.subView.frame.size.height);
- 
-            
             //  NSString *str = [_pushedArr firstObject][@"Text"];
             if (_pushedArr.count == 0) {
                 
                 self.subTable.transform = CGAffineTransformMakeTranslation(0, -60);
-                
             }
             
         }];
@@ -1019,9 +959,7 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
     }
-    
-    
-    
+  
 }
 
 -(void)clickBlackViewToHide
@@ -1041,36 +979,8 @@
 //        
 //    }];
 //    
-    
-    
-    
+  
 }
-
-// 左边滑动的按钮
-//- (NSArray *)createLeftButtons:(ProductModal *)model
-//{
-//    //    NSString *tmp = [NSString stringWithFormat:@"%@\n%@",model.ContactName,model.ContactMobile];
-//    NSString *tmp = [NSString stringWithFormat:@"联系人\n%@\n\n联系电话\n%@",@"恰的",@"13120555759"];
-//    NSMutableArray * result = [NSMutableArray array];
-//    UIColor * color = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-//
-//    MGSwipeButton * button = [MGSwipeButton buttonWithTitle:tmp icon:nil backgroundColor:color callback:^BOOL(MGSwipeTableCell * sender){
-//        NSLog(@"Convenience callback received (left).");
-//        return YES;
-//    }];
-//    CGRect frame = button.frame;
-//    frame.size.width = 100;
-//    button.frame = frame;
-//    button.titleLabel.numberOfLines = 0;
-//    [button setTitleColor:[UIColor colorWithRed:3/255.0 green:3/255.0 blue:3/255.0 alpha:1] forState:UIControlStateNormal];
-//    button.titleEdgeInsets = UIEdgeInsetsMake(0, 10, 0, 10);
-//    button.titleLabel.font = [UIFont systemFontOfSize:12];
-//    [result addObject:button];
-//    button.enabled = NO;
-//
-//    return result;
-//}
-
 
 // 右边滑动的按钮
 - (NSArray *)createRightButtons:(ProductModal *)model
@@ -1111,30 +1021,6 @@
 }
 
 
-
-#pragma mark - getter
-- (NSMutableArray *)dataArr
-{
-    if (_dataArr == nil) {
-        _dataArr = [NSMutableArray array];
-    }
-    
-    return _dataArr;
-    
-}
-
-
-
--(NSMutableArray *)conditionArr
-{
-    if (_conditionArr == nil) {
-        _conditionArr = [NSMutableArray array];
-    }
-    return _conditionArr;
-}
-
-
-
 #pragma mark - tableviewdatasource& tableviewdelegate
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -1147,8 +1033,6 @@
     return 50;
 
 }
-
-
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
@@ -1165,15 +1049,12 @@
             NSLog(@"-------%lu",(unsigned long)_subDataArr2.count);
             return _subDataArr2.count;
         }
-        
     }
     if (tableView.tag == 7) {
         return self.listArray.count;
     }
     return 0;
 }
-
-
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -1204,14 +1085,9 @@
 -(UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
 {
     if (tableView.tag == 2 ) {
-        
-        
         if(section == 1 && [_turn isEqualToString:@"Off"]){
-            
             UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 1, self.subTable.frame.size.width, 38)];
-            
             view.userInteractionEnabled = YES;
-            
             UIView *line = [[UIView alloc] initWithFrame:CGRectMake(0, view.frame.size.height-0.5, view.frame.size.width, 0.5)];
             
             line.backgroundColor = [UIColor colorWithRed:203/255.f green:204/255.f blue:205/255.f alpha:1];
@@ -1233,8 +1109,6 @@
             self.subTableSectionBtn = btn;
             
             [view addSubview:btn];
-            
-            
             
             UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 210)];
             
@@ -1293,9 +1167,7 @@
             self.subTableSectionBtn = btn;
             
             [view addSubview:btn];
-            
-            
-            
+   
             UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.subTable.frame.size.width, 210)];
             
             UIView *subLine = [[UIView alloc] initWithFrame:CGRectMake(0, 30, self.subTable.frame.size.width, 20)];
@@ -1324,25 +1196,17 @@
     }
     return 0;
     
-    
 }
-
-
 
 
 -(void)beMore
 {
     NSLog(@"点击了butn");
-    
     if ([_turn isEqualToString:@"Off"]) {
-        
         self.turn = [NSMutableString stringWithString:@"On"];
-        
     }
     else
-        
         self.turn = [NSMutableString stringWithString:@"Off"];
-    
     [self.subTable reloadData];
     [self scrollTableToFoot:YES];
 }
@@ -1362,14 +1226,10 @@
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (tableView.tag == 2 && section == 1) {
-        
         return 0;
     }
-    
     return 0;
 }
-
-
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
@@ -1400,7 +1260,7 @@
 //    }
 
     
-    NSInteger count = self.table.contentOffset.y/1360;
+    NSInteger count = self.table.contentOffset.y/(120*10);
     int totalCount = (int)self.productCount/10;
     if (self.productCount%10>0) {//如果／10还有余数总页码＋1
         totalCount++;
@@ -1437,18 +1297,15 @@
 //            }
             
         }else{
-
-            
             if (self.isAnimation == NO) {
             [UIView animateWithDuration:0.6 animations:^{
-                CGPoint gaosi = self.gaosimohuView.center;
-                CGPoint choose = self.chooseButton.center;
-                
-                gaosi.y +=60;
-                choose.y +=60;
-                self.gaosimohuView.center = gaosi;
-                self.chooseButton.center = choose;
-                NSLog(@"%f---%f",gaosi.y,choose.y);
+//                CGPoint gaosi = self.gaosimohuView.center;
+//                CGPoint choose = self.chooseButton.center;
+//                gaosi.y +=60;
+//                choose.y +=60;
+//                self.gaosimohuView.center = gaosi;
+//                self.chooseButton.center = choose;
+//                NSLog(@"%f---%f",gaosi.y,choose.y);
             } completion:^(BOOL finished) {
                 NSLog(@"执行动画完毕");
             }];
@@ -1458,29 +1315,24 @@
         
     }else{
         NSLog(@"向下滚动,应该显示");
-        
-           
             if (self.isAnimation) {
                 [UIView animateWithDuration:0.6 animations:^{
-                    CGPoint gaosi = self.gaosimohuView.center;
-                    CGPoint choose = self.chooseButton.center;
-                    gaosi.y -=60;
-                    choose.y -= 60;
-                    self.gaosimohuView.center = gaosi;
-                    NSLog(@"%f",self.view.center.y);
-                    self.chooseButton.center = choose;
-                    NSLog(@"%f---%f",gaosi.y,choose.y);
+//                    CGPoint gaosi = self.gaosimohuView.center;
+//                    CGPoint choose = self.chooseButton.center;
+//                    gaosi.y -=60;
+//                    choose.y -= 60;
+//                    self.gaosimohuView.center = gaosi;
+//                    NSLog(@"%f",self.view.center.y);
+//                    self.chooseButton.center = choose;
+//                    NSLog(@"%f---%f",gaosi.y,choose.y);
                 } completion:^(BOOL finished) {
                     NSLog(@"执行动画完毕");
                 }];
-                
                 self.isAnimation = NO;
             }
-
-        
     }
     self.oldOffset = scrollView.contentOffset.y;
-    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%d/%d",count+1,totalCount] forState:UIControlStateNormal];
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];
 }
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     NSLog(@"开始滚动%f",scrollView.contentOffset.y);
@@ -1494,27 +1346,17 @@
         NSString *productUrl = model.LinkUrl;
         
         NSString *productName = model.Name;
-        
-        
-        
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         
         detail.produceUrl = productUrl;
         //detail.shareInfo = model.ShareInfo;
         NSLog(@"%@---%@----%@", detail.shareInfo,detail.produceUrl,productName);
         detail.productName = productName;
-        
-        
         if (self.isFromSearch) {
             detail.fromType = FromProductSearch;
         }else{
             detail.fromType = FromFindProduct;
         }
-        
-        
-        
-        
-        
         [self.navigationController pushViewController:detail animated:YES];
         
         [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -1675,8 +1517,6 @@
             [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
             [self close];
         }
-        
-
     }
 }
     
@@ -2643,16 +2483,33 @@
         [self close];
     }
     if (self.shareFlag == NO) {
+        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+        [postDic setObject:@"0" forKey:@"ShareType"];
+        if (self.shareInfo[@"Url"]) {
+            [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+        }
+//        [postDic setObject: forKey:@"PageUrl"];
+        
         //构造分享内容
         id<ISSContent>publishContent = [ShareSDK content:nil
                                           defaultContent:nil
                                                    image:nil
                                                    title:@" "
-                                                     url:nil
-                                             description:nil
+                                                     url:nil                                             description:nil
                                                mediaType:SSPublishContentMediaTypeText];
         
-        //   [ShareView shareWithContent:publishContent Flag:self.shareFlag];
+//        id<ISSContent>publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
+//                                          defaultContent:self.shareInfo[@"Desc"]
+//                                                   image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
+//                                                   title:@" "
+//                                        self.shareInfo[@"Title"]
+//                                                     url:self.shareInfo[@"Url"]
+//                                             description:nilself.shareInfo[@"Desc"]
+//                                               mediaType:SSPublishContentMediaTypeText];
+//        [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
+//        NSLog(@"%@444", self.shareInfo);
+//        [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
+        
         [ShareView shareWithContent:publishContent];
     }else if(self.shareFlag == YES){
         [ShareView  cancleBtnClick];

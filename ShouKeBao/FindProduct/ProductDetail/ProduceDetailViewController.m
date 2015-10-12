@@ -547,7 +547,7 @@
                                        defaultContent:self.shareInfo[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
                                                 title:self.shareInfo[@"Title"]
-                                                  url:self.shareInfo[@"Url"]                                           description:self.shareInfo[@"Desc"]
+                                                  url:self.shareInfo[@"Url"]                                  description:self.shareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
 
     [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
