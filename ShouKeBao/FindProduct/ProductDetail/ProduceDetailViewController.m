@@ -38,7 +38,6 @@
 @property (nonatomic, assign)BOOL isBack;
 @property (nonatomic,strong) UIButton * rightButton;
 @property (nonatomic,assign) BOOL isSave;
-
 //FromQRcode,
 //FromRecommend,
 //FromStore,
@@ -261,14 +260,29 @@
 
 -(void)back
 {
+    //下边是未改动返回
+//    self.isBack = YES;
+//    if ([_webView canGoBack]) {
+//        
+//        [self.webView goBack];
+//   }else  {
+//        [self.navigationController popViewControllerAnimated:YES];
+//    }
+    
+    //下边是正在增加退出分享的借口
     self.isBack = YES;
     if ([_webView canGoBack]) {
         
         [self.webView goBack];
-   }else  {
-        [self.navigationController popViewControllerAnimated:YES];
+    }else  {
+        [NSString showbackgroundgray];
+        [NSString showLeaveShareNav:self.navigationController];
+        
     }
-    
+   
+}
+-(void)CancelLeaveShareBlock:(UINavigationController *)uinav{
+    [uinav popViewControllerAnimated:YES];
 }
 
 -(void)turnOff

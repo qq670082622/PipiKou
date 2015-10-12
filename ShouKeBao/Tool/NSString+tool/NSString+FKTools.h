@@ -21,4 +21,7 @@
 //半透明的背景
 +(void)showbackgroundgray;
 +(void)showcommendToDetailbody:(NSString *)body Di:(NSString *)Di song:(NSString *)song retailsales:(NSString *)retailsalesLabel Nav:(UINavigationController *)nav;
+//退出分享
++(void)showLeaveShareNav:(UINavigationController *)nav;
+
 @end
