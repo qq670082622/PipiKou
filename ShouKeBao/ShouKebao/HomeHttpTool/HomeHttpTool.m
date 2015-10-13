@@ -19,6 +19,7 @@
 #warning 此处的接口是假的，需要后台配好之后再重新修改
         if (success) {
             success(json);
+            NSLog(@"_______%@",json);
         }
         
     } failure:^(NSError *error) {

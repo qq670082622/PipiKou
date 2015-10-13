@@ -801,9 +801,9 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 //
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:[NSString stringWithFormat:@"¥%@¥",commandWords] forKey:@"CommandText"];
-        NSLog(@"%@",dic);
+        NSLog(@"%@",commandWords);
         [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
-            NSLog(@"%@",json);
+            NSLog(@"++++++++++++%@",json);
         } failure:^(NSError *error) {
             NSLog(@"请求失败：%@",error);
         }];
