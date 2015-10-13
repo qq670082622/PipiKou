@@ -15,7 +15,7 @@
  *  根据粘贴板的口令信息获取产品详情的model（运营需求）
  */
 + (void)getAProductDetailWithCommandParam:(NSDictionary *)param success:(void (^)(id json))success failure:(void (^)(NSError *error))failure{
-    [IWHttpTool postWithURL:@"SKB/GetAproductDetail" params:param success:^(id json) {
+    [IWHttpTool postWithURL:@"/Product/GetLvqProductCommand" params:param success:^(id json) {
 #warning 此处的接口是假的，需要后台配好之后再重新修改
         if (success) {
             success(json);

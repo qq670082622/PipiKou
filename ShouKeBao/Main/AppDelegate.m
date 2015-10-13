@@ -27,6 +27,7 @@
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
 #import "LeaveShare.h"
+#import "HomeHttpTool.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -74,7 +75,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:url];
     //将崩溃日志写到本地；等程序再运行的时候再发送到服务器；
-    [[NSUserDefaults standardUserDefaults]setValue:crashLogInfo forKey:@"crashLogInfo"];
+    [[NSUserDefaults standardUserDefaults] setValue:crashLogInfo forKey:@"crashLogInfo"];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
 }
 //- (void)installUncaughtExceptionHandler
@@ -798,7 +799,16 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 //        [[[UIAlertView alloc]initWithTitle:@"进入应用" message:commandWords delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
 //                口令显示界面 [[UIApplication sharedApplication].delegate window]
 //
-        NSLog(@"%@", self.window.rootViewController);
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:[NSString stringWithFormat:@"¥%@¥",commandWords] forKey:@"CommandText"];
+        NSLog(@"%@",dic);
+        [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
+            NSLog(@"%@",json);
+        } failure:^(NSError *error) {
+            NSLog(@"请求失败：%@",error);
+        }];
+        
+
         if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
         [NSString showbackgroundgray];
 
