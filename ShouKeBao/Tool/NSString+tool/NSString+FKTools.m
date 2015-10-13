@@ -8,6 +8,7 @@
 
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
+#import "LeaveShare.h"
 @implementation NSString (FKTools)
 - (BOOL)myContainsString:(NSString*)other{
     NSRange range = [self rangeOfString:other];
@@ -50,5 +51,30 @@
     
     [[[UIApplication sharedApplication].delegate window] addSubview:commandto];
 }
++(void)showLeaveShareNav:(UINavigationController *)nav{
+    LeaveShare *leaveS = [[[NSBundle mainBundle] loadNibNamed:@"LeaveShare" owner:self options:nil] lastObject];
+    leaveS.layer.cornerRadius = 8;
+    leaveS.tag = 103;
+    leaveS.nav =nav;
 
+    UIButton *btn = (UIButton *)[leaveS viewWithTag:1000];
+    btn.layer.cornerRadius = 8;
+    btn.layer.borderWidth = 2;
+    btn.layer.borderColor = [[UIColor grayColor] CGColor];
+    UIButton *btn2 = (UIButton *)[leaveS viewWithTag:2000];
+    btn2.layer.cornerRadius = 8;
+    btn2.layer.borderWidth = 2;
+    btn2.layer.borderColor = [[UIColor grayColor] CGColor];
+    leaveS.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-260)/2, [UIScreen mainScreen].bounds.size.height/3,260, 160);
+    leaveS.bodydifferenceColor.text  = @"    你知道么？每1秒就会产生1个分享，每5次分享就会产生1个订单，赶快分享吧，分享越多，机会越多!";
+    NSMutableAttributedString *mutStr = [[NSMutableAttributedString alloc] initWithString:leaveS.bodydifferenceColor.text];
+    [mutStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(30, 2)];
+    [mutStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(22, 2)];
+    
+    [leaveS.bodydifferenceColor setAttributedText:mutStr];
+    
+    [[[UIApplication sharedApplication].delegate window] addSubview:leaveS];
+
+
+}
 @end

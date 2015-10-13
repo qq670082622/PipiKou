@@ -26,7 +26,7 @@
 
 - (IBAction)nowsee:(UIButton *)sender {
     ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
-    detail.produceUrl = @"http://mtest.lvyouquan.cn/Login?appbusid=C2B89DD0E484DE292F1B749B55F775AF6B7AE551F3F4E4D94EDF9E51AF8F1D3E9669C6267BF34CAE8B30398A80A74A2F48B83C8CF056B199&callBack=%2fProduct%2fProductDetail%2f62b55e8212da43918774190296b9e414%3fviewsource%3d2%26isfromapp%3d1%26apptype%3d1%26version%3d1.2.5.0%26appuid%3d7b5524fe3a56456ea3bb008adc313f28%26substation%3d10&substation=10";
+    detail.produceUrl = @"http://mtest.lvyouquan.cn/Login?appbusid=C2B89DD0E484DE292F1B749B55F775AF6B7AE551F3F4E4D94EDF9E51AF8F1D3E9669C6267BF34CAE99C16AE998AAC4A1387678AEBA83AAEE&callBack=%2fProduct%2fProductDetail%2f2a1fcb9f46eb4490a3db37ce40fcc254%3fsource%3dapp%26AppPushProductID%3d92f2168ec74640aa8ee1f88588fb496d%26viewsource%3d3%26isfromapp%3d1%26apptype%3d2%26version%3d1.2.5.0%26appuid%3daed7b6bdad4d4394a679acef798c5099%26substation%3d10&substation=10";
     
     [self.NAV pushViewController:detail animated:YES];
     [self disappear];

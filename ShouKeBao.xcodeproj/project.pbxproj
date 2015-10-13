@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		527D4A381BC8A0620020AAF3 /* LeaveShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D4A371BC8A0620020AAF3 /* LeaveShare.m */; };
+		527D4A3A1BC8A0700020AAF3 /* LeaveShare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527D4A391BC8A0700020AAF3 /* LeaveShare.xib */; };
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
@@ -396,6 +398,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		527D4A361BC8A0620020AAF3 /* LeaveShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveShare.h; sourceTree = "<group>"; };
+		527D4A371BC8A0620020AAF3 /* LeaveShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveShare.m; sourceTree = "<group>"; };
+		527D4A391BC8A0700020AAF3 /* LeaveShare.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaveShare.xib; sourceTree = "<group>"; };
 		52A4C1541BB1053200614BFF /* NMRangeSlider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMRangeSlider.h; sourceTree = "<group>"; };
 		52A4C1551BB1053200614BFF /* NMRangeSlider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMRangeSlider.m; sourceTree = "<group>"; };
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
@@ -1102,6 +1107,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		527D4A351BC8A04B0020AAF3 /* LeaveShare */ = {
+			isa = PBXGroup;
+			children = (
+				527D4A361BC8A0620020AAF3 /* LeaveShare.h */,
+				527D4A371BC8A0620020AAF3 /* LeaveShare.m */,
+				527D4A391BC8A0700020AAF3 /* LeaveShare.xib */,
+			);
+			path = LeaveShare;
+			sourceTree = "<group>";
+		};
 		52B858451BC76D4C00B15483 /* CommendToDetail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1187,6 +1202,7 @@
 		5A52FB701ACEBF220076DAE6 /* FindProduct */ = {
 			isa = PBXGroup;
 			children = (
+				527D4A351BC8A04B0020AAF3 /* LeaveShare */,
 				796F36C71B7851A80089FEE8 /* RightCollectionViewController */,
 				B36E57171B74C0D000471AAC /* ProductList */,
 				5A52FB711ACEBF220076DAE6 /* FindProduct.h */,
@@ -2663,6 +2679,7 @@
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
 				637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */,
 				B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */,
+				527D4A3A1BC8A0700020AAF3 /* LeaveShare.xib in Resources */,
 				B36E57311B74C0D000471AAC /* MinMaxPriceSelectViewController.xib in Resources */,
 				635E70B31B180F87008EFEB6 /* PersonIDViewController.xib in Resources */,
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
@@ -2877,6 +2894,7 @@
 				B3C01E2F1BAC10FC005E4BB5 /* Server.m in Sources */,
 				5A6165821AE79AEF00641837 /* NullContentView.m in Sources */,
 				63B6CFB41B2E745B0037E06B /* personIdModel.m in Sources */,
+				527D4A381BC8A0620020AAF3 /* LeaveShare.m in Sources */,
 				5A944D2B1B00BC780004DE89 /* MLPhotoBrowserPhotoView.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
