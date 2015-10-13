@@ -219,11 +219,13 @@
     
     if (self.isHistory) {
         titleY = CGRectGetMaxY(self.sep.frame)+gap;
-        iconWidth = (self.contentView.bounds.size.width-3*gap)/4;
+//        iconWidth = (self.contentView.bounds.size.width-3*gap)/4;
+//    120*0.6 ＝ 72
+        iconWidth = 72;
     }else{
         iconWidth = self.contentView.bounds.size.height*3/5;
     }
-    
+
     /*
      图片 标题 出发地
      */

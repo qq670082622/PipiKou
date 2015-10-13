@@ -1,4 +1,4 @@
-//
+//eeee
 //  ViewController.m
 //  ShouKeBao
 //
@@ -17,7 +17,7 @@
 #import "ResizeImage.h"
 #import "FindProductNew.h"
 @interface ViewController ()
-@property (copy,nonatomic) NSMutableString   *skbValue;
+@property (copy ,nonatomic) NSMutableString *skbValue;
 @property (copy ,nonatomic) NSMutableString *fdpValue;
 @property (copy ,nonatomic) NSMutableString *odsValue;
 @property (copy ,nonatomic) NSMutableString *cstmValue;

@@ -27,6 +27,7 @@
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
 #import "LeaveShare.h"
+#import "AppDelegate+Extend.h"
 #import "HomeHttpTool.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()<WXApiDelegate>
@@ -154,8 +155,7 @@ void UncaughtExceptionHandler(NSException *exception) {
             [self setLoginRoot];//常规登录
         }
     }
-    
- 
+    [self setStartAnamation];
 
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey

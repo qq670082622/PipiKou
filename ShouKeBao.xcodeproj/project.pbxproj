@@ -292,6 +292,7 @@
 		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
 		798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */; };
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
+		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EE91671B2BCDE2008C8935 /* TimeTool.m */; };
@@ -903,6 +904,8 @@
 		799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		799F3E0C1B3A512400C14FBB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
+		79A963001BCC937100CCAB2B /* AppDelegate+Extend.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+Extend.h"; sourceTree = "<group>"; };
+		79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Extend.m"; sourceTree = "<group>"; };
 		79AEC90E1BBB8EA000A1E83D /* LvYouGuWenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LvYouGuWenViewController.h; sourceTree = "<group>"; };
 		79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvYouGuWenViewController.m; sourceTree = "<group>"; };
 		79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeseWebView.h; sourceTree = "<group>"; };
@@ -2084,6 +2087,8 @@
 			children = (
 				63D31E891AB16EA00043B3CA /* AppDelegate.h */,
 				63D31E8A1AB16EA00043B3CA /* AppDelegate.m */,
+				79A963001BCC937100CCAB2B /* AppDelegate+Extend.h */,
+				79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */,
 				63D31E8B1AB16EA00043B3CA /* ViewController.h */,
 				63D31E8C1AB16EA00043B3CA /* ViewController.m */,
 				63D31E8F1AB16EC30043B3CA /* WMNavigationController.h */,
@@ -2817,6 +2822,7 @@
 				B3B7A6681BA6A25F0043DF7C /* AddViewController.m in Sources */,
 				5A52FC631ACEBF220076DAE6 /* Login.m in Sources */,
 				B3B7A6701BA6A25F0043DF7C /* attachmentViewController.m in Sources */,
+				79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */,
 				63B8C6B01ACE688C00328C8C /* URLOpenFromQRCodeViewController.m in Sources */,
 				63F1A1B11B14250E00DE9867 /* MJType.m in Sources */,
 				B3B7A67B1BA6A25F0043DF7C /* Customers.m in Sources */,
