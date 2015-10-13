@@ -16,7 +16,7 @@
 #import "WelcomeView.h"
 #import "SearchProductViewController.h"
 #import "TravelLoginController.h"
-
+#import "AppDelegate+Extend.h"
 #import <AVFoundation/AVFoundation.h>
 #import "MeHttpTool.h"
 #import "MobClick.h"
@@ -26,6 +26,11 @@
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
+#define foureSize ([UIScreen mainScreen].bounds.size.height == 480)
+#define fiveSize ([UIScreen mainScreen].bounds.size.height == 568)
+#define sixSize ([UIScreen mainScreen].bounds.size.height == 667)
+#define sixPSize ([UIScreen mainScreen].bounds.size.height > 668)
+
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -129,7 +134,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
-
     
     
     
@@ -146,13 +150,16 @@ void UncaughtExceptionHandler(NSException *exception) {
         [MobClick event:@"APPSetUpNumber" attributes:dict];
     }else{
         // 如果不是第一次就 显示常规登录
+        
         if (self.isAutoLogin){
             [self setTabbarRoot];//登录到主界面
         }else{
             [self setLoginRoot];//常规登录
+
         }
     }
-    
+    [self setStartAnamation];
+
  
 
 #pragma mark -about shareSDK
@@ -326,7 +333,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    [self.window addSubview:lable];
     //    NSLog(@"gggg...");
  
-//    
+//
     return YES;
     //后台返回一个字典包含:messageId,noticeType,_j_msgid,messageUri,aps(5个)
 }
