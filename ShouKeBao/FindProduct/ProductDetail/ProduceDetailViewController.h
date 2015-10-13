@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "SKViewController.h"
 #import "BeseWebView.h"
+typedef void (^CancelLeaveShare)(UINavigationController *na);
 @class DayDetail;
 @class yesterDayModel;
 //@class BeseWebView;
@@ -21,7 +22,6 @@ typedef enum{
     FromHotProduct,
     FromScanHistory
 }JumpinFrom;
-
 @protocol notiQRCToStartRuning<NSObject>
 -(void)notiQRCToStartRuning;
 @end
@@ -37,6 +37,10 @@ typedef enum{
 @property (copy, nonatomic)NSString * titleName;
 @property (copy,nonatomic) NSString *productName;
 @property (nonatomic, strong) DayDetail *detail;
+@property (nonatomic,copy) CancelLeaveShare canCelLeaveShare;
 @property (nonatomic , strong)yesterDayModel *detail2;
 @property(nonatomic,weak) id<notiQRCToStartRuning>delegate;
+
+-(void)CancelLeaveShareBlock:(UINavigationController *)uinav;
+
 @end

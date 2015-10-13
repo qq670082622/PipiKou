@@ -1,5 +1,5 @@
 
-//eeee
+//
 //  AppDelegate.m
 //  ShouKeBao
 //
@@ -16,7 +16,7 @@
 #import "WelcomeView.h"
 #import "SearchProductViewController.h"
 #import "TravelLoginController.h"
-#import "AppDelegate+Extend.h"
+
 #import <AVFoundation/AVFoundation.h>
 #import "MeHttpTool.h"
 #import "MobClick.h"
@@ -26,11 +26,9 @@
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
-#define foureSize ([UIScreen mainScreen].bounds.size.height == 480)
-#define fiveSize ([UIScreen mainScreen].bounds.size.height == 568)
-#define sixSize ([UIScreen mainScreen].bounds.size.height == 667)
-#define sixPSize ([UIScreen mainScreen].bounds.size.height > 668)
-
+#import "LeaveShare.h"
+#import "AppDelegate+Extend.h"
+#import "HomeHttpTool.h"
 //#import "UncaughtExceptionHandler.h"
 @interface AppDelegate ()<WXApiDelegate>
 
@@ -78,7 +76,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     NSURL *url = [NSURL URLWithString:[urlStr stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     [[UIApplication sharedApplication] openURL:url];
     //将崩溃日志写到本地；等程序再运行的时候再发送到服务器；
-    [[NSUserDefaults standardUserDefaults]setValue:crashLogInfo forKey:@"crashLogInfo"];
+    [[NSUserDefaults standardUserDefaults] setValue:crashLogInfo forKey:@"crashLogInfo"];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
 }
 //- (void)installUncaughtExceptionHandler
@@ -134,6 +132,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"beijing"]];
+
     
     
     
@@ -150,17 +149,13 @@ void UncaughtExceptionHandler(NSException *exception) {
         [MobClick event:@"APPSetUpNumber" attributes:dict];
     }else{
         // 如果不是第一次就 显示常规登录
-        
         if (self.isAutoLogin){
             [self setTabbarRoot];//登录到主界面
         }else{
             [self setLoginRoot];//常规登录
-
         }
     }
     [self setStartAnamation];
-
- 
 
 #pragma mark -about shareSDK
     [ShareSDK registerApp:@"8f5f9578ecf3"];//appKey
@@ -333,7 +328,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    [self.window addSubview:lable];
     //    NSLog(@"gggg...");
  
-//
+//    
     return YES;
     //后台返回一个字典包含:messageId,noticeType,_j_msgid,messageUri,aps(5个)
 }
@@ -803,11 +798,23 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     if (commandWords) {
 //        [[[UIAlertView alloc]initWithTitle:@"进入应用" message:commandWords delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
 //                口令显示界面 [[UIApplication sharedApplication].delegate window]
+//
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:[NSString stringWithFormat:@"¥%@¥",commandWords] forKey:@"CommandText"];
+        NSLog(@"%@",dic);
+        [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
+            NSLog(@"%@",json);
+        } failure:^(NSError *error) {
+            NSLog(@"请求失败：%@",error);
+        }];
+        
+
+        if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
         [NSString showbackgroundgray];
+
         UINavigationController * nav = (UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController;
-        NSLog(@"%@", nav);
         [NSString showcommendToDetailbody:@"这只是一个测试，不要在意这些细节,这只是一个测试，不要在意这些细节,这只是一个测试，不要在意这些细节，重要的事说三遍" Di:@"500" song:@"500" retailsales:@"12345门市" Nav:nav];
-        //SLog(@"%@", self.window.rootViewController.childViewControllers[0]);
+        }
     }
     
 }
