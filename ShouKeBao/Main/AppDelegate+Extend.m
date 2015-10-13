@@ -30,7 +30,7 @@
     [self.window addSubview:luanchImage];
     
     //加载动画
-    [UIView animateWithDuration:1.0 animations:^{
+    [UIView animateWithDuration:5.0 animations:^{
         luanchImage.alpha = 0;
     } completion:^(BOOL finished) {
         [luanchImage removeFromSuperview];
