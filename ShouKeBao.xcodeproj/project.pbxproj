@@ -348,6 +348,7 @@
 		B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A6641BA6A25F0043DF7C /* remondViewController.m */; };
 		B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */; };
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
+		B3BDF6BA1BCE2DE100344B00 /* QRPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BDF6B91BCE2DE100344B00 /* QRPhotoCollectionViewCell.m */; };
 		B3C01E251BAC10FC005E4BB5 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */; };
 		B3C01E261BAC10FC005E4BB5 /* ReBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF21BAC10FC005E4BB5 /* ReBindViewController.m */; };
 		B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3C01DF31BAC10FC005E4BB5 /* Safe.storyboard */; };
@@ -997,6 +998,8 @@
 		B3B7A6641BA6A25F0043DF7C /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
 		B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
 		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
+		B3BDF6B81BCE2DE100344B00 /* QRPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		B3BDF6B91BCE2DE100344B00 /* QRPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		B3C01DEF1BAC10FC005E4BB5 /* ModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPwdViewController.h; sourceTree = "<group>"; };
 		B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyPwdViewController.m; sourceTree = "<group>"; };
 		B3C01DF11BAC10FC005E4BB5 /* ReBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReBindViewController.h; sourceTree = "<group>"; };
@@ -1531,6 +1534,8 @@
 				63A81B8C1B39818400D8B37D /* SKBNavBarFor6OrP.h */,
 				63A81B8D1B39818400D8B37D /* SKBNavBarFor6OrP.m */,
 				63A81B8F1B3981AA00D8B37D /* SKBNavBarFor6OrP.xib */,
+				B3BDF6B81BCE2DE100344B00 /* QRPhotoCollectionViewCell.h */,
+				B3BDF6B91BCE2DE100344B00 /* QRPhotoCollectionViewCell.m */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -2805,6 +2810,7 @@
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
 				63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */,
 				796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */,
+				B3BDF6BA1BCE2DE100344B00 /* QRPhotoCollectionViewCell.m in Sources */,
 				797B37931B8C1D8700411DBA /* DESSecreat.m in Sources */,
 				792482FB1BAFF232005D1801 /* TravelConsultantViewController.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
