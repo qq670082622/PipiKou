@@ -171,7 +171,7 @@
                 <outlet property="bodyLabel" destination="64H-Eh-zq8" id="oNP-3P-hFC"/>
                 <outlet property="retailsalesLabel" destination="6O7-mV-os9" id="oTt-p7-E7Q"/>
             </connections>
-            <point key="canvasLocation" x="237" y="176.5"/>
+            <point key="canvasLocation" x="400" y="167.5"/>
         </view>
     </objects>
     <resources>

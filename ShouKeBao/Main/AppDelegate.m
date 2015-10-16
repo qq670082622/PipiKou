@@ -30,6 +30,7 @@
 #import "AppDelegate+Extend.h"
 #import "HomeHttpTool.h"
 //#import "UncaughtExceptionHandler.h"
+////aaaaa
 @interface AppDelegate ()<WXApiDelegate>
 
 @property (nonatomic,assign) BOOL isAutoLogin;

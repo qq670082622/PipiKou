@@ -11,6 +11,6 @@
 @interface QRCodeCell : UITableViewCell
 
 @property (nonatomic, strong)personIdModel * model;
-
++(instancetype)relationHistoryXib;
 
 @end

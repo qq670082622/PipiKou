@@ -70,4 +70,8 @@
     }
 }
 
+//+(instancetype)relationHistoryXib{
+//    return [[[NSBundle mainBundle] loadNibNamed:@"QRHistoryViewController" owner:nil options:nil] lastObject];
+//}
+
 @end
