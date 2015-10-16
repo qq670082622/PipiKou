@@ -15,6 +15,7 @@
 #import "CustomModel.h"
 #import "MobClick.h"
 #import "attachmentViewController.h"
+#import "AttachmentCollectionView.h"
 #import "CustomerOrderViewController.h"
 
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate, UITableViewDelegate, UIAlertViewDelegate>
@@ -313,11 +314,13 @@
 
 
 - (IBAction)attachmentAction:(id)sender {
-    attachmentViewController *att = [[attachmentViewController alloc] init];
-    att.picUrl = _picUrl;
-    att.customerId =  _customerId;
+//    attachmentViewController *att = [[attachmentViewController alloc] init];
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
+    AttachmentCollectionView *AVC = [sb instantiateViewControllerWithIdentifier:@"AttachmentCollectionView"];
+    AVC.picUrl = _picUrl;
+    AVC.customerId =  _customerId;
     NSLog(@"%@%@", _customerId, _picUrl);
-    [self.Nav pushViewController:att animated:YES];
+    [self.Nav pushViewController:AVC animated:YES];
     
 }
 @end
