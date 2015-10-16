@@ -35,6 +35,7 @@
 @property (nonatomic,assign) BOOL isAutoLogin;
 @property (nonatomic,strong) AVAudioPlayer *player;
 @property (nonatomic, copy)NSString * urlstring;
+
 @end
 
 @implementation AppDelegate
@@ -796,25 +797,33 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     NSString * commandWords = [self getWordOfCommand];
     if (commandWords) {
-//        [[[UIAlertView alloc]initWithTitle:@"进入应用" message:commandWords delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
-//                口令显示界面 [[UIApplication sharedApplication].delegate window]
-//
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:[NSString stringWithFormat:@"¥%@¥",commandWords] forKey:@"CommandText"];
-        NSLog(@"%@",commandWords);
+        [dic setObject:commandWords forKey:@"CommandText"];
+
         [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
-            NSLog(@"++++++++++++%@",json);
+            NSDictionary *dataDic = json[@"ProductDetail"];
+            if ([dataDic  isEqual: @"<null>"]) {
+                
+            }else{
+                 NSLog(@"服务器返回有数据");
+                if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
+                    NSInteger exite;
+                    if ([self.window viewWithTag:101]) {
+                        NSLog(@"有口令框正在现实,无需创建");
+                        exite = 1;
+                    }else{
+                        NSLog(@"没有口令框正在显示，需要创建");
+                        exite = 0;
+                         [NSString showbackgroundgray];
+                    }
+                    UINavigationController * nav = (UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController;
+                    [NSString showcommendToDetailbody:dataDic[@"Name"] Di:dataDic[@"PersonAlternateCash"] song:dataDic[@"PersonCashCoupon"] retailsales:[NSString stringWithFormat:@"%@门市",dataDic[@"PersonPrice"]] CommandSamePrice:dataDic[@"PersonPeerPrice"] Picurl:dataDic[@"PicUrl"] NewPageUrl:dataDic[@"LinkUrl"] shareInfo:dataDic[@"ShareInfo"] exist:exite Nav:nav];
+                }
+
+            }
         } failure:^(NSError *error) {
             NSLog(@"请求失败：%@",error);
         }];
-        
-
-        if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
-        [NSString showbackgroundgray];
-
-        UINavigationController * nav = (UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController;
-        [NSString showcommendToDetailbody:@"这只是一个测试，不要在意这些细节,这只是一个测试，不要在意这些细节,这只是一个测试，不要在意这些细节，重要的事说三遍" Di:@"500" song:@"500" retailsales:@"12345门市" Nav:nav];
-        }
     }
     
 }
@@ -827,18 +836,28 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     NSString * string = board.string;
     if (!string) {
         string = @"";
-    }
+}
     //创建正则表达式；pattern规则；
     NSString * pattern = @"¥.+¥";
     NSRegularExpression * regex = [[NSRegularExpression alloc]initWithPattern:pattern options:0 error:nil];
+    NSString * pattern2 = @"￥.+￥";
+    NSRegularExpression * regex2 = [[NSRegularExpression alloc]initWithPattern:pattern2 options:0 error:nil];
+
     //测试字符串；
     NSArray * result = [regex matchesInString:string options:0 range:NSMakeRange(0,string.length)];
-    if (result.count) {
+    NSArray * result2 = [regex2 matchesInString:string options:0 range:NSMakeRange(0,string.length)];
+    NSArray * newResult = [result arrayByAddingObjectsFromArray:result2];
+    
+    if (newResult.count) {
         //获取口令后，清空剪切版
         board.string = @"";
         //获取筛选出来的字符串
-        NSString * resultStr = [string substringWithRange:((NSTextCheckingResult *)result[0]).range];
-       return [resultStr stringByReplacingOccurrencesOfString:@"¥" withString:@""];
+        NSString * resultStr = [string substringWithRange:((NSTextCheckingResult *)newResult[0]).range];
+        if ([resultStr myContainsString:@"¥"]) {
+           resultStr = [resultStr stringByReplacingOccurrencesOfString:@"¥" withString:@"￥"];
+        }
+
+       return resultStr;
     }
     return nil;
 }

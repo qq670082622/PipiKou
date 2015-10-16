@@ -87,7 +87,6 @@
             //[self.editArr addObjectsFromArray:self.dataArr];
             allbutton.tag = 101;
             [allbutton setTitle:@"全选" forState:UIControlStateNormal];
-            NSLog(@"editArr:--%ld",self.editArr.count);
             [self.table reloadData];
         }
             break;

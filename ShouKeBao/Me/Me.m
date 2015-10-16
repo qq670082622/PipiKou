@@ -61,7 +61,7 @@
     [super viewDidLoad];
     self.title = @"我";
     self.tableView.rowHeight = 50;
-    self.desArr = @[/*@[@"我的分享"],*/@[@"专属App",@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[@[@"我的分享"],@[@"专属App",@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -288,10 +288,10 @@
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
     switch (indexPath.section) {
-//        case 0://第一个分区
-//            
-//            break;
-        case 0://第二个分区
+        case 0://第一个分区
+            
+            break;
+        case 1://第二个分区
             if (indexPath.row == 0) {
                 cell.imageView.image = [UIImage imageNamed:@"lygw"];
             }else if(indexPath.row == 1){
@@ -319,10 +319,10 @@
  
             }
             break;
-        case 1://第三个分区
+        case 2://第三个分区
             cell.imageView.image = [UIImage imageNamed:@"zhanghu-anquan"];
             break;
-        case 2://第四个分区
+        case 3://第四个分区
             if (indexPath.row == 0) {
                 cell.detailTextLabel.text = @"23时至次日8时将不会有消息";
                 // 添加一个开关
@@ -356,7 +356,11 @@
 {
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     switch (indexPath.section) {
-        case 0:
+        case 0:{
+            TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
+            [self.navigationController pushViewController:TCVC animated:YES];
+        }
+        case 1:
             // 第一组的三个
            if (indexPath.row == 0) {
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -392,7 +396,7 @@
 
             }
             break;
-        case 1:
+        case 2:
             // 第二组 单个 账号安全
             {
             UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
@@ -403,7 +407,7 @@
             [self.navigationController pushViewController:safe animated:YES];
             }
             break;
-        case 2:
+        case 3:
             switch (indexPath.row) {
                 case 1:{
                     FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
@@ -442,7 +446,7 @@
                     break;
             }
             break;
-        case 3:
+        case 4:
             
             break;
  
@@ -454,7 +458,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (!self.isPerson && indexPath.section == 0 && indexPath.row == 1) {
+    if (!self.isPerson && indexPath.section == 1 && indexPath.row == 1) {
         return 0.5;
     }
     return 50;

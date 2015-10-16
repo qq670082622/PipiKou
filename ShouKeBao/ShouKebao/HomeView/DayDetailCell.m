@@ -705,7 +705,7 @@
                                         }else if(type == ShareTypeWeixiTimeline){
                                             [postDic setObject:@"4" forKey:@"ShareWay"];
                                         }
-
+                                    NSLog(@"%@", postDic);
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
                                     } failure:^(NSError *error) {
                                         

@@ -324,37 +324,59 @@
 //    [button1 addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
 //    [self.navigationItem.rightBarButtonItem.customView addSubview:button1];
 
-    
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(-20, -17, 50, 40)];
-    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(25,10,20,20)];
-    button.backgroundColor = [UIColor clearColor];
+    //筛选
+    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
+    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
+    button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
     image.image = [UIImage imageNamed:@"APPsaixuan"];
-    [button addTarget:self action:@selector(selectAction)forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-//    [button addSubview:image];
-    self.navigationItem.rightBarButtonItem = barItem;
-      [barItem.customView addSubview:image];
+    button.tag = 1100;
+    [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
+    _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+    [button addSubview:image];
+   
+    [_barItem.customView addSubview:image];
+    //发票
+    UIButton *invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+    invoiceBtn.tag = 1200;
+    [invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+    [invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
+    invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
+    invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
+    _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:invoiceBtn];
     
-    
-    
+    self.navigationItem.rightBarButtonItems = @[_barItem,_barItem2];
 }
 
-// 点击筛选
-- (void)selectAction
-{    UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dressTapHandle:)];
-    tap.delegate = self;
-    [cover addGestureRecognizer:tap];
-    self.cover = cover;
-    // 筛选视图
-    [cover addSubview:self.dressView];
-    [self.view.window addSubview:cover];
-    
-    
-    [UIView animateWithDuration:0.3 animations:^{
-        self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
-    }];
+
+- (void)selectAction:(UIButton *)button
+{
+    if (button.tag == 1100) {//点击筛选
+        UIView *cover = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        cover.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dressTapHandle:)];
+        tap.delegate = self;
+        [cover addGestureRecognizer:tap];
+        self.cover = cover;
+        
+        // 筛选视图
+        [cover addSubview:self.dressView];
+        [self.view.window addSubview:cover];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
+        }];
+    }else if(button.tag == 1200){//点击发票
+
+        if (button.selected == YES) {
+            button.selected = NO;
+            [self.tableView setEditing:NO animated:YES];
+        }else if(button.selected == NO){
+            button.selected = YES;
+            [self.tableView setEditing:YES animated:YES];
+        }
+
+        
+    }
 }
 
 // 去除筛选界面
@@ -379,6 +401,15 @@
     
     self.tableView.footerPullToRefreshText = @"上拉刷新";
     self.tableView.footerRefreshingText = @"正在刷新";
+}
+#warning 下边是新加的方法，注意清除
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+}
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
 }
 
 -(void)headRefresh
@@ -709,17 +740,23 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    // 取出模型
-    OrderModel *order = self.dataArr[indexPath.section];
-//    order.StateText订单状态 和 DetailLinkUrl进入详情界面的url
-    NSLog(@"%@22%@", order.StateText, order.DetailLinkUrl);
-    OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    detail.url = order.DetailLinkUrl;
-    NSLog(@"url = %@", order.DetailLinkUrl);
-    detail.title = @"订单详情";
+    if (self.tableView.editing == YES) {
+        NSLog(@"现在已经是编辑模式");
+    }else if(self.tableView.editing == NO){
+        NSLog(@"现在已经退出编辑模式");
+        // 取出模型
+        OrderModel *order = self.dataArr[indexPath.section];
+        //    order.StateText订单状态 和 DetailLinkUrl进入详情界面的url
+        NSLog(@"%@22%@", order.StateText, order.DetailLinkUrl);
+        OrderDetailViewController *detail = [[OrderDetailViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        detail.url = order.DetailLinkUrl;
+        NSLog(@"url = %@", order.DetailLinkUrl);
+        detail.title = @"订单详情";
         [self.navigationController pushViewController:detail animated:YES];
-    
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+        
+        [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

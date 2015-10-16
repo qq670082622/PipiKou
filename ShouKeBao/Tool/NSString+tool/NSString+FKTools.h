@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-
 @interface NSString (FKTools)
 //为适应iOS7写的一个是否包含某字符的方法
 - (BOOL)myContainsString:(NSString*)other;
@@ -20,8 +19,8 @@
 - (CGFloat)widthWithsysFont:(CGFloat)font;
 //半透明的背景
 +(void)showbackgroundgray;
-+(void)showcommendToDetailbody:(NSString *)body Di:(NSString *)Di song:(NSString *)song retailsales:(NSString *)retailsalesLabel Nav:(UINavigationController *)nav;
++(void)showcommendToDetailbody:(NSString *)body Di:(NSString *)Di song:(NSString *)song retailsales:(NSString *)retailsalesLabel CommandSamePrice:(NSString *)CommandSamePrice Picurl:(NSString *)Picurl NewPageUrl:(NSString *)NewPageUrl shareInfo:(NSDictionary *)shareInfo exist:(NSInteger)exist Nav:(UINavigationController *)nav;
 //退出分享
-+(void)showLeaveShareNav:(UINavigationController *)nav;
++(void)showLeaveShareNav:(UINavigationController *)nav InVC:(UIViewController *)controller;
 
 @end

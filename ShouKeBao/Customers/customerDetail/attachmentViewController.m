@@ -36,6 +36,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"证件附件";
     // Do any additional setup after loading the view from its nib.
     [self loadData];
     [self setUpRightButton];

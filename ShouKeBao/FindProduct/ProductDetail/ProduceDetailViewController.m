@@ -275,8 +275,16 @@
         
         [self.webView goBack];
     }else  {
-        [NSString showbackgroundgray];
-        [NSString showLeaveShareNav:self.navigationController];
+        NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]);
+        if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"0"]) {
+            [NSString showbackgroundgray];
+            [NSString showLeaveShareNav:self.navigationController InVC:self];
+            [self.webView stringByEvaluatingJavaScriptFromString:@"AppHadShowShareWhenBack()"];
+
+        }else {
+            [self.webView stringByEvaluatingJavaScriptFromString:@"AppRecordBackNumber()"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }
         
     }
    
@@ -529,6 +537,8 @@
 #pragma 筛选navitem
 -(void)shareIt:(id)sender
 {
+    //每次分享的时候调用此方法，让后台知道当前页面分享的产品
+    [self.webView stringByEvaluatingJavaScriptFromString:@"AppHadShareWhenBack()"];
 
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ClickShareAll" attributes:dict];

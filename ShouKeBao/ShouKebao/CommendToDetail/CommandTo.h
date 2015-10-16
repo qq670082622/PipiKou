@@ -18,8 +18,11 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *DiLabel;
 @property (weak, nonatomic) IBOutlet UILabel *SongLabel;
-@property (nonatomic, strong)DayDetail * productModel;
+@property (weak, nonatomic) IBOutlet UIImageView *PicImage;
 @property (nonatomic, strong)UINavigationController * NAV;
+@property (nonatomic, strong)DayDetail * productModel;
+@property (nonatomic,strong) NSString *NewPageUrl;
+@property (nonatomic,strong) NSMutableDictionary *shareInfo;
 - (IBAction)cananl:(UIButton *)sender;
 - (IBAction)nowsee:(UIButton *)sender;
 @end

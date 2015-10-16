@@ -8,6 +8,7 @@
 
 #import "LeaveShare.h"
 #import "ProduceDetailViewController.h"
+#import "NSString+FKTools.h"
 @implementation LeaveShare
 
 /*
@@ -37,8 +38,8 @@
 }
 
 - (IBAction)NeedShareBtn:(UIButton *)sender {
-    UIAlertView *aa = [[UIAlertView alloc] initWithTitle:@"欢迎你被秀了" message:@"快说你是逗比,哈哈" delegate:self cancelButtonTitle:@"我是逗比" otherButtonTitles:@"我是逗比", nil];
-    [aa show];
+    [self.theVC shareIt:nil];
+    [self disappear];
 }
 
 @end

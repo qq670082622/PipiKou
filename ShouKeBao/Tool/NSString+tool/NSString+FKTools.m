@@ -9,6 +9,8 @@
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
 #import "LeaveShare.h"
+#import "UIImageView+WebCache.h"
+#import "ProduceDetailViewController.h"
 @implementation NSString (FKTools)
 - (BOOL)myContainsString:(NSString*)other{
     NSRange range = [self rangeOfString:other];
@@ -34,25 +36,30 @@
     [[[UIApplication sharedApplication].delegate window] addSubview:backgroundGray];
 
 }
-+(void)showcommendToDetailbody:(NSString *)body Di:(NSString *)Di song:(NSString *)song retailsales:(NSString *)retailsalesLabel Nav:(UINavigationController *)nav{
-    CommandTo *commandto = [[[NSBundle mainBundle] loadNibNamed:@"CommandTo" owner:self options:nil] lastObject];
++(void)showcommendToDetailbody:(NSString *)body Di:(NSString *)Di song:(NSString *)song retailsales:(NSString *)retailsalesLabel CommandSamePrice:(NSString *)CommandSamePrice Picurl:(NSString *)Picurl NewPageUrl:(NSString *)NewPageUrl shareInfo:(NSDictionary *)shareInfo exist:(NSInteger)exist Nav:(UINavigationController *)nav{
+    CommandTo *commandto;
+    if (exist == 0) {
+     commandto = [[[NSBundle mainBundle] loadNibNamed:@"CommandTo" owner:self options:nil] lastObject];
+    }
     commandto.NAV = nav;
     NSLog(@"%@", commandto.NAV);
     commandto.backgroundView.layer.cornerRadius = 4;
     commandto.backgroundView.layer.masksToBounds = YES;
-    
+    [commandto.PicImage sd_setImageWithURL:[NSURL URLWithString:Picurl] placeholderImage:[UIImage imageNamed:@"CommandplaceholderImage"]];
     commandto.tag = 101;
     commandto.frame = CGRectMake(10, [UIScreen mainScreen].bounds.size.height/4,[UIScreen mainScreen].bounds.size.width-20, [UIScreen mainScreen].bounds.size.height/2);
-    
+    commandto.NewPageUrl = NewPageUrl;
     commandto.bodyLabel.text = body;
-    commandto.DiLabel.text = @"500";
-    commandto.SongLabel.text = @"500";
-    commandto.retailsalesLabel.text = @"1234门市";
-    
+    commandto.DiLabel.text = Di;
+    commandto.SongLabel.text = song;
+    commandto.retailsalesLabel.text = retailsalesLabel;
+    commandto.PriceLabel.text = CommandSamePrice;
     [[[UIApplication sharedApplication].delegate window] addSubview:commandto];
 }
-+(void)showLeaveShareNav:(UINavigationController *)nav{
++(void)showLeaveShareNav:(UINavigationController *)nav  InVC:(UIViewController *)controller{
+    ProduceDetailViewController * VC = (ProduceDetailViewController *)controller;
     LeaveShare *leaveS = [[[NSBundle mainBundle] loadNibNamed:@"LeaveShare" owner:self options:nil] lastObject];
+    leaveS.theVC = VC;
     leaveS.layer.cornerRadius = 8;
     leaveS.tag = 103;
     leaveS.nav =nav;
