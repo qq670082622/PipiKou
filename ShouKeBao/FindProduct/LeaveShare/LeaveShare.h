@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class ProduceDetailViewController;
 @interface LeaveShare : UIView
 @property (weak, nonatomic) IBOutlet UILabel *bodydifferenceColor;
 @property (nonatomic,strong) UINavigationController *nav;
+@property (nonatomic, strong)ProduceDetailViewController * theVC;
 -(void)thisatest:(NSString *)body;
 - (IBAction)CancelBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UIButton *NeedShareB;

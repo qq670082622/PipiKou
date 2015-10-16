@@ -1349,7 +1349,7 @@
         ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
         
         detail.produceUrl = productUrl;
-        //detail.shareInfo = model.ShareInfo;
+        detail.shareInfo = model.ShareInfo;
         NSLog(@"%@---%@----%@", detail.shareInfo,detail.produceUrl,productName);
         detail.productName = productName;
         if (self.isFromSearch) {
