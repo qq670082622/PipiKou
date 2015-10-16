@@ -10,4 +10,8 @@
 #import "SKViewController.h"
 
 @interface Orders : SKViewController
+{
+    UIBarButtonItem *_barItem;
+    UIBarButtonItem *_barItem2;
+}
 @end

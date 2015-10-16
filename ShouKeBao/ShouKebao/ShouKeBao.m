@@ -67,6 +67,7 @@
 #import "FindProductNew.h"
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
+#import "invoiceCell.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
 @property (nonatomic, retain)CLLocationManager *locationManager;
@@ -1519,12 +1520,22 @@
 {
         HomeBase *model = self.dataSource[indexPath.row];
      //[model retain];
-    
+    if([model.model isKindOfClass:[invoiceCell class]]){//发票
+        
+        NSArray *arrayM=[[NSBundle mainBundle]loadNibNamed:@"invoiceCell" owner:nil options:nil];
+        UITableViewCell *cell=[arrayM firstObject];
+        [invoiceCell showDataWithModel:model];
+        return cell;
+        
+    }
     if ([model.model isKindOfClass:[HomeList class]]) {//订单
         
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
+//        NSArray *arrayM=[[NSBundle mainBundle]loadNibNamed:@"invoiceCell" owner:nil options:nil];
+//        UITableViewCell *cell=[arrayM firstObject];
+
         return cell;
         
     }else if ([model.model isKindOfClass:[messageModel class]]){//公告

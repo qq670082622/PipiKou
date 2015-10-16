@@ -40,6 +40,7 @@ typedef enum{
 @property (nonatomic,copy) CancelLeaveShare canCelLeaveShare;
 @property (nonatomic , strong)yesterDayModel *detail2;
 @property(nonatomic,weak) id<notiQRCToStartRuning>delegate;
+-(void)shareIt:(id)sender;
 
 -(void)CancelLeaveShareBlock:(UINavigationController *)uinav;
 

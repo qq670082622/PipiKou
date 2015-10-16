@@ -2,12 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "scale" : "1x"
+      "scale" : "1x",
+      "filename" : "CommandplaceholderImage.png"
     },
     {
       "idiom" : "universal",
-      "scale" : "2x",
-      "filename" : "APPsaixuan.PNG"
+      "scale" : "2x"
     },
     {
       "idiom" : "universal",

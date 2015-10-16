@@ -7,11 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522E80671BD1049500DB48DA /* OrderPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 522E80661BD1049500DB48DA /* OrderPromptView.m */; };
+		522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522E80681BD104A800DB48DA /* OrderPromptView.xib */; };
 		527D4A381BC8A0620020AAF3 /* LeaveShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D4A371BC8A0620020AAF3 /* LeaveShare.m */; };
 		527D4A3A1BC8A0700020AAF3 /* LeaveShare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527D4A391BC8A0700020AAF3 /* LeaveShare.xib */; };
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
+		52F59D881BCF4B1F00DE24FB /* invoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F59D861BCF4B1F00DE24FB /* invoiceCell.m */; };
+		52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */; };
 		5A076C9B1ACD1C0F0077611C /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A076C9A1ACD1C0F0077611C /* area.plist */; };
 		5A076CA11ACD24050077611C /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076CA01ACD24050077611C /* CityViewController.m */; };
 		5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A076E7D1ACD89DA0077611C /* WMAnimations.m */; };
@@ -400,6 +404,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		522E80651BD1049500DB48DA /* OrderPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPromptView.h; sourceTree = "<group>"; };
+		522E80661BD1049500DB48DA /* OrderPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPromptView.m; sourceTree = "<group>"; };
+		522E80681BD104A800DB48DA /* OrderPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPromptView.xib; sourceTree = "<group>"; };
 		527D4A361BC8A0620020AAF3 /* LeaveShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveShare.h; sourceTree = "<group>"; };
 		527D4A371BC8A0620020AAF3 /* LeaveShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveShare.m; sourceTree = "<group>"; };
 		527D4A391BC8A0700020AAF3 /* LeaveShare.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaveShare.xib; sourceTree = "<group>"; };
@@ -408,6 +415,9 @@
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
 		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
 		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
+		52F59D851BCF4B1F00DE24FB /* invoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = invoiceCell.h; sourceTree = "<group>"; };
+		52F59D861BCF4B1F00DE24FB /* invoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = invoiceCell.m; sourceTree = "<group>"; };
+		52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = invoiceCell.xib; sourceTree = "<group>"; };
 		5A076C9A1ACD1C0F0077611C /* area.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = area.plist; sourceTree = "<group>"; };
 		5A076C9F1ACD24050077611C /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CityViewController.h; sourceTree = "<group>"; };
 		5A076CA01ACD24050077611C /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CityViewController.m; sourceTree = "<group>"; };
@@ -1113,6 +1123,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		522E80641BD1047900DB48DA /* OrderPromptView */ = {
+			isa = PBXGroup;
+			children = (
+				522E80651BD1049500DB48DA /* OrderPromptView.h */,
+				522E80661BD1049500DB48DA /* OrderPromptView.m */,
+				522E80681BD104A800DB48DA /* OrderPromptView.xib */,
+			);
+			path = OrderPromptView;
+			sourceTree = "<group>";
+		};
 		527D4A351BC8A04B0020AAF3 /* LeaveShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -1370,6 +1390,7 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				522E80641BD1047900DB48DA /* OrderPromptView */,
 				5A52FC041ACEBF220076DAE6 /* OrderTool */,
 				5A52FC071ACEBF220076DAE6 /* OrderView */,
 				5A52FC181ACEBF220076DAE6 /* SearchBar */,
@@ -1537,6 +1558,9 @@
 				63A81B8C1B39818400D8B37D /* SKBNavBarFor6OrP.h */,
 				63A81B8D1B39818400D8B37D /* SKBNavBarFor6OrP.m */,
 				63A81B8F1B3981AA00D8B37D /* SKBNavBarFor6OrP.xib */,
+				52F59D851BCF4B1F00DE24FB /* invoiceCell.h */,
+				52F59D861BCF4B1F00DE24FB /* invoiceCell.m */,
+				52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -2681,6 +2705,7 @@
 				B36E57351B74C0D000471AAC /* ProductList.xib in Resources */,
 				793F4C191BBB8374004A0436 /* message.mp3 in Resources */,
 				63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */,
+				522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */,
 				63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */,
 				B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */,
 				B36E572D1B74C0D000471AAC /* ConditionSelectViewController.xib in Resources */,
@@ -2701,6 +2726,7 @@
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
 				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
+				52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */,
 				B3B7A6841BA6A25F0043DF7C /* remondTableViewCell.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
 				63A81B901B3981AA00D8B37D /* SKBNavBarFor6OrP.xib in Resources */,
@@ -2851,6 +2877,7 @@
 				B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */,
 				635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */,
 				B3B7A6741BA6A25F0043DF7C /* CustomerDetailViewController.m in Sources */,
+				52F59D881BCF4B1F00DE24FB /* invoiceCell.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
 				63AA23211B847639009CD44D /* ShaiXuanCell.m in Sources */,
 				B36E57361B74C0D000471AAC /* ProductModal.m in Sources */,
@@ -2937,6 +2964,7 @@
 				5A52FC501ACEBF220076DAE6 /* rightCell.m in Sources */,
 				5A52FC8F1ACEBF220076DAE6 /* LinkButton.m in Sources */,
 				B3C01E2A1BAC10FC005E4BB5 /* InspectionViewController.m in Sources */,
+				522E80671BD1049500DB48DA /* OrderPromptView.m in Sources */,
 				5A52FC561ACEBF220076DAE6 /* HeaderView.m in Sources */,
 				B3B7A6691BA6A25F0043DF7C /* BatchAddViewController.m in Sources */,
 				633263D71AB851590021553B /* AFURLConnectionOperation.m in Sources */,
