@@ -17,6 +17,6 @@ typedef enum{
 @interface AttachmentCollectionCell : UICollectionViewCell
 @property (strong, nonatomic) IBOutlet UIImageView *theUserImage;
 @property (strong, nonatomic) IBOutlet UIImageView *cellStateImage;
-
+@property (nonatomic, copy)NSString *cellPicUrl;
 @property (nonatomic, assign)CellState cellState;
 @end

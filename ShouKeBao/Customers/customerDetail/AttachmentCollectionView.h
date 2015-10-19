@@ -12,5 +12,4 @@
 
 @property (nonatomic,copy) NSString *picUrl;
 @property (nonatomic,copy) NSString *customerId;
-
 @end

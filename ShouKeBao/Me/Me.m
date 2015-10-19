@@ -357,8 +357,12 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     switch (indexPath.section) {
         case 0:{
-            TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
-            [self.navigationController pushViewController:TCVC animated:YES];
+//            TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
+//            [self.navigationController pushViewController:TCVC animated:YES];
+            //h5界面
+                           LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
+                           [self.navigationController pushViewController:LYGW animated:YES];
+
         }
         case 1:
             // 第一组的三个
@@ -366,11 +370,11 @@
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeTravelConsultantVCClick" attributes:dict];
                //原生界面
-//               TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
-//                [self.navigationController pushViewController:TCVC animated:YES];
+               TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
+                [self.navigationController pushViewController:TCVC animated:YES];
                //h5界面
-               LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
-               [self.navigationController pushViewController:LYGW animated:YES];
+//               LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
+//               [self.navigationController pushViewController:LYGW animated:YES];
            }else if(indexPath.row == 1){
                 MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];

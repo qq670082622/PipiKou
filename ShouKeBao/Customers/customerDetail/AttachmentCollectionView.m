@@ -15,6 +15,7 @@
 @property (nonatomic ,strong) NSMutableArray *dataSource;
 @property(nonatomic , assign) BOOL isEditing;
 @property (nonatomic, strong) UIButton * deleteBtn;
+@property (nonatomic, strong) NSMutableArray *choosedPicArray;
 
 @end
 
@@ -28,9 +29,6 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     [self loadData];
     [self baseSetUp];
     [self setUpRightButton];
-    // Uncomment the following line to preserve selection between presentations
-    // self.clearsSelectionOnViewWillAppear = NO;
-    // Do any additional setup after loading the view.
 }
 - (void)baseSetUp{
     if([[[UIDevice currentDevice] systemVersion] floatValue] >= 7.0)
@@ -38,7 +36,6 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
         self.edgesForExtendedLayout = UIRectEdgeNone;
         self.extendedLayoutIncludesOpaqueBars = NO;
         self.modalPresentationCapturesStatusBarAppearance = NO;
-        
     }
     [self setNav];
     [self addGest];
@@ -79,7 +76,11 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     for (NSString * str in picArray) {
         [self.dataSource addObject:str];
         [self.dataSource addObject:str];
-        
+        [self.dataSource addObject:str];
+        [self.dataSource addObject:str];
+        [self.dataSource addObject:str];
+        [self.dataSource addObject:str];
+
     }
     [self.collectionView reloadData];
 }
@@ -90,6 +91,14 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     }
     return _dataSource;
 }
+-(NSMutableArray *)choosedPicArray
+{
+    if (_choosedPicArray == nil) {
+        self.choosedPicArray = [NSMutableArray array];
+    }
+    return _choosedPicArray;
+}
+
 - (UIButton * )deleteBtn{
     if (_deleteBtn == nil) {
         self.deleteBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 50)];
@@ -100,11 +109,16 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     }
     return _deleteBtn;
 }
+//点击底部按钮的响应
 -(void)deletePic{
     if (self.isEditing) {
-        
+        for (NSString * picUrl in self.choosedPicArray) {
+            [self.dataSource removeObject:picUrl];
+        }
+        [self.collectionView reloadData];
+        [self EditCustomerDetail];
     }else{
-    
+        [[[UIAlertView alloc]initWithTitle:@"等接口" message:@"mark" delegate:nil cancelButtonTitle:@"✅" otherButtonTitles:nil, nil]show];
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -141,15 +155,6 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
 -(void)hidDelete{
     [self.deleteBtn setTitle:@"确定" forState:UIControlStateNormal];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 #pragma mark <UICollectionViewDataSource>
 
@@ -169,6 +174,7 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     AttachmentCollectionCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"AttachmentCell" forIndexPath:indexPath];
     if (self.isEditing) {
         cell.cellState = UnCheckedState;
+        cell.cellPicUrl = self.dataSource[indexPath.row];
         [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row]]];
 
     }else{
@@ -177,30 +183,27 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
             cell.theUserImage.image = [UIImage imageNamed:@""];
         }else{
             [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row-1]]];
-        }
+            cell.cellPicUrl = self.dataSource[indexPath.row-1];
 
+        }
     }
-    // Configure the cell
-    
     return cell;
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     AttachmentCollectionCell *cell = (AttachmentCollectionCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (self.isEditing) {
-        if (cell.cellState == NormalState) {
-            NSLog(@"%@", NSStringFromCGSize(cell.theUserImage.image.size));
-        }else{
-            cell.cellState = cell.cellState == UnCheckedState ? CheckedState : UnCheckedState;
+        if (cell.cellState == CheckedState) {
+            cell.cellState = UnCheckedState;
+            [self.choosedPicArray removeObject:cell.cellPicUrl];
+        }else if(cell.cellState == UnCheckedState){
+            cell.cellState = CheckedState;
+            [self.choosedPicArray addObject:cell.cellPicUrl];
         }
     }else{
     if (indexPath.row == 0) {
         [self addCustomPic];
     }else{
-        if (cell.cellState == NormalState) {
-            NSLog(@"%@", NSStringFromCGSize(cell.theUserImage.image.size));
-            }else{
-                cell.cellState = cell.cellState == UnCheckedState ? CheckedState : UnCheckedState;
-            }
+        NSLog(@"%@", NSStringFromCGSize(cell.theUserImage.image.size));
     }
     }
 }
@@ -245,13 +248,11 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     NSLog(@"----%@",info);
     UIImage *image = info[@"UIImagePickerControllerEditedImage"];
     UIImage *imageNew = [self getImage:image];
-//    UIImage * newImage = [ResizeImage reSizeImage:image toSize:CGSizeMake(120, 120)];
     NSData *data = UIImageJPEGRepresentation(imageNew, 1.0);
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
-    
     [IWHttpTool postWithURL:@"File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":@"7"} success:^(id json) {
-        NSLog(@"%@*******", json);
-
+        [self.dataSource addObject:json[@"PicUrl"]];
+        [self.collectionView reloadData];
     } failure:^(NSError * error) {
         
     }];    
@@ -280,34 +281,16 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
 
 
 #pragma mark <UICollectionViewDelegate>
-
-/*
-// Uncomment this method to specify if the specified item should be highlighted during tracking
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldHighlightItemAtIndexPath:(NSIndexPath *)indexPath {
-	return YES;
+#pragma mark - collectionViewFlawlayerout
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
+    return CGSizeMake(([UIScreen mainScreen].bounds.size.width-46)/4.0,([UIScreen mainScreen].bounds.size.width-46)/4.0);
 }
-*/
-
-/*
-// Uncomment this method to specify if the specified item should be selected
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath {
-    return YES;
+- (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section
+{
+    return UIEdgeInsetsMake(10, 8, 0, 8);
 }
-*/
-
-/*
-// Uncomment these methods to specify if an action menu should be displayed for the specified item, and react to actions performed on the item
-- (BOOL)collectionView:(UICollectionView *)collectionView shouldShowMenuForItemAtIndexPath:(NSIndexPath *)indexPath {
-	return NO;
+- (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
+{
+    return 8;
 }
-
-- (BOOL)collectionView:(UICollectionView *)collectionView canPerformAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	return NO;
-}
-
-- (void)collectionView:(UICollectionView *)collectionView performAction:(SEL)action forItemAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-	
-}
-*/
-
 @end

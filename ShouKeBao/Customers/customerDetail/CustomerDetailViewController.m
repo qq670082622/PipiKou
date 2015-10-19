@@ -314,7 +314,7 @@
 
 
 - (IBAction)attachmentAction:(id)sender {
-//    attachmentViewController *att = [[attachmentViewController alloc] init];
+//    attachmentViewController *AVC = [[attachmentViewController alloc] init];
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     AttachmentCollectionView *AVC = [sb instantiateViewControllerWithIdentifier:@"AttachmentCollectionView"];
     AVC.picUrl = _picUrl;
