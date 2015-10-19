@@ -97,7 +97,7 @@
         self.navigationItem.rightBarButtonItem.title = @"编辑";
          [self setBtnsHideens];
     }
-    }
+}
 
 -(void)setBtnsHideens
 {
