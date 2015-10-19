@@ -14,6 +14,11 @@
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
+		52F275B11BD4CF78008543E9 /* InvoiceAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */; };
+		52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */; };
+		52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B61BD4E273008543E9 /* InvoiceLowView.m */; };
+		52F275B91BD4E27B008543E9 /* InvoiceLowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B81BD4E27B008543E9 /* InvoiceLowView.xib */; };
+		52F275BE1BD4FD15008543E9 /* OpenInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275BD1BD4FD15008543E9 /* OpenInvoiceViewController.m */; };
 		52F59D881BCF4B1F00DE24FB /* invoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F59D861BCF4B1F00DE24FB /* invoiceCell.m */; };
 		52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */; };
 		5A076C9B1ACD1C0F0077611C /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A076C9A1ACD1C0F0077611C /* area.plist */; };
@@ -415,6 +420,14 @@
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
 		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
 		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
+		52F275AF1BD4CF78008543E9 /* InvoiceAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceAlertView.h; sourceTree = "<group>"; };
+		52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceAlertView.m; sourceTree = "<group>"; };
+		52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceAlertView.xib; sourceTree = "<group>"; };
+		52F275B51BD4E273008543E9 /* InvoiceLowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceLowView.h; sourceTree = "<group>"; };
+		52F275B61BD4E273008543E9 /* InvoiceLowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceLowView.m; sourceTree = "<group>"; };
+		52F275B81BD4E27B008543E9 /* InvoiceLowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceLowView.xib; sourceTree = "<group>"; };
+		52F275BC1BD4FD15008543E9 /* OpenInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInvoiceViewController.h; sourceTree = "<group>"; };
+		52F275BD1BD4FD15008543E9 /* OpenInvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInvoiceViewController.m; sourceTree = "<group>"; };
 		52F59D851BCF4B1F00DE24FB /* invoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = invoiceCell.h; sourceTree = "<group>"; };
 		52F59D861BCF4B1F00DE24FB /* invoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = invoiceCell.m; sourceTree = "<group>"; };
 		52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = invoiceCell.xib; sourceTree = "<group>"; };
@@ -1153,6 +1166,37 @@
 			path = CommendToDetail;
 			sourceTree = "<group>";
 		};
+		52F275AE1BD4CF56008543E9 /* InvoiceAlertView */ = {
+			isa = PBXGroup;
+			children = (
+				52F275AF1BD4CF78008543E9 /* InvoiceAlertView.h */,
+				52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */,
+				52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */,
+			);
+			name = InvoiceAlertView;
+			path = ShouKeBao/Orders/InvoiceAlertView;
+			sourceTree = SOURCE_ROOT;
+		};
+		52F275B41BD4E253008543E9 /* InvoiceLowView */ = {
+			isa = PBXGroup;
+			children = (
+				52F275B51BD4E273008543E9 /* InvoiceLowView.h */,
+				52F275B61BD4E273008543E9 /* InvoiceLowView.m */,
+				52F275B81BD4E27B008543E9 /* InvoiceLowView.xib */,
+			);
+			name = InvoiceLowView;
+			path = ShouKeBao/Orders/InvoiceLowView;
+			sourceTree = SOURCE_ROOT;
+		};
+		52F275BB1BD4FCB8008543E9 /* OpenInvoice */ = {
+			isa = PBXGroup;
+			children = (
+				52F275BC1BD4FD15008543E9 /* OpenInvoiceViewController.h */,
+				52F275BD1BD4FD15008543E9 /* OpenInvoiceViewController.m */,
+			);
+			path = OpenInvoice;
+			sourceTree = "<group>";
+		};
 		5A076E7B1ACD89DA0077611C /* Animations */ = {
 			isa = PBXGroup;
 			children = (
@@ -1390,6 +1434,9 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				52F275BB1BD4FCB8008543E9 /* OpenInvoice */,
+				52F275B41BD4E253008543E9 /* InvoiceLowView */,
+				52F275AE1BD4CF56008543E9 /* InvoiceAlertView */,
 				522E80641BD1047900DB48DA /* OrderPromptView */,
 				5A52FC041ACEBF220076DAE6 /* OrderTool */,
 				5A52FC071ACEBF220076DAE6 /* OrderView */,
@@ -2738,6 +2785,7 @@
 				B3B7A6721BA6A25F0043DF7C /* Customer.storyboard in Resources */,
 				63D31E4F1AB143D00043B3CA /* Images.xcassets in Resources */,
 				5A52FC5F1ACEBF220076DAE6 /* Auth.storyboard in Resources */,
+				52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */,
 				5A52FC5C1ACEBF220076DAE6 /* SearchProductViewController.xib in Resources */,
 				795E1F021B72F75300072A77 /* read_me.txt in Resources */,
 				B3B7A6781BA6A25F0043DF7C /* CustomerOrdersUIViewController.xib in Resources */,
@@ -2758,6 +2806,7 @@
 				B36E572F1B74C0D000471AAC /* FootView.xib in Resources */,
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
 				6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */,
+				52F275B91BD4E27B008543E9 /* InvoiceLowView.xib in Resources */,
 				5A076EA81ACD8B270077611C /* StoreViewController.xib in Resources */,
 				636C8B791AC2E1420097CAE9 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				5A52FC3E1ACEBF220076DAE6 /* leftCell.xib in Resources */,
@@ -2895,6 +2944,7 @@
 				63B8C6F91ACE8EB000328C8C /* messageCenterViewController.m in Sources */,
 				5A52FC901ACEBF220076DAE6 /* OrderCell.m in Sources */,
 				5ABA4F601AD7B26E004AA8F6 /* NSDate+Category.m in Sources */,
+				52F275B11BD4CF78008543E9 /* InvoiceAlertView.m in Sources */,
 				B3C01E3A1BAC10FC005E4BB5 /* MyOrgViewController.m in Sources */,
 				B3B7A6821BA6A25F0043DF7C /* remondModel.m in Sources */,
 				5A52FC851ACEBF220076DAE6 /* Orders.m in Sources */,
@@ -3038,6 +3088,7 @@
 				797B37971B8C38CF00411DBA /* GTMBase64.m in Sources */,
 				635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */,
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
+				52F275BE1BD4FD15008543E9 /* OpenInvoiceViewController.m in Sources */,
 				5A944D251B00BC780004DE89 /* UIImage+MLBrowserPhotoImageForBundle.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,
 				5A944D241B00BC780004DE89 /* MLPhotoBrowserPhoto.m in Sources */,
@@ -3049,6 +3100,7 @@
 				63F1A18F1B1424B100DE9867 /* yesterDayModel.m in Sources */,
 				632BFFF41AB92A3A003B15AD /* NSData+ImageContentType.m in Sources */,
 				632BFFFE1AB92A3A003B15AD /* UIImage+MultiFormat.m in Sources */,
+				52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */,
 				B3C01E3B1BAC10FC005E4BB5 /* OrgSettingViewController.m in Sources */,
 				632B00001AB92A3A003B15AD /* UIImageView+HighlightedWebCache.m in Sources */,
 				5A52FC5D1ACEBF220076DAE6 /* StationSelect.m in Sources */,

@@ -32,8 +32,11 @@
 #import "NullContentView.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+#import "NSString+FKTools.h"
+#import "InvoiceAlertView.h"
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
+#define kScreenSize [UIScreen mainScreen].bounds.size
 #define historyCount 6
 
 @interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
@@ -82,7 +85,7 @@
 @property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
 @property (nonatomic,copy) NSString *searchKeyWord;
 @property (nonatomic,assign) BOOL isSearch;// 判断是不是 搜索结果  因为列表空的话显示的文字不同
-
+@property (nonatomic,strong) NSMutableArray *invoice;
 @property (nonatomic,strong) DetailView *detailView;
 
 @property (nonatomic,weak) HistoryView *historyView;
@@ -94,6 +97,8 @@
 @property (nonatomic,strong) UIView *guideView;
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
+@property (nonatomic,strong) UIButton *invoiceBtn;//开发票的button
+@property (nonatomic,strong) NSMutableArray *invoiceArr;//存放 选中开发票 cell
 @end
 
 @implementation Orders
@@ -270,7 +275,31 @@
     [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
     self.guideImageView.image = [UIImage imageNamed:@"orderSwipLeftGuide"];
     
-   
+    // 这个if是判断小红点的
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
+        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
+        image.image = [UIImage imageNamed:@"APPsaixuan"];
+        button.tag = 1100;
+        [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
+        _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+        [button addSubview:image];
+        
+        [_barItem.customView addSubview:image];
+    
+        //开发票
+        self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+        self.invoiceBtn.tag = 1200;
+        [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
+        self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
+        [self.invoiceBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+        self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
+        self.invoiceBtn.imageEdgeInsets = UIEdgeInsetsMake(-3, 47, 0, 0);
+        _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
+        self.navigationItem.rightBarButtonItems = @[_barItem,_barItem2];
+    
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     [guideDefault setObject:@"1" forKey:@"orderGuide"];
@@ -324,30 +353,30 @@
 //    button1.backgroundColor = [UIColor redColor];
 //    [button1 addTarget:self action:@selector(selectAction) forControlEvents:UIControlEventTouchUpInside];
 //    [self.navigationItem.rightBarButtonItem.customView addSubview:button1];
-
-    //筛选
-    UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
-    UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
-    button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
-    image.image = [UIImage imageNamed:@"APPsaixuan"];
-    button.tag = 1100;
-    [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
-    _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-    [button addSubview:image];
+        //筛选
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
+        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
+        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
+        image.image = [UIImage imageNamed:@"APPsaixuan"];
+        button.tag = 1100;
+        [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
+        _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+        [button addSubview:image];
+        
+        [_barItem.customView addSubview:image];
+        //开发票
+        self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+        self.invoiceBtn.tag = 1200;
+        [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+        [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
+        self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
+        
+        self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+        [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
+        _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
+        
+        self.navigationItem.rightBarButtonItems = @[_barItem,_barItem2];
    
-    [_barItem.customView addSubview:image];
-    //开发票
-    UIButton *invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-    invoiceBtn.tag = 1200;
-    [invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
-    [invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
-    invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
-    
-    invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
-    _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:invoiceBtn];
-    
-    self.navigationItem.rightBarButtonItems = @[_barItem,_barItem2];
 }
 
 
@@ -369,9 +398,18 @@
         }];
     }else if(button.tag == 1200){//点击发票
         
+     
+        if (self.invoiceBtn.imageView.image !=nil) {
+            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        }
+        
         if (button.selected == YES) {
             button.selected = NO;
+           
             [self.tableView setEditing:NO animated:YES];
+            if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+                [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+            }
         }else if(button.selected == NO){
             button.selected = YES;
             [self.tableView setEditing:YES animated:YES];
@@ -379,7 +417,22 @@
 
     }
 }
-
+/*
+ for (NSInteger i = 0; i<3; i++) {
+ UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
+ button.tag = 101+i;
+ //
+ NSString * string = [NSString stringWithFormat:@"ic_home_business_icon_press%ld",i];
+ //            UIButton * button1 = (UIButton*)[self.view viewWithTag:101+i];
+ 
+ [button setBackgroundImage:[UIImage imageNamed:@"ic_car_default"] forState:UIControlStateNormal];
+ [button setBackgroundImage:[UIImage imageNamed:string] forState:UIControlStateSelected];
+ //
+ button.frame = CGRectMake(with+i*(with+60), kScreenSize.height/5*4+20, 40, 40);
+ //        button.backgroundColor = [UIColor blackColor];
+ [button addTarget:self action:@selector(btnClick1:) forControlEvents:UIControlEventTouchUpInside];
+ [self.view addSubview:button];
+ */
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {
@@ -388,6 +441,17 @@
     } completion:^(BOOL finished) {
         [ges.view removeFromSuperview];
         [_dressView removeFromSuperview];
+        
+        //当界面消失的时候弹出开发票的规则图片
+        [NSString showbackgroundgray];
+        InvoiceAlertView *invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+        invoiceAlert.tag = 107;
+        invoiceAlert.layer.masksToBounds = YES;
+        invoiceAlert.layer.cornerRadius = 6.0;
+        invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+        [[[UIApplication sharedApplication].delegate window] addSubview:invoiceAlert];
+        self.invoiceBtn.selected = YES;
+        [self.tableView setEditing:YES animated:YES];
     }];
 }
 
@@ -403,7 +467,7 @@
     self.tableView.footerPullToRefreshText = @"上拉刷新";
     self.tableView.footerRefreshingText = @"正在刷新";
 }
-#warning 下边是新加的方法，注意清除
+#warning 下边两个是新加的方法，注意清除
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
@@ -604,7 +668,12 @@
     }
     return _chooseStatus;
 }
-
+-(NSMutableArray *)invoiceArr{
+    if (!_invoiceArr) {
+        _invoiceArr = [NSMutableArray array];
+    }
+    return _invoiceArr;
+}
 - (NSMutableArray *)firstAreaData
 {
     if (!_firstAreaData) {
@@ -746,7 +815,10 @@
 //    invoicebu.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
 
     if (self.tableView.editing == YES) {
-        NSLog(@"现在已经是编辑模式");
+        OrderModel *order = self.dataArr[indexPath.section];
+        [self.invoiceArr addObject:order];
+        NSLog(@"=======%ld",self.invoiceArr.count);
+        
     }else if(self.tableView.editing == NO){
         NSLog(@"现在已经退出编辑模式");
         // 取出模型
