@@ -270,6 +270,7 @@
     [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
     self.guideImageView.image = [UIImage imageNamed:@"orderSwipLeftGuide"];
     
+   
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     [guideDefault setObject:@"1" forKey:@"orderGuide"];
@@ -335,12 +336,13 @@
     [button addSubview:image];
    
     [_barItem.customView addSubview:image];
-    //发票
+    //开发票
     UIButton *invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
     invoiceBtn.tag = 1200;
     [invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
     [invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
-    invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
+    invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
+    
     invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
     _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:invoiceBtn];
@@ -366,7 +368,7 @@
             self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
         }];
     }else if(button.tag == 1200){//点击发票
-
+        
         if (button.selected == YES) {
             button.selected = NO;
             [self.tableView setEditing:NO animated:YES];
@@ -375,7 +377,6 @@
             [self.tableView setEditing:YES animated:YES];
         }
 
-        
     }
 }
 
@@ -740,6 +741,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+//    UIButton *invoicebu = (UIButton *)[self.view viewWithTag:1200];
+//    [invoicebu setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+//    invoicebu.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
+
     if (self.tableView.editing == YES) {
         NSLog(@"现在已经是编辑模式");
     }else if(self.tableView.editing == NO){
