@@ -170,11 +170,11 @@
     
     [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
     NSString *idStr = [NSString stringWithString:model.ID];
-   
+   //如果idstr在这个数组里没有出现 containsObject
     if (![_isReadArr containsObject:idStr]) {
-       
+        NSLog(@"---%ld",_isReadArr.count);
         [self.isReadArr addObject:idStr];
-        
+        NSLog(@"++++%ld",self.isReadArr.count);
         [WriteFileManager WMsaveData:_isReadArr name:@"messageRead"];
     }
     
