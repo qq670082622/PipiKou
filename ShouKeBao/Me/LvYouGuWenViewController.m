@@ -27,7 +27,7 @@
     [super viewDidLoad];
     [self loadDataSource];
     //self.navigationItem.leftBarButtonItem = leftItem;
-    self.title = @"旅游顾问";
+    self.title = @"专属APP";
     self.isShow = YES;
     self.webView.delegate  = self;
 

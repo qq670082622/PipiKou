@@ -300,6 +300,7 @@
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
 		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
 		798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */; };
+		798F769B1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 798F769A1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m */; };
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
 		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
@@ -926,6 +927,8 @@
 		7982F1601B391C6A009F878D /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		798BB6621B9FCBC300D8C070 /* NSString+FKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FKTools.h"; sourceTree = "<group>"; };
 		798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FKTools.m"; sourceTree = "<group>"; };
+		798F76991BD6292400457A70 /* TravelConsultantViewControllerNoShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewControllerNoShare.h; sourceTree = "<group>"; };
+		798F769A1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewControllerNoShare.m; sourceTree = "<group>"; };
 		799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		799F3E0C1B3A512400C14FBB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -2593,6 +2596,8 @@
 				B3C01E241BAC10FC005E4BB5 /* SuggestViewController.m */,
 				792482F91BAFF232005D1801 /* TravelConsultantViewController.h */,
 				792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */,
+				798F76991BD6292400457A70 /* TravelConsultantViewControllerNoShare.h */,
+				798F769A1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m */,
 				B3C01DF61BAC10FC005E4BB5 /* FeedBcakViewController.h */,
 				B3C01DF71BAC10FC005E4BB5 /* FeedBcakViewController.m */,
 				B3C01DF81BAC10FC005E4BB5 /* InspectionViewController.h */,
@@ -3078,6 +3083,7 @@
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
+				798F769B1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m in Sources */,
 				6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */,
 				634469861B342AF7009F7ADF /* messageCellSKBTableViewCell.m in Sources */,
 				6326131D1AB1C175003AC2DA /* MJRefreshFooterView.m in Sources */,

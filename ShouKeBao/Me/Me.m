@@ -37,6 +37,7 @@
 #import "MoneyTreeViewController.h"
 #import "TravelConsultantViewController.h"
 #import "LvYouGuWenViewController.h"
+#import "TravelConsultantViewControllerNoShare.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -370,11 +371,10 @@
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeTravelConsultantVCClick" attributes:dict];
                //原生界面
-               TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
-                [self.navigationController pushViewController:TCVC animated:YES];
-               //h5界面
-//               LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
-//               [self.navigationController pushViewController:LYGW animated:YES];
+//               TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
+//                [self.navigationController pushViewController:TCVC animated:YES];
+               TravelConsultantViewControllerNoShare * TCTVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVCNS"];
+               [self.navigationController pushViewController:TCTVC animated:YES];
            }else if(indexPath.row == 1){
                 MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
