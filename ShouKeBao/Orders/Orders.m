@@ -446,6 +446,7 @@
         [NSString showbackgroundgray];
         InvoiceAlertView *invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
         invoiceAlert.tag = 107;
+        invoiceAlert.AlertNav = self.navigationController;
         invoiceAlert.layer.masksToBounds = YES;
         invoiceAlert.layer.cornerRadius = 6.0;
         invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		522E80671BD1049500DB48DA /* OrderPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 522E80661BD1049500DB48DA /* OrderPromptView.m */; };
 		522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522E80681BD104A800DB48DA /* OrderPromptView.xib */; };
+		527D07B71BD5D56000CA6C39 /* OpenInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D07B61BD5D56000CA6C39 /* OpenInvoiceViewController.m */; };
+		527D07C01BD5F39A00CA6C39 /* OrderinformationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D07BE1BD5F39A00CA6C39 /* OrderinformationCell.m */; };
 		527D4A381BC8A0620020AAF3 /* LeaveShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D4A371BC8A0620020AAF3 /* LeaveShare.m */; };
 		527D4A3A1BC8A0700020AAF3 /* LeaveShare.xib in Resources */ = {isa = PBXBuildFile; fileRef = 527D4A391BC8A0700020AAF3 /* LeaveShare.xib */; };
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
@@ -18,7 +20,6 @@
 		52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */; };
 		52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B61BD4E273008543E9 /* InvoiceLowView.m */; };
 		52F275B91BD4E27B008543E9 /* InvoiceLowView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B81BD4E27B008543E9 /* InvoiceLowView.xib */; };
-		52F275BE1BD4FD15008543E9 /* OpenInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275BD1BD4FD15008543E9 /* OpenInvoiceViewController.m */; };
 		52F59D881BCF4B1F00DE24FB /* invoiceCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F59D861BCF4B1F00DE24FB /* invoiceCell.m */; };
 		52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */; };
 		5A076C9B1ACD1C0F0077611C /* area.plist in Resources */ = {isa = PBXBuildFile; fileRef = 5A076C9A1ACD1C0F0077611C /* area.plist */; };
@@ -300,7 +301,7 @@
 		7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1571B33C6CB009F878D /* CityPlistTool.m */; };
 		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
 		798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */; };
-		798F769B1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 798F769A1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m */; };
+		798F769E1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 798F769D1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m */; };
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
 		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
@@ -413,6 +414,10 @@
 		522E80651BD1049500DB48DA /* OrderPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPromptView.h; sourceTree = "<group>"; };
 		522E80661BD1049500DB48DA /* OrderPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPromptView.m; sourceTree = "<group>"; };
 		522E80681BD104A800DB48DA /* OrderPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPromptView.xib; sourceTree = "<group>"; };
+		527D07B51BD5D56000CA6C39 /* OpenInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInvoiceViewController.h; sourceTree = "<group>"; };
+		527D07B61BD5D56000CA6C39 /* OpenInvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInvoiceViewController.m; sourceTree = "<group>"; };
+		527D07BD1BD5F39A00CA6C39 /* OrderinformationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderinformationCell.h; sourceTree = "<group>"; };
+		527D07BE1BD5F39A00CA6C39 /* OrderinformationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderinformationCell.m; sourceTree = "<group>"; };
 		527D4A361BC8A0620020AAF3 /* LeaveShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeaveShare.h; sourceTree = "<group>"; };
 		527D4A371BC8A0620020AAF3 /* LeaveShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeaveShare.m; sourceTree = "<group>"; };
 		527D4A391BC8A0700020AAF3 /* LeaveShare.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LeaveShare.xib; sourceTree = "<group>"; };
@@ -427,8 +432,6 @@
 		52F275B51BD4E273008543E9 /* InvoiceLowView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceLowView.h; sourceTree = "<group>"; };
 		52F275B61BD4E273008543E9 /* InvoiceLowView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceLowView.m; sourceTree = "<group>"; };
 		52F275B81BD4E27B008543E9 /* InvoiceLowView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceLowView.xib; sourceTree = "<group>"; };
-		52F275BC1BD4FD15008543E9 /* OpenInvoiceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenInvoiceViewController.h; sourceTree = "<group>"; };
-		52F275BD1BD4FD15008543E9 /* OpenInvoiceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenInvoiceViewController.m; sourceTree = "<group>"; };
 		52F59D851BCF4B1F00DE24FB /* invoiceCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = invoiceCell.h; sourceTree = "<group>"; };
 		52F59D861BCF4B1F00DE24FB /* invoiceCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = invoiceCell.m; sourceTree = "<group>"; };
 		52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = invoiceCell.xib; sourceTree = "<group>"; };
@@ -927,8 +930,8 @@
 		7982F1601B391C6A009F878D /* BaseModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseModel.m; sourceTree = "<group>"; };
 		798BB6621B9FCBC300D8C070 /* NSString+FKTools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+FKTools.h"; sourceTree = "<group>"; };
 		798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FKTools.m"; sourceTree = "<group>"; };
-		798F76991BD6292400457A70 /* TravelConsultantViewControllerNoShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewControllerNoShare.h; sourceTree = "<group>"; };
-		798F769A1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewControllerNoShare.m; sourceTree = "<group>"; };
+		798F769C1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewControllerNoShare.h; sourceTree = "<group>"; };
+		798F769D1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewControllerNoShare.m; sourceTree = "<group>"; };
 		799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		799F3E0C1B3A512400C14FBB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -1149,6 +1152,15 @@
 			path = OrderPromptView;
 			sourceTree = "<group>";
 		};
+		527D07B41BD5D54300CA6C39 /* OpenInvoice */ = {
+			isa = PBXGroup;
+			children = (
+				527D07B51BD5D56000CA6C39 /* OpenInvoiceViewController.h */,
+				527D07B61BD5D56000CA6C39 /* OpenInvoiceViewController.m */,
+			);
+			path = OpenInvoice;
+			sourceTree = "<group>";
+		};
 		527D4A351BC8A04B0020AAF3 /* LeaveShare */ = {
 			isa = PBXGroup;
 			children = (
@@ -1190,15 +1202,6 @@
 			name = InvoiceLowView;
 			path = ShouKeBao/Orders/InvoiceLowView;
 			sourceTree = SOURCE_ROOT;
-		};
-		52F275BB1BD4FCB8008543E9 /* OpenInvoice */ = {
-			isa = PBXGroup;
-			children = (
-				52F275BC1BD4FD15008543E9 /* OpenInvoiceViewController.h */,
-				52F275BD1BD4FD15008543E9 /* OpenInvoiceViewController.m */,
-			);
-			path = OpenInvoice;
-			sourceTree = "<group>";
 		};
 		5A076E7B1ACD89DA0077611C /* Animations */ = {
 			isa = PBXGroup;
@@ -1437,7 +1440,7 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
-				52F275BB1BD4FCB8008543E9 /* OpenInvoice */,
+				527D07B41BD5D54300CA6C39 /* OpenInvoice */,
 				52F275B41BD4E253008543E9 /* InvoiceLowView */,
 				52F275AE1BD4CF56008543E9 /* InvoiceAlertView */,
 				522E80641BD1047900DB48DA /* OrderPromptView */,
@@ -1510,6 +1513,8 @@
 				5A60FC791AE0FC6D00CDAC4B /* ArrowBtn.m */,
 				5A6165801AE79AEF00641837 /* NullContentView.h */,
 				5A6165811AE79AEF00641837 /* NullContentView.m */,
+				527D07BD1BD5F39A00CA6C39 /* OrderinformationCell.h */,
+				527D07BE1BD5F39A00CA6C39 /* OrderinformationCell.m */,
 			);
 			path = OrderView;
 			sourceTree = "<group>";
@@ -2596,8 +2601,8 @@
 				B3C01E241BAC10FC005E4BB5 /* SuggestViewController.m */,
 				792482F91BAFF232005D1801 /* TravelConsultantViewController.h */,
 				792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */,
-				798F76991BD6292400457A70 /* TravelConsultantViewControllerNoShare.h */,
-				798F769A1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m */,
+				798F769C1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.h */,
+				798F769D1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m */,
 				B3C01DF61BAC10FC005E4BB5 /* FeedBcakViewController.h */,
 				B3C01DF71BAC10FC005E4BB5 /* FeedBcakViewController.m */,
 				B3C01DF81BAC10FC005E4BB5 /* InspectionViewController.h */,
@@ -3053,6 +3058,7 @@
 				632B00011AB92A3A003B15AD /* UIImageView+WebCache.m in Sources */,
 				B3B7A6771BA6A25F0043DF7C /* CustomerOrdersUIViewController.m in Sources */,
 				632613271AB2AF04003AC2DA /* PGCategoryView.m in Sources */,
+				798F769E1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m in Sources */,
 				5A52FC821ACEBF220076DAE6 /* OrderDetailViewController.m in Sources */,
 				8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */,
 				5A076E7E1ACD89DA0077611C /* WMAnimations.m in Sources */,
@@ -3083,7 +3089,7 @@
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
-				798F769B1BD6292400457A70 /* TravelConsultantViewControllerNoShare.m in Sources */,
+				527D07C01BD5F39A00CA6C39 /* OrderinformationCell.m in Sources */,
 				6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */,
 				634469861B342AF7009F7ADF /* messageCellSKBTableViewCell.m in Sources */,
 				6326131D1AB1C175003AC2DA /* MJRefreshFooterView.m in Sources */,
@@ -3094,7 +3100,7 @@
 				797B37971B8C38CF00411DBA /* GTMBase64.m in Sources */,
 				635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */,
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
-				52F275BE1BD4FD15008543E9 /* OpenInvoiceViewController.m in Sources */,
+				527D07B71BD5D56000CA6C39 /* OpenInvoiceViewController.m in Sources */,
 				5A944D251B00BC780004DE89 /* UIImage+MLBrowserPhotoImageForBundle.m in Sources */,
 				5A52FC7F1ACEBF220076DAE6 /* AreaViewController.m in Sources */,
 				5A944D241B00BC780004DE89 /* MLPhotoBrowserPhoto.m in Sources */,
