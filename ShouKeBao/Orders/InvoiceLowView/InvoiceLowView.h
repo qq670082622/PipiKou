@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface InvoiceLowView : UIView
+@property (nonatomic,strong) UINavigationController *LowNav;
 - (IBAction)SelectAllBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *orderNumLabel;
 - (IBAction)InbatchesbBtn:(UIButton *)sender;

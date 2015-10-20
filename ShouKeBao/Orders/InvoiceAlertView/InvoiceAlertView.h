@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "InvoiceLowView.h"
 @interface InvoiceAlertView : UIView
+@property (nonatomic,strong) UINavigationController *AlertNav;
 - (IBAction)Iknowbtn:(UIButton *)sender;
 
 @end
