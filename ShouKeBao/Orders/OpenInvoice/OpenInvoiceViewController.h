@@ -2,12 +2,12 @@
 //  OpenInvoiceViewController.h
 //  ShouKeBao
 //
-//  Created by 韩世民 on 15/10/19.
+//  Created by 韩世民 on 15/10/20.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "SKViewController.h"
 
-@interface OpenInvoiceViewController : UIViewController
+@interface OpenInvoiceViewController : SKViewController
 
 @end

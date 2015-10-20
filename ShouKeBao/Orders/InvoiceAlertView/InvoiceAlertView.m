@@ -28,6 +28,7 @@
     
     InvoiceLowView *InvoiceLow = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceLowView" owner:self options:nil] lastObject];
     InvoiceLow.tag = 110;
+    InvoiceLow.LowNav = self.AlertNav;
     InvoiceLow.layer.masksToBounds = YES;
     InvoiceLow.layer.cornerRadius = 6.0;
     InvoiceLow.frame = CGRectMake(0,kScreenSize.height-89,kScreenSize.width ,40);
