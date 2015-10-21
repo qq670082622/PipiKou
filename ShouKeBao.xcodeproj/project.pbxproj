@@ -179,15 +179,7 @@
 		633263DB1AB851590021553B /* IWHttpTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 633263D11AB851590021553B /* IWHttpTool.m */; };
 		634469861B342AF7009F7ADF /* messageCellSKBTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 634469851B342AF7009F7ADF /* messageCellSKBTableViewCell.m */; };
 		635944201ADBA9D9004F0035 /* textStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 6359441F1ADBA9D9004F0035 /* textStyle.m */; };
-		635E70A81B1806E8008EFEB6 /* ScanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70A61B1806E8008EFEB6 /* ScanningViewController.m */; };
-		635E70A91B1806E8008EFEB6 /* ScanningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */; };
 		635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70AC1B180763008EFEB6 /* V8HorizontalPickerView.m */; };
-		635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70B01B180F87008EFEB6 /* PersonIDViewController.m */; };
-		635E70B31B180F87008EFEB6 /* PersonIDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70B11B180F87008EFEB6 /* PersonIDViewController.xib */; };
-		635E70BC1B182C68008EFEB6 /* QRHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */; };
-		635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */; };
-		635E70C01B185B39008EFEB6 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70BF1B185B39008EFEB6 /* CardTableViewController.m */; };
-		635E70C31B1872AD008EFEB6 /* userIDTableviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */; };
 		6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */; };
 		636C8B6C1AC2E1420097CAE9 /* CopyConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B531AC2E1420097CAE9 /* CopyConnection.framework */; };
 		636C8B6D1AC2E1420097CAE9 /* QQConnection.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 636C8B541AC2E1420097CAE9 /* QQConnection.framework */; };
@@ -228,10 +220,6 @@
 		63B6CFB41B2E745B0037E06B /* personIdModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B6CFB31B2E745B0037E06B /* personIdModel.m */; };
 		63B6CFB81B2EA8AA0037E06B /* personIdModel.h in Sources */ = {isa = PBXBuildFile; fileRef = 63B6CFB21B2E745B0037E06B /* personIdModel.h */; };
 		63B8C6A61ACE66CC00328C8C /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */; };
-		63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */; };
-		63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C6AA1ACE672C00328C8C /* QRCodeViewController.xib */; };
-		63B8C6B01ACE688C00328C8C /* URLOpenFromQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6AE1ACE688C00328C8C /* URLOpenFromQRCodeViewController.m */; };
-		63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C6AF1ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib */; };
 		63B8C6F41ACE8D9900328C8C /* BBBadgeBarButtonItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6F31ACE8D9900328C8C /* BBBadgeBarButtonItem.m */; };
 		63B8C6F91ACE8EB000328C8C /* messageCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B8C6F71ACE8EB000328C8C /* messageCenterViewController.m */; };
 		63B8C6FA1ACE8EB000328C8C /* messageCenterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63B8C6F81ACE8EB000328C8C /* messageCenterViewController.xib */; };
@@ -398,6 +386,25 @@
 		B3C0FF881BC7C54A008BC477 /* iconfont-mianxingtubiao1fuzhi.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C0FF871BC7C54A008BC477 /* iconfont-mianxingtubiao1fuzhi.png */; };
 		B3C0FF8A1BC7C550008BC477 /* iconfont-icon24.png in Resources */ = {isa = PBXBuildFile; fileRef = B3C0FF891BC7C550008BC477 /* iconfont-icon24.png */; };
 		B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */; };
+		B3D7B77D1BD76DF10080E243 /* QRPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */; };
+		B3D7B77E1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B77C1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m */; };
+		B3D7B7C21BD76F700080E243 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7A71BD76F700080E243 /* CardTableViewController.m */; };
+		B3D7B7C31BD76F700080E243 /* IdentifyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7A91BD76F700080E243 /* IdentifyViewController.m */; };
+		B3D7B7C41BD76F700080E243 /* PersonIDViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7AB1BD76F700080E243 /* PersonIDViewController.m */; };
+		B3D7B7C51BD76F700080E243 /* PersonIDViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3D7B7AC1BD76F700080E243 /* PersonIDViewController.xib */; };
+		B3D7B7C61BD76F700080E243 /* QR.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3D7B7AD1BD76F700080E243 /* QR.storyboard */; };
+		B3D7B7C71BD76F700080E243 /* QRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7AF1BD76F700080E243 /* QRCodeViewController.m */; };
+		B3D7B7C81BD76F700080E243 /* QRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3D7B7B01BD76F700080E243 /* QRCodeViewController.xib */; };
+		B3D7B7C91BD76F700080E243 /* QRHistoryTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7B21BD76F700080E243 /* QRHistoryTableViewController.m */; };
+		B3D7B7CA1BD76F700080E243 /* QRHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7B41BD76F700080E243 /* QRHistoryViewController.m */; };
+		B3D7B7CB1BD76F700080E243 /* QRHistoryViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3D7B7B51BD76F700080E243 /* QRHistoryViewController.xib */; };
+		B3D7B7CC1BD76F700080E243 /* QRPhotoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7B71BD76F700080E243 /* QRPhotoTableViewController.m */; };
+		B3D7B7CD1BD76F700080E243 /* QRSaveCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7B91BD76F700080E243 /* QRSaveCustomerViewController.m */; };
+		B3D7B7CE1BD76F700080E243 /* ScanningViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7BB1BD76F700080E243 /* ScanningViewController.m */; };
+		B3D7B7CF1BD76F700080E243 /* ScanningViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3D7B7BC1BD76F700080E243 /* ScanningViewController.xib */; };
+		B3D7B7D01BD76F700080E243 /* URLOpenFromQRCodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7BE1BD76F700080E243 /* URLOpenFromQRCodeViewController.m */; };
+		B3D7B7D11BD76F700080E243 /* URLOpenFromQRCodeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3D7B7BF1BD76F700080E243 /* URLOpenFromQRCodeViewController.xib */; };
+		B3D7B7D21BD76F700080E243 /* userIDTableviewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7C11BD76F700080E243 /* userIDTableviewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -729,22 +736,9 @@
 		634469851B342AF7009F7ADF /* messageCellSKBTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = messageCellSKBTableViewCell.m; sourceTree = "<group>"; };
 		6359441E1ADBA9D9004F0035 /* textStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = textStyle.h; sourceTree = "<group>"; };
 		6359441F1ADBA9D9004F0035 /* textStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = textStyle.m; sourceTree = "<group>"; };
-		635E70A51B1806E8008EFEB6 /* ScanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanningViewController.h; sourceTree = "<group>"; };
-		635E70A61B1806E8008EFEB6 /* ScanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanningViewController.m; sourceTree = "<group>"; };
-		635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanningViewController.xib; sourceTree = "<group>"; };
 		635E70AB1B180763008EFEB6 /* V8HorizontalPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerView.h; sourceTree = "<group>"; };
 		635E70AC1B180763008EFEB6 /* V8HorizontalPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = V8HorizontalPickerView.m; sourceTree = "<group>"; };
 		635E70AD1B180763008EFEB6 /* V8HorizontalPickerViewProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = V8HorizontalPickerViewProtocol.h; sourceTree = "<group>"; };
-		635E70AF1B180F87008EFEB6 /* PersonIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonIDViewController.h; sourceTree = "<group>"; };
-		635E70B01B180F87008EFEB6 /* PersonIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonIDViewController.m; sourceTree = "<group>"; };
-		635E70B11B180F87008EFEB6 /* PersonIDViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonIDViewController.xib; sourceTree = "<group>"; };
-		635E70B91B182C68008EFEB6 /* QRHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRHistoryViewController.h; sourceTree = "<group>"; };
-		635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRHistoryViewController.m; sourceTree = "<group>"; };
-		635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRHistoryViewController.xib; sourceTree = "<group>"; };
-		635E70BE1B185B38008EFEB6 /* CardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewController.h; sourceTree = "<group>"; };
-		635E70BF1B185B39008EFEB6 /* CardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewController.m; sourceTree = "<group>"; };
-		635E70C11B1872AD008EFEB6 /* userIDTableviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userIDTableviewController.h; sourceTree = "<group>"; };
-		635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userIDTableviewController.m; sourceTree = "<group>"; };
 		6364A9AE1B098CA00099705B /* YYAnimationIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YYAnimationIndicator.h; sourceTree = "<group>"; };
 		6364A9AF1B098CA00099705B /* YYAnimationIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YYAnimationIndicator.m; sourceTree = "<group>"; };
 		636C8B531AC2E1420097CAE9 /* CopyConnection.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CopyConnection.framework; sourceTree = "<group>"; };
@@ -795,12 +789,6 @@
 		63B6CFB21B2E745B0037E06B /* personIdModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = personIdModel.h; sourceTree = "<group>"; };
 		63B6CFB31B2E745B0037E06B /* personIdModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = personIdModel.m; sourceTree = "<group>"; };
 		63B8C6A51ACE66CC00328C8C /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		63B8C6A81ACE672C00328C8C /* QRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeViewController.h; sourceTree = "<group>"; };
-		63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeViewController.m; sourceTree = "<group>"; };
-		63B8C6AA1ACE672C00328C8C /* QRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeViewController.xib; sourceTree = "<group>"; };
-		63B8C6AD1ACE688C00328C8C /* URLOpenFromQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLOpenFromQRCodeViewController.h; sourceTree = "<group>"; };
-		63B8C6AE1ACE688C00328C8C /* URLOpenFromQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLOpenFromQRCodeViewController.m; sourceTree = "<group>"; };
-		63B8C6AF1ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = URLOpenFromQRCodeViewController.xib; sourceTree = "<group>"; };
 		63B8C6F21ACE8D9900328C8C /* BBBadgeBarButtonItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BBBadgeBarButtonItem.h; sourceTree = "<group>"; };
 		63B8C6F31ACE8D9900328C8C /* BBBadgeBarButtonItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BBBadgeBarButtonItem.m; sourceTree = "<group>"; };
 		63B8C6F61ACE8EB000328C8C /* messageCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = messageCenterViewController.h; sourceTree = "<group>"; };
@@ -1095,6 +1083,38 @@
 		B3C0FF891BC7C550008BC477 /* iconfont-icon24.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-icon24.png"; sourceTree = "<group>"; };
 		B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		B3D7B7791BD76DF10080E243 /* QRPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPhotoCollectionViewCell.h; sourceTree = "<group>"; };
+		B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPhotoCollectionViewCell.m; sourceTree = "<group>"; };
+		B3D7B77B1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRSaveToCustomerTableViewCell.h; sourceTree = "<group>"; };
+		B3D7B77C1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRSaveToCustomerTableViewCell.m; sourceTree = "<group>"; };
+		B3D7B7A61BD76F700080E243 /* CardTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CardTableViewController.h; sourceTree = "<group>"; };
+		B3D7B7A71BD76F700080E243 /* CardTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CardTableViewController.m; sourceTree = "<group>"; };
+		B3D7B7A81BD76F700080E243 /* IdentifyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IdentifyViewController.h; sourceTree = "<group>"; };
+		B3D7B7A91BD76F700080E243 /* IdentifyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IdentifyViewController.m; sourceTree = "<group>"; };
+		B3D7B7AA1BD76F700080E243 /* PersonIDViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonIDViewController.h; sourceTree = "<group>"; };
+		B3D7B7AB1BD76F700080E243 /* PersonIDViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonIDViewController.m; sourceTree = "<group>"; };
+		B3D7B7AC1BD76F700080E243 /* PersonIDViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PersonIDViewController.xib; sourceTree = "<group>"; };
+		B3D7B7AD1BD76F700080E243 /* QR.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = QR.storyboard; sourceTree = "<group>"; };
+		B3D7B7AE1BD76F700080E243 /* QRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRCodeViewController.h; sourceTree = "<group>"; };
+		B3D7B7AF1BD76F700080E243 /* QRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRCodeViewController.m; sourceTree = "<group>"; };
+		B3D7B7B01BD76F700080E243 /* QRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRCodeViewController.xib; sourceTree = "<group>"; };
+		B3D7B7B11BD76F700080E243 /* QRHistoryTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRHistoryTableViewController.h; sourceTree = "<group>"; };
+		B3D7B7B21BD76F700080E243 /* QRHistoryTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRHistoryTableViewController.m; sourceTree = "<group>"; };
+		B3D7B7B31BD76F700080E243 /* QRHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRHistoryViewController.h; sourceTree = "<group>"; };
+		B3D7B7B41BD76F700080E243 /* QRHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRHistoryViewController.m; sourceTree = "<group>"; };
+		B3D7B7B51BD76F700080E243 /* QRHistoryViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = QRHistoryViewController.xib; sourceTree = "<group>"; };
+		B3D7B7B61BD76F700080E243 /* QRPhotoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPhotoTableViewController.h; sourceTree = "<group>"; };
+		B3D7B7B71BD76F700080E243 /* QRPhotoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPhotoTableViewController.m; sourceTree = "<group>"; };
+		B3D7B7B81BD76F700080E243 /* QRSaveCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRSaveCustomerViewController.h; sourceTree = "<group>"; };
+		B3D7B7B91BD76F700080E243 /* QRSaveCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRSaveCustomerViewController.m; sourceTree = "<group>"; };
+		B3D7B7BA1BD76F700080E243 /* ScanningViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScanningViewController.h; sourceTree = "<group>"; };
+		B3D7B7BB1BD76F700080E243 /* ScanningViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScanningViewController.m; sourceTree = "<group>"; };
+		B3D7B7BC1BD76F700080E243 /* ScanningViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ScanningViewController.xib; sourceTree = "<group>"; };
+		B3D7B7BD1BD76F700080E243 /* URLOpenFromQRCodeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = URLOpenFromQRCodeViewController.h; sourceTree = "<group>"; };
+		B3D7B7BE1BD76F700080E243 /* URLOpenFromQRCodeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = URLOpenFromQRCodeViewController.m; sourceTree = "<group>"; };
+		B3D7B7BF1BD76F700080E243 /* URLOpenFromQRCodeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = URLOpenFromQRCodeViewController.xib; sourceTree = "<group>"; };
+		B3D7B7C01BD76F700080E243 /* userIDTableviewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = userIDTableviewController.h; sourceTree = "<group>"; };
+		B3D7B7C11BD76F700080E243 /* userIDTableviewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = userIDTableviewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1215,6 +1235,7 @@
 		5A076E951ACD8B270077611C /* ShouKebao */ = {
 			isa = PBXGroup;
 			children = (
+				B3D7B7A51BD76F700080E243 /* QRCode */,
 				52B858451BC76D4C00B15483 /* CommendToDetail */,
 				797E56571B56565E00154C55 /* NewVersion */,
 				63F1A17A1B140CF700DE9867 /* Recoomend */,
@@ -1222,7 +1243,6 @@
 				5A8216121AD36AB9009388DA /* HomeModel */,
 				5A8216131AD36AB9009388DA /* HomeView */,
 				63B8C6F51ACE8EA200328C8C /* messageCenter */,
-				63B8C6A71ACE671D00328C8C /* QRCode */,
 				5A076E9C1ACD8B270077611C /* Store */,
 				5A076E961ACD8B270077611C /* ShouKeBao.h */,
 				5A076E971ACD8B270077611C /* ShouKeBao.m */,
@@ -1589,6 +1609,10 @@
 		5A8216131AD36AB9009388DA /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				B3D7B7791BD76DF10080E243 /* QRPhotoCollectionViewCell.h */,
+				B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */,
+				B3D7B77B1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.h */,
+				B3D7B77C1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m */,
 				B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */,
 				B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */,
 				5A8216151AD36AFE009388DA /* ShouKeBaoCell.h */,
@@ -2015,32 +2039,6 @@
 				6389CE041AB7F9F600A8326E /* ResizeImage.m */,
 			);
 			path = ImageTool;
-			sourceTree = "<group>";
-		};
-		63B8C6A71ACE671D00328C8C /* QRCode */ = {
-			isa = PBXGroup;
-			children = (
-				63B8C6A81ACE672C00328C8C /* QRCodeViewController.h */,
-				63B8C6A91ACE672C00328C8C /* QRCodeViewController.m */,
-				63B8C6AA1ACE672C00328C8C /* QRCodeViewController.xib */,
-				63B8C6AD1ACE688C00328C8C /* URLOpenFromQRCodeViewController.h */,
-				63B8C6AE1ACE688C00328C8C /* URLOpenFromQRCodeViewController.m */,
-				63B8C6AF1ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib */,
-				635E70A51B1806E8008EFEB6 /* ScanningViewController.h */,
-				635E70A61B1806E8008EFEB6 /* ScanningViewController.m */,
-				635E70A71B1806E8008EFEB6 /* ScanningViewController.xib */,
-				635E70AF1B180F87008EFEB6 /* PersonIDViewController.h */,
-				635E70B01B180F87008EFEB6 /* PersonIDViewController.m */,
-				635E70B11B180F87008EFEB6 /* PersonIDViewController.xib */,
-				635E70B91B182C68008EFEB6 /* QRHistoryViewController.h */,
-				635E70BA1B182C68008EFEB6 /* QRHistoryViewController.m */,
-				635E70BB1B182C68008EFEB6 /* QRHistoryViewController.xib */,
-				635E70BE1B185B38008EFEB6 /* CardTableViewController.h */,
-				635E70BF1B185B39008EFEB6 /* CardTableViewController.m */,
-				635E70C11B1872AD008EFEB6 /* userIDTableviewController.h */,
-				635E70C21B1872AD008EFEB6 /* userIDTableviewController.m */,
-			);
-			path = QRCode;
 			sourceTree = "<group>";
 		};
 		63B8C6F11ACE8D7200328C8C /* NavigationItemBadgeValue */ = {
@@ -2667,6 +2665,41 @@
 			path = MeView;
 			sourceTree = "<group>";
 		};
+		B3D7B7A51BD76F700080E243 /* QRCode */ = {
+			isa = PBXGroup;
+			children = (
+				B3D7B7A61BD76F700080E243 /* CardTableViewController.h */,
+				B3D7B7A71BD76F700080E243 /* CardTableViewController.m */,
+				B3D7B7A81BD76F700080E243 /* IdentifyViewController.h */,
+				B3D7B7A91BD76F700080E243 /* IdentifyViewController.m */,
+				B3D7B7B11BD76F700080E243 /* QRHistoryTableViewController.h */,
+				B3D7B7B21BD76F700080E243 /* QRHistoryTableViewController.m */,
+				B3D7B7B61BD76F700080E243 /* QRPhotoTableViewController.h */,
+				B3D7B7B71BD76F700080E243 /* QRPhotoTableViewController.m */,
+				B3D7B7B81BD76F700080E243 /* QRSaveCustomerViewController.h */,
+				B3D7B7B91BD76F700080E243 /* QRSaveCustomerViewController.m */,
+				B3D7B7AA1BD76F700080E243 /* PersonIDViewController.h */,
+				B3D7B7AB1BD76F700080E243 /* PersonIDViewController.m */,
+				B3D7B7AC1BD76F700080E243 /* PersonIDViewController.xib */,
+				B3D7B7AD1BD76F700080E243 /* QR.storyboard */,
+				B3D7B7AE1BD76F700080E243 /* QRCodeViewController.h */,
+				B3D7B7AF1BD76F700080E243 /* QRCodeViewController.m */,
+				B3D7B7B01BD76F700080E243 /* QRCodeViewController.xib */,
+				B3D7B7B31BD76F700080E243 /* QRHistoryViewController.h */,
+				B3D7B7B41BD76F700080E243 /* QRHistoryViewController.m */,
+				B3D7B7B51BD76F700080E243 /* QRHistoryViewController.xib */,
+				B3D7B7BA1BD76F700080E243 /* ScanningViewController.h */,
+				B3D7B7BB1BD76F700080E243 /* ScanningViewController.m */,
+				B3D7B7BC1BD76F700080E243 /* ScanningViewController.xib */,
+				B3D7B7BD1BD76F700080E243 /* URLOpenFromQRCodeViewController.h */,
+				B3D7B7BE1BD76F700080E243 /* URLOpenFromQRCodeViewController.m */,
+				B3D7B7BF1BD76F700080E243 /* URLOpenFromQRCodeViewController.xib */,
+				B3D7B7C01BD76F700080E243 /* userIDTableviewController.h */,
+				B3D7B7C11BD76F700080E243 /* userIDTableviewController.m */,
+			);
+			path = QRCode;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -2764,35 +2797,38 @@
 				63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */,
 				522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */,
 				63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */,
+				B3D7B7CB1BD76F700080E243 /* QRHistoryViewController.xib in Resources */,
 				B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */,
 				B36E572D1B74C0D000471AAC /* ConditionSelectViewController.xib in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
+				B3D7B7C81BD76F700080E243 /* QRCodeViewController.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
-				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
 				637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */,
 				B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */,
 				527D4A3A1BC8A0700020AAF3 /* LeaveShare.xib in Resources */,
 				B36E57311B74C0D000471AAC /* MinMaxPriceSelectViewController.xib in Resources */,
-				635E70B31B180F87008EFEB6 /* PersonIDViewController.xib in Resources */,
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
 				B3C0FF881BC7C54A008BC477 /* iconfont-mianxingtubiao1fuzhi.png in Resources */,
 				B3B7A6711BA6A25F0043DF7C /* attachmentViewController.xib in Resources */,
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
-				635E70A91B1806E8008EFEB6 /* ScanningViewController.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
 				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
 				52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */,
 				B3B7A6841BA6A25F0043DF7C /* remondTableViewCell.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
+				B3D7B7C61BD76F700080E243 /* QR.storyboard in Resources */,
 				63A81B901B3981AA00D8B37D /* SKBNavBarFor6OrP.xib in Resources */,
 				63B8C6FA1ACE8EB000328C8C /* messageCenterViewController.xib in Resources */,
+				B3D7B7C51BD76F700080E243 /* PersonIDViewController.xib in Resources */,
 				B3B7A66C1BA6A25F0043DF7C /* batchCell.xib in Resources */,
 				5A52FC531ACEBF220076DAE6 /* rightCell2.xib in Resources */,
 				B3C0FF841BC7C53B008BC477 /* iconfont-fuzhilianjie.png in Resources */,
 				5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */,
 				B3B7A6721BA6A25F0043DF7C /* Customer.storyboard in Resources */,
+				B3D7B7D11BD76F700080E243 /* URLOpenFromQRCodeViewController.xib in Resources */,
+				B3D7B7CF1BD76F700080E243 /* ScanningViewController.xib in Resources */,
 				63D31E4F1AB143D00043B3CA /* Images.xcassets in Resources */,
 				5A52FC5F1ACEBF220076DAE6 /* Auth.storyboard in Resources */,
 				52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */,
@@ -2834,10 +2870,8 @@
 				B3C01E2C1BAC10FC005E4BB5 /* Me.storyboard in Resources */,
 				B3B7A6671BA6A25F0043DF7C /* addCustomerViewController.xib in Resources */,
 				797A5EB91B846DE200751B1D /* FindProductNew.storyboard in Resources */,
-				63B8C6AC1ACE672C00328C8C /* QRCodeViewController.xib in Resources */,
 				52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */,
 				B3B7A66A1BA6A25F0043DF7C /* BatchAddViewController.xib in Resources */,
-				635E70BD1B182C68008EFEB6 /* QRHistoryViewController.xib in Resources */,
 				5A52FC8A1ACEBF220076DAE6 /* DetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2869,10 +2903,10 @@
 				5A52FC871ACEBF220076DAE6 /* CantactView.m in Sources */,
 				B3B7A6801BA6A25F0043DF7C /* RemindDetailViewController.m in Sources */,
 				633263D41AB851590021553B /* AFHTTPSessionManager.m in Sources */,
-				63B8C6AB1ACE672C00328C8C /* QRCodeViewController.m in Sources */,
 				B3C01E3E1BAC10FC005E4BB5 /* SosViewController.m in Sources */,
 				B3C01E2E1BAC10FC005E4BB5 /* Organization.m in Sources */,
 				B3C01E3C1BAC10FC005E4BB5 /* PersonSettingViewController.m in Sources */,
+				B3D7B7CC1BD76F700080E243 /* QRPhotoTableViewController.m in Sources */,
 				632BFFFB1AB92A3A003B15AD /* SDWebImagePrefetcher.m in Sources */,
 				B3B7A66E1BA6A25F0043DF7C /* CustomCell.m in Sources */,
 				5A52FC891ACEBF220076DAE6 /* DetailView.m in Sources */,
@@ -2893,13 +2927,16 @@
 				B3C01E351BAC10FC005E4BB5 /* ProductHistoryCell.m in Sources */,
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
 				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
+				B3D7B7C21BD76F700080E243 /* CardTableViewController.m in Sources */,
 				63AA23221B847639009CD44D /* ShaiXuanViewController.m in Sources */,
 				B3C01E3D1BAC10FC005E4BB5 /* QuanViewController.m in Sources */,
 				63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */,
 				5A6996161AF8A5F2002EDD91 /* BackTableViewControllerController.m in Sources */,
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
+				B3D7B7C71BD76F700080E243 /* QRCodeViewController.m in Sources */,
 				63F1A1B41B14250E00DE9867 /* NSObject+MJKeyValue.m in Sources */,
 				796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */,
+				B3D7B7C41BD76F700080E243 /* PersonIDViewController.m in Sources */,
 				797B37931B8C1D8700411DBA /* DESSecreat.m in Sources */,
 				792482FB1BAFF232005D1801 /* TravelConsultantViewController.m in Sources */,
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
@@ -2918,7 +2955,8 @@
 				5A52FC631ACEBF220076DAE6 /* Login.m in Sources */,
 				B3B7A6701BA6A25F0043DF7C /* attachmentViewController.m in Sources */,
 				79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */,
-				63B8C6B01ACE688C00328C8C /* URLOpenFromQRCodeViewController.m in Sources */,
+				B3D7B7CA1BD76F700080E243 /* QRHistoryViewController.m in Sources */,
+				B3D7B7CD1BD76F700080E243 /* QRSaveCustomerViewController.m in Sources */,
 				63F1A1B11B14250E00DE9867 /* MJType.m in Sources */,
 				B3B7A67B1BA6A25F0043DF7C /* Customers.m in Sources */,
 				63F1A1781B134D5D00DE9867 /* RecomViewController.m in Sources */,
@@ -2934,7 +2972,6 @@
 				796F36DC1B7863840089FEE8 /* SpecialLineCollectionCell.m in Sources */,
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */,
-				635E70B21B180F87008EFEB6 /* PersonIDViewController.m in Sources */,
 				B3B7A6741BA6A25F0043DF7C /* CustomerDetailViewController.m in Sources */,
 				52F59D881BCF4B1F00DE24FB /* invoiceCell.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
@@ -2950,6 +2987,7 @@
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */,
 				63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */,
+				B3D7B77E1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m in Sources */,
 				B3B7A67A1BA6A25F0043DF7C /* SearchView.m in Sources */,
 				63B8C6F91ACE8EB000328C8C /* messageCenterViewController.m in Sources */,
 				5A52FC901ACEBF220076DAE6 /* OrderCell.m in Sources */,
@@ -2997,7 +3035,6 @@
 				5A944D2B1B00BC780004DE89 /* MLPhotoBrowserPhotoView.m in Sources */,
 				5AB725781AD611E80044B318 /* QDMenu.m in Sources */,
 				5AB7C9911ACBFA9300217CAC /* TKProgressCircleView.m in Sources */,
-				635E70A81B1806E8008EFEB6 /* ScanningViewController.m in Sources */,
 				63D31E8D1AB16EA00043B3CA /* AppDelegate.m in Sources */,
 				B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */,
 				B3B7A6731BA6A25F0043DF7C /* CustomerDetailAndOrderViewController.m in Sources */,
@@ -3015,17 +3052,21 @@
 				B3C01E371BAC10FC005E4BB5 /* SwipeView.m in Sources */,
 				5A8216181AD36AFE009388DA /* ShouKeBaoCell.m in Sources */,
 				B3C01E311BAC10FC005E4BB5 /* MeButton.m in Sources */,
+				B3D7B7C91BD76F700080E243 /* QRHistoryTableViewController.m in Sources */,
 				5A52FC3F1ACEBF220076DAE6 /* leftModal.m in Sources */,
 				5A6DAE6D1AE8C23000B814C3 /* LoginCell.m in Sources */,
 				632BFFF31AB92A3A003B15AD /* MKAnnotationView+WebCache.m in Sources */,
+				B3D7B7D21BD76F700080E243 /* userIDTableviewController.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
 				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
+				B3D7B7CE1BD76F700080E243 /* ScanningViewController.m in Sources */,
 				845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */,
 				5A52FC501ACEBF220076DAE6 /* rightCell.m in Sources */,
 				5A52FC8F1ACEBF220076DAE6 /* LinkButton.m in Sources */,
 				B3C01E2A1BAC10FC005E4BB5 /* InspectionViewController.m in Sources */,
 				522E80671BD1049500DB48DA /* OrderPromptView.m in Sources */,
 				5A52FC561ACEBF220076DAE6 /* HeaderView.m in Sources */,
+				B3D7B77D1BD76DF10080E243 /* QRPhotoCollectionViewCell.m in Sources */,
 				B3B7A6691BA6A25F0043DF7C /* BatchAddViewController.m in Sources */,
 				633263D71AB851590021553B /* AFURLConnectionOperation.m in Sources */,
 				8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */,
@@ -3040,10 +3081,10 @@
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,
 				B3B7A6831BA6A25F0043DF7C /* remondTableViewCell.m in Sources */,
 				7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */,
+				B3D7B7D01BD76F700080E243 /* URLOpenFromQRCodeViewController.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
-				635E70C31B1872AD008EFEB6 /* userIDTableviewController.m in Sources */,
 				B3C01E391BAC10FC005E4BB5 /* MyListViewController.m in Sources */,
 				5A076EA71ACD8B270077611C /* StoreViewController.m in Sources */,
 				63B8C7061ACE9C3F00328C8C /* messageDetailViewController.m in Sources */,
@@ -3071,10 +3112,8 @@
 				5A076CA11ACD24050077611C /* CityViewController.m in Sources */,
 				63A81B8E1B39818400D8B37D /* SKBNavBarFor6OrP.m in Sources */,
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
-				635E70BC1B182C68008EFEB6 /* QRHistoryViewController.m in Sources */,
 				63AE28951B206F8700BDB8C1 /* newModel.m in Sources */,
 				7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */,
-				635E70C01B185B39008EFEB6 /* CardTableViewController.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */,
@@ -3086,6 +3125,7 @@
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
 				5A52FC601ACEBF220076DAE6 /* BindPhoneViewController.m in Sources */,
 				63B8C6FE1ACE906B00328C8C /* messageCell.m in Sources */,
+				B3D7B7C31BD76F700080E243 /* IdentifyViewController.m in Sources */,
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,

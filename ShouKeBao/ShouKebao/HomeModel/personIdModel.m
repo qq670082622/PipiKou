@@ -36,6 +36,7 @@
         self.ValidEndDate = dict[@"ValidEndDate"];
         self.ModifyDate = dict[@"ModifyDate"];
         self.PicUrl = dict[@"PicUrl"];
+        self.MinPicUrl = dict[@"MinPicUrl"];
         self.RecordId = dict[@"RecordId"];
         self.RecordType = dict[@"RecordType"];
         // NSString *timeStr = dict[@"createTime"];

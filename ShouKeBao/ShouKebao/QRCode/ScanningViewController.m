@@ -26,6 +26,7 @@
 #import "BaseClickAttribute.h"
 #import "ShouKeBao.h"
 #import "UIViewController+MLTransition.h"
+#import "IdentifyViewController.h"
 
 @interface ScanningViewController ()<LLSimpleCameraDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,AVCaptureMetadataOutputObjectsDelegate,MBProgressHUDDelegate,toIfPush,toIfPush2>
 @property (nonatomic,strong) QRCodeViewController *QRCodevc;
@@ -688,9 +689,14 @@
 
 - (IBAction)rightAction:(id)sender {
     if (_canClick == YES) {
-        QRHistoryViewController *hi = [[QRHistoryViewController alloc] init];
-        hi.isLogin = _isLogin;
-        [self.navigationController pushViewController:hi animated:YES];
+//        QRHistoryViewController *hi = [[QRHistoryViewController alloc] init];
+//        hi.isLogin = _isLogin;
+//        [self.navigationController pushViewController:hi animated:YES];
+        
+        IdentifyViewController *IdentifyVC = [[IdentifyViewController alloc] init];
+        IdentifyVC.isLogin = _isLogin;
+        [self.navigationController pushViewController:IdentifyVC animated:YES];
+        
         [self ifPush];
 
     }
