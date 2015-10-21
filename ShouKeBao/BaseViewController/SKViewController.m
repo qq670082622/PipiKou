@@ -49,10 +49,9 @@
 //    button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
     [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
-    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateHighlighted];
-
     leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
     [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
     leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
     leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];

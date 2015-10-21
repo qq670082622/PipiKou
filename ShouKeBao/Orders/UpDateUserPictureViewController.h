@@ -9,5 +9,7 @@
 #import "SKViewController.h"
 
 @interface UpDateUserPictureViewController : SKViewController
-
+- (IBAction)ensureClick:(id)sender;
+@property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
+@property (nonatomic, strong)NSMutableArray * dateArray;
 @end

@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+typedef enum{
+    UnCheckedState,
+    CheckedState
+}CellState;
 
 @interface UpDateUserPictureViewCell : UICollectionViewCell
+@property (strong, nonatomic) IBOutlet UIImageView *theUserImage;
+@property (strong, nonatomic) IBOutlet UIImageView *cellStateImage;
+@property (nonatomic, copy)NSString *cellPicUrl;
+@property (nonatomic, assign)CellState cellState;
 
 @end

@@ -28,6 +28,9 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
+- (void)back{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 
 /*
 #pragma mark - Navigation

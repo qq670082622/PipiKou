@@ -9,5 +9,13 @@
 #import "UpDateUserPictureViewCell.h"
 
 @implementation UpDateUserPictureViewCell
+-(void)setCellState:(CellState)cellState{
+    _cellState = cellState;
+    if (cellState == CheckedState){
+        self.cellStateImage.image = [UIImage imageNamed:@"check"];
+    }else if(cellState == UnCheckedState){
+        self.cellStateImage.image = [UIImage imageNamed:@"uncheck"];
+    }
+}
 
 @end

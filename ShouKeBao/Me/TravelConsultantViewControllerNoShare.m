@@ -42,11 +42,14 @@
     // Do any additional setup after loading the view.
 }
 - (IBAction)bottomBtnAction:(id)sender {
-    
-    
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
+    TravelConsultantViewControllerNoShare * TCTVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVCNS"];
+    [self.navigationController pushViewController:TCTVC animated:YES];
     
 }
-
+- (void)back{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

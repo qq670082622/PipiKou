@@ -38,6 +38,7 @@
 #import "TravelConsultantViewController.h"
 #import "LvYouGuWenViewController.h"
 #import "TravelConsultantViewControllerNoShare.h"
+#import "UpDateUserPictureViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -358,12 +359,13 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Me" bundle:nil];
     switch (indexPath.section) {
         case 0:{
-//            TravelConsultantViewController * TCVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVC"];
-//            [self.navigationController pushViewController:TCVC animated:YES];
             //h5界面
-                           LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
-                           [self.navigationController pushViewController:LYGW animated:YES];
-
+//            LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
+//                           [self.navigationController pushViewController:LYGW animated:YES];
+            UIStoryboard * SB = [UIStoryboard storyboardWithName:@"Orders" bundle:nil];
+            UpDateUserPictureViewController * UDUPVC = [SB instantiateViewControllerWithIdentifier:@"UpDateUserPictureVC"];
+            [self.navigationController pushViewController:UDUPVC animated:YES];
+            break;
         }
         case 1:
             // 第一组的三个

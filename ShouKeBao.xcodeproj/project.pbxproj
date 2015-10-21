@@ -308,6 +308,9 @@
 		79B951491BD0DAAC0027C1F7 /* AttachmentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EE91671B2BCDE2008C8935 /* TimeTool.m */; };
+		79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */; };
+		79FB11601BD7324100819FB2 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FB115F1BD7324100819FB2 /* Orders.storyboard */; };
+		79FB11631BD73BB400819FB2 /* UpDateUserPictureViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */; };
 		79FE7B351BD09EFD0057B56E /* AttachmentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
 		8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC601AC2567E00F28E1A /* MGSwipeTableCell.m */; };
@@ -945,6 +948,11 @@
 		79D8D8201B2ACF2900AE4464 /* BeseWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeseWebView.m; sourceTree = "<group>"; };
 		79EE91661B2BCDE2008C8935 /* TimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTool.h; sourceTree = "<group>"; };
 		79EE91671B2BCDE2008C8935 /* TimeTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeTool.m; sourceTree = "<group>"; };
+		79FB115C1BD7310B00819FB2 /* UpDateUserPictureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDateUserPictureViewController.h; sourceTree = "<group>"; };
+		79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDateUserPictureViewController.m; sourceTree = "<group>"; };
+		79FB115F1BD7324100819FB2 /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
+		79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDateUserPictureViewCell.h; sourceTree = "<group>"; };
+		79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDateUserPictureViewCell.m; sourceTree = "<group>"; };
 		79FE7B331BD09EFD0057B56E /* AttachmentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionView.h; sourceTree = "<group>"; };
 		79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionView.m; sourceTree = "<group>"; };
 		8448BC5D1AC2567E00F28E1A /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1458,6 +1466,11 @@
 				5A52FBFC1ACEBF220076DAE6 /* OrderDetailViewController.m */,
 				5A52FC021ACEBF220076DAE6 /* Orders.h */,
 				5A52FC031ACEBF220076DAE6 /* Orders.m */,
+				79FB115F1BD7324100819FB2 /* Orders.storyboard */,
+				79FB115C1BD7310B00819FB2 /* UpDateUserPictureViewController.h */,
+				79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */,
+				79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */,
+				79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */,
 				5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */,
 				5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */,
 			);
@@ -2762,6 +2775,7 @@
 				B36E57351B74C0D000471AAC /* ProductList.xib in Resources */,
 				793F4C191BBB8374004A0436 /* message.mp3 in Resources */,
 				63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */,
+				79FB11601BD7324100819FB2 /* Orders.storyboard in Resources */,
 				522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */,
 				63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */,
 				B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */,
@@ -2931,6 +2945,7 @@
 				63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */,
 				5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */,
 				795EA9BE1B7E498200840DFB /* ProductRecommendViewController.m in Sources */,
+				79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */,
 				796F36DC1B7863840089FEE8 /* SpecialLineCollectionCell.m in Sources */,
 				5A52FC521ACEBF220076DAE6 /* rightCell2.m in Sources */,
 				B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */,
@@ -2939,6 +2954,7 @@
 				52F59D881BCF4B1F00DE24FB /* invoiceCell.m in Sources */,
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
 				63AA23211B847639009CD44D /* ShaiXuanCell.m in Sources */,
+				79FB11631BD73BB400819FB2 /* UpDateUserPictureViewCell.m in Sources */,
 				B36E57361B74C0D000471AAC /* ProductModal.m in Sources */,
 				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,
 				B3B7A67D1BA6A25F0043DF7C /* CustomModel.m in Sources */,
