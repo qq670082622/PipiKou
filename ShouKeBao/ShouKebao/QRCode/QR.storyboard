@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+    </dependencies>
+    <scenes>
+        <!--Photo Table View Controller-->
+        <scene sceneID="Nlw-5a-VEt">
+            <objects>
+                <viewController storyboardIdentifier="QRPhotoTableView" id="eM7-gZ-laR" customClass="QRPhotoTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="v8y-1a-ToO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" id="hol-ZP-0Zs">
+                                <rect key="frame" x="0.0" y="427" width="320" height="53"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" id="Brj-pb-sqt">
+                                        <rect key="frame" x="160" y="5" width="1" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="n0y-tW-m9d">
+                                        <rect key="frame" x="40" y="5" width="80" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <inset key="titleEdgeInsets" minX="-24" minY="30" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="20" minY="0.0" maxX="0.0" maxY="25"/>
+                                        <state key="normal" title="删 除" image="deleteHistory">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="canclePhoto:" destination="eM7-gZ-laR" eventType="touchUpInside" id="b0M-he-AdG"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="eSs-J5-2hV">
+                                        <rect key="frame" x="210" y="5" width="80" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <inset key="titleEdgeInsets" minX="-20" minY="25" maxX="2" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="20" maxY="25"/>
+                                        <state key="normal" title="保存为客户" image="saveToCustomer">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="savePhoto:" destination="eM7-gZ-laR" eventType="touchUpInside" id="Trg-SF-mLH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="subViewPhoto" destination="hol-ZP-0Zs" id="DjG-5d-PVO"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wiG-Ni-Xy8" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="887" y="489"/>
+        </scene>
+        <!--Save Customer View Controller-->
+        <scene sceneID="eS9-hi-UA2">
+            <objects>
+                <viewController storyboardIdentifier="saveboard" id="8vj-Qd-B1x" customClass="QRSaveCustomerViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="XCX-fn-x5F">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="fjl-zS-LL4">
+                                <rect key="frame" x="80" y="99.999997854232234" width="160" height="200"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
+                            </imageView>
+                            <view hidden="YES" contentMode="scaleToFill" id="eeN-iU-n35">
+                                <rect key="frame" x="0.0" y="430" width="320" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="cis-ag-f0J">
+                                        <rect key="frame" x="0.0" y="0.0" width="320" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="23"/>
+                                        <state key="normal" title="确定">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ensureButton:" destination="8vj-Qd-B1x" eventType="touchUpInside" id="qOx-ag-lAw"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="1" green="0.31913021456249424" blue="0.095545869104965209" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="22" sectionFooterHeight="22" id="Yit-ad-Zpl">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
+                    <connections>
+                        <outlet property="ensureView" destination="eeN-iU-n35" id="NfZ-Xk-KZQ"/>
+                        <outlet property="imageViewWhenIsNull" destination="fjl-zS-LL4" id="Cn5-T5-UN9"/>
+                        <outlet property="tableView" destination="Yit-ad-Zpl" id="TIY-45-XSs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="kvA-zW-XEp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1659" y="524"/>
+        </scene>
+        <!--History Table View Controller-->
+        <scene sceneID="af2-Ik-EqA">
+            <objects>
+                <viewController storyboardIdentifier="QRHistoryView" id="S8q-eo-UiT" customClass="QRHistoryTableViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8PH-lI-Ujy">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view hidden="YES" contentMode="scaleToFill" id="FSf-m9-cJf">
+                                <rect key="frame" x="0.0" y="363" width="320" height="53"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="0P9-ag-N5g">
+                                        <rect key="frame" x="40" y="0.0" width="80" height="53"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <inset key="titleEdgeInsets" minX="-20" minY="30" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="23" minY="0.0" maxX="0.0" maxY="25"/>
+                                        <state key="normal" title="删除" image="deleteHistory">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancleButton:" destination="S8q-eo-UiT" eventType="touchUpInside" id="kEY-Hm-A7M"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="cz0-4p-mvW">
+                                        <rect key="frame" x="210" y="0.0" width="80" height="53"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                        <inset key="titleEdgeInsets" minX="-13" minY="20" maxX="2" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="30" minY="0.0" maxX="20" maxY="25"/>
+                                        <state key="normal" title="保存为客户" image="saveToCustomer">
+                                            <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="saveButton:" destination="S8q-eo-UiT" eventType="touchUpInside" id="qLo-RZ-n5C"/>
+                                        </connections>
+                                    </button>
+                                    <view contentMode="scaleToFill" id="mSO-w7-tXJ">
+                                        <rect key="frame" x="160" y="5" width="1" height="43"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
+                                        <color key="backgroundColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="70" sectionHeaderHeight="22" sectionFooterHeight="22" id="iJE-MT-gCY">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="416"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="320" height="480"/>
+                    <connections>
+                        <outlet property="subView" destination="FSf-m9-cJf" id="4Rx-U3-KkQ"/>
+                        <outlet property="table" destination="iJE-MT-gCY" id="QdC-HL-Mii"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zHq-bG-W2E" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1256" y="524"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="content_null" width="177" height="213"/>
+        <image name="deleteHistory" width="20" height="20"/>
+        <image name="saveToCustomer" width="20" height="20"/>
+    </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedStatusBarMetrics key="statusBar"/>
+        <simulatedOrientationMetrics key="orientation"/>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
+    </simulatedMetricsContainer>
+</document>

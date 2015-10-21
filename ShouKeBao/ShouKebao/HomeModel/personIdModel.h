@@ -35,6 +35,7 @@
 @property(nonatomic,copy) NSString *ValidEndDate;
 
 @property (nonatomic,copy) NSString *PicUrl;
+@property (nonatomic,copy) NSString *MinPicUrl;
 
 @property (nonatomic,copy) NSString *ModifyDate;//修改日期
 

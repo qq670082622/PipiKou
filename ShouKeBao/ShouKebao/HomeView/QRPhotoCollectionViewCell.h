@@ -7,15 +7,25 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "personIdModel.h"
+
+typedef enum{
+    UnChoosedState,
+    ChoosedState
+}cellState;
+
 
 @interface QRPhotoCollectionViewCell : UICollectionViewCell
 @property (nonatomic, strong)UIImageView *imageView;
+@property (nonatomic, strong)personIdModel *model;
+@property (weak, nonatomic) UIImageView *cancle;
 
-@property (weak, nonatomic) IBOutlet UIButton *cancle;
-@property (weak, nonatomic) IBOutlet UIButton *save;
+@property (nonatomic, assign)BOOL chooseFlag;
+@property (nonatomic, assign)BOOL unchooseFlag;
+@property (nonatomic, assign)cellState cellState;
 
-+(instancetype)relationXib;
 
+- (void)switchChoosePhoto;
 
 
 @end
