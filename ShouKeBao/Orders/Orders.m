@@ -99,6 +99,7 @@
 @property (nonatomic,assign) int guideIndex;
 @property (nonatomic,strong) UIButton *invoiceBtn;//开发票的button
 @property (nonatomic,strong) NSMutableArray *invoiceArr;//存放 选中开发票 cell
+@property (nonatomic,strong) InvoiceAlertView *invoiceAlert;//提示弹框
 @end
 
 @implementation Orders
@@ -444,15 +445,19 @@
         
         //当界面消失的时候弹出开发票的规则图片
         [NSString showbackgroundgray];
-        InvoiceAlertView *invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
-        invoiceAlert.tag = 107;
-        invoiceAlert.AlertNav = self.navigationController;
-        invoiceAlert.layer.masksToBounds = YES;
-        invoiceAlert.layer.cornerRadius = 6.0;
-        invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
-        [[[UIApplication sharedApplication].delegate window] addSubview:invoiceAlert];
-        self.invoiceBtn.selected = YES;
-        [self.tableView setEditing:YES animated:YES];
+        //if (!self.invoiceAlert) {
+            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+            self.invoiceAlert.tag = 107;
+            self.invoiceAlert.AlertNav = self.navigationController;
+            self.invoiceAlert.layer.masksToBounds = YES;
+            self.invoiceAlert.layer.cornerRadius = 6.0;
+            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
+            self.invoiceBtn.selected = YES;
+            [self.tableView setEditing:YES animated:YES];
+        //}
+     
+        
     }];
 }
 
@@ -1014,6 +1019,20 @@
         [_dressView removeFromSuperview];
         [self.cover removeFromSuperview];
         [self.tableView headerBeginRefreshing];
+        //当界面消失的时候弹出开发票的规则图片
+        [NSString showbackgroundgray];
+       // if(!self.invoiceAlert){
+            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+            self.invoiceAlert.tag = 107;
+            self.invoiceAlert.AlertNav = self.navigationController;
+            self.invoiceAlert.layer.masksToBounds = YES;
+            self.invoiceAlert.layer.cornerRadius = 6.0;
+            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
+            self.invoiceBtn.selected = YES;
+            [self.tableView setEditing:YES animated:YES];
+
+        //}
     }];
 }
 
@@ -1227,7 +1246,16 @@
         self.searchBar.placeholder = searchDefaultPlaceholder;
     }
 }
-
+-(void)viewDidDisappear:(BOOL)animated{
+    [super viewDidDisappear:animated];
+    if (self.tableView.editing) {
+        self.invoiceBtn.selected = NO;
+        [self.tableView setEditing:NO animated:YES];
+    }
+    if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+        [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+    }
+}
 // 眼神好的人测试 就需要这个代码了~~ 哈哈哈
 - (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
 {

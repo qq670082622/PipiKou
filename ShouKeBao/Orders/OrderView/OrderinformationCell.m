@@ -60,7 +60,133 @@
     [self.contentView addSubview:CustomerstateLabel];
     
     //发票信息
-    //UIView *Invoicebg
+    UIView *Invoicebg = [[UIView alloc] initWithFrame:CGRectMake(0, 135,kScreenSize.width, 30)];
+    Invoicebg.backgroundColor = [UIColor colorWithRed:(249.0/255.0) green:(249.0/255.0) blue:(249.0/255.0) alpha:1];
+    UILabel *InvoiceInforLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, kScreenSize.width-20, 30)];
+    InvoiceInforLabel.text = @"发票信息";
+    InvoiceInforLabel.font = [UIFont boldSystemFontOfSize:16];
+    [Invoicebg addSubview:InvoiceInforLabel];
+    [self.contentView addSubview:Invoicebg];
+    
+    //发票金额
+    InvoiceSumOfMoneyLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 165, kScreenSize.width-20, 20)];
+    InvoiceSumOfMoneyLabel.textColor = [UIColor lightGrayColor];
+    InvoiceSumOfMoneyLabel.font = [UIFont systemFontOfSize:14];
+    InvoiceSumOfMoneyLabel.text = @"发票金额 :";
+    [self.contentView addSubview:InvoiceSumOfMoneyLabel];
+    
+    CusterAllMoneyBtn = [[UIButton alloc] initWithFrame:CGRectMake(60, 185, kScreenSize.width/3, 30)];
+    [CusterAllMoneyBtn setTitle:@"订单全额 - 20元" forState:UIControlStateNormal];
+    [CusterAllMoneyBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [CusterAllMoneyBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+    CusterAllMoneyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    CusterAllMoneyBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    [self.contentView addSubview:CusterAllMoneyBtn];
+    
+    //发票抬头
+    InvoiceHeadLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 215, kScreenSize.width/2, 20)];
+    InvoiceHeadLabel.textColor = [UIColor lightGrayColor];
+    InvoiceHeadLabel.font = [UIFont systemFontOfSize:14];
+    InvoiceHeadLabel.text = @"发票抬头 :";
+    [self.contentView addSubview:InvoiceHeadLabel];
+
+    NSArray *titleArr = @[@"开发专用",@"开发专用－旅行社",@"其他"];
+    for (NSInteger i = 0; i<3; i++) {
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(60, 235+i*20, kScreenSize.width/3, 20)];
+        button.tag = 301+i;
+        [button setTitle:titleArr[i] forState:UIControlStateNormal];
+        [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [button setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+        [button addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+        button.titleLabel.font = [UIFont systemFontOfSize:13];
+        button.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+        [self.contentView addSubview:button];
+    }
+    
+    //输入框
+    textField = [[UITextField alloc] initWithFrame:CGRectMake(100, 275, kScreenSize.width/2+40, 20)];
+    textField.text = @"请描述您的需求，你的客户经理会与您联系";
+    textField.font = [UIFont systemFontOfSize:11];
+    textField.borderStyle = UITextBorderStyleLine;
+    [self.contentView addSubview:textField];
+    
+    //发票的内容及类型
+    InvoiceContentAndType = [[UILabel alloc]initWithFrame:CGRectMake(8, 295, kScreenSize.width/3, 20)];
+    InvoiceContentAndType.textColor = [UIColor lightGrayColor];
+    InvoiceContentAndType.font = [UIFont systemFontOfSize:14];
+    InvoiceContentAndType.text = @"发票内容及类型 :";
+    [self.contentView addSubview:InvoiceContentAndType];
+    
+    //旅行费
+    TouristMoneyBtn = [[UIButton alloc] initWithFrame:CGRectMake(60, 315, kScreenSize.width/2, 20)];
+    [TouristMoneyBtn setTitle:@"旅游费－普通纸质发票" forState:UIControlStateNormal];
+    [TouristMoneyBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [TouristMoneyBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+    TouristMoneyBtn.titleLabel.font = [UIFont systemFontOfSize:13];
+    TouristMoneyBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    [self.contentView addSubview:TouristMoneyBtn];
+    
+    //寄送地址和联系方式
+    MailDestinationLabel = [[UILabel alloc] initWithFrame:CGRectMake(8, 335, kScreenSize.width/2, 20)];
+    MailDestinationLabel.textColor = [UIColor lightGrayColor];
+    MailDestinationLabel.font = [UIFont systemFontOfSize:14];
+    MailDestinationLabel.text = @"寄送地址和联系方式 :";
+    [self.contentView addSubview:MailDestinationLabel];
+    
+    //联系人
+    ContactPersonLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 355, kScreenSize.width/2, 20)];
+    ContactPersonLabel.font = [UIFont systemFontOfSize:13];
+    ContactPersonLabel.text = @"联系人 :";
+    [self.contentView addSubview:ContactPersonLabel];
+    ContactPersonTF = [[UITextField alloc] initWithFrame:CGRectMake(120, 355, kScreenSize.width/2, 18)];
+    ContactPersonTF.text = @"";
+    ContactPersonTF.font = [UIFont systemFontOfSize:11];
+    ContactPersonTF.borderStyle = UITextBorderStyleLine;
+    [self.contentView addSubview:ContactPersonTF];
+    
+    //联系电话
+    ContactPhoneNumLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 375, kScreenSize.width/2, 20)];
+    ContactPhoneNumLabel.font = [UIFont systemFontOfSize:13];
+    ContactPhoneNumLabel.text = @"联系电话 :";
+    [self.contentView addSubview:ContactPhoneNumLabel];
+    ContactPhoneNumTF = [[UITextField alloc] initWithFrame:CGRectMake(120, 377, kScreenSize.width/2, 18)];
+    ContactPhoneNumTF.text = @"";
+    ContactPhoneNumTF.font = [UIFont systemFontOfSize:11];
+    ContactPhoneNumTF.borderStyle = UITextBorderStyleLine;
+    [self.contentView addSubview:ContactPhoneNumTF];
+    
+    //地址
+    ContactAddressLabel = [[UILabel alloc] initWithFrame:CGRectMake(60, 395, kScreenSize.width/2, 20)];
+    ContactAddressLabel.font = [UIFont systemFontOfSize:13];
+    ContactAddressLabel.text = @"地址 :";
+    [self.contentView addSubview:ContactAddressLabel];
+
+    ContactAddressTF = [[UITextView alloc] initWithFrame:CGRectMake(120, 398, kScreenSize.width/2, 36)];
+    /*
+     _textView.layer.borderColor = UIColor.grayColor.CGColor;
+     _textView.layer.borderWidth = 1;
+     _textView.layer.cornerRadius = 6;
+     _textView.layer.masksToBounds = YES;
+     */
+    ContactAddressTF.layer.borderColor = UIColor.blackColor.CGColor;
+    ContactAddressTF.layer.borderWidth = 1;
+    ContactAddressTF.text = @"asdfhasldghahsglkaslj";
+    [self.contentView addSubview:ContactAddressTF];
+    
+    
+    //提交
+    submitBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenSize.width/3, 445, kScreenSize.width/3, 30)];
+    submitBtn.backgroundColor = [UIColor colorWithRed:(240.0/255.0) green:(240.0/255.0) blue:(240.0/255.0) alpha:1];
+    [submitBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
+    [submitBtn addTarget:self action:@selector(BtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    submitBtn.tag = 106;
+    [self.contentView addSubview:submitBtn];
+}
+-(void)BtnClick:(UIButton *)button{
+    NSLog(@"点击三选一了");
+    if (button.tag == 106) {
+    }
 }
 -(void)showDatawWithMe{
         ScheduleProductLabel.text = @"预定产品 :";
