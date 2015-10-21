@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		522B954E1BD77ECC00E5BB3C /* InvoiceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 522B954C1BD77ECC00E5BB3C /* InvoiceDetailController.m */; };
+		522B954F1BD77ECC00E5BB3C /* InvoiceDetailController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522B954D1BD77ECC00E5BB3C /* InvoiceDetailController.xib */; };
+		522B95531BD795F600E5BB3C /* InvoiceStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 522B95511BD795F600E5BB3C /* InvoiceStateCell.m */; };
+		522B95541BD795F600E5BB3C /* InvoiceStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522B95521BD795F600E5BB3C /* InvoiceStateCell.xib */; };
 		522E80671BD1049500DB48DA /* OrderPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 522E80661BD1049500DB48DA /* OrderPromptView.m */; };
 		522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522E80681BD104A800DB48DA /* OrderPromptView.xib */; };
 		527D07B71BD5D56000CA6C39 /* OpenInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D07B61BD5D56000CA6C39 /* OpenInvoiceViewController.m */; };
@@ -411,6 +415,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		522B954B1BD77ECC00E5BB3C /* InvoiceDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceDetailController.h; sourceTree = "<group>"; };
+		522B954C1BD77ECC00E5BB3C /* InvoiceDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceDetailController.m; sourceTree = "<group>"; };
+		522B954D1BD77ECC00E5BB3C /* InvoiceDetailController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceDetailController.xib; sourceTree = "<group>"; };
+		522B95501BD795F600E5BB3C /* InvoiceStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceStateCell.h; sourceTree = "<group>"; };
+		522B95511BD795F600E5BB3C /* InvoiceStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceStateCell.m; sourceTree = "<group>"; };
+		522B95521BD795F600E5BB3C /* InvoiceStateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceStateCell.xib; sourceTree = "<group>"; };
 		522E80651BD1049500DB48DA /* OrderPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPromptView.h; sourceTree = "<group>"; };
 		522E80661BD1049500DB48DA /* OrderPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPromptView.m; sourceTree = "<group>"; };
 		522E80681BD104A800DB48DA /* OrderPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPromptView.xib; sourceTree = "<group>"; };
@@ -1142,6 +1152,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		522B954A1BD77E7000E5BB3C /* InvoiceDetailes */ = {
+			isa = PBXGroup;
+			children = (
+				522B954B1BD77ECC00E5BB3C /* InvoiceDetailController.h */,
+				522B954C1BD77ECC00E5BB3C /* InvoiceDetailController.m */,
+				522B954D1BD77ECC00E5BB3C /* InvoiceDetailController.xib */,
+			);
+			path = InvoiceDetailes;
+			sourceTree = "<group>";
+		};
 		522E80641BD1047900DB48DA /* OrderPromptView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1440,6 +1460,7 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				522B954A1BD77E7000E5BB3C /* InvoiceDetailes */,
 				527D07B41BD5D54300CA6C39 /* OpenInvoice */,
 				52F275B41BD4E253008543E9 /* InvoiceLowView */,
 				52F275AE1BD4CF56008543E9 /* InvoiceAlertView */,
@@ -1515,6 +1536,9 @@
 				5A6165811AE79AEF00641837 /* NullContentView.m */,
 				527D07BD1BD5F39A00CA6C39 /* OrderinformationCell.h */,
 				527D07BE1BD5F39A00CA6C39 /* OrderinformationCell.m */,
+				522B95501BD795F600E5BB3C /* InvoiceStateCell.h */,
+				522B95511BD795F600E5BB3C /* InvoiceStateCell.m */,
+				522B95521BD795F600E5BB3C /* InvoiceStateCell.xib */,
 			);
 			path = OrderView;
 			sourceTree = "<group>";
@@ -2768,6 +2792,7 @@
 				B36E572D1B74C0D000471AAC /* ConditionSelectViewController.xib in Resources */,
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
+				522B95541BD795F600E5BB3C /* InvoiceStateCell.xib in Resources */,
 				63B8C6B11ACE688C00328C8C /* URLOpenFromQRCodeViewController.xib in Resources */,
 				637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */,
 				B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */,
@@ -2816,6 +2841,7 @@
 				B36E572F1B74C0D000471AAC /* FootView.xib in Resources */,
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
 				6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */,
+				522B954F1BD77ECC00E5BB3C /* InvoiceDetailController.xib in Resources */,
 				52F275B91BD4E27B008543E9 /* InvoiceLowView.xib in Resources */,
 				5A076EA81ACD8B270077611C /* StoreViewController.xib in Resources */,
 				636C8B791AC2E1420097CAE9 /* ShareSDKFlatShareViewUI.bundle in Resources */,
@@ -2940,10 +2966,12 @@
 				5ABA4F661AD7C2E7004AA8F6 /* HomeBase.m in Sources */,
 				63AA23211B847639009CD44D /* ShaiXuanCell.m in Sources */,
 				B36E57361B74C0D000471AAC /* ProductModal.m in Sources */,
+				522B95531BD795F600E5BB3C /* InvoiceStateCell.m in Sources */,
 				5A60FC6B1AE09AA800CDAC4B /* UIImage+QD.m in Sources */,
 				B3B7A67D1BA6A25F0043DF7C /* CustomModel.m in Sources */,
 				B3C01E381BAC10FC005E4BB5 /* MoneyTreeViewController.m in Sources */,
 				B3C01E341BAC10FC005E4BB5 /* MeProgressView.m in Sources */,
+				522B954E1BD77ECC00E5BB3C /* InvoiceDetailController.m in Sources */,
 				B3C01E281BAC10FC005E4BB5 /* SafeSettingViewController.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
 				B36E57321B74C0D000471AAC /* ProductCell.m in Sources */,

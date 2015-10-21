@@ -30,8 +30,8 @@
 }
 -(UITableView *)TableView{
     if (!_TableView) {
-        _TableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 40, kScreenSize.width, kScreenSize.height-104) style:UITableViewStylePlain];
-        _TableView.rowHeight = 250;
+        _TableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 30, kScreenSize.width, kScreenSize.height-94) style:UITableViewStylePlain];
+        _TableView.rowHeight = 500;
         _TableView.delegate = self;
         _TableView.dataSource = self;
         _TableView.tableFooterView = [[UIView alloc] init];
@@ -54,11 +54,11 @@
 
 -(void)creatDataArr{
     
-    self.SectionDataArr = @[@"201510081528090890",@"201510081528090630",@"201510081528090890"];
+    self.SectionDataArr = @[@"201510081528090890",@"201510081528090630",@"201510081528090890",@"Hansm"];
 }
 -(void)creatTableView{
-    UIView *HeadView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 40)];
-    HeadView.backgroundColor = [UIColor colorWithRed:20 green:20 blue:20 alpha:1];
+    UIView *HeadView =[[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 30)];
+    HeadView.backgroundColor = [UIColor colorWithRed:(245.0/255.0) green:(245.0/255.0) blue:(245.0/255.0) alpha:1];
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(8, 0, 70, 30)];
     label.text = @"订单信息";
     label.font = [UIFont boldSystemFontOfSize:16];
@@ -79,7 +79,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     
     OrderinformationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OrderinformationCell" forIndexPath:indexPath];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     //cell.ScheduleProductLabel.text =
+    cell.nav = self.navigationController;
     [cell  showDatawWithMe];
      return cell;
 }
