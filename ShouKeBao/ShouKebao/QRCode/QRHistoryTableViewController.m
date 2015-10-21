@@ -395,46 +395,46 @@
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
-    [self.table setEditing:NO animated:YES];
-//     self.subView.hidden = YES;
+        [self.table setEditing:NO animated:YES];
+        //     self.subView.hidden = YES;
         [self.subView removeFromSuperview];
         self.isEditing = NO;
         
-    if (_isLogin) {
-        NSMutableArray *arr = [NSMutableArray array];
-        for (int i = 0; i<self.editArr.count; i++) {
+        if (_isLogin) {
+            NSMutableArray *arr = [NSMutableArray array];
+            for (int i = 0; i<self.editArr.count; i++) {
+                
+                personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
+                [arr addObject:model.RecordId];
+            }
+            NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
+            [dic setObject:arr forKey:@"RecordIds"];
             
-            personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
-            [arr addObject:model.RecordId];
-        }
-        NSMutableDictionary *dic = [NSMutableDictionary dictionary];//@"/Customer/CreateCustomerList"
-        [dic setObject:arr forKey:@"RecordIds"];
-        
-        [IWHttpTool WMpostWithURL:@"Customer/DeleteCredentialsPicRecord" params:dic success:^(id json) {
-            NSLog(@"批量删除客户成功 返回json is %@",json);
+            [IWHttpTool WMpostWithURL:@"Customer/DeleteCredentialsPicRecord" params:dic success:^(id json) {
+                NSLog(@"批量删除客户成功 返回json is %@",json);
+                
+            } failure:^(NSError *error) {
+                NSLog(@"批量删除客户失败，返回error is %@",error);
+            }];
             
-        } failure:^(NSError *error) {
-            NSLog(@"批量删除客户失败，返回error is %@",error);
-        }];
-        
-        
-    }else if (!_isLogin){
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
-        for (int i = 0; i<self.editIndexArrInNoLogin.count; i++) {
-            [arr removeObjectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]];
+            
+        }else if (!_isLogin){
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
+            for (int i = 0; i<self.editIndexArrInNoLogin.count; i++) {
+                [arr removeObjectAtIndex:[self.editIndexArrInNoLogin[i] integerValue]];
+            }
+            [WriteFileManager saveData:arr name:@"record"];
         }
-        [WriteFileManager saveData:arr name:@"record"];
-    }
-    
-//    [self editHistoryDetail];
-
-    [MBProgressHUD showSuccess:@"操作成功"];
         
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+        //    [self editHistoryDetail];
+        
+        [MBProgressHUD showSuccess:@"操作成功"];
+        
+        //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
         [MBProgressHUD hideHUD];
-//        [self.navigationController popViewControllerAnimated:YES];
-//    });
-
+        //        [self.navigationController popViewControllerAnimated:YES];
+        //    });
+        
         [self.IdenVC editCustomerDetail];
     }
     
