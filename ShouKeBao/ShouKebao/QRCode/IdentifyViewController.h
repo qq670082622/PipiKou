@@ -10,8 +10,11 @@
 #import "QRPhotoCollectionViewCell.h"
 @interface IdentifyViewController : SKViewController
 @property(nonatomic,assign) BOOL isLogin;
-
+@property (nonatomic, assign)BOOL historyFlag;
+@property (nonatomic, strong) UISegmentedControl *control;
 @property (nonatomic, strong)QRPhotoCollectionViewCell *QRphoto;
+
 -(void)editCustomerDetail;
+-(void)change;
 
 @end

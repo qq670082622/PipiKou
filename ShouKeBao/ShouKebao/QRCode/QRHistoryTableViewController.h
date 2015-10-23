@@ -7,9 +7,8 @@
 //
 
 #import "SKViewController.h"
-#import "IdentifyViewController.h"
+
 @interface QRHistoryTableViewController : SKViewController
-@property(nonatomic, strong)IdentifyViewController * IdenVC;
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic, strong)UINavigationController *identifyNav;
 @property(nonatomic,assign) BOOL isLogin;

@@ -24,4 +24,6 @@
 @property (copy,nonatomic) NSMutableString * MaxPricecondition;
 @property(nonatomic) NSInteger primaryNum;//价格区间的预选值
 @property(nonatomic) NSDictionary *siftHLDic;//滑轮的数据
+
+-(void)putTextField;
 @end
