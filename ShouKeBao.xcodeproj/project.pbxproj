@@ -16,6 +16,12 @@
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
+		52EFF5471BD9CE740020E540 /* ShadowHandleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF5451BD9CE740020E540 /* ShadowHandleCell.m */; };
+		52EFF5481BD9CE740020E540 /* ShadowHandleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFF5461BD9CE740020E540 /* ShadowHandleCell.xib */; };
+		52EFF5631BD9CFB10020E540 /* InvInformCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF55E1BD9CFB10020E540 /* InvInformCell.m */; };
+		52EFF5641BD9CFB10020E540 /* InvInformCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFF55F1BD9CFB10020E540 /* InvInformCell.xib */; };
+		52EFF5651BD9CFB10020E540 /* InvoiceStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF5611BD9CFB10020E540 /* InvoiceStateCell.m */; };
+		52EFF5661BD9CFB10020E540 /* InvoiceStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFF5621BD9CFB10020E540 /* InvoiceStateCell.xib */; };
 		52F275B11BD4CF78008543E9 /* InvoiceAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */; };
 		52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */; };
 		52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B61BD4E273008543E9 /* InvoiceLowView.m */; };
@@ -442,6 +448,15 @@
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
 		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
 		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
+		52EFF5441BD9CE740020E540 /* ShadowHandleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHandleCell.h; sourceTree = "<group>"; };
+		52EFF5451BD9CE740020E540 /* ShadowHandleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHandleCell.m; sourceTree = "<group>"; };
+		52EFF5461BD9CE740020E540 /* ShadowHandleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShadowHandleCell.xib; sourceTree = "<group>"; };
+		52EFF55D1BD9CFB10020E540 /* InvInformCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvInformCell.h; sourceTree = "<group>"; };
+		52EFF55E1BD9CFB10020E540 /* InvInformCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvInformCell.m; sourceTree = "<group>"; };
+		52EFF55F1BD9CFB10020E540 /* InvInformCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvInformCell.xib; sourceTree = "<group>"; };
+		52EFF5601BD9CFB10020E540 /* InvoiceStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceStateCell.h; sourceTree = "<group>"; };
+		52EFF5611BD9CFB10020E540 /* InvoiceStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceStateCell.m; sourceTree = "<group>"; };
+		52EFF5621BD9CFB10020E540 /* InvoiceStateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceStateCell.xib; sourceTree = "<group>"; };
 		52F275AF1BD4CF78008543E9 /* InvoiceAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceAlertView.h; sourceTree = "<group>"; };
 		52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceAlertView.m; sourceTree = "<group>"; };
 		52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceAlertView.xib; sourceTree = "<group>"; };
@@ -1540,6 +1555,15 @@
 		5A52FC071ACEBF220076DAE6 /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
+				52EFF55D1BD9CFB10020E540 /* InvInformCell.h */,
+				52EFF55E1BD9CFB10020E540 /* InvInformCell.m */,
+				52EFF55F1BD9CFB10020E540 /* InvInformCell.xib */,
+				52EFF5601BD9CFB10020E540 /* InvoiceStateCell.h */,
+				52EFF5611BD9CFB10020E540 /* InvoiceStateCell.m */,
+				52EFF5621BD9CFB10020E540 /* InvoiceStateCell.xib */,
+				52EFF5441BD9CE740020E540 /* ShadowHandleCell.h */,
+				52EFF5451BD9CE740020E540 /* ShadowHandleCell.m */,
+				52EFF5461BD9CE740020E540 /* ShadowHandleCell.xib */,
 				5A52FC081ACEBF220076DAE6 /* CantactView.h */,
 				5A52FC091ACEBF220076DAE6 /* CantactView.m */,
 				5A52FC0A1ACEBF220076DAE6 /* ContactView.xib */,
@@ -2833,6 +2857,7 @@
 			files = (
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
 				B3C01E361BAC10FC005E4BB5 /* SosHead.xib in Resources */,
+				52EFF5641BD9CFB10020E540 /* InvInformCell.xib in Resources */,
 				B3C0FF7C1BC7C512008BC477 /* iconfont-qqkongjian.png in Resources */,
 				5A5B1AD61AFA220E00B6E16B /* ChildCell.xib in Resources */,
 				B36E57351B74C0D000471AAC /* ProductList.xib in Resources */,
@@ -2866,6 +2891,7 @@
 				63A81B901B3981AA00D8B37D /* SKBNavBarFor6OrP.xib in Resources */,
 				63B8C6FA1ACE8EB000328C8C /* messageCenterViewController.xib in Resources */,
 				B3D7B7C51BD76F700080E243 /* PersonIDViewController.xib in Resources */,
+				52EFF5481BD9CE740020E540 /* ShadowHandleCell.xib in Resources */,
 				B3B7A66C1BA6A25F0043DF7C /* batchCell.xib in Resources */,
 				5A52FC531ACEBF220076DAE6 /* rightCell2.xib in Resources */,
 				B3C0FF841BC7C53B008BC477 /* iconfont-fuzhilianjie.png in Resources */,
@@ -2903,6 +2929,7 @@
 				636C8B761AC2E1420097CAE9 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				B3C0FF7E1BC7C524008BC477 /* iconfont-qq.png in Resources */,
 				636C8B951AC2E6860097CAE9 /* MBProgressHUD.bundle in Resources */,
+				52EFF5661BD9CFB10020E540 /* InvoiceStateCell.xib in Resources */,
 				5A52FC591ACEBF220076DAE6 /* rightCell3.xib in Resources */,
 				63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */,
 				B3B7A66F1BA6A25F0043DF7C /* CustomCell.xib in Resources */,
@@ -2988,6 +3015,7 @@
 				5A61657F1AE7791F00641837 /* UINavigationController+SGProgress.m in Sources */,
 				B3B7A66D1BA6A25F0043DF7C /* batchModel.m in Sources */,
 				5A52FC3A1ACEBF220076DAE6 /* UIColor+SK.m in Sources */,
+				52EFF5631BD9CFB10020E540 /* InvInformCell.m in Sources */,
 				B36E57341B74C0D000471AAC /* ProductList.m in Sources */,
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
 				5A52FC5B1ACEBF220076DAE6 /* SearchProductViewController.m in Sources */,
@@ -3157,6 +3185,7 @@
 				5A944D271B00BC780004DE89 /* MLPhotoBrowserViewController.m in Sources */,
 				B3B7A6751BA6A25F0043DF7C /* CustomerOrderViewController.m in Sources */,
 				632BFFFF1AB92A3A003B15AD /* UIImage+WebP.m in Sources */,
+				52EFF5471BD9CE740020E540 /* ShadowHandleCell.m in Sources */,
 				5A9C640B1AEE1CBA00F48BDF /* RegisterViewController.m in Sources */,
 				5A076CA11ACD24050077611C /* CityViewController.m in Sources */,
 				63A81B8E1B39818400D8B37D /* SKBNavBarFor6OrP.m in Sources */,
@@ -3215,6 +3244,7 @@
 				5A52FC621ACEBF220076DAE6 /* LoginTool.m in Sources */,
 				796F36D91B7859A00089FEE8 /* HeaderSectionView.m in Sources */,
 				796F36BE1B78380C0089FEE8 /* FindProductNew.m in Sources */,
+				52EFF5651BD9CFB10020E540 /* InvoiceStateCell.m in Sources */,
 				797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */,
 				79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */,
 				63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */,
