@@ -11,12 +11,14 @@
 #import "UIImageView+WebCache.h"
 #import "ResizeImage.h"
 #import "IWHttpTool.h"
+#import "NSString+FKTools.h"
 @interface AttachmentCollectionView ()<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic ,strong) NSMutableArray *dataSource;
 @property(nonatomic , assign) BOOL isEditing;
 @property (nonatomic, strong) UIButton * deleteBtn;
 @property (nonatomic, strong) NSMutableArray *choosedPicArray;
-
+@property (nonatomic, assign)CGRect  currentCellPicRect;
+@property(nonatomic, weak)UIImageView *MaxPhotoView;
 @end
 
 @implementation AttachmentCollectionView
@@ -73,13 +75,16 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
 -(void)loadData
 {
     NSArray * picArray = [self.picUrl componentsSeparatedByString:@","];
+    NSLog(@"%@", self.picUrl);
     for (NSString * str in picArray) {
-        [self.dataSource addObject:str];
-        [self.dataSource addObject:str];
-        [self.dataSource addObject:str];
-        [self.dataSource addObject:str];
-        [self.dataSource addObject:str];
-        [self.dataSource addObject:str];
+        if ([str myContainsString:@".jpg"]) {
+            [self.dataSource addObject:str];
+            [self.dataSource addObject:str];
+            [self.dataSource addObject:str];
+            [self.dataSource addObject:str];
+            [self.dataSource addObject:str];
+            [self.dataSource addObject:str];
+        }
 
     }
     [self.collectionView reloadData];
@@ -204,9 +209,51 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
         [self addCustomPic];
     }else{
         NSLog(@"%@", NSStringFromCGSize(cell.theUserImage.image.size));
-    }
+        [self changePicToMaxPic:cell indexPath:indexPath];
+      }
     }
 }
+
+- (void)changePicToMaxPic:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath{
+    
+    CGRect cellCurrentRect = CGRectMake(cell.frame.origin.x,cell.frame.origin.y - self.collectionView.contentOffset.y, cell.frame.size.width, cell.frame.size.height);
+    
+    UIImageView *photoView = [[UIImageView alloc]initWithFrame:cellCurrentRect];
+    photoView.userInteractionEnabled = YES;
+    photoView.backgroundColor = [UIColor blackColor];
+    photoView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    NSString *picStr = self.dataSource[indexPath.row-1];
+    NSLog(@"%@", picStr);
+    NSURL *url = [NSURL URLWithString:picStr];
+    [photoView sd_setImageWithURL:url];
+    
+    [self.view addSubview:photoView];
+    self.MaxPhotoView = photoView;
+    self.currentCellPicRect = cellCurrentRect;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.MaxPhotoView.frame = self.collectionView.frame;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotBack:)];
+    [photoView addGestureRecognizer:tap];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(addCustomPic)];
+    [photoView addGestureRecognizer:longPress];
+
+    
+}
+
+- (void)gotBack:(UITapGestureRecognizer *)tap{
+    [UIView animateWithDuration:0.5 animations:^{
+        self.MaxPhotoView.frame = self.currentCellPicRect;
+    } completion:^(BOOL finished) {
+        [self.MaxPhotoView removeFromSuperview];
+    }];
+}
+
 - (void)addCustomPic
 {
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];

@@ -38,6 +38,7 @@
 }
 -(void)showdataWithString:(NSString *)nameStr{
     NameLabel.text = self.str;
+    NSLog(@",,,,,,, %@", self.str);
     if ([self.contentStr isEqualToString:@"不限"]) {
         CityLabel.textColor = [UIColor lightGrayColor];
         CityLabel.text =  self.contentStr;
