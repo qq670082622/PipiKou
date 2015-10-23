@@ -17,7 +17,6 @@
 {
     NSString *normalURL = formalRUL;
     NSString *overStr = [normalURL stringByAppendingString:url];
-   
    //组dic
     NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
