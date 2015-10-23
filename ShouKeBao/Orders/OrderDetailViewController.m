@@ -24,6 +24,7 @@
 #import "StrToDic.h"
 #import "IWHttpTool.h"
 #import "NSString+FKTools.h"
+#import "UpDateUserPictureViewController.h"
 //#define urlSuffix @"?isfromapp=1&apptype=1"
 @interface OrderDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
@@ -241,10 +242,13 @@
         [_indicator startAnimation];
         
     }
-    
+    NSLog(@"%@", rightUrl);
     if ([rightUrl myContainsString:@"objectc:LYQSKBAPP_OpenCardScanning"]) {
         [self LYQSKBAPP_OpenCardScanning];
 //        return NO;
+    }else if([rightUrl myContainsString:@"objectc:LYQSKBAPP_UpDateUserPhotos"]){
+        NSLog(@"aaaaa");
+        [self LYQSKBAPP_UpDateUserPhotos:rightUrl];
     }
 
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -252,6 +256,42 @@
 
     
     return YES;
+    
+}
+//js调原生，并且用js传过来的customerIDs 跳转到上传证件附件页面
+-(void)LYQSKBAPP_UpDateUserPhotos:(NSString *)urlStr{
+    NSLog(@"%@", urlStr);
+    urlStr = [urlStr componentsSeparatedByString:@"?"][0];
+    //创建正则表达式；pattern规则；
+    NSString * pattern = @"Photos(.+)";
+    NSRegularExpression * regex = [[NSRegularExpression alloc]initWithPattern:pattern options:0 error:nil];
+    //测试字符串；
+    NSArray * result = [regex matchesInString:urlStr options:0 range:NSMakeRange(0,urlStr.length)];
+    if (result.count) {
+        //获取筛选出来的字符串
+        NSString * resultStr = [urlStr substringWithRange:((NSTextCheckingResult *)result[0]).range];
+        NSArray * picArray = [resultStr componentsSeparatedByString:@","];
+        NSMutableArray * customerIDsArray = [NSMutableArray array];
+        for (NSString * str in picArray) {
+            NSString * tempStr = @"";
+            if ([str myContainsString:@"Photos("]) {
+                tempStr = [str stringByReplacingOccurrencesOfString:@"Photos(" withString:@""];
+            }else{
+                tempStr = [str stringByReplacingOccurrencesOfString:@")" withString:@""];
+            }
+            if (![tempStr isEqualToString:@""]) {
+                [customerIDsArray addObject:tempStr];
+            }
+        }
+        UIStoryboard * SB = [UIStoryboard storyboardWithName:@"Orders" bundle:nil];
+        UpDateUserPictureViewController * UDUPVC = [SB instantiateViewControllerWithIdentifier:@"UpDateUserPictureVC"];
+        UDUPVC.customerIds = customerIDsArray;
+        UDUPVC.VC = self;
+        [_indicator stopAnimationWithLoadText:@"" withType:YES];
+
+        [self.navigationController pushViewController:UDUPVC animated:YES];
+    }
+    
     
 }
 - (void)doIfInWebWithUrl:(NSString *)rightUrl{
@@ -503,8 +543,14 @@
 
 
 
+//提交选择的客户图片；
+- (void)postCustomerToServer:(NSArray * )customerIDs{
+    NSDictionary * dic = @{@"CustomerList":customerIDs};
+    NSString * jsonStr = [dic JSONString];
+    [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"LYQSKBAPP_GetCustomerSelectPicFromApp_CallBack(%@, '%@')", @1, jsonStr]];
 
-
+    
+}
 
 
 

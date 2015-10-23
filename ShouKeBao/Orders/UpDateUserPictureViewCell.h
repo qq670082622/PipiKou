@@ -16,6 +16,7 @@ typedef enum{
 @property (strong, nonatomic) IBOutlet UIImageView *theUserImage;
 @property (strong, nonatomic) IBOutlet UIImageView *cellStateImage;
 @property (nonatomic, copy)NSString *cellPicUrl;
+@property (nonatomic, copy)NSString *cellCutomerID;
 @property (nonatomic, assign)CellState cellState;
 
 @end

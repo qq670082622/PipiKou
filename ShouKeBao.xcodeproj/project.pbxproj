@@ -299,6 +299,7 @@
 		79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */; };
 		79FB11601BD7324100819FB2 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FB115F1BD7324100819FB2 /* Orders.storyboard */; };
 		79FB11631BD73BB400819FB2 /* UpDateUserPictureViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */; };
+		79FC19731BD8E4C600811E32 /* CustomerIdsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */; };
 		79FE7B351BD09EFD0057B56E /* AttachmentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
 		8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC601AC2567E00F28E1A /* MGSwipeTableCell.m */; };
@@ -946,6 +947,8 @@
 		79FB115F1BD7324100819FB2 /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDateUserPictureViewCell.h; sourceTree = "<group>"; };
 		79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDateUserPictureViewCell.m; sourceTree = "<group>"; };
+		79FC19711BD8E4C600811E32 /* CustomerIdsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerIdsModel.h; sourceTree = "<group>"; };
+		79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerIdsModel.m; sourceTree = "<group>"; };
 		79FE7B331BD09EFD0057B56E /* AttachmentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionView.h; sourceTree = "<group>"; };
 		79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionView.m; sourceTree = "<group>"; };
 		8448BC5D1AC2567E00F28E1A /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1506,6 +1509,8 @@
 				79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */,
 				79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */,
 				79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */,
+				79FC19711BD8E4C600811E32 /* CustomerIdsModel.h */,
+				79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */,
 				5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */,
 				5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */,
 			);
@@ -3173,6 +3178,7 @@
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
 				B3BC33981BD9031F00C61D83 /* MeSearchViewController.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
+				79FC19731BD8E4C600811E32 /* CustomerIdsModel.m in Sources */,
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
 				527D07C01BD5F39A00CA6C39 /* OrderinformationCell.m in Sources */,
 				6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */,
