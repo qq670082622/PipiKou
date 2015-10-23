@@ -39,6 +39,8 @@
 #import "LvYouGuWenViewController.h"
 #import "TravelConsultantViewControllerNoShare.h"
 #import "UpDateUserPictureViewController.h"
+
+#import "MeShareDetailViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -362,9 +364,13 @@
             //h5界面
 //            LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
 //                           [self.navigationController pushViewController:LYGW animated:YES];
-            UIStoryboard * SB = [UIStoryboard storyboardWithName:@"Orders" bundle:nil];
-            UpDateUserPictureViewController * UDUPVC = [SB instantiateViewControllerWithIdentifier:@"UpDateUserPictureVC"];
-            [self.navigationController pushViewController:UDUPVC animated:YES];
+//            UIStoryboard * SB = [UIStoryboard storyboardWithName:@"Orders" bundle:nil];
+//            UpDateUserPictureViewController * UDUPVC = [SB instantiateViewControllerWithIdentifier:@"UpDateUserPictureVC"];
+//            [self.navigationController pushViewController:UDUPVC animated:YES];
+            MeShareDetailViewController *meShareDetailVC = [[MeShareDetailViewController alloc]init];
+            [self.navigationController pushViewController:meShareDetailVC animated:YES];
+            
+            
             break;
         }
         case 1:

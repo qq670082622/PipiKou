@@ -7,7 +7,6 @@
 //
 
 #import "OrderinformationCell.h"
-#import "InvoiceDetailController.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @implementation OrderinformationCell
 
@@ -187,8 +186,6 @@
 -(void)BtnClick:(UIButton *)button{
     NSLog(@"点击三选一了");
     if (button.tag == 106) {
-        InvoiceDetailController *InvDet = [[InvoiceDetailController alloc] init];
-        [self.nav pushViewController:InvDet animated:YES];
     }
 }
 -(void)showDatawWithMe{

@@ -13,14 +13,14 @@
 
 @interface IdentifyViewController ()
 
-@property (nonatomic, weak) UISegmentedControl *control;
+
 @property (nonatomic, strong)QRPhotoTableViewController *QRPhotoVC;
 @property (nonatomic, strong)QRHistoryTableViewController *QRHistoryVC;
 
 @property (nonatomic, strong)UIBarButtonItem *barItem;
-
 @property (nonatomic, assign)BOOL PhotoFlag;
-@property (nonatomic, assign)BOOL historyFlag;
+
+
 
 @end
 
@@ -41,16 +41,16 @@
     
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
     NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"识别图片",@"识别记录",nil];
-    UISegmentedControl *segment = [[UISegmentedControl alloc] initWithItems:segmentedArray];
+    self.control = [[UISegmentedControl alloc] initWithItems:segmentedArray];
     
-    [segment addTarget:self action:@selector(switchAction:)forControlEvents:UIControlEventValueChanged];
-    [segment setTintColor:[UIColor whiteColor]];
-    segment.frame = CGRectMake(0, 0, 150, 28);
-    [segment setSelected:YES];
+    [self.control addTarget:self action:@selector(switchAction:)forControlEvents:UIControlEventValueChanged];
+    [self.control setTintColor:[UIColor whiteColor]];
+    self.control.frame = CGRectMake(0, 0, 150, 28);
+    [self.control setSelected:YES];
     
-    [segment setSelectedSegmentIndex:0];
-    [titleView addSubview:segment];
-    self.control = segment;
+    [self.control setSelectedSegmentIndex:0];
+    [titleView addSubview:self.control];
+//    self.control = segment;
     self.navigationItem.titleView = titleView;
     
 }
@@ -58,7 +58,7 @@
 -(void)switchAction:(UISegmentedControl *)sender
 {
     UISegmentedControl *control = (UISegmentedControl *)sender;
-    self.control = control;
+    _control = control;
     if (_control.selectedSegmentIndex == 0 && self.historyFlag == 0) {
         [self.view addSubview:self.QRPhotoVC.view];
 //            self.navigationItem.title = @"编辑";
@@ -106,8 +106,8 @@
 -(void)editCustomerDetail{
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    
-    if (_control.selectedSegmentIndex==0) {
+    NSLog(@"index= %ld, %ld", _control.selectedSegmentIndex, self.control.selectedSegmentIndex);
+    if (self.control.selectedSegmentIndex==0) {
         if (self.historyFlag == 0) {
             if (self.PhotoFlag == 0) {
                 [self.control setEnabled:NO forSegmentAtIndex:1];
@@ -120,11 +120,11 @@
             self.PhotoFlag = !self.PhotoFlag;
             [center postNotificationName:@"edit1" object:@"QRPhoto" userInfo:nil];
         }
-    }else if (_control.selectedSegmentIndex==1){
+    }else{
         
         if (self.PhotoFlag == 0) {
             if (self.historyFlag==0 ) {
-                [self.control setEnabled:NO forSegmentAtIndex:0];
+            [self.control setEnabled:NO forSegmentAtIndex:0];
                 self.navigationItem.rightBarButtonItem.title = @"取消";
             }else if(self.historyFlag == 1){
                 self.navigationItem.rightBarButtonItem.title = @"编辑";
@@ -134,6 +134,12 @@
             [center postNotificationName:@"edit2" object:@"QRHistory" userInfo:nil];
         }
     }
+}
+
+
+- (void)change{
+    self.navigationItem.rightBarButtonItem.title = @"编辑";
+    [self.control setEnabled:YES forSegmentAtIndex:0];
 }
 
 - (void)dealloc

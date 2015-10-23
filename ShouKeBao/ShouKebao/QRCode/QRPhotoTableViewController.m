@@ -144,30 +144,7 @@
     QRPhotoCollectionViewCell *cell = (QRPhotoCollectionViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     
     if (self.PhotoFlag == NO) {
-        UIImageView *photoView = [[UIImageView alloc]initWithFrame:cell.frame];
-        photoView.userInteractionEnabled = YES;
-        photoView.backgroundColor = [UIColor blackColor];
-        photoView.contentMode = UIViewContentModeScaleAspectFit;
-        
-        NSString *picStr = ((personIdModel *)[self.dataArr objectAtIndex:indexPath.row]).PicUrl;
-        NSURL *url = [NSURL URLWithString:picStr];
-        [photoView sd_setImageWithURL:url];
-        
-        [self.view addSubview:photoView];
-        self.MaxPhotoView = photoView;
-        self.currentCellPicRect = cell.frame;
-        
-        [UIView animateWithDuration:0.5 animations:^{
-            self.MaxPhotoView.frame = self.collectionV.frame;
-
-        } completion:^(BOOL finished) {
-            
-        }];
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotBack:)];
-        [photoView addGestureRecognizer:tap];    
-        UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longGesture:)];
-        [photoView addGestureRecognizer:longPress];
-
+        [self changePicToMaxPic:cell indexPath:indexPath];
     }else{
         if (cell.cellState == ChoosedState) {
             [self.editArr removeObject:([self.dataArr objectAtIndex:indexPath.row])];
@@ -175,9 +152,36 @@
             [self.editArr addObject:([self.dataArr objectAtIndex:indexPath.row])];
         }
         cell.cellState = cell.cellState == ChoosedState ? UnChoosedState : ChoosedState;
-
     }
+}
+
+- (void)changePicToMaxPic:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     
+    CGRect cellCurrentRect = CGRectMake(cell.frame.origin.x,cell.frame.origin.y - self.collectionV.contentOffset.y, cell.frame.size.width, cell.frame.size.height);
+    UIImageView *photoView = [[UIImageView alloc]initWithFrame:cellCurrentRect];
+    photoView.userInteractionEnabled = YES;
+    photoView.backgroundColor = [UIColor blackColor];
+    photoView.contentMode = UIViewContentModeScaleAspectFit;
+    
+    NSString *picStr = ((personIdModel *)[self.dataArr objectAtIndex:indexPath.row]).PicUrl;
+    NSLog(@"%@", picStr);
+    NSURL *url = [NSURL URLWithString:picStr];
+    [photoView sd_setImageWithURL:url];
+    
+    [self.view addSubview:photoView];
+    self.MaxPhotoView = photoView;
+    self.currentCellPicRect = cellCurrentRect;
+    
+    [UIView animateWithDuration:0.5 animations:^{
+        self.MaxPhotoView.frame = self.collectionV.frame;
+        
+    } completion:^(BOOL finished) {
+        
+    }];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(gotBack:)];
+    [photoView addGestureRecognizer:tap];
+    UILongPressGestureRecognizer *longPress = [[UILongPressGestureRecognizer alloc]initWithTarget:self action:@selector(longGesture:)];
+    [photoView addGestureRecognizer:longPress];
 }
 
 - (void)gotBack:(UITapGestureRecognizer *)tap{

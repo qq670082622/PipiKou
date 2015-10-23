@@ -12,4 +12,6 @@
 - (IBAction)ensureClick:(id)sender;
 @property (strong, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (nonatomic, strong)NSMutableArray * dateArray;
+@property (nonatomic, strong)NSMutableArray * customerIds;
+@property (nonatomic, strong)id VC;
 @end

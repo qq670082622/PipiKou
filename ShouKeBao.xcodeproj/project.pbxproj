@@ -16,13 +16,6 @@
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
-		52BDB2841BD8759300550CA1 /* InvoiceStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BDB2821BD8759300550CA1 /* InvoiceStateCell.m */; };
-		52BDB2851BD8759300550CA1 /* InvoiceStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52BDB2831BD8759300550CA1 /* InvoiceStateCell.xib */; };
-		52BDB28A1BD87E1700550CA1 /* InvoiceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BDB2881BD87E1700550CA1 /* InvoiceDetailController.m */; };
-		52BDB2921BD890B600550CA1 /* InvInformCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BDB2901BD890B600550CA1 /* InvInformCell.m */; };
-		52BDB2931BD890B600550CA1 /* InvInformCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52BDB2911BD890B600550CA1 /* InvInformCell.xib */; };
-		52BDB2971BD8CE9000550CA1 /* ShadowHandleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BDB2951BD8CE9000550CA1 /* ShadowHandleCell.m */; };
-		52BDB2981BD8CE9000550CA1 /* ShadowHandleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52BDB2961BD8CE9000550CA1 /* ShadowHandleCell.xib */; };
 		52F275B11BD4CF78008543E9 /* InvoiceAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */; };
 		52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */; };
 		52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B61BD4E273008543E9 /* InvoiceLowView.m */; };
@@ -306,6 +299,7 @@
 		79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */; };
 		79FB11601BD7324100819FB2 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FB115F1BD7324100819FB2 /* Orders.storyboard */; };
 		79FB11631BD73BB400819FB2 /* UpDateUserPictureViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */; };
+		79FC19731BD8E4C600811E32 /* CustomerIdsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */; };
 		79FE7B351BD09EFD0057B56E /* AttachmentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
 		8448BC621AC2567E00F28E1A /* MGSwipeTableCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC601AC2567E00F28E1A /* MGSwipeTableCell.m */; };
@@ -359,6 +353,11 @@
 		B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A6641BA6A25F0043DF7C /* remondViewController.m */; };
 		B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */; };
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
+		B3BC33891BD8B95900C61D83 /* MeShareDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33881BD8B95900C61D83 /* MeShareDetailViewController.m */; };
+		B3BC338C1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */; };
+		B3BC338F1BD8C59C00C61D83 /* MeShareDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC338E1BD8C59C00C61D83 /* MeShareDetailModel.m */; };
+		B3BC33921BD8D9C600C61D83 /* MeShareChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */; };
+		B3BC33981BD9031F00C61D83 /* MeSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */; };
 		B3C01E251BAC10FC005E4BB5 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */; };
 		B3C01E261BAC10FC005E4BB5 /* ReBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF21BAC10FC005E4BB5 /* ReBindViewController.m */; };
 		B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3C01DF31BAC10FC005E4BB5 /* Safe.storyboard */; };
@@ -443,17 +442,6 @@
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
 		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
 		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
-		52BDB2811BD8759300550CA1 /* InvoiceStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceStateCell.h; sourceTree = "<group>"; };
-		52BDB2821BD8759300550CA1 /* InvoiceStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceStateCell.m; sourceTree = "<group>"; };
-		52BDB2831BD8759300550CA1 /* InvoiceStateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceStateCell.xib; sourceTree = "<group>"; };
-		52BDB2871BD87E1700550CA1 /* InvoiceDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceDetailController.h; sourceTree = "<group>"; };
-		52BDB2881BD87E1700550CA1 /* InvoiceDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceDetailController.m; sourceTree = "<group>"; };
-		52BDB28F1BD890B600550CA1 /* InvInformCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvInformCell.h; sourceTree = "<group>"; };
-		52BDB2901BD890B600550CA1 /* InvInformCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvInformCell.m; sourceTree = "<group>"; };
-		52BDB2911BD890B600550CA1 /* InvInformCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvInformCell.xib; sourceTree = "<group>"; };
-		52BDB2941BD8CE9000550CA1 /* ShadowHandleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHandleCell.h; sourceTree = "<group>"; };
-		52BDB2951BD8CE9000550CA1 /* ShadowHandleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHandleCell.m; sourceTree = "<group>"; };
-		52BDB2961BD8CE9000550CA1 /* ShadowHandleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShadowHandleCell.xib; sourceTree = "<group>"; };
 		52F275AF1BD4CF78008543E9 /* InvoiceAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceAlertView.h; sourceTree = "<group>"; };
 		52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceAlertView.m; sourceTree = "<group>"; };
 		52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceAlertView.xib; sourceTree = "<group>"; };
@@ -959,6 +947,8 @@
 		79FB115F1BD7324100819FB2 /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDateUserPictureViewCell.h; sourceTree = "<group>"; };
 		79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDateUserPictureViewCell.m; sourceTree = "<group>"; };
+		79FC19711BD8E4C600811E32 /* CustomerIdsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerIdsModel.h; sourceTree = "<group>"; };
+		79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerIdsModel.m; sourceTree = "<group>"; };
 		79FE7B331BD09EFD0057B56E /* AttachmentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionView.h; sourceTree = "<group>"; };
 		79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionView.m; sourceTree = "<group>"; };
 		8448BC5D1AC2567E00F28E1A /* MGSwipeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGSwipeButton.h; sourceTree = "<group>"; };
@@ -1046,6 +1036,16 @@
 		B3B7A6641BA6A25F0043DF7C /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
 		B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
 		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
+		B3BC33871BD8B95900C61D83 /* MeShareDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeShareDetailViewController.h; path = MeView/MeShareDetailViewController.h; sourceTree = "<group>"; };
+		B3BC33881BD8B95900C61D83 /* MeShareDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeShareDetailViewController.m; path = MeView/MeShareDetailViewController.m; sourceTree = "<group>"; };
+		B3BC338A1BD8BCC600C61D83 /* MeShareDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShareDetailTableViewCell.h; sourceTree = "<group>"; };
+		B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeShareDetailTableViewCell.m; sourceTree = "<group>"; };
+		B3BC338D1BD8C59C00C61D83 /* MeShareDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShareDetailModel.h; sourceTree = "<group>"; };
+		B3BC338E1BD8C59C00C61D83 /* MeShareDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeShareDetailModel.m; sourceTree = "<group>"; };
+		B3BC33901BD8D9C600C61D83 /* MeShareChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeShareChooseViewController.h; path = MeView/MeShareChooseViewController.h; sourceTree = "<group>"; };
+		B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeShareChooseViewController.m; path = MeView/MeShareChooseViewController.m; sourceTree = "<group>"; };
+		B3BC33961BD9031F00C61D83 /* MeSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeSearchViewController.h; path = MeView/MeSearchViewController.h; sourceTree = "<group>"; };
+		B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeSearchViewController.m; path = MeView/MeSearchViewController.m; sourceTree = "<group>"; };
 		B3C01DEF1BAC10FC005E4BB5 /* ModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPwdViewController.h; sourceTree = "<group>"; };
 		B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyPwdViewController.m; sourceTree = "<group>"; };
 		B3C01DF11BAC10FC005E4BB5 /* ReBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReBindViewController.h; sourceTree = "<group>"; };
@@ -1225,15 +1225,6 @@
 				52B858481BC76D4C00B15483 /* CommandTo.xib */,
 			);
 			path = CommendToDetail;
-			sourceTree = "<group>";
-		};
-		52BDB2861BD87E1700550CA1 /* InvoiceDetailes */ = {
-			isa = PBXGroup;
-			children = (
-				52BDB2871BD87E1700550CA1 /* InvoiceDetailController.h */,
-				52BDB2881BD87E1700550CA1 /* InvoiceDetailController.m */,
-			);
-			path = InvoiceDetailes;
 			sourceTree = "<group>";
 		};
 		52F275AE1BD4CF56008543E9 /* InvoiceAlertView */ = {
@@ -1495,7 +1486,6 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
-				52BDB2861BD87E1700550CA1 /* InvoiceDetailes */,
 				527D07B41BD5D54300CA6C39 /* OpenInvoice */,
 				52F275B41BD4E253008543E9 /* InvoiceLowView */,
 				52F275AE1BD4CF56008543E9 /* InvoiceAlertView */,
@@ -1519,6 +1509,8 @@
 				79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */,
 				79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */,
 				79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */,
+				79FC19711BD8E4C600811E32 /* CustomerIdsModel.h */,
+				79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */,
 				5A7FF36C1ADD21DB00287B9E /* ChooseDayViewController.h */,
 				5A7FF36D1ADD21DB00287B9E /* ChooseDayViewController.m */,
 			);
@@ -1548,9 +1540,6 @@
 		5A52FC071ACEBF220076DAE6 /* OrderView */ = {
 			isa = PBXGroup;
 			children = (
-				52BDB2811BD8759300550CA1 /* InvoiceStateCell.h */,
-				52BDB2821BD8759300550CA1 /* InvoiceStateCell.m */,
-				52BDB2831BD8759300550CA1 /* InvoiceStateCell.xib */,
 				5A52FC081ACEBF220076DAE6 /* CantactView.h */,
 				5A52FC091ACEBF220076DAE6 /* CantactView.m */,
 				5A52FC0A1ACEBF220076DAE6 /* ContactView.xib */,
@@ -1579,12 +1568,6 @@
 				5A6165811AE79AEF00641837 /* NullContentView.m */,
 				527D07BD1BD5F39A00CA6C39 /* OrderinformationCell.h */,
 				527D07BE1BD5F39A00CA6C39 /* OrderinformationCell.m */,
-				52BDB28F1BD890B600550CA1 /* InvInformCell.h */,
-				52BDB2901BD890B600550CA1 /* InvInformCell.m */,
-				52BDB2911BD890B600550CA1 /* InvInformCell.xib */,
-				52BDB2941BD8CE9000550CA1 /* ShadowHandleCell.h */,
-				52BDB2951BD8CE9000550CA1 /* ShadowHandleCell.m */,
-				52BDB2961BD8CE9000550CA1 /* ShadowHandleCell.xib */,
 			);
 			path = OrderView;
 			sourceTree = "<group>";
@@ -2655,6 +2638,12 @@
 				B3C01DF71BAC10FC005E4BB5 /* FeedBcakViewController.m */,
 				B3C01DF81BAC10FC005E4BB5 /* InspectionViewController.h */,
 				B3C01DF91BAC10FC005E4BB5 /* InspectionViewController.m */,
+				B3BC33871BD8B95900C61D83 /* MeShareDetailViewController.h */,
+				B3BC33881BD8B95900C61D83 /* MeShareDetailViewController.m */,
+				B3BC33901BD8D9C600C61D83 /* MeShareChooseViewController.h */,
+				B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */,
+				B3BC33961BD9031F00C61D83 /* MeSearchViewController.h */,
+				B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -2691,6 +2680,8 @@
 				B3C01E041BAC10FC005E4BB5 /* Server.m */,
 				B3C01E051BAC10FC005E4BB5 /* Trader.h */,
 				B3C01E061BAC10FC005E4BB5 /* Trader.m */,
+				B3BC338D1BD8C59C00C61D83 /* MeShareDetailModel.h */,
+				B3BC338E1BD8C59C00C61D83 /* MeShareDetailModel.m */,
 			);
 			path = MeModel;
 			sourceTree = "<group>";
@@ -2711,6 +2702,8 @@
 				B3C01E121BAC10FC005E4BB5 /* SosHead.xib */,
 				B3C01E131BAC10FC005E4BB5 /* SwipeView.h */,
 				B3C01E141BAC10FC005E4BB5 /* SwipeView.m */,
+				B3BC338A1BD8BCC600C61D83 /* MeShareDetailTableViewCell.h */,
+				B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */,
 			);
 			path = MeView;
 			sourceTree = "<group>";
@@ -2840,9 +2833,7 @@
 			files = (
 				5A52FC3C1ACEBF220076DAE6 /* FindProduct.xib in Resources */,
 				B3C01E361BAC10FC005E4BB5 /* SosHead.xib in Resources */,
-				52BDB2931BD890B600550CA1 /* InvInformCell.xib in Resources */,
 				B3C0FF7C1BC7C512008BC477 /* iconfont-qqkongjian.png in Resources */,
-				52BDB2981BD8CE9000550CA1 /* ShadowHandleCell.xib in Resources */,
 				5A5B1AD61AFA220E00B6E16B /* ChildCell.xib in Resources */,
 				B36E57351B74C0D000471AAC /* ProductList.xib in Resources */,
 				793F4C191BBB8374004A0436 /* message.mp3 in Resources */,
@@ -2881,7 +2872,6 @@
 				5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */,
 				B3B7A6721BA6A25F0043DF7C /* Customer.storyboard in Resources */,
 				B3D7B7D11BD76F700080E243 /* URLOpenFromQRCodeViewController.xib in Resources */,
-				52BDB2851BD8759300550CA1 /* InvoiceStateCell.xib in Resources */,
 				B3D7B7CF1BD76F700080E243 /* ScanningViewController.xib in Resources */,
 				63D31E4F1AB143D00043B3CA /* Images.xcassets in Resources */,
 				5A52FC5F1ACEBF220076DAE6 /* Auth.storyboard in Resources */,
@@ -2959,6 +2949,7 @@
 				633263D41AB851590021553B /* AFHTTPSessionManager.m in Sources */,
 				B3C01E3E1BAC10FC005E4BB5 /* SosViewController.m in Sources */,
 				B3C01E2E1BAC10FC005E4BB5 /* Organization.m in Sources */,
+				B3BC33891BD8B95900C61D83 /* MeShareDetailViewController.m in Sources */,
 				B3C01E3C1BAC10FC005E4BB5 /* PersonSettingViewController.m in Sources */,
 				B3D7B7CC1BD76F700080E243 /* QRPhotoTableViewController.m in Sources */,
 				632BFFFB1AB92A3A003B15AD /* SDWebImagePrefetcher.m in Sources */,
@@ -2975,7 +2966,7 @@
 				79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */,
 				5A52FC641ACEBF220076DAE6 /* Distribution.m in Sources */,
 				52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */,
-				52BDB2971BD8CE9000550CA1 /* ShadowHandleCell.m in Sources */,
+				B3BC33921BD8D9C600C61D83 /* MeShareChooseViewController.m in Sources */,
 				63F1A1351B13329E00DE9867 /* YesterDayCell.m in Sources */,
 				6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */,
 				5A52FC861ACEBF220076DAE6 /* OrderTool.m in Sources */,
@@ -3038,6 +3029,7 @@
 				B3B7A67D1BA6A25F0043DF7C /* CustomModel.m in Sources */,
 				B3C01E381BAC10FC005E4BB5 /* MoneyTreeViewController.m in Sources */,
 				B3C01E341BAC10FC005E4BB5 /* MeProgressView.m in Sources */,
+				B3BC338F1BD8C59C00C61D83 /* MeShareDetailModel.m in Sources */,
 				B3C01E281BAC10FC005E4BB5 /* SafeSettingViewController.m in Sources */,
 				5A52FC8D1ACEBF220076DAE6 /* DressView.m in Sources */,
 				B36E57321B74C0D000471AAC /* ProductCell.m in Sources */,
@@ -3069,7 +3061,6 @@
 				5A52FC5A1ACEBF220076DAE6 /* rightModal3.m in Sources */,
 				7977912E1B6F121C0075CC70 /* UIViewController+MLTransition.m in Sources */,
 				5A52FC391ACEBF220076DAE6 /* NSString+QD.m in Sources */,
-				52BDB2921BD890B600550CA1 /* InvInformCell.m in Sources */,
 				5A60FC771AE0A97000CDAC4B /* WelcomePageControl.m in Sources */,
 				632BFFFC1AB92A3A003B15AD /* UIButton+WebCache.m in Sources */,
 				63128FA21B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m in Sources */,
@@ -3142,7 +3133,6 @@
 				B3D7B7D01BD76F700080E243 /* URLOpenFromQRCodeViewController.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
-				52BDB28A1BD87E1700550CA1 /* InvoiceDetailController.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
 				B3C01E391BAC10FC005E4BB5 /* MyListViewController.m in Sources */,
 				5A076EA71ACD8B270077611C /* StoreViewController.m in Sources */,
@@ -3186,7 +3176,9 @@
 				63B8C6FE1ACE906B00328C8C /* messageCell.m in Sources */,
 				B3D7B7C31BD76F700080E243 /* IdentifyViewController.m in Sources */,
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
+				B3BC33981BD9031F00C61D83 /* MeSearchViewController.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
+				79FC19731BD8E4C600811E32 /* CustomerIdsModel.m in Sources */,
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
 				527D07C01BD5F39A00CA6C39 /* OrderinformationCell.m in Sources */,
 				6364A9B01B098CA00099705B /* YYAnimationIndicator.m in Sources */,
@@ -3196,6 +3188,7 @@
 				5AB7257B1AD61A4C0044B318 /* MenuButton.m in Sources */,
 				5A52FC551ACEBF220076DAE6 /* rightModal2.m in Sources */,
 				52B858491BC76D4C00B15483 /* CommandTo.m in Sources */,
+				B3BC338C1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m in Sources */,
 				797B37971B8C38CF00411DBA /* GTMBase64.m in Sources */,
 				635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */,
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
@@ -3230,7 +3223,6 @@
 				636C8B961AC2E6860097CAE9 /* MBProgressHUD.m in Sources */,
 				63F1A1AD1B14250E00DE9867 /* MJFoundation.m in Sources */,
 				632BFFD01AB91FD3003B15AD /* NSString+Base64Util.m in Sources */,
-				52BDB2841BD8759300550CA1 /* InvoiceStateCell.m in Sources */,
 				632BFFF61AB92A3A003B15AD /* SDWebImageCompat.m in Sources */,
 				5A52FC3B1ACEBF220076DAE6 /* FindProduct.m in Sources */,
 				7982F1611B391C6A009F878D /* BaseModel.m in Sources */,

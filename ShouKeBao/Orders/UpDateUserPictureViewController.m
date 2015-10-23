@@ -9,7 +9,12 @@
 #import "UpDateUserPictureViewController.h"
 #import "UpDateUserPictureViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "IWHttpTool.h"
+#import "CustomerIdsModel.h"
+#import "OrderDetailViewController.h"
+#import "ButtonDetailViewController.h"
 @interface UpDateUserPictureViewController ()<UICollectionViewDataSource,UICollectionViewDelegate>
+@property(nonatomic, strong)NSMutableArray * selectedCustomerIDs;
 
 @end
 
@@ -22,18 +27,36 @@
     [self setUpRightButton];
     // Do any additional setup after loading the view.
 }
+-(NSMutableArray *)selectedCustomerIDs{
+    if (_selectedCustomerIDs == nil) {
+        self.selectedCustomerIDs  = [NSMutableArray array];
+    }
+    return _selectedCustomerIDs;
+}
 -(NSMutableArray *)dateArray{
-    if (!_dateArray) {
+    if (_dateArray == nil) {
         self.dateArray  = [NSMutableArray array];
     }
     return _dateArray;
 }
+
 - (void)loadDate{
-    NSString * pic = @"http://r.lvyouquan.cn/lyqfile/hold/upload/idcard/2015-10-15/e154b2b5-d3f9-493d-b9a7-63688b47afb1.jpg";
-    NSArray * array = @[pic,pic,pic];
-    [self.dateArray addObject:array];
-    [self.dateArray addObject:array];
-    [self.dateArray addObject:array];    
+    NSDictionary * params = @{@"CustomerIds":self.customerIds};
+    [IWHttpTool postWithURL:@"/Customer/GetCustomerPicList" params:params success:^(id json) {
+        if (json) {
+            NSArray * dic = json[@"CustomerList"];
+            NSLog(@"%@",dic);
+            for (NSDictionary * dict in dic) {
+                NSLog(@"%@22",dict);
+                CustomerIdsModel * model = [CustomerIdsModel modalWithDict:dict];
+                NSLog(@"%@", model.Name);
+                [self.dateArray addObject:model];
+            }
+            [self.collectionView reloadData];
+        }
+    } failure:^(NSError * error) {
+        
+    }];
 }
 -(void)setUpRightButton{
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"取消" style:UIBarButtonItemStyleBordered target:self action:@selector(cancelChoose)];
@@ -49,14 +72,18 @@
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
-    return ((NSArray*)self.dateArray[section]).count;
+    CustomerIdsModel * model = self.dateArray[section];
+    NSLog(@"%@", model.PictureList);
+    return model.PictureList.count;
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     UpDateUserPictureViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"UpdateCell" forIndexPath:indexPath];
+    CustomerIdsModel * model = self.dateArray[indexPath.section];
     cell.theUserImage.userInteractionEnabled = YES;
-    [cell.theUserImage sd_setImageWithURL:self.dateArray[indexPath.section][indexPath.row] placeholderImage:nil];
-    cell.cellPicUrl = [NSString stringWithFormat:@"%@%lu",self.dateArray[indexPath.section][indexPath.row], (long)indexPath.row];
+    [cell.theUserImage sd_setImageWithURL:model.PictureList[indexPath.row][@"MinPicUrl"] placeholderImage:nil];
+    cell.cellPicUrl = model.PictureList[indexPath.row][@"MinPicUrl"];
+    cell.cellCutomerID = model.ID;
     cell.cellState = UnCheckedState;
     return cell;
 }
@@ -64,9 +91,13 @@
     UpDateUserPictureViewCell *cell = (UpDateUserPictureViewCell *)[collectionView cellForItemAtIndexPath:indexPath];
     if (cell.cellState == UnCheckedState) {
         cell.cellState = CheckedState;
-        for (int i = 0;i<((NSArray *)self.dateArray[indexPath.section]).count;i++) {
+        [self.selectedCustomerIDs addObject:@{@"CustomerId":cell.cellCutomerID,@"PicUrl":cell.cellPicUrl}];
+        NSLog(@"%@%@",cell.cellCutomerID, self.customerIds);
+        for (int i = 0;i<((CustomerIdsModel *)self.dateArray[indexPath.section]).PictureList.count;i++) {
             NSIndexPath * otherIndexPath = [NSIndexPath indexPathForRow:i inSection:indexPath.section];
-            NSString * picUrl = [NSString stringWithFormat:@"%@%lu",self.dateArray[otherIndexPath.section][otherIndexPath.row], (long)otherIndexPath.row];
+            CustomerIdsModel * model = self.dateArray[otherIndexPath.section];
+            NSString * picUrl = model.PictureList[otherIndexPath.row][@"MinPicUrl"];
+            NSLog(@"%@", picUrl);
             if (![picUrl isEqualToString:cell.cellPicUrl]) {
                 UpDateUserPictureViewCell *theCell = (UpDateUserPictureViewCell *)[collectionView cellForItemAtIndexPath:otherIndexPath];
                 theCell.cellState = UnCheckedState;
@@ -74,6 +105,7 @@
         }
     }else if(cell.cellState == CheckedState){
         cell.cellState = UnCheckedState;
+        [self.selectedCustomerIDs removeObject:@{@"CustomerId":cell.cellCutomerID,@"PicUrl":cell.cellPicUrl}];
     }
 }
 - (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
@@ -104,5 +136,7 @@
 
 - (IBAction)ensureClick:(id)sender {
     
+    [(OrderDetailViewController *)self.VC postCustomerToServer:self.selectedCustomerIDs];
+    [self.navigationController popToViewController:self.VC animated:YES];
 }
 @end

@@ -11,15 +11,18 @@
 #import "personIdModel.h"
 #import "CardTableViewController.h"
 #import "userIDTableviewController.h"
+#import "IdentifyViewController.h"
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h"
 #import "MobClick.h"
 #import "MJRefresh.h"
 #import "QRCodeCell.h"
+
 #define view_width self.view.frame.size.width
 #define view_height self.view.frame.size.height
 
 @interface QRHistoryTableViewController ()<UITableViewDataSource,UITableViewDelegate>
+@property (strong, nonatomic)IdentifyViewController *idenVC;
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (nonatomic,assign) BOOL isEditing;
 
@@ -102,6 +105,12 @@
     return _editArr;
 }
 
+- (IdentifyViewController *)idenVC{
+    if (!_idenVC) {
+        self.idenVC = [[IdentifyViewController alloc]init];
+    }
+    return _idenVC;
+}
 
 -(NSMutableArray *)editIndexArrInNoLogin{
     if (_editIndexArrInNoLogin == nil) {
@@ -214,19 +223,19 @@
 //        [self.table setEditing:NO animated:YES];
 //        self.isEditing = NO;
 //    }
+    
     if (self.isEditing == 0) {
-        [self.table setEditing:YES animated:YES];
-        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-53-64);
+        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-53);
         self.subView.hidden = NO;
-        [self.editArr removeAllObjects];
+        [self.table setEditing:YES animated:YES];
     }else{
-        [self.table setEditing:NO animated:YES];
         self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
         self.subView.hidden = YES;
-        
+        [self.table setEditing:NO animated:YES];
+        [self.editArr removeAllObjects];
     }
     self.isEditing = !self.isEditing;
-    
+    [self.table reloadData];
     
 }
 
@@ -395,11 +404,6 @@
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
-    [self.table setEditing:NO animated:YES];
-//     self.subView.hidden = YES;
-        [self.subView removeFromSuperview];
-        self.isEditing = NO;
-        
     if (_isLogin) {
         NSMutableArray *arr = [NSMutableArray array];
         for (int i = 0; i<self.editArr.count; i++) {
@@ -426,18 +430,25 @@
         [WriteFileManager saveData:arr name:@"record"];
     }
     
-//    [self editHistoryDetail];
+        self.idenVC.historyFlag = 1;
+//        [self.idenVC.control setEnabled:YES];
+//        self.identifyNav.navigationItem.rightBarButtonItem.title = @"编辑";
+        [self.idenVC editCustomerDetail];
+        self.isEditing = 1;
 
+        [self editHistoryDetail];
+//        [self.idenVC change];
+        [self.table reloadData];
     [MBProgressHUD showSuccess:@"操作成功"];
         
+        
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-        [MBProgressHUD hideHUD];
-//        [self.navigationController popViewControllerAnimated:YES];
+//        [MBProgressHUD hideHUD];
+//        [self.identifyNav popViewControllerAnimated:YES];
 //    });
 
-        [self.IdenVC editCustomerDetail];
+
     }
-    
     
     
 }
@@ -446,40 +457,25 @@
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
-    [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:self.postDic success:^(id json) {
-        NSLog(@"批量导入客户成功 返回json is %@",json);
-        [self.table reloadData];
-        [MBProgressHUD showSuccess:@"操作成功"];
-        
-        [self.editArr removeAllObjects];
-        [self.IdenVC editCustomerDetail];
-        
-        [self.table reloadData];
-//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
-            [MBProgressHUD hideHUD];
-//            [self.navigationController popViewControllerAnimated:YES];
-//        });
-        
-    } failure:^(NSError *error) {
-        NSLog(@"批量导入客户失败，返回error is %@",error);
-    }];
-        
+      [self.idenVC editCustomerDetail];
+        self.isEditing = 1;
+//        self.idenVC.PhotoFlag = 1;
+//        [self.idenVC change];
+        [self editHistoryDetail];
+        [self saveAfterWith];
+
     }
 }
 
-- (void)pointOut{
-   UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您没有选中任何记录!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
-   [alert show];
-}
 - (void)saveAfterWith{
     [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:self.postDic success:^(id json) {
         NSLog(@"批量导入客户成功 返回json is %@",json);
         [self.table reloadData];
         [MBProgressHUD showSuccess:@"操作成功"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+//        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
             [MBProgressHUD hideHUD];
-            [self.navigationController popViewControllerAnimated:YES];
-        });
+//            [self.identifyNav popViewControllerAnimated:YES];
+//        });
         
     } failure:^(NSError *error) {
         NSLog(@"批量导入客户失败，返回error is %@",error);
@@ -491,8 +487,10 @@
         [self saveAfterWith];
     }
 }
-
-
+- (void)pointOut{
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您没有选中任何记录!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
+    [alert show];
+}
 
 
 - (void)didReceiveMemoryWarning {
