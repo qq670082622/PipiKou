@@ -22,6 +22,7 @@
 		52EFF5641BD9CFB10020E540 /* InvInformCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFF55F1BD9CFB10020E540 /* InvInformCell.xib */; };
 		52EFF5651BD9CFB10020E540 /* InvoiceStateCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF5611BD9CFB10020E540 /* InvoiceStateCell.m */; };
 		52EFF5661BD9CFB10020E540 /* InvoiceStateCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFF5621BD9CFB10020E540 /* InvoiceStateCell.xib */; };
+		52EFF56E1BD9DC300020E540 /* InvoiceDetailController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF56D1BD9DC300020E540 /* InvoiceDetailController.m */; };
 		52F275B11BD4CF78008543E9 /* InvoiceAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */; };
 		52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */; };
 		52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */ = {isa = PBXBuildFile; fileRef = 52F275B61BD4E273008543E9 /* InvoiceLowView.m */; };
@@ -457,6 +458,8 @@
 		52EFF5601BD9CFB10020E540 /* InvoiceStateCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceStateCell.h; sourceTree = "<group>"; };
 		52EFF5611BD9CFB10020E540 /* InvoiceStateCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceStateCell.m; sourceTree = "<group>"; };
 		52EFF5621BD9CFB10020E540 /* InvoiceStateCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceStateCell.xib; sourceTree = "<group>"; };
+		52EFF56C1BD9DC300020E540 /* InvoiceDetailController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceDetailController.h; sourceTree = "<group>"; };
+		52EFF56D1BD9DC300020E540 /* InvoiceDetailController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceDetailController.m; sourceTree = "<group>"; };
 		52F275AF1BD4CF78008543E9 /* InvoiceAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceAlertView.h; sourceTree = "<group>"; };
 		52F275B01BD4CF78008543E9 /* InvoiceAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceAlertView.m; sourceTree = "<group>"; };
 		52F275B21BD4CF85008543E9 /* InvoiceAlertView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InvoiceAlertView.xib; sourceTree = "<group>"; };
@@ -1242,6 +1245,15 @@
 			path = CommendToDetail;
 			sourceTree = "<group>";
 		};
+		52EFF56B1BD9DC300020E540 /* InvoiceDetailes */ = {
+			isa = PBXGroup;
+			children = (
+				52EFF56C1BD9DC300020E540 /* InvoiceDetailController.h */,
+				52EFF56D1BD9DC300020E540 /* InvoiceDetailController.m */,
+			);
+			path = InvoiceDetailes;
+			sourceTree = "<group>";
+		};
 		52F275AE1BD4CF56008543E9 /* InvoiceAlertView */ = {
 			isa = PBXGroup;
 			children = (
@@ -1501,6 +1513,7 @@
 		5A52FBF41ACEBF220076DAE6 /* Orders */ = {
 			isa = PBXGroup;
 			children = (
+				52EFF56B1BD9DC300020E540 /* InvoiceDetailes */,
 				527D07B41BD5D54300CA6C39 /* OpenInvoice */,
 				52F275B41BD4E253008543E9 /* InvoiceLowView */,
 				52F275AE1BD4CF56008543E9 /* InvoiceAlertView */,
@@ -3004,6 +3017,7 @@
 				63AA23221B847639009CD44D /* ShaiXuanViewController.m in Sources */,
 				B3C01E3D1BAC10FC005E4BB5 /* QuanViewController.m in Sources */,
 				63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */,
+				52EFF56E1BD9DC300020E540 /* InvoiceDetailController.m in Sources */,
 				5A6996161AF8A5F2002EDD91 /* BackTableViewControllerController.m in Sources */,
 				5A52FC611ACEBF220076DAE6 /* ChildAccountViewController.m in Sources */,
 				B3D7B7C71BD76F700080E243 /* QRCodeViewController.m in Sources */,
