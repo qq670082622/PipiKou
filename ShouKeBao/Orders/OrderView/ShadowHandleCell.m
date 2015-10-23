@@ -1,14 +1,14 @@
 //
-//  InvoiceStateCell.m
+//  ShadowHandleCell.m
 //  ShouKeBao
 //
-//  Created by 韩世民 on 15/10/21.
+//  Created by 韩世民 on 15/10/22.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
-#import "InvoiceStateCell.h"
+#import "ShadowHandleCell.h"
 
-@implementation InvoiceStateCell
+@implementation ShadowHandleCell
 
 - (void)awakeFromNib {
     // Initialization code
