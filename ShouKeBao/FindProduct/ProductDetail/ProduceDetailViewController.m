@@ -275,7 +275,7 @@
         
         [self.webView goBack];
     }else  {
-        NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]);
+        //NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]);
         if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"0"]) {
             [NSString showbackgroundgray];
             [NSString showLeaveShareNav:self.navigationController InVC:self];
