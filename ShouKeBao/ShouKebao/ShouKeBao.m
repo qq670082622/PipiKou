@@ -68,6 +68,7 @@
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
 #import "invoiceCell.h"
+#import "SubscribeCell.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
 @property (nonatomic, retain)CLLocationManager *locationManager;
@@ -963,6 +964,9 @@
         _tableView.dataSource = self;
         _tableView.delegate = self;
         _tableView.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:237/255.0 alpha:1];
+        [_tableView registerNib:[UINib nibWithNibName:@"invoiceCell" bundle:nil] forCellReuseIdentifier:@"invoiceCell"];
+        [_tableView registerNib:[UINib nibWithNibName:@"SubscribeCell" bundle:nil] forCellReuseIdentifier:@"SubscribeCell"];
+        //[_tableView registerClass:[SubscribeCell class] forCellReuseIdentifier:@"SubscribeCell"];
         _tableView.tableFooterView = [[UIView alloc] init];
     }
     return _tableView;
@@ -1521,22 +1525,19 @@
         HomeBase *model = self.dataSource[indexPath.row];
      //[model retain];
     if([model.model isKindOfClass:[invoiceCell class]]){//发票
-        
-        NSArray *arrayM=[[NSBundle mainBundle]loadNibNamed:@"invoiceCell" owner:nil options:nil];
-        UITableViewCell *cell=[arrayM firstObject];
-        [invoiceCell showDataWithModel:model];
+       invoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell" forIndexPath:indexPath];
+        //[invoiceCell showDataWithModel:model];
         return cell;
-        
+    }
+    if ([model.model isKindOfClass:[SubscribeCell class]]) {//订阅
+        SubscribeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubscribeCell" forIndexPath:indexPath];
+        return cell;
     }
     if ([model.model isKindOfClass:[HomeList class]]) {//订单
-        
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
-//        NSArray *arrayM=[[NSBundle mainBundle]loadNibNamed:@"invoiceCell" owner:nil options:nil];
-//        UITableViewCell *cell=[arrayM firstObject];
-
-        return cell;
+         return cell;
         
     }else if ([model.model isKindOfClass:[messageModel class]]){//公告
        
@@ -1790,8 +1791,10 @@
 
         }
         
-    }else{
+    }else if([model.model isKindOfClass:[SubscribeCell class]]){
+        return 90;
         
+    }else{
         return 110;
     }
 }

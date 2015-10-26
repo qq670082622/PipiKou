@@ -34,10 +34,12 @@
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"
 #import "InvoiceAlertView.h"
+#import "MySubscribeController.h"
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 #define historyCount 6
+typedef void (^ChangeFrameBlock)();
 
 @interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
 
@@ -45,6 +47,7 @@
 @property (nonatomic,assign) int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL added;
 @property (nonatomic,copy) NSString *totalCount;
+@property (nonatomic,copy)ChangeFrameBlock changeFrameblock;
 
 @property (nonatomic,strong) MenuButton *menuButton;
 @property (nonatomic,strong) QDMenu *qdmenu;
@@ -100,6 +103,8 @@
 @property (nonatomic,strong) UIButton *invoiceBtn;//开发票的button
 @property (nonatomic,strong) NSMutableArray *invoiceArr;//存放 选中开发票 cell
 @property (nonatomic,strong) InvoiceAlertView *invoiceAlert;//提示弹框
+
+@property (nonatomic) NSInteger bb;
 @end
 
 @implementation Orders
@@ -397,24 +402,26 @@
         [UIView animateWithDuration:0.3 animations:^{
             self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
         }];
-    }else if(button.tag == 1200){//点击发票
+    }else if(button.tag == 1200){//点击开发票
         
-     
-        if (self.invoiceBtn.imageView.image !=nil) {
-            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        }
-        
-        if (button.selected == YES) {
-            button.selected = NO;
-           
-            [self.tableView setEditing:NO animated:YES];
-            if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-                [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
-            }
-        }else if(button.selected == NO){
-            button.selected = YES;
-            [self.tableView setEditing:YES animated:YES];
-        }
+        MySubscribeController *controller = [[MySubscribeController alloc] init];
+        [self.navigationController pushViewController:controller animated:YES];
+        //下面是正式跳转的地方
+//        if (self.invoiceBtn.imageView.image !=nil) {
+//            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//        }
+//        
+//        if (button.selected == YES) {
+//            button.selected = NO;
+//           
+//            [self.tableView setEditing:NO animated:YES];
+//            if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+//                [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+//            }
+//        }else if(button.selected == NO){
+//            button.selected = YES;
+//            [self.tableView setEditing:YES animated:YES];
+//        }
 
     }
 }
@@ -434,6 +441,16 @@
  [button addTarget:self action:@selector(btnClick1:) forControlEvents:UIControlEventTouchUpInside];
  [self.view addSubview:button];
  */
+//block改变tableview的frame
+-(void)ChangeFrame{
+    
+//    CGFloat ppt = _tableView.frame.size.height;
+//    self.bb = 1;
+//    _tableView.frame = CGRectMake(0, 89, self.view.bounds.size.width, ppt - 100);
+//    
+    //NSLog(@"---%f",self.tableView.frame.size.height);
+    NSLog(@"这里空了一个改变tableview的frame");
+}
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {
@@ -702,7 +719,12 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 89, self.view.frame.size.width, self.view.frame.size.height - 202) style:UITableViewStyleGrouped];
+        //if (self.bb == 1) {
+            //_tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 89, self.view.frame.size.width, //self.view.frame.size.height - 242) style:UITableViewStyleGrouped];
+        //}else{
+         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 89, self.view.frame.size.width, self.view.frame.size.height - 202) style:UITableViewStyleGrouped];
+      //  }
+       
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.dataSource = self;
         _tableView.delegate = self;

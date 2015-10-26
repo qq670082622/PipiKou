@@ -7,6 +7,7 @@
 //
 
 #import "InvoiceAlertView.h"
+#import "Orders.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @implementation InvoiceAlertView
 
@@ -29,9 +30,13 @@
     InvoiceLowView *InvoiceLow = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceLowView" owner:self options:nil] lastObject];
     InvoiceLow.tag = 110;
     InvoiceLow.LowNav = self.AlertNav;
-    InvoiceLow.layer.masksToBounds = YES;
-    InvoiceLow.layer.cornerRadius = 6.0;
+//    InvoiceLow.layer.masksToBounds = YES;
+//    InvoiceLow.layer.cornerRadius = 6.0;
+    Orders *ord = [[Orders alloc] init];
+    [ord ChangeFrame];
+    
     InvoiceLow.frame = CGRectMake(0,kScreenSize.height-89,kScreenSize.width ,40);
+    
     [[[UIApplication sharedApplication].delegate window] addSubview:InvoiceLow];
 }
 @end
