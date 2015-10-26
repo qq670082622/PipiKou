@@ -301,6 +301,8 @@
 		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
 		79B951491BD0DAAC0027C1F7 /* AttachmentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */; };
+		79D69BCF1BDDFE13006881DD /* DayDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */; };
+		79D69BD01BDDFE13006881DD /* DayDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EE91671B2BCDE2008C8935 /* TimeTool.m */; };
 		79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */; };
@@ -956,6 +958,9 @@
 		79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvYouGuWenViewController.m; sourceTree = "<group>"; };
 		79B951471BD0DAAC0027C1F7 /* AttachmentCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionCell.h; sourceTree = "<group>"; };
 		79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionCell.m; sourceTree = "<group>"; };
+		79D69BCC1BDDFE13006881DD /* DayDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailTableViewCell.h; sourceTree = "<group>"; };
+		79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetailTableViewCell.m; sourceTree = "<group>"; };
+		79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayDetailTableViewCell.xib; sourceTree = "<group>"; };
 		79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeseWebView.h; sourceTree = "<group>"; };
 		79D8D8201B2ACF2900AE4464 /* BeseWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeseWebView.m; sourceTree = "<group>"; };
 		79EE91661B2BCDE2008C8935 /* TimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTool.h; sourceTree = "<group>"; };
@@ -1693,6 +1698,9 @@
 				5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */,
 				5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */,
 				5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */,
+				79D69BCC1BDDFE13006881DD /* DayDetailTableViewCell.h */,
+				79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */,
+				79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */,
 				5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */,
 				5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */,
 				63F1A1331B13329E00DE9867 /* YesterDayCell.h */,
@@ -2909,6 +2917,7 @@
 				5A52FC531ACEBF220076DAE6 /* rightCell2.xib in Resources */,
 				B3C0FF841BC7C53B008BC477 /* iconfont-fuzhilianjie.png in Resources */,
 				5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */,
+				79D69BD01BDDFE13006881DD /* DayDetailTableViewCell.xib in Resources */,
 				B3B7A6721BA6A25F0043DF7C /* Customer.storyboard in Resources */,
 				B3D7B7D11BD76F700080E243 /* URLOpenFromQRCodeViewController.xib in Resources */,
 				B3D7B7CF1BD76F700080E243 /* ScanningViewController.xib in Resources */,
@@ -3259,6 +3268,7 @@
 				796F36D91B7859A00089FEE8 /* HeaderSectionView.m in Sources */,
 				796F36BE1B78380C0089FEE8 /* FindProductNew.m in Sources */,
 				52EFF5651BD9CFB10020E540 /* InvoiceStateCell.m in Sources */,
+				79D69BCF1BDDFE13006881DD /* DayDetailTableViewCell.m in Sources */,
 				797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */,
 				79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */,
 				63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */,

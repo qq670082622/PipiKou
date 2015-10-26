@@ -64,6 +64,7 @@
 @property (nonatomic,copy) NSString *picUrl;
 
 
+@property (nonatomic,strong) NSArray *pictureArray;
 
 
 @property (nonatomic,copy) NSString *QQStr;

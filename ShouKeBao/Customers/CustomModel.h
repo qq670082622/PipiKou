@@ -28,6 +28,7 @@
 @property (nonatomic,copy) NSString *Sex;
 @property (nonatomic,copy) NSString *Country;
 @property (nonatomic,copy) NSString *PassportNum;
+@property (nonatomic, strong)NSArray *PictureList;
 //@property (nonatomic,copy) NSString *passPortIdStr;
 //@property (nonatomic,copy) NSString *userMessageIDStr;
 //

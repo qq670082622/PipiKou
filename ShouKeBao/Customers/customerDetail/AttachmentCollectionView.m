@@ -12,11 +12,15 @@
 #import "ResizeImage.h"
 #import "IWHttpTool.h"
 #import "NSString+FKTools.h"
+#import "Customers.h"
 @interface AttachmentCollectionView ()<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic ,strong) NSMutableArray *dataSource;
+@property (nonatomic, strong)NSMutableArray *bigPicUrlArray;
 @property(nonatomic , assign) BOOL isEditing;
 @property (nonatomic, strong) UIButton * deleteBtn;
 @property (nonatomic, strong) NSMutableArray *choosedPicArray;
+@property (nonatomic, strong) NSMutableArray *choosedBigPicArray;
+
 @property (nonatomic, assign)CGRect  currentCellPicRect;
 @property(nonatomic, weak)UIImageView *MaxPhotoView;
 @end
@@ -74,18 +78,9 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
 
 -(void)loadData
 {
-    NSArray * picArray = [self.picUrl componentsSeparatedByString:@","];
-    NSLog(@"%@", self.picUrl);
-    for (NSString * str in picArray) {
-        if ([str myContainsString:@".jpg"]) {
-            [self.dataSource addObject:str];
-            [self.dataSource addObject:str];
-            [self.dataSource addObject:str];
-            [self.dataSource addObject:str];
-            [self.dataSource addObject:str];
-            [self.dataSource addObject:str];
-        }
-
+    for (NSDictionary * dic in self.pictureList) {
+        [self.dataSource addObject:dic[@"MinPicUrl"]];
+        [self.bigPicUrlArray addObject:dic[@"PicUrl"]];
     }
     [self.collectionView reloadData];
 }
@@ -96,12 +91,25 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     }
     return _dataSource;
 }
+-(NSMutableArray *)bigPicUrlArray{
+    if (!_bigPicUrlArray) {
+        self.bigPicUrlArray = [NSMutableArray array];
+    }
+    return _bigPicUrlArray;
+}
 -(NSMutableArray *)choosedPicArray
 {
     if (_choosedPicArray == nil) {
         self.choosedPicArray = [NSMutableArray array];
     }
     return _choosedPicArray;
+}
+-(NSMutableArray *)choosedBigPicArray
+{
+    if (_choosedBigPicArray == nil) {
+        self.choosedBigPicArray = [NSMutableArray array];
+    }
+    return _choosedBigPicArray;
 }
 
 - (UIButton * )deleteBtn{
@@ -120,10 +128,18 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
         for (NSString * picUrl in self.choosedPicArray) {
             [self.dataSource removeObject:picUrl];
         }
+        for (NSString * picUrl in self.choosedBigPicArray) {
+            [self.bigPicUrlArray removeObject:picUrl];
+        }
         [self.collectionView reloadData];
         [self EditCustomerDetail];
     }else{
-        [[[UIAlertView alloc]initWithTitle:@"等接口" message:@"mark" delegate:nil cancelButtonTitle:@"✅" otherButtonTitles:nil, nil]show];
+        NSLog(@"%@", self.customerId);
+        [IWHttpTool postWithURL:@"/Customer/SavePicToCustomer" params:@{@"PicUrls":self.bigPicUrlArray,@"CustomerId":self.customerId} success:^(id json) {
+
+            NSLog(@"%@", json);
+        } failure:^(NSError *error) {
+        }];
     }
 }
 - (void)didReceiveMemoryWarning {
@@ -180,15 +196,18 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     if (self.isEditing) {
         cell.cellState = UnCheckedState;
         cell.cellPicUrl = self.dataSource[indexPath.row];
-        [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row]]];
+        cell.cellBigPicUrl = self.bigPicUrlArray[indexPath.row];
+        [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.bigPicUrlArray[indexPath.row]]];
 
     }else{
         cell.cellState = NormalState;
         if (indexPath.row == 0) {
             cell.theUserImage.image = [UIImage imageNamed:@""];
         }else{
-            [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.dataSource[indexPath.row-1]]];
+            [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.bigPicUrlArray[indexPath.row-1]]];
             cell.cellPicUrl = self.dataSource[indexPath.row-1];
+            cell.cellBigPicUrl = self.bigPicUrlArray[indexPath.row-1];
+
 
         }
     }
@@ -200,9 +219,11 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
         if (cell.cellState == CheckedState) {
             cell.cellState = UnCheckedState;
             [self.choosedPicArray removeObject:cell.cellPicUrl];
+            [self.choosedBigPicArray removeObject:cell.cellBigPicUrl];
         }else if(cell.cellState == UnCheckedState){
             cell.cellState = CheckedState;
             [self.choosedPicArray addObject:cell.cellPicUrl];
+            [self.choosedBigPicArray addObject:cell.cellBigPicUrl];
         }
     }else{
     if (indexPath.row == 0) {
@@ -223,7 +244,7 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     photoView.backgroundColor = [UIColor blackColor];
     photoView.contentMode = UIViewContentModeScaleAspectFit;
     
-    NSString *picStr = self.dataSource[indexPath.row-1];
+    NSString *picStr = self.bigPicUrlArray[indexPath.row-1];
     NSLog(@"%@", picStr);
     NSURL *url = [NSURL URLWithString:picStr];
     [photoView sd_setImageWithURL:url];
@@ -299,6 +320,7 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
     [IWHttpTool postWithURL:@"File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":@"7"} success:^(id json) {
         [self.dataSource addObject:json[@"PicUrl"]];
+        [self.bigPicUrlArray addObject:json[@"PicUrl"]];
         [self.collectionView reloadData];
     } failure:^(NSError * error) {
         

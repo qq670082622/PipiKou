@@ -165,6 +165,7 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
       self.subView.hidden = YES;
+    [self.table reloadData];
 //    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
 //    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
 //    NSLog(@"appIsBack---- %@", appIsBack);
