@@ -16,6 +16,10 @@
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
+		52CF60BE1BDDCAF600DD97B8 /* SubscribeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CF60BC1BDDCAF600DD97B8 /* SubscribeCell.m */; };
+		52CF60BF1BDDCAF600DD97B8 /* SubscribeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52CF60BD1BDDCAF600DD97B8 /* SubscribeCell.xib */; };
+		52CF60C31BDDD9CF00DD97B8 /* MySubscribeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CF60C21BDDD9CF00DD97B8 /* MySubscribeController.m */; };
+		52CF60C71BDE0F1B00DD97B8 /* addSubCondController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CF60C61BDE0F1B00DD97B8 /* addSubCondController.m */; };
 		52EFF5471BD9CE740020E540 /* ShadowHandleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF5451BD9CE740020E540 /* ShadowHandleCell.m */; };
 		52EFF5481BD9CE740020E540 /* ShadowHandleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52EFF5461BD9CE740020E540 /* ShadowHandleCell.xib */; };
 		52EFF5631BD9CFB10020E540 /* InvInformCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52EFF55E1BD9CFB10020E540 /* InvInformCell.m */; };
@@ -449,6 +453,13 @@
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
 		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
 		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
+		52CF60BB1BDDCAF600DD97B8 /* SubscribeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeCell.h; sourceTree = "<group>"; };
+		52CF60BC1BDDCAF600DD97B8 /* SubscribeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeCell.m; sourceTree = "<group>"; };
+		52CF60BD1BDDCAF600DD97B8 /* SubscribeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeCell.xib; sourceTree = "<group>"; };
+		52CF60C11BDDD9CF00DD97B8 /* MySubscribeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MySubscribeController.h; sourceTree = "<group>"; };
+		52CF60C21BDDD9CF00DD97B8 /* MySubscribeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MySubscribeController.m; sourceTree = "<group>"; };
+		52CF60C51BDE0F1B00DD97B8 /* addSubCondController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addSubCondController.h; sourceTree = "<group>"; };
+		52CF60C61BDE0F1B00DD97B8 /* addSubCondController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addSubCondController.m; sourceTree = "<group>"; };
 		52EFF5441BD9CE740020E540 /* ShadowHandleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShadowHandleCell.h; sourceTree = "<group>"; };
 		52EFF5451BD9CE740020E540 /* ShadowHandleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShadowHandleCell.m; sourceTree = "<group>"; };
 		52EFF5461BD9CE740020E540 /* ShadowHandleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ShadowHandleCell.xib; sourceTree = "<group>"; };
@@ -1245,6 +1256,24 @@
 			path = CommendToDetail;
 			sourceTree = "<group>";
 		};
+		52CF60C01BDDD9AD00DD97B8 /* MySubscribe */ = {
+			isa = PBXGroup;
+			children = (
+				52CF60C11BDDD9CF00DD97B8 /* MySubscribeController.h */,
+				52CF60C21BDDD9CF00DD97B8 /* MySubscribeController.m */,
+			);
+			path = MySubscribe;
+			sourceTree = "<group>";
+		};
+		52CF60C41BDE0EEF00DD97B8 /* addSubscribeCond */ = {
+			isa = PBXGroup;
+			children = (
+				52CF60C51BDE0F1B00DD97B8 /* addSubCondController.h */,
+				52CF60C61BDE0F1B00DD97B8 /* addSubCondController.m */,
+			);
+			path = addSubscribeCond;
+			sourceTree = "<group>";
+		};
 		52EFF56B1BD9DC300020E540 /* InvoiceDetailes */ = {
 			isa = PBXGroup;
 			children = (
@@ -1710,6 +1739,9 @@
 				52F59D851BCF4B1F00DE24FB /* invoiceCell.h */,
 				52F59D861BCF4B1F00DE24FB /* invoiceCell.m */,
 				52F59D871BCF4B1F00DE24FB /* invoiceCell.xib */,
+				52CF60BB1BDDCAF600DD97B8 /* SubscribeCell.h */,
+				52CF60BC1BDDCAF600DD97B8 /* SubscribeCell.m */,
+				52CF60BD1BDDCAF600DD97B8 /* SubscribeCell.xib */,
 			);
 			path = HomeView;
 			sourceTree = "<group>";
@@ -2642,6 +2674,8 @@
 		B3C01DED1BAC10FC005E4BB5 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				52CF60C41BDE0EEF00DD97B8 /* addSubscribeCond */,
+				52CF60C01BDDD9AD00DD97B8 /* MySubscribe */,
 				B3C01DEE1BAC10FC005E4BB5 /* AccountSafe */,
 				B3C01DFD1BAC10FC005E4BB5 /* MeHttpTool */,
 				B3C01E001BAC10FC005E4BB5 /* MeModel */,
@@ -2892,6 +2926,7 @@
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
 				B3C0FF881BC7C54A008BC477 /* iconfont-mianxingtubiao1fuzhi.png in Resources */,
 				B3B7A6711BA6A25F0043DF7C /* attachmentViewController.xib in Resources */,
+				52CF60BF1BDDCAF600DD97B8 /* SubscribeCell.xib in Resources */,
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
@@ -3014,6 +3049,7 @@
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
 				5A60FC731AE0A93400CDAC4B /* WelcomeView.m in Sources */,
 				B3D7B7C21BD76F700080E243 /* CardTableViewController.m in Sources */,
+				52CF60C71BDE0F1B00DD97B8 /* addSubCondController.m in Sources */,
 				63AA23221B847639009CD44D /* ShaiXuanViewController.m in Sources */,
 				B3C01E3D1BAC10FC005E4BB5 /* QuanViewController.m in Sources */,
 				63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */,
@@ -3098,6 +3134,7 @@
 				79FE7B351BD09EFD0057B56E /* AttachmentCollectionView.m in Sources */,
 				632BFFFD1AB92A3A003B15AD /* UIImage+GIF.m in Sources */,
 				5A3CC4C41ADE02480047A5E1 /* MyCalendarItem.m in Sources */,
+				52CF60BE1BDDCAF600DD97B8 /* SubscribeCell.m in Sources */,
 				B3C01E3F1BAC10FC005E4BB5 /* SuggestViewController.m in Sources */,
 				5A52FC801ACEBF220076DAE6 /* ButtonDetailViewController.m in Sources */,
 				5A52FC5A1ACEBF220076DAE6 /* rightModal3.m in Sources */,
@@ -3138,6 +3175,7 @@
 				632BFFF51AB92A3A003B15AD /* SDImageCache.m in Sources */,
 				B3B7A6661BA6A25F0043DF7C /* addCustomerViewController.m in Sources */,
 				B3C01E331BAC10FC005E4BB5 /* MeHeader.m in Sources */,
+				52CF60C31BDDD9CF00DD97B8 /* MySubscribeController.m in Sources */,
 				845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */,
 				79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */,
 				B3C01E371BAC10FC005E4BB5 /* SwipeView.m in Sources */,
