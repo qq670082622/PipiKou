@@ -74,7 +74,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="fjl-zS-LL4">
-                                <rect key="frame" x="80" y="99.999997854232234" width="160" height="200"/>
+                                <rect key="frame" x="80" y="100.00000193118952" width="160" height="200"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                             </imageView>
                             <view hidden="YES" contentMode="scaleToFill" id="eeN-iU-n35">

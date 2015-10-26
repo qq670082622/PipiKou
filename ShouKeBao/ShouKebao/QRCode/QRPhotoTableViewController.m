@@ -23,8 +23,8 @@
 
 @interface QRPhotoTableViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
-@property (nonatomic, strong)UICollectionView *collectionV;
-@property (nonatomic, assign)BOOL PhotoFlag;
+//@property (nonatomic, strong)UICollectionView *collectionV;
+//@property (nonatomic, assign)BOOL PhotoFlag;
 
 @property (nonatomic, copy)NSString *pageNum;
 @property (nonatomic, strong)UIActionSheet *sheet;
@@ -35,7 +35,7 @@
 @property (nonatomic,strong)NSMutableArray *editArr;
 
 @property (nonatomic, assign)CGRect  currentCellPicRect;
-@property (weak, nonatomic) IBOutlet UIView *subViewPhoto;
+//@property (weak, nonatomic) IBOutlet UIView *subViewPhoto;
 
 @property (nonatomic,assign)int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL isRefresh;

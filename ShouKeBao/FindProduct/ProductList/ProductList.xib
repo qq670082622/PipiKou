@@ -105,11 +105,11 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
-                <view hidden="YES" contentMode="scaleToFill" id="4Lu-Lo-cU7" userLabel="onProductview">
+                <view contentMode="scaleToFill" id="4Lu-Lo-cU7" userLabel="onProductview">
                     <rect key="frame" x="0.0" y="43" width="320" height="437"/>
                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                     <subviews>
-                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="DD3-6I-CQE">
+                        <imageView hidden="YES" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="content_null" id="DD3-6I-CQE">
                             <rect key="frame" x="0.0" y="0.0" width="320" height="429"/>
                             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         </imageView>

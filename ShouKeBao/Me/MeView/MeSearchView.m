@@ -1,95 +1,83 @@
 //
-//  SearchView.m
+//  MeSearchView.m
 //  ShouKeBao
 //
-//  Created by 张正梅 on 15/9/7.
+//  Created by 张正梅 on 15/10/23.
 //  Copyright (c) 2015年 shouKeBao. All rights reserved.
 //
 
-#import "SearchView.h"
+#import "MeSearchView.h"
 #import "WriteFileManager.h"
 #import "NSArray+QD.h"
-@interface SearchView() <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
-//管客户
-@property (nonatomic,strong) NSMutableArray *dataSource;
-
+@interface MeSearchView() <UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>
+//我的分享
+@property (nonatomic,strong) NSMutableArray *meSearchArr;
 @property (nonatomic,weak) UIButton *clearBtn;
-
 @end
-@implementation SearchView
+@implementation MeSearchView
+
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self addSubview:self.TableView];
-        UIButton *clear = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _TableView.frame.size.width, 44)];
+        [self addSubview:self.meSearchTableView];
+        UIButton *clear = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, _meSearchTableView.frame.size.width, 44)];
         clear.backgroundColor = [UIColor whiteColor];
         clear.hidden = YES;
         clear.titleLabel.font = [UIFont systemFontOfSize:15];
         [clear setTitle:@"清除历史记录" forState:UIControlStateNormal];
         [clear setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
-        [clear addTarget:self action:@selector(clearHistory:) forControlEvents:UIControlEventTouchUpInside];
-        self.TableView.tableFooterView = clear;
+        [clear addTarget:self action:@selector(clearMeSearch:) forControlEvents:UIControlEventTouchUpInside];
+        self.meSearchTableView.tableFooterView = clear;
         self.clearBtn = clear;
-       }
+    }
     return self;
 }
 
-#pragma mark - getter
-- (UITableView *)TableView
-{
-    if (!_TableView) {
-        _TableView = [[UITableView alloc] initWithFrame:CGRectMake(15, 0, self.frame.size.width - 30, self.frame.size.height - 10) style:UITableViewStyleGrouped];
-        _TableView.tag = 1000;
-        _TableView.dataSource = self;
-        _TableView.delegate = self;
-        _TableView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
+- (UITableView *)meSearchTableView{
+    if (!_meSearchTableView) {
+        _meSearchTableView = [[UITableView alloc] initWithFrame:CGRectMake(15, 0, self.frame.size.width - 30, self.frame.size.height - 10) style:UITableViewStyleGrouped];
+        _meSearchTableView.tag = 1001;
+        _meSearchTableView.dataSource = self;
+        _meSearchTableView.delegate = self;
+        _meSearchTableView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
     }
-    return _TableView;
+    return _meSearchTableView;
 }
 
-- (NSMutableArray *)dataSource
-{
-    if (!_dataSource) {
-        NSArray *tmp = [WriteFileManager readFielWithName:@"CustomerHistorySearch"];
-        NSArray *noRepeat = [NSArray arrayWithMemberIsOnly:tmp];
-        _dataSource = [NSMutableArray arrayWithArray:noRepeat];
+- (NSMutableArray *)meSearchArr{
+    if (!_meSearchArr) {
+        NSArray *arr = [WriteFileManager readFielWithName:@"MeShareSearch"];
+        NSArray *repeatNo = [NSArray arrayWithMemberIsOnly:arr];
+        _meSearchArr = [NSMutableArray arrayWithArray:repeatNo];
     }
-    return _dataSource;
+    return _meSearchArr;
 }
-
-
-
-#pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    if (self.dataSource.count) {
+    if (self.meSearchArr.count) {
         self.clearBtn.hidden = NO;
     }
-    return self.dataSource.count;
-    
+    return self.meSearchArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
     static NSString *ID = @"historyCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:ID];
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:ID];
         cell.textLabel.font = [UIFont systemFontOfSize:15];
     }
-    cell.textLabel.text =  [self.dataSource objectAtIndex:[self.dataSource count] - (indexPath.row + 1)];
+    cell.textLabel.text = [self.meSearchArr objectAtIndex:[self.meSearchArr count]-(indexPath.row + 1)];
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"CustomerHistorySearch" object:nil userInfo:@{@"historyKey":cell.textLabel.text}];
+        [[NSNotificationCenter defaultCenter]postNotificationName:@"MeShareSearch" object:nil userInfo:@{@"searchKey": cell.textLabel.text}];
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
-{
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, tableView.frame.size.width, 30)];
     
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(0, 10, tableView.frame.size.width, 20)];
@@ -117,19 +105,16 @@
     [self.window endEditing:YES];
 }
 
-#pragma mark - private
-- (void)clearHistory:(UIButton *)btn
+- (void)clearMeSearch:(UIButton *)btn
 {
-    [self.dataSource removeAllObjects];
-    [WriteFileManager saveFileWithArray:self.dataSource Name:@"CustomerHistorySearch"];
-    [self.TableView reloadData];
+    [self.meSearchArr removeAllObjects];
+    [WriteFileManager saveFileWithArray:self.meSearchArr Name:@"MeShareSearch"];
+    [self.meSearchTableView reloadData];
     self.clearBtn.hidden = YES;
 }
 
-- (void)dealloc
-{
-    NSLog(@"..");
-}
+
+
 
 
 
