@@ -14,4 +14,5 @@
     UIBarButtonItem *_barItem;
     UIBarButtonItem *_barItem2;
 }
+-(void)ChangeFrame;
 @end

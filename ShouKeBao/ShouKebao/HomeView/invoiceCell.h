@@ -17,5 +17,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *OrderTotalLabel;
 @property (weak, nonatomic) IBOutlet UILabel *InvoriceTimeLabel;
 
-+(void)showDataWithModel:(HomeBase *)model;
+//-(void)showDataWithModel:(HomeBase *)model;
+-(void)showDataWithModel;
 @end

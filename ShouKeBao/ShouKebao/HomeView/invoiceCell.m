@@ -10,7 +10,7 @@
 
 @implementation invoiceCell
 
--(void)showDataWith:(HomeBase *)model{
+-(void)showDataWith{
     self.InvoiceOrderLabel.text = @"12433";
     //self.InvoiceOrderLabel.text = model.
     self.InvoriceCodeLabel.text = @"qwerqew";
