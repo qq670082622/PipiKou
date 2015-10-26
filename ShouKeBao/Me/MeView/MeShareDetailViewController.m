@@ -23,7 +23,7 @@
 #define VIEW_height self.view.frame.size.height
 #define gap 10
 #define pageSize 10
-@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, transmitPopKeyWords, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate, UISearchDisplayDelegate, transmitPopKeyWords>
 
 @property (nonatomic, strong)UITableView *shareTableView;
 @property (nonatomic, strong)NSMutableArray *shareDataArr;
@@ -68,7 +68,8 @@
 - (SKSearchBar *)searchBar
 {
     if (_searchBar == nil) {
-        _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(10, 0, VIEW_width-70, 40)];
+//        _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(10, 0, VIEW_width-70, 40)];
+        _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, VIEW_width, 40)];
         _searchBar.delegate = self;
         _searchBar.barStyle = UISearchBarStyleDefault;
         _searchBar.translucent = NO;
