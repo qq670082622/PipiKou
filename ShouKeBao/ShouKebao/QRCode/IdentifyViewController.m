@@ -59,22 +59,30 @@
 {
     UISegmentedControl *control = (UISegmentedControl *)sender;
     _control = control;
-    if (_control.selectedSegmentIndex == 0 && self.historyFlag == 0) {
+    if (_control.selectedSegmentIndex == 0/* && self.historyFlag == 0*/) {
+        self.QRHistoryVC.isEditing = 1;
+//        [self.QRHistoryVC.table setEditing:NO animated:YES];
+//        self.QRHistoryVC.subView.hidden = YES;
+        [self.QRHistoryVC editHistoryDetail];
         [self.view addSubview:self.QRPhotoVC.view];
-//            self.navigationItem.title = @"编辑";
+        self.barItem.title = @"编辑";
         if (self.QRHistoryVC) {
             [self.QRHistoryVC.view removeFromSuperview];
         }
         
-    }else if (_control.selectedSegmentIndex == 1 && self.PhotoFlag ==0){
+    }else if (_control.selectedSegmentIndex == 1/* && self.PhotoFlag ==0*/){
+        self.QRPhotoVC.PhotoFlag = 1;
+        [self.QRPhotoVC editCustomerPhoto];
+//        self.QRPhotoVC.subViewPhoto.hidden = YES;
+//        [self.QRPhotoVC.collectionV reloadData];
         [self.view addSubview:self.QRHistoryVC.view];
-//            self.navigationItem.title = @"编辑";
+        self.barItem.title = @"编辑";
         if (self.QRPhotoVC) {
             [self.QRPhotoVC.view removeFromSuperview];
         }
         
-    }else{
-        self.barItem.title = @"取消";
+//    }else{
+//        self.barItem.title = @"取消";
     }
 }
 
@@ -87,7 +95,7 @@
     return _QRHistoryVC;
 }
 
--(QRPhotoTableViewController *)QRPhotoVC{
+- (QRPhotoTableViewController *)QRPhotoVC{
     
     if (!_QRPhotoVC) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"QR" bundle:nil];
@@ -100,7 +108,7 @@
 -(void)stepRightItem
 {
     self.barItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStyleBordered target:self action:@selector(editCustomerDetail)];
-    self.navigationItem.rightBarButtonItem= self.barItem;
+    self.navigationItem.rightBarButtonItem = self.barItem;
 }
 
 -(void)editCustomerDetail{
@@ -108,31 +116,32 @@
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     NSLog(@"index= %ld, %ld", _control.selectedSegmentIndex, self.control.selectedSegmentIndex);
     if (self.control.selectedSegmentIndex==0) {
-        if (self.historyFlag == 0) {
+        self.historyFlag = 0;
+//        if (self.historyFlag == 0) {
             if (self.PhotoFlag == 0) {
-                [self.control setEnabled:NO forSegmentAtIndex:1];
+//                [self.control setEnabled:NO forSegmentAtIndex:1];
                 self.navigationItem.rightBarButtonItem.title = @"取消";
             }else{
                 self.navigationItem.rightBarButtonItem.title = @"编辑";
-                [self.control setEnabled:YES forSegmentAtIndex:1];
+//                [self.control setEnabled:YES forSegmentAtIndex:1];
             }
             
             self.PhotoFlag = !self.PhotoFlag;
             [center postNotificationName:@"edit1" object:@"QRPhoto" userInfo:nil];
-        }
-    }else{
-        
-        if (self.PhotoFlag == 0) {
+//        }
+    }else if(self.control.selectedSegmentIndex==1){
+        self.PhotoFlag = 0;
+//        if (self.PhotoFlag == 0) {
             if (self.historyFlag==0 ) {
-            [self.control setEnabled:NO forSegmentAtIndex:0];
+//            [self.control setEnabled:NO forSegmentAtIndex:0];
                 self.navigationItem.rightBarButtonItem.title = @"取消";
             }else if(self.historyFlag == 1){
                 self.navigationItem.rightBarButtonItem.title = @"编辑";
-                [self.control setEnabled:YES forSegmentAtIndex:0];
+//                [self.control setEnabled:YES forSegmentAtIndex:0];
             }
             self.historyFlag = !self.historyFlag;
             [center postNotificationName:@"edit2" object:@"QRHistory" userInfo:nil];
-        }
+//        }
     }
 }
 

@@ -10,4 +10,5 @@
 
 @interface SearchView : UIView
 @property (nonatomic,strong) UITableView *TableView;
+
 @end

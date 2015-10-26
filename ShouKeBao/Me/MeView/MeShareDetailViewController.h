@@ -9,5 +9,6 @@
 #import "SKViewController.h"
 
 @interface MeShareDetailViewController : SKViewController
-
+@property (nonatomic, strong)NSString *popKeyWords;
+@property (nonatomic, strong)NSMutableArray *conditionArr;
 @end

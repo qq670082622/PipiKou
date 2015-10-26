@@ -365,6 +365,7 @@
 		B3BC338F1BD8C59C00C61D83 /* MeShareDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC338E1BD8C59C00C61D83 /* MeShareDetailModel.m */; };
 		B3BC33921BD8D9C600C61D83 /* MeShareChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */; };
 		B3BC33981BD9031F00C61D83 /* MeSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */; };
+		B3BFDB661BDA1D190053504C /* MeSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BFDB651BDA1D190053504C /* MeSearchView.m */; };
 		B3C01E251BAC10FC005E4BB5 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */; };
 		B3C01E261BAC10FC005E4BB5 /* ReBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF21BAC10FC005E4BB5 /* ReBindViewController.m */; };
 		B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3C01DF31BAC10FC005E4BB5 /* Safe.storyboard */; };
@@ -1064,6 +1065,8 @@
 		B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeShareChooseViewController.m; path = MeView/MeShareChooseViewController.m; sourceTree = "<group>"; };
 		B3BC33961BD9031F00C61D83 /* MeSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeSearchViewController.h; path = MeView/MeSearchViewController.h; sourceTree = "<group>"; };
 		B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeSearchViewController.m; path = MeView/MeSearchViewController.m; sourceTree = "<group>"; };
+		B3BFDB641BDA1D190053504C /* MeSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeSearchView.h; sourceTree = "<group>"; };
+		B3BFDB651BDA1D190053504C /* MeSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeSearchView.m; sourceTree = "<group>"; };
 		B3C01DEF1BAC10FC005E4BB5 /* ModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPwdViewController.h; sourceTree = "<group>"; };
 		B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyPwdViewController.m; sourceTree = "<group>"; };
 		B3C01DF11BAC10FC005E4BB5 /* ReBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReBindViewController.h; sourceTree = "<group>"; };
@@ -2741,6 +2744,8 @@
 				B3C01E141BAC10FC005E4BB5 /* SwipeView.m */,
 				B3BC338A1BD8BCC600C61D83 /* MeShareDetailTableViewCell.h */,
 				B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */,
+				B3BFDB641BDA1D190053504C /* MeSearchView.h */,
+				B3BFDB651BDA1D190053504C /* MeSearchView.m */,
 			);
 			path = MeView;
 			sourceTree = "<group>";
@@ -3056,6 +3061,7 @@
 				636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */,
 				63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */,
 				5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */,
+				B3BFDB661BDA1D190053504C /* MeSearchView.m in Sources */,
 				795EA9BE1B7E498200840DFB /* ProductRecommendViewController.m in Sources */,
 				79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */,
 				796F36DC1B7863840089FEE8 /* SpecialLineCollectionCell.m in Sources */,

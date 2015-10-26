@@ -782,6 +782,7 @@
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
     [self.historyView removeFromSuperview];
+    [self.sep2 removeFromSuperview];
     if (self.searchK.length){
         self.searchBar.placeholder = self.searchK;
         NSLog(@"self.searchK = %@", self.searchK);

@@ -9,7 +9,14 @@
 #import "SKViewController.h"
 
 @interface QRHistoryTableViewController : SKViewController
+@property (strong, nonatomic) IBOutlet UITableView *table;
 @property (nonatomic,strong) NSMutableArray *dataArr;
 @property (nonatomic, strong)UINavigationController *identifyNav;
 @property(nonatomic,assign) BOOL isLogin;
+@property (weak, nonatomic) IBOutlet UIView *subView;
+@property (nonatomic,assign) BOOL isEditing;
+
+
+-(void)editHistoryDetail;
+
 @end
