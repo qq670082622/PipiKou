@@ -8,16 +8,17 @@
 
 #import "MeSearchViewController.h"
 #import "SKSearchBar.h"
-#import "SKSearckDisplayController.h"
-
+#import "MeSearchView.h"
 #import "WriteFileManager.h"
+#define View_width self.view.frame.size.width
+#define View_height self.view.frame.size.height
 #define searchHistoryPlaceholder @"订单号/产品名称/供应商名称"
 
 @interface MeSearchViewController ()<UISearchBarDelegate>
 @property (nonatomic,strong) SKSearchBar *searchBar;
-@property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
-@property(nonatomic,copy) NSString *searchK;
+@property (nonatomic,copy) NSString *searchK;
 @property (nonatomic,weak) UIView *sep2;
+@property (nonatomic,strong) MeSearchView *meHistoryView;
 @end
 
 @implementation MeSearchViewController
@@ -28,12 +29,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     [self.view addSubview:self.searchBar];
-    
-    
-    
-    
+    [self.view addSubview:self.meHistoryView];
+    [self.searchBar becomeFirstResponder];
     
 }
+- (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(MeShareSearch:) name:@"MeShareSearch" object:nil];
+}
+
 
 - (SKSearchBar *)searchBar
 {
@@ -48,6 +52,13 @@
     }
     return _searchBar;
 }
+- (MeSearchView *)meHistoryView{
+    if (_meHistoryView == nil) {
+        self.meHistoryView = [[MeSearchView alloc] initWithFrame:CGRectMake(0, 40+2, View_width, View_height-42-49)];
+        self.meHistoryView.backgroundColor = [UIColor colorWithRed:235/255.0 green:235/255.0 blue:241/255.0 alpha:1];
+    }
+    return _meHistoryView;
+}
 
 #pragma mark - UISearchBar的delegate
 - (BOOL)searchBarShouldBeginEditing:(UISearchBar *)searchBar{
@@ -61,25 +72,15 @@
         
         if ([searchbuttons isKindOfClass:[UIButton class]]){
         UIButton *cancelButton = (UIButton *)searchbuttons;
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"取消"];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"搜索🔍"];
         NSMutableDictionary *muta = [NSMutableDictionary dictionary];
         [muta setObject:[UIColor colorWithRed:68/255.0 green:122/255.0 blue:208/255.0 alpha:1] forKey:NSForegroundColorAttributeName];
         [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
         [attr addAttributes:muta range:NSMakeRange(0, 2)];
         [cancelButton setAttributedTitle:attr forState:UIControlStateNormal];
-        
         break;
-    }else{
-        UITextField *textField = (UITextField *)searchbuttons;
-        // 边界线
-        CGFloat sepX = CGRectGetMaxX(textField.frame);
-        UIView *sep2 = [[UIView alloc] initWithFrame:CGRectMake(sepX, 25, 0.5, 34)];
-        sep2.backgroundColor = [UIColor lightGrayColor];
-        sep2.alpha = 0.3;
-        [self.view.window addSubview:sep2];
-        self.sep2 = sep2;
     }
-    }
+  }
 }
 
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
@@ -96,18 +97,16 @@
     
     if (self.searchK.length) {
         [searchBar endEditing:YES];
-        
         NSMutableArray *tmp = [NSMutableArray array];
-        
         // 先取出原来的记录
-        NSArray *arr = [WriteFileManager readFielWithName:@"CustomerHistorySearch"];
+        NSArray *arr = [WriteFileManager readFielWithName:@"MeShareSearch"];
         [tmp addObjectsFromArray:arr];
         
         // 再加上新的搜索记录
         [tmp addObject:self.searchK];
         
         // 并保存
-        [WriteFileManager saveFileWithArray:tmp Name:@"CustomerHistorySearch"];
+        [WriteFileManager saveFileWithArray:tmp Name:@"MeShareSearch"];
 //        [self searchLoadData];
     }
 }
@@ -116,10 +115,26 @@
 {
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
+    self.searchBar.placeholder = searchHistoryPlaceholder;
+    
+}
+- (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
+    NSLog(@"网络请求数据....");
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 
+- (void)MeShareSearch:(NSNotification *)noty
+{
+    self.searchK = noty.userInfo[@"searchKey"];
+    [self.searchDisplayController setActive:NO animated:YES];
+//    [self searchLoadData];
+}
 
+- (void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.transmitDelegate transmitPopKeyWord:self.searchBar.text];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

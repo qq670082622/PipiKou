@@ -547,6 +547,7 @@
 - (void)postCustomerToServer:(NSArray * )customerIDs{
     NSDictionary * dic = @{@"CustomerList":customerIDs};
     NSString * jsonStr = [dic JSONString];
+    NSLog(@"%@", dic);
     [self.webView stringByEvaluatingJavaScriptFromString:[NSString stringWithFormat:@"LYQSKBAPP_GetCustomerSelectPicFromApp_CallBack(%@, '%@')", @1, jsonStr]];
 
     

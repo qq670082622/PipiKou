@@ -7,7 +7,12 @@
 //
 
 #import "SKViewController.h"
+//协议传值
+@protocol transmitPopKeyWords <NSObject>
+- (void)transmitPopKeyWord:(NSString *)keyWords;
+@end
+
 
 @interface MeSearchViewController : SKViewController
-
+@property(nonatomic, weak)id<transmitPopKeyWords>transmitDelegate;
 @end

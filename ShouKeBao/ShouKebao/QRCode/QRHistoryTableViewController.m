@@ -23,8 +23,8 @@
 
 @interface QRHistoryTableViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (strong, nonatomic)IdentifyViewController *idenVC;
-@property (strong, nonatomic) IBOutlet UITableView *table;
-@property (nonatomic,assign) BOOL isEditing;
+
+
 
 @property(nonatomic,strong) NSMutableArray *editArr;
 @property (strong, nonatomic)UIView *loginView;
@@ -46,7 +46,7 @@
 - (void)saveToCustom:(id)sender;
 
 @property(nonatomic,strong) NSMutableArray *editIndexArrInNoLogin;
-@property (weak, nonatomic) IBOutlet UIView *subView;
+
 - (IBAction)cancleButton:(id)sender;
 - (IBAction)saveButton:(id)sender;
 
@@ -416,7 +416,6 @@
         
         [IWHttpTool WMpostWithURL:@"Customer/DeleteCredentialsPicRecord" params:dic success:^(id json) {
             NSLog(@"批量删除客户成功 返回json is %@",json);
-            
         } failure:^(NSError *error) {
             NSLog(@"批量删除客户失败，返回error is %@",error);
         }];
@@ -431,6 +430,7 @@
     }
     
         self.idenVC.historyFlag = 1;
+//        self.idenVC.control.selectedSegmentIndex = 1;
 //        [self.idenVC.control setEnabled:YES];
 //        self.identifyNav.navigationItem.rightBarButtonItem.title = @"编辑";
         [self.idenVC editCustomerDetail];

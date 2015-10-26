@@ -305,6 +305,8 @@
 		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
 		79B951491BD0DAAC0027C1F7 /* AttachmentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */; };
+		79D69BCF1BDDFE13006881DD /* DayDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */; };
+		79D69BD01BDDFE13006881DD /* DayDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
 		79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 79EE91671B2BCDE2008C8935 /* TimeTool.m */; };
 		79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */; };
@@ -369,6 +371,7 @@
 		B3BC338F1BD8C59C00C61D83 /* MeShareDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC338E1BD8C59C00C61D83 /* MeShareDetailModel.m */; };
 		B3BC33921BD8D9C600C61D83 /* MeShareChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */; };
 		B3BC33981BD9031F00C61D83 /* MeSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */; };
+		B3BFDB661BDA1D190053504C /* MeSearchView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BFDB651BDA1D190053504C /* MeSearchView.m */; };
 		B3C01E251BAC10FC005E4BB5 /* ModifyPwdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */; };
 		B3C01E261BAC10FC005E4BB5 /* ReBindViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01DF21BAC10FC005E4BB5 /* ReBindViewController.m */; };
 		B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B3C01DF31BAC10FC005E4BB5 /* Safe.storyboard */; };
@@ -967,6 +970,9 @@
 		79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvYouGuWenViewController.m; sourceTree = "<group>"; };
 		79B951471BD0DAAC0027C1F7 /* AttachmentCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionCell.h; sourceTree = "<group>"; };
 		79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionCell.m; sourceTree = "<group>"; };
+		79D69BCC1BDDFE13006881DD /* DayDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailTableViewCell.h; sourceTree = "<group>"; };
+		79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetailTableViewCell.m; sourceTree = "<group>"; };
+		79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayDetailTableViewCell.xib; sourceTree = "<group>"; };
 		79D8D81F1B2ACF2900AE4464 /* BeseWebView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BeseWebView.h; sourceTree = "<group>"; };
 		79D8D8201B2ACF2900AE4464 /* BeseWebView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BeseWebView.m; sourceTree = "<group>"; };
 		79EE91661B2BCDE2008C8935 /* TimeTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeTool.h; sourceTree = "<group>"; };
@@ -1075,6 +1081,8 @@
 		B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeShareChooseViewController.m; path = MeView/MeShareChooseViewController.m; sourceTree = "<group>"; };
 		B3BC33961BD9031F00C61D83 /* MeSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeSearchViewController.h; path = MeView/MeSearchViewController.h; sourceTree = "<group>"; };
 		B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeSearchViewController.m; path = MeView/MeSearchViewController.m; sourceTree = "<group>"; };
+		B3BFDB641BDA1D190053504C /* MeSearchView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeSearchView.h; sourceTree = "<group>"; };
+		B3BFDB651BDA1D190053504C /* MeSearchView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MeSearchView.m; sourceTree = "<group>"; };
 		B3C01DEF1BAC10FC005E4BB5 /* ModifyPwdViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ModifyPwdViewController.h; sourceTree = "<group>"; };
 		B3C01DF01BAC10FC005E4BB5 /* ModifyPwdViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ModifyPwdViewController.m; sourceTree = "<group>"; };
 		B3C01DF11BAC10FC005E4BB5 /* ReBindViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReBindViewController.h; sourceTree = "<group>"; };
@@ -1722,6 +1730,9 @@
 				5ABA4F681AD7E5CD004AA8F6 /* RecommendCell.m */,
 				5AED0A0F1ADB5C5400B0E0E5 /* DayDetailCell.h */,
 				5AED0A101ADB5C5400B0E0E5 /* DayDetailCell.m */,
+				79D69BCC1BDDFE13006881DD /* DayDetailTableViewCell.h */,
+				79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */,
+				79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */,
 				5AED0A171ADB767D00B0E0E5 /* ShowRemindCell.h */,
 				5AED0A181ADB767D00B0E0E5 /* ShowRemindCell.m */,
 				63F1A1331B13329E00DE9867 /* YesterDayCell.h */,
@@ -2775,6 +2786,8 @@
 				B3C01E141BAC10FC005E4BB5 /* SwipeView.m */,
 				B3BC338A1BD8BCC600C61D83 /* MeShareDetailTableViewCell.h */,
 				B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */,
+				B3BFDB641BDA1D190053504C /* MeSearchView.h */,
+				B3BFDB651BDA1D190053504C /* MeSearchView.m */,
 			);
 			path = MeView;
 			sourceTree = "<group>";
@@ -2944,6 +2957,7 @@
 				5A52FC531ACEBF220076DAE6 /* rightCell2.xib in Resources */,
 				B3C0FF841BC7C53B008BC477 /* iconfont-fuzhilianjie.png in Resources */,
 				5A52FC511ACEBF220076DAE6 /* rightCell.xib in Resources */,
+				79D69BD01BDDFE13006881DD /* DayDetailTableViewCell.xib in Resources */,
 				B3B7A6721BA6A25F0043DF7C /* Customer.storyboard in Resources */,
 				B3D7B7D11BD76F700080E243 /* URLOpenFromQRCodeViewController.xib in Resources */,
 				B3D7B7CF1BD76F700080E243 /* ScanningViewController.xib in Resources */,
@@ -3092,6 +3106,7 @@
 				636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */,
 				63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */,
 				5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */,
+				B3BFDB661BDA1D190053504C /* MeSearchView.m in Sources */,
 				795EA9BE1B7E498200840DFB /* ProductRecommendViewController.m in Sources */,
 				79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */,
 				796F36DC1B7863840089FEE8 /* SpecialLineCollectionCell.m in Sources */,
@@ -3297,6 +3312,7 @@
 				796F36D91B7859A00089FEE8 /* HeaderSectionView.m in Sources */,
 				796F36BE1B78380C0089FEE8 /* FindProductNew.m in Sources */,
 				52EFF5651BD9CFB10020E540 /* InvoiceStateCell.m in Sources */,
+				79D69BCF1BDDFE13006881DD /* DayDetailTableViewCell.m in Sources */,
 				797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */,
 				79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */,
 				63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */,

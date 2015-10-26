@@ -782,7 +782,7 @@
 {
     //推荐:”0",利润（从低往高）:”1"利润（从高往低:”2"
     //同行价（从低往高）:”3,同行价（从高往低）:"4"
-    [self editButtons ];
+    [self editButtons];
     [self.noProductWarnLab removeFromSuperview];
     self.table.tableFooterView = nil;
     self.table.tableFooterView.hidden = YES;

@@ -11,9 +11,16 @@
 #import "QRPhotoCollectionViewCell.h"
 
 @interface QRPhotoTableViewController : SKViewController
+@property (weak, nonatomic) IBOutlet UIView *subViewPhoto;
+
+@property (nonatomic, strong)UICollectionView *collectionV;
 //@property (nonatomic, copy)NSString *customerId;
 @property (nonatomic, strong)UINavigationController *identifyNav;
 @property(nonatomic,assign) BOOL isLogin;
 @property(nonatomic, strong)IdentifyViewController * IDVC;
 @property(nonatomic, strong)QRPhotoCollectionViewCell * update;
+
+@property (nonatomic, assign)BOOL PhotoFlag;
+
+- (void)editCustomerPhoto;
 @end

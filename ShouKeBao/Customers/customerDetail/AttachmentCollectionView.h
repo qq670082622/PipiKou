@@ -12,4 +12,5 @@
 
 @property (nonatomic,copy) NSString *picUrl;
 @property (nonatomic,copy) NSString *customerId;
+@property (nonatomic, strong)NSArray * pictureList;
 @end

@@ -318,6 +318,7 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     AttachmentCollectionView *AVC = [sb instantiateViewControllerWithIdentifier:@"AttachmentCollectionView"];
     AVC.picUrl = _picUrl;
+    AVC.pictureList = _pictureArray;
     AVC.customerId =  _customerId;
     NSLog(@"%@%@", _customerId, _picUrl);
     [self.Nav pushViewController:AVC animated:YES];
