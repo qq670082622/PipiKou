@@ -14,5 +14,6 @@
     UIBarButtonItem *_barItem;
     UIBarButtonItem *_barItem2;
 }
+@property (nonatomic,strong) NSMutableArray *invoiceArr;//存放 选中开发票 cell
 -(void)ChangeFrame;
 @end

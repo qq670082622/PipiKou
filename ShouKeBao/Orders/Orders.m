@@ -34,7 +34,7 @@
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"
 #import "InvoiceAlertView.h"
-#import "MySubscribeController.h"
+#import "MySubscribeController.h"//分享，临时用的
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
 #define kScreenSize [UIScreen mainScreen].bounds.size
@@ -44,6 +44,7 @@ typedef void (^ChangeFrameBlock)();
 @interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
+@property (nonatomic,strong) NSMutableArray *InvoicedataArr;
 @property (nonatomic,assign) int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL added;
 @property (nonatomic,copy) NSString *totalCount;
@@ -101,10 +102,9 @@ typedef void (^ChangeFrameBlock)();
 @property (nonatomic,strong) UIImageView *guideImageView;
 @property (nonatomic,assign) int guideIndex;
 @property (nonatomic,strong) UIButton *invoiceBtn;//开发票的button
-@property (nonatomic,strong) NSMutableArray *invoiceArr;//存放 选中开发票 cell
+
 @property (nonatomic,strong) InvoiceAlertView *invoiceAlert;//提示弹框
 
-@property (nonatomic) NSInteger bb;
 @end
 
 @implementation Orders
@@ -139,7 +139,7 @@ typedef void (^ChangeFrameBlock)();
     [self.view addSubview:self.searchBar];
     
     [self loadConditionData];
-    
+    [self loadDataSuorceByConditionInvoice];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickBack:) name:@"DressViewClickBack" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickReset:) name:@"DressViewClickReset" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(clickConfirm:) name:@"DressViewClickConfirm" object:nil];
@@ -183,7 +183,6 @@ typedef void (^ChangeFrameBlock)();
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"Orders"];
-
 }
 - (void)dealloc
 {
@@ -222,7 +221,7 @@ typedef void (^ChangeFrameBlock)();
     } failure:^(NSError *error) {
     }];
 }
-
+#warning 这里有需求
 // 根据条件加载数据
 - (void)loadDataSuorceByCondition
 {   self.isNUll = NO;
@@ -246,7 +245,7 @@ typedef void (^ChangeFrameBlock)();
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
         if (json) {
-            NSLog(@"1------%@",json);
+            NSLog(@"1------%@",json[@"OrderList"]);
             dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
                 if (self.isHeadRefresh) {
@@ -257,6 +256,53 @@ typedef void (^ChangeFrameBlock)();
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.dataArr addObject:order];
+                }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.isSearch = self.searchKeyWord.length;
+                    [self setNullImage];
+                    [self.tableView reloadData];
+                });
+            });
+        }
+    } failure:^(NSError *error) {
+        
+    }];
+}
+// 加载可以开发票的数据
+- (void)loadDataSuorceByConditionInvoice
+{   self.isNUll = NO;
+    NSString *first = self.firstValue ? self.firstValue[@"Value"] : @"0";
+    NSString *second = self.secondValue ? self.secondValue[@"Value"] : @"";
+    NSString *third = self.thirdValue ? self.thirdValue[@"Value"] : @"";
+    NSDictionary *param = @{@"PageIndex":[NSString stringWithFormat:@"%d",self.pageIndex],
+                            @"PageSize":[NSString stringWithFormat:@"%d",pageSize],
+                            @"KeyWord":self.searchKeyWord,
+                            @"CreatedDateRang":self.choosedTime,
+                            @"State":self.choosedStatus,
+                            @"GoDateStart":self.goDateStart,
+                            @"GoDateEnd":self.goDateEnd,
+                            @"FirstLevelArea":first,
+                            @"SecondLevelAreaID":second,
+                            @"ThirdLevelAreaID":third,
+                            @"CreatedDateStart":self.createDateStart,
+                            @"CreatedDateEnd":self.createDateEnd,
+                            @"IsRefund":[NSString stringWithFormat:@"%d",self.dressView.IsRefund.on],
+                            @"InvoiceFlag":@"1"};
+    [OrderTool getOrderListWithParam:param success:^(id json) {
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+        if (json) {
+            NSLog(@"1------%@",json[@"OrderList"]);
+            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
+            dispatch_async(q, ^{
+                if (self.isHeadRefresh) {
+                    [self.InvoicedataArr removeAllObjects];
+                }
+                self.totalCount = json[@"TotalCount"];
+                
+                for (NSDictionary *dic in json[@"OrderList"]) {
+                    OrderModel *order = [OrderModel orderModelWithDict:dic];
+                    [self.InvoicedataArr addObject:order];
                 }
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.isSearch = self.searchKeyWord.length;
@@ -404,24 +450,42 @@ typedef void (^ChangeFrameBlock)();
         }];
     }else if(button.tag == 1200){//点击开发票
         
-        MySubscribeController *controller = [[MySubscribeController alloc] init];
-        [self.navigationController pushViewController:controller animated:YES];
-        //下面是正式跳转的地方
-//        if (self.invoiceBtn.imageView.image !=nil) {
-//            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-//        }
-//        
-//        if (button.selected == YES) {
-//            button.selected = NO;
-//           
-//            [self.tableView setEditing:NO animated:YES];
-//            if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-//                [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
-//            }
-//        }else if(button.selected == NO){
-//            button.selected = YES;
-//            [self.tableView setEditing:YES animated:YES];
-//        }
+//        MySubscribeController *controller = [[MySubscribeController alloc] init];
+//        [self.navigationController pushViewController:controller animated:YES];
+        //下面是跳转的地方
+
+        
+        if (button.selected == YES) {
+            button.selected = NO;
+            
+            [self.tableView setEditing:NO animated:YES];
+            [self.tableView reloadData];
+            if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+                [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+            }
+        }else if(button.selected == NO){
+            
+            button.selected = YES;
+            
+            [self.tableView setEditing:YES animated:YES];
+            [self.tableView reloadData];
+
+            //当界面消失的时候弹出开发票的规则图片
+            [NSString showbackgroundgray];
+            //if (!self.invoiceAlert) {
+            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+            self.invoiceAlert.tag = 107;
+            self.invoiceAlert.AlertNav = self.navigationController;
+            self.invoiceAlert.viewCont = self;
+            self.invoiceAlert.layer.masksToBounds = YES;
+            self.invoiceAlert.layer.cornerRadius = 6.0;
+            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
+            self.invoiceBtn.selected = YES;
+            [self.tableView setEditing:YES animated:YES];
+            //}
+
+        }
 
     }
 }
@@ -461,17 +525,17 @@ typedef void (^ChangeFrameBlock)();
         [_dressView removeFromSuperview];
         
         //当界面消失的时候弹出开发票的规则图片
-        [NSString showbackgroundgray];
-        //if (!self.invoiceAlert) {
-            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
-            self.invoiceAlert.tag = 107;
-            self.invoiceAlert.AlertNav = self.navigationController;
-            self.invoiceAlert.layer.masksToBounds = YES;
-            self.invoiceAlert.layer.cornerRadius = 6.0;
-            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
-            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
-            self.invoiceBtn.selected = YES;
-            [self.tableView setEditing:YES animated:YES];
+//        [NSString showbackgroundgray];
+//        //if (!self.invoiceAlert) {
+//            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+//            self.invoiceAlert.tag = 107;
+//            self.invoiceAlert.AlertNav = self.navigationController;
+//            self.invoiceAlert.layer.masksToBounds = YES;
+//            self.invoiceAlert.layer.cornerRadius = 6.0;
+//            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+//            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
+//            self.invoiceBtn.selected = YES;
+//            [self.tableView setEditing:YES animated:YES];
         //}
      
         
@@ -490,15 +554,7 @@ typedef void (^ChangeFrameBlock)();
     self.tableView.footerPullToRefreshText = @"上拉刷新";
     self.tableView.footerRefreshingText = @"正在刷新";
 }
-#warning 下边两个是新加的方法，注意清除
-- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
-}
--(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
-}
+
 
 -(void)headRefresh
 {
@@ -517,7 +573,12 @@ typedef void (^ChangeFrameBlock)();
     }
     self.pageIndex = 1;
     self.isHeadRefresh = YES;
-    [self loadDataSuorceByCondition];
+    if (self.tableView.editing == YES) {
+        [self loadDataSuorceByConditionInvoice];
+    }else{
+        [self loadDataSuorceByCondition];
+    }
+    
 }
 -(void)footRefresh
 {
@@ -532,7 +593,11 @@ typedef void (^ChangeFrameBlock)();
     if (self.pageIndex  > [self getEndPage]) {
         [self.tableView footerEndRefreshing];
     }else{
-        [self loadDataSuorceByCondition];
+        if (self.tableView.editing == YES) {
+            [self loadDataSuorceByConditionInvoice];
+        }else{
+            [self loadDataSuorceByCondition];
+        }
     }
     
     
@@ -675,7 +740,12 @@ typedef void (^ChangeFrameBlock)();
     }
     return _dataArr;
 }
-
+-(NSMutableArray *)InvoicedataArr{
+    if (_InvoicedataArr == nil) {
+        _InvoicedataArr = [[NSMutableArray alloc] init];
+    }
+    return _InvoicedataArr;
+}
 - (NSMutableArray *)chooseTime
 {
     if (!_chooseTime) {
@@ -825,8 +895,14 @@ typedef void (^ChangeFrameBlock)();
     cell.delegate = self;
     cell.orderDelegate = self;
     cell.indexPath = indexPath;
+    OrderModel *order;
+    if (tableView.editing == YES) {
+        order = self.InvoicedataArr[indexPath.section];
+    }else{
+    order = self.dataArr[indexPath.section];
+    }
     // 取出模型
-    OrderModel *order = self.dataArr[indexPath.section];
+    //order = self.dataArr[indexPath.section];
 
     cell.model = order;
     
@@ -844,7 +920,8 @@ typedef void (^ChangeFrameBlock)();
 
     if (self.tableView.editing == YES) {
         OrderModel *order = self.dataArr[indexPath.section];
-        [self.invoiceArr addObject:order];
+        [self.invoiceArr addObject:order.OrderId];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:@"getOrderID" object:self.invoiceArr userInfo:nil];
         NSLog(@"=======%ld",self.invoiceArr.count);
         
     }else if(self.tableView.editing == NO){
@@ -863,7 +940,18 @@ typedef void (^ChangeFrameBlock)();
 
     }
 }
-
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return UITableViewCellEditingStyleDelete | UITableViewCellEditingStyleInsert;
+}
+-(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    OrderModel *order = self.dataArr[indexPath.section];
+    [self.invoiceArr removeObject:order.OrderId];
+        //self.returnMyOrderID(self.invoiceArr);
+    //[[NSNotificationCenter defaultCenter] postNotificationName:@"getOrderID" object:self.invoiceArr userInfo:nil];
+    NSLog(@"==%ld",self.invoiceArr.count);
+}
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     OrderModel *order = self.dataArr[indexPath.section];
@@ -1041,20 +1129,6 @@ typedef void (^ChangeFrameBlock)();
         [_dressView removeFromSuperview];
         [self.cover removeFromSuperview];
         [self.tableView headerBeginRefreshing];
-        //当界面消失的时候弹出开发票的规则图片
-        [NSString showbackgroundgray];
-       // if(!self.invoiceAlert){
-            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
-            self.invoiceAlert.tag = 107;
-            self.invoiceAlert.AlertNav = self.navigationController;
-            self.invoiceAlert.layer.masksToBounds = YES;
-            self.invoiceAlert.layer.cornerRadius = 6.0;
-            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
-            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
-            self.invoiceBtn.selected = YES;
-            [self.tableView setEditing:YES animated:YES];
-
-        //}
     }];
 }
 
