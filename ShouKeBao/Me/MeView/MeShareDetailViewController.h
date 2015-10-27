@@ -11,4 +11,6 @@
 @interface MeShareDetailViewController : SKViewController
 @property (nonatomic, strong)NSString *popKeyWords;
 @property (nonatomic, strong)NSMutableArray *conditionArr;
+@property (nonatomic, strong)UIView *chanpingView;
+- (void)backChanPinDetail;
 @end

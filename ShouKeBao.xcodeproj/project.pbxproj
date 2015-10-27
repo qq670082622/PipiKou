@@ -366,6 +366,7 @@
 		B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A6641BA6A25F0043DF7C /* remondViewController.m */; };
 		B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */; };
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
+		B3BC21631BDF14A70017247D /* ButtonAndImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC21621BDF14A70017247D /* ButtonAndImageView.m */; };
 		B3BC33891BD8B95900C61D83 /* MeShareDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33881BD8B95900C61D83 /* MeShareDetailViewController.m */; };
 		B3BC338C1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */; };
 		B3BC338F1BD8C59C00C61D83 /* MeShareDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC338E1BD8C59C00C61D83 /* MeShareDetailModel.m */; };
@@ -1071,6 +1072,8 @@
 		B3B7A6641BA6A25F0043DF7C /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
 		B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
 		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
+		B3BC21611BDF14A70017247D /* ButtonAndImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonAndImageView.h; sourceTree = "<group>"; };
+		B3BC21621BDF14A70017247D /* ButtonAndImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonAndImageView.m; sourceTree = "<group>"; };
 		B3BC33871BD8B95900C61D83 /* MeShareDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeShareDetailViewController.h; path = MeView/MeShareDetailViewController.h; sourceTree = "<group>"; };
 		B3BC33881BD8B95900C61D83 /* MeShareDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeShareDetailViewController.m; path = MeView/MeShareDetailViewController.m; sourceTree = "<group>"; };
 		B3BC338A1BD8BCC600C61D83 /* MeShareDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MeShareDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -2788,6 +2791,8 @@
 				B3BC338B1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m */,
 				B3BFDB641BDA1D190053504C /* MeSearchView.h */,
 				B3BFDB651BDA1D190053504C /* MeSearchView.m */,
+				B3BC21611BDF14A70017247D /* ButtonAndImageView.h */,
+				B3BC21621BDF14A70017247D /* ButtonAndImageView.m */,
 			);
 			path = MeView;
 			sourceTree = "<group>";
@@ -3093,6 +3098,7 @@
 				5A52FC631ACEBF220076DAE6 /* Login.m in Sources */,
 				B3B7A6701BA6A25F0043DF7C /* attachmentViewController.m in Sources */,
 				79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */,
+				B3BC21631BDF14A70017247D /* ButtonAndImageView.m in Sources */,
 				B3D7B7CA1BD76F700080E243 /* QRHistoryViewController.m in Sources */,
 				B3D7B7CD1BD76F700080E243 /* QRSaveCustomerViewController.m in Sources */,
 				63F1A1B11B14250E00DE9867 /* MJType.m in Sources */,

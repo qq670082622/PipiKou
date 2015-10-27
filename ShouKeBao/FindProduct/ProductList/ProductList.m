@@ -477,7 +477,12 @@
     return _conditionArr;
 }
 
-
+- (NSMutableDictionary *)shareInfo{
+    if (!_shareInfo) {
+        self.shareInfo = [NSMutableDictionary dictionary];
+    }
+    return _shareInfo;
+}
 #pragma - mark stationSelect delegate
 -(void)passStation:(NSString *)stationName andStationNum:(NSNumber *)stationNum
 {
@@ -837,6 +842,8 @@
     [IWHttpTool WMpostWithURL:@"Product/GetProductList_V2" params:dic success:^(id json) {
         
 //        NSLog(@"--------------productList load json is   %@------------]",json);
+        self.shareInfo = json[@"ShareInfo"];
+        
         NSArray *arr = json[@"ProductList"];
         [self.dataArr removeAllObjects];
         NSLog(@"arr = %@", arr);
@@ -2483,32 +2490,24 @@
         [self close];
     }
     if (self.shareFlag == NO) {
-        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
-        [postDic setObject:@"0" forKey:@"ShareType"];
-        if (self.shareInfo[@"Url"]) {
-            [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
-        }
+//        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+//        [postDic setObject:@"0" forKey:@"ShareType"];
+//        if (self.shareInfo[@"Url"]) {
+//            [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+//        }
 //        [postDic setObject: forKey:@"PageUrl"];
         
         //构造分享内容
-        id<ISSContent>publishContent = [ShareSDK content:nil
-                                          defaultContent:nil
-                                                   image:nil
-                                                   title:@" "
-                                                     url:nil                                             description:nil
+        id<ISSContent>publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
+                                          defaultContent:self.shareInfo[@"Desc"]
+                                                   image:self.shareInfo[@"Pic"]
+                                                   title:self.shareInfo[@"Title"]
+                                                     url:self.shareInfo[@"Url"]                                             description:self.shareInfo[@"Desc"]
                                                mediaType:SSPublishContentMediaTypeText];
         
-//        id<ISSContent>publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
-//                                          defaultContent:self.shareInfo[@"Desc"]
-//                                                   image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
-//                                                   title:@" "
-//                                        self.shareInfo[@"Title"]
-//                                                     url:self.shareInfo[@"Url"]
-//                                             description:nilself.shareInfo[@"Desc"]
-//                                               mediaType:SSPublishContentMediaTypeText];
-//        [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
-//        NSLog(@"%@444", self.shareInfo);
-//        [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
+        [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
+        NSLog(@"%@444", self.shareInfo);
+        [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
         
         [ShareView shareWithContent:publishContent];
     }else if(self.shareFlag == YES){

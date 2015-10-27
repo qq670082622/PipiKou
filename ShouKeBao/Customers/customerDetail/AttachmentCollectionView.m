@@ -319,6 +319,8 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     NSData *data = UIImageJPEGRepresentation(imageNew, 1.0);
     NSString *imageStr = [data base64EncodedStringWithOptions:0];
     [IWHttpTool postWithURL:@"File/UploadPicture" params:@{@"FileStreamData":imageStr,@"PictureType":@"7"} success:^(id json) {
+        NSLog(@"json = %@", json);
+        
         [self.dataSource addObject:json[@"PicUrl"]];
         [self.bigPicUrlArray addObject:json[@"PicUrl"]];
         [self.collectionView reloadData];

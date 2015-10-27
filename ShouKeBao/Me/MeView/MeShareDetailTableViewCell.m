@@ -7,6 +7,8 @@
 //
 
 #import "MeShareDetailTableViewCell.h"
+#import "UIImageView+WebCache.h"
+#import "textStyle.h"
 #define gap 10
 @implementation MeShareDetailTableViewCell
 
@@ -34,13 +36,13 @@
     
     UIImageView *imageV = [[UIImageView alloc]init];
     imageV.layer.cornerRadius = 5;
-    imageV.backgroundColor = [UIColor purpleColor];
+//    imageV.backgroundColor = [UIColor purpleColor];
     imageV.layer.masksToBounds = YES;
     [self.contentView addSubview:imageV];
     self.imageV = imageV;
     
     UILabel *title = [[UILabel alloc]init];
-    title.backgroundColor = [UIColor yellowColor];
+//    title.backgroundColor = [UIColor yellowColor];
     title.numberOfLines = 0;
     title.font = [UIFont systemFontOfSize:15];
     [self.contentView addSubview:title];
@@ -56,13 +58,13 @@
     self.goLable = go;
     
     UILabel *skim = [[UILabel alloc]init];
-    skim.backgroundColor = [UIColor greenColor];
+//    skim.backgroundColor = [UIColor greenColor];
     skim.font = [UIFont systemFontOfSize:13];
     [self.contentView addSubview:skim];
     self.skimLable = skim;
     
     UILabel *order = [[UILabel alloc]init];
-    order.backgroundColor = [UIColor redColor];
+//    order.backgroundColor = [UIColor redColor];
     order.font = [UIFont systemFontOfSize:13];
     [self.contentView addSubview:order];
     self.orderLable = order;
@@ -85,6 +87,28 @@
 
 - (void)setShareModel:(MeShareDetailModel *)shareModel{
     _shareModel = shareModel;
+    
+    NSString *imageStr = self.shareModel.PicUrl;
+    NSURL *url = [NSURL URLWithString:imageStr];
+    [self.imageV sd_setImageWithURL:url];
+//    NSLog(@"urllll = %@, urllll ------- %@", url, self.shareModel.StartCityName);
+    
+    self.titleLable.text = self.shareModel.Name;
+    self.goLable.text = self.shareModel.StartCityName;
+    
+    
+    NSString *skimStr = [NSString stringWithFormat:@"%@", self.shareModel.VisitCount];
+    NSMutableAttributedString *str1 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"浏览数:%@",self.shareModel.VisitCount]];
+//    [str1 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(3, skimStr.length)];
+    [str1 addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(4, skimStr.length)];
+    self.skimLable.attributedText = str1;
+    
+    NSString *orderStr = [NSString stringWithFormat:@"%@", self.shareModel.VisitCount];
+    NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"订单数:%@",self.shareModel.VisitCount]];
+//    [str2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(4, orderStr.length)];
+    [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(4, orderStr.length)];
+    self.orderLable.attributedText = str2;
+    
     
 
 }
