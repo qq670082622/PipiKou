@@ -187,8 +187,8 @@
     
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-  
-    [self checkNewVerSion];
+    [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:2.5];
+//    [self checkNewVerSion];
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户

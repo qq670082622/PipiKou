@@ -260,7 +260,6 @@
     // 取出用户密码
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *mobile = [def objectForKey:UserInfoKeyPoneNum];
-    
     NSDictionary *param = @{@"Mobile":mobile,
                             @"LoginPassword":self.passwordField.text};
     
@@ -277,7 +276,7 @@
             [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
             [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
-            
+
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
             [accountDefaults setObject:[NSString stringWithFormat:@"%@", json[@"SubstationId"]] forKey:UserInfoKeySubstation];
             [accountDefaults setObject:json[@"SubstationName"] forKey:@"SubstationName"];

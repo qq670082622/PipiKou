@@ -7,6 +7,9 @@
 //
 
 #import "AppDelegate+Extend.h"
+#import "UserInfo.h"
+#import "UMessage.h"
+#import "LoginTool.h"
 #define foureSize ([UIScreen mainScreen].bounds.size.height == 480)
 #define fiveSize ([UIScreen mainScreen].bounds.size.height == 568)
 #define sixSize ([UIScreen mainScreen].bounds.size.height == 667)
@@ -71,6 +74,29 @@
     
     
 
+}
+- (void)loginApp{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *account = [def objectForKey:UserInfoKeyAccount];
+    NSString *password = [def objectForKey:UserInfoKeyAccountPassword];
+    if (account.length && password.length) {
+        [self checkPasswordWithAccount:account passWord:password];
+    }
+}
+- (void)checkPasswordWithAccount:(NSString *)account passWord:(NSString *)passWord
+{
+    NSDictionary *param = @{@"LoginName":account,
+                            @"LoginPassword":passWord};
+    NSLog(@"%@", param);
+    // 请求登录
+    [LoginTool travelLoginWithParam:param success:^(id json) {
+        NSLog(@"%@", json);
+        if ([json[@"IsSuccess"] integerValue] != 1) {
+            [[[UIAlertView alloc]initWithTitle:@"提示" message:@"您的帐号密码已经被修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+        }
+    } failure:^(NSError *error) {
+//        [[[UIAlertView alloc]initWithTitle:@"提示" message:@"您的帐号密码已经被修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+    }];
 }
 
 - (void)value{

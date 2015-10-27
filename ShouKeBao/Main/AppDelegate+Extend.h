@@ -12,4 +12,7 @@
 
 -(void)setStartAnamation;
 
+
+//每次从后台进到前台的生命周期里，调用一下登录接口；
+- (void)loginApp;
 @end
