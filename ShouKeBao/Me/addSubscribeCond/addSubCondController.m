@@ -11,6 +11,7 @@
 @interface addSubCondController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *cellNameArr;
+@property (nonatomic,strong) UIView *footView;
 @end
 
 @implementation addSubCondController
@@ -21,6 +22,11 @@
     self.title = @"添加订阅条件";
     self.view.backgroundColor = [UIColor whiteColor];
     [self creatRightNav];
+    //
+    UIView *footSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
+    footSta.backgroundColor = [UIColor lightGrayColor];
+    footSta.alpha = 0.3;
+    [self.footView addSubview:footSta];
     [self.view addSubview:self.tableView];
 }
 -(NSArray *)cellNameArr{
@@ -35,10 +41,26 @@
         _tableView.rowHeight = 50;
         _tableView.dataSource = self;
         _tableView.delegate = self;
-        _tableView.tableFooterView = [[UIView alloc] init];
+        _tableView.tableFooterView = self.footView;
     }
     return _tableView;
 }
+-(UIView *)footView{
+    if (_footView == nil) {
+        _footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 360)];
+        _footView.backgroundColor = [UIColor whiteColor];
+    }
+    return _footView;
+}
+/*
+ //自定义尾视图
+ UIView *footView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 443)];//原来是158，388
+ UIView *footSta = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 8)];
+ footSta.backgroundColor = [UIColor lightGrayColor];
+ footSta.alpha = 0.3;
+ [footView addSubview:footSta];
+
+ */
 -(void)creatRightNav{
     UIButton *turnOff = [UIButton buttonWithType:UIButtonTypeCustom];
     turnOff.titleLabel.font = [UIFont systemFontOfSize:15];

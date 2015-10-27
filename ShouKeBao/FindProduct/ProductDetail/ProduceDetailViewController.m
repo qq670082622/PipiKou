@@ -71,7 +71,8 @@
     
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     CFShow((__bridge CFTypeRef)(infoDictionary));
-    
+#warning 这里需要变动
+//    NSString * orderIds = @"asdasd,asdasdas,grwtg";  //&orderIds=%@
     NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix = urlSuffix;
     
@@ -276,12 +277,12 @@
         [self.webView goBack];
     }else  {
         //NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]);
-        if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"0"]) {
+        if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"0"]) {//判断能否弹框
             [NSString showbackgroundgray];
             [NSString showLeaveShareNav:self.navigationController InVC:self];
-            [self.webView stringByEvaluatingJavaScriptFromString:@"AppHadShowShareWhenBack()"];
+            [self.webView stringByEvaluatingJavaScriptFromString:@"AppHadShowShareWhenBack()"];//提示弹框
 
-        }else {
+        }else {//不能提示
             [self.webView stringByEvaluatingJavaScriptFromString:@"AppRecordBackNumber()"];
             [self.navigationController popViewControllerAnimated:YES];
         }

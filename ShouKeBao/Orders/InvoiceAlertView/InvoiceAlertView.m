@@ -10,7 +10,6 @@
 #import "Orders.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @implementation InvoiceAlertView
-
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -20,8 +19,7 @@
 */
 
 - (IBAction)Iknowbtn:(UIButton *)sender {
-//    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"我知道了" message:@"我知道了" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//    [alert show];
+
     UIView *Ikonw = [self.superview viewWithTag:107];
     UIView *backgroundgp = [self.superview viewWithTag:102];
     [backgroundgp  removeFromSuperview];
@@ -30,6 +28,7 @@
     InvoiceLowView *InvoiceLow = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceLowView" owner:self options:nil] lastObject];
     InvoiceLow.tag = 110;
     InvoiceLow.LowNav = self.AlertNav;
+    InvoiceLow.ViewCont = self.viewCont;
 //    InvoiceLow.layer.masksToBounds = YES;
 //    InvoiceLow.layer.cornerRadius = 6.0;
     Orders *ord = [[Orders alloc] init];
@@ -39,4 +38,5 @@
     
     [[[UIApplication sharedApplication].delegate window] addSubview:InvoiceLow];
 }
+
 @end
