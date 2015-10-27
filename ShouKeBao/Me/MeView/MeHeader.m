@@ -9,7 +9,6 @@
 #import "MeHeader.h"
 
 @implementation MeHeader
-
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
@@ -25,33 +24,52 @@
         [self addSubview:headIcon];
         self.headIcon = headIcon;
         
+        UIImageView * levelIcon = [[UIImageView alloc]init];
+        [self addSubview:levelIcon];
+        self.levelIcon = levelIcon;
+
+        
         UILabel *nickName = [[UILabel alloc] init];
         nickName.textAlignment = NSTextAlignmentCenter;
         nickName.font = [UIFont boldSystemFontOfSize:17];
         [self addSubview:nickName];
         self.nickName = nickName;
         
+        UILabel *positionLab = [[UILabel alloc] init];
+        positionLab.textAlignment = NSTextAlignmentCenter;
+        positionLab.font = [UIFont boldSystemFontOfSize:15];
+        [self addSubview:positionLab];
+        self.positionLab = positionLab;
+
+        
         UILabel *personType = [[UILabel alloc] init];
-        personType.textColor = [UIColor whiteColor];
+        personType.textColor = [UIColor blackColor];
         personType.textAlignment = NSTextAlignmentCenter;
-        personType.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
+//        personType.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.3];
         personType.layer.cornerRadius = 5;
         personType.layer.masksToBounds = YES;
-        personType.font = [UIFont systemFontOfSize:13];
+        personType.font = [UIFont systemFontOfSize:14];
         [self addSubview:personType];
         self.personType = personType;
         
         UIButton *setBtn = [[UIButton alloc] init];
         [setBtn setBackgroundImage:[UIImage imageNamed:@"setting_icon"] forState:UIControlStateNormal];
-//        [setBtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:setBtn];
         self.setBtn = setBtn;
         CGFloat btnX = self.frame.size.width - 47;
         UIButton *bigSetBtn = [[UIButton alloc]initWithFrame:CGRectMake(btnX, 40, 40, 40)];
         [bigSetBtn addTarget:self action:@selector(setting:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:bigSetBtn];
+        //更多旅游顾问详细
+        UIButton * moreBtn = [[UIButton  alloc]initWithFrame:CGRectMake(self.frame.size.width - 125, 160, 125, 20)];
+        [moreBtn addTarget:self action:@selector(clickMore:) forControlEvents:UIControlEventTouchUpInside];
+        [moreBtn setTitle:@"更多顾问明细〉" forState:UIControlStateNormal];
+        [moreBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
         
         
+        [self addSubview:moreBtn];
+
         self.clipsToBounds = YES;
         self.contentMode = UIViewContentModeScaleAspectFill;
         self.image = [UIImage imageNamed:@"wobg"];
@@ -64,18 +82,41 @@
 {
     [super layoutSubviews];
    
-    CGFloat headW = self.isPerson ? 90 : 120;
-    CGFloat headX = (self.frame.size.width - headW) * 0.5;
-    self.headIcon.frame = CGRectMake(headX, 40, headW, 90);
-    
-    CGFloat nameY = CGRectGetMaxY(self.headIcon.frame) + 8;
-    self.nickName.frame = CGRectMake(0, nameY, self.frame.size.width, 20);
-
-    CGFloat typeY = CGRectGetMaxY(self.nickName.frame) + 8;
-    self.personType.frame = CGRectMake(headX, typeY, headW, 20);
-    
+    CGFloat headW = self.isPerson ? 100 : 100;
+    if (self.isPerson) {
+        self.headIcon.frame = CGRectMake(20, 60, headW, 100);
+        self.levelIcon.frame = CGRectMake(20, 140, 100, 20);
+        self.levelIcon.backgroundColor = [UIColor redColor];
+        
+        
+        CGFloat nameY = CGRectGetMinY(self.headIcon.frame) + 8;
+        CGFloat nameX = CGRectGetMaxX(self.headIcon.frame) + 13;
+        CGFloat labW = self.frame.size.width - 150;
+        self.nickName.frame = CGRectMake(nameX, nameY, labW, 20);
+        self.nickName.textAlignment = NSTextAlignmentLeft;
+        
+        
+        CGFloat positionY = CGRectGetMaxY(self.nickName.frame) + 8;
+        self.positionLab.frame = CGRectMake(nameX, positionY, labW, 20);
+        self.positionLab.textAlignment = NSTextAlignmentLeft;
+        
+        
+        CGFloat typeY = CGRectGetMaxY(self.positionLab.frame) + 8;
+        self.personType.frame = CGRectMake(nameX, typeY, self.frame.size.width, 20);
+        self.personType.textAlignment = NSTextAlignmentLeft;
+    }else{
+        CGFloat headX = (self.frame.size.width - headW) * 0.5;
+        self.headIcon.frame = CGRectMake(headX, 40, headW, 70);
+        self.positionLab.frame = CGRectZero;
+        CGFloat nameY = CGRectGetMaxY(self.headIcon.frame) + 8;
+        self.nickName.frame = CGRectMake(0, nameY, self.frame.size.width, 20);
+        
+        CGFloat typeY = CGRectGetMaxY(self.nickName.frame) + 8;
+        self.personType.frame = CGRectMake(0, typeY, self.frame.size.width, 20);
+    }
     CGFloat btnX = self.frame.size.width - 37;
     self.setBtn.frame = CGRectMake(btnX, 40, 20, 20);
+
 }
 
 - (void)setting:(UIButton *)sender
@@ -92,12 +133,17 @@
         [_delegate didClickHeadIcon];
     }
 }
+- (void)clickMore:(UIButton *)button{
+    if (_delegate && [_delegate respondsToSelector:@selector(didClickMoreLYGW)]) {
+        [_delegate didClickMoreLYGW];
+    }
 
+}
 - (void)setIsPerson:(BOOL)isPerson
 {
     _isPerson = isPerson;
     
-    self.headIcon.layer.cornerRadius = isPerson ? 45 : 3;
+    self.headIcon.layer.cornerRadius = isPerson ? 50 : 3;
 }
 
 @end

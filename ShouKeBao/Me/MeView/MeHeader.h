@@ -14,16 +14,20 @@
 
 - (void)didClickHeadIcon;
 
+- (void)didClickMoreLYGW;
+
 @end
 
 @interface MeHeader : UIImageView
 @property (weak, nonatomic) UIImageView *headIcon;
-
+@property (weak, nonatomic)UIImageView *levelIcon;
 @property (weak, nonatomic) UILabel *nickName;
 
 @property (weak, nonatomic) UILabel *personType;
 
+@property (weak, nonatomic)UILabel * positionLab;
 @property (weak, nonatomic) UIButton *setBtn;
+
 
 @property (nonatomic,assign) BOOL isPerson;
 

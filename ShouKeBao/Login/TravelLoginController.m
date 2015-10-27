@@ -201,6 +201,8 @@ CGFloat newY = screenRect.size.height - newH - 35 - 64;
             [def setObject:json[@"BusinessID"] forKey:UserInfoKeyBusinessID];
             [def setObject:self.accountField.text forKey:UserInfoKeyAccount];
             [def setObject:self.passwordField.text forKey:UserInfoKeyPassword];
+            [def setObject:self.passwordField.text forKey:UserInfoKeyAccountPassword];
+
             [def synchronize];
             
             if (self.isChangeUser) {

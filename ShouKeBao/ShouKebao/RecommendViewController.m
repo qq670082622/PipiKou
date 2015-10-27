@@ -420,7 +420,8 @@
     if ([[self.tagDic objectForKey:tag ] isEqualToString:@"1"]) {
         [self.tagDic setObject:@"0" forKey:tag];
     }else{
-        [self.tagDic setObject:@"1" forKey:tag];}
+        [self.tagDic setObject:@"1" forKey:tag];
+    }
     NSLog(@"666  %@", self.tagDic);
     [_tableView beginUpdates];
     [_tableView endUpdates];

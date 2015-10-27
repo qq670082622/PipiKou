@@ -171,6 +171,15 @@
             // 保存必要的参数
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
             [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
+
+#warning 保存旅游顾问等级和链接 //旅游顾问
+            NSDictionary * ConsultantInfoDic = json[@"ConsultantInfo"];
+            [def setObject:ConsultantInfoDic[@"Level"] forKey:UserInfoKeyLYGWLevel];//等级
+            [def setObject:ConsultantInfoDic[@"LinkUrl"] forKey:UserInfoKeyLYGWLinkUrl];//链接
+            [def setObject:ConsultantInfoDic[@"Position"] forKey:UserInfoKeyLYGWPosition];//职位
+            [def setObject:ConsultantInfoDic[@"SkbMobile"] forKey:UserInfoKeyLYGWPhoneNum];//电话
+            [def synchronize];
+            
             if (![json[@"LoginAvatar"]isEqual:[NSNull null]]) {
                 [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
             }

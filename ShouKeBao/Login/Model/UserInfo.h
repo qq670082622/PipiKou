@@ -18,6 +18,15 @@
 #define UserInfoKeySubstation @"Substation"
 #define UserInfoKeyLoginAvatar @"LoginAvatar"
 #define UserInfoKeyAccount @"Account"
+#define UserInfoKeyAccountPassword @"AccountPassword"
+
+//旅游顾问
+#define UserInfoKeyLYGWLevel @"LYGWGrade" //等级
+#define UserInfoKeyLYGWLinkUrl @"LYGWLinkUrl" //链接
+#define UserInfoKeyLYGWPosition @"LYGWPosition" //职位
+#define UserInfoKeyLYGWPhoneNum @"LYGWPhone" //电话
+
+
 #import "BaseModel.h"
 @interface UserInfo : BaseModel
 

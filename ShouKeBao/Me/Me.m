@@ -39,7 +39,7 @@
 #import "LvYouGuWenViewController.h"
 #import "TravelConsultantViewControllerNoShare.h"
 #import "UpDateUserPictureViewController.h"
-
+#import "MoreLvYouGuWenInfoViewController.h"
 #import "MeShareDetailViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
@@ -78,12 +78,6 @@
 //    pro.backgroundColor = [UIColor clearColor];
 //    pro.progressValue = 0.3;
 //    [self.view addSubview:pro];
-    // 设置头像
-    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
-    NSLog(@"%@",head);
-    if (head) {
-        [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
-    }
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
     
     //获取版本信息
@@ -132,7 +126,13 @@
 - (void)setHeader
 {
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 260)];
-    
+    // 设置头像
+    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+    NSLog(@"%@",head);
+    if (head) {
+        [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
+    }
+
     [cover addSubview:self.meheader];
     [cover addSubview:self.buttonView];
     
@@ -159,14 +159,20 @@
 - (MeHeader *)meheader
 {
     if (!_meheader) {
+        NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+        NSString * phoneNum = [NSString stringWithFormat:@"联系方式：%@", [def objectForKey:UserInfoKeyLYGWPhoneNum]];
+        NSString * positionName = [def objectForKey:UserInfoKeyLYGWPosition];
+        NSString * level = [def objectForKey:UserInfoKeyLYGWLevel];
         _meheader = [[MeHeader alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 200)];
         _meheader.delegate = self;
         _meheader.nickName.text = [UserInfo shareUser].userName;
         _meheader.isPerson = self.isPerson;
         _meheader.headIcon.autoresizingMask = UIViewAutoresizingFlexibleHeight| UIViewAutoresizingFlexibleWidth;
+        _meheader.positionLab.text = positionName;
+        _meheader.levelIcon.image = [UIImage imageNamed:[NSString stringWithFormat:@"level%@", level]];
         _meheader.headIcon.clipsToBounds = YES;
         _meheader.headIcon.contentMode = UIViewContentModeScaleAspectFill;
-        _meheader.personType.text = self.isPerson ? @"个人分销商" : @"旅行社";
+        _meheader.personType.text = phoneNum;
     }
     return _meheader;
 }
@@ -209,6 +215,12 @@
         UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"选择照片" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@"选择相册照片",@"拍照", nil];
         [sheet showInView:self.view.window];
 
+}
+//点击更多旅游顾问明细
+- (void)didClickMoreLYGW{
+    MoreLvYouGuWenInfoViewController * morelvyouguwen = [[MoreLvYouGuWenInfoViewController alloc]init];
+    morelvyouguwen.webTitle = @"旅游顾问";
+    [self.navigationController pushViewController:morelvyouguwen animated:YES];
 }
 
 #pragma mark - MeButtonViewDelegate
@@ -293,7 +305,7 @@
     NSString *currentVersion = [infoDic objectForKey:@"CFBundleVersion"];
     switch (indexPath.section) {
         case 0://第一个分区
-            
+            cell.imageView.image = [UIImage imageNamed:@"iconfont-fenxiang"];
             break;
         case 1://第二个分区
             if (indexPath.row == 0) {

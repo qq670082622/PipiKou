@@ -792,10 +792,17 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     
     return YES;
 }
+//密码修改的时候  强制下线
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def removeObjectForKey:UserInfoKeyPassword];
+    [self setTravelLoginRoot];
+}
 
 // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
+    [self loginApp];
     NSString * commandWords = [self getWordOfCommand];
     if (commandWords) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];

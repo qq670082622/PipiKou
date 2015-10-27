@@ -301,6 +301,7 @@
 		7982F1611B391C6A009F878D /* BaseModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7982F1601B391C6A009F878D /* BaseModel.m */; };
 		798BB6641B9FCBC300D8C070 /* NSString+FKTools.m in Sources */ = {isa = PBXBuildFile; fileRef = 798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */; };
 		798F769E1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m in Sources */ = {isa = PBXBuildFile; fileRef = 798F769D1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m */; };
+		799B987A1BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 799B98791BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.m */; };
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
 		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
@@ -961,6 +962,8 @@
 		798BB6631B9FCBC300D8C070 /* NSString+FKTools.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+FKTools.m"; sourceTree = "<group>"; };
 		798F769C1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewControllerNoShare.h; sourceTree = "<group>"; };
 		798F769D1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewControllerNoShare.m; sourceTree = "<group>"; };
+		799B98781BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MoreLvYouGuWenInfoViewController.h; sourceTree = "<group>"; };
+		799B98791BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MoreLvYouGuWenInfoViewController.m; sourceTree = "<group>"; };
 		799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libMobClickLibrary.a; sourceTree = "<group>"; };
 		799F3E0C1B3A512400C14FBB /* MobClick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClick.h; sourceTree = "<group>"; };
 		799F3E0D1B3A512400C14FBB /* MobClickSocialAnalytics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobClickSocialAnalytics.h; sourceTree = "<group>"; };
@@ -2696,6 +2699,8 @@
 				B3C01DFC1BAC10FC005E4BB5 /* Me.storyboard */,
 				B3C01E151BAC10FC005E4BB5 /* MoneyTreeViewController.h */,
 				B3C01E161BAC10FC005E4BB5 /* MoneyTreeViewController.m */,
+				799B98781BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.h */,
+				799B98791BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.m */,
 				79AEC90E1BBB8EA000A1E83D /* LvYouGuWenViewController.h */,
 				79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */,
 				B3C01E171BAC10FC005E4BB5 /* MyListViewController.h */,
@@ -3173,6 +3178,7 @@
 				5AB7C9841ACBC9EA00217CAC /* QDActionSheet.m in Sources */,
 				B3C01E2F1BAC10FC005E4BB5 /* Server.m in Sources */,
 				5A6165821AE79AEF00641837 /* NullContentView.m in Sources */,
+				799B987A1BDF7534003A76F6 /* MoreLvYouGuWenInfoViewController.m in Sources */,
 				63B6CFB41B2E745B0037E06B /* personIdModel.m in Sources */,
 				527D4A381BC8A0620020AAF3 /* LeaveShare.m in Sources */,
 				5A944D2B1B00BC780004DE89 /* MLPhotoBrowserPhotoView.m in Sources */,
