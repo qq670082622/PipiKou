@@ -33,7 +33,7 @@ typedef enum{
 @property (nonatomic, assign)JumpinFrom fromType;
 @property (nonatomic, strong)NSMutableDictionary * shareInfo;
 @property (nonatomic, assign)BOOL noShareInfo;
-@property (copy,nonatomic) NSString *produceUrl;//
+@property (copy,nonatomic) NSString *produceUrl;
 @property (copy, nonatomic)NSString * titleName;
 @property (copy,nonatomic) NSString *productName;
 @property (nonatomic, strong) DayDetail *detail;

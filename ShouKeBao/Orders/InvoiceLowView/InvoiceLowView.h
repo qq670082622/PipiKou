@@ -7,11 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "OpenInvoiceWebController.h"
 @interface InvoiceLowView : UIView
 @property (nonatomic,strong) UINavigationController *LowNav;
+@property (nonatomic,strong) NSMutableArray *OrderIDsArr;
+@property (nonatomic,strong) UIViewController *ViewCont;
+@property (nonatomic,strong) OpenInvoiceWebController *OpenInvoice;
 - (IBAction)SelectAllBtn:(UIButton *)sender;
 @property (weak, nonatomic) IBOutlet UILabel *orderNumLabel;
 - (IBAction)InbatchesbBtn:(UIButton *)sender;
-
 @end
