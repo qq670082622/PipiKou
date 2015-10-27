@@ -7,7 +7,7 @@
 //
 
 #import "MeShareDetailModel.h"
-
+#import "NSMutableDictionary+QD.h"
 @implementation MeShareDetailModel
 
 + (instancetype)shareDetailWithDict:(NSDictionary *)dict{
@@ -16,7 +16,7 @@
 - (instancetype)initWithDictionary:(NSDictionary *)dict{
     self = [super init];
     if (self) {
-        [self setValuesForKeysWithDictionary:dict];
+        [self setValuesForKeysWithDictionary:[NSMutableDictionary cleanNullResult:dict]];
     }
     return self;
 }

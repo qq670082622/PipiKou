@@ -7,12 +7,19 @@
 //
 
 #import "SKViewController.h"
+
 //协议传值
 @protocol transmitPopKeyWords <NSObject>
 - (void)transmitPopKeyWord:(NSString *)keyWords;
 @end
 
+@protocol backChanpinDetail <NSObject>
+- (void)backChanpinDetail;
+@end
 
-@interface MeSearchViewController : SKViewController
+@interface MeSearchViewController : SKViewController<UITextFieldDelegate>
+
+@property (nonatomic, strong)UITextField *inputSearchView;
 @property(nonatomic, weak)id<transmitPopKeyWords>transmitDelegate;
+@property(nonatomic, weak)id<backChanpinDetail>delegate;
 @end
