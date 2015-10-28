@@ -113,7 +113,9 @@
     self.clearBtn.hidden = YES;
 }
 
-
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 
 

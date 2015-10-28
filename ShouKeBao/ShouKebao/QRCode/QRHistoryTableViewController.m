@@ -62,17 +62,8 @@
     self.table.delegate = self;
     self.table.dataSource = self;
     
-    
-    self.pageNum = @"1";
-    [self.table addHeaderWithTarget:self action:@selector(loadNewData)];
-    [self.table addFooterWithTarget:self action:@selector(loadMoreData)];
-    self.table.headerPullToRefreshText = @"下拉刷新";
-    self.table.headerRefreshingText = @"正在刷新中";
-    self.table.footerPullToRefreshText = @"上拉刷新";
-    self.table.footerRefreshingText = @"正在刷新";
-    
+    [self refresh];
     self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
-
     if (self.isLogin) {
         self.deleteLB.hidden  = YES;
         self.deleteVT.hidden = YES;
@@ -88,7 +79,16 @@
     
 }
 
-
+#pragma mark - 下拉刷新
+- (void)refresh{
+    self.pageNum = @"1";
+    [self.table addHeaderWithTarget:self action:@selector(loadNewData)];
+    [self.table addFooterWithTarget:self action:@selector(loadMoreData)];
+    self.table.headerPullToRefreshText = @"下拉刷新";
+    self.table.headerRefreshingText = @"正在刷新中";
+    self.table.footerPullToRefreshText = @"上拉刷新";
+    self.table.footerRefreshingText = @"正在刷新";
+}
 #pragma mark - 各种初始化～～
 
 -(NSMutableArray *)dataArr{
@@ -429,17 +429,20 @@
         [WriteFileManager saveData:arr name:@"record"];
     }
     
+//        self.idenVC.historyFlag = 1;
+       
+       
+        self.idenVC.control.selectedSegmentIndex = 1;
         self.idenVC.historyFlag = 1;
-//        self.idenVC.control.selectedSegmentIndex = 1;
-//        [self.idenVC.control setEnabled:YES];
-//        self.identifyNav.navigationItem.rightBarButtonItem.title = @"编辑";
+        
         [self.idenVC editCustomerDetail];
-        self.isEditing = 1;
-
-        [self editHistoryDetail];
-//        [self.idenVC change];
-        [self.table reloadData];
-    [MBProgressHUD showSuccess:@"操作成功"];
+        
+//        self.isEditing = 1;
+//        [self editHistoryDetail];
+        
+        [self loadDataSource];
+        [self refresh];
+       [MBProgressHUD showSuccess:@"操作成功"];
         
         
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码

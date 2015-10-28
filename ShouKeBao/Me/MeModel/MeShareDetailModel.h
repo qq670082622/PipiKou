@@ -9,11 +9,15 @@
 #import "BaseModel.h"
 
 @interface MeShareDetailModel : BaseModel
-@property (nonatomic,copy) NSString *PicUrl;
-@property (nonatomic,copy) NSString *Name;
-@property (nonatomic,copy) NSString *StartCityName;
-@property (strong,nonatomic) NSNumber *VisitCount;
-@property (strong,nonatomic) NSNumber *OrderCount;
+@property (nonatomic, copy) NSString *PicUrl;
+@property (nonatomic, copy) NSString *Name;
+@property (nonatomic, copy) NSString *StartCityName;
+@property (strong, nonatomic) NSNumber *VisitCount;
+@property (strong, nonatomic) NSNumber *OrderCount;
+
+@property (nonatomic, copy) NSString *LinkUrl;
+@property (nonatomic, strong) NSMutableDictionary *ShareInfo;
+
 
 + (instancetype)shareDetailWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

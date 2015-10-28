@@ -1339,7 +1339,7 @@
             }
     }
     self.oldOffset = scrollView.contentOffset.y;
-    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%ld/%d",count+1,totalCount] forState:UIControlStateNormal];
+    [self.pageCountBtn setTitle:[NSString stringWithFormat:@"%d/%d",count+1,totalCount] forState:UIControlStateNormal];
 }
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     NSLog(@"开始滚动%f",scrollView.contentOffset.y);
@@ -1461,7 +1461,7 @@
                 }
             }
             
-            NSLog(@"%ld", indexPath.row);
+//            NSLog(@"%d", indexPath.row);
             NSInteger a = (6*(indexPath.section)) + (indexPath.row);//获得当前点击的row行数
             
             //    NSLog(@"-------------a is %ld  ----_conditionArr[a] is %@------------",(long)a,_conditionArr[a]);
@@ -1508,16 +1508,16 @@
                 [self recommond];
             }else if (indexPath.row == 1){
                 [self profits:indexPath.row];
-                //                NSLog(@"11111111");
+                NSLog(@"利润高 －》 低");
             }else if (indexPath.row == 2){
                 [self profits:indexPath.row];
-                
+                NSLog(@"利润低 －》 高");//
             }else if (indexPath.row == 3){
-                
+                 NSLog(@"同行价 高 －－－低");
                 [self cheap:indexPath.row];
                 
             }else if (indexPath.row == 4){
-                
+                 NSLog(@"同行价低 －》 高");//
                 [self cheap:indexPath.row];
             }
             
@@ -1836,26 +1836,15 @@
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
     hudView.labelText = @"加载中...";
-    
     [hudView show:YES];
-    
-    // [self backToTop:nil];
-    
-    //    if (self.profitOutlet.selected == NO) {
-    //
-    //        [self.profitOutlet setSelected:YES];
-    //
-    //        [self.cheapOutlet setSelected:NO];
-    //
-    //        [self.commondOutlet setSelected:NO];
-    
-    if (self.profitOutlet.selected == NO) {
-        [self.profitOutlet setSelected:YES];
-        [self.cheapOutlet setSelected:NO];
-        [self.commondOutlet setSelected:NO];
-        
+  
+//    if (self.profitOutlet.selected == NO) {
+//        [self.profitOutlet setSelected:YES];
+//        [self.cheapOutlet setSelected:NO];
+//        [self.commondOutlet setSelected:NO];
+      if (sender == 2) {
+   
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        
         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
         
         [dic setObject:[self jishi] forKey:@"IsComfirmStockNow"];
@@ -1871,7 +1860,7 @@
         //[self ProductSortingTypeWith:@"2"];
         [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
         
-        NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+        NSLog(@"---1----page2 请求的 dic  is %@-----",dic);
         
         [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
             
@@ -1893,16 +1882,15 @@
             NSString *page = [NSString stringWithFormat:@"%@",_page];
             
             self.page = [NSMutableString stringWithFormat:@"%d",2];
-            //  NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
             } failure:^(NSError *error) {
-                
                 NSLog(@"-------产品搜索请求失败 error is%@----------",error);
             }];
         
         }
-        if (sender == 2 && self.profitOutlet.selected == YES){
-            //        [self.profitOutlet setTitle:@"利润 ↓" forState:UIControlStateNormal];
-            
+//        if (sender == 2 && self.profitOutlet.selected == YES){
+//        [self.profitOutlet setTitle:@"利润 ↓" forState:UIControlStateNormal];
+    
+        if (sender == 1){
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             
             [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
@@ -1920,7 +1908,7 @@
             self.selectIndex = [NSMutableString stringWithFormat:@"2"];
             // [self ProductSortingTypeWith:@"1"];
             [dic setObject:self.pushedSearchK forKey:@"SearchKey"];
-            // NSLog(@"-------page2 请求的 dic  is %@-----",dic);
+          
             [IWHttpTool WMpostWithURL:@"/Product/GetProductList" params:dic success:^(id json) {
                 
                 [self.dataArr removeAllObjects];//移除
@@ -1942,7 +1930,7 @@
                 
                 self.page = [NSMutableString stringWithFormat:@"%d",2];
                 
-                NSLog(@"---------转化后的page is %@ +1后的 page is -------%@----",page,_page);
+                NSLog(@"----2-----转化后的page is %@ +1后的 page is -------%@----",page,_page);
             } failure:^(NSError *error) {
                 
                 NSLog(@"-------产品搜索请求失败 error is%@----------",error);
@@ -2001,7 +1989,7 @@
         
         [hudView hide:YES];
         
-    }
+}
 
 
 
@@ -2024,14 +2012,12 @@
     
     
     // [self backToTop:nil];
-    if (self.cheapOutlet.selected == NO) {
-        
-        [self.cheapOutlet setSelected:YES];
-        
-        [self.commondOutlet setSelected:NO];
-        
-        [self.profitOutlet setSelected:NO];
-        
+//    if (self.cheapOutlet.selected == NO) {
+//        [self.cheapOutlet setSelected:YES];
+//        [self.commondOutlet setSelected:NO];
+//        [self.profitOutlet setSelected:NO];
+       if (sender == 4) {
+    
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         
         [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件
@@ -2085,11 +2071,12 @@
         //    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.titleLabel.text
         //                                                   isEqualToString:@"同行价 ↑"]){
     }
-    if (self.cheapOutlet.selected == YES && sender == 4){
-        
-        
-            //     [self.cheapOutlet setTitle:@"同行价 ↓" forState:UIControlStateNormal];
-        
+    
+    
+//    if (self.cheapOutlet.selected == YES && sender == 4){
+//     [self.cheapOutlet setTitle:@"同行价 ↓" forState:UIControlStateNormal];
+         if (sender == 3){
+             
             NSMutableDictionary *dic = [NSMutableDictionary dictionary];
             
             [dic addEntriesFromDictionary:_conditionDic];//增加筛选条件

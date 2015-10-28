@@ -4,28 +4,18 @@
    version = "2.0">
    <Breakpoints>
       <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.ExceptionBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            scope = "0"
-            stopOnStyle = "0">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShouKeBao/FindProduct/ProductList/ShareView.m"
-            timestampString = "467688539.442046"
+            filePath = "ShouKeBao/ShouKebao/QRCode/QRHistoryTableViewController.m"
+            timestampString = "467721513.839925"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "178"
-            endingLineNumber = "178"
-            landmarkName = "+shareBtnClick:"
+            startingLineNumber = "438"
+            endingLineNumber = "438"
+            landmarkName = "-cancleButton:"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
