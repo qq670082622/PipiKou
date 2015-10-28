@@ -21,6 +21,7 @@
 @interface MeHeader : UIImageView
 @property (weak, nonatomic) UIImageView *headIcon;
 @property (weak, nonatomic)UIImageView *levelIcon;
+@property (weak, nonatomic)UILabel * levelName;
 @property (weak, nonatomic) UILabel *nickName;
 
 @property (weak, nonatomic) UILabel *personType;

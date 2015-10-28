@@ -86,16 +86,17 @@ static bool _flag;
     contentLabel.font = [UIFont systemFontOfSize:12];
     [shareView addSubview:contentLabel];
     
-    NSArray *btnImages = @[@"iconfont-qqkongjian.png", @"iconfont-qq.png", @"iconfont-weixin.png", @"iconfont-pengyouquan-2.png", @"iconfont-mianxingtubiao1fuzhi-2.png", @"iconfont-icon24.png"];
+    NSArray *btnImages = @[@"iconfont-kongjian", @"iconfont-qq", @"iconfont-weixin", @"iconfont-pengyouquan", @"iconfont-fuzhi", @"iconfont-duanxin"];
     NSArray *btnTitles = @[@"QQ空间", @"QQ", @"微信好友", @"微信朋友圈", @"复制链接", @"短信"];
     for (NSInteger i=0; i<6; i++) {
         CGFloat top = 0.0f;
         if (i<3) {
-            top = 10*KHeight_Scale;
+            top = 15*KHeight_Scale;
             
         }else{
-            top = 110*KHeight_Scale;
+            top = 120*KHeight_Scale;
         }
+        
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(35*KWidth_Scale+(i%3)*100*KWidth_Scale, CGRectGetMidY(contentLabel.frame)+top, 100*KWidth_Scale, 100*KHeight_Scale)];
         [button setImage:[UIImage imageNamed:btnImages[i]] forState:UIControlStateNormal];
         [button setTitle:btnTitles[i] forState:UIControlStateNormal];
@@ -103,10 +104,13 @@ static bool _flag;
         button.titleLabel.font = [UIFont systemFontOfSize:12];
         [button setContentHorizontalAlignment:UIControlContentHorizontalAlignmentCenter];
         [button setContentVerticalAlignment:UIControlContentVerticalAlignmentTop];
-        [button setImageEdgeInsets:UIEdgeInsetsMake(0, 20*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
-        
+        if (i == 1) {
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0, 23*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
+        }else{
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0, 20*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
+        }
 //        if (SYSTEM_VERSION >= 8.0f) {
-            [button setTitleEdgeInsets:UIEdgeInsetsMake(80*KHeight_Scale, -60*KWidth_Scale, 5*KWidth_Scale, 0)];
+            [button setTitleEdgeInsets:UIEdgeInsetsMake(65*KHeight_Scale, -50*KWidth_Scale, 5*KWidth_Scale, 0)];
 //        }else{
 //            [button setTitleEdgeInsets:UIEdgeInsetsMake(75*KWidth_Scale, -150*KWidth_Scale, 5*KWidth_Scale, 0)];
 //        }

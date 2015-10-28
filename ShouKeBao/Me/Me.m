@@ -128,6 +128,35 @@
     UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 260)];
     // 设置头像
     NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+    NSString *level = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLevel];
+    switch ([level integerValue]) {
+        case 1000:
+            self.meheader.levelIcon.image = [UIImage imageNamed:@"jianxi"];
+            self.meheader.levelName.text = @"见习顾问";
+            break;
+        case 2000:
+            self.meheader.levelIcon.image = [UIImage imageNamed:@"tongpai"];
+            self.meheader.levelName.text = @"铜牌顾问";
+            break;
+        case 3000:
+            self.meheader.levelIcon.image = [UIImage imageNamed:@"yinpai"];
+            self.meheader.levelName.text = @"银牌顾问";
+            break;
+        case 4000:
+            self.meheader.levelIcon.image = [UIImage imageNamed:@"huangjin"];
+            self.meheader.levelName.text = @"黄金顾问";
+            break;
+        case 5000:
+            self.meheader.levelIcon.image = [UIImage imageNamed:@"baijin"];
+            self.meheader.levelName.text = @"白金顾问";
+            break;
+        case 6000:
+            self.meheader.levelIcon.image = [UIImage imageNamed:@"zuanshi"];
+            self.meheader.levelName.text = @"钻石顾问";
+            break;
+        default:
+            break;
+    }
     NSLog(@"%@",head);
     if (head) {
         [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
