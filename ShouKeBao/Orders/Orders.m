@@ -34,6 +34,7 @@
 #import "BaseClickAttribute.h"
 #import "NSString+FKTools.h"
 #import "InvoiceAlertView.h"
+
 #import "MySubscribeController.h"//分享，临时用的
 #define pageSize 10
 #define searchDefaultPlaceholder @"订单号/产品名称/供应商名称"
@@ -44,7 +45,7 @@ typedef void (^ChangeFrameBlock)();
 @interface Orders () <UITableViewDataSource,UITableViewDelegate,UIGestureRecognizerDelegate,DressViewDelegate,AreaViewControllerDelegate,UISearchBarDelegate,UISearchDisplayDelegate,OrderCellDelegate,MGSwipeTableCellDelegate,MenuButtonDelegate,QDMenuDelegate,ChooseDayViewControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
-@property (nonatomic,strong) NSMutableArray *InvoicedataArr;
+
 @property (nonatomic,assign) int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL added;
 @property (nonatomic,copy) NSString *totalCount;
@@ -104,6 +105,7 @@ typedef void (^ChangeFrameBlock)();
 @property (nonatomic,strong) UIButton *invoiceBtn;//开发票的button
 
 @property (nonatomic,strong) InvoiceAlertView *invoiceAlert;//提示弹框
+@property (nonatomic) NSInteger FirstOpenNav;
 
 @end
 
@@ -126,9 +128,6 @@ typedef void (^ChangeFrameBlock)();
     self.createDateStart = @"";
     self.createDateEnd = @"";
     
-    // 导航按钮
-    [self customRightBarItem];
-    
     // 刷新控件
     [self iniHeader];
 
@@ -150,13 +149,15 @@ typedef void (^ChangeFrameBlock)();
     
     
     
-    NSUserDefaults *orderGuideDefault = [NSUserDefaults standardUserDefaults];
+    NSUserDefaults *orderGuideDefault = orderGuideDefault = [NSUserDefaults standardUserDefaults];
     NSString *orderGuide = [orderGuideDefault objectForKey:@"orderGuide"];
     NSLog(@"orderGuide = %@", orderGuide);
     if ([orderGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
+        self.FirstOpenNav = 6;
     }
-    //[self Guide];
+    // 导航按钮
+    [self customRightBarItem];
 
     
 }
@@ -270,7 +271,8 @@ typedef void (^ChangeFrameBlock)();
 }
 // 加载可以开发票的数据
 - (void)loadDataSuorceByConditionInvoice
-{   self.isNUll = NO;
+{
+    self.isNUll = NO;
     NSString *first = self.firstValue ? self.firstValue[@"Value"] : @"0";
     NSString *second = self.secondValue ? self.secondValue[@"Value"] : @"";
     NSString *third = self.thirdValue ? self.thirdValue[@"Value"] : @"";
@@ -286,13 +288,12 @@ typedef void (^ChangeFrameBlock)();
                             @"ThirdLevelAreaID":third,
                             @"CreatedDateStart":self.createDateStart,
                             @"CreatedDateEnd":self.createDateEnd,
-                            @"IsRefund":[NSString stringWithFormat:@"%d",self.dressView.IsRefund.on],
+                            @"IsRefund":@"0",
                             @"InvoiceFlag":@"1"};
     [OrderTool getOrderListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
         if (json) {
-            NSLog(@"1------%@",json[@"OrderList"]);
             dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
             dispatch_async(q, ^{
                 if (self.isHeadRefresh) {
@@ -328,29 +329,29 @@ typedef void (^ChangeFrameBlock)();
     self.guideImageView.image = [UIImage imageNamed:@"orderSwipLeftGuide"];
     
     // 这个if是判断小红点的
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
-        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
-        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
-        image.image = [UIImage imageNamed:@"APPsaixuan"];
-        button.tag = 1100;
-        [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
-        _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-        [button addSubview:image];
-        
-        [_barItem.customView addSubview:image];
-    
-        //开发票
-        self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-        self.invoiceBtn.tag = 1200;
-        [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
-        self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
-        [self.invoiceBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
-        self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
-        self.invoiceBtn.imageEdgeInsets = UIEdgeInsetsMake(-3, 47, 0, 0);
-        _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
-        self.navigationItem.rightBarButtonItems = @[_barItem,_barItem2];
+//        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
+//        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
+//        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
+//        image.image = [UIImage imageNamed:@"APPsaixuan"];
+//        button.tag = 1100;
+//        [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
+//        _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
+//        [button addSubview:image];
+//        
+//        [_barItem.customView addSubview:image];
+//        self.navigationItem.rightBarButtonItem = _barItem;
+//        //开发票
+//        self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+//        self.invoiceBtn.tag = 1200;
+//        [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+//        [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
+//        self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
+//        [self.invoiceBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+//        self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+//        [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
+//        self.invoiceBtn.imageEdgeInsets = UIEdgeInsetsMake(-3, 47, 0, 0);
+//        _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
+//        self.navigationItem.leftBarButtonItem = _barItem2;
     
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
@@ -416,19 +417,38 @@ typedef void (^ChangeFrameBlock)();
         [button addSubview:image];
         
         [_barItem.customView addSubview:image];
-        //开发票
-        self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
-        self.invoiceBtn.tag = 1200;
-        [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
-        [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
-        self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
-        
-        self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-        [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
-        _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
-        
-        self.navigationItem.rightBarButtonItems = @[_barItem,_barItem2];
-   
+        self.navigationItem.rightBarButtonItem = _barItem;
+    
+
+        if (self.FirstOpenNav == 6) {// 是否第一次打开app
+            self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
+            self.invoiceBtn.tag = 1200;
+            [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
+            self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
+            [self.invoiceBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
+            self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
+            self.invoiceBtn.imageEdgeInsets = UIEdgeInsetsMake(-3, 47, 0, 0);
+            _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
+            self.navigationItem.leftBarButtonItem = _barItem2;
+
+
+        }else{
+            //开发票
+            self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 50, 30)];
+            self.invoiceBtn.tag = 1200;
+            [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
+            [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
+            self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
+            
+            self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+            [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
+            _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
+            
+            self.navigationItem.leftBarButtonItem = _barItem2;
+
+        }
 }
 
 
@@ -441,7 +461,6 @@ typedef void (^ChangeFrameBlock)();
         tap.delegate = self;
         [cover addGestureRecognizer:tap];
         self.cover = cover;
-        
         // 筛选视图
         [cover addSubview:self.dressView];
         [self.view.window addSubview:cover];
@@ -453,58 +472,50 @@ typedef void (^ChangeFrameBlock)();
 //        MySubscribeController *controller = [[MySubscribeController alloc] init];
 //        [self.navigationController pushViewController:controller animated:YES];
         //下面是跳转的地方
-
-        
-        if (button.selected == YES) {
-            button.selected = NO;
-            
-            [self.tableView setEditing:NO animated:YES];
-            [self.tableView reloadData];
-            if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-                [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+        if (self.invoiceBtn.imageView.image != nil) {
+            NSLog(@"检测到有图片");
+            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+        }
+        if (self.InvoicedataArr.count == 0) {
+            NSLog(@"没有数据");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有可以开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
+            [alert show];
+        }else{
+            if (button.selected == YES) {
+                button.selected = NO;
+                [self.tableView setEditing:NO animated:YES];
+                [self.tableView reloadData];
+                if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+                    [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+                }
+            }else if(button.selected == NO){
+                
+                button.selected = YES;
+                
+                [self.tableView setEditing:YES animated:YES];
+                [self.tableView reloadData];
+                
+                //当界面消失的时候弹出开发票的规则图片
+                [NSString showbackgroundgray];
+                //if (!self.invoiceAlert) {
+                self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+                self.invoiceAlert.tag = 107;
+                self.invoiceAlert.AlertNav = self.navigationController;
+                self.invoiceAlert.viewCont = self;
+                self.invoiceAlert.layer.masksToBounds = YES;
+                self.invoiceAlert.layer.cornerRadius = 6.0;
+                self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+                [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
+                self.invoiceBtn.selected = YES;
+                [self.tableView setEditing:YES animated:YES];
+                //}
+                
             }
-        }else if(button.selected == NO){
-            
-            button.selected = YES;
-            
-            [self.tableView setEditing:YES animated:YES];
-            [self.tableView reloadData];
-
-            //当界面消失的时候弹出开发票的规则图片
-            [NSString showbackgroundgray];
-            //if (!self.invoiceAlert) {
-            self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
-            self.invoiceAlert.tag = 107;
-            self.invoiceAlert.AlertNav = self.navigationController;
-            self.invoiceAlert.viewCont = self;
-            self.invoiceAlert.layer.masksToBounds = YES;
-            self.invoiceAlert.layer.cornerRadius = 6.0;
-            self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
-            [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
-            self.invoiceBtn.selected = YES;
-            [self.tableView setEditing:YES animated:YES];
-            //}
 
         }
-
+       
     }
 }
-/*
- for (NSInteger i = 0; i<3; i++) {
- UIButton * button = [UIButton buttonWithType:UIButtonTypeCustom];
- button.tag = 101+i;
- //
- NSString * string = [NSString stringWithFormat:@"ic_home_business_icon_press%ld",i];
- //            UIButton * button1 = (UIButton*)[self.view viewWithTag:101+i];
- 
- [button setBackgroundImage:[UIImage imageNamed:@"ic_car_default"] forState:UIControlStateNormal];
- [button setBackgroundImage:[UIImage imageNamed:string] forState:UIControlStateSelected];
- //
- button.frame = CGRectMake(with+i*(with+60), kScreenSize.height/5*4+20, 40, 40);
- //        button.backgroundColor = [UIColor blackColor];
- [button addTarget:self action:@selector(btnClick1:) forControlEvents:UIControlEventTouchUpInside];
- [self.view addSubview:button];
- */
 //block改变tableview的frame
 -(void)ChangeFrame{
     
@@ -899,7 +910,7 @@ typedef void (^ChangeFrameBlock)();
     if (tableView.editing == YES) {
         order = self.InvoicedataArr[indexPath.section];
     }else{
-    order = self.dataArr[indexPath.section];
+        order = self.dataArr[indexPath.section];
     }
     // 取出模型
     //order = self.dataArr[indexPath.section];
@@ -911,7 +922,6 @@ typedef void (^ChangeFrameBlock)();
     
     return cell;
 }
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 //    UIButton *invoicebu = (UIButton *)[self.view viewWithTag:1200];
@@ -921,7 +931,7 @@ typedef void (^ChangeFrameBlock)();
     if (self.tableView.editing == YES) {
         OrderModel *order = self.dataArr[indexPath.section];
         [self.invoiceArr addObject:order.OrderId];
-        //[[NSNotificationCenter defaultCenter] postNotificationName:@"getOrderID" object:self.invoiceArr userInfo:nil];
+        [self.InoicelowView reloadLowView:nil];
         NSLog(@"=======%ld",self.invoiceArr.count);
         
     }else if(self.tableView.editing == NO){
@@ -948,8 +958,7 @@ typedef void (^ChangeFrameBlock)();
 {
     OrderModel *order = self.dataArr[indexPath.section];
     [self.invoiceArr removeObject:order.OrderId];
-        //self.returnMyOrderID(self.invoiceArr);
-    //[[NSNotificationCenter defaultCenter] postNotificationName:@"getOrderID" object:self.invoiceArr userInfo:nil];
+     [self.InoicelowView reloadLowView:nil];
     NSLog(@"==%ld",self.invoiceArr.count);
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -1013,7 +1022,24 @@ typedef void (^ChangeFrameBlock)();
 {
     return [NSArray array];
 }
+#warning 此处需要修改   下面两个方法
+-(void)ClickAllBtn{
+    NSLog(@"调用了");
+    if(self.invoiceArr.count < self.InvoicedataArr.count){
+        [self.invoiceArr removeAllObjects];
+        for (NSInteger i = 0; i < self.InvoicedataArr.count;i++) {
+            NSIndexPath *indexPath =[NSIndexPath indexPathForRow:0 inSection:i];
+            OrderModel *order = self.InvoicedataArr[indexPath.section];
+            [self.invoiceArr addObject:order.OrderId];
+            [self.tableView selectRowAtIndexPath:indexPath animated:NO scrollPosition:UITableViewScrollPositionNone];
+        }
 
+    }else{
+        [self.invoiceArr removeAllObjects];
+        [self.tableView reloadData];
+    }
+        [self.InoicelowView reloadLowView:nil];
+}
 #pragma mark - DressViewDelegate
 - (void)wantToPushAreaWithType:(areaType)type
 {
