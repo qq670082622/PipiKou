@@ -18,22 +18,28 @@
 @implementation MoreLvYouGuWenInfoViewController
 - (void)viewDidLoad {
     [super viewDidLoad];
+//    [self setRightBarButton];
     [self loadDataSource];
     self.webView.delegate = self;
     //self.navigationItem.leftBarButtonItem = leftItem;
 }
+
+- (void)setRightBarButton{
+    UIButton * historyBtn = [[UIButton alloc]initWithFrame:CGRectMake(0, 0, 50, 20)];
+    [historyBtn setTitle:@"纪录" forState:UIControlStateNormal];
+    [historyBtn setTitleColor:[UIColor lightTextColor] forState:UIControlStateHighlighted];
+    [historyBtn addTarget:self action:@selector(historyClick) forControlEvents:UIControlEventTouchUpInside];
+    historyBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    UIBarButtonItem * barButton = [[UIBarButtonItem alloc]initWithCustomView:historyBtn];
+    self.navigationItem.rightBarButtonItem = barButton;
+}
+- (void)historyClick{
+    [self.webView stringByEvaluatingJavaScriptFromString:@"ShowHistoryInWebview()"];
+}
 #pragma mark - loadDataSource
 - (void)loadDataSource
 {
-//    [MeHttpTool getMeIndexWithParam:@{} success:^(id json) {
-//        if (json) {
-//            NSLog(@"-----%@",json);
-            [self loadWithUrl:[[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLinkUrl]];
-//            self.linkUrl = json[@"MoneyTreeUrl"];
-//        }
-//    }failure:^(NSError *error){
-//        
-//    }];
+        [self loadWithUrl:[[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLinkUrl]];
 }
 #pragma mark - loadWebView
 - (void)loadWithUrl:(NSString *)url

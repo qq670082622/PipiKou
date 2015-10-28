@@ -202,7 +202,7 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     }else{
         cell.cellState = NormalState;
         if (indexPath.row == 0) {
-            cell.theUserImage.image = [UIImage imageNamed:@""];
+            cell.theUserImage.image = [UIImage imageNamed:@"addPic"];
         }else{
             [cell.theUserImage sd_setImageWithURL:[NSURL URLWithString:self.bigPicUrlArray[indexPath.row-1]]];
             cell.cellPicUrl = self.dataSource[indexPath.row-1];
