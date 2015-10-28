@@ -11,6 +11,8 @@
 @interface ShareView : NSObject
 
 //+(void)shareWithContent:(id)publishContent Flag:(BOOL)flag;
-+(void)shareWithContent:(id)publishContent;
++(void)shareWithContent:(id)publishContent andUrl:(NSString *)url;
 + (void)cancleBtnClick;
+
+
 @end
