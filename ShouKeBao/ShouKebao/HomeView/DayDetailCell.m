@@ -655,7 +655,7 @@
     NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_detail.ShareInfo];
         //构造分享内容
     NSLog(@"%@", tmp);
-    id<ISSContent> publishContent = [ShareSDK content:tmp[@"Desc"]
+    id<ISSContent>publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:tmp[@"Pic"]]
                                                 title:tmp[@"Title"]
