@@ -2484,7 +2484,7 @@
 //        }
 //        [postDic setObject: forKey:@"PageUrl"];
         NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:self.shareInfo];
-
+//        [[[UIAlertView alloc]initWithTitle:tmp[@"Desc"] message:tmp[@"Title"] delegate:nil cancelButtonTitle:tmp[@"Url"] otherButtonTitles:nil, nil]show];
         //构造分享内容
         id<ISSContent>publishContent = [ShareSDK content:tmp[@"Desc"]
                                           defaultContent:tmp[@"Desc"]
@@ -2498,7 +2498,7 @@
         [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
 //        [publishContent addQQSpaceUnitWithTitle:tmp[@"Title"] url:tmp[@"Url"] site:nil fromUrl:<#(NSString *)#> comment:<#(NSString *)#> summary:<#(NSString *)#> image:<#(id<ISSCAttachment>)#> type:<#(NSNumber *)#> playUrl:<#(NSString *)#> nswb:<#(NSNumber *)#>]
         
-        [ShareView shareWithContent:publishContent];
+        [ShareView shareWithContent:publishContent andUrl:tmp[@"Url"]];
     }else if(self.shareFlag == YES){
         [ShareView  cancleBtnClick];
     }

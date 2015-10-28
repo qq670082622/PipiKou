@@ -9,6 +9,10 @@
 #import "ShareView.h"
 #import <QuartzCore/QuartzCore.h>
 #import <ShareSDK/ShareSDK.h>
+#import "MBProgressHUD+MJ.h"
+#import "IWHttpTool.h"
+#import "MobClick.h"
+#import "BaseClickAttribute.h"
 #define kScreenWidth   [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight  [UIScreen mainScreen].bounds.size.height
 #define SYSTEM_VERSION   [[UIDevice currentDevice].systemVersion floatValue]
@@ -18,6 +22,7 @@
 #define KHeight_Scale    [UIScreen mainScreen].bounds.size.height/667.0f
 @implementation ShareView
 static id _publishContent;
+static id _Url;
 static id _blackView;
 static id _shareView;
 static bool _flag;
@@ -30,9 +35,10 @@ static bool _flag;
 }
 
 /*只需要在分享按钮事件中 构建好分享内容publishContent传过来就好了*/
-+(void)shareWithContent:(id)publishContent
++(void)shareWithContent:(id)publishContent andUrl:(NSString *)url
 {
     _publishContent = publishContent;
+    _Url = url;
 //    _flag = flag;
 
 
@@ -186,17 +192,53 @@ static bool _flag;
     /*
      调用shareSDK的无UI分享类型，
      链接地址：http://bbs.mob.com/forum.php?mod=viewthread&tid=110&extra=page%3D1%26filter%3Dtypeid%26typeid%3D34 */
-    [ShareSDK showShareViewWithType:shareType container:nil content:publishContent statusBarTips:YES authOptions:nil shareOptions:nil result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
+    [ShareSDK showShareViewWithType:shareType container:[ShareSDK container] content:publishContent statusBarTips:YES authOptions:nil shareOptions:nil result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
      
         if (state == SSResponseStateSuccess)
         {
-            NSLog(NSLocalizedString(@"TEXT_ShARE_SUC", @"分享成功"));
             
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"RecommendShareSuccess" attributes:dict];
+            [MobClick event:@"ShareSuccessAll" attributes:dict];
+            [MobClick event:@"ShareSuccessAllJS" attributes:dict counter:3];
+            [MobClick event:@"RecommendShareSuccessAll" attributes:dict];
+
+            NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+            [postDic setObject:@"0" forKey:@"ShareType"];
+            [postDic setObject:_Url  forKey:@"ShareUrl"];
+            [postDic setObject:@"" forKey:@"PageUrl"];
+            if (type ==ShareTypeWeixiSession) {
+                [postDic setObject:@"1" forKey:@"ShareWay"];
+            }else if(type == ShareTypeQQ){
+                [postDic setObject:@"2" forKey:@"ShareWay"];
+            }else if(type == ShareTypeQQSpace){
+                [postDic setObject:@"3" forKey:@"ShareWay"];
+            }else if(type == ShareTypeWeixiTimeline){
+                [postDic setObject:@"4" forKey:@"ShareWay"];
+            }
+            NSLog(@"%@", postDic);
+            [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
+            } failure:^(NSError *error) {
+                
+            }];
+
+            NSLog(NSLocalizedString(@"TEXT_ShARE_SUC", @"分享成功"));
+            if (type == ShareTypeCopy) {
+                [MBProgressHUD showSuccess:@"复制成功"];
+            }else{
+                [MBProgressHUD showSuccess:@"分享成功"];
+            }
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+                [MBProgressHUD hideHUD];
+            });
+
         }
         else if (state == SSResponseStateFail)
         {
-            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"未检测到客户端 分享失败" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+            UIAlertView * alert = [[UIAlertView alloc]initWithTitle:@"提示" message:[error errorDescription] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
             [alert show];
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"ShareFailAll" attributes:dict];
             NSLog(NSLocalizedString(@"TEXT_ShARE_FAI", @"分享失败,错误码:%d,错误描述:%@"), [error errorCode], [error errorDescription]);
         }
     }];

@@ -7,10 +7,15 @@
 //
 
 #import "InvoiceLowView.h"
-#import "Orders.h"
+
 @implementation InvoiceLowView
 
-
+-(Orders *)ord{
+    if (_ord == nil) {
+        _ord = (Orders *)self.ViewCont;
+    }
+    return _ord;
+}
 -(OpenInvoiceWebController *)OpenInvoice{
     if (_OpenInvoice == nil) {
         _OpenInvoice = [[OpenInvoiceWebController alloc] init];
@@ -19,14 +24,38 @@
 }
 
 - (IBAction)SelectAllBtn:(UIButton *)sender {
-    
-}
-- (IBAction)InbatchesbBtn:(UIButton *)sender {
-
-    self.OpenInvoice.vvvc = self.ViewCont;
-    [self.LowNav pushViewController:self.OpenInvoice animated:YES];
-    if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-        [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+    //Orders *ord = (Orders *)self.ViewCont;
+    if (self.InvoiceAllBtn) {
+        [sender setImage:[UIImage imageNamed:@"InvoiceClickAll"] forState:UIControlStateNormal];
+        self.InvoiceAllBtn = NO;
+    }else{
+        [sender setImage:[UIImage imageNamed:@"InvoiceAllBtn"] forState:UIControlStateNormal];
+        self.InvoiceAllBtn = YES;
     }
+    [self.ord ClickAllBtn];
 }
+
+- (IBAction)InbatchesbBtn:(UIButton *)sender {
+    if (self.ord.invoiceArr.count == 0) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有选中需要开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
+        [alert show];
+    }else{
+        self.OpenInvoice.vvvc = self.ViewCont;
+        [self.LowNav pushViewController:self.OpenInvoice animated:YES];
+        if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+            [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+        }
+    }
+
+}
+-(void)reloadLowView:(ReloadLowView)reloadView{
+     //Orders *ord = (Orders *)self.ViewCont;
+    if (self.ord.invoiceArr.count < self.ord.InvoicedataArr.count) {
+        [self.ChangeClickAllBtn setImage:[UIImage imageNamed:@"InvoiceAllBtn"] forState:UIControlStateNormal];
+    }else if(self.ord.invoiceArr.count == self.ord.InvoicedataArr.count){
+        [self.ChangeClickAllBtn setImage:[UIImage imageNamed:@"InvoiceClickAll"] forState:UIControlStateNormal];
+    }
+    self.orderNumLabel.text = [NSString stringWithFormat:@"已经选择%ld张订单",self.ord.invoiceArr.count];
+}
+
 @end

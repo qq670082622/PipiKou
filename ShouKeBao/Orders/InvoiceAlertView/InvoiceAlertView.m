@@ -29,10 +29,13 @@
     InvoiceLow.tag = 110;
     InvoiceLow.LowNav = self.AlertNav;
     InvoiceLow.ViewCont = self.viewCont;
+    InvoiceLow.InvoiceAllBtn = YES;
+    InvoiceLow.ord.InoicelowView = InvoiceLow;
+    InvoiceLow.orderNumLabel.text = [NSString stringWithFormat:@"已经选择%ld张订单",InvoiceLow.ord.invoiceArr.count];
 //    InvoiceLow.layer.masksToBounds = YES;
 //    InvoiceLow.layer.cornerRadius = 6.0;
-    Orders *ord = [[Orders alloc] init];
-    [ord ChangeFrame];
+//    Orders *ord = [[Orders alloc] init];
+//    [ord ChangeFrame];
     
     InvoiceLow.frame = CGRectMake(0,kScreenSize.height-89,kScreenSize.width ,40);
     
