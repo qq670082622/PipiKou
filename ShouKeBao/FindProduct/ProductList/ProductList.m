@@ -2500,10 +2500,10 @@
         //构造分享内容
         id<ISSContent>publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
                                           defaultContent:self.shareInfo[@"Desc"]
-                                                   image:self.shareInfo[@"Pic"]
+                                                   image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
                                                    title:self.shareInfo[@"Title"]
                                                      url:self.shareInfo[@"Url"]                                             description:self.shareInfo[@"Desc"]
-                                               mediaType:SSPublishContentMediaTypeText];
+                                               mediaType:SSPublishContentMediaTypeNews];
         
         [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
         NSLog(@"%@444", self.shareInfo);
