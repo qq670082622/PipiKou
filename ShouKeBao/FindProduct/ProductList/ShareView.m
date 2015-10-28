@@ -91,10 +91,10 @@ static bool _flag;
     for (NSInteger i=0; i<6; i++) {
         CGFloat top = 0.0f;
         if (i<3) {
-            top = 15*KHeight_Scale;
+            top = 20*KHeight_Scale;
             
         }else{
-            top = 120*KHeight_Scale;
+            top = 135*KHeight_Scale;
         }
         
         UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(35*KWidth_Scale+(i%3)*100*KWidth_Scale, CGRectGetMidY(contentLabel.frame)+top, 100*KWidth_Scale, 100*KHeight_Scale)];
