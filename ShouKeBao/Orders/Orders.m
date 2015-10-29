@@ -291,25 +291,14 @@ typedef void (^ChangeFrameBlock)();
                             @"IsRefund":@"0",
                             @"InvoiceFlag":@"1"};
     [OrderTool getOrderListWithParam:param success:^(id json) {
-        [self.tableView headerEndRefreshing];
-        [self.tableView footerEndRefreshing];
         if (json) {
-            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
-            dispatch_async(q, ^{
                 if (self.isHeadRefresh) {
                     [self.InvoicedataArr removeAllObjects];
                 }
-                self.totalCount = json[@"TotalCount"];
-                
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.InvoicedataArr addObject:order];
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
-                    self.isSearch = self.searchKeyWord.length;
-                    [self setNullImage];
-                });
-            });
         }
     } failure:^(NSError *error) {
         
