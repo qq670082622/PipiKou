@@ -273,6 +273,7 @@
 		63F7A67C1B15BA7500D8D654 /* music.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 63F7A67B1B15BA7500D8D654 /* music.mp3 */; };
 		791AA5171B7DDBDB007C5C6A /* ProductRecommend.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */; };
 		792482FB1BAFF232005D1801 /* TravelConsultantViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */; };
+		7937DF281BE0FBDF00DC8805 /* InvoiceManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7937DF271BE0FBDF00DC8805 /* InvoiceManageViewController.m */; };
 		793F4C191BBB8374004A0436 /* message.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 793F4C181BBB8374004A0436 /* message.mp3 */; };
 		795C96681B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */; };
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
@@ -902,6 +903,8 @@
 		791AA5161B7DDBDB007C5C6A /* ProductRecommend.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ProductRecommend.storyboard; sourceTree = "<group>"; };
 		792482F91BAFF232005D1801 /* TravelConsultantViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TravelConsultantViewController.h; sourceTree = "<group>"; };
 		792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TravelConsultantViewController.m; sourceTree = "<group>"; };
+		7937DF261BE0FBDF00DC8805 /* InvoiceManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InvoiceManageViewController.h; sourceTree = "<group>"; };
+		7937DF271BE0FBDF00DC8805 /* InvoiceManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InvoiceManageViewController.m; sourceTree = "<group>"; };
 		793F4C181BBB8374004A0436 /* message.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = message.mp3; sourceTree = "<group>"; };
 		795C96661B4E0FA1006F996F /* libUMessage_Sdk_1.1.0.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libUMessage_Sdk_1.1.0.a; sourceTree = "<group>"; };
 		795C96671B4E0FA1006F996F /* UMessage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UMessage.h; sourceTree = "<group>"; };
@@ -2713,6 +2716,8 @@
 				792482FA1BAFF232005D1801 /* TravelConsultantViewController.m */,
 				798F769C1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.h */,
 				798F769D1BD65E2E00457A70 /* TravelConsultantViewControllerNoShare.m */,
+				7937DF261BE0FBDF00DC8805 /* InvoiceManageViewController.h */,
+				7937DF271BE0FBDF00DC8805 /* InvoiceManageViewController.m */,
 				B3C01DF61BAC10FC005E4BB5 /* FeedBcakViewController.h */,
 				B3C01DF71BAC10FC005E4BB5 /* FeedBcakViewController.m */,
 				B3C01DF81BAC10FC005E4BB5 /* InspectionViewController.h */,
@@ -3229,6 +3234,7 @@
 				B3C01E301BAC10FC005E4BB5 /* Trader.m in Sources */,
 				5A076EA31ACD8B270077611C /* ShouKeBao.m in Sources */,
 				5A944D221B00BC780004DE89 /* MLPhotoBrowserAssets.m in Sources */,
+				7937DF281BE0FBDF00DC8805 /* InvoiceManageViewController.m in Sources */,
 				B3B7A67F1BA6A25F0043DF7C /* AddRemindViewController.m in Sources */,
 				632BFFF71AB92A3A003B15AD /* SDWebImageDecoder.m in Sources */,
 				B3B7A66B1BA6A25F0043DF7C /* batchCell.m in Sources */,

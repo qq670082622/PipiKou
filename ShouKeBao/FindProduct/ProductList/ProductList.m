@@ -359,7 +359,7 @@
     CATransition *an1 = [CATransition animation];
     an1.type = @"rippleEffect";
     an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
-    an1.duration = 2;
+    an1.duration = 0.4;
     [self.guideImageView.layer addAnimation:an1 forKey:nil];
     
     if (self.guideIndex == 2) {
@@ -2458,7 +2458,6 @@
         self.shareFlag = !self.shareFlag;
     }
     [self setBtnStateWith:2];
-
     if (self.flag == NO) {
         self.shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-self.gaosimohuView.frame.size.height)];
         _shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
@@ -2482,10 +2481,11 @@
     }
 }
 - (IBAction)sharebutton:(id)sender {
+    [self setBtnStateWith:3];
     if (self.flag) {
         [self close];
+        [self setBtnStateWith:3];
     }
-    [self setBtnStateWith:3];
 
     if (self.shareFlag == NO) {
 //        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
@@ -2512,6 +2512,7 @@
         [ShareView shareWithContent:publishContent andUrl:tmp[@"Url"]];
     }else if(self.shareFlag == YES){
         [ShareView  cancleBtnClick];
+        [self setBtnStateWith:0];
     }
     self.shareFlag = !self.shareFlag;
     

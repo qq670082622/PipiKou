@@ -41,6 +41,7 @@
 #import "UpDateUserPictureViewController.h"
 #import "MoreLvYouGuWenInfoViewController.h"
 #import "MeShareDetailViewController.h"
+#import "InvoiceManageViewController.h"
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -65,7 +66,7 @@
     [super viewDidLoad];
     self.title = @"我";
     self.tableView.rowHeight = 50;
-    self.desArr = @[@[@"我的分享"],@[@"专属App",@"我的旅行社",@"圈付宝",@"摇钱树"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
@@ -97,14 +98,16 @@
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"MeNum" attributes:dict];
-    if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]&&self.tableView) {
+    if (self.tableView) {
         [self.tableView reloadData];
-//        self.tabBarItem.badgeValue = nil;
-        for (UIView * subView in self.tabBarController.tabBar.subviews) {
-            if (subView.tag == 888) {
-                [subView removeFromSuperview];
+        if ([[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindMoneyTree"]&&[[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindInvoiceManage"]) {
+            for (UIView * subView in self.tabBarController.tabBar.subviews) {
+                if (subView.tag == 888) {
+                    [subView removeFromSuperview];
+                }
             }
         }
+//        self.tabBarItem.badgeValue = nil;
     }
 
     
@@ -337,9 +340,9 @@
             cell.imageView.image = [UIImage imageNamed:@"iconfont-fenxiang"];
             break;
         case 1://第二个分区
-            if (indexPath.row == 0) {
+            /*if (indexPath.row == 0) {
                 cell.imageView.image = [UIImage imageNamed:@"lygw"];
-            }else if(indexPath.row == 1){
+            }else */if(indexPath.row == 0){
                 if (self.isPerson) {
                     cell.imageView.image = [UIImage imageNamed:@"wodelvxingshe"];
                 }else{
@@ -347,10 +350,10 @@
                     cell.accessoryType = UITableViewCellAccessoryNone;
                 }
 
-            }else if(indexPath.row == 2){
+            }else if(indexPath.row == 1){
                 cell.imageView.image = [UIImage imageNamed:@"money"];
 
-            }else if(indexPath.row == 3){
+            }else if(indexPath.row == 2){
                 /**
                  * *摇钱树图片设置
                  **/
@@ -361,7 +364,14 @@
                     imgView.image = [UIImage imageNamed:@"yaoqianshu"];
                     [cell.contentView addSubview:imgView];
                 }
- 
+            }else if (indexPath.row == 3){
+                cell.imageView.image = [UIImage imageNamed:@"Mebill"];
+                if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindInvoiceManage"]) {
+                    UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
+                    imgView.image = [UIImage imageNamed:@"yaoqianshu"];
+                    [cell.contentView addSubview:imgView];
+                }
+
             }
             break;
         case 2://第三个分区
@@ -405,9 +415,6 @@
             //h5界面
 //            LvYouGuWenViewController * LYGW = [[LvYouGuWenViewController alloc]init];
 //                           [self.navigationController pushViewController:LYGW animated:YES];
-//            UIStoryboard * SB = [UIStoryboard storyboardWithName:@"Orders" bundle:nil];
-//            UpDateUserPictureViewController * UDUPVC = [SB instantiateViewControllerWithIdentifier:@"UpDateUserPictureVC"];
-//            [self.navigationController pushViewController:UDUPVC animated:YES];
             MeShareDetailViewController *meShareDetailVC = [[MeShareDetailViewController alloc]init];
             [self.navigationController pushViewController:meShareDetailVC animated:YES];
             
@@ -416,7 +423,7 @@
         }
         case 1:
             // 第一组的三个
-           if (indexPath.row == 0) {
+           /*if (indexPath.row == 0) {
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeTravelConsultantVCClick" attributes:dict];
                //原生界面
@@ -424,14 +431,14 @@
 //                [self.navigationController pushViewController:TCVC animated:YES];
                TravelConsultantViewControllerNoShare * TCTVC = [sb instantiateViewControllerWithIdentifier:@"TravelConsultantVCNS"];
                [self.navigationController pushViewController:TCTVC animated:YES];
-           }else if(indexPath.row == 1){
+           }else */if(indexPath.row == 0){
                 MyOrgViewController *myOrg = [sb instantiateViewControllerWithIdentifier:@"MyOrg"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeOrgViewClick" attributes:dict];
                 
                 [self.navigationController pushViewController:myOrg animated:YES];
 
-            }else if(indexPath.row == 2){
+            }else if(indexPath.row == 1){
                 // 圈付宝
                 QuanViewController *quan = [[QuanViewController alloc] init];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -439,13 +446,21 @@
                 
                 [self.navigationController pushViewController:quan animated:YES];
 
-            }else if(indexPath.row == 3){
+            }else if(indexPath.row == 2){
                 MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
                 moneyTreeVC.webTitle = @"摇钱树";
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeMoenyTreeClick" attributes:dict];
                 [self.navigationController pushViewController:moneyTreeVC animated:YES];
+
+            }else if(indexPath.row == 3){
+                InvoiceManageViewController * IMVC = [[InvoiceManageViewController alloc]init];
+                IMVC.webTitle = @"发票管理";
+                BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                [MobClick event:@"MeInvoiceManageClick" attributes:dict];
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindInvoiceManage"];
+                [self.navigationController pushViewController:IMVC animated:YES];
 
             }
             break;
