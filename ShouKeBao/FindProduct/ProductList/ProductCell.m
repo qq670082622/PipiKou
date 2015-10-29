@@ -302,7 +302,7 @@
     
     // ****** 为了使所有的闪电都能右对齐 所以坐标从右算起
     NSString *li = @"利";
-    CGFloat w = [li widthWithsysFont:13];
+    CGFloat w = [li widthWithsysFont:14];
     CGFloat h = [li heigthWithsysFont:13 withWidth:w];
     // 闪电
     CGFloat fW = self.isFlash ? 15 : 0;
