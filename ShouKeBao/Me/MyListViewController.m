@@ -372,6 +372,7 @@
     ProductModal *model = self.dataSource[indexPath.row];
     ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
     detail.produceUrl = model.LinkUrl;
+    detail.shareInfo = model.ShareInfo;
     detail.productName = model.Name;
     if (self.listType == collectionType) {
         detail.fromType = FromStore;
