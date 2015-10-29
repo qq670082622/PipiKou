@@ -29,12 +29,8 @@
     Orders *order = (Orders *)self.viewCont;
     if (order.invoiceArr != nil) {
         for (NSInteger i = 0; i<order.invoiceArr.count; i++) {
-            self.ParameterStr = [self.ParameterStr stringByAppendingString:[NSString stringWithFormat:@"%@,",order.invoiceArr[i]]];
+        [self.ParameterArr addObject:order.invoiceArr[i]];
         }
-    }
-    NSRange range = [self.ParameterStr rangeOfString:@"," options:NSBackwardsSearch];
-    if (range.location != NSNotFound) {
-        self.NewParameterStr = [self.ParameterStr substringWithRange:NSMakeRange(0,range.location)];
     }
     self.view.backgroundColor = [UIColor whiteColor];
 
@@ -48,22 +44,12 @@
     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
-   
-    //下边修改东西
-//    [IWHttpTool postWithURL:@"/Order/GetInvoiceComitInfo" params:dic success:^(id) {
-//        
-//    } failure:^(NSError *) {
-//        
-//    }];
-     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:self.NewParameterStr forKey:@"OrderIds"];
+     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:self.ParameterArr    forKey:@"OrderIds"];
     NSLog(@"----%@",dict);
     [IWHttpTool WMpostWithURL:@"/Order/GetInvoiceComitInfo" params:dict success:^(id json) {
         if (json) {
-            NSLog(@"---%@",json);
             self.NewUrlStr = [NSString stringWithFormat:@"%@%@", json[@"InvoiceComitUrl"],self.urlSuffix2];
             [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.NewUrlStr]]];
-
-            NSLog(@"----%@",self.NewUrlStr);
         }
     } failure:^(NSError *error) {
         NSLog(@"请求失败");
@@ -74,7 +60,6 @@
     [self.view addSubview:_indicator];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor:) name:@"stopIndictor" object:nil];
-
 
     [self.view addSubview:self.webView];
 }
@@ -93,6 +78,10 @@
 -(UIWebView *)webView{
     if (_webView == nil) {
         _webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 0,kScreenSize.width, kScreenSize.height-64)];
+        [self.webView scalesPageToFit];
+        [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
+        [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
+
         _webView.delegate = self;
     }
     return _webView;
@@ -103,11 +92,11 @@
     }
     return _NewUrlStr;
 }
--(NSString *)ParameterStr{
-    if (_ParameterStr == nil) {
-        _ParameterStr = [[NSString alloc] init];
+-(NSMutableArray *)ParameterArr{
+    if (_ParameterArr == nil) {
+        _ParameterArr = [[NSMutableArray alloc] init];
     }
-    return _ParameterStr;
+    return _ParameterArr;
 }
 -(NSString *)NewParameterStr{
     if (_NewParameterStr == nil) {

@@ -308,7 +308,6 @@ typedef void (^ChangeFrameBlock)();
                 dispatch_async(dispatch_get_main_queue(), ^{
                     self.isSearch = self.searchKeyWord.length;
                     [self setNullImage];
-                    [self.tableView reloadData];
                 });
             });
         }
