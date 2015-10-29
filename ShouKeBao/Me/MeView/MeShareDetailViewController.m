@@ -26,7 +26,7 @@
 #define VIEW_height self.view.frame.size.height
 #define gap 10
 #define pageSize 10
-@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, /*UISearchBarDelegate, UISearchDisplayDelegate, */transmitPopKeyWords, backChanpinDetail>
+@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, /*UISearchBarDelegate, UISearchDisplayDelegate, */transmitPopKeyWords, backChanpinDetail, searchBarText>
 
 @property (nonatomic, strong)UITableView *shareTableView;
 @property (nonatomic, strong)NSMutableArray *shareDataArr;
@@ -245,7 +245,11 @@
     
     self.isRefresh = YES;
     self.pageIndex = 1;
+    if (!self.shareDataArr.count) {
+        self.popKeyWords =@"";
+    }
     [self loadSharePageData];
+    
 }
 - (void)foodRefish{
     self.isRefresh = NO;
@@ -320,13 +324,12 @@
     self.chooseView.hidden = YES;
     self.shareFlag = NO;
     meSearchVC.transmitDelegate = self;
+    meSearchVC.searchDelegate = self;
     
     meSearchVC.title = @"产品搜索";
-    if (![self.searchButton.titleLabel.text isEqualToString:[NSString stringWithFormat:@"%@",  searchHistoryPlaceholder]]) {
+    if (![self.popKeyWords isEqualToString:[NSString stringWithFormat:@"%@",  searchHistoryPlaceholder]]) {
         meSearchVC.detail_key = self.popKeyWords;
         NSLog(@"self.searchKKK = %@, %@", self.popKeyWords, meSearchVC.searchBar.placeholder);
-//    }else{
-//        meSearchVC.detail_key = searchHistoryPlaceholder;
     }
     [self.navigationController pushViewController:meSearchVC animated:NO];
     
@@ -352,8 +355,9 @@
     [dic setValue:type forKey:@"SourtType"];
     if (self.popKeyWords.length) {
         [dic setObject:self.popKeyWords forKey:@"SearchKey"];
+    }else{
+        [dic setObject:@" " forKey:@"SearchKey"];
     }
-    [dic setObject:@" " forKey:@"SearchKey"];
     
     [IWHttpTool WMpostWithURL:@"/Product/GetProductShareList" params:dic success:^(id json) {
     NSLog(@"json = %@------------]",json);
@@ -388,6 +392,7 @@
             [self.shareTableView headerEndRefreshing];
             [self.shareTableView footerEndRefreshing];
         }
+        self.popKeyWords = @"";
     } failure:^(NSError *error) {
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
     }];
@@ -396,9 +401,18 @@
 #pragma mark - 搜索界面协议传值方法
 - (void)transmitPopKeyWord:(NSString *)keyWords{
     self.popKeyWords = keyWords;
+    NSLog(@",,,,,,, key = %@ %@", keyWords, self.popKeyWords);
     [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
     [self loadSharePageData];
 }
+- (void)searchBarText:(NSString *)text{
+    self.popKeyWords = text;
+    NSLog(@"text = %@", self.popKeyWords);
+    [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
+    [self loadSharePageData];
+}
+
+
 
 #pragma mark - 排序方法
 - (void)timeOrderAction{

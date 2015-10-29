@@ -8,6 +8,10 @@
 
 #import "SKViewController.h"
 
+@protocol changrightBarButtonItem <NSObject>
+- (void)changrightBarButtonItemTitle;
+@end
+
 @interface QRHistoryTableViewController : SKViewController
 @property (strong, nonatomic) IBOutlet UITableView *table;
 @property (nonatomic,strong) NSMutableArray *dataArr;
@@ -15,6 +19,8 @@
 @property(nonatomic,assign) BOOL isLogin;
 @property (weak, nonatomic) IBOutlet UIView *subView;
 @property (nonatomic,assign) BOOL isEditing;
+
+@property (nonatomic, strong)id<changrightBarButtonItem>delegate;
 
 
 -(void)editHistoryDetail;

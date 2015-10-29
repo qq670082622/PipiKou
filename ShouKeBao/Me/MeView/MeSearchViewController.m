@@ -150,11 +150,12 @@
     [searchBar resignFirstResponder];
     [searchBar setShowsCancelButton:NO animated:YES];
     [self saveHistorySearchKey];
-//    [self.navigationController popViewControllerAnimated:NO];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    if (self.searchBar.text.length|| [self.searchBar.text isEqualToString:@" "]) {
+    if (searchBar.text.length|| [searchBar.text isEqualToString:@" "]){
+        [self.searchDelegate searchBarText:searchBar.text];
+//        [self.searchDelegate transmitPopKeyWord:searchBar.text];
         [self.navigationController popViewControllerAnimated:YES];
     }
 }
@@ -171,13 +172,11 @@
     // 并保存
         [WriteFileManager saveFileWithArray:tmp Name:@"MeShareSearch"];
     }
-   
-    
    }
-- (void)MeShareSearch:(NSNotification *)noty
-{
+#pragma mark - 点击搜索历史纪录调用的方法
+- (void)MeShareSearch:(NSNotification *)noty{
     self.searchBar.text = noty.userInfo[@"searchKey"];
-//    [self.transmitDelegate transmitPopKeyWord:self.searchBar.text];
+    [self.searchDelegate transmitPopKeyWord:self.searchBar.text];
     [self.navigationController popViewControllerAnimated:NO];
 }
 
@@ -193,7 +192,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
-    [self.transmitDelegate transmitPopKeyWord:self.searchBar.text];
 }
 
 

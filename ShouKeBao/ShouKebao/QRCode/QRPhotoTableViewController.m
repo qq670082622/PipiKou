@@ -218,6 +218,9 @@
     }
     [self.IDVC editCustomerDetail];
     self.PhotoFlag = NO;
+        
+        
+        
     [self.editArr removeAllObjects];
     [self.collectionV reloadData];
     [MBProgressHUD showSuccess:@"操作成功"];
@@ -289,7 +292,7 @@
     }];
 }
 
-
+#pragma mark - 数据加载
 - (void)loadData{
 //    if (!_isLogin) {  //注record是未登录时的识别纪录，而record2是未登录时添加的客户
 //        
@@ -306,6 +309,7 @@
 //    }else if (_isLogin){
     
     NSLog(@"page = %d", self.pageIndex);
+    
     NSString *pageNum = [NSString stringWithFormat:@"%d", self.pageIndex];
         [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"2",@"PageIndex":pageNum,@"PageSize":@"40"}  success:^(id json) {
       
@@ -313,15 +317,23 @@
                 [self.dataArr removeAllObjects];
                 [self.editArr removeAllObjects];
             }
+            
             NSLog(@"json =  %@", json);
+            
             self.totalNumber = json[@"TotalCount"];
+            
+            NSLog(@",,,,, total = %@", json[@"TotalCount"]);
+//            NSMutableArray *arr = [NSMutableArray array];
+            
             for (NSDictionary *dic in json[@"CredentialsPicRecordList"]) {
                 personIdModel *model = [personIdModel modelWithDict:dic];
-                if (![model.PicUrl isEqualToString:@""]) {
-                    [self.dataArr addObject:model];
-
-                }
+//                if (![model.PicUrl isEqualToString:@""]) {
+                
+//                 [arr addObject:model];
+                  self.dataArr = model;
+//                }
             }
+              NSLog(@"self.dataArr.count = %d", self.dataArr.count);
             [self ifArrIsNull:_dataArr];
             [self.collectionV reloadData];
             [self.collectionV headerEndRefreshing];

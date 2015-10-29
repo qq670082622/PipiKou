@@ -419,7 +419,8 @@
         } failure:^(NSError *error) {
             NSLog(@"批量删除客户失败，返回error is %@",error);
         }];
-        
+        [self refresh];
+        [self.table reloadData];
         
     }else if (!_isLogin){
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]] ;
@@ -428,22 +429,16 @@
         }
         [WriteFileManager saveData:arr name:@"record"];
     }
-    
-//        self.idenVC.historyFlag = 1;
-       
-       
-        self.idenVC.control.selectedSegmentIndex = 1;
-        self.idenVC.historyFlag = 1;
         
-        [self.idenVC editCustomerDetail];
+//        self.idenVC.control.selectedSegmentIndex = 1;
+//        self.idenVC.historyFlag = 0;
+//        [self.idenVC editCustomerDetail];
         
-//        self.isEditing = 1;
-//        [self editHistoryDetail];
-        
-        [self loadDataSource];
-        [self refresh];
+        [self editHistoryDetail];
+        [self.delegate changrightBarButtonItemTitle];
        [MBProgressHUD showSuccess:@"操作成功"];
         
+       
         
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
 //        [MBProgressHUD hideHUD];
@@ -453,17 +448,17 @@
 
     }
     
-    
 }
 
 - (IBAction)saveButton:(id)sender {
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
-      [self.idenVC editCustomerDetail];
+//      [self.idenVC editCustomerDetail];
+       
         self.isEditing = 1;
-//        self.idenVC.PhotoFlag = 1;
-//        [self.idenVC change];
+        [self.delegate changrightBarButtonItemTitle];
+        
         [self editHistoryDetail];
         [self saveAfterWith];
 
