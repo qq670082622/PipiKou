@@ -9,8 +9,8 @@
 #import "SKViewController.h"
 #import "SKSearchBar.h"
 //协议传值
-@protocol transmitPopKeyWords <NSObject>
-@end
+//@protocol transmitPopKeyWords <NSObject>
+//@end
 
 @protocol searchBarText <NSObject>
 - (void)searchBarText:(NSString *)text;
@@ -26,7 +26,7 @@
 @property (nonatomic,strong) SKSearchBar *searchBar;
 @property (nonatomic, strong)UITextField *inputSearchView;
 
-@property(nonatomic, weak)id<transmitPopKeyWords>transmitDelegate;
+//@property(nonatomic, weak)id<transmitPopKeyWords>transmitDelegate;
 @property(nonatomic, weak)id<backChanpinDetail>delegate;
 @property(nonatomic, weak)id<searchBarText>searchDelegate;
 

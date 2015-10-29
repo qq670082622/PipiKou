@@ -26,7 +26,7 @@
 #define VIEW_height self.view.frame.size.height
 #define gap 10
 #define pageSize 10
-@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, /*UISearchBarDelegate, UISearchDisplayDelegate, */transmitPopKeyWords, backChanpinDetail, searchBarText>
+@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, /*UISearchBarDelegate, UISearchDisplayDelegate, *//*transmitPopKeyWords,*/ backChanpinDetail, searchBarText>
 
 @property (nonatomic, strong)UITableView *shareTableView;
 @property (nonatomic, strong)NSMutableArray *shareDataArr;
@@ -314,7 +314,7 @@
     MeSearchViewController *meSearchVC = [[MeSearchViewController alloc]init];
     self.chooseView.hidden = YES;
     self.shareFlag = NO;
-    meSearchVC.transmitDelegate = self;
+//    meSearchVC.transmitDelegate = self;
     meSearchVC.searchDelegate = self;
     
     meSearchVC.title = @"产品搜索";
@@ -386,6 +386,7 @@
     [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
      NSLog(@"///////11   %@", self.searchButton.titleLabel.text);
 }
+
 - (void)searchBarText:(NSString *)text{
     self.popKeyWords = text;
     NSLog(@"text = %@", self.popKeyWords);

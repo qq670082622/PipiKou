@@ -21,6 +21,7 @@
 @property (nonatomic,strong)UIView *suLine;
 @property (nonatomic, strong)UIButton *imageAndTitle;
 
+@property (nonatomic, assign)BOOL tellFlage;
 
 @end
 
@@ -80,7 +81,7 @@
             NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"🔍搜索"];
             NSMutableDictionary *muta = [NSMutableDictionary dictionary];
             [muta setObject:[UIColor grayColor] forKey:NSForegroundColorAttributeName];
-            [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
+            [muta setObject:[UIFont systemFontOfSize:11] forKey:NSFontAttributeName];
             [attr addAttributes:muta range:NSMakeRange(0, 4)];
             [findButton setAttributedTitle:attr forState:UIControlStateNormal];
 //            [findButton setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
@@ -102,29 +103,37 @@
     if (self.searchK.length || self.detail_key.length) {
         [searchBar endEditing:YES];
         [self saveHistorySearchKey];
+//        self.tellFlage = YES;
     }
 }
 
 - (void)searchBarCancelButtonClicked:(UISearchBar *)searchBar{
+    self.tellFlage = YES;
     [searchBar resignFirstResponder];
-    [searchBar setShowsCancelButton:NO animated:YES];
+    [searchBar setShowsCancelButton:YES animated:YES];
     [self saveHistorySearchKey];
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar{
-    if (searchBar.text.length|| [searchBar.text isEqualToString:@" "]){
-        [self.searchDelegate searchBarText:searchBar.text];
-        [self.navigationController popViewControllerAnimated:YES];
+    if (self.tellFlage == NO) {
+        self.tellFlage = YES;
+    }else {
+        if (searchBar.text.length || [searchBar.text isEqualToString:@" "]){
+            [self.searchDelegate searchBarText:searchBar.text];
+            [self.navigationController popViewControllerAnimated:NO];
+        }
     }
 }
 
 #pragma mark - 通知。历史纪录调用的方法
 - (void)MeShareSearch:(NSNotification *)noty{
-    self.searchBar.text = noty.userInfo[@"searchKey"];
-    NSLog(@"search ＝ ＝＝＝ %@", noty.userInfo[@"searchKey"]);
-    
-    [self.searchDelegate transmitPopKeyWord:noty.userInfo[@"searchKey"]];
-    [self.navigationController popViewControllerAnimated:NO];
+    NSLog(@"self.tellFlage = %d", self.tellFlage);
+//    if (self.tellFlage == NO) {
+        self.searchBar.text = noty.userInfo[@"searchKey"];
+        NSLog(@"search ＝ ＝＝＝ %@", noty.userInfo[@"searchKey"]);
+        [self.searchDelegate transmitPopKeyWord:noty.userInfo[@"searchKey"]];
+        [self.navigationController popViewControllerAnimated:NO];
+//    }
 }
 
 #pragma mark - 记录数据本地获取
@@ -145,6 +154,7 @@
 - (void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
 }
+
 
 
 - (void)didReceiveMemoryWarning {
