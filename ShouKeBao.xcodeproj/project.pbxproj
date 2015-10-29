@@ -322,6 +322,7 @@
 		845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514E81ABFFAD900D588A7 /* SKTableViewController.m */; };
 		845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514EB1ABFFAFB00D588A7 /* SKViewController.m */; };
 		845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514FA1AC032C000D588A7 /* WriteFileManager.m */; };
+		B325F7DE1BE24A6A00124271 /* MeTextFieldSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B325F7DD1BE24A6A00124271 /* MeTextFieldSearchViewController.m */; };
 		B36E572B1B74C0D000471AAC /* ConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E57191B74C0D000471AAC /* ConditionModel.m */; };
 		B36E572C1B74C0D000471AAC /* ConditionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E571B1B74C0D000471AAC /* ConditionSelectViewController.m */; };
 		B36E572D1B74C0D000471AAC /* ConditionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E571C1B74C0D000471AAC /* ConditionSelectViewController.xib */; };
@@ -998,6 +999,8 @@
 		845514EB1ABFFAFB00D588A7 /* SKViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKViewController.m; sourceTree = "<group>"; };
 		845514F91AC032C000D588A7 /* WriteFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WriteFileManager.h; sourceTree = "<group>"; };
 		845514FA1AC032C000D588A7 /* WriteFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteFileManager.m; sourceTree = "<group>"; };
+		B325F7DC1BE24A6A00124271 /* MeTextFieldSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeTextFieldSearchViewController.h; path = MeView/MeTextFieldSearchViewController.h; sourceTree = "<group>"; };
+		B325F7DD1BE24A6A00124271 /* MeTextFieldSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeTextFieldSearchViewController.m; path = MeView/MeTextFieldSearchViewController.m; sourceTree = "<group>"; };
 		B36E57181B74C0D000471AAC /* ConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionModel.h; sourceTree = "<group>"; };
 		B36E57191B74C0D000471AAC /* ConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionModel.m; sourceTree = "<group>"; };
 		B36E571A1B74C0D000471AAC /* ConditionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionSelectViewController.h; sourceTree = "<group>"; };
@@ -2728,6 +2731,8 @@
 				B3BC33911BD8D9C600C61D83 /* MeShareChooseViewController.m */,
 				B3BC33961BD9031F00C61D83 /* MeSearchViewController.h */,
 				B3BC33971BD9031F00C61D83 /* MeSearchViewController.m */,
+				B325F7DC1BE24A6A00124271 /* MeTextFieldSearchViewController.h */,
+				B325F7DD1BE24A6A00124271 /* MeTextFieldSearchViewController.m */,
 			);
 			path = Me;
 			sourceTree = "<group>";
@@ -3274,6 +3279,7 @@
 				633263DB1AB851590021553B /* IWHttpTool.m in Sources */,
 				B3BC33981BD9031F00C61D83 /* MeSearchViewController.m in Sources */,
 				5ABA4F5B1AD7A908004AA8F6 /* RecommendViewController.m in Sources */,
+				B325F7DE1BE24A6A00124271 /* MeTextFieldSearchViewController.m in Sources */,
 				79FC19731BD8E4C600811E32 /* CustomerIdsModel.m in Sources */,
 				5AED0A161ADB604C00B0E0E5 /* DayDetail.m in Sources */,
 				527D07C01BD5F39A00CA6C39 /* OrderinformationCell.m in Sources */,

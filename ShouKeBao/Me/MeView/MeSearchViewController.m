@@ -78,11 +78,11 @@
         
         if ([searchbuttons isKindOfClass:[UIButton class]]){
             UIButton *findButton = (UIButton *)searchbuttons;
-            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"🔍搜索"];
+            NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:@"搜索"];
             NSMutableDictionary *muta = [NSMutableDictionary dictionary];
             [muta setObject:[UIColor grayColor] forKey:NSForegroundColorAttributeName];
-            [muta setObject:[UIFont systemFontOfSize:11] forKey:NSFontAttributeName];
-            [attr addAttributes:muta range:NSMakeRange(0, 4)];
+            [muta setObject:[UIFont systemFontOfSize:13] forKey:NSFontAttributeName];
+            [attr addAttributes:muta range:NSMakeRange(0, 2)];
             [findButton setAttributedTitle:attr forState:UIControlStateNormal];
 //            [findButton setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
             break;
@@ -103,7 +103,8 @@
     if (self.searchK.length || self.detail_key.length) {
         [searchBar endEditing:YES];
         [self saveHistorySearchKey];
-//        self.tellFlage = YES;
+//        设置为yes 目的是为了让它走下面的searchbar里面的代理方法
+        self.tellFlage = YES;
     }
 }
 

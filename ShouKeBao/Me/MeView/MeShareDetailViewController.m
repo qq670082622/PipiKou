@@ -19,14 +19,14 @@
 #import "MJRefresh.h"
 #import "ButtonAndImageView.h"
 #import "ProduceDetailViewController.h"
-
+#import "MeTextFieldSearchViewController.h"
 
 #define searchHistoryPlaceholder @"订单号/产品名称/供应商名称"
 #define VIEW_width self.view.frame.size.width
 #define VIEW_height self.view.frame.size.height
 #define gap 10
 #define pageSize 10
-@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, /*UISearchBarDelegate, UISearchDisplayDelegate, *//*transmitPopKeyWords,*/ backChanpinDetail, searchBarText>
+@interface MeShareDetailViewController ()<UITableViewDataSource, UITableViewDelegate, /*UISearchBarDelegate, UISearchDisplayDelegate, *//*transmitPopKeyWords,*/ backChanpinDetail, searchBarText, searchBarTexts>
 
 @property (nonatomic, strong)UITableView *shareTableView;
 @property (nonatomic, strong)NSMutableArray *shareDataArr;
@@ -311,7 +311,7 @@
 
 #pragma mark - 点击搜索到搜索界面
 - (void)searchButtonAction:(UIButton *)button{
-    MeSearchViewController *meSearchVC = [[MeSearchViewController alloc]init];
+    MeTextFieldSearchViewController *meSearchVC = [[MeTextFieldSearchViewController alloc]init];
     self.chooseView.hidden = YES;
     self.shareFlag = NO;
 //    meSearchVC.transmitDelegate = self;
@@ -320,8 +320,10 @@
     meSearchVC.title = @"产品搜索";
     if (![self.popKeyWords isEqualToString:[NSString stringWithFormat:@"%@",  searchHistoryPlaceholder]]) {
         meSearchVC.detail_key = self.popKeyWords;
-        NSLog(@"self.searchKKK = %@, %@", self.popKeyWords, meSearchVC.searchBar.placeholder);
+      
     }
+    
+    
     [self.navigationController pushViewController:meSearchVC animated:NO];
 }
 #pragma mark -筛选按钮
