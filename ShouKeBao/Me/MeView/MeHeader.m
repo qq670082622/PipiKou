@@ -23,11 +23,18 @@
         headIcon.contentMode = UIViewContentModeScaleAspectFill;
         [self addSubview:headIcon];
         self.headIcon = headIcon;
-        
+        UILabel *lable = [[UILabel alloc]init];
+        lable.textAlignment = NSTextAlignmentCenter;
+        lable.textColor = [UIColor colorWithRed:99/255.0 green:33/255.0 blue:0/255.0 alpha:1.0];
+#warning 设置顾问字体
+        lable.font = [UIFont fontWithName:@"Helvetica" size:14];
+        NSLog(@"%@", [UIFont familyNames]);
+        self.levelName = lable;
         UIImageView * levelIcon = [[UIImageView alloc]init];
         [self addSubview:levelIcon];
         self.levelIcon = levelIcon;
 
+        [self.levelIcon addSubview:self.levelName];
         
         UILabel *nickName = [[UILabel alloc] init];
         nickName.textAlignment = NSTextAlignmentCenter;
@@ -86,8 +93,7 @@
     if (self.isPerson) {
         self.headIcon.frame = CGRectMake(20, 60, headW, 100);
         self.levelIcon.frame = CGRectMake(20, 140, 100, 20);
-        self.levelIcon.backgroundColor = [UIColor redColor];
-        
+        self.levelName.frame = CGRectMake(20, 0, 70, 20);
         
         CGFloat nameY = CGRectGetMinY(self.headIcon.frame) + 8;
         CGFloat nameX = CGRectGetMaxX(self.headIcon.frame) + 13;

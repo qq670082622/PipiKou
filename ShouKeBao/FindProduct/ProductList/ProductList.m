@@ -114,6 +114,8 @@
 //产品筛选
 @property (weak, nonatomic) IBOutlet UIButton *chooseButton;
 //筛选界面 的滑轮数据
+@property (strong, nonatomic) IBOutlet UIButton *paixuBtn;
+@property (strong, nonatomic) IBOutlet UIButton *shareBtn;
 @property (nonatomic)NSDictionary *siftDic;
 
 //产品筛选
@@ -124,6 +126,8 @@
 - (IBAction)listButton:(id)sender;
 //产品分享
 - (IBAction)sharebutton:(id)sender;
+
+
 @property (copy, nonatomic)NSArray *listArray;
 @property (strong, nonatomic) UIView *shadeView;
 @property (nonatomic, assign)BOOL flag;
@@ -355,7 +359,7 @@
     CATransition *an1 = [CATransition animation];
     an1.type = @"rippleEffect";
     an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
-    an1.duration = 2;
+    an1.duration = 0.4;
     [self.guideImageView.layer addAnimation:an1 forKey:nil];
     
     if (self.guideIndex == 2) {
@@ -727,6 +731,8 @@
     if (self.flag ) {
         [self close];
     }
+    [self setBtnStateWith:1];
+
     if (self.shareFlag) {
         [ShareView cancleBtnClick];
         self.shareFlag = !self.shareFlag;
@@ -742,6 +748,7 @@
         }
         ShaiXuan.siftHLDic = self.siftDic;
         [self presentViewController:nav animated:YES completion:nil];
+        [self setBtnStateWith:0];
     }else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"当前没有可供筛选的条件" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
         [alert show];
@@ -2450,6 +2457,7 @@
         [ShareView cancleBtnClick];
         self.shareFlag = !self.shareFlag;
     }
+    [self setBtnStateWith:2];
     if (self.flag == NO) {
         self.shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-self.gaosimohuView.frame.size.height)];
         _shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
@@ -2473,9 +2481,12 @@
     }
 }
 - (IBAction)sharebutton:(id)sender {
+    [self setBtnStateWith:3];
     if (self.flag) {
         [self close];
+        [self setBtnStateWith:3];
     }
+
     if (self.shareFlag == NO) {
 //        NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
 //        [postDic setObject:@"0" forKey:@"ShareType"];
@@ -2501,6 +2512,7 @@
         [ShareView shareWithContent:publishContent andUrl:tmp[@"Url"]];
     }else if(self.shareFlag == YES){
         [ShareView  cancleBtnClick];
+        [self setBtnStateWith:0];
     }
     self.shareFlag = !self.shareFlag;
     
@@ -2513,7 +2525,29 @@
     [self close];
     
 }
+
+- (void)setBtnStateWith:(int)num
+{
+    if (num == 1) {
+        self.chooseButton.selected = YES;
+        self.paixuBtn.selected = NO;
+        self.shareBtn.selected = NO;
+    }else if (num == 2){
+        self.chooseButton.selected = NO;
+        self.paixuBtn.selected = YES;
+        self.shareBtn.selected = NO;
+    }else if (num == 3){
+        self.chooseButton.selected = NO;
+        self.paixuBtn.selected = NO;
+        self.shareBtn.selected = YES;
+    }else if (num == 0){
+        self.chooseButton.selected = NO;
+        self.paixuBtn.selected = NO;
+        self.shareBtn.selected = NO;
+    }
+}
 - (void)close{
+    [self setBtnStateWith:0];
     //    在移除shadow之前 把需要的东西转移加到另一个view上
     [self.view addSubview:_listTableView];
     [self.shadeView removeFromSuperview];
