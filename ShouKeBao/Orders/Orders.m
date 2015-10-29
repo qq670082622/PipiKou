@@ -78,7 +78,7 @@ typedef void (^ChangeFrameBlock)();
 @property (nonatomic,assign) NSInteger thirdIndex;
 
 @property (nonatomic,strong) UITableView *tableView;
-
+@property (nonatomic, assign)BOOL isReloadMainTabaleView;
 @property (nonatomic,strong) DressView *dressView;
 @property (nonatomic,weak) UIView *cover;
 @property (nonatomic, assign)BOOL isNUll;
@@ -226,6 +226,7 @@ typedef void (^ChangeFrameBlock)();
 // 根据条件加载数据
 - (void)loadDataSuorceByCondition
 {   self.isNUll = NO;
+    self.isReloadMainTabaleView = NO;
     NSString *first = self.firstValue ? self.firstValue[@"Value"] : @"0";
     NSString *second = self.secondValue ? self.secondValue[@"Value"] : @"";
     NSString *third = self.thirdValue ? self.thirdValue[@"Value"] : @"";
@@ -245,10 +246,9 @@ typedef void (^ChangeFrameBlock)();
     [OrderTool getOrderListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
+        self.isReloadMainTabaleView = YES;
         if (json) {
             NSLog(@"1------%@",json[@"OrderList"]);
-            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
-            dispatch_async(q, ^{
                 if (self.isHeadRefresh) {
                     [self.dataArr removeAllObjects];
                 }
@@ -258,12 +258,9 @@ typedef void (^ChangeFrameBlock)();
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.dataArr addObject:order];
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
                     self.isSearch = self.searchKeyWord.length;
                     [self setNullImage];
                     [self.tableView reloadData];
-                });
-            });
         }
     } failure:^(NSError *error) {
         
@@ -541,7 +538,9 @@ typedef void (^ChangeFrameBlock)();
     if (self.invoiceBtn.selected == YES) {
         self.invoiceBtn.selected = NO;
         [self.tableView setEditing:NO animated:YES];
-        [self.tableView reloadData];
+        if (self.isReloadMainTabaleView) {
+            [self.tableView reloadData];
+        }
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
             [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
         }
@@ -561,7 +560,9 @@ typedef void (^ChangeFrameBlock)();
         
         
         [self.tableView setEditing:YES animated:YES];
-        [self.tableView reloadData];
+        if (self.isReloadMainTabaleView) {
+            [self.tableView reloadData];
+        }
         
     }
 
