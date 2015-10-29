@@ -430,7 +430,6 @@ typedef void (^ChangeFrameBlock)();
             [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
             [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
             self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, 0, 0, 0);
-            
             self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
             [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
             _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
@@ -468,45 +467,106 @@ typedef void (^ChangeFrameBlock)();
         }
         if (self.InvoicedataArr.count == 0) {
             NSLog(@"没有数据");
+            self.invoiceBtn.selected = NO;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有可以开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
             [alert show];
         }else{
-            if (button.selected == YES) {
-                button.selected = NO;
-                [self.tableView setEditing:NO animated:YES];
-                [self.tableView reloadData];
-                if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-                    [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
-                }
-            }else if(button.selected == NO){
-                
-                button.selected = YES;
-                
-                [self.tableView setEditing:YES animated:YES];
-                [self.tableView reloadData];
-//                UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可针对回团30天内已完成及已付款的单团订单（包含退款、投诉完成的订单）提交开票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
-//                [alertvie show];
-//                //当界面消失的时候弹出开发票的规则图片
-                [NSString showbackgroundgray];
-                //if (!self.invoiceAlert) {
-                self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
-                self.invoiceAlert.tag = 107;
-                self.invoiceAlert.AlertNav = self.navigationController;
-                self.invoiceAlert.viewCont = self;
-                self.invoiceAlert.layer.masksToBounds = YES;
-                self.invoiceAlert.layer.cornerRadius = 6.0;
-                self.invoiceAlert.frame = CGRectMake(20,kScreenSize.height/4,kScreenSize.width-40 ,150);
-                [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
-                self.invoiceBtn.selected = YES;
-                [self.tableView setEditing:YES animated:YES];
-                //}
-                
-            }
+            /*
+             NSUserDefaults *orderGuideDefault = orderGuideDefault = [NSUserDefaults standardUserDefaults];
+             NSString *orderGuide = [orderGuideDefault objectForKey:@"orderGuide"];
+             NSLog(@"orderGuide = %@", orderGuide);
+             if ([orderGuide integerValue] != 1) {// 是否第一次打开app
 
+             */
+//            if (button.selected == YES) {
+//                button.selected = NO;
+//                [self.tableView setEditing:NO animated:YES];
+//                [self.tableView reloadData];
+//                if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+//                    [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+//                }
+//            }else if(button.selected == NO){
+//                
+//                button.selected = YES;
+//                
+//                [self.tableView setEditing:YES animated:YES];
+//                [self.tableView reloadData];
+            NSUserDefaults *showAlert = [NSUserDefaults standardUserDefaults];
+            NSString *orderGuide = [showAlert objectForKey:@"goAlertView"];
+            if ([orderGuide integerValue] == 1) {
+                [self notgoAlert];
+            }else{
+                UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可针对回团30天内已完成及已付款的单团订单（包含退款、投诉完成的订单）提交开票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
+                [alertvie show];
+            }
+            
+//                //当界面消失的时候弹出开发票的规则图片
+//                [NSString showbackgroundgray];
+//                //if (!self.invoiceAlert) {
+//                self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
+//                self.invoiceAlert.tag = 107;
+//                self.invoiceAlert.AlertNav = self.navigationController;
+//                self.invoiceAlert.viewCont = self;
+//                self.invoiceAlert.layer.masksToBounds = YES;
+//                self.invoiceAlert.layer.cornerRadius = 6.0;
+//                self.invoiceAlert.frame = CGRectMake(20,kScreenSize.height/4,kScreenSize.width-40 ,150);
+//                [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
+//                self.invoiceBtn.selected = YES;
+//                [self.tableView setEditing:YES animated:YES];
+//                //}
+//                
+//            }
+//
         }
        
     }
 }
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    NSLog(@"调用了");
+//    UIButton *myBtn = (UIButton *)[self.view viewWithTag:1200];
+    if (buttonIndex == 0) {
+        NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+        [guideDefault setObject:@"1" forKey:@"goAlertView"];
+        [guideDefault synchronize];
+
+        [self notgoAlert];
+
+    }else{
+        NSLog(@"直接取消");
+        [self notgoAlert];
+    }
+}
+//不需要走警告框调用的方法
+-(void)notgoAlert{
+    if (self.invoiceBtn.selected == YES) {
+        self.invoiceBtn.selected = NO;
+        [self.tableView setEditing:NO animated:YES];
+        [self.tableView reloadData];
+        if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
+            [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+        }
+    }else if(self.invoiceBtn.selected == NO){
+        self.invoiceBtn.selected = YES;
+        InvoiceLowView *InvoiceLow = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceLowView" owner:self options:nil] lastObject];
+        InvoiceLow.tag = 110;
+        InvoiceLow.LowNav = self.navigationController;
+        InvoiceLow.ViewCont = self;
+        InvoiceLow.InvoiceAllBtn = YES;
+        InvoiceLow.ord.InoicelowView = InvoiceLow;
+        InvoiceLow.orderNumLabel.text = [NSString stringWithFormat:@"已经选择%ld张订单",InvoiceLow.ord.invoiceArr.count];
+        InvoiceLow.frame = CGRectMake(0,kScreenSize.height-89,kScreenSize.width ,40);
+        
+        [[[UIApplication sharedApplication].delegate window] addSubview:InvoiceLow];
+        
+        
+        
+        [self.tableView setEditing:YES animated:YES];
+        [self.tableView reloadData];
+        
+    }
+
+}
+
 //block改变tableview的frame
 -(void)ChangeFrame{
     
@@ -883,7 +943,11 @@ typedef void (^ChangeFrameBlock)();
 #pragma mark - UITableViewDataSource,UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return self.dataArr.count;
+    if (tableView.editing == YES) {
+        return self.InvoicedataArr.count;
+    }else{
+        return self.dataArr.count;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
