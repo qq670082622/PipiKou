@@ -100,8 +100,10 @@
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    [self.inputTextView becomeFirstResponder];
+//    [self.inputTextView becomeFirstResponder];
+    [self saveHistorySearchKey];
     [self.searchDelegate searchBarText:self.inputTextView.text];
+    
     [self.navigationController popViewControllerAnimated:NO];
   
     return YES;
