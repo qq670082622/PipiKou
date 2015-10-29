@@ -117,10 +117,10 @@
 }
 - (void)refrashHeader{
     _meheader.nickName.text = [UserInfo shareUser].userName;
-    [MeHttpTool getBusinessWithsuccess:^(id json) {
+    [MeHttpTool getDistributionWithsuccess:^(id json) {
         if (![json[@"Busienss"] isKindOfClass:[NSNull class]]) {
             NSLog(@"-----%@",json);
-            NSDictionary *dic = json[@"Busienss"];
+            NSDictionary *dic = json[@"Distribution"];
             NSMutableDictionary *muta = dic.mutableCopy;
             NSArray *array = [dic allKeys];
             for (NSString *key in array) {
@@ -128,11 +128,12 @@
                     [muta setValue:@"" forKey:key];
                 }
             }
+            [self setHeaderWith:muta[@"ConsultantLevel"]];
+            [[NSUserDefaults standardUserDefaults]setObject:muta[@"ConsultantLevel"] forKey:UserInfoKeyLYGWLevel];
         }
     } failure:^(NSError *error) {
         
     }];
-    
 }
 - (void)setHeaderWith:(NSString *)leavel{
     switch ([leavel integerValue]) {

@@ -299,6 +299,7 @@ typedef void (^ChangeFrameBlock)();
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.InvoicedataArr addObject:order];
                 }
+            NSLog(@"%@",self.InvoicedataArr);
         }
     } failure:^(NSError *error) {
         
