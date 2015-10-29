@@ -472,6 +472,7 @@ typedef void (^ChangeFrameBlock)();
 //        MySubscribeController *controller = [[MySubscribeController alloc] init];
 //        [self.navigationController pushViewController:controller animated:YES];
         //下面是跳转的地方
+        NSLog(@"----%ld",self.InvoicedataArr.count);
         if (self.invoiceBtn.imageView.image != nil) {
             NSLog(@"检测到有图片");
             [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
@@ -494,8 +495,9 @@ typedef void (^ChangeFrameBlock)();
                 
                 [self.tableView setEditing:YES animated:YES];
                 [self.tableView reloadData];
-                
-                //当界面消失的时候弹出开发票的规则图片
+//                UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可针对回团30天内已完成及已付款的单团订单（包含退款、投诉完成的订单）提交开票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles: nil];
+//                [alertvie show];
+//                //当界面消失的时候弹出开发票的规则图片
                 [NSString showbackgroundgray];
                 //if (!self.invoiceAlert) {
                 self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
@@ -504,7 +506,7 @@ typedef void (^ChangeFrameBlock)();
                 self.invoiceAlert.viewCont = self;
                 self.invoiceAlert.layer.masksToBounds = YES;
                 self.invoiceAlert.layer.cornerRadius = 6.0;
-                self.invoiceAlert.frame = CGRectMake(60,kScreenSize.height/4,kScreenSize.width-120 ,150);
+                self.invoiceAlert.frame = CGRectMake(20,kScreenSize.height/4,kScreenSize.width-40 ,150);
                 [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
                 self.invoiceBtn.selected = YES;
                 [self.tableView setEditing:YES animated:YES];

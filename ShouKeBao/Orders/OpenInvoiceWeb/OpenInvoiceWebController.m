@@ -26,7 +26,7 @@
     // Do any additional setup after loading the view.
     self.title = @"开具发票";
     //拼接参数
-    Orders *order = (Orders *)self.vvvc;
+    Orders *order = (Orders *)self.viewCont;
     if (order.invoiceArr != nil) {
         for (NSInteger i = 0; i<order.invoiceArr.count; i++) {
             self.ParameterStr = [self.ParameterStr stringByAppendingString:[NSString stringWithFormat:@"%@,",order.invoiceArr[i]]];
@@ -48,7 +48,26 @@
     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
-    
+   
+    //下边修改东西
+//    [IWHttpTool postWithURL:@"/Order/GetInvoiceComitInfo" params:dic success:^(id) {
+//        
+//    } failure:^(NSError *) {
+//        
+//    }];
+     NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithObject:self.NewParameterStr forKey:@"OrderIds"];
+    NSLog(@"----%@",dict);
+    [IWHttpTool WMpostWithURL:@"/Order/GetInvoiceComitInfo" params:dict success:^(id json) {
+        if (json) {
+            NSLog(@"---%@",json);
+            self.NewUrlStr = [NSString stringWithFormat:@"%@%@", json[@"InvoiceComitUrl"],self.urlSuffix2];
+            [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.NewUrlStr]]];
+
+            NSLog(@"----%@",self.NewUrlStr);
+        }
+    } failure:^(NSError *error) {
+        NSLog(@"请求失败");
+    }];
     
     self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
     [_indicator setLoadText:@"拼命加载中..."];
@@ -56,7 +75,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor:) name:@"stopIndictor" object:nil];
 
-    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:@"http://skbtest.lvyouquan.cn/mg/53af38b41b3440af83e2b4de5cfd094c/09a1a75c83b34a2e90b104a9c2167077/Product/e8287592c5484b90928de547930799f0?source=share_app&viewsource=8&isshareapp=1&apptype=1&version=1.3&appuid=32c5771375e249a898d7f3416e528822&substation=1"]]];
 
     [self.view addSubview:self.webView];
 }
@@ -64,29 +82,12 @@
 {
     NSString *rightUrl = request.URL.absoluteString;
     NSLog(@"rightStr is %@--------",rightUrl);
-    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
-    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
-    NSRange range3 = [rightUrl rangeOfString:@"?"];
-    NSRange shareRange = [rightUrl rangeOfString:@"objectc:LYQSKBAPP_OpenShareProduct"];
-    [_indicator startAnimation];
-    [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isQQReloadView"];
-    
-    if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
-        NSLog(@"url＝ %@", [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]);
-        return YES;
-    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
-        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
-        NSLog(@"url2＝ %@", [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]);
-        return YES;
-    }else{
         [_indicator startAnimation];
-    }
-    if (shareRange.location != NSNotFound) {
-        [_indicator stopAnimationWithLoadText:@"" withType:YES];
-    }
     return YES;
     
+}
+- (void)webViewDidFinishLoad:(UIWebView *)webView{
+    [_indicator stopAnimationWithLoadText:@"加载完成" withType:YES];
 }
 
 -(UIWebView *)webView{
@@ -95,6 +96,12 @@
         _webView.delegate = self;
     }
     return _webView;
+}
+-(NSString *)NewUrlStr{
+    if (!_NewUrlStr) {
+        _NewUrlStr = [[NSString alloc] init];
+    }
+    return _NewUrlStr;
 }
 -(NSString *)ParameterStr{
     if (_ParameterStr == nil) {
