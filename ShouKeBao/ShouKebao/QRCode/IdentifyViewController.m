@@ -30,24 +30,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//     self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
-    
     [self setNavSegementView];
     [self stepRightItem];
     [self.view addSubview:self.QRPhotoVC.view];
     
 }
 - (void)setNavSegementView{
-    
     UIView *titleView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 150, 28)];
     [titleView addSubview:self.control];
     self.navigationItem.titleView = titleView;
 }
 
--(void)switchAction:(UISegmentedControl *)sender
-{
+#pragma mark - segment左右切换的方法
+-(void)switchAction:(UISegmentedControl *)sender{
+    
     UISegmentedControl *control = (UISegmentedControl *)sender;
     _control = control;
+    
     if (_control.selectedSegmentIndex == 0/* && self.historyFlag == 0*/) {
         self.QRHistoryVC.isEditing = 1;
         [self.QRHistoryVC editHistoryDetail];
@@ -67,6 +66,7 @@
         }
     }
 }
+#pragma mark－ 初始化
 - (UISegmentedControl *)control{
     if (!_control) {
         NSArray *segmentedArray = [[NSArray alloc]initWithObjects:@"识别图片",@"识别记录",nil];
@@ -99,14 +99,12 @@
     return _QRPhotoVC;
 }
 
--(void)stepRightItem
-{
+#pragma mark - 导航栏上的点击方法
+-(void)stepRightItem{
     self.barItem = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStyleBordered target:self action:@selector(editCustomerDetail)];
     self.navigationItem.rightBarButtonItem = self.barItem;
 }
-
 -(void)editCustomerDetail{
-    
     if (self.control.selectedSegmentIndex==0) {
         self.historyFlag = 0;
             if (self.PhotoFlag == 0) {
@@ -132,22 +130,21 @@
         
             NSNotificationCenter *center2 = [NSNotificationCenter defaultCenter];
             [center2 postNotificationName:@"edit2" object:@"QRHistory" userInfo:nil];
-       
     }
-    
 }
 
+#pragma mark - 代理方法
 - (void)changrightBarButtonItemTitle{
     self.navigationItem.rightBarButtonItem.title = @"编辑";
     self.historyFlag=0;
 }
 
 
-- (void)dealloc
-{
+- (void)dealloc{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center removeObserver:self];
 }
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

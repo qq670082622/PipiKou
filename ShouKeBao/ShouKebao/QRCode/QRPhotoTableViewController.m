@@ -19,7 +19,7 @@
 #define VIEW_HEIGHT self.view.bounds.size.height
 #define itemW (self.view.frame.size.width -9)/4
 #define gap 3
-#define pageSize 10
+#define pageSize 40
 
 @interface QRPhotoTableViewController ()<UICollectionViewDataSource, UICollectionViewDelegate, UIActionSheetDelegate>
 
@@ -116,11 +116,11 @@
 }
 - (NSInteger)getTotalPage
 {
-    NSInteger cos = [self.totalNumber integerValue] % pageSize;
+    NSInteger cos = [self.totalNumber integerValue]%pageSize;
     if (cos == 0) {
-        return [self.totalNumber integerValue] / pageSize;
+        return [self.totalNumber integerValue]/pageSize;
     }else{
-        return [self.totalNumber integerValue] / pageSize + 1;
+        return [self.totalNumber integerValue]/pageSize+1;
     }
 }
 
@@ -155,6 +155,7 @@
     }
 }
 
+#pragma mark = 点击大图返回之前大小
 - (void)changePicToMaxPic:(UICollectionViewCell *)cell indexPath:(NSIndexPath *)indexPath{
     
     CGRect cellCurrentRect = CGRectMake(cell.frame.origin.x,cell.frame.origin.y - self.collectionV.contentOffset.y, cell.frame.size.width, cell.frame.size.height);
@@ -192,6 +193,7 @@
     }];
 }
 
+#pragma mark = 对IdentifyVC通知的应答方法
 - (void)rightBarbutton{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(editCustomerPhoto) name:@"edit1" object:nil];
@@ -208,7 +210,7 @@
     [self.collectionV reloadData];
 }
 
-
+#pragma mark = 删除图片
 - (IBAction)canclePhoto:(id)sender {
     if (self.editArr.count == 0) {
         [self pointOut];
@@ -218,15 +220,13 @@
     }
     [self.IDVC editCustomerDetail];
     self.PhotoFlag = NO;
-        
-        
-        
     [self.editArr removeAllObjects];
     [self.collectionV reloadData];
     [MBProgressHUD showSuccess:@"操作成功"];
     }
 }
 
+#pragma mark - 保存为客户
 - (IBAction)savePhoto:(id)sender {
     if (self.editArr.count == 0) {
         [self pointOut];
@@ -235,9 +235,9 @@
         [self.IDVC editCustomerDetail];
         [self.editArr removeAllObjects];
         self.PhotoFlag = NO;
-
     }
 }
+
 - (void)pointOut{
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您没有选中任何图片!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
     [alert show];
@@ -309,7 +309,6 @@
 //    }else if (_isLogin){
     
     NSLog(@"page = %d", self.pageIndex);
-    
     NSString *pageNum = [NSString stringWithFormat:@"%d", self.pageIndex];
         [IWHttpTool postWithURL:@"Customer/GetCredentialsPicRecordList" params:@{@"RecordType":@"0",@"SortType":@"2",@"PageIndex":pageNum,@"PageSize":@"40"}  success:^(id json) {
       
@@ -317,23 +316,17 @@
                 [self.dataArr removeAllObjects];
                 [self.editArr removeAllObjects];
             }
-            
-            NSLog(@"json =  %@", json);
+//             NSLog(@"json =  %@", json);
+//             NSLog(@",,,,, total = %@", json[@"TotalCount"]);
             
             self.totalNumber = json[@"TotalCount"];
-            
-            NSLog(@",,,,, total = %@", json[@"TotalCount"]);
-//            NSMutableArray *arr = [NSMutableArray array];
-            
             for (NSDictionary *dic in json[@"CredentialsPicRecordList"]) {
                 personIdModel *model = [personIdModel modelWithDict:dic];
-//                if (![model.PicUrl isEqualToString:@""]) {
-                
-//                 [arr addObject:model];
-                  self.dataArr = model;
-//                }
+                if (![model.PicUrl isEqualToString:@""]) {
+                  [self.dataArr addObject:model] ;
+                }
             }
-              NSLog(@"self.dataArr.count = %d", self.dataArr.count);
+//              NSLog(@"self.dataArr.count = %d", self.dataArr.count);
             [self ifArrIsNull:_dataArr];
             [self.collectionV reloadData];
             [self.collectionV headerEndRefreshing];
