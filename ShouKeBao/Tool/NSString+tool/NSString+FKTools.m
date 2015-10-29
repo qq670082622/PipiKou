@@ -64,14 +64,6 @@
     leaveS.tag = 103;
     leaveS.nav =nav;
 
-    UIButton *btn = (UIButton *)[leaveS viewWithTag:1000];
-    btn.layer.cornerRadius = 8;
-    btn.layer.borderWidth = 2;
-    btn.layer.borderColor = [[UIColor grayColor] CGColor];
-    UIButton *btn2 = (UIButton *)[leaveS viewWithTag:2000];
-    btn2.layer.cornerRadius = 8;
-    btn2.layer.borderWidth = 2;
-    btn2.layer.borderColor = [[UIColor grayColor] CGColor];
     leaveS.frame = CGRectMake(([UIScreen mainScreen].bounds.size.width-260)/2, [UIScreen mainScreen].bounds.size.height/3,260, 160);
     leaveS.bodydifferenceColor.text  = @"    你知道么？每1秒就会产生1个分享，每5次分享就会产生1个订单，赶快分享吧，分享越多，机会越多!";
     NSMutableAttributedString *mutStr = [[NSMutableAttributedString alloc] initWithString:leaveS.bodydifferenceColor.text];
