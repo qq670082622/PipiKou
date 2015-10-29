@@ -56,7 +56,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
      [self loadNewData];
 
     self.table.delegate = self;
@@ -89,15 +88,30 @@
     self.table.footerPullToRefreshText = @"上拉刷新";
     self.table.footerRefreshingText = @"正在刷新";
 }
-#pragma mark - 各种初始化～～
+- (void)loadMoreData{
+    self.pageNum = [NSString stringWithFormat:@"%d",[self.pageNum integerValue]+1];
+    self.isLoadMore = YES;
+    if (self.isOver) {
+        self.table.footerHidden = YES;
+    }else{
+        [self loadDataSource];
+    }
+}
+- (void)loadNewData{
+    self.pageNum = @"1";
+    self.isLoadMore = NO;
+    self.isOver = NO;
+    self.table.footerHidden = NO;
+    [self loadDataSource];
+}
 
+#pragma mark - 各种初始化～～
 -(NSMutableArray *)dataArr{
     if (_dataArr == nil) {
         self.dataArr = [NSMutableArray array];
     }
     return _dataArr;
 }
-
 -(NSMutableArray *)editArr{
     if (_editArr == nil){
         self.editArr = [NSMutableArray array];
@@ -129,32 +143,46 @@
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"ShouKeBaoQRHistoryViewController"];
 }
-- (void)loadMoreData{
-    self.pageNum = [NSString stringWithFormat:@"%d",[self.pageNum integerValue]+1];
-    self.isLoadMore = YES;
-    if (self.isOver) {
-        self.table.footerHidden = YES;
-    }else{
-        [self loadDataSource];
-    }
-}
-- (void)loadNewData{
-    self.pageNum = @"1";
-    self.isLoadMore = NO;
-    self.isOver = NO;
-    self.table.footerHidden = NO;
-    [self loadDataSource];
-}
+
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
--(void)stepRightItem
-{
+#pragma mark - 应答前界面的通知方法
+-(void)stepRightItem{
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(editHistoryDetail) name:@"edit2" object:@"QRHistory"];
 }
+-(void)editHistoryDetail{
+    //    if (self.subView.hidden == YES && !self.isEditing) {
+    //        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-53-64);
+    //        self.subView.hidden = NO;
+    //        [self.table setEditing:YES animated:YES];
+    //        self.isEditing = YES;
+    //
+    //        [self.editArr removeAllObjects];
+    //
+    //    }else if (self.subView.hidden == NO && self.isEditing){
+    //        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
+    //        self.subView.hidden = YES;
+    //        [self.table setEditing:NO animated:YES];
+    //        self.isEditing = NO;
+    //    }
+    if (self.isEditing == 0) {
+        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-53);
+        self.subView.hidden = NO;
+        [self.table setEditing:YES animated:YES];
+    }else{
+        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
+        self.subView.hidden = YES;
+        [self.table setEditing:NO animated:YES];
+        [self.editArr removeAllObjects];
+    }
+    self.isEditing = !self.isEditing;
+    [self.table reloadData];
+}
 
+#pragma mark - 加载数据
 -(void)loadDataSource{
     //PageIndex   PageSize
     if (!_isLogin) {  //注record是未登录时的识别纪录，而record2是未登录时添加的客户
@@ -207,43 +235,11 @@
     
 }
 
--(void)editHistoryDetail
-{
-//    if (self.subView.hidden == YES && !self.isEditing) {
-//        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-53-64);
-//        self.subView.hidden = NO;
-//        [self.table setEditing:YES animated:YES];
-//        self.isEditing = YES;
-//        
-//        [self.editArr removeAllObjects];
-//        
-//    }else if (self.subView.hidden == NO && self.isEditing){
-//        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
-//        self.subView.hidden = YES;
-//        [self.table setEditing:NO animated:YES];
-//        self.isEditing = NO;
-//    }
-    
-    if (self.isEditing == 0) {
-        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64-53);
-        self.subView.hidden = NO;
-        [self.table setEditing:YES animated:YES];
-    }else{
-        self.table.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height-64);
-        self.subView.hidden = YES;
-        [self.table setEditing:NO animated:YES];
-        [self.editArr removeAllObjects];
-    }
-    self.isEditing = !self.isEditing;
-    [self.table reloadData];
-    
-}
 
 #pragma mark - tableView - delegate
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)sectio{
     return self.dataArr.count;
 }
-
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     static  NSString * cellID = @"QRHistoryCell";
     QRCodeCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID]; 
@@ -307,7 +303,6 @@
             ca.ModifyDate = [NSMutableString stringWithFormat:@"%@",model.ModifyDate];
             
             [self.identifyNav pushViewController:ca animated:YES];
-            
         }
         if (!_isLogin) {
             NSMutableArray *mua = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]];
@@ -399,7 +394,7 @@
 //    
 //    
 //}
-
+#pragma mark 删除客户的方法
 - (IBAction)cancleButton:(id)sender {
     if (self.editArr.count == 0) {
         [self pointOut];
@@ -438,33 +433,23 @@
         [self.delegate changrightBarButtonItemTitle];
        [MBProgressHUD showSuccess:@"操作成功"];
         
-       
-        
 //    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.8 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
 //        [MBProgressHUD hideHUD];
 //        [self.identifyNav popViewControllerAnimated:YES];
 //    });
-
-
     }
-    
 }
-
+#pragma mark 保存的方法
 - (IBAction)saveButton:(id)sender {
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
-//      [self.idenVC editCustomerDetail];
-       
         self.isEditing = 1;
         [self.delegate changrightBarButtonItemTitle];
-        
         [self editHistoryDetail];
         [self saveAfterWith];
-
     }
 }
-
 - (void)saveAfterWith{
     [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:self.postDic success:^(id json) {
         NSLog(@"批量导入客户成功 返回json is %@",json);
@@ -490,7 +475,9 @@
     [alert show];
 }
 
-
+- (void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

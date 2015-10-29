@@ -62,23 +62,21 @@
     self.title = @"分享详情";
     self.pageIndex = 1;
     self.SourtType = 1;
-//    布局更换
-//    [self setRightBarButton];
+
     [self.view addSubview:self.backGroundView];
     [self.backGroundView addSubview:self.searchButton];
     [self.backGroundView addSubview:self.allButton];
-//    [self.view sendSubviewToBack:self.searchBar];
-//    [self searchDisplay];
+
     [self.view addSubview:self.allButton];
     [self.view addSubview:self.shareTableView];
     [self.view addSubview:self.chooseView];
     [self.view addSubview:self.noProductView];
     [self freshPage];
-//    [self loadSharePageData];
     
 }
 
 #pragma mark - 各种初始化
+//1搜索背景图片
 - (UIView *)backGroundView{
     if (!_backGroundView) {
         self.backGroundView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, VIEW_width, 40)];
@@ -86,7 +84,7 @@
     }
     return _backGroundView;
 }
-
+//搜索按钮
 - (UIButton *)searchButton{
     if (!_searchButton) {
         _searchButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -101,7 +99,7 @@
     }
     return _searchButton;
 }
-
+//排序按钮
 - (UIButton *)allButton{
     if (!_allButton) {
         _allButton = [[UIButton alloc]initWithFrame:CGRectMake(VIEW_width-60, 0, 60, 40)];
@@ -115,7 +113,6 @@
     }
     return _allButton;
 }
-
 - (UITableView *)shareTableView{
     if (!_shareTableView) {
         self.shareTableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, VIEW_width, VIEW_height-64-40) style:UITableViewStylePlain];
@@ -125,12 +122,14 @@
     }
     return _shareTableView;
 }
+
 -(NSMutableArray *)shareDataArr{
     if (_shareDataArr == nil) {
         self.shareDataArr = [NSMutableArray array];
     }
     return _shareDataArr;
 }
+//无数据时提示
 -(UIImageView *)noProductView{
     if (!_noProductView) {
         _noProductView = [[UIImageView alloc]initWithFrame:CGRectMake(70, 80, VIEW_width-140, VIEW_height-300)];
@@ -149,16 +148,12 @@
         // 关闭上下文
         UIGraphicsEndImageContext(); 
         _noProductView.image = newImage;
-        // 把图片转换成png格式的二进制数据 
+        // 把图片转换成png格式的二进制数据 可以将做好的图片放在桌面
 //        NSData *data = UIImagePNGRepresentation(newImage);
-        
-        
-        
     }
     return _noProductView;
 }
--(NSMutableArray *)conditionArr
-{
+-(NSMutableArray *)conditionArr{
     if (_conditionArr == nil) {
         _conditionArr = [NSMutableArray array];
     }
@@ -221,11 +216,10 @@
        
         [orderCountBtn addTarget:self action:@selector(orderOrderAction) forControlEvents:UIControlEventTouchUpInside];
         [self.chooseView addSubview:orderCountBtn];
-        
-    
     }
     return _chooseView;
 }
+
 #pragma mark - 刷新和分页
 - (void)freshPage{
     [self.shareTableView addHeaderWithTarget:self action:@selector(headRefish)dateKey:nil];
@@ -239,10 +233,8 @@
     
 }
 -(void)headRefish{
-    
     [self.searchButton setTitle:searchHistoryPlaceholder forState:UIControlStateNormal];
     [_searchButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-    
     self.isRefresh = YES;
     self.pageIndex = 1;
     if (!self.shareDataArr.count) {
@@ -294,7 +286,6 @@
     detail.productName = model.Name;
 //    NSLog(@"%@---%@----%@", detail.shareInfo,detail.produceUrl,productName);
      [self.navigationController pushViewController:detail animated:YES];
-    
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
@@ -318,8 +309,8 @@
     
 }
 
+#pragma mark - 点击搜索到搜索界面
 - (void)searchButtonAction:(UIButton *)button{
-    
     MeSearchViewController *meSearchVC = [[MeSearchViewController alloc]init];
     self.chooseView.hidden = YES;
     self.shareFlag = NO;
@@ -332,10 +323,8 @@
         NSLog(@"self.searchKKK = %@, %@", self.popKeyWords, meSearchVC.searchBar.placeholder);
     }
     [self.navigationController pushViewController:meSearchVC animated:NO];
-    
 }
-
-
+#pragma mark -筛选按钮
 - (void)chooseButtonAction:(UIButton *)button{
     MeShareChooseViewController *meShareChooseVC = [[MeShareChooseViewController alloc]init];
     self.chooseView.hidden = YES;
@@ -360,7 +349,7 @@
     }
     
     [IWHttpTool WMpostWithURL:@"/Product/GetProductShareList" params:dic success:^(id json) {
-    NSLog(@"json = %@------------]",json);
+        NSLog(@"json = %@------------]",json);
         
         NSArray *arr = json[@"ProductShareList"];
         NSLog(@"arr.count = %d", arr.count);
@@ -377,22 +366,12 @@
             }
             self.totalNumber = json[@"TotalCount"];
         }
-        
-
-//        self.siftDic = json[@"ProductCondition"];
-//        [self.conditionArr removeAllObjects];
-//        self.conditionArr = conArr;//装载筛选条件数据
-//        ShaiXuan.conditionArr =self.conditionArr;
-//        NSLog(@"_+++%@",ShaiXuan.conditionArr);
-//        NSString *page = [NSString stringWithFormat:@"%@",_page];
-//        self.page = [NSMutableString stringWithFormat:@"%d",[page intValue]+1];
-        
         if (_shareDataArr != nil) {
             [self.shareTableView reloadData];
             [self.shareTableView headerEndRefreshing];
             [self.shareTableView footerEndRefreshing];
         }
-        self.popKeyWords = @"";
+//        self.popKeyWords = @"";
     } failure:^(NSError *error) {
         NSLog(@"-------产品搜索请求失败 error is%@----------",error);
     }];
@@ -402,14 +381,14 @@
 - (void)transmitPopKeyWord:(NSString *)keyWords{
     self.popKeyWords = keyWords;
     NSLog(@",,,,,,, key = %@ %@", keyWords, self.popKeyWords);
-    [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
     [self loadSharePageData];
+    [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
 }
 - (void)searchBarText:(NSString *)text{
     self.popKeyWords = text;
     NSLog(@"text = %@", self.popKeyWords);
-    [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
     [self loadSharePageData];
+    [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
 }
 
 
@@ -424,7 +403,6 @@
     self.timeFlag = !self.timeFlag;
     self.chooseView.hidden = YES;
     [self freshPage];
-//    NSLog(@",,,,,, time");
 }
 - (void)flowOrderAction{
     if (self.flowFlag) {
@@ -437,7 +415,7 @@
     [self freshPage];
 }
 - (void)orderOrderAction{
-    if (self.orderFlag) {
+    if (self.orderFlag){
         self.SourtType = 1;
     }else{
         self.SourtType = 2;
