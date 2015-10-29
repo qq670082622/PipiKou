@@ -34,8 +34,7 @@
         self.leavelLabel.font = sixPFont;
         self.productLab.font = sixPFont;
         self.storeLab.font = sixPFont;
-        self.scanLab.font = sixPFont
-        ;
+        self.scanLab.font = sixPFont;
     }
     
     

@@ -110,29 +110,33 @@
 //        self.tabBarItem.badgeValue = nil;
     }
 
-    
-    _meheader.nickName.text = [UserInfo shareUser].userName;
+    [self refrashHeader];
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
 }
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [MobClick endLogPageView:@"Me"];
-    [self.navigationController setNavigationBarHidden:NO animated:NO];
+- (void)refrashHeader{
+    _meheader.nickName.text = [UserInfo shareUser].userName;
+    [MeHttpTool getDistributionWithsuccess:^(id json) {
+        if (![json[@"Busienss"] isKindOfClass:[NSNull class]]) {
+            NSLog(@"-----%@",json);
+            NSDictionary *dic = json[@"Distribution"];
+            NSMutableDictionary *muta = dic.mutableCopy;
+            NSArray *array = [dic allKeys];
+            for (NSString *key in array) {
+                if ([[muta objectForKey:key] isKindOfClass:[NSNull class]]) {
+                    [muta setValue:@"" forKey:key];
+                }
+            }
+            [self setHeaderWith:muta[@"ConsultantLevel"]];
+            [[NSUserDefaults standardUserDefaults]setObject:muta[@"ConsultantLevel"] forKey:UserInfoKeyLYGWLevel];
+        }
+    } failure:^(NSError *error) {
+        
+    }];
 }
-
-#pragma mark - private
-// 设置头部
-- (void)setHeader
-{
-    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 260)];
-    // 设置头像
-    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
-    NSString *level = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLevel];
-    switch ([level integerValue]) {
+- (void)setHeaderWith:(NSString *)leavel{
+    switch ([leavel integerValue]) {
         case 1000:
             self.meheader.levelIcon.image = [UIImage imageNamed:@"jianxi"];
             self.meheader.levelName.text = @"见习顾问";
@@ -160,6 +164,23 @@
         default:
             break;
     }
+}
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [MobClick endLogPageView:@"Me"];
+    [self.navigationController setNavigationBarHidden:NO animated:NO];
+}
+
+#pragma mark - private
+// 设置头部
+- (void)setHeader
+{
+    UIView *cover = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, 260)];
+    // 设置头像
+    NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
+    NSString *level = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLevel];
+    [self setHeaderWith:level];
     NSLog(@"%@",head);
     if (head) {
         [self.meheader.headIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];

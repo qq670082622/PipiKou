@@ -2495,8 +2495,9 @@
 //        }
 //        [postDic setObject: forKey:@"PageUrl"];
         NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:self.shareInfo];
-//        ProductModal *model = _dataArr[0];
-//        NSDictionary *temp = [StrToDic dicCleanSpaceWithDict:model.ShareInfo];
+        ProductModal *model = _dataArr[0];
+        NSDictionary *temp = [StrToDic dicCleanSpaceWithDict:model.ShareInfo];
+        NSLog(@"%@33%@", temp, tmp);
 
 //        [[[UIAlertView alloc]initWithTitle:tmp[@"Desc"] message:tmp[@"Title"] delegate:nil cancelButtonTitle:tmp[@"Url"] otherButtonTitles:nil, nil]show];
         //构造分享内容

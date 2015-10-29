@@ -48,6 +48,7 @@
     NSLog(@"----%@",dict);
     [IWHttpTool WMpostWithURL:@"/Order/GetInvoiceComitInfo" params:dict success:^(id json) {
         if (json) {
+            NSLog(@"---%@",json);
             self.NewUrlStr = [NSString stringWithFormat:@"%@%@", json[@"InvoiceComitUrl"],self.urlSuffix2];
             [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.NewUrlStr]]];
         }
