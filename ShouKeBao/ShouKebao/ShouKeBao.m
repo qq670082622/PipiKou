@@ -187,7 +187,7 @@
     
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
-    [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:2.5];
+    [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
 //    [self checkNewVerSion];
     [self initPull];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
@@ -761,11 +761,11 @@
 {
     NSMutableDictionary *dic = [NSMutableDictionary  dictionary];//访客，订单数，分享链接
     
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
     
-    hudView.labelText = @"加载中...";
+//    hudView.labelText = @"加载中...";
     
-    [hudView show:YES];
+//    [hudView show:YES];
     
     [HomeHttpTool getIndexHeadWithParam:dic success:^(id json){
         
@@ -802,7 +802,7 @@
     }];
     
     
-    [hudView hide:YES];
+//    [hudView hide:YES];
 }
 
 

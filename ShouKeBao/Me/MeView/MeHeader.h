@@ -28,7 +28,7 @@
 
 @property (weak, nonatomic)UILabel * positionLab;
 @property (weak, nonatomic) UIButton *setBtn;
-
+@property (weak, nonatomic)UIButton *GuWemInfo;
 
 @property (nonatomic,assign) BOOL isPerson;
 

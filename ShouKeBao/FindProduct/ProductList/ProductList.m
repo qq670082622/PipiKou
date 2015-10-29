@@ -2495,6 +2495,9 @@
 //        }
 //        [postDic setObject: forKey:@"PageUrl"];
         NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:self.shareInfo];
+//        ProductModal *model = _dataArr[0];
+//        NSDictionary *temp = [StrToDic dicCleanSpaceWithDict:model.ShareInfo];
+
 //        [[[UIAlertView alloc]initWithTitle:tmp[@"Desc"] message:tmp[@"Title"] delegate:nil cancelButtonTitle:tmp[@"Url"] otherButtonTitles:nil, nil]show];
         //构造分享内容
         id<ISSContent>publishContent = [ShareSDK content:tmp[@"Desc"]

@@ -70,10 +70,9 @@
         //更多旅游顾问详细
         UIButton * moreBtn = [[UIButton  alloc]initWithFrame:CGRectMake(self.frame.size.width - 125, 160, 125, 20)];
         [moreBtn addTarget:self action:@selector(clickMore:) forControlEvents:UIControlEventTouchUpInside];
-        [moreBtn setTitle:@"更多顾问明细〉" forState:UIControlStateNormal];
         [moreBtn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         moreBtn.titleLabel.font = [UIFont systemFontOfSize:13];
-        
+        self.GuWemInfo = moreBtn;
         
         [self addSubview:moreBtn];
 
@@ -110,6 +109,9 @@
         CGFloat typeY = CGRectGetMaxY(self.positionLab.frame) + 8;
         self.personType.frame = CGRectMake(nameX, typeY, self.frame.size.width, 20);
         self.personType.textAlignment = NSTextAlignmentLeft;
+        
+        [self.GuWemInfo  setTitle:@"查看顾问明细〉" forState:UIControlStateNormal];
+
     }else{
         CGFloat headX = (self.frame.size.width - headW) * 0.5;
         self.headIcon.frame = CGRectMake(headX, 40, headW, 70);
@@ -119,6 +121,8 @@
         
         CGFloat typeY = CGRectGetMaxY(self.nickName.frame) + 8;
         self.personType.frame = CGRectMake(0, typeY, self.frame.size.width, 20);
+        [self.GuWemInfo  setTitle:@"更多顾问明细〉" forState:UIControlStateNormal];
+
     }
     CGFloat btnX = self.frame.size.width - 37;
     self.setBtn.frame = CGRectMake(btnX, 40, 20, 20);

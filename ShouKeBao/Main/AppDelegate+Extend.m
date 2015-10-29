@@ -61,10 +61,10 @@
 
 
     //加载动画
-    [UIView animateWithDuration:2.0 animations:^{
+    [UIView animateWithDuration:1.0 animations:^{
         yuandian.frame = CGRectMake([UIScreen mainScreen].bounds.size.width*3/4, -4, 10, 10);
     } completion:^(BOOL finished) {
-        [UIView animateWithDuration:0.5 animations:^{
+        [UIView animateWithDuration:0.4 animations:^{
             luanchImage.alpha = 0;
         } completion:^(BOOL finished) {
             [luanchImage removeFromSuperview];
@@ -92,7 +92,10 @@
     [LoginTool travelLoginWithParam:param success:^(id json) {
         NSLog(@"%@", json);
         if ([json[@"IsSuccess"] integerValue] != 1) {
-            [[[UIAlertView alloc]initWithTitle:@"提示" message:@"您的帐号密码已经被修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+            
+            [[[UIAlertView alloc]initWithTitle:@"提示" message:@"您的帐号密码已经被修改，请重新登录" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
+            [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:UserInfoKeyAccount];
+            [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:UserInfoKeyAccountPassword];
         }
     } failure:^(NSError *error) {
 //        [[[UIAlertView alloc]initWithTitle:@"提示" message:@"您的帐号密码已经被修改" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil, nil]show];
