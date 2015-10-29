@@ -382,7 +382,9 @@
     self.popKeyWords = keyWords;
     NSLog(@",,,,,,, key = %@ %@", keyWords, self.popKeyWords);
     [self loadSharePageData];
+    NSLog(@"///////   %@", self.searchButton.titleLabel.text);
     [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
+     NSLog(@"///////11   %@", self.searchButton.titleLabel.text);
 }
 - (void)searchBarText:(NSString *)text{
     self.popKeyWords = text;
