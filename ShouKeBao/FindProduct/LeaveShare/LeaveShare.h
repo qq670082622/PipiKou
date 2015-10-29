@@ -14,10 +14,8 @@
 @property (nonatomic, strong)ProduceDetailViewController * theVC;
 -(void)thisatest:(NSString *)body;
 - (IBAction)CancelBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *NeedShareB;
 
 - (IBAction)NeedShareBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *CancelB;
 
 
 @end
