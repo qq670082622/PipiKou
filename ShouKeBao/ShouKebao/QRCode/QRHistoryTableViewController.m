@@ -402,7 +402,7 @@
     if (_isLogin) {
         NSMutableArray *arr = [NSMutableArray array];
         for (int i = 0; i<self.editArr.count; i++) {
-            
+            NSLog(@"edit = %@", self.dataArr[[self.editArr[i] integerValue]]);
             personIdModel *model = self.dataArr[[self.editArr[i] integerValue]];
             [arr addObject:model.RecordId];
         }
