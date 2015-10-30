@@ -12,7 +12,7 @@
 
 #define VIEW_width [UIScreen mainScreen].bounds.size.width
 #define VIEW_height self.view.frame.size.height
-#define searchHistoryPlaceholder @"订单号/产品名称/供应商名称"
+#define searchHistoryPlaceholder @"产品名称/编号/目的地"
 
 @interface MeTextFieldSearchViewController ()<UITextFieldDelegate>
 @property (nonatomic, strong)UIView *backGroundView;
@@ -51,7 +51,7 @@
         }else{
             self.inputTextView.placeholder = searchHistoryPlaceholder;
         }
-        
+        self.inputTextView.clearButtonMode = UITextFieldViewModeAlways;
         self.inputTextView.font = [UIFont systemFontOfSize:13];
         self.inputTextView.borderStyle = UITextBorderStyleRoundedRect;
         self.inputTextView.delegate = self;
@@ -82,9 +82,14 @@
 }
 
 - (void)searchBarButtonAction{
-     [self saveHistorySearchKey];
-    [self.searchDelegate searchBarText:self.inputTextView.text];
-    [self.navigationController popViewControllerAnimated:NO];
+    if (self.inputTextView.text.length) {
+        [self saveHistorySearchKey];
+        [self.searchDelegate searchBarText:self.inputTextView.text];
+        [self.navigationController popViewControllerAnimated:NO];
+    }else{
+        
+        
+    }
     
 }
 
@@ -100,12 +105,16 @@
     
 }
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-//    [self.inputTextView becomeFirstResponder];
-    [self saveHistorySearchKey];
-    [self.searchDelegate searchBarText:self.inputTextView.text];
+   
+    if (self.inputTextView.text.length) {
+        [self.searchDelegate searchBarText:self.inputTextView.text];
+        [self saveHistorySearchKey];
+        [self.navigationController popViewControllerAnimated:NO];
+
+    }else{
+        
+    }
     
-    [self.navigationController popViewControllerAnimated:NO];
-  
     return YES;
 }
 
