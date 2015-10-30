@@ -7,7 +7,8 @@
 //
 
 #import "InvoiceLowView.h"
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @implementation InvoiceLowView
 
 -(Orders *)ord{
@@ -40,6 +41,10 @@
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有选中需要开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
         [alert show];
     }else{
+        
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"OrdersChoceOrdersTackInvoiceClick" attributes:dict];
+        
         self.OpenInvoice.viewCont = self.ViewCont;
         [self.LowNav pushViewController:self.OpenInvoice animated:YES];
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {

@@ -184,6 +184,7 @@ typedef void (^ChangeFrameBlock)();
 -(void)viewWillDisappear:(BOOL)animated{
     [super viewWillDisappear:animated];
     [MobClick endLogPageView:@"Orders"];
+    [self.invoiceArr removeAllObjects];
 }
 - (void)dealloc
 {
@@ -501,6 +502,10 @@ typedef void (^ChangeFrameBlock)();
 }
 //不需要走警告框调用的方法
 -(void)notgoAlert{
+    
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"OrdersTackInvoiceClick" attributes:dict];
+    
     if (self.invoiceBtn.selected == YES) {
         self.invoiceBtn.selected = NO;
         [self.tableView setEditing:NO animated:YES];
