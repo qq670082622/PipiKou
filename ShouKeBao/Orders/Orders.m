@@ -454,7 +454,9 @@ typedef void (^ChangeFrameBlock)();
             self.dressView.transform = CGAffineTransformMakeTranslation(- self.dressView.frame.size.width, 0);
         }];
     }else if(button.tag == 1200){//点击开发票
-        
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
+
 //        MySubscribeController *controller = [[MySubscribeController alloc] init];
 //        [self.navigationController pushViewController:controller animated:YES];
         //下面是跳转的地方
@@ -476,9 +478,14 @@ typedef void (^ChangeFrameBlock)();
             if ([orderGuide integerValue] == 1) {
                 [self notgoAlert];
             }else{
-                UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可对已经付全款（台湾产品除外）的非单团订单提交开发票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
-                alertvie.tag = 1001;
-                [alertvie show];
+                if (self.invoiceBtn.selected == NO) {
+                    UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可对已经付全款（台湾产品除外）的非单团订单提交开发票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
+                    alertvie.tag = 1001;
+                    [alertvie show];
+                }else{
+                 [self notgoAlert];
+                }
+               
             }
         }
        
