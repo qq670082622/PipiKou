@@ -235,11 +235,12 @@
 -(void)headRefish{
     [self.searchButton setTitle:searchHistoryPlaceholder forState:UIControlStateNormal];
     [_searchButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    self.popKeyWords = @"";
     self.isRefresh = YES;
     self.pageIndex = 1;
-    if (!self.shareDataArr.count) {
-        self.popKeyWords =@"";
-    }
+//    if (!self.shareDataArr.count) {
+//        self.popKeyWords =@"";
+//    }
     [self loadSharePageData];
     
 }
