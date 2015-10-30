@@ -20,7 +20,8 @@
 #import "ButtonAndImageView.h"
 #import "ProduceDetailViewController.h"
 #import "MeTextFieldSearchViewController.h"
-
+#import "MobClick.h"
+#import "BaseClickAttribute.h"
 #define searchHistoryPlaceholder @"产品名称/编号/目的地"
 #define VIEW_width self.view.frame.size.width
 #define VIEW_height self.view.frame.size.height
@@ -381,6 +382,8 @@
     self.popKeyWords = keyWords;
     NSLog(@",,,,,,, key = %@ %@", keyWords, self.popKeyWords);
     [self loadSharePageData];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeMyShareSearchClick" attributes:dict];
     NSLog(@"///////   %@", self.searchButton.titleLabel.text);
     [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
      NSLog(@"///////11   %@", self.searchButton.titleLabel.text);
@@ -388,6 +391,8 @@
 
 - (void)searchBarText:(NSString *)text{
     self.popKeyWords = text;
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeMyShareSearchClick" attributes:dict];
     NSLog(@"text = %@", self.popKeyWords);
     [self loadSharePageData];
     [self.searchButton setTitle:self.popKeyWords forState:UIControlStateNormal];
@@ -412,6 +417,9 @@
     }else{
         self.SourtType = 2;
     }
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeMyShareMakeOrderClick" attributes:dict];
+
     self.flowFlag = !self.flowFlag;
     self.chooseView.hidden = YES;
     [self freshPage];
@@ -422,6 +430,8 @@
     }else{
         self.SourtType = 2;
     }
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeMyShareProductScanSortClick" attributes:dict];
     self.orderFlag = !self.orderFlag;
     self.chooseView.hidden = YES;
     [self freshPage];
