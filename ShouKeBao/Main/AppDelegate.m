@@ -810,8 +810,9 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 
         [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
             NSDictionary *dataDic = json[@"ProductDetail"];
-            if ([dataDic  isEqual: @"<null>"]) {
-                
+            NSLog(@"%@",json);
+            if ([json[@"IsSuccess"] intValue]== 0) {
+                NSLog(@"请求失败");
             }else{
                  NSLog(@"服务器返回有数据");
                 if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
