@@ -354,7 +354,10 @@
         NSArray *arr = json[@"ProductShareList"];
         NSLog(@"arr.count = %ld", arr.count);
         
-        [self.shareDataArr removeAllObjects];
+        if ( self.isRefresh) {
+            [self.shareDataArr removeAllObjects];
+        }
+//
         if (arr.count==0) {
             self.noProductView.hidden = NO;
     

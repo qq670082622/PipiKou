@@ -215,14 +215,32 @@
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
-    for (NSString * picUrl in self.editArr) {
-        [self.dataArr removeObject:picUrl];
-    }
-    [self.IDVC editCustomerDetail];
-    self.PhotoFlag = NO;
-    [self.editArr removeAllObjects];
-    [self.collectionV reloadData];
-    [MBProgressHUD showSuccess:@"操作成功"];
+        NSMutableArray *arr = [NSMutableArray array];
+        
+        for (int i = 0; i<self.editArr.count; i++) {
+
+          [arr addObject: [self.editArr[i]RecordId]];
+        }
+        
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:arr forKey:@"RecordIds"];
+        
+        [IWHttpTool WMpostWithURL:@"Customer/DeleteCredentialsPicRecord" params:dic success:^(id json) {
+            NSLog(@"批量删除客户图片 返回json is %@",json);
+        } failure:^(NSError *error) {
+            NSLog(@"批量删除客户图片失败，返回error is %@",error);
+        }];
+        
+        
+//        [self initPull];
+        [self.collectionV reloadData];
+        [self loadData];
+        
+        [self.IDVC editCustomerDetail];
+        self.PhotoFlag = NO;
+        [self.editArr removeAllObjects];
+        [self.collectionV reloadData];
+        [MBProgressHUD showSuccess:@"操作成功"];
     }
 }
 
