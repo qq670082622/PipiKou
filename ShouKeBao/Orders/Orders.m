@@ -462,6 +462,7 @@ typedef void (^ChangeFrameBlock)();
             NSLog(@"检测到有图片");
             [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         }
+        
         if (self.InvoicedataArr.count == 0) {
             NSLog(@"没有数据");
             self.invoiceBtn.selected = NO;
@@ -569,15 +570,15 @@ typedef void (^ChangeFrameBlock)();
 }
 
 //block改变tableview的frame
--(void)ChangeFrame{
-    
-//    CGFloat ppt = _tableView.frame.size.height;
-//    self.bb = 1;
-//    _tableView.frame = CGRectMake(0, 89, self.view.bounds.size.width, ppt - 100);
+//-(void)ChangeFrame{
 //    
-    //NSLog(@"---%f",self.tableView.frame.size.height);
-    NSLog(@"这里空了一个改变tableview的frame");
-}
+////    CGFloat ppt = _tableView.frame.size.height;
+////    self.bb = 1;
+////    _tableView.frame = CGRectMake(0, 89, self.view.bounds.size.width, ppt - 100);
+////    
+//    //NSLog(@"---%f",self.tableView.frame.size.height);
+//    NSLog(@"这里空了一个改变tableview的frame");
+//}
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {
