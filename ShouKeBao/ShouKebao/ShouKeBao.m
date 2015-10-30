@@ -1524,15 +1524,15 @@
 {
         HomeBase *model = self.dataSource[indexPath.row];
      //[model retain];
-    if([model.model isKindOfClass:[invoiceCell class]]){//发票
-       invoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell" forIndexPath:indexPath];
-        //[invoiceCell showDataWithModel:model];
-        return cell;
-    }
-    if ([model.model isKindOfClass:[SubscribeCell class]]) {//订阅
-        SubscribeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubscribeCell" forIndexPath:indexPath];
-        return cell;
-    }
+//    if([model.model isKindOfClass:[invoiceCell class]]){//发票
+//       invoiceCell *cell = [tableView dequeueReusableCellWithIdentifier:@"invoiceCell" forIndexPath:indexPath];
+//        //[invoiceCell showDataWithModel:model];
+//        return cell;
+//    }
+//    if ([model.model isKindOfClass:[SubscribeCell class]]) {//订阅
+//        SubscribeCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SubscribeCell" forIndexPath:indexPath];
+//        return cell;
+//    }
     if ([model.model isKindOfClass:[HomeList class]]) {//订单
         ShouKeBaoCell *cell = [ShouKeBaoCell cellWithTableView:tableView];
         cell.model = model.model;
