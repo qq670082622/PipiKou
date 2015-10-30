@@ -21,7 +21,7 @@
 #import "ProduceDetailViewController.h"
 #import "MeTextFieldSearchViewController.h"
 
-#define searchHistoryPlaceholder @"订单号/产品名称/供应商名称"
+#define searchHistoryPlaceholder @"产品名称/编号/目的地"
 #define VIEW_width self.view.frame.size.width
 #define VIEW_height self.view.frame.size.height
 #define gap 10
@@ -311,7 +311,7 @@
 
 #pragma mark - 点击搜索到搜索界面
 - (void)searchButtonAction:(UIButton *)button{
-    MeTextFieldSearchViewController *meSearchVC = [[MeTextFieldSearchViewController alloc]init];
+    MeSearchViewController *meSearchVC = [[MeSearchViewController alloc]init];
     self.chooseView.hidden = YES;
     self.shareFlag = NO;
 //    meSearchVC.transmitDelegate = self;
@@ -339,7 +339,7 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     
-    [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
+    [dic setObject:[NSString stringWithFormat:@"%ld", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     NSString *type = [NSString stringWithFormat:@"%d", self.SourtType];
     
@@ -354,7 +354,7 @@
         NSLog(@"json = %@------------]",json);
         
         NSArray *arr = json[@"ProductShareList"];
-        NSLog(@"arr.count = %d", arr.count);
+        NSLog(@"arr.count = %ld", arr.count);
         
         [self.shareDataArr removeAllObjects];
         if (arr.count==0) {
