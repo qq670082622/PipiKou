@@ -11,6 +11,7 @@
 #import "WMAnimations.h"
 #import "IWHttpTool.h"
 #import "Orders.h"
+#import "NSString+FKTools.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface OpenInvoiceWebController ()<UIWebViewDelegate>
 @property (nonatomic,strong) YYAnimationIndicator *indicator;
@@ -67,8 +68,15 @@
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
     NSString *rightUrl = request.URL.absoluteString;
+    if (![rightUrl myContainsString:_urlSuffix2]) {
+        [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@", rightUrl, _urlSuffix2]]]];
+        return YES;
+    }else{
     NSLog(@"rightStr is %@--------",rightUrl);
         [_indicator startAnimation];
+    }
+    
+    
     return YES;
     
 }

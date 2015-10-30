@@ -23,7 +23,8 @@
 #import "OrderTool.h"
 #import "MBProgressHUD+MJ.h"
 #define pageSize 10
-
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 
 @interface CustomerOrderViewController ()<UITableViewDataSource, UITableViewDelegate, menumDelegate, QDMenuDelegate, /*QDMenumDelegate,*/ UIGestureRecognizerDelegate, MGSwipeTableCellDelegate, OrderCellDelegate>
 
@@ -344,6 +345,10 @@
     OrderModel *model = self.dateSource[indexPath.section];
     orderDetailVC.url = model.DetailLinkUrl;
     NSLog(@"uel = %@", model.DetailLinkUrl);
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"CustomerOrderDetailProductClick" attributes:dict];
+
+
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [self.mainNav pushViewController:orderDetailVC animated:YES];
 //    [self presentViewController:orderDetailVC animated:YES completion:^{
