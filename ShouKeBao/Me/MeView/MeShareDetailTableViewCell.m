@@ -103,8 +103,8 @@
     [str1 addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(4, skimStr.length)];
     self.skimLable.attributedText = str1;
     
-    NSString *orderStr = [NSString stringWithFormat:@"%@", self.shareModel.VisitCount];
-    NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"订单数:%@",self.shareModel.VisitCount]];
+    NSString *orderStr = [NSString stringWithFormat:@"%@", self.shareModel.OrderCount];
+    NSMutableAttributedString *str2 = [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"订单数:%@",self.shareModel.OrderCount]];
 //    [str2 addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:13] range:NSMakeRange(4, orderStr.length)];
     [str2 addAttribute:NSForegroundColorAttributeName value:[UIColor orangeColor] range:NSMakeRange(4, orderStr.length)];
     self.orderLable.attributedText = str2;
