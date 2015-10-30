@@ -272,6 +272,9 @@
 //点击更多旅游顾问明细
 - (void)didClickMoreLYGW{
     MoreLvYouGuWenInfoViewController * morelvyouguwen = [[MoreLvYouGuWenInfoViewController alloc]init];
+    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+    [MobClick event:@"MeTravelConsultantClick" attributes:dict];
+
     morelvyouguwen.webTitle = @"旅游顾问";
     [self.navigationController pushViewController:morelvyouguwen animated:YES];
 }
@@ -438,7 +441,9 @@
 //                           [self.navigationController pushViewController:LYGW animated:YES];
             MeShareDetailViewController *meShareDetailVC = [[MeShareDetailViewController alloc]init];
             [self.navigationController pushViewController:meShareDetailVC animated:YES];
-            
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"MeMyShareClick" attributes:dict];
+
             
             break;
         }
@@ -666,6 +671,9 @@
     [IWHttpTool postWithURL:@"Business/UploadBusinessHeader" params:@{@"FileStreamData":imageStr,@"PictureType":self.isPerson?@"5":@"6"} success:^(id json) {
         NSLog(@"%@*******", json);
         if (![json[@"PicUrl"]isEqualToString:@""]) {
+            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+            [MobClick event:@"MeChangeHeaderIconClick" attributes:dict];
+
             [[NSUserDefaults standardUserDefaults]setObject:json[@"PicUrl"] forKey:UserInfoKeyLoginAvatar];
             [[NSUserDefaults standardUserDefaults]synchronize];
         }

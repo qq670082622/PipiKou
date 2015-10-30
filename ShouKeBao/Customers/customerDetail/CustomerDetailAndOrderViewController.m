@@ -12,6 +12,8 @@
 #import "CustomModel.h"
 #import "Customers.h"
 #import "EditCustomerDetailViewController.h"
+#import "BaseClickAttribute.h"
+#import "MobClick.h"
 @interface CustomerDetailAndOrderViewController ()
 @property (nonatomic, weak) UISegmentedControl *segmentControl;
 @property (nonatomic, strong)CustomerOrderViewController * orderVC;
@@ -80,6 +82,9 @@
         NSLog(@"客户资料" );
         //    [self.navigationController popViewControllerAnimated:NO];
     }else if (control.selectedSegmentIndex == 1){
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"CustomerOrderDetailClick" attributes:dict];
+
         self.button.hidden = YES;
         [self.view addSubview:self.orderVC.view];
         if (self.detailVC) {
