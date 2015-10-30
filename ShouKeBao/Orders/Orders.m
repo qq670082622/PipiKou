@@ -459,6 +459,7 @@ typedef void (^ChangeFrameBlock)();
 //        [self.navigationController pushViewController:controller animated:YES];
         //下面是跳转的地方
         NSLog(@"----%ld",self.InvoicedataArr.count);
+        [self.invoiceArr removeAllObjects];
         if (self.invoiceBtn.imageView.image != nil) {
             NSLog(@"检测到有图片");
             [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
