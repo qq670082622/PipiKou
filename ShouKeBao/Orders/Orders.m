@@ -476,7 +476,7 @@ typedef void (^ChangeFrameBlock)();
             if ([orderGuide integerValue] == 1) {
                 [self notgoAlert];
             }else{
-                UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可针对回团30天内已完成及已付款的单团订单（包含退款、投诉完成的订单）提交开票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
+                UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可对已经付全款（台湾产品除外）的非单团订单提交开发票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
                 alertvie.tag = 1001;
                 [alertvie show];
             }
