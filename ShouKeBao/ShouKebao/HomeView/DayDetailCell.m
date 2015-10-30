@@ -655,6 +655,24 @@
     NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:_detail.ShareInfo];
         //构造分享内容
     NSLog(@"%@", tmp);
+    
+    NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
+    [postDic setObject:@"0" forKey:@"ShareType"];
+    if (_detail.ShareInfo[@"Url"]) {
+        [postDic setObject:_detail.ShareInfo[@"Url"]  forKey:@"ShareUrl"];
+    }
+    [postDic setObject:@"" forKey:@"PageUrl"];
+        [postDic setObject:@"1" forKey:@"ShareWay"];
+    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
+        //                                        [[[UIAlertView alloc]initWithTitle:_detail.ShareInfo[@"Url"] message:nil delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
+    } failure:^(NSError *error) {
+        
+    }];
+
+    
+    
+    
+    
     id<ISSContent>publishContent = [ShareSDK content:tmp[@"Desc"]
                                        defaultContent:tmp[@"Desc"]
                                                 image:[ShareSDK imageWithUrl:tmp[@"Pic"]]

@@ -130,6 +130,8 @@
             }
             [self setHeaderWith:muta[@"ConsultantLevel"]];
             [[NSUserDefaults standardUserDefaults]setObject:muta[@"ConsultantLevel"] forKey:UserInfoKeyLYGWLevel];
+            [[NSUserDefaults standardUserDefaults]setObject:muta[@"ConsultantLevel"] forKey:IsShowInvoiceManage];
+//            [self.tableView reloadData];
         }
     } failure:^(NSError *error) {
         
@@ -343,7 +345,18 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    
+//    if (section == 1) {
+//        NSString *isShowInvoiceManage = [[NSUserDefaults standardUserDefaults] objectForKey:IsShowInvoiceManage];
+//        if ([isShowInvoiceManage isEqualToString:@"1"]) {
+//            return 4;
+//        }else{
+//            return 3;
+//
+//        }
+//    }
     return [self.desArr[section] count];
+    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
