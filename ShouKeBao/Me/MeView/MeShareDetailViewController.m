@@ -344,9 +344,8 @@
     if (self.popKeyWords.length) {
         [dic setObject:self.popKeyWords forKey:@"SearchKey"];
     }else{
-        [dic setObject:@" " forKey:@"SearchKey"];
+        [dic setObject:@"" forKey:@"SearchKey"];
     }
-    
     [IWHttpTool WMpostWithURL:@"/Product/GetProductShareList" params:dic success:^(id json) {
         NSLog(@"json = %@------------]",json);
         
