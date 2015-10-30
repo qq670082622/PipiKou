@@ -87,7 +87,7 @@
         _searchButton = [[UIButton alloc]initWithFrame:CGRectMake(0, 6, 60, 28)];
         [_searchButton setTitle:@"搜索" forState:UIControlStateNormal];
         [_searchButton setImage:[UIImage imageNamed:@"fdjBtn"] forState:UIControlStateNormal];
-//        _searchButton.backgroundColor = [UIColor colorWithRed:(220.0/255.0) green:(221.0/255.0) blue:(223.0/255.0) alpha:1];
+        _searchButton.backgroundColor = [UIColor clearColor];
         [_searchButton setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
         [_searchButton setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 20)];
         [_searchButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 7, 0, 5)];

@@ -320,10 +320,7 @@
     meSearchVC.title = @"产品搜索";
     if (![self.popKeyWords isEqualToString:[NSString stringWithFormat:@"%@",  searchHistoryPlaceholder]]) {
         meSearchVC.detail_key = self.popKeyWords;
-      
     }
-    
-    
     [self.navigationController pushViewController:meSearchVC animated:NO];
 }
 #pragma mark -筛选按钮
@@ -343,7 +340,7 @@
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     NSString *type = [NSString stringWithFormat:@"%d", self.SourtType];
     
-    [dic setValue:type forKey:@"SourtType"];
+    [dic setValue:type forKey:@"SortType"];
     if (self.popKeyWords.length) {
         [dic setObject:self.popKeyWords forKey:@"SearchKey"];
     }else{
