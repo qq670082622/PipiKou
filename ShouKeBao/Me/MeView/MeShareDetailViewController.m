@@ -132,7 +132,7 @@
 //无数据时提示
 -(UIImageView *)noProductView{
     if (!_noProductView) {
-        _noProductView = [[UIImageView alloc]initWithFrame:CGRectMake(70, 80, VIEW_width-140, VIEW_height-300)];
+        _noProductView = [[UIImageView alloc]initWithFrame:CGRectMake((VIEW_width-200)/2, (VIEW_height-250)/2, 200, 250)];
         _noProductView.image = [UIImage imageNamed:@"content_null"];
         _noProductView.hidden = YES;
         
