@@ -78,7 +78,7 @@ typedef void (^ChangeFrameBlock)();
 @property (nonatomic,assign) NSInteger thirdIndex;
 
 @property (nonatomic,strong) UITableView *tableView;
-
+@property (nonatomic, assign)BOOL isReloadMainTabaleView;
 @property (nonatomic,strong) DressView *dressView;
 @property (nonatomic,weak) UIView *cover;
 @property (nonatomic, assign)BOOL isNUll;
@@ -226,6 +226,7 @@ typedef void (^ChangeFrameBlock)();
 // 根据条件加载数据
 - (void)loadDataSuorceByCondition
 {   self.isNUll = NO;
+    self.isReloadMainTabaleView = NO;
     NSString *first = self.firstValue ? self.firstValue[@"Value"] : @"0";
     NSString *second = self.secondValue ? self.secondValue[@"Value"] : @"";
     NSString *third = self.thirdValue ? self.thirdValue[@"Value"] : @"";
@@ -245,10 +246,9 @@ typedef void (^ChangeFrameBlock)();
     [OrderTool getOrderListWithParam:param success:^(id json) {
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
+        self.isReloadMainTabaleView = YES;
         if (json) {
             NSLog(@"1------%@",json[@"OrderList"]);
-            dispatch_queue_t q = dispatch_queue_create("lidingd", DISPATCH_QUEUE_SERIAL);
-            dispatch_async(q, ^{
                 if (self.isHeadRefresh) {
                     [self.dataArr removeAllObjects];
                 }
@@ -258,12 +258,9 @@ typedef void (^ChangeFrameBlock)();
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.dataArr addObject:order];
                 }
-                dispatch_async(dispatch_get_main_queue(), ^{
                     self.isSearch = self.searchKeyWord.length;
                     [self setNullImage];
                     [self.tableView reloadData];
-                });
-            });
         }
     } failure:^(NSError *error) {
         
@@ -465,75 +462,41 @@ typedef void (^ChangeFrameBlock)();
             NSLog(@"检测到有图片");
             [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
         }
+        
         if (self.InvoicedataArr.count == 0) {
             NSLog(@"没有数据");
-            self.invoiceBtn.selected = NO;
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有可以开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
             [alert show];
         }else{
-            /*
-             NSUserDefaults *orderGuideDefault = orderGuideDefault = [NSUserDefaults standardUserDefaults];
-             NSString *orderGuide = [orderGuideDefault objectForKey:@"orderGuide"];
-             NSLog(@"orderGuide = %@", orderGuide);
-             if ([orderGuide integerValue] != 1) {// 是否第一次打开app
 
-             */
-//            if (button.selected == YES) {
-//                button.selected = NO;
-//                [self.tableView setEditing:NO animated:YES];
-//                [self.tableView reloadData];
-//                if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-//                    [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
-//                }
-//            }else if(button.selected == NO){
-//                
-//                button.selected = YES;
-//                
-//                [self.tableView setEditing:YES animated:YES];
-//                [self.tableView reloadData];
             NSUserDefaults *showAlert = [NSUserDefaults standardUserDefaults];
             NSString *orderGuide = [showAlert objectForKey:@"goAlertView"];
             if ([orderGuide integerValue] == 1) {
                 [self notgoAlert];
             }else{
                 UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可针对回团30天内已完成及已付款的单团订单（包含退款、投诉完成的订单）提交开票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
+                alertvie.tag = 1001;
                 [alertvie show];
             }
-            
-//                //当界面消失的时候弹出开发票的规则图片
-//                [NSString showbackgroundgray];
-//                //if (!self.invoiceAlert) {
-//                self.invoiceAlert = [[[NSBundle mainBundle] loadNibNamed:@"InvoiceAlertView" owner:self options:nil] lastObject];
-//                self.invoiceAlert.tag = 107;
-//                self.invoiceAlert.AlertNav = self.navigationController;
-//                self.invoiceAlert.viewCont = self;
-//                self.invoiceAlert.layer.masksToBounds = YES;
-//                self.invoiceAlert.layer.cornerRadius = 6.0;
-//                self.invoiceAlert.frame = CGRectMake(20,kScreenSize.height/4,kScreenSize.width-40 ,150);
-//                [[[UIApplication sharedApplication].delegate window] addSubview:self.invoiceAlert];
-//                self.invoiceBtn.selected = YES;
-//                [self.tableView setEditing:YES animated:YES];
-//                //}
-//                
-//            }
-//
         }
        
     }
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     NSLog(@"调用了");
-//    UIButton *myBtn = (UIButton *)[self.view viewWithTag:1200];
-    if (buttonIndex == 0) {
-        NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
-        [guideDefault setObject:@"1" forKey:@"goAlertView"];
-        [guideDefault synchronize];
+    if (alertView.tag == 1001) {
+        if (buttonIndex == 0) {
+            NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+            [guideDefault setObject:@"1" forKey:@"goAlertView"];
+            [guideDefault synchronize];
+            
+            [self notgoAlert];
+            
+        }else{
+            NSLog(@"直接取消");
+            [self notgoAlert];
+        }
 
-        [self notgoAlert];
-
-    }else{
-        NSLog(@"直接取消");
-        [self notgoAlert];
     }
 }
 //不需要走警告框调用的方法
@@ -541,7 +504,9 @@ typedef void (^ChangeFrameBlock)();
     if (self.invoiceBtn.selected == YES) {
         self.invoiceBtn.selected = NO;
         [self.tableView setEditing:NO animated:YES];
-        [self.tableView reloadData];
+        if (self.isReloadMainTabaleView) {
+            [self.tableView reloadData];
+        }
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
             [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
         }
@@ -561,22 +526,24 @@ typedef void (^ChangeFrameBlock)();
         
         
         [self.tableView setEditing:YES animated:YES];
-        [self.tableView reloadData];
+        if (self.isReloadMainTabaleView) {
+            [self.tableView reloadData];
+        }
         
     }
 
 }
 
 //block改变tableview的frame
--(void)ChangeFrame{
-    
-//    CGFloat ppt = _tableView.frame.size.height;
-//    self.bb = 1;
-//    _tableView.frame = CGRectMake(0, 89, self.view.bounds.size.width, ppt - 100);
+//-(void)ChangeFrame{
 //    
-    //NSLog(@"---%f",self.tableView.frame.size.height);
-    NSLog(@"这里空了一个改变tableview的frame");
-}
+////    CGFloat ppt = _tableView.frame.size.height;
+////    self.bb = 1;
+////    _tableView.frame = CGRectMake(0, 89, self.view.bounds.size.width, ppt - 100);
+////    
+//    //NSLog(@"---%f",self.tableView.frame.size.height);
+//    NSLog(@"这里空了一个改变tableview的frame");
+//}
 // 去除筛选界面
 - (void)dressTapHandle:(UITapGestureRecognizer *)ges
 {

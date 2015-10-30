@@ -18,6 +18,6 @@
 @property (nonatomic,strong) NSMutableArray *invoiceArr;//存放 选中开发票 cell
 @property (nonatomic,strong) NSMutableArray *InvoicedataArr;
 @property (nonatomic,strong) InvoiceLowView *InoicelowView;
--(void)ChangeFrame;
+//-(void)ChangeFrame;
 -(void)ClickAllBtn;
 @end
