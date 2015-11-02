@@ -803,7 +803,9 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self loginApp];
-    [self checkProductOrder];
+    if ([[NSUserDefaults standardUserDefaults]objectForKey:UserInfoKeyPassword]) {
+        [self checkProductOrder];
+    }
 }
 - (void)checkProductOrder{
     NSString * commandWords = [self getWordOfCommand];
