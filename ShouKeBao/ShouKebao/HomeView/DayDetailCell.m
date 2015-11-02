@@ -707,6 +707,7 @@
                                         }
                                     NSLog(@"%@", postDic);
                                     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
+//                                        [[[UIAlertView alloc]initWithTitle:_detail.ShareInfo[@"Url"] message:nil delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
                                     } failure:^(NSError *error) {
                                         
                                     }];
