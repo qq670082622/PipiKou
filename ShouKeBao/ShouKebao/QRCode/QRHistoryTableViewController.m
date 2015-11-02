@@ -414,8 +414,14 @@
         } failure:^(NSError *error) {
             NSLog(@"批量删除客户失败，返回error is %@",error);
         }];
-        [self refresh];
-        [self.table reloadData];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ // 2.0s后执行block里面的代码
+            
+            [self loadDataSource];
+            [self.table reloadData];
+//            [MBProgressHUD hideHUD];
+        });
+       
         
     }else if (!_isLogin){
         NSMutableArray *arr = [NSMutableArray arrayWithArray:[WriteFileManager readData:@"record"]] ;

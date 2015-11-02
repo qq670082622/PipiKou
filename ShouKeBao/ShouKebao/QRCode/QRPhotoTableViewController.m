@@ -40,6 +40,7 @@
 @property (nonatomic,assign)int pageIndex;// 当前页
 @property (nonatomic,assign) BOOL isRefresh;
 @property (nonatomic,copy) NSString *totalNumber;
+@property (nonatomic, strong)NSMutableDictionary * postDic;
 
 - (IBAction)canclePhoto:(id)sender;
 - (IBAction)savePhoto:(id)sender;
@@ -87,7 +88,12 @@
     }
     return _editArr;
 }
-
+- (NSMutableDictionary *)postDic{
+    if (!_postDic) {
+        self.postDic = [NSMutableDictionary dictionary];
+    }
+    return _postDic;
+}
 #pragma mark - 刷新和分页
 - (void)initPull{
     [self.collectionV addHeaderWithTarget:self action:@selector(headRefish)dateKey:nil];
@@ -232,10 +238,13 @@
         }];
         
         
-//        [self initPull];
-        [self.collectionV reloadData];
-        [self loadData];
-        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
+            [self.collectionV reloadData];
+            [self loadData];
+        });
+
+      
         [self.IDVC editCustomerDetail];
         self.PhotoFlag = NO;
         [self.editArr removeAllObjects];
@@ -249,12 +258,14 @@
     if (self.editArr.count == 0) {
         [self pointOut];
     }else{
+
         [self pushToSaveVC];
         [self.IDVC editCustomerDetail];
         [self.editArr removeAllObjects];
         self.PhotoFlag = NO;
     }
 }
+
 
 - (void)pointOut{
     UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您没有选中任何图片!" delegate:self cancelButtonTitle:@"知道了" otherButtonTitles:nil];
@@ -334,7 +345,7 @@
                 [self.dataArr removeAllObjects];
                 [self.editArr removeAllObjects];
             }
-//             NSLog(@"json =  %@", json);
+             NSLog(@"json =  %@", json);
 //             NSLog(@",,,,, total = %@", json[@"TotalCount"]);
             
             self.totalNumber = json[@"TotalCount"];
