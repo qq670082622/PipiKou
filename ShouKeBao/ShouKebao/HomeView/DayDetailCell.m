@@ -661,7 +661,7 @@
     if (_detail.ShareInfo[@"Url"]) {
         [postDic setObject:_detail.ShareInfo[@"Url"]  forKey:@"ShareUrl"];
     }
-    [postDic setObject:@"" forKey:@"PageUrl"];
+    [postDic setObject:_detail.ShareInfo[@"Url"] forKey:@"PageUrl"];
         [postDic setObject:@"1" forKey:@"ShareWay"];
     [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
         //                                        [[[UIAlertView alloc]initWithTitle:_detail.ShareInfo[@"Url"] message:nil delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];

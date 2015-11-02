@@ -505,7 +505,7 @@
                                     if (_modal.ShareInfo[@"Url"]) {
                                         [postDic setObject:_modal.ShareInfo[@"Url"]  forKey:@"ShareUrl"];
                                     }
-                                    [postDic setObject:@"" forKey:@"PageUrl"];
+                                    [postDic setObject:_modal.ShareInfo[@"Url"] forKey:@"PageUrl"];
                                     if (type ==ShareTypeWeixiSession) {
                                         [postDic setObject:@"1" forKey:@"ShareWay"];
                                     }else if(type == ShareTypeQQ){
