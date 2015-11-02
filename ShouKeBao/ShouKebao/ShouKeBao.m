@@ -598,6 +598,15 @@
             webView.linkUrl = otherUrl;
             webView.webTitle = otherTitle;
             [self.navigationController pushViewController:webView animated:YES];
+        }else if([message[0] isEqualToString:@"SearchProduct"]){
+            ProductList *list = [[ProductList alloc] init];
+            list.productListFrom = FromKeyWord;
+            list.pushedSearchK = message[3];
+            list.title =  message[3];
+//            NSDictionary * dic = @{@"TwoSubName": message[3]};
+//            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+//            [MobClick event:@"FindProductList" attributes:dict];
+            [self.navigationController pushViewController:list animated:YES];
         }else{
         
         }

@@ -86,16 +86,20 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     NSDictionary * params = @{@"CustomerIds":@[self.customerId]};
     [IWHttpTool postWithURL:@"/Customer/GetCustomerPicList" params:params success:^(id json) {
         NSLog(@"%@", json);
-        NSArray *productss = json[@"CustomerList"][0][@"PictureList"];
+        NSArray * array = json[@"CustomerList"];
+        if (array.count) {
+            NSArray *productss = array[0][@"PictureList"];
         for (NSDictionary * dic in productss) {
             [self.dataSource addObject:dic[@"MinPicUrl"]];
             [self.bigPicUrlArray addObject:dic[@"PicUrl"]];
+        }
         }
         [self.collectionView reloadData];
         [hudView hide:YES];
     } failure:^(NSError * error) {
         
     }];
+        
 //    for (NSDictionary * dic in self.pictureList) {
 //        [self.dataSource addObject:dic[@"MinPicUrl"]];
 //        [self.bigPicUrlArray addObject:dic[@"PicUrl"]];
