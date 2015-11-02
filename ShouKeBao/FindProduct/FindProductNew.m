@@ -159,7 +159,6 @@
             leftModal *modal = [leftModal modalWithDict:dic];
             [self.leftDataArray addObject:modal];
         }
-        
         [self.leftTableView reloadData];
         //默认选中第一个cell
         [self.leftTableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
@@ -205,6 +204,7 @@
     [hudView show:YES];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:type forKey:@"NavigationType"];
+
         [IWHttpTool WMpostWithURL:@"/Product/GetNavigationMain" params:dic success:^(id json) {
             [self.NomalDataArray removeAllObjects];
             NSMutableArray *searchKeyArr = [NSMutableArray array];

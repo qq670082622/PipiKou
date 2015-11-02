@@ -17,7 +17,7 @@
 #import "attachmentViewController.h"
 #import "AttachmentCollectionView.h"
 #import "CustomerOrderViewController.h"
-
+#import "IWHttpTool.h"  
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate, UITableViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
 @end

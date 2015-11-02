@@ -803,18 +803,21 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     [self loginApp];
+    [self checkProductOrder];
+}
+- (void)checkProductOrder{
     NSString * commandWords = [self getWordOfCommand];
     if (commandWords) {
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
         [dic setObject:commandWords forKey:@"CommandText"];
-
+        
         [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
             NSDictionary *dataDic = json[@"ProductDetail"];
             NSLog(@"%@",json);
             if ([json[@"IsSuccess"] intValue]== 0) {
                 NSLog(@"请求失败");
             }else{
-                 NSLog(@"服务器返回有数据");
+                NSLog(@"服务器返回有数据");
                 if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
                     NSInteger exite;
                     if ([self.window viewWithTag:101]) {
@@ -823,20 +826,18 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
                     }else{
                         NSLog(@"没有口令框正在显示，需要创建");
                         exite = 0;
-                         [NSString showbackgroundgray];
+                        [NSString showbackgroundgray];
                     }
                     UINavigationController * nav = (UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController;
                     [NSString showcommendToDetailbody:dataDic[@"Name"] Di:dataDic[@"PersonAlternateCash"] song:dataDic[@"PersonCashCoupon"] retailsales:[NSString stringWithFormat:@"%@门市",dataDic[@"PersonPrice"]] CommandSamePrice:dataDic[@"PersonPeerPrice"] Picurl:dataDic[@"PicUrl"] NewPageUrl:dataDic[@"LinkUrl"] shareInfo:dataDic[@"ShareInfo"] exist:exite Nav:nav];
                 }
-
+                
             }
         } failure:^(NSError *error) {
             NSLog(@"请求失败：%@",error);
         }];
     }
-    
 }
-
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
@@ -845,7 +846,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     NSString * string = board.string;
     if (!string) {
         string = @"";
-}
+    }
     //创建正则表达式；pattern规则；
     NSString * pattern = @"¥.+¥";
     NSRegularExpression * regex = [[NSRegularExpression alloc]initWithPattern:pattern options:0 error:nil];

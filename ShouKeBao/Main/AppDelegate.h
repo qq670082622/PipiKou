@@ -26,5 +26,7 @@
 // 登录旅行社账号
 - (void)setTravelLoginRoot;
 
+//圈口令
+- (void)checkProductOrder;
 @end
 
