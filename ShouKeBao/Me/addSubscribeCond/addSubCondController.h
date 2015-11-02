@@ -9,5 +9,11 @@
 #import "SKViewController.h"
 
 @interface addSubCondController : SKViewController
-
+{
+    UIButton *sixbutton;
+    UILabel *lowPlabel;
+    UILabel *tallPlabel;
+    UITextField *lowPrice;
+    UITextField *tallPrice;
+}
 @end
