@@ -68,6 +68,7 @@
 #import "NSString+FKTools.h"
 #import "CommandTo.h"
 #import "invoiceCell.h"
+#import "AppDelegate.h"
 #import "SubscribeCell.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
@@ -190,6 +191,8 @@
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
 //    [self checkNewVerSion];
     [self initPull];
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    [app checkProductOrder];
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -198,7 +201,7 @@
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-
+    
     
 //    [self.view addSubview:self.tableView];
     

@@ -188,7 +188,7 @@
     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
     [postDic setObject:self.picArray forKey:@"PicUrls"];
     [postDic setObject:self.customIDArray forKey:@"CustomerIds"];
-//    NSDictionary *postDic = @{@"PicUrls":self.picArray,@"CustomerIds":self.customIDArray};
+
     [IWHttpTool WMpostWithURL:@"/Customer/AddPicToCustomer" params:postDic success:^(id json) {
         NSLog(@"json = %@", json);
         
