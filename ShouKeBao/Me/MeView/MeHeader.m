@@ -91,7 +91,7 @@
     CGFloat headW = self.isPerson ? 100 : 100;
     if (self.isPerson) {
         self.headIcon.frame = CGRectMake(20, 60, headW, 100);
-        self.levelIcon.frame = CGRectMake(20, 140, 100, 20);
+        self.levelIcon.frame = CGRectMake(20, 143, 100, 20);
         self.levelName.frame = CGRectMake(20, 0, 70, 20);
         
         CGFloat nameY = CGRectGetMinY(self.headIcon.frame) + 8;
