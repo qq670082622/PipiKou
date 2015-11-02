@@ -580,6 +580,7 @@
 {
     return 0.01f;
 }
+
 #pragma mark - CheckNewVersion
 - (void)checkNewVerSion{
     /*

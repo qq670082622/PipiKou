@@ -189,10 +189,9 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
-//    [self checkNewVerSion];
     [self initPull];
-    AppDelegate *app = [UIApplication sharedApplication].delegate;
-    [app checkProductOrder];
+    [self performSelector:@selector(checkProductOrder2) withObject:nil afterDelay:1.5];
+
     [self postwithNotLoginRecord];//上传未登录时保存的扫描记录
     [ self postWithNotLoginRecord2];//上传未登录时保存的客户
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.userIcon.layer andBorderColor:[UIColor clearColor] andBorderWidth:0.5 andNeedShadow:NO];
@@ -273,7 +272,10 @@
         [self.tabBarController.tabBar addSubview:badgeView];
     }
 }
-
+- (void)checkProductOrder2{
+    AppDelegate *app = [UIApplication sharedApplication].delegate;
+    [app checkProductOrder];
+}
 //给推送打tag和标签
 -(void)setTagAndAlias
 {
@@ -408,6 +410,7 @@
 
 #pragma mark - CheckNewVersion
 - (void)checkNewVerSion{
+    
     NSDictionary * param = @{};
     [MeHttpTool inspectionWithParam:param success:^(id json) {
         NSDictionary * dic = json[@"NewVersion"];
@@ -598,6 +601,15 @@
             webView.linkUrl = otherUrl;
             webView.webTitle = otherTitle;
             [self.navigationController pushViewController:webView animated:YES];
+        }else if([message[0] isEqualToString:@"SearchProduct"]){
+            ProductList *list = [[ProductList alloc] init];
+            list.productListFrom = FromKeyWord;
+            list.pushedSearchK = message[3];
+            list.title =  message[3];
+//            NSDictionary * dic = @{@"TwoSubName": message[3]};
+//            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
+//            [MobClick event:@"FindProductList" attributes:dict];
+            [self.navigationController pushViewController:list animated:YES];
         }else{
         
         }
