@@ -151,6 +151,9 @@
 
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
+    [self allTFresignFirstResponder];
+}
+- (void)allTFresignFirstResponder{
     [self.nameText resignFirstResponder];
     [self.sexText resignFirstResponder];
     [self.countryText resignFirstResponder];
@@ -159,9 +162,7 @@
     [self.startDayText resignFirstResponder];
     [self.startPointText resignFirstResponder];
     [self.effectiveText resignFirstResponder];
-    
 }
-
 -(NSMutableArray *)scanningArr
 {
     if (_scanningArr == nil) {
@@ -211,6 +212,7 @@
             if (self.postDic) {
                 
             }else{
+                [self allTFresignFirstResponder];
                 [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
             }
         }
@@ -311,6 +313,7 @@
         [IWHttpTool WMpostWithURL:@"Customer/CopyCredentialsPicRecordToCustomer" params:customerDic success:^(id json) {
             NSLog(@"%d", self.isFromeCamer);
             if (!self.isFromeCamer) {
+                [self allTFresignFirstResponder];
                 [self WMPopCustomerAlertWithCopyStr:[NSString stringWithFormat:@"姓名:%@,性别:%@,国籍:%@,证件号码:%@,出生日期:%@,签证日期:%@,签证地:%@,有效期:%@",self.nameText.text,self.sexText.text,self.countryText.text,self.cardNumText.text,self.bornText.text,self.startDayText.text,self.startPointText.text,self.effectiveText.text]];
             }
             self.delegateToOrder = self.VC;

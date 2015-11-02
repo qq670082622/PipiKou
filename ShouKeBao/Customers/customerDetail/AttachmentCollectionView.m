@@ -13,6 +13,7 @@
 #import "IWHttpTool.h"
 #import "NSString+FKTools.h"
 #import "Customers.h"
+#import "MBProgressHUD+MJ.h"
 @interface AttachmentCollectionView ()<UIActionSheetDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic ,strong) NSMutableArray *dataSource;
 @property (nonatomic, strong)NSMutableArray *bigPicUrlArray;
@@ -78,11 +79,28 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
 
 -(void)loadData
 {
-    for (NSDictionary * dic in self.pictureList) {
-        [self.dataSource addObject:dic[@"MinPicUrl"]];
-        [self.bigPicUrlArray addObject:dic[@"PicUrl"]];
-    }
-    [self.collectionView reloadData];
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"加载中...";
+    [hudView show:YES];
+
+    NSDictionary * params = @{@"CustomerIds":@[self.customerId]};
+    [IWHttpTool postWithURL:@"/Customer/GetCustomerPicList" params:params success:^(id json) {
+        NSLog(@"%@", json);
+        NSArray *productss = json[@"CustomerList"][0][@"PictureList"];
+        for (NSDictionary * dic in productss) {
+            [self.dataSource addObject:dic[@"MinPicUrl"]];
+            [self.bigPicUrlArray addObject:dic[@"PicUrl"]];
+        }
+        [self.collectionView reloadData];
+        [hudView hide:YES];
+    } failure:^(NSError * error) {
+        
+    }];
+//    for (NSDictionary * dic in self.pictureList) {
+//        [self.dataSource addObject:dic[@"MinPicUrl"]];
+//        [self.bigPicUrlArray addObject:dic[@"PicUrl"]];
+//    }
+//    [self.collectionView reloadData];
 }
 -(NSMutableArray *)dataSource
 {
@@ -136,7 +154,7 @@ static NSString * const reuseIdentifier = @"AttachmentCell";
     }else{
         NSLog(@"%@", self.customerId);
         [IWHttpTool postWithURL:@"/Customer/SavePicToCustomer" params:@{@"PicUrls":self.bigPicUrlArray,@"CustomerId":self.customerId} success:^(id json) {
-
+            [MBProgressHUD showSuccess:@"保存成功"];
             NSLog(@"%@", json);
         } failure:^(NSError *error) {
         }];
