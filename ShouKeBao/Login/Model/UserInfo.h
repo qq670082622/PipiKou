@@ -26,7 +26,7 @@
 #define UserInfoKeyLYGWPosition @"LYGWPosition" //职位
 #define UserInfoKeyLYGWPhoneNum @"LYGWPhone" //电话
 
-
+#define IsShowInvoiceManage @"IsShowInvoiceManage"
 #import "BaseModel.h"
 @interface UserInfo : BaseModel
 

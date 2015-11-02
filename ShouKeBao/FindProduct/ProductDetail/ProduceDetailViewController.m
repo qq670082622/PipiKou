@@ -277,7 +277,7 @@
         [self.webView goBack];
     }else  {
         //NSLog(@"%@", [self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]);
-        if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"1"]) {//判断能否弹框
+        if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"0"]) {//判断能否弹框
             [NSString showbackgroundgray];
             [NSString showLeaveShareNav:self.navigationController InVC:self];
             [self.webView stringByEvaluatingJavaScriptFromString:@"AppHadShowShareWhenBack()"];//提示弹框
