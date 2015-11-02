@@ -289,7 +289,10 @@ typedef void (^ChangeFrameBlock)();
                             @"IsRefund":@"0",
                             @"InvoiceFlag":@"1"};
     [OrderTool getOrderListWithParam:param success:^(id json) {
+        [self.tableView headerEndRefreshing];
+        [self.tableView footerEndRefreshing];
         if (json) {
+            NSLog(@"---%@",json);
                 if (self.isHeadRefresh) {
                     [self.InvoicedataArr removeAllObjects];
                 }
@@ -314,32 +317,6 @@ typedef void (^ChangeFrameBlock)();
     self.guideImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
     self.guideImageView.image = [UIImage imageNamed:@"orderSwipLeftGuide"];
-    
-    // 这个if是判断小红点的
-//        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(0, 100, 22, 22)];
-//        UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(0,3,20,20)];
-//        button.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"APPsaixuan"]];
-//        image.image = [UIImage imageNamed:@"APPsaixuan"];
-//        button.tag = 1100;
-//        [button addTarget:self action:@selector(selectAction:)forControlEvents:UIControlEventTouchUpInside];
-//        _barItem = [[UIBarButtonItem alloc]initWithCustomView:button];
-//        [button addSubview:image];
-//        
-//        [_barItem.customView addSubview:image];
-//        self.navigationItem.rightBarButtonItem = _barItem;
-//        //开发票
-//        self.invoiceBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 60, 30)];
-//        self.invoiceBtn.tag = 1200;
-//        [self.invoiceBtn addTarget:self action:@selector(selectAction:) forControlEvents:UIControlEventTouchUpInside];
-//        [self.invoiceBtn setTitle:@"开发票" forState:UIControlStateNormal];
-//        self.invoiceBtn.titleEdgeInsets = UIEdgeInsetsMake(3, -20, 0, 0);
-//        [self.invoiceBtn setImage:[UIImage imageNamed:@"hongdian"] forState:UIControlStateNormal];
-//        self.invoiceBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-//        [self.invoiceBtn setTitle:@"取消" forState:UIControlStateSelected];
-//        self.invoiceBtn.imageEdgeInsets = UIEdgeInsetsMake(-3, 47, 0, 0);
-//        _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
-//        self.navigationItem.leftBarButtonItem = _barItem2;
-    
     
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     [guideDefault setObject:@"1" forKey:@"orderGuide"];
