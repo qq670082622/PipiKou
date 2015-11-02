@@ -941,7 +941,7 @@ typedef void (^ChangeFrameBlock)();
 //    invoicebu.imageEdgeInsets = UIEdgeInsetsMake(0, 30, 0, 0);
 
     if (self.tableView.editing == YES) {
-        OrderModel *order = self.dataArr[indexPath.section];
+        OrderModel *order = self.InvoicedataArr[indexPath.section];
         [self.invoiceArr addObject:order.OrderId];
         [self.InoicelowView reloadLowView:nil];
         NSLog(@"=======%ld",self.invoiceArr.count);
@@ -968,7 +968,7 @@ typedef void (^ChangeFrameBlock)();
 }
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OrderModel *order = self.dataArr[indexPath.section];
+    OrderModel *order = self.InvoicedataArr[indexPath.section];
     [self.invoiceArr removeObject:order.OrderId];
      [self.InoicelowView reloadLowView:nil];
     NSLog(@"==%ld",self.invoiceArr.count);
