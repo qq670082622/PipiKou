@@ -543,6 +543,7 @@
 
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ClickShareAll" attributes:dict];
+    [MobClick event:@"ProductDetailShareClickAll" attributes:dict];
 
     NSLog(@"%@", self.shareInfo);
     
@@ -599,7 +600,7 @@
                                     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                                     [MobClick event:@"ShareSuccessAll" attributes:dict];
                                     [MobClick event:@"ShareSuccessAllJS" attributes:dict counter:3];
-
+                                    [MobClick event:@"ProductDetailShareSuccessClickAll" attributes:dict];
                                     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
                                         [MobClick event:@"FromFindProductAllShareSuccess" attributes:dict];
                                     }
