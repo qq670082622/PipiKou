@@ -203,6 +203,7 @@ typedef void (^ChangeFrameBlock)();
         [self.chooseStatus removeAllObjects];
         if (json) {
             NSLog(@"----%@",json);
+
             if ([json[@"IsSuccess"] integerValue] == 1) {
                 
                 for (NSDictionary *timeDic in json[@"DateRangList"]) {
@@ -249,7 +250,6 @@ typedef void (^ChangeFrameBlock)();
         [self.tableView footerEndRefreshing];
         self.isReloadMainTabaleView = YES;
         if (json) {
-            NSLog(@"1------%@",json[@"OrderList"]);
                 if (self.isHeadRefresh) {
                     [self.dataArr removeAllObjects];
                 }
@@ -419,7 +419,7 @@ typedef void (^ChangeFrameBlock)();
             self.invoiceBtn.imageEdgeInsets = UIEdgeInsetsMake(-3, 47, 0, 0);
             _barItem2 = [[UIBarButtonItem alloc] initWithCustomView:self.invoiceBtn];
             self.navigationItem.leftBarButtonItem = _barItem2;
-
+    
 
         }else{
             //开发票
