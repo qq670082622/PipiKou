@@ -417,7 +417,7 @@
         NSLog(@"%@", json);
         self.checkVersionLinkUrl = dic[@"LinkUrl"];
         self.IOSUpdateType = [NSString stringWithFormat:@"%@", dic[@"IOSUpdateType"]];
-        NSString * isMust = @"不再询问";
+        NSString * isMust = @"狠心放弃";
         if ([dic[@"IsMustUpdate"] integerValue] == 1) {
             self.isMustUpdate = YES;
             isMust = @"退出程序";
@@ -425,7 +425,7 @@
         NSArray * infoArray = dic[@"VersionInfo"];
         NSMutableString * infoString = [NSMutableString stringWithCapacity:1];
         for (int i = 0; i < infoArray.count; i++) {
-            [infoString appendFormat:@"%d.%@  ",i + 1, [infoArray objectAtIndex:i]];
+            [infoString appendFormat:@"%d.%@\n",i + 1, [infoArray objectAtIndex:i]];
         }
         if ([dic[@"IsHaveNewVersion"]integerValue] == 1) {
             UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"发现新版本" message:infoString delegate:self cancelButtonTitle:isMust otherButtonTitles:@"立即更新", nil];

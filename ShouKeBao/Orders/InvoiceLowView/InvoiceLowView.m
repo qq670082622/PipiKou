@@ -27,15 +27,18 @@
 - (IBAction)SelectAllBtn:(UIButton *)sender {
     //Orders *ord = (Orders *)self.ViewCont;
     if (self.InvoiceAllBtn) {
-        [sender setImage:[UIImage imageNamed:@"InvoiceClickAll"] forState:UIControlStateNormal];
+        if (sender.tag != 2015) {
+            [sender setImage:[UIImage imageNamed:@"InvoiceClickAll"] forState:UIControlStateNormal];
+        }
         self.InvoiceAllBtn = NO;
     }else{
-        [sender setImage:[UIImage imageNamed:@"InvoiceAllBtn"] forState:UIControlStateNormal];
+        if (sender.tag != 2015) {
+            [sender setImage:[UIImage imageNamed:@"InvoiceClickAll"] forState:UIControlStateNormal];
+        }
         self.InvoiceAllBtn = YES;
     }
     [self.ord ClickAllBtn];
 }
-
 - (IBAction)InbatchesbBtn:(UIButton *)sender {
     if (self.ord.invoiceArr.count == 0) {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有选中需要开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
