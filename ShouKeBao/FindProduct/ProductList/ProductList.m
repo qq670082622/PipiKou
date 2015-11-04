@@ -2078,8 +2078,7 @@
         //    }else if (self.cheapOutlet.selected == YES && [self.cheapOutlet.titleLabel.text
         //                                                   isEqualToString:@"同行价 ↑"]){
     }
-    
-    
+
 //    if (self.cheapOutlet.selected == YES && sender == 4){
 //     [self.cheapOutlet setTitle:@"同行价 ↓" forState:UIControlStateNormal];
          if (sender == 3){

@@ -107,22 +107,16 @@
     self.table.dataSource = self;
     self.table.rowHeight = 64;
     
-//    self.searchTextField.delegate = self;
     [self.timeBtn setSelected:YES];
-//    [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchCustomerBtnOutlet.layer andBorderColor:[UIColor whiteColor] andBorderWidth:0.5 andNeedShadow:NO];
+
     self.table.separatorStyle = UITableViewCellAccessoryNone;
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
-    //self.blueLine.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     [self customerRightBarItem];
     
     [self initPull];
     [self setContentView];
-   
-    //    通知中心的使用
-    //  1,获取通知中心,注册一个观察者和事件
-    //    这事一个单例类
+    
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-    //  2, 在通知中心中, 添加在一个观察者和观察的事件
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
   
 }
@@ -133,7 +127,6 @@
     UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
     lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
     [self.conditionLine addSubview:lineDown];
-//    [self.conditionLine addSubview:lineOn];
     ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
     [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
     [self.conditionLine addSubview:leftBtn];
@@ -330,14 +323,12 @@
 }
 
 #pragma -mark 添加客户成功后的代理方法（刷新列表）
--(void)toRefereshCustomers
-{
+-(void)toRefereshCustomers{
     [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
     [self.table headerBeginRefreshing];
 }
 #pragma  -mark batchAdd delegate
--(void)referesh
-{
+-(void)referesh{
     [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
     [self.table headerBeginRefreshing];
 }
@@ -350,8 +341,7 @@
 //        [alert show];
 //        self.subView.hidden = YES;
 //    }else if ([systemVersion intValue] >= 8.0){
-  
-        self.subView.hidden = YES;
+    self.subView.hidden = YES;
     BatchAddViewController *batch = [[BatchAddViewController alloc] init];
     batch.delegate = self;
         [self.navigationController pushViewController:batch animated:YES];
@@ -360,8 +350,7 @@
 
 
 
--(void)loadDataSource
-{
+-(void)loadDataSource{
      [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
@@ -384,7 +373,7 @@
         }
         self.totalNumber = json[@"TotalCount"];
         
-        NSLog(@"__________ %d", [json[@"CustomerList"]count]);
+        NSLog(@"__________ %ld", [json[@"CustomerList"]count]);
         NSLog(@"__________ %@", json[@"CustomerList"]);
 
         // 当再无加载数据时提示没有客户的信息
@@ -422,9 +411,7 @@
     self.noProductWarnLab = label;
 }
 
--(void)loadHistoryArr
-{
-//    
+-(void)loadHistoryArr{   
     NSArray *tmp = [WriteFileManager readFielWithName:@"customerSearch"];
     NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
    self.historyArr = searchArr;
