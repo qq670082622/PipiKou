@@ -300,6 +300,9 @@ typedef void (^ChangeFrameBlock)();
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
                     [self.InvoicedataArr addObject:order];
                 }
+            if (self.tableView.editing == YES) {
+                [self.tableView reloadData];
+            }
             NSLog(@"%@",self.InvoicedataArr);
         }
     } failure:^(NSError *error) {
