@@ -437,34 +437,34 @@ typedef void (^ChangeFrameBlock)();
 //        MySubscribeController *controller = [[MySubscribeController alloc] init];
 //        [self.navigationController pushViewController:controller animated:YES];
         //下面是跳转的地方
-        NSLog(@"----%ld",self.InvoicedataArr.count);
-        [self.invoiceArr removeAllObjects];
-        if (self.invoiceBtn.imageView.image != nil) {
-            NSLog(@"检测到有图片");
-            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
-        }
-        
-        if (self.InvoicedataArr.count == 0) {
-            NSLog(@"没有数据");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有可以开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
-            [alert show];
-        }else{
-
-            NSUserDefaults *showAlert = [NSUserDefaults standardUserDefaults];
-            NSString *orderGuide = [showAlert objectForKey:@"goAlertView"];
-            if ([orderGuide integerValue] == 1) {
-                [self notgoAlert];
-            }else{
-                if (self.invoiceBtn.selected == NO) {
-                    UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可对已经付全款（台湾产品除外）的非单团订单提交开发票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
-                    alertvie.tag = 1001;
-                    [alertvie show];
-                }else{
-                 [self notgoAlert];
-                }
-               
-            }
-        }
+//        NSLog(@"----%ld",self.InvoicedataArr.count);
+//        [self.invoiceArr removeAllObjects];
+//        if (self.invoiceBtn.imageView.image != nil) {
+//            NSLog(@"检测到有图片");
+//            [self.invoiceBtn setImage:[UIImage imageNamed:@""] forState:UIControlStateNormal];
+//        }
+//        
+//        if (self.InvoicedataArr.count == 0) {
+//            NSLog(@"没有数据");
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"您还没有可以开发票的订单" delegate:self cancelButtonTitle:@"返回" otherButtonTitles: nil];
+//            [alert show];
+//        }else{
+//
+//            NSUserDefaults *showAlert = [NSUserDefaults standardUserDefaults];
+//            NSString *orderGuide = [showAlert objectForKey:@"goAlertView"];
+//            if ([orderGuide integerValue] == 1) {
+//                [self notgoAlert];
+//            }else{
+//                if (self.invoiceBtn.selected == NO) {
+//                    UIAlertView *alertvie = [[UIAlertView alloc] initWithTitle:nil message:@"可对已经付全款（台湾产品除外）的非单团订单提交开发票申请，并可多张订单合并开票。" delegate:self cancelButtonTitle:@"不再提醒" otherButtonTitles: @"好的", nil];
+//                    alertvie.tag = 1001;
+//                    [alertvie show];
+//                }else{
+//                 [self notgoAlert];
+//                }
+//               
+//            }
+//        }
        
     }
 }
@@ -498,7 +498,8 @@ typedef void (^ChangeFrameBlock)();
             [self.tableView reloadData];
         }
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-                       [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+    
+            [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
         }
     }else if(self.invoiceBtn.selected == NO){
         self.invoiceBtn.selected = YES;
