@@ -436,7 +436,7 @@ typedef void (^ChangeFrameBlock)();
     }else if(button.tag == 1200){//点击开发票
         [self.tableView headerEndRefreshing];
         [self.tableView footerEndRefreshing];
-
+   
 //        MySubscribeController *controller = [[MySubscribeController alloc] init];
 //        [self.navigationController pushViewController:controller animated:YES];
         //下面是跳转的地方
@@ -501,7 +501,7 @@ typedef void (^ChangeFrameBlock)();
             [self.tableView reloadData];
         }
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-            [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+                       [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
         }
     }else if(self.invoiceBtn.selected == NO){
         self.invoiceBtn.selected = YES;
@@ -513,7 +513,7 @@ typedef void (^ChangeFrameBlock)();
         InvoiceLow.ord.InoicelowView = InvoiceLow;
         InvoiceLow.orderNumLabel.text = [NSString stringWithFormat:@"已经选择%ld张订单",InvoiceLow.ord.invoiceArr.count];
         InvoiceLow.frame = CGRectMake(0,kScreenSize.height-89,kScreenSize.width ,40);
-        
+               
         [[[UIApplication sharedApplication].delegate window] addSubview:InvoiceLow];
         
         
@@ -811,12 +811,8 @@ typedef void (^ChangeFrameBlock)();
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        //if (self.bb == 1) {
-            //_tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 89, self.view.frame.size.width, //self.view.frame.size.height - 242) style:UITableViewStyleGrouped];
-        //}else{
          _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 89, self.view.frame.size.width, self.view.frame.size.height - 202) style:UITableViewStyleGrouped];
-      //  }
-       
+        _tableView.tag = 2020;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.dataSource = self;
         _tableView.delegate = self;

@@ -606,6 +606,7 @@
            
             if (minBool  && maxBool && !minBiger) {
                 NSLog(@"符合条件");
+                NSLog(@"%@",self.conditionDic);
                 [[NSNotificationCenter defaultCenter] postNotificationName:@"refresh" object:[NSString stringWithFormat:@"%ld",self.primaryNum] userInfo:self.conditionDic];
                 
                 [self dismissViewControllerAnimated:YES completion:nil];

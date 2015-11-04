@@ -844,11 +844,11 @@
     NSLog(@"%@",dic[@"SearchSource"]);
     [dic addEntriesFromDictionary:self.conditionDic];//增加筛选条件
     
-    
+    NSLog(@"%@",dic);
     NSLog(@"--------------productList load dic  is %@--------------",[StrToDic jsonStringWithDicL:dic] );
     [IWHttpTool WMpostWithURL:@"Product/GetProductList_V2" params:dic success:^(id json) {
         
-//        NSLog(@"--------------productList load json is   %@------------]",json);
+       NSLog(@"--------------productList load json is   %@------------]",json);
         self.shareInfo = json[@"ShareInfo"];
         
         NSArray *arr = json[@"ProductList"];
