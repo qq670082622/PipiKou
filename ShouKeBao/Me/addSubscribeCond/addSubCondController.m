@@ -15,6 +15,8 @@
 @property (nonatomic,strong) UIView *footView;
 @property(nonatomic) NMRangeSlider *Slider;
 @property(nonatomic) NSArray *sixbtndata;//6个价格区间数据(不一定是6个)
+@property (nonatomic,strong) UIButton *PreserveBtn;//保存
+
 @end
 
 @implementation addSubCondController
@@ -49,18 +51,18 @@
         [self.footView addSubview:sixbutton];
     }
     //价格区间滑杆
-    self.Slider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(15,150 , kScreenSize.width-30, 30)];
+    self.Slider = [[NMRangeSlider alloc] initWithFrame:CGRectMake(15,170 , kScreenSize.width-30, 30)];
     //self.Slider.minimumValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MinPrice"]].floatValue;
-    self.Slider.minimumValue = 0;
+      self.Slider.minimumValue = 0;
     //self.Slider.maximumValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
-    self.Slider.maximumValue = 60000;
+      self.Slider.maximumValue = 60000;
     //self.Slider.upperValue = [NSString stringWithFormat:@"%@",[self.siftHLDic objectForKey:@"MaxPrice"]].floatValue;
-    self.Slider.upperValue = 60000;
-    [self.Slider addTarget:self action:@selector(updateSliderLabels) forControlEvents:UIControlEventAllTouchEvents];
+      self.Slider.upperValue = 60000;
+      [self.Slider addTarget:self action:@selector(updateSliderLabels) forControlEvents:UIControlEventAllTouchEvents];
     
     //左滑轮价格
     lowPlabel = [[UILabel alloc] init];
-    lowPlabel.frame = CGRectMake(20, 120, 50, 30);
+    lowPlabel.frame = CGRectMake(10, 140, 70, 30);
     //lowPlabel.text = [NSString stringWithFormat:@"¥%@",[self.siftHLDic objectForKey:@"MinPrice"]] ;
     lowPlabel.text = @"¥0";
     lowPlabel.font = [UIFont systemFontOfSize:12];
@@ -68,45 +70,52 @@
     
     //右滑轮价格
     tallPlabel = [[UILabel alloc] init];
-    tallPlabel.frame = CGRectMake(kScreenSize.width-50, 120, 50, 30);
+    tallPlabel.frame = CGRectMake(kScreenSize.width-50, 140, 70, 30);
     //tallPlabel.text =  [NSString stringWithFormat:@"¥%@",[self.siftHLDic objectForKey:@"MaxPrice"]];
     tallPlabel.text = @"¥60000";
     tallPlabel.font = [UIFont systemFontOfSize:12];
     tallPlabel.textColor = [UIColor orangeColor];
     
     //两个输入框
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 322, kScreenSize.width/3, 50)];//原290
-    label.text = @"自定义价格";
+    UILabel *Lowlabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 207, kScreenSize.width/3, 50)];
+    Lowlabel.text = @"自定义价格";
     
-    lowPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/2 - 80, 200, 80, 25)];
+    
+    lowPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/2-kScreenSize.width/6, 220, 80, 25)];
     lowPrice.background = [UIImage imageNamed:@"jiagebian"];
     lowPrice.delegate = self;
     lowPrice.tag = 210;
     lowPrice.placeholder = @"  ¥";
     [lowPrice setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
-    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width/2-5, 210, 15, 1)];
+    
+    UIView *midView = [[UIView alloc] initWithFrame:CGRectMake(kScreenSize.width/2+kScreenSize.width/10, 230, 15, 1)];
     midView.backgroundColor = [UIColor lightGrayColor];
     
-    tallPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/2+40, 200, 80, 25)];
+    tallPrice = [[UITextField alloc] initWithFrame:CGRectMake(kScreenSize.width/2+kScreenSize.width/6, 220, 80, 25)];
     tallPrice.background = [UIImage imageNamed:@"jiagebian"];
     tallPrice.delegate = self;
     tallPrice.tag = 220;
     tallPrice.placeholder = @"  ¥";
     [tallPrice setValue:[UIColor grayColor] forKeyPath:@"_placeholderLabel.textColor"];
     
+    [self.footView addSubview:midView];
+    [self.footView addSubview:Lowlabel];
     [self.footView addSubview:lowPrice];
     [self.footView addSubview:tallPrice];
     [self.footView addSubview:lowPlabel];
     [self.footView addSubview:tallPlabel];
     [self.footView addSubview:self.Slider];
     [self.footView addSubview:footSta];
-    UIButton *bigBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kScreenSize.height-30, kScreenSize.width, 30)];
-    bigBtn.backgroundColor = [UIColor orangeColor];;
-    [bigBtn setTitle:@"保存" forState:UIControlStateNormal];
     
     [self.view addSubview:self.tableView];
-    
-}
+    //确定Btn
+    self.PreserveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kScreenSize.height-114, kScreenSize.width, 50)];
+    self.PreserveBtn.backgroundColor = [UIColor orangeColor];
+    [self.PreserveBtn setTitle:@"保存" forState:UIControlStateNormal];
+    [self.PreserveBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [self.view addSubview:self.PreserveBtn];
+    }
+
 - (void) updateSliderLabels
 {
     CGPoint lowerCenter;
