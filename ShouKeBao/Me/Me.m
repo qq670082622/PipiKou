@@ -66,8 +66,8 @@
     [super viewDidLoad];
     self.title = @"我";
     self.tableView.rowHeight = 50;
-    self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
-    
+    //self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],/*@[@"账号安全设置"],*/@[/*@"勿扰模式"*/@"设置",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
@@ -412,7 +412,7 @@
             }
             break;
         case 2://第三个分区
-            cell.imageView.image = [UIImage imageNamed:@"zhanghu-anquan"];
+            //cell.imageView.image = [UIImage imageNamed:@"zhanghu-anquan"];
             break;
         case 3://第四个分区
             if (indexPath.row == 0) {
@@ -505,13 +505,65 @@
             break;
         case 2:
             // 第二组 单个 账号安全
-            {
-            UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
-            SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
-            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-            [MobClick event:@"MeAccountSafety" attributes:dict];
-            safe.isPerson = self.isPerson;
-            [self.navigationController pushViewController:safe animated:YES];
+//            {
+//            UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
+//            SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
+//            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//            [MobClick event:@"MeAccountSafety" attributes:dict];
+//            safe.isPerson = self.isPerson;
+//            [self.navigationController pushViewController:safe animated:YES];
+//            }
+            switch (indexPath.row) {
+                case 0:{
+                    NSLog(@"---%ld",indexPath.row);
+                    UIStoryboard *sb2 = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
+                    SafeSettingViewController *safe = [sb2 instantiateViewControllerWithIdentifier:@"SafeSetting"];
+                    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+                    [MobClick event:@"MeAccountSafety" attributes:dict];
+                    safe.isPerson = self.isPerson;
+                    [self.navigationController pushViewController:safe animated:YES];
+                    break;
+                }
+                case 1:{
+                    NSLog(@"---%ld",indexPath.row);
+                    FeedBcakViewController *feedBackVC = [sb instantiateViewControllerWithIdentifier:@"FeedBack"];
+                    [self.navigationController pushViewController:feedBackVC animated:YES];
+
+                    
+                    break;
+                }
+                case 2:{
+                    UIWindow *window = [UIApplication sharedApplication].delegate.window;
+                    WelcomeView *welceome = [[WelcomeView alloc] initWithFrame:window.bounds];
+                    welceome.alpha = 0;
+                    [window addSubview:welceome];
+                    // 为了看起来不突兀一些
+                    [UIView animateWithDuration:0.3 animations:^{
+                        welceome.alpha = 1;
+                    }];
+
+                    break;
+                }
+                case 3:{
+                    [self checkNewVerSion];
+                    /*
+                     UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:@"需要发布之后, 才能到appstore评分" delegate:nil cancelButtonTitle:@"确定" otherButtonTitles:nil, nil];
+                     [alertView show];
+                     */
+                    //                NSString *str = [NSString stringWithFormat:
+                    //                                 @"itms-apps://ax.itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?type=Purple+Software&id=%d",
+                    //                                 587767923];
+                    //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+                    
+                    [self checkNewVerSion];
+                    break;
+                }
+                case 4:{
+                      [self checkNewVerSion];
+                      break;
+                }
+                default:
+                    break;
             }
             break;
         case 3:

@@ -14,6 +14,7 @@
 #import "BindPhoneViewController.h"
 #import "BaseClickAttribute.h"
 #import "MobClick.h"
+#import "NewNewsController.h"
 @interface SafeSettingViewController()<UIAlertViewDelegate>
 
 /**
@@ -66,11 +67,16 @@
 #pragma mark - uitableviewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (indexPath.section == 1) {
-        
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
-//        ModifyPwdViewController *modify = [sb instantiateViewControllerWithIdentifier:@"ModifyPwd"];
-//        [self.navigationController pushViewController:modify animated:YES];
+        NSLog(@"点击第一个了");
+        NewNewsController *new = [[NewNewsController alloc] init];
+        [self.navigationController pushViewController:new animated:YES];
+
+    }else if(indexPath.section == 2){
+        //        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Safe" bundle:nil];
+        //        ModifyPwdViewController *modify = [sb instantiateViewControllerWithIdentifier:@"ModifyPwd"];
+        //        [self.navigationController pushViewController:modify animated:YES];
         
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Auth" bundle:nil];
         BindPhoneViewController *bind = [sb instantiateViewControllerWithIdentifier:@"BindPhone"];
@@ -78,10 +84,9 @@
         bind.isModefyPwd = YES;
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"MeChangeAccountPassWord" attributes:dict];
-
+        
         [self.navigationController pushViewController:bind animated:YES];
-
-    }else if(indexPath.section == 2){
+    }else if(indexPath.section == 3){
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"确定退出登录吗?" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         
         [alert show];

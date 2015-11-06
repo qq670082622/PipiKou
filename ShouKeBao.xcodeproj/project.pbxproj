@@ -17,6 +17,8 @@
 		52A4C1561BB1053200614BFF /* NMRangeSlider.m in Sources */ = {isa = PBXBuildFile; fileRef = 52A4C1551BB1053200614BFF /* NMRangeSlider.m */; };
 		52B858491BC76D4C00B15483 /* CommandTo.m in Sources */ = {isa = PBXBuildFile; fileRef = 52B858471BC76D4C00B15483 /* CommandTo.m */; };
 		52B8584A1BC76D4C00B15483 /* CommandTo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52B858481BC76D4C00B15483 /* CommandTo.xib */; };
+		52BEDF9A1BEB413E003A04CA /* NewNewsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52BEDF981BEB413E003A04CA /* NewNewsController.m */; };
+		52BEDF9B1BEB413E003A04CA /* NewNewsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52BEDF991BEB413E003A04CA /* NewNewsController.xib */; };
 		52CF60BE1BDDCAF600DD97B8 /* SubscribeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CF60BC1BDDCAF600DD97B8 /* SubscribeCell.m */; };
 		52CF60BF1BDDCAF600DD97B8 /* SubscribeCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 52CF60BD1BDDCAF600DD97B8 /* SubscribeCell.xib */; };
 		52CF60C31BDDD9CF00DD97B8 /* MySubscribeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 52CF60C21BDDD9CF00DD97B8 /* MySubscribeController.m */; };
@@ -455,6 +457,9 @@
 		52B858461BC76D4C00B15483 /* CommandTo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommandTo.h; sourceTree = "<group>"; };
 		52B858471BC76D4C00B15483 /* CommandTo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommandTo.m; sourceTree = "<group>"; };
 		52B858481BC76D4C00B15483 /* CommandTo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommandTo.xib; sourceTree = "<group>"; };
+		52BEDF971BEB413E003A04CA /* NewNewsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewNewsController.h; sourceTree = "<group>"; };
+		52BEDF981BEB413E003A04CA /* NewNewsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewNewsController.m; sourceTree = "<group>"; };
+		52BEDF991BEB413E003A04CA /* NewNewsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewNewsController.xib; sourceTree = "<group>"; };
 		52CF60BB1BDDCAF600DD97B8 /* SubscribeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscribeCell.h; sourceTree = "<group>"; };
 		52CF60BC1BDDCAF600DD97B8 /* SubscribeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscribeCell.m; sourceTree = "<group>"; };
 		52CF60BD1BDDCAF600DD97B8 /* SubscribeCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscribeCell.xib; sourceTree = "<group>"; };
@@ -1270,6 +1275,16 @@
 				52B858481BC76D4C00B15483 /* CommandTo.xib */,
 			);
 			path = CommendToDetail;
+			sourceTree = "<group>";
+		};
+		52BEDF961BEB4122003A04CA /* NewNewsController */ = {
+			isa = PBXGroup;
+			children = (
+				52BEDF971BEB413E003A04CA /* NewNewsController.h */,
+				52BEDF981BEB413E003A04CA /* NewNewsController.m */,
+				52BEDF991BEB413E003A04CA /* NewNewsController.xib */,
+			);
+			path = NewNewsController;
 			sourceTree = "<group>";
 		};
 		52CF60C01BDDD9AD00DD97B8 /* MySubscribe */ = {
@@ -2686,6 +2701,7 @@
 		B3C01DED1BAC10FC005E4BB5 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				52BEDF961BEB4122003A04CA /* NewNewsController */,
 				52CF60C41BDE0EEF00DD97B8 /* addSubscribeCond */,
 				52CF60C01BDDD9AD00DD97B8 /* MySubscribe */,
 				B3C01DEE1BAC10FC005E4BB5 /* AccountSafe */,
@@ -2989,6 +3005,7 @@
 				632613281AB2AF04003AC2DA /* re_prduct_pan_toggle@2x.png in Resources */,
 				6326131A1AB1C175003AC2DA /* MJRefresh.bundle in Resources */,
 				52F275B91BD4E27B008543E9 /* InvoiceLowView.xib in Resources */,
+				52BEDF9B1BEB413E003A04CA /* NewNewsController.xib in Resources */,
 				5A076EA81ACD8B270077611C /* StoreViewController.xib in Resources */,
 				636C8B791AC2E1420097CAE9 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				5A52FC3E1ACEBF220076DAE6 /* leftCell.xib in Resources */,
@@ -3101,6 +3118,7 @@
 				B3B7A67B1BA6A25F0043DF7C /* Customers.m in Sources */,
 				63F1A1781B134D5D00DE9867 /* RecomViewController.m in Sources */,
 				5A52FC921ACEBF220076DAE6 /* SKSearckDisplayController.m in Sources */,
+				52BEDF9A1BEB413E003A04CA /* NewNewsController.m in Sources */,
 				63F1A1881B140D5B00DE9867 /* RecentlyViewController.m in Sources */,
 				632BFFF81AB92A3A003B15AD /* SDWebImageDownloader.m in Sources */,
 				63F1A1AF1B14250E00DE9867 /* MJMember.m in Sources */,

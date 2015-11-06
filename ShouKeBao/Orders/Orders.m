@@ -519,7 +519,7 @@ typedef void (^ChangeFrameBlock)();
         //改变tableview的frame
         UITableView *mytab = (UITableView *)[self.view viewWithTag:2020];
         mytab.frame = CGRectMake(0, 89, kScreenSize.width,kScreenSize.height-241);//202
-
+        
         [[[UIApplication sharedApplication].delegate window] addSubview:InvoiceLow];
         
         [self.tableView setEditing:YES animated:YES];
@@ -921,7 +921,8 @@ typedef void (^ChangeFrameBlock)();
     cell.delegate = self;
     cell.orderDelegate = self;
     cell.indexPath = indexPath;
-    OrderModel *order;
+    NSLog(@"%f",cell.frame.size.height);
+    OrderModel *order;//这只是一个bug ,后期还需要改进
     if (tableView.editing == YES) {
         order = self.InvoicedataArr[indexPath.section];
     }else{
@@ -978,7 +979,13 @@ typedef void (^ChangeFrameBlock)();
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OrderModel *order = self.dataArr[indexPath.section];
+    OrderModel *order;
+    
+    //if (self.tableView.editing) {
+      //  order = self.invoiceArr[indexPath.section];
+    //}else{
+        order = self.dataArr[indexPath.section];
+    //}
     if (order.buttonList.count) {
         return 202;
     }else{
