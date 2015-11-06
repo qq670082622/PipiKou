@@ -501,7 +501,10 @@ typedef void (^ChangeFrameBlock)();
             [self.tableView reloadData];
         }
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
-                       [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
+            //改变tableview的frame
+            UITableView *mytab = (UITableView *)[self.view viewWithTag:2020];
+            mytab.frame = CGRectMake(0, 89, kScreenSize.width,kScreenSize.height-202);
+            [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
         }
     }else if(self.invoiceBtn.selected == NO){
         self.invoiceBtn.selected = YES;
@@ -513,10 +516,11 @@ typedef void (^ChangeFrameBlock)();
         InvoiceLow.ord.InoicelowView = InvoiceLow;
         InvoiceLow.orderNumLabel.text = [NSString stringWithFormat:@"已经选择%ld张订单",InvoiceLow.ord.invoiceArr.count];
         InvoiceLow.frame = CGRectMake(0,kScreenSize.height-89,kScreenSize.width ,40);
-               
+        //改变tableview的frame
+        UITableView *mytab = (UITableView *)[self.view viewWithTag:2020];
+        mytab.frame = CGRectMake(0, 89, kScreenSize.width,kScreenSize.height-241);//202
+        
         [[[UIApplication sharedApplication].delegate window] addSubview:InvoiceLow];
-        
-        
         
         [self.tableView setEditing:YES animated:YES];
         if (self.isReloadMainTabaleView) {
@@ -917,7 +921,8 @@ typedef void (^ChangeFrameBlock)();
     cell.delegate = self;
     cell.orderDelegate = self;
     cell.indexPath = indexPath;
-    OrderModel *order;
+    NSLog(@"%f",cell.frame.size.height);
+    OrderModel *order;//这只是一个bug ,后期还需要改进
     if (tableView.editing == YES) {
         order = self.InvoicedataArr[indexPath.section];
     }else{
@@ -974,7 +979,13 @@ typedef void (^ChangeFrameBlock)();
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OrderModel *order = self.dataArr[indexPath.section];
+    OrderModel *order;
+    
+    //if (self.tableView.editing) {
+      //  order = self.invoiceArr[indexPath.section];
+    //}else{
+        order = self.dataArr[indexPath.section];
+    //}
     if (order.buttonList.count) {
         return 202;
     }else{
