@@ -10,7 +10,6 @@
 #import "ResultViewController.h"
 #import "UserInfo.h"
 #import "LoginTool.h"
-
 @interface ReBindViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *setPhone;

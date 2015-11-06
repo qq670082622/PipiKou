@@ -29,6 +29,7 @@
 #import "LeaveShare.h"
 #import "AppDelegate+Extend.h"
 #import "HomeHttpTool.h"
+#import <AudioToolbox/AudioToolbox.h>
 //#import "UncaughtExceptionHandler.h"
 ////aaaaa
 @interface AppDelegate ()<WXApiDelegate>
@@ -441,7 +442,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
     [UMessage setAutoAlert:NO];
     [UMessage didReceiveRemoteNotification:userInfo];
-
+    //判断提醒震动
+    NSString *NewsShakeDefine = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewsShakeRemind"];
+    NSLog(@"%@", NewsShakeDefine);
+    if ([NewsShakeDefine integerValue] != 0) {//震动
+        AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+    }
     
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isReceveNoti"];
     NSString *noticeType = [userInfo valueForKey:@"noticeType"];
