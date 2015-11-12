@@ -29,6 +29,9 @@
 @property (nonatomic,copy) NSString *Country;
 @property (nonatomic,copy) NSString *PassportNum;
 @property (nonatomic, strong)NSArray *PictureList;
+
+//判断是不是已是专属客户
+@property (nonatomic,copy)NSString *ProgressState;
 //@property (nonatomic,copy) NSString *passPortIdStr;
 //@property (nonatomic,copy) NSString *userMessageIDStr;
 //

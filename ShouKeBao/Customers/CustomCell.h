@@ -7,21 +7,30 @@
 //
 #import "CustomModel.h"
 #import <UIKit/UIKit.h>
-@class CustomModel;
-@interface CustomCell : UITableViewCell
+#import <MessageUI/MessageUI.h>
 
+@class CustomModel;
+@protocol transformPerformation <NSObject>
+
+- (void)transformPerformation:(UIButton *)formation;
+@end
+
+@interface CustomCell : UITableViewCell<UIAlertViewDelegate, MFMessageComposeViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *userIcon;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
 @property (weak, nonatomic) IBOutlet UILabel *userTele;
 @property (weak, nonatomic) IBOutlet UILabel *userOders;
+@property (weak, nonatomic)id<transformPerformation>delegate;
 
 @property(nonatomic,strong) CustomModel *model;
-//@property (weak, nonatomic) IBOutlet UIButton *callingBtn;
+@property (weak, nonatomic) IBOutlet UIButton *information;
+@property (nonatomic, strong)NSString *telStr;
 
 - (IBAction)callAction:(id)sender;
 
+- (IBAction)informationIM:(id)sender;
 
 
-+(instancetype)cellWithTableView:(UITableView *)tableView;
++(instancetype)cellWithTableView:(UITableView *)tableView navigationC:(UINavigationController *)naNC;
 
 @end
