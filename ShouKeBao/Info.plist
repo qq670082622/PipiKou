@@ -6,11 +6,35 @@
 	<array>
 		<dict>
 			<key>UIApplicationShortcutItemIconType</key>
-			<string>UIApplicationShortcutIconTypeShare</string>
-			<key>UIApplicationShortcutItemTitle</key>
-			<string>Share</string>
+			<string>UIApplicationShortcutIconTypeDate</string>
 			<key>UIApplicationShortcutItemType</key>
-			<string>-11.UITouchText.share</string>
+			<string>UITouchText.TodaySignIn</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>每日签到</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeFavorite</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>UITouchText.scan</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>扫一扫</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeShuffle</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>UITouchText.Order</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>理订单</string>
+		</dict>
+		<dict>
+			<key>UIApplicationShortcutItemIconType</key>
+			<string>UIApplicationShortcutIconTypeSearch</string>
+			<key>UIApplicationShortcutItemType</key>
+			<string>UITouchText.Product</string>
+			<key>UIApplicationShortcutItemTitle</key>
+			<string>找产品</string>
 		</dict>
 	</array>
 	<key>CFBundleDevelopmentRegion</key>
