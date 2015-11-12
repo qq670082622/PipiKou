@@ -840,60 +840,7 @@
                 count += 1;
             }
         }
-      
-//        NSLog(@"self.messageCount  = %d",  count);
-//        设置角标
-        self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
-
-//        NSLog(@"0000 self.recommendCount = %ld", self.recommendCount);
-//        NSLog(@"0000 yes = %d", self.yesorno);
-// 为0 隐藏1
-//        if (self.recommendCount == 0&& self.yesorno == YES) {
-//            
-//            if ([self.barButton.badgeValue intValue] == 0) {
-//                self.tabBarItem.badgeValue = nil;
-//              
-//            }else{
-//                self.tabBarItem.badgeValue = self.barButton.badgeValue;
-//             }
-//// 为0 不隐藏0
-//        }else if (self.recommendCount == 0 &&self.yesorno == NO){
-//                    NSLog(@"kkkkkk  ");
-//            if ([self.barButton.badgeValue intValue] == 0) {
-//                self.tabBarItem.badgeValue = @"1";
-//        
-//            }else{
-//                self.tabBarItem.badgeValue = [NSString stringWithFormat:@"%d",count+1];
-//                
-//            }
-////   不为0
-//        }else if (self.recommendCount != 0){
-//            
-//     //  判断隐藏redtip
-//            if (self.yesorno) {
-//                NSLog(@"self.yesorno.hidden = %d", self.yesorno);
-//                if (count == 0) {
-//                    self.tabBarItem.badgeValue = nil;
-//                    NSLog(@"11nnnnnnnmmm");
-//                }else{
-//                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count];
-//                }
-//
-//       //    判断显示redtip＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊＊
-//            }else{
-//                  NSLog(@"22nnnnnnnmmm");
-//                if (count == 0) {
-//                    self.tabBarItem.badgeValue = @"1";
-//                }else{
-//                    self.tabBarItem.badgeValue  = [NSString stringWithFormat:@"%d",count+1];
-//                }
-//            }
-//        }
-//        [UIApplication sharedApplication].applicationIconBadgeNumber = [self.tabBarItem.badgeValue intValue];
- 
-        
-        
-        
+        self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];        
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
     }];

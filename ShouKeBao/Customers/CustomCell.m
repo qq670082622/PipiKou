@@ -79,7 +79,7 @@ static id _naNC;
         if([MFMessageComposeViewController canSendText]){// 判断设备能不能发送短信
             MFMessageComposeViewController *MFMessageVC = [[MFMessageComposeViewController alloc] init];
             // 设置短信内容
-            MFMessageVC.body = @"吃饭了没？";
+            MFMessageVC.body = @"吃饭了吗 好饿呀！！";
             // 设置收件人列表
             MFMessageVC.recipients = @[self.telStr];
             // 设置代理
