@@ -53,6 +53,7 @@
 //    }else{
 //        NSLog(@"你的手机暂不支持3D Touch!");
 //    }
+    
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *phone = [def objectForKey:UserInfoKeyPoneNum];
     NSString *password = [def objectForKey:UserInfoKeyPassword];
@@ -63,7 +64,9 @@
     }
     return YES;
 }
-
+- (void)application:(UIApplication *)application  performActionForShortcutItem:(nonnull UIApplicationShortcutItem *)shortcutItem completionHandler:(nonnull void (^)(BOOL))completionHandler{
+AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
+}
 //设置请求userAgent
 + (void)initialize {
     // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
