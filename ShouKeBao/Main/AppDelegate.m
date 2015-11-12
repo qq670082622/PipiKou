@@ -64,9 +64,6 @@
     }
     return YES;
 }
-- (void)application:(UIApplication *)application  performActionForShortcutItem:(nonnull UIApplicationShortcutItem *)shortcutItem completionHandler:(nonnull void (^)(BOOL))completionHandler{
-AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
-}
 //设置请求userAgent
 + (void)initialize {
     // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
