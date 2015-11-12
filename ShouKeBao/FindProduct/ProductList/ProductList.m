@@ -2510,7 +2510,6 @@
         [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
         NSLog(@"%@444", self.shareInfo);
         [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
-//        [publishContent addQQSpaceUnitWithTitle:tmp[@"Title"] url:tmp[@"Url"] site:nil fromUrl:<#(NSString *)#> comment:<#(NSString *)#> summary:<#(NSString *)#> image:<#(id<ISSCAttachment>)#> type:<#(NSNumber *)#> playUrl:<#(NSString *)#> nswb:<#(NSNumber *)#>]
         
         [ShareView shareWithContent:publishContent andUrl:tmp[@"Url"]];
     }else if(self.shareFlag == YES){

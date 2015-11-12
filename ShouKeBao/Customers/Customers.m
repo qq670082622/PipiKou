@@ -33,9 +33,10 @@
 #define searchHistoryPlaceholder @"请输入客户姓名/电话"
 #import "SearchView.h"
 
+
 #define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
-@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate, UISearchBarDelegate, UISearchDisplayDelegate>
+@interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, transformPerformation, notifiSKBToReferesh>
 
 @property (nonatomic,strong) NSMutableArray *dataArr;
 - (IBAction)addNewUser:(id)sender;
@@ -75,6 +76,7 @@
 @property (nonatomic,weak) UIView *sep2;
 @property (nonatomic,strong) NSMutableArray *chooseAppArr;
 @property (nonatomic, strong)NSMutableArray *A_Z_arr;
+@property (nonatomic, assign)BOOL popFlag;
 @end
 
 @implementation Customers
@@ -89,7 +91,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.searchBar];
-    //1[self.view sendSubviewToBack:self.searchBar];
+  
+    [self getNotifiList];
+    [self customerCenterBarItem];
+    self.popTableview.delegate = self;
+    self.popTableview.dataSource = self;
+    
     [self searchDisplay];
     
     self.chooseAppArr = [NSMutableArray arrayWithObjects:@"不限", @"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
@@ -100,17 +107,9 @@
     self.navigationItem.leftBarButtonItem = nil;
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
-    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    self.timeBtn.hidden = YES;
-    self.wordBtn.hidden = YES;
-//    self.title = @"管客户";
-    [self customerCenterBarItem];
-
+   
+    
+   
     
     self.table.delegate = self;
     self.table.dataSource = self;
@@ -123,60 +122,150 @@
     [self customerRightBarItem];
     
     [self initPull];
-    [self setContentView];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
-  
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];
+    [self tapGestionToMessVC];
+    [self tapGestionToMessVC1];
 }
-- (void)setContentView{
-    CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
-    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
-    lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
-    lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-    [self.conditionLine addSubview:lineDown];
-    ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
-    [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.conditionLine addSubview:leftBtn];
-    self.timeButton = leftBtn;
-    
-    ArrowBtn *rightBtn = [[ArrowBtn alloc] init];
-    [rightBtn addTarget:self action:@selector(wordOrderAction:) forControlEvents:UIControlEventTouchUpInside];
-    [self.conditionLine addSubview:rightBtn];
-    self.wordButton = rightBtn;
-    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
-    
-    self.timeButton.frame = CGRectMake(0, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
-        
-    CGFloat rightX = CGRectGetMaxX(self.timeButton.frame) + 1;
-    self.wordButton.frame = CGRectMake(rightX, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
-    
-    self.timeButton.text = @"时间排序";
-    self.wordButton.text = @"字母排序";
-    [self.conditionLine addSubview:self.timeButton];
-    [self.conditionLine addSubview:self.wordButton];
+#pragma mark -代理方法
+- (void)transformPerformation:(UIButton *)formation{
+    messageCenterViewController *messVC = [[messageCenterViewController alloc]init];
+    messVC.delegate = self;
+    [self.navigationController pushViewController:messVC animated:YES];
 }
 
-//4,收到通知中心的消息时,观察者(self)要调用方法
-- (void)receiveNotification:(NSNotification *)noti
-{
+- (void)receiveNotification:(NSNotification *)noti{
     [self initPull];
 }
+-(void)toRefereshCustomers{
+    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
+    [self.table headerBeginRefreshing];
+}
+-(void)referesh{
+    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
+    [self.table headerBeginRefreshing];
+}
+-(void)refreshSKBMessgaeCount:(int)count{
+    [self getNotifiList];
+}
+-(void)getNotifiList{
+    NSMutableDictionary *dic = [NSMutableDictionary  dictionary];
+    [HomeHttpTool getActivitiesNoticeListWithParam:dic success:^(id json) {
+        NSLog(@"公告消息列表%@",json);
+        NSMutableArray *arr = json[@"ActivitiesNoticeList"];
+        int count = 0;
+        [self.isReadArr addObjectsFromArray:[WriteFileManager WMreadData:@"messageRead"]];
+        for (int i = 0; i<arr.count; i++) {
+            NSDictionary *dic = arr[i];
+            if (![_isReadArr containsObject:dic[@"ID"]]) {
+                count += 1;
+            }
+        }
+        self.messageCount = count;
+        [self messagePromptAction];
+        
+    } failure:^(NSError *error) {
+        NSLog(@"公告消息列表失败%@",error);
+    }];
+}
+-(void)messagePromptAction{
+    self.messagePrompt.text = [NSString stringWithFormat:@"您有%d条未读信息", self.messageCount];
+    self.timePrompt.text = @"11:55";//测试
+    if (self.messageCount >0) {
+        [self.bellButton setImage:[UIImage imageNamed:@"redBell"] forState:UIControlStateNormal];
+    }
+    
+}
+- (IBAction)pushMessageVC:(id)sender {
+    [self transformPerformation:sender];
+}
+
+- (void)tapGestionToMessVC{
+    UITapGestureRecognizer *messageTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushMessageVC:)];
+    [self.messagePrompt addGestureRecognizer:messageTap];
+}
+- (void)tapGestionToMessVC1{
+    UITapGestureRecognizer *timeTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pushMessageVC:)];
+    [self.timePrompt addGestureRecognizer:timeTap];
+}
+
+
+-(void)loadHistoryArr{
+    NSArray *tmp = [WriteFileManager readFielWithName:@"customerSearch"];
+    NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
+    self.historyArr = searchArr;
+}
+
+#pragma mark - 标题及方法
+-(void)customerCenterBarItem{
+    UIButton *button = [[UIButton alloc]init];
+    button.frame = CGRectMake(0, 0, 50, 100);
+    [button setTitle:@"管客户" forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"whidexiala"] forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 15)];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(20, 60, 20, -10)];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [button addTarget:self action:@selector(popCustomersAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = button;
+    
+}
+- (void)popCustomersAction:(UIButton *)button{
+    if (self.popFlag == NO) {
+        self.popTableview.hidden = NO;
+        [self showShadeView];
+        [self.view addSubview:self.popTableview];
+        
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(closePopTableView)];
+        [self.shadeView addGestureRecognizer:tap];
+
+    }else{
+        self.popTableview.hidden = YES;
+        [self.shadeView removeFromSuperview];
+    }
+     self.popFlag = !self.popFlag;
+    
+}
+
+- (void)showShadeView{
+    self.shadeView = [[UIView alloc] initWithFrame:CGRectMake(0, self.popTableview.frame.size.height+64, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-self.popTableview.frame.size.height-64)];
+    _shadeView.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.6];
+    [self.view.window addSubview:self.shadeView];
+}
+
+- (void)closePopTableView{
+    self.popFlag = NO;
+    [self.shadeView removeFromSuperview];
+    self.popTableview.hidden = YES;
+}
+
+#pragma mark - 消息提示
+
+- (void)dealPushBackGround:(NSNotification *)noti{
+    NSMutableArray *message = noti.object;
+    if([message[0] isEqualToString:@"messageId"]){//新公告
+    self.messagePrompt.text = [NSString stringWithFormat:@"您有%d条未读信息", self.messageCount++];
+        
+    }
+}
+
+
 
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-      self.subView.hidden = YES;
+    self.subView.hidden = YES;
     [self.table reloadData];
-//    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
-//    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
-//    NSLog(@"appIsBack---- %@", appIsBack);
-//    if ([appIsBack isEqualToString:@"no"]) {
-//        [self initPull];
-//    }
-//    [customer synchronize];
+    //    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
+    //    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
+    //    NSLog(@"appIsBack---- %@", appIsBack);
+    //    if ([appIsBack isEqualToString:@"no"]) {
+    //        [self initPull];
+    //    }
+    //    [customer synchronize];
     [MobClick beginLogPageView:@"Customers"];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"CustomerHistorySearch" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(historySearch:) name:@"CustomerHistorySearch" object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated{
@@ -184,8 +273,8 @@
     [MobClick endLogPageView:@"Customers"];
 }
 
--(void)initPull
-{
+#pragma mark - 刷新
+-(void)initPull{
     [self.table addHeaderWithTarget:self action:@selector(headPull)dateKey:nil];
     [self.table headerBeginRefreshing];
     [self.table addFooterWithTarget:self action:@selector(foodPull)];
@@ -218,8 +307,7 @@
     }
 }
 
-- (NSInteger)getTotalPage
-{
+- (NSInteger)getTotalPage{
     NSInteger cos = [self.totalNumber integerValue] % pageSize;
     if (cos == 0) {
         return [self.totalNumber integerValue] / pageSize;
@@ -229,42 +317,12 @@
     }
 }
 
-
-
--(void)customerRightBarItem{
-    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
-    self.navigationItem.rightBarButtonItem= barItem;
-}
-
--(void)customerCenterBarItem{
-    UIButton *button = [[UIButton alloc]init];
-    button.frame = CGRectMake(0, 0, 50, 100);
-    [button setTitle:@"管客户" forState:UIControlStateNormal];
-    [button setImage:[UIImage imageNamed:@"sanjiao"] forState:UIControlStateNormal];
-    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 15)];
-    [button setImageEdgeInsets:UIEdgeInsetsMake(20, 63, 20, 0)];
-    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    [button addTarget:self action:@selector(popCustomersAction:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = button;
-    
-}
-- (void)popCustomersAction:(UIButton *)button{
-    self.popTableview.delegate = self;
-    self.popTableview.dataSource = self;
-    self.popTableview.hidden = NO;
-   
-    
-    
-}
-
 #pragma mark - UIScrollViewDelegate
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self subViewHidden];
 }
 
-
--(void)setSubViewUp
-{
+-(void)setSubViewUp{
     if (self.subView.hidden == YES) {
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 0;
@@ -283,77 +341,18 @@
     }];
 }
 
-#pragma -mark getter
-- (NSMutableArray *)chooseAppArr{
-    if (!_chooseAppArr) {
-        _chooseAppArr = [NSMutableArray array];
-    }
-    return _chooseAppArr;
-}
--(NSMutableArray *)A_Z_arr{
-    if (_A_Z_arr == nil) {
-        _A_Z_arr = [NSMutableArray array];
-    }
-    return _A_Z_arr;
-}
--(NSMutableArray *)dataArr
-{
-    if (_dataArr == nil) {
-        _dataArr = [NSMutableArray array];
-    }
-    return _dataArr;
+#pragma mark - 右边导航栏的方法
+-(void)customerRightBarItem{
+    UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
+    self.navigationItem.rightBarButtonItem= barItem;
 }
 
--(NSMutableArray *)historyArr
-{
-    if (_historyArr == nil) {
-       
-        self.historyArr = [NSMutableArray array];
-    }
-    return _historyArr;
-}
-
--(NSMutableString *)callingPhoneNum
-{
-    if (_callingPhoneNum == nil) {
-        self.callingPhoneNum = [[NSMutableString alloc] init];
-    }
-    return _callingPhoneNum;
-}
-- (SKSearchBar *)searchBar
-{
-    if (_searchBar == nil) {
-        _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.conditionLine.bounds.size.height)];
-        _searchBar.delegate = self;
-        _searchBar.barStyle = UISearchBarStyleDefault;
-        _searchBar.translucent = NO;
-        _searchBar.placeholder = searchDefaultPlaceholder;
-        _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
-        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-    
-    }
-    
-    return _searchBar;
-}
-- (SKSearckDisplayController *)searchDisplay
-{
-    if (!_searchDisplay) {
-        _searchDisplay = [[SKSearckDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
-        _searchDisplay.delegate = self;
-        _searchDisplay.searchResultsTableView.backgroundColor = [UIColor clearColor];
-        _searchDisplay.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    }
-    return _searchDisplay;
-}
 - (IBAction)addNewUser:(id)sender {
-    
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     AddViewController *addVC = [sb instantiateViewControllerWithIdentifier:@"AddCustomer"];
     addVC.delegate = self;
     [self.navigationController pushViewController:addVC animated:YES];
-    
 }
-
 
 - (IBAction)addFormCardCamer:(id)sender {
     ScanningViewController * scanVC = [[ScanningViewController alloc]init];
@@ -364,31 +363,20 @@
     
 }
 
-#pragma -mark 添加客户成功后的代理方法（刷新列表）
--(void)toRefereshCustomers{
-    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
-    [self.table headerBeginRefreshing];
-}
-#pragma  -mark batchAdd delegate
--(void)referesh{
-    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
-    [self.table headerBeginRefreshing];
-}
-
 - (IBAction)importUser:(id)sender {
- 
-//    NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
-//    if ([systemVersion intValue]<8.0) {
-//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
-//        [alert show];
-//        self.subView.hidden = YES;
-//    }else if ([systemVersion intValue] >= 8.0){
+    //    NSString *systemVersion   = [[UIDevice currentDevice] systemVersion];
+    //    if ([systemVersion intValue]<8.0) {
+    //        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"抱歉" message:@"通讯许访问仅允许在IOS8.0以上系统版本" delegate:self cancelButtonTitle:@"我知道了" otherButtonTitles:nil];
+    //        [alert show];
+    //        self.subView.hidden = YES;
+    //    }else if ([systemVersion intValue] >= 8.0){
     self.subView.hidden = YES;
     BatchAddViewController *batch = [[BatchAddViewController alloc] init];
     batch.delegate = self;
-        [self.navigationController pushViewController:batch animated:YES];
-  //  }
+    [self.navigationController pushViewController:batch animated:YES];
+    //  }
 }
+
 
 
 
@@ -443,8 +431,7 @@
    }
 
 #pragma mark - 加载完事时显示的内容
-- (void)warning
-{
+- (void)warning{
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 20)];
     label.text = @"抱歉，没有更多客户了😢";
     label.textColor = [UIColor orangeColor];
@@ -453,45 +440,7 @@
     self.noProductWarnLab = label;
 }
 
--(void)loadHistoryArr{   
-    NSArray *tmp = [WriteFileManager readFielWithName:@"customerSearch"];
-    NSMutableArray *searchArr = [NSMutableArray arrayWithArray:tmp];
-   self.historyArr = searchArr;
-
-//    NSMutableArray *searchArr = [WriteFileManager WMreadData:@"customerSearch"];
-//    self.historyArr = searchArr;
-//    [self.historyTable reloadData];
-    NSLog(@"sssss");
-
-}
-#pragma mark - 删除客户时调用的内容
-- (void)deleteTableViewCellwithId:(NSString *)ID
-{
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    hudView.labelText = @"删除中...";
-    [hudView show:YES];
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:ID forKey:@"CustomerID"];
-
-    [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
-        NSLog(@"删除客户信息成功%@",json);
-        hudView.labelText = @"删除成功...";
-        [hudView hide:YES afterDelay:0.4];
-        
-    } failure:^(NSError *error) {
-        NSLog(@"删除客户请求失败%@",error);
-    }];
-}
-- (void)deselect
-{
-    [self.table deselectRowAtIndexPath:[self.table indexPathForSelectedRow] animated:YES];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
+#pragma mark - tableView－delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.table == tableView) {
 
@@ -500,32 +449,38 @@
         VC.customVC = self;
         VC.keyWords = self.searchK;
         VC.model = model;
-    NSLog(@"%@",         model);
-        [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
         [self.navigationController pushViewController:VC animated:YES];
     }else if (self.popTableview == tableView){
+//刷新数据
         
+        [self closePopTableView];
     }
+    [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
 
 }
-
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    if (self.popTableview == tableView) {
+        return 1;
+    }else{
+       return self.chooseAppArr.count;
+    }
+}
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.table == tableView) {
         return self.dataArr.count;
     }else{
-        return 4;
+        return self.chooseAppArr.count;
     }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.table == tableView) {
-
-        CustomCell *cell = [CustomCell cellWithTableView:tableView];
+//        CustomCell *cell = [CustomCell cellWithTableView:tableView];
+        CustomCell *cell = [CustomCell cellWithTableView:tableView navigationC:self.navigationController];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         CustomModel *model = _dataArr[indexPath.row];
         cell.model = model;
         self.ID = cell.model.ID;
-        
         return cell;
     }else{
         static NSString *cellID = @"popCell";
@@ -542,35 +497,46 @@
 //设置区头
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     if (self.table == tableView) {
-       return 5.0f;
+       return 40.0f;
     }else{
-        return 0.1f;
+        return 0.01f;
     }
     
 }
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (self.table == tableView) {
-        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 40)];
-        view.backgroundColor = self.table.backgroundColor;
-        
-        UILabel *lableT = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.table.frame.size.width-10, 40)];
-        lableT.font = [UIFont systemFontOfSize:15.0f];
-        lableT.text = [self.A_Z_arr objectAtIndex:section];
-        [view addSubview:lableT];
-        return view;
-        
+        NSString *str = [self.chooseAppArr objectAtIndex:section];
+        return  str;
     }else{
-        UIView *view = [[UIView alloc]init];
-        return view;
+        return nil;
     }
 }
-
--(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-//    if (tableView.tag == 2) {
-//        return 44;
+//- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+//    if (self.table == tableView) {
+//        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 40)];
+//        view.backgroundColor = self.table.backgroundColor;
+//        
+//        UILabel *lableT = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.table.frame.size.width-10, 40)];
+//        lableT.font = [UIFont systemFontOfSize:15.0f];
+//        lableT.text = [self.chooseAppArr objectAtIndex:section];
+//        [view addSubview:lableT];
+//        return view;
+//        
+//    }else{
+//        UIView *view = [[UIView alloc]init];
+//        return view;
 //    }
+//}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
     return 0.01f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.popTableview == tableView) {
+        return self.popTableview.frame.size.height/self.chooseAppArr.count;
+    }else{
+        return 64.0f;
+    }
 }
 /*
  右滑动删除客户
@@ -599,128 +565,30 @@
     }
     return nil;
 }
-
-
-- (IBAction)timeOrderAction:(id)sender {
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"TimeOrderClick" attributes:dict];
-
-    self.timeButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
-    self.wordButton.textColor = [UIColor blackColor];
-//    if ([self.wordButton.iconImage isEqual:[UIImage imageNamed:@"xiangxiablue"]]) {
-        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxia"];
-//    }else{
-//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangshang"];
-//    }
-    
+#pragma mark - 删除客户时调用的内容
+- (void)deleteTableViewCellwithId:(NSString *)ID{
     MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    
-    hudView.labelText = @"加载中...";
-    
+    hudView.labelText = @"删除中...";
     [hudView show:YES];
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:ID forKey:@"CustomerID"];
     
-    [self.wordBtn setSelected:NO];
-    
-    self.pageIndex = 1;
-    if (self.timeBtn.selected == NO) {
-        [self.timeBtn setSelected:YES];
-         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"2" forKey:@"sortType"];
-        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-      //  [self.table reloadData];
-
-    }else if (self.timeBtn.selected == YES && [self.timeBtn.currentTitle  isEqual: @"时间排序 ↓"]) {
-        [self.timeBtn setSelected:YES];
+    [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
+        NSLog(@"删除客户信息成功%@",json);
+        hudView.labelText = @"删除成功...";
+        [hudView hide:YES afterDelay:0.4];
         
-        [self.timeBtn setTitle:@"时间排序 ↑" forState:UIControlStateNormal];
-        //向上箭头设置；
-        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"1" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-       // [self.table reloadData];
-
-    }else if (self.timeBtn.selected == YES &&[self.timeBtn.currentTitle isEqual:@"时间排序 ↑"]){
-        [self.timeBtn setSelected:YES];
-        [self.timeButton setSelected:YES];
-
-        [self.timeBtn setTitle:@"时间排序 ↓" forState:UIControlStateNormal];
-        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"2" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-      //  [self.table reloadData];
-
-    }
-    [hudView hide:YES];
+    } failure:^(NSError *error) {
+        NSLog(@"删除客户请求失败%@",error);
+    }];
+}
+- (void)deselect{
+    [self.table deselectRowAtIndexPath:[self.table indexPathForSelectedRow] animated:YES];
+    [self.popTableview deselectRowAtIndexPath:[self.popTableview indexPathForSelectedRow] animated:YES];
 }
 
 
-- (IBAction)wordOrderAction:(id)sender {
-    
-    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-    [MobClick event:@"WordOrderClick" attributes:dict];
-    self.timeButton.textColor = [UIColor blackColor];
-    self.wordButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
-//    if ([self.timeButton.iconImage isEqual:[UIImage imageNamed:@"xiangshangblue"]]) {
-//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshang"];
-//    }else{
-        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxia"];
-//    }
-    self.pageIndex = 1;
-    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-    hudView.labelText = @"加载中...";
-    [hudView show:YES];
-    
-    
-    [self.timeBtn setSelected:NO];
-   // [self.orderNumBtn setSelected:NO];
-    if (self.wordBtn.selected == NO) {
-        [self.wordBtn setSelected:YES];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"6" forKey:@"sortType"];
-        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
 
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-        //[self.table reloadData];
-    }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↓"]){
-        [self.wordBtn setSelected:YES];
-
-        [self.wordBtn setTitle:@"字母排序 ↑" forState:UIControlStateNormal];
-           self.wordButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"5" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-       // [self.table reloadData];
-
-    }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↑"]){
-        [self.wordBtn setSelected:YES];
-
-        [self.wordBtn setTitle:@"字母排序 ↓" forState:UIControlStateNormal];
-        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setObject:@"6" forKey:@"sortType"];
-        [accountDefaults synchronize];
-        [self.dataArr removeAllObjects];
-        [self loadDataSource];
-        //[self.table reloadData];
-
-           }
-    [hudView hide:YES];
-
-}
 
 //协议传值6:由第一页实现协议方法
 - (void)deleteCustomerWith:(NSString *)keyWords{
@@ -769,29 +637,22 @@
     }
 }
 
-- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
-{
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText{
     NSString *trimStr = [searchText stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     self.searchK = trimStr;
 }
 
-- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar
-{
+- (BOOL)searchBarShouldEndEditing:(UISearchBar *)searchBar{
     return YES;
 }
 
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
-//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-//    [MobClick event:@"CumtomerSearchClick" attributes:dict];
-    
     [self.searchDisplayController setActive:NO animated:YES];
     
     if (self.searchK.length) {
         [searchBar endEditing:YES];
-        
         NSMutableArray *tmp = [NSMutableArray array];
-        
         // 先取出原来的记录
         NSArray *arr = [WriteFileManager readFielWithName:@"CustomerHistorySearch"];
         [tmp addObjectsFromArray:arr];
@@ -812,8 +673,8 @@
 }
 
 #pragma mark - UISearchDisplayDelegate
--(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller
-{// 纯粹调节样式
+-(void)searchDisplayControllerWillBeginSearch:(UISearchDisplayController *)controller{
+    // 纯粹调节样式
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleDefault;
     self.searchBar.barTintColor = [UIColor whiteColor];
     
@@ -827,8 +688,8 @@
     self.searchBar.text = self.searchK;
 }
 
--(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller
-{
+-(void)searchDisplayControllerWillEndSearch:(UISearchDisplayController *)controller{
+    
     [self.sep2 removeFromSuperview];
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
     self.searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
@@ -842,25 +703,20 @@
     }
 
 }
-- (void)historySearch:(NSNotification *)noty
-{
+- (void)historySearch:(NSNotification *)noty{
     self.searchK = noty.userInfo[@"historyKey"];
     [self.searchDisplayController setActive:NO animated:YES];
     [self searchLoadData];
 }
-- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView
-{
+- (void)searchDisplayController:(UISearchDisplayController *)controller didShowSearchResultsTableView:(UITableView *)tableView{
     tableView.hidden = YES;
 }
 
 #pragma mark - textField delegate method
-- (void)searchLoadData
-{
+- (void)searchLoadData{
     if (self.historyArr.count > 6) {
         [self.historyArr removeObjectAtIndex:0];
     }
-//    NSArray *tmp = [NSArray arrayWithMemberIsOnly:self.historyArr];
-//    [WriteFileManager saveFileWithArray:tmp Name:@"customerSearch"];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
@@ -885,8 +741,239 @@
     }];
 }
 
+#pragma -mark 各种初始化
+-(NSMutableArray *)isReadArr{
+    if (_isReadArr == nil) {
+        self.isReadArr = [NSMutableArray array];
+    }
+    return _isReadArr;
+}
+- (NSMutableArray *)chooseAppArr{
+    if (!_chooseAppArr) {
+        _chooseAppArr = [NSMutableArray array];
+    }
+    return _chooseAppArr;
+}
+-(NSMutableArray *)A_Z_arr{
+    if (_A_Z_arr == nil) {
+        _A_Z_arr = [NSMutableArray array];
+    }
+    return _A_Z_arr;
+}
+-(NSMutableArray *)dataArr
+{
+    if (_dataArr == nil) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
+
+-(NSMutableArray *)historyArr
+{
+    if (_historyArr == nil) {
+        
+        self.historyArr = [NSMutableArray array];
+    }
+    return _historyArr;
+}
+
+-(NSMutableString *)callingPhoneNum
+{
+    if (_callingPhoneNum == nil) {
+        self.callingPhoneNum = [[NSMutableString alloc] init];
+    }
+    return _callingPhoneNum;
+}
+- (SKSearchBar *)searchBar
+{
+    if (_searchBar == nil) {
+        _searchBar = [[SKSearchBar alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, self.conditionLine.bounds.size.height)];
+        _searchBar.delegate = self;
+        _searchBar.barStyle = UISearchBarStyleDefault;
+        _searchBar.translucent = NO;
+        _searchBar.placeholder = searchDefaultPlaceholder;
+        _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
+        _searchBar.autocapitalizationType = UITextAutocapitalizationTypeSentences;
+        
+    }
+    
+    return _searchBar;
+}
+- (SKSearckDisplayController *)searchDisplay
+{
+    if (!_searchDisplay) {
+        _searchDisplay = [[SKSearckDisplayController alloc] initWithSearchBar:self.searchBar contentsController:self];
+        _searchDisplay.delegate = self;
+        _searchDisplay.searchResultsTableView.backgroundColor = [UIColor clearColor];
+        _searchDisplay.searchResultsTableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
+    return _searchDisplay;
+}
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+#pragma mark = 老版本部分内容
+//- (IBAction)timeOrderAction:(id)sender {
+//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//    [MobClick event:@"TimeOrderClick" attributes:dict];
+//
+//    self.timeButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
+//    self.wordButton.textColor = [UIColor blackColor];
+////    if ([self.wordButton.iconImage isEqual:[UIImage imageNamed:@"xiangxiablue"]]) {
+//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxia"];
+////    }else{
+////        self.wordButton.iconImage = [UIImage imageNamed:@"xiangshang"];
+////    }
+//
+//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//
+//    hudView.labelText = @"加载中...";
+//
+//    [hudView show:YES];
+//
+//    [self.wordBtn setSelected:NO];
+//
+//    self.pageIndex = 1;
+//    if (self.timeBtn.selected == NO) {
+//        [self.timeBtn setSelected:YES];
+//         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+//        [accountDefaults setObject:@"2" forKey:@"sortType"];
+//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
+//
+//        [accountDefaults synchronize];
+//        [self.dataArr removeAllObjects];
+//        [self loadDataSource];
+//      //  [self.table reloadData];
+//
+//    }else if (self.timeBtn.selected == YES && [self.timeBtn.currentTitle  isEqual: @"时间排序 ↓"]) {
+//        [self.timeBtn setSelected:YES];
+//
+//        [self.timeBtn setTitle:@"时间排序 ↑" forState:UIControlStateNormal];
+//        //向上箭头设置；
+//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
+//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+//        [accountDefaults setObject:@"1" forKey:@"sortType"];
+//        [accountDefaults synchronize];
+//        [self.dataArr removeAllObjects];
+//        [self loadDataSource];
+//       // [self.table reloadData];
+//
+//    }else if (self.timeBtn.selected == YES &&[self.timeBtn.currentTitle isEqual:@"时间排序 ↑"]){
+//        [self.timeBtn setSelected:YES];
+//        [self.timeButton setSelected:YES];
+//
+//        [self.timeBtn setTitle:@"时间排序 ↓" forState:UIControlStateNormal];
+//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
+//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+//        [accountDefaults setObject:@"2" forKey:@"sortType"];
+//        [accountDefaults synchronize];
+//        [self.dataArr removeAllObjects];
+//        [self loadDataSource];
+//      //  [self.table reloadData];
+//
+//    }
+//    [hudView hide:YES];
+//}
 
 
+//- (IBAction)wordOrderAction:(id)sender {
+//
+//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+//    [MobClick event:@"WordOrderClick" attributes:dict];
+//    self.timeButton.textColor = [UIColor blackColor];
+//    self.wordButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
+////    if ([self.timeButton.iconImage isEqual:[UIImage imageNamed:@"xiangshangblue"]]) {
+////        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshang"];
+////    }else{
+//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxia"];
+////    }
+//    self.pageIndex = 1;
+//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+//    hudView.labelText = @"加载中...";
+//    [hudView show:YES];
+//
+//
+//    [self.timeBtn setSelected:NO];
+//   // [self.orderNumBtn setSelected:NO];
+//    if (self.wordBtn.selected == NO) {
+//        [self.wordBtn setSelected:YES];
+//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+//        [accountDefaults setObject:@"6" forKey:@"sortType"];
+//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
+//
+//        [accountDefaults synchronize];
+//        [self.dataArr removeAllObjects];
+//        [self loadDataSource];
+//        //[self.table reloadData];
+//    }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↓"]){
+//        [self.wordBtn setSelected:YES];
+//
+//        [self.wordBtn setTitle:@"字母排序 ↑" forState:UIControlStateNormal];
+//           self.wordButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
+//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+//        [accountDefaults setObject:@"5" forKey:@"sortType"];
+//        [accountDefaults synchronize];
+//        [self.dataArr removeAllObjects];
+//        [self loadDataSource];
+//       // [self.table reloadData];
+//
+//    }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↑"]){
+//        [self.wordBtn setSelected:YES];
+//
+//        [self.wordBtn setTitle:@"字母排序 ↓" forState:UIControlStateNormal];
+//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
+//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+//        [accountDefaults setObject:@"6" forKey:@"sortType"];
+//        [accountDefaults synchronize];
+//        [self.dataArr removeAllObjects];
+//        [self loadDataSource];
+//        //[self.table reloadData];
+//
+//           }
+//    [hudView hide:YES];
+//
+//}
 
+//- (void)setContentView{
+//    CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
+//    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
+//    lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
+//    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
+//    lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
+//    [self.conditionLine addSubview:lineDown];
+//    ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
+//    [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.conditionLine addSubview:leftBtn];
+//    self.timeButton = leftBtn;
+//
+//    ArrowBtn *rightBtn = [[ArrowBtn alloc] init];
+//    [rightBtn addTarget:self action:@selector(wordOrderAction:) forControlEvents:UIControlEventTouchUpInside];
+//    [self.conditionLine addSubview:rightBtn];
+//    self.wordButton = rightBtn;
+//    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
+//
+//    self.timeButton.frame = CGRectMake(0, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
+//
+//    CGFloat rightX = CGRectGetMaxX(self.timeButton.frame) + 1;
+//    self.wordButton.frame = CGRectMake(rightX, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
+//
+//    self.timeButton.text = @"时间排序";
+//    self.wordButton.text = @"字母排序";
+//    [self.conditionLine addSubview:self.timeButton];
+//    [self.conditionLine addSubview:self.wordButton];
+//}
+
+
+//- (void)setbackGroundImage{
+    //    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    //    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    //    [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    //    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
+    //    [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
+    //    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
+    //    self.timeBtn.hidden = YES;
+    //    self.wordBtn.hidden = YES;
+//}
 
 @end

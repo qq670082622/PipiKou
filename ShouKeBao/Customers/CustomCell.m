@@ -11,8 +11,12 @@
 #import "IWHttpTool.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
+
+static id _naNC;
+
 @implementation CustomCell
 
+ 
 - (void)awakeFromNib {
     // Initialization code
 }
@@ -45,8 +49,70 @@
   
 }
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView{
+- (IBAction)informationIM:(id)sender {
     
+    //    if ([self.model.ProgressState integerValue] == 0) {
+    //        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是您的专属客户,马上向TA发送邀请成为您的专属客户吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
+    //        [alert show];
+    //    }else{
+    //        if (_delegate && [_delegate respondsToSelector:@selector(transformPerformation:)]) {
+    //            [_delegate transformPerformation:sender];
+    //        }
+    //
+    //
+    //    }
+    
+    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是您的专属客户,马上向TA发送邀请成为您的专属客户吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
+    [alert show];
+    
+}
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        //        点击邀请走的方法
+        NSLog(@",,,.........");
+        
+        //  方式1:不能指定短信内容
+        //        NSString *telStr = [NSString stringWithFormat:@"sms://%@", self.telStr];
+        //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
+        
+        //  方式2:指定短信内容
+        if([MFMessageComposeViewController canSendText]){// 判断设备能不能发送短信
+            MFMessageComposeViewController *MFMessageVC = [[MFMessageComposeViewController alloc] init];
+            // 设置短信内容
+            MFMessageVC.body = @"吃饭了没？";
+            // 设置收件人列表
+            MFMessageVC.recipients = @[self.telStr];
+            // 设置代理
+            MFMessageVC.messageComposeDelegate = self;
+            
+            [_naNC presentViewController:MFMessageVC animated:YES completion:nil];
+        }else{
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"该设备不支持短信功能" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
+            [alert show];
+        }
+    }
+}
+
+//短信代理方法
+- (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
+    // 关闭短信界面
+    [controller dismissViewControllerAnimated:YES completion:nil];
+    
+    if (result == MessageComposeResultCancelled) {
+        NSLog(@"取消发送");
+    } else if (result == MessageComposeResultSent) {
+        NSLog(@"已经发出");
+    } else {
+        NSLog(@"发送失败");
+    }
+    
+}
+
+
+
++ (instancetype)cellWithTableView:(UITableView *)tableView navigationC:(UINavigationController *)naNC{
+    
+     _naNC = naNC;
     static NSString *cellID = @"customCell";
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
     if (cell == nil) {
@@ -55,8 +121,7 @@
      return cell;
 }
 
--(void)setModel:(CustomModel *)model
-{
+-(void)setModel:(CustomModel *)model{
     _model = model;
     self.userIcon.image =  [UIImage imageNamed:@"quanquange"];
     self.userName.text = model.Name;
@@ -75,9 +140,17 @@
     for (NSInteger i = 0; i < arr.count; i++) {
         tel = [tel stringByAppendingString:arr[i]];
     }
-   
+    self.telStr = tel;
     self.userTele.text = [NSString stringWithFormat:@"电话：%@",tel];
     self.userOders.text = [NSString stringWithFormat:@"订单数：%@",model.OrderCount];
-    }
+    
+    
+//    if ([self.model.ProgressState integerValue] == 1) {
+//        [self.information setImage:[UIImage imageNamed:@"redMessage"] forState:UIControlStateNormal];
+//    }
+    
+    
+}
+
 
 @end

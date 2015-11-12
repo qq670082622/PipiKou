@@ -765,14 +765,13 @@ for (NSDictionary *dict in dic[@"ProductList"]) {
 
 
 
-- (void)deselect
-
-{
+- (void)deselect{
     
    // [self.leftTable deselectRowAtIndexPath:[self.leftTable indexPathForSelectedRow] animated:YES];
      [self.rightTable deselectRowAtIndexPath:[self.rightTable indexPathForSelectedRow] animated:YES];
      [self.rightTable2 deselectRowAtIndexPath:[self.rightTable2 indexPathForSelectedRow] animated:YES];
      [self.hotTable deselectRowAtIndexPath:[self.hotTable indexPathForSelectedRow] animated:YES];
+    
     
 }
 

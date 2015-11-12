@@ -840,7 +840,8 @@
                 count += 1;
             }
         }
-        
+      
+//        NSLog(@"self.messageCount  = %d",  count);
 //        设置角标
         self.barButton.badgeValue = [NSString stringWithFormat:@"%d",count];
 
