@@ -87,7 +87,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.searchBar];
-    [self.view sendSubviewToBack:self.searchBar];
+    //1[self.view sendSubviewToBack:self.searchBar];
     [self searchDisplay];
     self.pageIndex = 1;
     [self.dataArr removeAllObjects];
