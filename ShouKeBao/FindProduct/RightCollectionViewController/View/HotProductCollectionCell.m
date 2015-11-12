@@ -10,6 +10,9 @@
 #import "rightModal.h"
 #import "UIImageView+WebCache.h"
 @implementation HotProductCollectionCell
+-(void)awakeFromNib{
+
+}
 -(void)setModal:(rightModal *)modal{
     _modal = modal;
     [self.rightIcon sd_setImageWithURL:[NSURL URLWithString:modal.rightIcon] placeholderImage:[UIImage imageNamed:@"lvyouquanIcon"]];
