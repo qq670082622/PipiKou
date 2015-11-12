@@ -69,6 +69,7 @@
 #import "CommandTo.h"
 #import "invoiceCell.h"
 #import "AppDelegate.h"
+#import "NewMessageCenterController.h"
 #import "SubscribeCell.h"
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
@@ -1465,13 +1466,17 @@
 
 -(void)ringAction
 {
+    NewMessageCenterController *messgeCenter = [[NewMessageCenterController alloc] init];
+    [self.navigationController pushViewController:messgeCenter animated:YES];
 //    [UIApplication sharedApplication].applicationIconBadgeNumber = 8;
-    
+    /*
+     原有内容
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"MesseageCenterClick" attributes:dict];
     
-    messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
-    messgeCenter.delegate = self;
+    //messageCenterViewController *messgeCenter = [[messageCenterViewController alloc] init];
+    
+    //messgeCenter.delegate = self;
     
     self.barButton = (BBBadgeBarButtonItem *)self.navigationItem.leftBarButtonItem;
 
@@ -1510,6 +1515,7 @@
     
         [self.navigationController pushViewController:messgeCenter animated:YES];
 //
+     */
 }
 
 

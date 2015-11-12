@@ -27,10 +27,11 @@
     // Do any additional setup after loading the view from its nib.
     self.title = @"新消息通知";
     //判断系统提醒状态
+    NSLog(@"%lu",[[UIApplication sharedApplication] enabledRemoteNotificationTypes]);
     if ([[UIApplication sharedApplication] enabledRemoteNotificationTypes] == UIRemoteNotificationTypeNone) {
-        self.NewsState.text = @"已关闭";
-    }else{
         self.NewsState.text = @"已开启";
+    }else{
+        self.NewsState.text = @"已关闭";
     }
     //判断开关状态
     NSString *NewsDefine = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewsRemind"];

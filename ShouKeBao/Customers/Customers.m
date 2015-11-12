@@ -89,7 +89,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self.view addSubview:self.searchBar];
-    [self.view sendSubviewToBack:self.searchBar];
+    //1[self.view sendSubviewToBack:self.searchBar];
     [self searchDisplay];
     
     self.chooseAppArr = [NSMutableArray arrayWithObjects:@"不限", @"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];

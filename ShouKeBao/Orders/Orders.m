@@ -1377,6 +1377,7 @@ typedef void (^ChangeFrameBlock)();
     //                subview.transform = CGAffineTransformIdentity;
     //        }];
     //    }
+    NSLog(@"%f--%d",self.sep2.frame.origin.y,self.navigationController.navigationBarHidden);
     [self.sep2 removeFromSuperview];
     
     [UIApplication sharedApplication].statusBarStyle = UIStatusBarStyleLightContent;
