@@ -19,6 +19,10 @@
 
 - (IBAction)wordOrderAction:(id)sender;
 - (IBAction)customSearch:(id)sender;
+//标题弹出框
+@property (weak, nonatomic) IBOutlet UITableView *popTableview;
+
+
 
 
 @end

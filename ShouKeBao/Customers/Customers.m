@@ -73,6 +73,8 @@
 @property (nonatomic,strong) SKSearchBar *searchBar;
 @property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
 @property (nonatomic,weak) UIView *sep2;
+@property (nonatomic,strong) NSMutableArray *chooseAppArr;
+@property (nonatomic, strong)NSMutableArray *A_Z_arr;
 @end
 
 @implementation Customers
@@ -89,6 +91,10 @@
     [self.view addSubview:self.searchBar];
     [self.view sendSubviewToBack:self.searchBar];
     [self searchDisplay];
+    
+    self.chooseAppArr = [NSMutableArray arrayWithObjects:@"不限", @"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
+    self.A_Z_arr = [NSMutableArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G",@"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", nil];
+    
     self.pageIndex = 1;
     [self.dataArr removeAllObjects];
     self.navigationItem.leftBarButtonItem = nil;
@@ -102,7 +108,10 @@
     [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
     self.timeBtn.hidden = YES;
     self.wordBtn.hidden = YES;
-   self.title = @"管客户";
+//    self.title = @"管客户";
+    [self customerCenterBarItem];
+
+    
     self.table.delegate = self;
     self.table.dataSource = self;
     self.table.rowHeight = 64;
@@ -220,17 +229,39 @@
     }
 }
 
--(void)customerRightBarItem
-{
+
+
+-(void)customerRightBarItem{
     UIBarButtonItem *barItem = [[UIBarButtonItem alloc]initWithTitle:@"添加" style:UIBarButtonItemStyleBordered target:self action:@selector(setSubViewUp)];
     self.navigationItem.rightBarButtonItem= barItem;
 }
 
+-(void)customerCenterBarItem{
+    UIButton *button = [[UIButton alloc]init];
+    button.frame = CGRectMake(0, 0, 50, 100);
+    [button setTitle:@"管客户" forState:UIControlStateNormal];
+    [button setImage:[UIImage imageNamed:@"sanjiao"] forState:UIControlStateNormal];
+    [button setTitleEdgeInsets:UIEdgeInsetsMake(0, -20, 0, 15)];
+    [button setImageEdgeInsets:UIEdgeInsetsMake(20, 63, 20, 0)];
+    [button.titleLabel setFont:[UIFont boldSystemFontOfSize:20]];
+    [button addTarget:self action:@selector(popCustomersAction:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = button;
+    
+}
+- (void)popCustomersAction:(UIButton *)button{
+    self.popTableview.delegate = self;
+    self.popTableview.dataSource = self;
+    self.popTableview.hidden = NO;
+   
+    
+    
+}
+
 #pragma mark - UIScrollViewDelegate
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView{
     [self subViewHidden];
 }
+
 
 -(void)setSubViewUp
 {
@@ -253,7 +284,18 @@
 }
 
 #pragma -mark getter
-
+- (NSMutableArray *)chooseAppArr{
+    if (!_chooseAppArr) {
+        _chooseAppArr = [NSMutableArray array];
+    }
+    return _chooseAppArr;
+}
+-(NSMutableArray *)A_Z_arr{
+    if (_A_Z_arr == nil) {
+        _A_Z_arr = [NSMutableArray array];
+    }
+    return _A_Z_arr;
+}
 -(NSMutableArray *)dataArr
 {
     if (_dataArr == nil) {
@@ -450,26 +492,10 @@
     // Dispose of any resources that can be recreated.
 }
 
--(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-//    if (tableView.tag == 1) {
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
-//        CustomerDetailViewController *detail = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.table == tableView) {
+
         CustomModel *model = _dataArr[indexPath.row];
-//        detail.QQStr = model.QQCode;
-//        detail.ID = model.ID;
-//        detail.weChatStr = model.WeiXinCode;
-//        detail.teleStr = model.Mobile;
-//        detail.noteStr = model.Remark;
-//        detail.userNameStr = model.Name;
-//        detail.customMoel = model;
-//        detail.picUrl = model.PicUrl;
-//        detail.customerId = model.ID;
-//        //协议传值5:指定第一页为第二页的代理人
-//        detail.delegate = self;
-//        detail.keyWordss = self.searchK;
-//        detail.initDelegate = self;
-        
         CustomerDetailAndOrderViewController * VC = [[CustomerDetailAndOrderViewController  alloc]init];
         VC.customVC = self;
         VC.keyWords = self.searchK;
@@ -477,16 +503,23 @@
     NSLog(@"%@",         model);
         [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
         [self.navigationController pushViewController:VC animated:YES];
-//    }
+    }else if (self.popTableview == tableView){
+        
+    }
+
 }
 
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.dataArr.count;
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    if (self.table == tableView) {
+        return self.dataArr.count;
+    }else{
+        return 4;
+    }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.table == tableView) {
+
         CustomCell *cell = [CustomCell cellWithTableView:tableView];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         CustomModel *model = _dataArr[indexPath.row];
@@ -494,16 +527,42 @@
         self.ID = cell.model.ID;
         
         return cell;
-
+    }else{
+        static NSString *cellID = @"popCell";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
+        }
+         cell.textLabel.text = [self.chooseAppArr objectAtIndex:indexPath.row];
+        
+        return cell;
+    }
 }
+
 //设置区头
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    return 5.0f;
+    if (self.table == tableView) {
+       return 5.0f;
+    }else{
+        return 0.1f;
+    }
+    
 }
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
-    UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 5)];
-    view.backgroundColor = self.table.backgroundColor;
-    return view;
+    if (self.table == tableView) {
+        UIView * view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, self.table.frame.size.width, 40)];
+        view.backgroundColor = self.table.backgroundColor;
+        
+        UILabel *lableT = [[UILabel alloc]initWithFrame:CGRectMake(10, 0, self.table.frame.size.width-10, 40)];
+        lableT.font = [UIFont systemFontOfSize:15.0f];
+        lableT.text = [self.A_Z_arr objectAtIndex:section];
+        [view addSubview:lableT];
+        return view;
+        
+    }else{
+        UIView *view = [[UIView alloc]init];
+        return view;
+    }
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -516,25 +575,29 @@
 /*
  右滑动删除客户
  */
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
+   
     return YES;
 }
 
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        CustomModel *model = _dataArr[indexPath.row];
-        [self deleteTableViewCellwithId:model.ID];
- // 删除这行
-        [self.dataArr removeObjectAtIndex:indexPath.row];
-        [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
+    
+    if (self.table == tableView) {
+        if (editingStyle == UITableViewCellEditingStyleDelete) {
+            CustomModel *model = _dataArr[indexPath.row];
+            [self deleteTableViewCellwithId:model.ID];
+            // 删除这行
+            [self.dataArr removeObjectAtIndex:indexPath.row];
+            [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
+        }
     }
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return @"删除";
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (self.table == tableView) {
+      return @"删除";
+    }
+    return nil;
 }
 
 

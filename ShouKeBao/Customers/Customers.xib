@@ -13,6 +13,7 @@
                 <outlet property="conditionLine" destination="JzP-XY-h4A" id="e7d-qD-SHs"/>
                 <outlet property="imageViewWhenIsNull" destination="S4P-Un-cq9" id="A5R-SF-0rJ"/>
                 <outlet property="importUser" destination="nhR-tZ-9Ut" id="JTQ-ra-xHT"/>
+                <outlet property="popTableview" destination="nwE-al-zEF" id="Qtk-1o-Y6R"/>
                 <outlet property="subView" destination="frt-01-EIa" id="dlI-DF-O1s"/>
                 <outlet property="table" destination="vxd-KI-xbc" id="1rP-KW-2GF"/>
                 <outlet property="timeBtn" destination="Rlf-f3-vtv" id="Gcc-D1-Ogz"/>
@@ -137,6 +138,11 @@
                         </imageView>
                     </subviews>
                 </view>
+                <tableView hidden="YES" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="nwE-al-zEF">
+                    <rect key="frame" x="0.0" y="0.0" width="320" height="200"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                </tableView>
             </subviews>
             <color key="backgroundColor" white="0.92684659090909094" alpha="1" colorSpace="calibratedWhite"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
