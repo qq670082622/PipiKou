@@ -64,6 +64,7 @@
     }
     return YES;
 }
+
 //设置请求userAgent
 + (void)initialize {
     // Set user agent (the only problem is that we can't modify the User-Agent later in the program)
