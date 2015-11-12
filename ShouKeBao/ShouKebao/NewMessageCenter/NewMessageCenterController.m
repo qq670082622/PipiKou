@@ -10,6 +10,7 @@
 #import "NewMessageCell.h"
 #import "TerraceMessageController.h"
 #import "ZhiVisitorDynamicController.h"
+#import "ChatListCell.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface NewMessageCenterController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 @property (nonatomic,strong) NSArray *NameArr;
@@ -31,7 +32,7 @@
     
     
     _tableView.tableFooterView = [[UIView alloc] init];
-     [_tableView registerNib:[UINib nibWithNibName:@"NewMessageCell" bundle:nil] forCellReuseIdentifier:@"NewMessageCell"];
+    //[_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"ChatListCell"];
 }
 #pragma mark - UITableViewDelegate&DataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -78,16 +79,15 @@
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (tableView.tag == 2011) {
-        NewMessageCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewMessageCell" forIndexPath:indexPath];
+        ChatListCell *cell = [[ChatListCell alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 60)];
         if (indexPath.section == 0) {
-            cell.nameLabel.text = self.NameArr[indexPath.row];
+            cell.name = self.NameArr[indexPath.row];
+            cell.detailMsg = @"收到消息";
         }else{
-            cell.nameLabel.text = self.NamedataArr[indexPath.row];
+            cell.name = self.NamedataArr[indexPath.row];
         }
-        
-        cell.timeLabel.text = _TimedataArr[indexPath.row+indexPath.section];
-        cell.imageView.image = [UIImage imageNamed:@"hongdian"];
-        cell.detailLabel.text = @"听过你很6";
+        cell.detailMsg = @"收到消息";
+        cell.time = @"12.01";
         return cell;
     }
     NSLog(@"-----%ld",tableView.tag);

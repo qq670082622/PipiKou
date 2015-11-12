@@ -1,14 +1,14 @@
 //
-//  TerraceMessageCell.m
+//  OpprotunityFreqCell.m
 //  ShouKeBao
 //
-//  Created by 韩世民 on 15/11/10.
-//  Copyright (c) 2015年 shouKeBao. All rights reserved.
+//  Created by 韩世民 on 15/11/12.
+//  Copyright © 2015年 shouKeBao. All rights reserved.
 //
 
-#import "TerraceMessageCell.h"
+#import "OpprotunityFreqCell.h"
 
-@implementation TerraceMessageCell
+@implementation OpprotunityFreqCell
 
 - (void)awakeFromNib {
     // Initialization code
@@ -20,6 +20,4 @@
     // Configure the view for the selected state
 }
 
-- (IBAction)DetailBtn:(UIButton *)sender {
-}
 @end

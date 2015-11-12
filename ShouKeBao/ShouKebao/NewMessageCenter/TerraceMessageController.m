@@ -7,8 +7,9 @@
 //
 
 #import "TerraceMessageController.h"
-#import "TerraceMessageCell.h"
+#import "TerraceMessCell.h"
 #import "TimerCell.h"
+#define kScreenSize [UIScreen mainScreen].bounds.size
 @interface TerraceMessageController ()<UITableViewDataSource,UITableViewDelegate>
 
 @end
@@ -19,7 +20,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"服务通知";
-    [_tableView registerNib:[UINib nibWithNibName:@"TerraceMessageCell" bundle:nil] forCellReuseIdentifier:@"TerraceMessageCell"];
+    [_tableView registerNib:[UINib nibWithNibName:@"TerraceMessCell" bundle:nil] forCellReuseIdentifier:@"TerraceMessCell"];
     [_tableView registerNib:[UINib nibWithNibName:@"TimerCell" bundle:nil] forCellReuseIdentifier:@"TimerCell"];
     _tableView.tableFooterView = [[UIView alloc] init];
 }
@@ -31,22 +32,26 @@
     return 2;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (indexPath.row == 0) {
-//        return 50;
-//    }
+    if (indexPath.row == 0) {
+        return 50;
+    }
     return 250;
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    TimerCell *cell;
-    TerraceMessageCell *trcell;
-//    if (indexPath.row == 0) {
-//        cell =[tableView dequeueReusableCellWithIdentifier:@"TimerCell" forIndexPath:indexPath];
-//        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        return cell;
-//    }
-    trcell = [tableView dequeueReusableCellWithIdentifier:@"TerraceMessageCell" forIndexPath:indexPath];
-    NSLog(@"%f",trcell.frame.size.width);
+    TimerCell *cell;
+    TerraceMessCell *trcell;
+    if (indexPath.row == 0) {
+        cell =[tableView dequeueReusableCellWithIdentifier:@"TimerCell" forIndexPath:indexPath];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    trcell = [tableView dequeueReusableCellWithIdentifier:@"TerraceMessCell" forIndexPath:indexPath];
+    NSLog(@"%f---%f",trcell.frame.size.width,kScreenSize.width);
     return trcell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

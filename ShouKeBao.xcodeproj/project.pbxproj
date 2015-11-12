@@ -7,11 +7,19 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		520279521BF438160049C0B9 /* TerraceMessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520279501BF438160049C0B9 /* TerraceMessCell.m */; };
+		520279531BF438160049C0B9 /* TerraceMessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520279511BF438160049C0B9 /* TerraceMessCell.xib */; };
+		520279571BF43E2B0049C0B9 /* NewCustomerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520279551BF43E2B0049C0B9 /* NewCustomerCell.m */; };
+		520279581BF43E2B0049C0B9 /* NewCustomerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */; };
+		5202795C1BF443510049C0B9 /* OpportunitykeywordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */; };
+		5202795D1BF443510049C0B9 /* OpportunitykeywordCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */; };
+		520279611BF446090049C0B9 /* OpprotunityFreqCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */; };
+		520279621BF446090049C0B9 /* OpprotunityFreqCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */; };
+		520279651BF4730A0049C0B9 /* NewMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 520279641BF4730A0049C0B9 /* NewMessageModel.m */; };
+		520279681BF47C3C0049C0B9 /* ChatListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 520279671BF47C3C0049C0B9 /* ChatListCell.m */; };
 		520D54AA1BF2EB9400923F6C /* ZhiVisitorDynamicController.m in Sources */ = {isa = PBXBuildFile; fileRef = 520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */; };
 		522E80671BD1049500DB48DA /* OrderPromptView.m in Sources */ = {isa = PBXBuildFile; fileRef = 522E80661BD1049500DB48DA /* OrderPromptView.m */; };
 		522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522E80681BD104A800DB48DA /* OrderPromptView.xib */; };
-		5237D6B11BF18DD700655CF0 /* TerraceMessageCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237D6AF1BF18DD700655CF0 /* TerraceMessageCell.m */; };
-		5237D6B21BF18DD700655CF0 /* TerraceMessageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5237D6B01BF18DD700655CF0 /* TerraceMessageCell.xib */; };
 		5237D6B61BF18DED00655CF0 /* TimerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237D6B41BF18DEC00655CF0 /* TimerCell.m */; };
 		5237D6B71BF18DED00655CF0 /* TimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5237D6B51BF18DED00655CF0 /* TimerCell.xib */; };
 		527D07B71BD5D56000CA6C39 /* OpenInvoiceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 527D07B61BD5D56000CA6C39 /* OpenInvoiceViewController.m */; };
@@ -453,14 +461,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5202794F1BF438160049C0B9 /* TerraceMessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerraceMessCell.h; sourceTree = "<group>"; };
+		520279501BF438160049C0B9 /* TerraceMessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerraceMessCell.m; sourceTree = "<group>"; };
+		520279511BF438160049C0B9 /* TerraceMessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerraceMessCell.xib; sourceTree = "<group>"; };
+		520279541BF43E2B0049C0B9 /* NewCustomerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewCustomerCell.h; sourceTree = "<group>"; };
+		520279551BF43E2B0049C0B9 /* NewCustomerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewCustomerCell.m; sourceTree = "<group>"; };
+		520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NewCustomerCell.xib; sourceTree = "<group>"; };
+		520279591BF443510049C0B9 /* OpportunitykeywordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpportunitykeywordCell.h; sourceTree = "<group>"; };
+		5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpportunitykeywordCell.m; sourceTree = "<group>"; };
+		5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpportunitykeywordCell.xib; sourceTree = "<group>"; };
+		5202795E1BF446090049C0B9 /* OpprotunityFreqCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpprotunityFreqCell.h; sourceTree = "<group>"; };
+		5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpprotunityFreqCell.m; sourceTree = "<group>"; };
+		520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpprotunityFreqCell.xib; sourceTree = "<group>"; };
+		520279631BF4730A0049C0B9 /* NewMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NewMessageModel.h; sourceTree = "<group>"; };
+		520279641BF4730A0049C0B9 /* NewMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewMessageModel.m; sourceTree = "<group>"; };
+		520279661BF47C3C0049C0B9 /* ChatListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChatListCell.h; sourceTree = "<group>"; };
+		520279671BF47C3C0049C0B9 /* ChatListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChatListCell.m; sourceTree = "<group>"; };
 		520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZhiVisitorDynamicController.h; sourceTree = "<group>"; };
 		520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZhiVisitorDynamicController.m; sourceTree = "<group>"; };
 		522E80651BD1049500DB48DA /* OrderPromptView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderPromptView.h; sourceTree = "<group>"; };
 		522E80661BD1049500DB48DA /* OrderPromptView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderPromptView.m; sourceTree = "<group>"; };
 		522E80681BD104A800DB48DA /* OrderPromptView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OrderPromptView.xib; sourceTree = "<group>"; };
-		5237D6AE1BF18DD700655CF0 /* TerraceMessageCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerraceMessageCell.h; sourceTree = "<group>"; };
-		5237D6AF1BF18DD700655CF0 /* TerraceMessageCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerraceMessageCell.m; sourceTree = "<group>"; };
-		5237D6B01BF18DD700655CF0 /* TerraceMessageCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TerraceMessageCell.xib; sourceTree = "<group>"; };
 		5237D6B31BF18DEC00655CF0 /* TimerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerCell.h; sourceTree = "<group>"; };
 		5237D6B41BF18DEC00655CF0 /* TimerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerCell.m; sourceTree = "<group>"; };
 		5237D6B51BF18DED00655CF0 /* TimerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerCell.xib; sourceTree = "<group>"; };
@@ -1294,6 +1315,8 @@
 		527E3B7B1BEC7EB000AAA6F6 /* NewMessageCenter */ = {
 			isa = PBXGroup;
 			children = (
+				520279661BF47C3C0049C0B9 /* ChatListCell.h */,
+				520279671BF47C3C0049C0B9 /* ChatListCell.m */,
 				527E3B7C1BEC7EE200AAA6F6 /* NewMessageCenterController.h */,
 				527E3B7D1BEC7EE200AAA6F6 /* NewMessageCenterController.m */,
 				527E3B7E1BEC7EE200AAA6F6 /* NewMessageCenterController.xib */,
@@ -1303,9 +1326,6 @@
 				527E3B861BECAB5B00AAA6F6 /* TerraceMessageController.h */,
 				527E3B871BECAB5B00AAA6F6 /* TerraceMessageController.m */,
 				527E3B881BECAB5B00AAA6F6 /* TerraceMessageController.xib */,
-				5237D6AE1BF18DD700655CF0 /* TerraceMessageCell.h */,
-				5237D6AF1BF18DD700655CF0 /* TerraceMessageCell.m */,
-				5237D6B01BF18DD700655CF0 /* TerraceMessageCell.xib */,
 				5237D6B31BF18DEC00655CF0 /* TimerCell.h */,
 				5237D6B41BF18DEC00655CF0 /* TimerCell.m */,
 				5237D6B51BF18DED00655CF0 /* TimerCell.xib */,
@@ -1314,6 +1334,18 @@
 				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
 				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
 				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
+				5202794F1BF438160049C0B9 /* TerraceMessCell.h */,
+				520279501BF438160049C0B9 /* TerraceMessCell.m */,
+				520279511BF438160049C0B9 /* TerraceMessCell.xib */,
+				520279541BF43E2B0049C0B9 /* NewCustomerCell.h */,
+				520279551BF43E2B0049C0B9 /* NewCustomerCell.m */,
+				520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */,
+				520279591BF443510049C0B9 /* OpportunitykeywordCell.h */,
+				5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */,
+				5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */,
+				5202795E1BF446090049C0B9 /* OpprotunityFreqCell.h */,
+				5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */,
+				520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */,
 			);
 			path = NewMessageCenter;
 			sourceTree = "<group>";
@@ -1794,6 +1826,8 @@
 				63F1A1911B1424BC00DE9867 /* recentlyModel.m */,
 				63B6CFB21B2E745B0037E06B /* personIdModel.h */,
 				63B6CFB31B2E745B0037E06B /* personIdModel.m */,
+				520279631BF4730A0049C0B9 /* NewMessageModel.h */,
+				520279641BF4730A0049C0B9 /* NewMessageModel.m */,
 			);
 			path = HomeModel;
 			sourceTree = "<group>";
@@ -3011,6 +3045,7 @@
 				63A81B8B1B39065F00D8B37D /* SKBNavBar.xib in Resources */,
 				79FB11601BD7324100819FB2 /* Orders.storyboard in Resources */,
 				522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */,
+				520279581BF43E2B0049C0B9 /* NewCustomerCell.xib in Resources */,
 				63F1A1791B134D5D00DE9867 /* RecomViewController.xib in Resources */,
 				B3D7B7CB1BD76F700080E243 /* QRHistoryViewController.xib in Resources */,
 				B3C01E271BAC10FC005E4BB5 /* Safe.storyboard in Resources */,
@@ -3018,14 +3053,15 @@
 				5A52FC8C1ACEBF220076DAE6 /* DressHeader.xib in Resources */,
 				B3D7B7C81BD76F700080E243 /* QRCodeViewController.xib in Resources */,
 				5A52FC571ACEBF220076DAE6 /* HeaderView.xib in Resources */,
+				520279621BF446090049C0B9 /* OpprotunityFreqCell.xib in Resources */,
 				637EA9CF1B1DB76A00E5AC22 /* caremaCut.wav in Resources */,
-				5237D6B21BF18DD700655CF0 /* TerraceMessageCell.xib in Resources */,
 				B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */,
 				527D4A3A1BC8A0700020AAF3 /* LeaveShare.xib in Resources */,
 				B36E57311B74C0D000471AAC /* MinMaxPriceSelectViewController.xib in Resources */,
 				63B8C6FF1ACE906B00328C8C /* messageCell.xib in Resources */,
 				B3B7A6711BA6A25F0043DF7C /* attachmentViewController.xib in Resources */,
 				52CF60BF1BDDCAF600DD97B8 /* SubscribeCell.xib in Resources */,
+				520279531BF438160049C0B9 /* TerraceMessCell.xib in Resources */,
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
@@ -3033,6 +3069,7 @@
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
 				52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */,
 				B3B7A6841BA6A25F0043DF7C /* remondTableViewCell.xib in Resources */,
+				5202795D1BF443510049C0B9 /* OpportunitykeywordCell.xib in Resources */,
 				632613291AB2AF04003AC2DA /* re_product_pan_b@2x.png in Resources */,
 				B3D7B7C61BD76F700080E243 /* QR.storyboard in Resources */,
 				63A81B901B3981AA00D8B37D /* SKBNavBarFor6OrP.xib in Resources */,
@@ -3113,6 +3150,7 @@
 				63F1A1AB1B14250E00DE9867 /* MJArgument.m in Sources */,
 				B3C01E291BAC10FC005E4BB5 /* FeedBcakViewController.m in Sources */,
 				5A944D231B00BC780004DE89 /* MLPhotoBrowserDatas.m in Sources */,
+				520279681BF47C3C0049C0B9 /* ChatListCell.m in Sources */,
 				B3C01E261BAC10FC005E4BB5 /* ReBindViewController.m in Sources */,
 				796F36D61B7857DB0089FEE8 /* RightCollectionView.m in Sources */,
 				633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */,
@@ -3120,8 +3158,10 @@
 				632AF23B1AD3E523004916C0 /* SearchFootView.m in Sources */,
 				5A52FC871ACEBF220076DAE6 /* CantactView.m in Sources */,
 				B3B7A6801BA6A25F0043DF7C /* RemindDetailViewController.m in Sources */,
+				520279571BF43E2B0049C0B9 /* NewCustomerCell.m in Sources */,
 				633263D41AB851590021553B /* AFHTTPSessionManager.m in Sources */,
 				B3C01E3E1BAC10FC005E4BB5 /* SosViewController.m in Sources */,
+				520279521BF438160049C0B9 /* TerraceMessCell.m in Sources */,
 				B3C01E2E1BAC10FC005E4BB5 /* Organization.m in Sources */,
 				B3BC33891BD8B95900C61D83 /* MeShareDetailViewController.m in Sources */,
 				B3C01E3C1BAC10FC005E4BB5 /* PersonSettingViewController.m in Sources */,
@@ -3192,6 +3232,7 @@
 				632BFFF81AB92A3A003B15AD /* SDWebImageDownloader.m in Sources */,
 				63F1A1AF1B14250E00DE9867 /* MJMember.m in Sources */,
 				B36E572B1B74C0D000471AAC /* ConditionModel.m in Sources */,
+				520279651BF4730A0049C0B9 /* NewMessageModel.m in Sources */,
 				636C8B941AC2E6860097CAE9 /* MBProgressHUD+MJ.m in Sources */,
 				63CE06081B203D44008B98B0 /* LLSimpleCamera.m in Sources */,
 				5A52FC681ACEBF220076DAE6 /* ResultViewController.m in Sources */,
@@ -3353,7 +3394,6 @@
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
 				63AE28951B206F8700BDB8C1 /* newModel.m in Sources */,
 				7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */,
-				5237D6B11BF18DD700655CF0 /* TerraceMessageCell.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,
 				7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */,
@@ -3383,6 +3423,7 @@
 				B3BC338C1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m in Sources */,
 				527E3B891BECAB5B00AAA6F6 /* TerraceMessageController.m in Sources */,
 				797B37971B8C38CF00411DBA /* GTMBase64.m in Sources */,
+				5202795C1BF443510049C0B9 /* OpportunitykeywordCell.m in Sources */,
 				635E70AE1B180763008EFEB6 /* V8HorizontalPickerView.m in Sources */,
 				5A6996131AF88F03002EDD91 /* SetPhonePwdViewController.m in Sources */,
 				527D07B71BD5D56000CA6C39 /* OpenInvoiceViewController.m in Sources */,
@@ -3399,6 +3440,7 @@
 				632BFFFE1AB92A3A003B15AD /* UIImage+MultiFormat.m in Sources */,
 				52F275B71BD4E273008543E9 /* InvoiceLowView.m in Sources */,
 				B3C01E3B1BAC10FC005E4BB5 /* OrgSettingViewController.m in Sources */,
+				520279611BF446090049C0B9 /* OpprotunityFreqCell.m in Sources */,
 				632B00001AB92A3A003B15AD /* UIImageView+HighlightedWebCache.m in Sources */,
 				5A52FC5D1ACEBF220076DAE6 /* StationSelect.m in Sources */,
 				796F36E21B7864460089FEE8 /* HotProductCollectionCell.m in Sources */,

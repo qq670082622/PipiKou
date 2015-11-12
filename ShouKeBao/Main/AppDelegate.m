@@ -48,7 +48,11 @@
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
-    
+//    if (self.traitCollection.forceTouchCapability == UIForceTouchCapabilityAvailable){
+//            NSLog(@"你的手机支持3D Touch!");
+//    }else{
+//        NSLog(@"你的手机暂不支持3D Touch!");
+//    }
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *phone = [def objectForKey:UserInfoKeyPoneNum];
     NSString *password = [def objectForKey:UserInfoKeyPassword];
