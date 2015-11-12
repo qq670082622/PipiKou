@@ -1,13 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ShouKeBao">
             <connections>
+                <outlet property="CarouselSC" destination="qW0-zn-dQH" id="bwq-CX-dLd"/>
+                <outlet property="CarouselView" destination="JQr-Xx-Dqn" id="iX0-oJ-Nxg"/>
                 <outlet property="SKBNewBtn" destination="sOf-Ea-0SB" id="DIg-Mz-aFX"/>
+                <outlet property="buttonText" destination="He6-WC-Rvr" id="ZmC-M2-of8"/>
+                <outlet property="hotView" destination="NXf-NC-i79" id="TYE-1I-Rbj"/>
                 <outlet property="phoneBtn" destination="oE9-3F-kUd" id="K8s-va-nGC"/>
                 <outlet property="upView" destination="Bc7-6G-aOu" id="GGQ-vi-Ffv"/>
                 <outlet property="userIcon" destination="Amj-G2-utC" id="Rxc-iP-2jS"/>
@@ -83,6 +87,40 @@
                     </subviews>
                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                 </view>
+                <view contentMode="scaleToFill" id="JQr-Xx-Dqn">
+                    <rect key="frame" x="0.0" y="100" width="320" height="50"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
+                    <subviews>
+                        <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="hot" id="NXf-NC-i79">
+                            <rect key="frame" x="10" y="0.0" width="60" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES"/>
+                        </imageView>
+                        <view contentMode="scaleToFill" id="Fgq-ok-qyM" userLabel="line">
+                            <rect key="frame" x="80" y="10" width="1" height="30"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                        <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qW0-zn-dQH">
+                            <rect key="frame" x="90" y="0.0" width="230" height="50"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="He6-WC-Rvr">
+                                    <rect key="frame" x="0.0" y="0.0" width="230" height="50"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <state key="normal">
+                                        <color key="titleColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="buttonText:" destination="-1" eventType="touchUpInside" id="2Sb-J2-kVM"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </scrollView>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                </view>
             </subviews>
             <color key="backgroundColor" red="0.93725490196078431" green="0.93725490196078431" blue="0.93725490196078431" alpha="1" colorSpace="calibratedRGB"/>
             <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
@@ -92,6 +130,7 @@
     <resources>
         <image name="SKB" width="225" height="102"/>
         <image name="banjiubing" width="50" height="50"/>
+        <image name="hot" width="56" height="56"/>
     </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>

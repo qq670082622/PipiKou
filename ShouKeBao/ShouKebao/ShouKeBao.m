@@ -71,6 +71,12 @@
 #import "AppDelegate.h"
 #import "NewMessageCenterController.h"
 #import "SubscribeCell.h"
+#import "HotLaButton.h"
+#import "CircleHotNewsViewController.h"
+
+#define View_Width self.view.frame.size.width
+#define View_Height self.view.frame.size.height
+
 @interface ShouKeBao ()<UITableViewDataSource,UITableViewDelegate,notifiSKBToReferesh,remindDetailDelegate, CLLocationManagerDelegate /*定位代理*/>
 //定位使用
 @property (nonatomic, retain)CLLocationManager *locationManager;
@@ -86,8 +92,6 @@
 - (IBAction)changeStation:(id)sender;
 - (IBAction)phoneToService:(id)sender;
 @property (weak, nonatomic) IBOutlet UIButton *phoneBtn;// 搬救兵电话按钮
-
-
 //@property (weak, nonatomic) IBOutlet UILabel *yesterDayOrderCount;
 @property (weak, nonatomic) IBOutlet UILabel *yesterdayVisitors;
 @property (weak, nonatomic) IBOutlet UILabel *userName;
@@ -127,45 +131,56 @@
 @property (nonatomic, assign)BOOL isFromDowmload;
 @property (nonatomic, assign)BOOL isMustUpdate;
 @property (nonatomic, assign)BOOL isEmpty;
+
+//轮播图
+@property (weak, nonatomic) IBOutlet UIView *CarouselView;
+@property (weak, nonatomic) IBOutlet UIImageView *hotView;
+@property (weak, nonatomic) IBOutlet UIScrollView *CarouselSC;
+@property(nonatomic, assign)NSInteger pageNum;
+@property (nonatomic, strong) IBOutlet UIButton *buttonText;
+@property (nonatomic, strong) NSTimer *timer;
+- (IBAction)buttonText:(id)sender;
+@property (nonatomic, strong)HotLaButton *hotLableButton;
 @end
 
 @implementation ShouKeBao
 
 
 #pragma mark - 定位
-- (void)locationMethod
-{
+- (void)locationMethod{
     self.locationManager = [[CLLocationManager alloc] init];
     self.locationManager.delegate = self;
     if ([CLLocationManager locationServicesEnabled]) {
         self.locationManager.distanceFilter = 100;//设置为100米
         self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
         [self.locationManager requestWhenInUseAuthorization];//或者下一句
-        //        [self.locationManager requestAlwaysAuthorization];
+//        [self.locationManager requestAlwaysAuthorization];
         [self.locationManager startUpdatingLocation];
-//        NSLog(@"111111");
     } else {
         NSLog(@"请检查网络");
     }
 }
-
-//   实现CLLocationManagerDelegate的代理方法
+#pragma mark - CLLocationManagerDelegate的代理方法
 //   获取到位置数据，返回的是一个CLLocation的数组
-- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-{
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations{
     self.loc = [locations lastObject];
-    NSLog(@"纬度 = %f, 经度 = %f", self.loc.coordinate.latitude, self.loc.coordinate.longitude);
+    //   horizontalAccuracy位置精度
+    if(self.loc.horizontalAccuracy > 0){
+        NSLog(@"纬度 = %f, 经度 = %f, (位置精度)半径 = %f", self.loc.coordinate.latitude, self.loc.coordinate.longitude, self.loc.horizontalAccuracy);
+    }
+    //    verticalAccuracy海拔高度的精度, altitude海拔高度
+    if(self.loc.verticalAccuracy > 0){
+        NSLog(@"当前海拔高度：%.0f +/- %.0f meters",self.loc.altitude, self.loc.verticalAccuracy);
+    }
+    
 }
 
 //获取用户位置数据失败的回调方法，在此通知用户
-- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
-{
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error{
     if ([error code] == kCLErrorDenied) {
-        NSLog(@"访问被拒绝");
-        UIAlertView *theAlertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"访问被拒绝,推荐您切换分站到上海" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
-        [theAlertView show];
-        [self.view addSubview:theAlertView];
-
+        
+        [manager stopUpdatingLocation];
+        
     }else if ([error code] == kCLErrorLocationUnknown){
         NSLog(@"无法获取位置信息");
         static NSInteger i = 1;
@@ -175,19 +190,76 @@
             [self.view addSubview:theAlertView];
         }
         i++;
+    }else if ([error code] == kCLErrorNetwork){
+        NSLog(@"用于检索位置的网络不可用");
+        UIAlertView *theAlertView = [[UIAlertView alloc] initWithTitle:@"提示" message:@"网络不可用！" delegate:self cancelButtonTitle:@"确定" otherButtonTitles:nil];
+        [theAlertView show];
+        [self.view addSubview:theAlertView];
     }
 }
+
+#pragma maek - 轮播
+- (void)CarouselAnimationAction{
+    self.pageNum = 0;
+    self.CarouselSC.pagingEnabled = YES;
+    self.CarouselSC.scrollEnabled = YES;
+    self.CarouselSC.showsHorizontalScrollIndicator = NO;
+    self.CarouselSC.showsVerticalScrollIndicator = NO;
+    //    self.CarouselSC.delegate = self;
+    self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*4/*4为计算有多少条滚动数据数据*/);
+    for (NSInteger i = 0; i< 4; i++) {
+        _hotLableButton = [[HotLaButton alloc]initWithFrame:CGRectMake(0, i*self.CarouselSC.frame.size.height, self.CarouselSC.frame.size.width, self.CarouselSC.frame.size.height)];
+        
+        
+        [_hotLableButton.button setTitle: [NSString stringWithFormat:@"热点....ffffdsdoooo %ld",i] forState:UIControlStateNormal];
+        
+        [_hotLableButton.button addTarget:self action:@selector(buttonText:) forControlEvents:UIControlEventTouchUpInside];
+        [self.CarouselSC addSubview:_hotLableButton];
+        
+    }
+}
+- (void)startTimer{
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:3.0f target:self selector:@selector(nextNews) userInfo:nil repeats:YES];
+    [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
+}
+- (void)nextNews{
+    if (self.pageNum < 4) {
+        [self.CarouselSC setContentOffset:CGPointMake(0, 50*(++self.pageNum)) animated:YES];
+        NSLog(@"dd,,,, %ld", self.pageNum);
+        
+    }if (self.pageNum >= 4) {
+        
+        [self.CarouselSC setContentOffset:CGPointMake(0, self.CarouselSC.contentOffset.y-50 *(self.pageNum))];
+        self.pageNum = 0;
+        
+    }
+}
+
+- (IBAction)buttonText:(id)sender {
+    //- (void)buttonText:(HotLaButton *)sender {
+    [self ClickCarouselSCAction:self.pageNum];
+    NSLog(@"diandian  %ld", self.pageNum);
+    
+}
+- (void)ClickCarouselSCAction:(NSInteger)pageNum{
+    CircleHotNewsViewController *circleHotVC = [[CircleHotNewsViewController alloc]init];
+    [self.navigationController pushViewController:circleHotVC animated:YES];
+}
+- (void)CarouselNews{
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(ClickCarouselSCAction:)];
+    [self.CarouselView addGestureRecognizer:tap];
+}
+
 //离开页面时,关闭定位
-- (void)viewDidDisappear:(BOOL)animated
-{
+- (void)viewDidDisappear:(BOOL)animated{
     [super viewDidDisappear:animated];
     [self.locationManager stopUpdatingLocation];
 }
 
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
+
     [self.view addSubview:self.tableView];
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
     [self initPull];
@@ -854,7 +926,17 @@
     self.isEmpty = NO;
     
 //    视图将要出现时定位
-//    [self locationMethod];
+    [self locationMethod];
+    // 轮播
+    [self CarouselAnimationAction];
+    [self CarouselNews];
+    
+    if (!_timer) {
+        self.timer = [[NSTimer alloc]init];
+    }
+
+    [self startTimer];
+
 
     //我界面更改头像和名字之后  首页的同步
     self.userName.text =  [UserInfo shareUser].userName;
@@ -893,9 +975,11 @@
 }
 
 
--(void)viewWillDisappear:(BOOL)animated
-{
+-(void)viewWillDisappear:(BOOL)animated{
+    
     [super viewWillDisappear:animated];
+     [self.timer invalidate];
+    
     [MobClick endLogPageView:@"ShouKeBao"];
     self.navBarView.userInteractionEnabled = NO;
     //[self.navBarView removeFromSuperview];
@@ -922,7 +1006,7 @@
 - (UITableView *)tableView
 {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 164)];
+         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 150, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 214)];
         _tableView.contentInset = UIEdgeInsetsMake(0, 0, 54, 0);
         _tableView.rowHeight = 105;
         _tableView.dataSource = self;

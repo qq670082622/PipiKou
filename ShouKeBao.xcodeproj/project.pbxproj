@@ -358,6 +358,8 @@
 		B36E57341B74C0D000471AAC /* ProductList.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E57271B74C0D000471AAC /* ProductList.m */; };
 		B36E57351B74C0D000471AAC /* ProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E57281B74C0D000471AAC /* ProductList.xib */; };
 		B36E57361B74C0D000471AAC /* ProductModal.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E572A1B74C0D000471AAC /* ProductModal.m */; };
+		B3A2B6021BF4A518002AB105 /* HotLaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B6011BF4A518002AB105 /* HotLaButton.m */; };
+		B3A2B6091BF4A715002AB105 /* CircleHotNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */; };
 		B3B56BE11B8C47CB002E01B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */; };
 		B3B7A6661BA6A25F0043DF7C /* addCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A62B1BA6A25F0043DF7C /* addCustomerViewController.m */; };
 		B3B7A6671BA6A25F0043DF7C /* addCustomerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A62C1BA6A25F0043DF7C /* addCustomerViewController.xib */; };
@@ -1079,6 +1081,10 @@
 		B36E57281B74C0D000471AAC /* ProductList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductList.xib; sourceTree = "<group>"; };
 		B36E57291B74C0D000471AAC /* ProductModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModal.h; sourceTree = "<group>"; };
 		B36E572A1B74C0D000471AAC /* ProductModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModal.m; sourceTree = "<group>"; };
+		B3A2B6001BF4A518002AB105 /* HotLaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotLaButton.h; sourceTree = "<group>"; };
+		B3A2B6011BF4A518002AB105 /* HotLaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotLaButton.m; sourceTree = "<group>"; };
+		B3A2B6071BF4A715002AB105 /* CircleHotNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleHotNewsViewController.h; sourceTree = "<group>"; };
+		B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleHotNewsViewController.m; sourceTree = "<group>"; };
 		B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		B3B7A62A1BA6A25F0043DF7C /* addCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = addCustomerViewController.h; sourceTree = "<group>"; };
 		B3B7A62B1BA6A25F0043DF7C /* addCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = addCustomerViewController.m; sourceTree = "<group>"; };
@@ -1440,6 +1446,7 @@
 		5A076E951ACD8B270077611C /* ShouKebao */ = {
 			isa = PBXGroup;
 			children = (
+				B3A2B6061BF4A6E5002AB105 /* CircleHotNews */,
 				527E3B7B1BEC7EB000AAA6F6 /* NewMessageCenter */,
 				B3D7B7A51BD76F700080E243 /* QRCode */,
 				52B858451BC76D4C00B15483 /* CommendToDetail */,
@@ -1835,6 +1842,8 @@
 		5A8216131AD36AB9009388DA /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
+				B3A2B6001BF4A518002AB105 /* HotLaButton.h */,
+				B3A2B6011BF4A518002AB105 /* HotLaButton.m */,
 				B3D7B7791BD76DF10080E243 /* QRPhotoCollectionViewCell.h */,
 				B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */,
 				B3D7B77B1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.h */,
@@ -2672,6 +2681,15 @@
 			path = ProductList;
 			sourceTree = "<group>";
 		};
+		B3A2B6061BF4A6E5002AB105 /* CircleHotNews */ = {
+			isa = PBXGroup;
+			children = (
+				B3A2B6071BF4A715002AB105 /* CircleHotNewsViewController.h */,
+				B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */,
+			);
+			path = CircleHotNews;
+			sourceTree = "<group>";
+		};
 		B3B7A6281BA6A25F0043DF7C /* Customers */ = {
 			isa = PBXGroup;
 			children = (
@@ -3358,9 +3376,11 @@
 				6326131C1AB1C175003AC2DA /* MJRefreshConst.m in Sources */,
 				527E41CB1BDF237E00CA9CF6 /* OpenInvoiceWebController.m in Sources */,
 				B3B7A6831BA6A25F0043DF7C /* remondTableViewCell.m in Sources */,
+				B3A2B6091BF4A715002AB105 /* CircleHotNewsViewController.m in Sources */,
 				7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */,
 				B3D7B7D01BD76F700080E243 /* URLOpenFromQRCodeViewController.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
+				B3A2B6021BF4A518002AB105 /* HotLaButton.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
 				B3C01E391BAC10FC005E4BB5 /* MyListViewController.m in Sources */,
