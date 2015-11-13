@@ -51,7 +51,7 @@
 #import "AFNetworking.h"
 #import "MeProgressView.h"
 #import "SKBNavBar.h"
-#import "messageModel.h"
+#import "MessageModel2.h"
 #import "messageCellSKBTableViewCell.h"
 #import "SKBNavBarFor6OrP.h"
 #import "MobClick.h"
@@ -1100,7 +1100,7 @@
                 }
                   NSLog(@"orderJson is  %@",json[@"NoticeCenterList"]);
                 for(NSDictionary *dic in json[@"NoticeCenterList"]){
-                    messageModel *message = [messageModel modalWithDict:dic];
+                    MessageModel2 *message = [MessageModel2 modalWithDict:dic];
                     HomeBase *base = [[HomeBase alloc] init];
                     base.time = message.CreatedDate;
                     base.model = message;
@@ -1592,7 +1592,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
          return cell;
         
-    }else if ([model.model isKindOfClass:[messageModel class]]){//公告
+    }else if ([model.model isKindOfClass:[MessageModel2 class]]){//公告
        
         messageCellSKBTableViewCell *cell = [messageCellSKBTableViewCell cellWithTableView:tableView];
         cell.model = model.model;
@@ -1712,9 +1712,9 @@
         
        // RecommendViewController *rec = [[RecommendViewController alloc] init];
         
-    }else if ([model.model isKindOfClass:[messageModel class]]){
+    }else if ([model.model isKindOfClass:[MessageModel2 class]]){
         messageDetailViewController *msgDetail = [[messageDetailViewController alloc] init];
-        messageModel *msg = model.model;
+        MessageModel2 *msg = model.model;
         msgDetail.messageURL = msg.LinkUrl;
         msgDetail.m = 1;
         [self.navigationController pushViewController:msgDetail animated:YES];

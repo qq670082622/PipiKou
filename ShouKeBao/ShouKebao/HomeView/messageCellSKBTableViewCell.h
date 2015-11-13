@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "MGSwipeTableCell.h"
-#import "messageModel.h"
+#import "MessageModel2.h"
 #define gap 10
 @class messageModel;
 @interface messageCellSKBTableViewCell : MGSwipeTableCell
