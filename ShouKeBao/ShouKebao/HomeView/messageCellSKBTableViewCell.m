@@ -89,7 +89,7 @@
     
 }
 
-- (void)setModel:(messageModel *)model
+- (void)setModel:(MessageModel2 *)model
 {
     _model = model;
     self.iconView.image = [UIImage imageNamed:@"tix"];
