@@ -30,8 +30,13 @@
 @property (nonatomic,copy) NSString *PassportNum;
 @property (nonatomic, strong)NSArray *PictureList;
 
+
+@property (nonatomic,copy) NSString *GroupbyType;
+//@property (strong, nonatomic)NSNumber *GroupbyType;
 //判断是不是已是专属客户
 @property (nonatomic,copy)NSString *ProgressState;
+
+
 //@property (nonatomic,copy) NSString *passPortIdStr;
 //@property (nonatomic,copy) NSString *userMessageIDStr;
 //
