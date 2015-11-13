@@ -11,9 +11,8 @@
   */
 
 #import <Foundation/Foundation.h>
-#import "EMMessage.h"   
+ 
 @interface MessageModelManager : NSObject
 
-+ (id)modelWithMessage:(EMMessage *)message;
 
 @end
