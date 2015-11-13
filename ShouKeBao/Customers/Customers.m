@@ -75,8 +75,10 @@
 @property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
 @property (nonatomic,weak) UIView *sep2;
 @property (nonatomic,strong) NSMutableArray *chooseAppArr;
+@property (nonatomic,strong) NSMutableArray *orderAppArr;
 @property (nonatomic, strong)NSMutableArray *A_Z_arr;
 @property (nonatomic, assign)BOOL popFlag;
+@property (nonatomic, assign)NSInteger customerType;
 @end
 
 @implementation Customers
@@ -100,7 +102,8 @@
     [self searchDisplay];
     
     self.chooseAppArr = [NSMutableArray arrayWithObjects:@"不限", @"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
-    self.A_Z_arr = [NSMutableArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G",@"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", nil];
+    self.orderAppArr = [NSMutableArray arrayWithObjects:@"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
+//    self.A_Z_arr = [NSMutableArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G",@"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", nil];
     
     self.pageIndex = 1;
     [self.dataArr removeAllObjects];
@@ -121,6 +124,7 @@
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     [self customerRightBarItem];
     
+    self.customerType = 0;
     [self initPull];
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
@@ -324,6 +328,7 @@
 
 -(void)setSubViewUp{
     if (self.subView.hidden == YES) {
+        [self.view addSubview:self.subView];
         [UIView animateWithDuration:0.8 animations:^{
             self.subView.alpha = 0;
             self.subView.alpha = 1;
@@ -386,9 +391,6 @@
     [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     
-//    if (_searchK.length>0) {
-//        [dic setObject:_searchK forKey:@"SearchKey"];
-//    }
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     NSString *sortType = [accountDefaults stringForKey:@"sortType"];
     if (sortType) {
@@ -396,6 +398,12 @@
     }else if (!sortType){
         [dic setObject:@"2" forKey:@"sortType"];
 }
+    
+    [dic setObject:@"" forKey:@"SearchKey"];
+    [dic setObject:[NSString stringWithFormat:@"%ld", self.customerType]forKey:@"CustomerType"];
+    [dic setObject:@7 forKey:@"SortType"];
+    
+    
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
@@ -414,6 +422,11 @@
         for(NSDictionary *dic in  json[@"CustomerList"]){
             CustomModel *model = [CustomModel modalWithDict:dic];
             [self.dataArr addObject:model];
+            
+//            if ([[NSString stringWithFormat:@"%@",model.GroupbyType] isEqualToString:@"3"]) {
+//                [self.chooseAppArr addObject:[NSString stringWithFormat:@"%@",model.GroupbyType]];
+//            }
+            
         }
     
         [self.table reloadData];
@@ -452,6 +465,8 @@
         [self.navigationController pushViewController:VC animated:YES];
     }else if (self.popTableview == tableView){
 //刷新数据
+        self.customerType = indexPath.row;
+        [self loadDataSource];
         
         [self closePopTableView];
     }
@@ -462,12 +477,15 @@
     if (self.popTableview == tableView) {
         return 1;
     }else{
-       return self.chooseAppArr.count;
+       return self.orderAppArr.count;
     }
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.table == tableView) {
         return self.dataArr.count;
+//    return [self.dataArr[section]GroupbyType]
+        
+        
     }else{
         return self.chooseAppArr.count;
     }
@@ -505,7 +523,7 @@
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (self.table == tableView) {
-        NSString *str = [self.chooseAppArr objectAtIndex:section];
+        NSString *str = [self.orderAppArr objectAtIndex:section];
         return  str;
     }else{
         return nil;
@@ -720,8 +738,9 @@
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:@1 forKey:@"PageIndex"];
     [dic setObject:@"100" forKey:@"PageSize"];
+    
     [dic setObject:self.searchK forKey:@"SearchKey"];
-
+    
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
         NSLog(@"------管客户搜索结果的json is %@-------",json);
         [self.dataArr removeAllObjects];
@@ -753,6 +772,12 @@
         _chooseAppArr = [NSMutableArray array];
     }
     return _chooseAppArr;
+}
+- (NSMutableArray *)orderAppArr{
+    if (!_orderAppArr) {
+        _orderAppArr = [NSMutableArray array];
+    }
+    return _orderAppArr;
 }
 -(NSMutableArray *)A_Z_arr{
     if (_A_Z_arr == nil) {
