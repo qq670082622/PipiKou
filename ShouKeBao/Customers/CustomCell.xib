@@ -37,7 +37,7 @@
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Dpz-3Z-0Se" userLabel="消息">
                         <rect key="frame" x="233" y="17" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <state key="normal" image="blueMessage">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -46,13 +46,18 @@
                         </connections>
                     </button>
                     <view contentMode="scaleToFill" id="Knh-Qp-hzN">
-                        <rect key="frame" x="270" y="15" width="1" height="33"/>
+                        <rect key="frame" x="270" y="18" width="1" height="30"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <view contentMode="scaleToFill" id="AEU-Zk-NFM">
+                        <rect key="frame" x="15" y="62.5" width="305" height="0.5"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                        <color key="backgroundColor" white="0.85773843654434245" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="WeU-GL-4dN" userLabel="caling">
-                        <rect key="frame" x="283" y="17" width="30" height="30"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES"/>
+                        <rect key="frame" x="280" y="21" width="21" height="21"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                         <state key="normal" image="calling">
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
@@ -60,11 +65,6 @@
                             <action selector="callAction:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="vCF-Q5-gWS"/>
                         </connections>
                     </button>
-                    <view contentMode="scaleToFill" id="AEU-Zk-NFM">
-                        <rect key="frame" x="15" y="62.5" width="305" height="0.5"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.85773843654434245" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
                 </subviews>
             </tableViewCellContentView>
             <connections>
