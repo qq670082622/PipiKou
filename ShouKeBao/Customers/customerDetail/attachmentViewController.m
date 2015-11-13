@@ -7,7 +7,7 @@
 //
 
 #import "attachmentViewController.h"
-#import "MLPhotoBrowserSignleViewController.h"
+//#import "MLPhotoBrowserSignleViewController.h"
 #import "WriteFileManager.h"
 #import "MBProgressHUD+MJ.h"
 #import "UIImageView+WebCache.h"
@@ -254,8 +254,8 @@
 //    if (yesInt == 0) {
 //        self.imgV.image = [UIImage imageNamed:self.dataSource[0]];
         [self.imgV sd_setImageWithURL:[NSURL URLWithString:[self.dataSource objectAtIndex:yesInt]]];
-        MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
-        [browserVc showHeadPortrait:self.imgV originUrl:nil];
+//        MLPhotoBrowserSignleViewController *browserVc = [[MLPhotoBrowserSignleViewController alloc] init];
+//        [browserVc showHeadPortrait:self.imgV originUrl:nil];
 
 //    }else if (yesInt != 0){
 //        self.imgV.image = [UIImage imageNamed:self.dataSource[yesInt - 1]];
