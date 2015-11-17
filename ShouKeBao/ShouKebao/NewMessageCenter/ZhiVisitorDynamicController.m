@@ -11,7 +11,8 @@
 #import "OpportunitykeywordCell.h"
 #import "OpprotunityFreqCell.h"
 #import "IWHttpTool.h"
-#import "MBProgressHUD+MJ.h"
+#import "MBProgressHUD+MJ.h" 
+//
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface ZhiVisitorDynamicController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)NSMutableArray * customDyamicArray;
