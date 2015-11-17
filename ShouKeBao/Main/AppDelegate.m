@@ -30,6 +30,8 @@
 #import "AppDelegate+Extend.h"
 #import "HomeHttpTool.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import "EaseMob.h"
+#import "AppDelegate+EaseMob.h" 
 //#import "UncaughtExceptionHandler.h"
 ////aaaaa
 @interface AppDelegate ()<WXApiDelegate>
@@ -123,7 +125,9 @@ void UncaughtExceptionHandler(NSException *exception) {
     //[UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
 
     
-    
+    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
+    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
 

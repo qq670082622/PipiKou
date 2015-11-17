@@ -587,6 +587,9 @@
 		799F3E0E1B3A512400C14FBB /* libMobClickLibrary.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 799F3E0B1B3A512400C14FBB /* libMobClickLibrary.a */; };
 		79A963021BCC937100CCAB2B /* AppDelegate+Extend.m in Sources */ = {isa = PBXBuildFile; fileRef = 79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */; };
 		79AEC9101BBB8EA000A1E83D /* LvYouGuWenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */; };
+		79B559641BF9C10A00C04F92 /* AppDelegate+EaseMob.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B559631BF9C10A00C04F92 /* AppDelegate+EaseMob.m */; };
+		79B559671BFADD7000C04F92 /* MessageCenterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B559661BFADD7000C04F92 /* MessageCenterModel.m */; };
+		79B5596A1BFB151500C04F92 /* TerraceMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B559691BFB151500C04F92 /* TerraceMessageModel.m */; };
 		79B951491BD0DAAC0027C1F7 /* AttachmentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */; };
 		79D69BCF1BDDFE13006881DD /* DayDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */; };
 		79D69BD01BDDFE13006881DD /* DayDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */; };
@@ -1651,6 +1654,12 @@
 		79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+Extend.m"; sourceTree = "<group>"; };
 		79AEC90E1BBB8EA000A1E83D /* LvYouGuWenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LvYouGuWenViewController.h; sourceTree = "<group>"; };
 		79AEC90F1BBB8EA000A1E83D /* LvYouGuWenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LvYouGuWenViewController.m; sourceTree = "<group>"; };
+		79B559621BF9C10A00C04F92 /* AppDelegate+EaseMob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "AppDelegate+EaseMob.h"; sourceTree = "<group>"; };
+		79B559631BF9C10A00C04F92 /* AppDelegate+EaseMob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "AppDelegate+EaseMob.m"; sourceTree = "<group>"; };
+		79B559651BFADD7000C04F92 /* MessageCenterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageCenterModel.h; sourceTree = "<group>"; };
+		79B559661BFADD7000C04F92 /* MessageCenterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageCenterModel.m; sourceTree = "<group>"; };
+		79B559681BFB151500C04F92 /* TerraceMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerraceMessageModel.h; sourceTree = "<group>"; };
+		79B559691BFB151500C04F92 /* TerraceMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerraceMessageModel.m; sourceTree = "<group>"; };
 		79B951471BD0DAAC0027C1F7 /* AttachmentCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionCell.h; sourceTree = "<group>"; };
 		79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionCell.m; sourceTree = "<group>"; };
 		79D69BCC1BDDFE13006881DD /* DayDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailTableViewCell.h; sourceTree = "<group>"; };
@@ -2037,28 +2046,17 @@
 		527E3B7B1BEC7EB000AAA6F6 /* NewMessageCenter */ = {
 			isa = PBXGroup;
 			children = (
-				520279661BF47C3C0049C0B9 /* ChatListCell.h */,
-				520279671BF47C3C0049C0B9 /* ChatListCell.m */,
-				527E3B7C1BEC7EE200AAA6F6 /* NewMessageCenterController.h */,
-				527E3B7D1BEC7EE200AAA6F6 /* NewMessageCenterController.m */,
-				527E3B7E1BEC7EE200AAA6F6 /* NewMessageCenterController.xib */,
+				79EDD2AA1BFB3218000FEFD7 /* CustomDynamic */,
+				79B5596C1BFB2EDB00C04F92 /* TerraceMessage */,
+				79B5596B1BFB2E8300C04F92 /* MessageCenterList */,
 				527E3B811BEC7F8C00AAA6F6 /* NewMessageCell.h */,
 				527E3B821BEC7F8C00AAA6F6 /* NewMessageCell.m */,
 				527E3B831BEC7F8C00AAA6F6 /* NewMessageCell.xib */,
-				527E3B861BECAB5B00AAA6F6 /* TerraceMessageController.h */,
-				527E3B871BECAB5B00AAA6F6 /* TerraceMessageController.m */,
-				527E3B881BECAB5B00AAA6F6 /* TerraceMessageController.xib */,
-				5237D6B31BF18DEC00655CF0 /* TimerCell.h */,
-				5237D6B41BF18DEC00655CF0 /* TimerCell.m */,
-				5237D6B51BF18DED00655CF0 /* TimerCell.xib */,
 				520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */,
 				520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */,
 				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
 				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
 				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
-				5202794F1BF438160049C0B9 /* TerraceMessCell.h */,
-				520279501BF438160049C0B9 /* TerraceMessCell.m */,
-				520279511BF438160049C0B9 /* TerraceMessCell.xib */,
 				520279541BF43E2B0049C0B9 /* NewCustomerCell.h */,
 				520279551BF43E2B0049C0B9 /* NewCustomerCell.m */,
 				520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */,
@@ -3085,6 +3083,8 @@
 			children = (
 				63D31E891AB16EA00043B3CA /* AppDelegate.h */,
 				63D31E8A1AB16EA00043B3CA /* AppDelegate.m */,
+				79B559621BF9C10A00C04F92 /* AppDelegate+EaseMob.h */,
+				79B559631BF9C10A00C04F92 /* AppDelegate+EaseMob.m */,
 				79A963001BCC937100CCAB2B /* AppDelegate+Extend.h */,
 				79A963011BCC937100CCAB2B /* AppDelegate+Extend.m */,
 				63D31E8B1AB16EA00043B3CA /* ViewController.h */,
@@ -3997,6 +3997,45 @@
 				795C96651B4E0FA1006F996F /* UMessage_Sdk_1.1.0 */,
 			);
 			path = UMAnalytics_Sdk_3.5.8;
+			sourceTree = "<group>";
+		};
+		79B5596B1BFB2E8300C04F92 /* MessageCenterList */ = {
+			isa = PBXGroup;
+			children = (
+				520279661BF47C3C0049C0B9 /* ChatListCell.h */,
+				520279671BF47C3C0049C0B9 /* ChatListCell.m */,
+				79B559651BFADD7000C04F92 /* MessageCenterModel.h */,
+				79B559661BFADD7000C04F92 /* MessageCenterModel.m */,
+				527E3B7C1BEC7EE200AAA6F6 /* NewMessageCenterController.h */,
+				527E3B7D1BEC7EE200AAA6F6 /* NewMessageCenterController.m */,
+				527E3B7E1BEC7EE200AAA6F6 /* NewMessageCenterController.xib */,
+			);
+			name = MessageCenterList;
+			sourceTree = "<group>";
+		};
+		79B5596C1BFB2EDB00C04F92 /* TerraceMessage */ = {
+			isa = PBXGroup;
+			children = (
+				527E3B861BECAB5B00AAA6F6 /* TerraceMessageController.h */,
+				527E3B871BECAB5B00AAA6F6 /* TerraceMessageController.m */,
+				527E3B881BECAB5B00AAA6F6 /* TerraceMessageController.xib */,
+				79B559681BFB151500C04F92 /* TerraceMessageModel.h */,
+				79B559691BFB151500C04F92 /* TerraceMessageModel.m */,
+				5202794F1BF438160049C0B9 /* TerraceMessCell.h */,
+				520279501BF438160049C0B9 /* TerraceMessCell.m */,
+				520279511BF438160049C0B9 /* TerraceMessCell.xib */,
+				5237D6B31BF18DEC00655CF0 /* TimerCell.h */,
+				5237D6B41BF18DEC00655CF0 /* TimerCell.m */,
+				5237D6B51BF18DED00655CF0 /* TimerCell.xib */,
+			);
+			name = TerraceMessage;
+			sourceTree = "<group>";
+		};
+		79EDD2AA1BFB3218000FEFD7 /* CustomDynamic */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CustomDynamic;
 			sourceTree = "<group>";
 		};
 		79EE91651B2BCD0E008C8935 /* TimeTool */ = {
@@ -5048,6 +5087,7 @@
 				B3BC33921BD8D9C600C61D83 /* MeShareChooseViewController.m in Sources */,
 				63F1A1351B13329E00DE9867 /* YesterDayCell.m in Sources */,
 				6389CE051AB7F9F600A8326E /* ResizeImage.m in Sources */,
+				79B559641BF9C10A00C04F92 /* AppDelegate+EaseMob.m in Sources */,
 				5A52FC861ACEBF220076DAE6 /* OrderTool.m in Sources */,
 				B3C01E351BAC10FC005E4BB5 /* ProductHistoryCell.m in Sources */,
 				632BFFC71AB91FBF003B15AD /* jsMethod.m in Sources */,
@@ -5144,6 +5184,7 @@
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */,
 				63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */,
+				79B5596A1BFB151500C04F92 /* TerraceMessageModel.m in Sources */,
 				796EFE751BF5CCC800799120 /* MLPhotoBrowserPhotoView.m in Sources */,
 				B3D7B77E1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m in Sources */,
 				B3B7A67A1BA6A25F0043DF7C /* SearchView.m in Sources */,
@@ -5290,6 +5331,7 @@
 				5A076EA31ACD8B270077611C /* ShouKeBao.m in Sources */,
 				796EFDC01BF5CA4E00799120 /* MWTapDetectingView.m in Sources */,
 				7937DF281BE0FBDF00DC8805 /* InvoiceManageViewController.m in Sources */,
+				79B559671BFADD7000C04F92 /* MessageCenterModel.m in Sources */,
 				B3B7A67F1BA6A25F0043DF7C /* AddRemindViewController.m in Sources */,
 				796EFC0E1BF5C5DE00799120 /* EMChatTimeCell.m in Sources */,
 				632BFFF71AB92A3A003B15AD /* SDWebImageDecoder.m in Sources */,

@@ -31,12 +31,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenSize.width-50, 7, 50, 16)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenSize.width-100, 10, 100, 16)];
         _timeLabel.font = [UIFont systemFontOfSize:13];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_timeLabel];
         
-        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 0, 20, 20)];
+        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 3, 20, 20)];
         _unreadLabel.backgroundColor = [UIColor redColor];
         _unreadLabel.textColor = [UIColor whiteColor];
         
@@ -46,9 +46,9 @@
         _unreadLabel.clipsToBounds = YES;
         [self.contentView addSubview:_unreadLabel];
         
-        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 30, 175, 20)];
+        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 33, kScreenSize.width-80, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
-        _detailLabel.font = [UIFont systemFontOfSize:15];
+        _detailLabel.font = [UIFont systemFontOfSize:14];
         _detailLabel.textColor = [UIColor lightGrayColor];
         [self.contentView addSubview:_detailLabel];
         
@@ -87,7 +87,7 @@
     
 //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"图片地址"] placeholderImage:@"aa"];
     self.imageView.image = [UIImage imageNamed:@"aa"];
-    self.imageView.frame = CGRectMake(10, 7, 45, 45);
+    self.imageView.frame = CGRectMake(10, 10, 45, 45);
     self.imageView.layer.cornerRadius = 22.5;
     self.imageView.layer.masksToBounds = YES;
 
@@ -107,6 +107,9 @@
         [_unreadLabel setHidden:NO];
         [self.contentView bringSubviewToFront:_unreadLabel];
         _unreadLabel.text = [NSString stringWithFormat:@"%ld",(long)_unreadCount];
+        if (_unreadCount >99) {
+            _unreadLabel.text = @"99+";
+        }
     }else{
         [_unreadLabel setHidden:YES];
     }
@@ -123,6 +126,6 @@
 
 +(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 60;
+    return 70;
 }
 @end

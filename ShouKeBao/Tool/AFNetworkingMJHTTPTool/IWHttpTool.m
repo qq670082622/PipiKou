@@ -30,8 +30,10 @@
     // 基本参数
     NSMutableDictionary *tmp = [[NSMutableDictionary alloc] init];
     [tmp setObject:@"1" forKey:@"MobileType"];
+    [tmp setObject:@"0" forKey:@"ClientSource"];
     [tmp setObject:currentVersion forKey:@"MobileVersion"];
     [tmp setObject:mobileID forKey:@"MobileID"];
+    
     NSLog(@"%@", tmp);
     // 分区设置
     if (subStation) {
