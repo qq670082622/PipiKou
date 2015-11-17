@@ -691,6 +691,14 @@
 		B3C01E3F1BAC10FC005E4BB5 /* SuggestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C01E241BAC10FC005E4BB5 /* SuggestViewController.m */; };
 		B3C0FF7A1BC7B61A008BC477 /* ShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C0FF791BC7B61A008BC477 /* ShareView.m */; };
 		B3C2649B1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */; };
+		B3CFF61D1BFAEE0E002065AA /* ExclusiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CFF61B1BFAEE0E002065AA /* ExclusiveViewController.m */; };
+		B3CFF61E1BFAEE0E002065AA /* ExclusiveViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3CFF61C1BFAEE0E002065AA /* ExclusiveViewController.xib */; };
+		B3CFF6261BFB05D7002065AA /* ExclusiveTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CFF6241BFB05D7002065AA /* ExclusiveTableViewCell.m */; };
+		B3CFF6271BFB05D7002065AA /* ExclusiveTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3CFF6251BFB05D7002065AA /* ExclusiveTableViewCell.xib */; };
+		B3CFF62B1BFB1E69002065AA /* EstablelishedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CFF6291BFB1E69002065AA /* EstablelishedViewController.m */; };
+		B3CFF62C1BFB1E69002065AA /* EstablelishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3CFF62A1BFB1E69002065AA /* EstablelishedViewController.xib */; };
+		B3CFF62F1BFB49C5002065AA /* ExclusiveShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CFF62E1BFB49C5002065AA /* ExclusiveShareView.m */; };
+		B3D0548A1BF9700100A4E193 /* CustomerSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D054891BF9700100A4E193 /* CustomerSection.m */; };
 		B3D7B77D1BD76DF10080E243 /* QRPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */; };
 		B3D7B77E1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B77C1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m */; };
 		B3D7B7C21BD76F700080E243 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7A71BD76F700080E243 /* CardTableViewController.m */; };
@@ -1914,6 +1922,19 @@
 		B3C0FF791BC7B61A008BC477 /* ShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareView.m; sourceTree = "<group>"; };
 		B3C264991B5E5E6E00C8FB0D /* ImageCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCollectionViewCell.h; sourceTree = "<group>"; };
 		B3C2649A1B5E5E6E00C8FB0D /* ImageCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCollectionViewCell.m; sourceTree = "<group>"; };
+		B3CFF61A1BFAEE0E002065AA /* ExclusiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExclusiveViewController.h; sourceTree = "<group>"; };
+		B3CFF61B1BFAEE0E002065AA /* ExclusiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExclusiveViewController.m; sourceTree = "<group>"; };
+		B3CFF61C1BFAEE0E002065AA /* ExclusiveViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExclusiveViewController.xib; sourceTree = "<group>"; };
+		B3CFF6231BFB05D7002065AA /* ExclusiveTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExclusiveTableViewCell.h; sourceTree = "<group>"; };
+		B3CFF6241BFB05D7002065AA /* ExclusiveTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExclusiveTableViewCell.m; sourceTree = "<group>"; };
+		B3CFF6251BFB05D7002065AA /* ExclusiveTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ExclusiveTableViewCell.xib; sourceTree = "<group>"; };
+		B3CFF6281BFB1E69002065AA /* EstablelishedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EstablelishedViewController.h; sourceTree = "<group>"; };
+		B3CFF6291BFB1E69002065AA /* EstablelishedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EstablelishedViewController.m; sourceTree = "<group>"; };
+		B3CFF62A1BFB1E69002065AA /* EstablelishedViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EstablelishedViewController.xib; sourceTree = "<group>"; };
+		B3CFF62D1BFB49C5002065AA /* ExclusiveShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExclusiveShareView.h; sourceTree = "<group>"; };
+		B3CFF62E1BFB49C5002065AA /* ExclusiveShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExclusiveShareView.m; sourceTree = "<group>"; };
+		B3D054881BF9700100A4E193 /* CustomerSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerSection.h; sourceTree = "<group>"; };
+		B3D054891BF9700100A4E193 /* CustomerSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerSection.m; sourceTree = "<group>"; };
 		B3D7B7791BD76DF10080E243 /* QRPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		B3D7B77B1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRSaveToCustomerTableViewCell.h; sourceTree = "<group>"; };
@@ -4443,6 +4464,8 @@
 				B3B7A64D1BA6A25F0043DF7C /* Menum.m */,
 				B3B7A64E1BA6A25F0043DF7C /* SearchView.h */,
 				B3B7A64F1BA6A25F0043DF7C /* SearchView.m */,
+				B3D054881BF9700100A4E193 /* CustomerSection.h */,
+				B3D054891BF9700100A4E193 /* CustomerSection.m */,
 			);
 			path = customerOrders;
 			sourceTree = "<group>";
@@ -4487,6 +4510,7 @@
 		B3C01DED1BAC10FC005E4BB5 /* Me */ = {
 			isa = PBXGroup;
 			children = (
+				B3CFF6191BFAEE0E002065AA /* ExlusiveAPP */,
 				52BEDF961BEB4122003A04CA /* NewNewsController */,
 				52CF60C41BDE0EEF00DD97B8 /* addSubscribeCond */,
 				52CF60C01BDDD9AD00DD97B8 /* MySubscribe */,
@@ -4603,6 +4627,24 @@
 			path = MeView;
 			sourceTree = "<group>";
 		};
+		B3CFF6191BFAEE0E002065AA /* ExlusiveAPP */ = {
+			isa = PBXGroup;
+			children = (
+				B3CFF61A1BFAEE0E002065AA /* ExclusiveViewController.h */,
+				B3CFF61B1BFAEE0E002065AA /* ExclusiveViewController.m */,
+				B3CFF61C1BFAEE0E002065AA /* ExclusiveViewController.xib */,
+				B3CFF6281BFB1E69002065AA /* EstablelishedViewController.h */,
+				B3CFF6291BFB1E69002065AA /* EstablelishedViewController.m */,
+				B3CFF62A1BFB1E69002065AA /* EstablelishedViewController.xib */,
+				B3CFF6231BFB05D7002065AA /* ExclusiveTableViewCell.h */,
+				B3CFF6241BFB05D7002065AA /* ExclusiveTableViewCell.m */,
+				B3CFF6251BFB05D7002065AA /* ExclusiveTableViewCell.xib */,
+				B3CFF62D1BFB49C5002065AA /* ExclusiveShareView.h */,
+				B3CFF62E1BFB49C5002065AA /* ExclusiveShareView.m */,
+			);
+			path = ExlusiveAPP;
+			sourceTree = "<group>";
+		};
 		B3D7B7A51BD76F700080E243 /* QRCode */ = {
 			isa = PBXGroup;
 			children = (
@@ -4687,7 +4729,7 @@
 				TargetAttributes = {
 					63D31E3D1AB143D00043B3CA = {
 						CreatedOnToolsVersion = 6.1;
-						DevelopmentTeam = WS6NM65Y2F;
+						DevelopmentTeam = ZE6MJL8P7K;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -4796,12 +4838,14 @@
 				5A52FC8B1ACEBF220076DAE6 /* DressFooter.xib in Resources */,
 				63D31E521AB143D00043B3CA /* LaunchScreen.xib in Resources */,
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
+				B3CFF6271BFB05D7002065AA /* ExclusiveTableViewCell.xib in Resources */,
 				796EFCED1BF5C67D00799120 /* VoiceSearchFeedback016@2x.png in Resources */,
 				796EFCD41BF5C67D00799120 /* VoiceSearchFeedback004.png in Resources */,
 				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
 				796EFD541BF5C67D00799120 /* chat_sender_audio_playing_002@2x.png in Resources */,
 				796EFD0D1BF5C67D00799120 /* chat_location_detail_disclosure@2x.png in Resources */,
+				B3CFF62C1BFB1E69002065AA /* EstablelishedViewController.xib in Resources */,
 				52F59D891BCF4B1F00DE24FB /* invoiceCell.xib in Resources */,
 				796EFD511BF5C67D00799120 /* chat_sender_audio_playing_001.png in Resources */,
 				796EFCD11BF5C67D00799120 /* VoiceSearchFeedback002@2x.png in Resources */,
@@ -4851,6 +4895,7 @@
 				796EFD181BF5C67D00799120 /* chatBar_faceSelected.png in Resources */,
 				52F275B31BD4CF85008543E9 /* InvoiceAlertView.xib in Resources */,
 				796EFCF51BF5C67D00799120 /* VoiceSearchFeedback020@2x.png in Resources */,
+				B3CFF61E1BFAEE0E002065AA /* ExclusiveViewController.xib in Resources */,
 				796EFCE81BF5C67D00799120 /* VoiceSearchFeedback014.png in Resources */,
 				5A52FC5C1ACEBF220076DAE6 /* SearchProductViewController.xib in Resources */,
 				795E1F021B72F75300072A77 /* read_me.txt in Resources */,
@@ -5078,6 +5123,7 @@
 				B36E57341B74C0D000471AAC /* ProductList.m in Sources */,
 				63D31E8E1AB16EA00043B3CA /* ViewController.m in Sources */,
 				5A52FC5B1ACEBF220076DAE6 /* SearchProductViewController.m in Sources */,
+				B3CFF61D1BFAEE0E002065AA /* ExclusiveViewController.m in Sources */,
 				63D31E441AB143D00043B3CA /* main.m in Sources */,
 				796EFDCD1BF5CA4E00799120 /* UIImage+EMGIF.m in Sources */,
 				796EFDD41BF5CA4E00799120 /* PSTCollectionView.m in Sources */,
@@ -5097,6 +5143,7 @@
 				B3D7B7CA1BD76F700080E243 /* QRHistoryViewController.m in Sources */,
 				B3D7B7CD1BD76F700080E243 /* QRSaveCustomerViewController.m in Sources */,
 				63F1A1B11B14250E00DE9867 /* MJType.m in Sources */,
+				B3CFF62F1BFB49C5002065AA /* ExclusiveShareView.m in Sources */,
 				B3B7A67B1BA6A25F0043DF7C /* Customers.m in Sources */,
 				63F1A1781B134D5D00DE9867 /* RecomViewController.m in Sources */,
 				796EFE6F1BF5CCC800799120 /* UIImage+MLBrowserPhotoImageForBundle.m in Sources */,
@@ -5188,6 +5235,7 @@
 				63128FA21B842EBF00FCDF19 /* UIImageView+LBBlurredImage.m in Sources */,
 				796EFB171BF5BCF100799120 /* EMAudioPlayerUtil.m in Sources */,
 				796EFC051BF5C5DE00799120 /* DXRecordView.m in Sources */,
+				B3CFF62B1BFB1E69002065AA /* EstablelishedViewController.m in Sources */,
 				5A6996191AF8CD82002EDD91 /* InputhCell.m in Sources */,
 				845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */,
 				632BFFF91AB92A3A003B15AD /* SDWebImageDownloaderOperation.m in Sources */,
@@ -5244,6 +5292,7 @@
 				796EFDDD1BF5CA4E00799120 /* PSTGridLayoutItem.m in Sources */,
 				5A52FC911ACEBF220076DAE6 /* SKSearchBar.m in Sources */,
 				5AED0A191ADB767D00B0E0E5 /* ShowRemindCell.m in Sources */,
+				B3D0548A1BF9700100A4E193 /* CustomerSection.m in Sources */,
 				B3D7B7CE1BD76F700080E243 /* ScanningViewController.m in Sources */,
 				845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */,
 				796EFDCC1BF5CA4E00799120 /* UIButton+EMWebCache.m in Sources */,
@@ -5289,6 +5338,7 @@
 				B3C01E301BAC10FC005E4BB5 /* Trader.m in Sources */,
 				5A076EA31ACD8B270077611C /* ShouKeBao.m in Sources */,
 				796EFDC01BF5CA4E00799120 /* MWTapDetectingView.m in Sources */,
+				B3CFF6261BFB05D7002065AA /* ExclusiveTableViewCell.m in Sources */,
 				7937DF281BE0FBDF00DC8805 /* InvoiceManageViewController.m in Sources */,
 				B3B7A67F1BA6A25F0043DF7C /* AddRemindViewController.m in Sources */,
 				796EFC0E1BF5C5DE00799120 /* EMChatTimeCell.m in Sources */,

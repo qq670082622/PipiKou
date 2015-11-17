@@ -32,7 +32,7 @@
 #define searchDefaultPlaceholder @"客户名/电话号码"
 #define searchHistoryPlaceholder @"请输入客户姓名/电话"
 #import "SearchView.h"
-
+#import "CustomerSection.h"
 
 #define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
@@ -75,10 +75,15 @@
 @property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
 @property (nonatomic,weak) UIView *sep2;
 @property (nonatomic,strong) NSMutableArray *chooseAppArr;
-@property (nonatomic,strong) NSMutableArray *orderAppArr;
-@property (nonatomic, strong)NSMutableArray *A_Z_arr;
+@property (nonatomic,strong) NSArray *orderAppArr;
+
 @property (nonatomic, assign)BOOL popFlag;
 @property (nonatomic, assign)NSInteger customerType;
+@property (nonatomic,strong)UILabel *CustomerCounts;
+@property (nonatomic, strong)NSMutableArray *array;
+
+
+
 @end
 
 @implementation Customers
@@ -102,7 +107,9 @@
     [self searchDisplay];
     
     self.chooseAppArr = [NSMutableArray arrayWithObjects:@"不限", @"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
-    self.orderAppArr = [NSMutableArray arrayWithObjects:@"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
+    
+    
+    
 //    self.A_Z_arr = [NSMutableArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G",@"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", nil];
     
     self.pageIndex = 1;
@@ -111,29 +118,31 @@
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
    
-    
-   
-    
-    self.table.delegate = self;
-    self.table.dataSource = self;
-    self.table.rowHeight = 64;
+
     
     [self.timeBtn setSelected:YES];
-
-    self.table.separatorStyle = UITableViewCellAccessoryNone;
-    self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     [self customerRightBarItem];
-    
-    self.customerType = 0;
+    [self setTable];
+    [self CustomerCounts];
     [self initPull];
+    
     
     NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
     [center addObserver:self selector:@selector(receiveNotification:) name:@"下班" object:nil];
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];
     [self tapGestionToMessVC];
     [self tapGestionToMessVC1];
 }
+
+- (void)setTable{
+    self.table.delegate = self;
+    self.table.dataSource = self;
+    self.table.rowHeight = 64;
+    self.table.separatorStyle = UITableViewCellAccessoryNone;
+    self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
+    [self CustomerCounts];
+}
+
 #pragma mark -代理方法
 - (void)transformPerformation:(UIButton *)formation{
     messageCenterViewController *messVC = [[messageCenterViewController alloc]init];
@@ -292,6 +301,8 @@
 //下拉刷新
 -(void)headPull
 {
+    self.customerType = 0;
+    self.searchK = @"";
     self.isRefresh = YES;
     self.pageIndex = 1;
     self.searchBar.placeholder = searchDefaultPlaceholder;
@@ -386,62 +397,105 @@
 
 
 -(void)loadDataSource{
-     [self.noProductWarnLab removeFromSuperview];
+    if (self.historyArr.count > 6) {
+        [self.historyArr removeObjectAtIndex:0];
+    }
+    
+    [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     
-    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    NSString *sortType = [accountDefaults stringForKey:@"sortType"];
-    if (sortType) {
-        [dic setObject:sortType forKey:@"sortType"];
-    }else if (!sortType){
-        [dic setObject:@"2" forKey:@"sortType"];
-}
+    //    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    //    NSString *sortType = [accountDefaults stringForKey:@"sortType"];
+    //    if (sortType) {
+    //        [dic setObject:sortType forKey:@"sortType"];
+    //    }else if (!sortType){
+    //        [dic setObject:@"2" forKey:@"sortType"];
+    //}
     
-    [dic setObject:@"" forKey:@"SearchKey"];
+    [dic setObject:self.searchK forKey:@"SearchKey"];
     [dic setObject:[NSString stringWithFormat:@"%ld", self.customerType]forKey:@"CustomerType"];
+    //    [dic setObject:@2 forKey:@"CustomerType"];
+    
     [dic setObject:@7 forKey:@"SortType"];
-    
-    
-    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
+
+
+    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
+            [self.array removeAllObjects];
         }
+        
         self.totalNumber = json[@"TotalCount"];
         
-        NSLog(@"__________ %ld", [json[@"CustomerList"]count]);
-        NSLog(@"__________ %@", json[@"CustomerList"]);
-
         // 当再无加载数据时提示没有客户的信息
-       self.arr = json[@"CustomerList"];
+        self.arr = json[@"CustomerList"];
+        
         if (self.arr.count == 0) {
-//            [self warning];
         }else{
-        for(NSDictionary *dic in  json[@"CustomerList"]){
-            CustomModel *model = [CustomModel modalWithDict:dic];
-            [self.dataArr addObject:model];
-            
-//            if ([[NSString stringWithFormat:@"%@",model.GroupbyType] isEqualToString:@"3"]) {
-//                [self.chooseAppArr addObject:[NSString stringWithFormat:@"%@",model.GroupbyType]];
-//            }
-            
+            [self.array addObjectsFromArray:self.arr];
+            CustomerSection *costomerModel = [[CustomerSection alloc]init];
+            for (NSDictionary *dic in json[@"CustomerList"]) {
+                
+                NSString *groupType = [NSString stringWithFormat:@"%@",[dic objectForKey:@"GroupbyType"]];
+                if ([groupType isEqualToString:@"1"]) {
+                    
+                    CustomModel *model = [CustomModel modalWithDict:dic];
+                    [costomerModel.newsBindingCustomArr addObject:model];
+                }else if([groupType isEqualToString:@"2"]){
+                    
+                    CustomModel *model = [CustomModel modalWithDict:dic];
+                    [costomerModel.hadBindingCustomArr addObject:model];
+                }else if ([groupType isEqualToString:@"3"]){
+                    
+                    CustomModel *model = [CustomModel modalWithDict:dic];
+                    [costomerModel.otherCustomArr addObject:model];
+                }
+                //                CustomerSection *list = [self.letterArr lastObject];
+                //                if ([[list letter] isEqualToString:groupType]) {
+                //                    CustomModel *model = [CustomModel modalWithDict:dic];
+                //                    [list.arr addObject:model];
+                //
+                //                }else{
+                //                    CustomerSection *list = [[CustomerSection alloc] init];
+                //                    list.letter = [dic objectForKey:@"GroupbyType"]; //1 2 3
+                //                    CustomModel *model = [CustomModel modalWithDict:dic];
+                //                    [list.arr addObject:model];
+                //                    [self.letterArr addObject:list];
+                //                }
+                //             }
+                
+            }
+            if (costomerModel.newsBindingCustomArr.count) {
+                [self.dataArr addObject:costomerModel.newsBindingCustomArr];
+            }
+            if (costomerModel.hadBindingCustomArr.count) {
+                [self.dataArr addObject:costomerModel.hadBindingCustomArr];
+            }
+            if (costomerModel.otherCustomArr.count) {
+                [self.dataArr addObject:costomerModel.otherCustomArr];
+            }
         }
-    
-        [self.table reloadData];
-        if (_dataArr.count==0) {
-           self.imageViewWhenIsNull.hidden = NO ;
-        }else if (_dataArr.count>0){
+        NSLog(@".../// arr = %@", self.dataArr);
+        if (self.dataArr.count==0) {
+            self.imageViewWhenIsNull.hidden = NO;
+            
+        }else if ((self.dataArr.count>0)){
             self.imageViewWhenIsNull.hidden = YES ;
-        } }
+            self.CustomerCounts.hidden = NO;
+            self.imageViewWhenIsNull.hidden = YES ;
+            self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.array.count];
+        }
+        [self.table reloadData];
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
-
-   }
+    
+}
 
 #pragma mark - 加载完事时显示的内容
 - (void)warning{
@@ -456,8 +510,8 @@
 #pragma mark - tableView－delegate
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.table == tableView) {
-
-        CustomModel *model = _dataArr[indexPath.row];
+//        CustomModel *model = _dataArr[indexPath.row];
+        CustomModel *model = self.dataArr[indexPath.section][indexPath.row];
         CustomerDetailAndOrderViewController * VC = [[CustomerDetailAndOrderViewController  alloc]init];
         VC.customVC = self;
         VC.keyWords = self.searchK;
@@ -466,8 +520,8 @@
     }else if (self.popTableview == tableView){
 //刷新数据
         self.customerType = indexPath.row;
+        self.isRefresh = YES;
         [self loadDataSource];
-        
         [self closePopTableView];
     }
     [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
@@ -477,15 +531,13 @@
     if (self.popTableview == tableView) {
         return 1;
     }else{
-       return self.orderAppArr.count;
+        return self.dataArr.count;
     }
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (self.table == tableView) {
-        return self.dataArr.count;
-//    return [self.dataArr[section]GroupbyType]
-        
-        
+//        return self.dataArr.count;
+        return [self.dataArr[section]count];
     }else{
         return self.chooseAppArr.count;
     }
@@ -496,8 +548,11 @@
 //        CustomCell *cell = [CustomCell cellWithTableView:tableView];
         CustomCell *cell = [CustomCell cellWithTableView:tableView navigationC:self.navigationController];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-        CustomModel *model = _dataArr[indexPath.row];
-        cell.model = model;
+//        CustomModel *model = _dataArr[indexPath.row];
+//        cell.model = model;
+//        self.ID = cell.model.ID;
+
+        cell.model = _dataArr[indexPath.section][indexPath.row];
         self.ID = cell.model.ID;
         return cell;
     }else{
@@ -507,7 +562,6 @@
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellID];
         }
          cell.textLabel.text = [self.chooseAppArr objectAtIndex:indexPath.row];
-        
         return cell;
     }
 }
@@ -519,11 +573,35 @@
     }else{
         return 0.01f;
     }
-    
 }
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (self.table == tableView) {
-        NSString *str = [self.orderAppArr objectAtIndex:section];
+        NSString *str;
+//        if (self.customerType == 0) {
+//            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
+//                                 @{@"valve":@"绑定APP客户"},
+//                                 @{@"valve":@"其他客户"}];
+//        }else if (self.customerType == 1) {
+//            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"}];
+//        }else if (self.customerType == 2){
+//            self.orderAppArr = @[@{@"valve":@"绑定APP客户"}];
+//        }else if (self.customerType == 3){
+//            self.orderAppArr = @[@{@"valve":@"其他客户"}];
+//        }
+        NSLog(@"self.customerType = %ld _ %ld", self.customerType, section);
+        if (self.customerType == 0 && section < 3) {
+            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
+                                 @{@"valve":@"绑定APP客户"},
+                                 @{@"valve":@"其他客户"}];
+            str = [[self.orderAppArr objectAtIndex:section]objectForKey:@"valve"];
+            NSLog(@"ssssssstr = %@", str);
+        }else if(self.customerType == 1){
+            str = @"新绑定APP客户";
+        }else if(self.customerType == 2){
+            str = @"绑定APP客户";
+        }else{
+            str = @"其他客户";
+        }
         return  str;
     }else{
         return nil;
@@ -560,18 +638,19 @@
  右滑动删除客户
  */
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath{
-   
     return YES;
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    if (self.table == tableView) {
+         if (self.table == tableView) {
         if (editingStyle == UITableViewCellEditingStyleDelete) {
-            CustomModel *model = _dataArr[indexPath.row];
+        
+            CustomModel *model = _dataArr[indexPath.section][indexPath.row];
             [self deleteTableViewCellwithId:model.ID];
             // 删除这行
-            [self.dataArr removeObjectAtIndex:indexPath.row];
+//            [self.dataArr removeObjectAtIndex:indexPath.row];
+            [self.dataArr[indexPath.section] removeObjectAtIndex:indexPath.row];
+            
             [self.table deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationTop];
         }
     }
@@ -595,7 +674,7 @@
         NSLog(@"删除客户信息成功%@",json);
         hudView.labelText = @"删除成功...";
         [hudView hide:YES afterDelay:0.4];
-        
+        [self.table reloadData];
     } failure:^(NSError *error) {
         NSLog(@"删除客户请求失败%@",error);
     }];
@@ -732,35 +811,60 @@
 
 #pragma mark - textField delegate method
 - (void)searchLoadData{
-    if (self.historyArr.count > 6) {
-        [self.historyArr removeObjectAtIndex:0];
-    }
-    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-    [dic setObject:@1 forKey:@"PageIndex"];
-    [dic setObject:@"100" forKey:@"PageSize"];
-    
-    [dic setObject:self.searchK forKey:@"SearchKey"];
-    
-    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-        NSLog(@"------管客户搜索结果的json is %@-------",json);
-        [self.dataArr removeAllObjects];
-        for(NSDictionary *dic in json[@"CustomerList"]){
-            CustomModel *model = [CustomModel modalWithDict:dic];
-            [self.dataArr addObject:model];
-        }
-        
-        [self.table reloadData];
-        if (self.dataArr.count == 0) {
-            self.imageViewWhenIsNull.hidden = NO;
-        }else if (self.dataArr.count >0){
-            self.imageViewWhenIsNull.hidden = YES;
-        }
-    } failure:^(NSError *error) {
-        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
-    }];
+    [self loadDataSource];
+//    if (self.historyArr.count > 6) {
+//        [self.historyArr removeObjectAtIndex:0];
+//    }
+//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//    [dic setObject:@1 forKey:@"PageIndex"];
+//    [dic setObject:@"100" forKey:@"PageSize"];
+//    
+//    [dic setObject:self.searchK forKey:@"SearchKey"];
+//    
+//    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
+//        NSLog(@"------管客户搜索结果的json is %@-------",json);
+//        [self.dataArr removeAllObjects];
+//        for(NSDictionary *dic in json[@"CustomerList"]){
+//            CustomModel *model = [CustomModel modalWithDict:dic];
+//            [self.dataArr addObject:model];
+//        }
+//        
+//        [self.table reloadData];
+//        if (self.dataArr.count == 0) {
+//        self.CustomerCounts.hidden = YES;
+//            self.imageViewWhenIsNull.hidden = NO;
+//        }else if (self.dataArr.count >0){
+//            self.imageViewWhenIsNull.hidden = YES;
+//            self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.arr.count];
+//        }
+//    } failure:^(NSError *error) {
+//        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
+//    }];
 }
 
 #pragma -mark 各种初始化
+- (NSMutableArray *)array{
+    if (!_array) {
+        _array = [NSMutableArray array];
+    }
+    return _array;
+}
+- (NSMutableArray *)arr{
+    if (!_arr) {
+        _arr = [NSMutableArray array];
+    }
+    return _arr;
+}
+- (UILabel *)CustomerCounts{
+    if (!_CustomerCounts) {
+        self.table.tableFooterView = [[UIView alloc]initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 50)];
+        self.CustomerCounts = [[UILabel alloc]initWithFrame:CGRectMake(0, 0,[UIScreen mainScreen].bounds.size.width, 50)];
+        self.CustomerCounts.textAlignment = NSTextAlignmentCenter;
+//        [self.table.tableFooterView addSubview:self.CustomerCounts];
+        self.table.tableFooterView = self.CustomerCounts;
+    }
+    return _CustomerCounts;
+}
 -(NSMutableArray *)isReadArr{
     if (_isReadArr == nil) {
         self.isReadArr = [NSMutableArray array];
@@ -773,33 +877,19 @@
     }
     return _chooseAppArr;
 }
-- (NSMutableArray *)orderAppArr{
+- (NSArray *)orderAppArr{
     if (!_orderAppArr) {
-        _orderAppArr = [NSMutableArray array];
+        _orderAppArr = [NSArray array];
     }
     return _orderAppArr;
 }
--(NSMutableArray *)A_Z_arr{
-    if (_A_Z_arr == nil) {
-        _A_Z_arr = [NSMutableArray array];
-    }
-    return _A_Z_arr;
-}
+
 -(NSMutableArray *)dataArr
 {
     if (_dataArr == nil) {
         _dataArr = [NSMutableArray array];
     }
     return _dataArr;
-}
-
--(NSMutableArray *)historyArr
-{
-    if (_historyArr == nil) {
-        
-        self.historyArr = [NSMutableArray array];
-    }
-    return _historyArr;
 }
 
 -(NSMutableString *)callingPhoneNum
