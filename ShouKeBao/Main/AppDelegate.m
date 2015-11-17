@@ -30,7 +30,8 @@
 #import "AppDelegate+Extend.h"
 #import "HomeHttpTool.h"
 #import <AudioToolbox/AudioToolbox.h>
-#import "FindProductNew.h"
+#import "EaseMob.h"
+#import "AppDelegate+EaseMob.h" 
 //#import "UncaughtExceptionHandler.h"
 ////aaaaa
 @interface AppDelegate ()<WXApiDelegate>
@@ -94,13 +95,13 @@ void UncaughtExceptionHandler(NSException *exception) {
 //  completionHandler:(void(^)(BOOL succeeded))completionHandler{
 //    //判断先前我们设置的唯一标识
 //    if([shortcutItem.type isEqualToString:@"UITouchText.Product"]){
-//        //NSArray *arr = @[@"hello 3D Touch"];
-//        //UIActivityViewController *vc = [[UIActivityViewController alloc]initWithActivityItems:arr applicationActivities:nil];
-//        //设置当前的VC 为rootVC
-//        FindProductNew *Pro = [[FindProductNew alloc] init];
-//        [self.window.rootViewController presentViewController:Pro animated:YES completion:^{
-//            
-//        }];
+////        NSArray *arr = @[@"hello 3D Touch"];
+////        UIActivityViewController *vc = [[UIActivityViewController alloc]initWithActivityItems:arr applicationActivities:nil];
+////        //设置当前的VC 为rootVC
+////        [self.window.rootViewController presentViewController:vc animated:YES completion:^{
+////            
+////        }];
+////        UIApplicationShortcutIconTypeShare;
 //    }else if([shortcutItem.type isEqualToString:@"UITouchText.Order"]){
 //    
 //    }else if([shortcutItem.type isEqualToString:@"UITouchText.TodaySignIn"]){
@@ -124,7 +125,9 @@ void UncaughtExceptionHandler(NSException *exception) {
     //[UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
 
     
-    
+    // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
+    [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
+
     [UMessage startWithAppkey:@"55895cfa67e58eb615000ad8" launchOptions:launchOptions];
     [MobClick startWithAppkey:@"55895cfa67e58eb615000ad8" reportPolicy:BATCH   channelId:@"Web"];
 

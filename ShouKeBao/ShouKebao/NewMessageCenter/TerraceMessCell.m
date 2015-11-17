@@ -7,7 +7,7 @@
 //
 
 #import "TerraceMessCell.h"
-
+#import "TerraceMessageModel.h"
 @implementation TerraceMessCell
 
 - (void)awakeFromNib {
@@ -20,4 +20,10 @@
     // Configure the view for the selected state
 }
 
+-(void)setModel:(TerraceMessageModel *)model{
+    _model = model;
+    self.TitleLabel.text = model.Title;
+    self.DataLabel.text = model.CreatedDateText;
+    self.BodyLabel.text = model.Description;
+}
 @end

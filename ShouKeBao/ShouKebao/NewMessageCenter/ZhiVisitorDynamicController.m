@@ -10,9 +10,12 @@
 #import "NewCustomerCell.h"
 #import "OpportunitykeywordCell.h"
 #import "OpprotunityFreqCell.h"
+#import "IWHttpTool.h"
+#import "MBProgressHUD+MJ.h" 
+//
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface ZhiVisitorDynamicController ()<UITableViewDelegate,UITableViewDataSource>
-
+@property (nonatomic, strong)NSMutableArray * customDyamicArray;
 @end
 
 @implementation ZhiVisitorDynamicController
@@ -21,30 +24,54 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.title = @"客户动态";
-    self.view.backgroundColor = [UIColor colorWithRed:(229.0/255.0) green:(231.0/255.0) blue:(232.0/255.0) alpha:1];
+    self.view.backgroundColor = [UIColor colorWithRed:(247.0/255.0) green:(247.0/255.0) blue:(247.0/255.0) alpha:1];
     [self.view addSubview:self.tableView];
+    [self loadDataSource];
 }
+-(NSMutableArray *)customDyamicArray{
+    if (!_customDyamicArray) {
+        _customDyamicArray = [NSMutableArray array];
+    }
+    return _customDyamicArray;
+}
+- (void)loadDataSource{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    [IWHttpTool postWithURL:@"Customer/GetCustomerDynamicList" params:nil success:^(id json) {
+        if ([json[@"IsSuccess"]integerValue]) {
+            NSLog(@"%@", json);
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
+            [self.tableView reloadData];
+        }
+    } failure:^(NSError * eror) {
+    }];
+}
+
+
 #pragma mark - UITableViewDelegate&&DataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
--(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 3;
 }
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 10;
+}
+
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         return 86;
-    }else if(indexPath.row == 1){
+    }else if(indexPath.section == 1){
         return 110;
     }
     return 200;
     
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         NewCustomerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewCustomerCell" forIndexPath:indexPath];
         return cell;
-    }else if(indexPath.row == 1){
+    }else if(indexPath.section == 1){
         OpportunitykeywordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OpportunitykeywordCell" forIndexPath:indexPath];
         return cell;
     }
@@ -53,7 +80,7 @@
 }
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(15, 0, kScreenSize.width-30, kScreenSize.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreenSize.width-20, kScreenSize.height) style:UITableViewStylePlain];
         _tableView.delegate =self;
         _tableView.dataSource = self;
         [_tableView registerNib:[UINib nibWithNibName:@"NewCustomerCell" bundle:nil] forCellReuseIdentifier:@"NewCustomerCell"];

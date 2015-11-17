@@ -13,7 +13,12 @@
 #import <TencentOpenAPI/TencentOAuth.h>
 #import "WXApi.h"
 #import <ShareSDK/ShareSDK.h>
-@interface AppDelegate : UIResponder <UIApplicationDelegate>
+#import "IChatManagerDelegate.h"
+@interface AppDelegate : UIResponder <UIApplicationDelegate, IChatManagerDelegate>
+{
+    EMConnectionState _connectionState;
+}
+
 
 @property (strong, nonatomic) UIWindow *window;
 
