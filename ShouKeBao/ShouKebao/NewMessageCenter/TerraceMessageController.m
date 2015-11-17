@@ -11,6 +11,8 @@
 #import "TimerCell.h"
 #import "IWHttpTool.h"
 #import "TerraceMessageModel.h"
+#import "TerracedetailViewController.h"
+#import "MBProgressHUD+MJ.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface TerraceMessageController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)NSMutableArray *noticeArray;
@@ -29,10 +31,12 @@
 }
 
 - (void)loadDataSource{
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     [IWHttpTool postWithURL:@"Notice/GetNoticeList" params:nil success:^(id json) {
         if ([json[@"IsSuccess"]integerValue]) {
             NSArray * noticeList = json[@"NoticeList"];
             NSLog(@"%@", json);
+            [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             for (NSDictionary * dic in noticeList) {
                 TerraceMessageModel * model = [TerraceMessageModel modelWithDic:dic];
                 [self.noticeArray addObject:model];
@@ -78,7 +82,10 @@
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    TerraceMessageModel * model = self.noticeArray[indexPath.row/2];
+    TerracedetailViewController * detailVC = [[TerracedetailViewController alloc]init];
+    detailVC.linkUrl = model.LinkUrl;
+    [self.navigationController pushViewController:detailVC animated:YES];
 }
 
 

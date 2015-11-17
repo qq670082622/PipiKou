@@ -298,6 +298,7 @@
 		795E1F011B72F75300072A77 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 795E1EFD1B72F75300072A77 /* libWeChatSDK.a */; };
 		795E1F021B72F75300072A77 /* read_me.txt in Resources */ = {isa = PBXBuildFile; fileRef = 795E1EFE1B72F75300072A77 /* read_me.txt */; };
 		795EA9BE1B7E498200840DFB /* ProductRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795EA9BD1B7E498200840DFB /* ProductRecommendViewController.m */; };
+		795F5AD51BFB34A00043158D /* TerracedetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795F5AD41BFB34A00043158D /* TerracedetailViewController.m */; };
 		7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */; };
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
 		796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C4D4C1B60CEF6008EBAFE /* WebKit.framework */; };
@@ -1225,6 +1226,8 @@
 		795E1F001B72F75300072A77 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		795EA9BC1B7E498200840DFB /* ProductRecommendViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductRecommendViewController.h; sourceTree = "<group>"; };
 		795EA9BD1B7E498200840DFB /* ProductRecommendViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductRecommendViewController.m; sourceTree = "<group>"; };
+		795F5AD31BFB34A00043158D /* TerracedetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TerracedetailViewController.h; sourceTree = "<group>"; };
+		795F5AD41BFB34A00043158D /* TerracedetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerracedetailViewController.m; sourceTree = "<group>"; };
 		7960A5891B39320C00A69E44 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
 		7964F4EF1B437D6500F56EB2 /* BaseClickAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClickAttribute.h; sourceTree = "<group>"; };
@@ -4019,6 +4022,8 @@
 				527E3B861BECAB5B00AAA6F6 /* TerraceMessageController.h */,
 				527E3B871BECAB5B00AAA6F6 /* TerraceMessageController.m */,
 				527E3B881BECAB5B00AAA6F6 /* TerraceMessageController.xib */,
+				795F5AD31BFB34A00043158D /* TerracedetailViewController.h */,
+				795F5AD41BFB34A00043158D /* TerracedetailViewController.m */,
 				79B559681BFB151500C04F92 /* TerraceMessageModel.h */,
 				79B559691BFB151500C04F92 /* TerraceMessageModel.m */,
 				5202794F1BF438160049C0B9 /* TerraceMessCell.h */,
@@ -5434,6 +5439,7 @@
 				796EFBFF1BF5C5DE00799120 /* ConvertToCommonEmoticonsHelper.m in Sources */,
 				797E565A1B56569C00154C55 /* NewVersionWebViewController.m in Sources */,
 				796EFE721BF5CCC800799120 /* MLPhotoBrowserCustomToolBarView.m in Sources */,
+				795F5AD51BFB34A00043158D /* TerracedetailViewController.m in Sources */,
 				79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */,
 				63CE06091B203D44008B98B0 /* UIImage+FixOrientation.m in Sources */,
 				63F1A1AC1B14250E00DE9867 /* MJConst.m in Sources */,

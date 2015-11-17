@@ -31,12 +31,12 @@
     self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     if (self) {
         // Initialization code
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenSize.width-100, 10, 100, 16)];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenSize.width-100, 12, 100, 16)];
         _timeLabel.font = [UIFont systemFontOfSize:13];
         _timeLabel.backgroundColor = [UIColor clearColor];
         [self.contentView addSubview:_timeLabel];
         
-        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 3, 20, 20)];
+        _unreadLabel = [[UILabel alloc] initWithFrame:CGRectMake(45, 5, 20, 20)];
         _unreadLabel.backgroundColor = [UIColor redColor];
         _unreadLabel.textColor = [UIColor whiteColor];
         
@@ -46,7 +46,7 @@
         _unreadLabel.clipsToBounds = YES;
         [self.contentView addSubview:_unreadLabel];
         
-        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 33, kScreenSize.width-80, 20)];
+        _detailLabel = [[UILabel alloc] initWithFrame:CGRectMake(65, 35, kScreenSize.width-80, 20)];
         _detailLabel.backgroundColor = [UIColor clearColor];
         _detailLabel.font = [UIFont systemFontOfSize:14];
         _detailLabel.textColor = [UIColor lightGrayColor];
@@ -87,12 +87,12 @@
     
 //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"图片地址"] placeholderImage:@"aa"];
     self.imageView.image = [UIImage imageNamed:@"aa"];
-    self.imageView.frame = CGRectMake(10, 10, 45, 45);
+    self.imageView.frame = CGRectMake(10, 12, 45, 45);
     self.imageView.layer.cornerRadius = 22.5;
     self.imageView.layer.masksToBounds = YES;
 
     self.textLabel.text = _name;
-    self.textLabel.frame = CGRectMake(65, 7, 175, 20);
+    self.textLabel.frame = CGRectMake(65, 9, 175, 20);
     
     _detailLabel.text = _detailMsg;
     _timeLabel.text = _time;
