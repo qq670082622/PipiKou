@@ -926,7 +926,7 @@
     self.isEmpty = NO;
     
 //    视图将要出现时定位
-    [self locationMethod];
+//    [self locationMethod];
     // 轮播
     [self CarouselAnimationAction];
     [self CarouselNews];

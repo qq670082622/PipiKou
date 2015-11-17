@@ -42,6 +42,8 @@
 #import "MoreLvYouGuWenInfoViewController.h"
 #import "MeShareDetailViewController.h"
 #import "InvoiceManageViewController.h"
+#import "ExclusiveViewController.h"
+
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
 @property (nonatomic,strong) MeHeader *meheader;
@@ -67,7 +69,7 @@
     self.title = @"我";
     self.tableView.rowHeight = 50;
     //self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
-    self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],/*@[@"账号安全设置"],*/@[/*@"勿扰模式"*/@"设置",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
+    self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树", @"专属APP",@"发票管理"],/*@[@"账号安全设置"],*/@[/*@"勿扰模式"*/@"设置",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
     NSString *loginType = [def objectForKey:@"LoginType"];
     self.isPerson = [loginType integerValue] != 1;
@@ -406,7 +408,23 @@
                     imgView.image = [UIImage imageNamed:@"yaoqianshu"];
                     [cell.contentView addSubview:imgView];
                 }
-            }else if (indexPath.row == 3){
+            }else if(indexPath.row == 3){
+                cell.imageView.image = [UIImage imageNamed:@"vip"];
+                UILabel *shouKeBaoL = [[UILabel alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width/3, 0, 100, 50)];
+                shouKeBaoL.text = @"收客宝2.0";
+                shouKeBaoL.textColor = [UIColor grayColor];
+                shouKeBaoL.textAlignment = NSTextAlignmentCenter;
+                shouKeBaoL.font = [UIFont systemFontOfSize:11.0f];
+                [cell.contentView addSubview:shouKeBaoL];
+                
+                
+//                if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindInvoiceManage"]) {
+                    UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
+                    imgView.image = [UIImage imageNamed:@"yaoqianshu"];
+                    [cell.contentView addSubview:imgView];
+//                }
+                
+            }else if (indexPath.row == 4){
                 cell.imageView.image = [UIImage imageNamed:@"Mebill"];
                 if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindInvoiceManage"]) {
                     UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
@@ -497,8 +515,14 @@
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
                 [MobClick event:@"MeMoenyTreeClick" attributes:dict];
                 [self.navigationController pushViewController:moneyTreeVC animated:YES];
-
+            
             }else if(indexPath.row == 3){
+                ExclusiveViewController *exclusiveAPPVC = [[ExclusiveViewController alloc]init];
+                exclusiveAPPVC.title = @"专属APP";
+                [self.navigationController pushViewController:exclusiveAPPVC animated:YES];
+                
+                
+            }else if(indexPath.row == 4){
                 InvoiceManageViewController * IMVC = [[InvoiceManageViewController alloc]init];
                 IMVC.webTitle = @"发票管理";
                 BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
