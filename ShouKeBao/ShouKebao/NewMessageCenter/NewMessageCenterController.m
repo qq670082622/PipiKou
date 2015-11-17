@@ -11,12 +11,23 @@
 #import "TerraceMessageController.h"
 #import "ZhiVisitorDynamicController.h"
 #import "ChatListCell.h"
+#import "EaseMob.h"
+#import "ConvertToCommonEmoticonsHelper.h"
+#import "RobotManager.h"
+#import "NSDate+Category.h"
+#import "MessageCenterModel.h"
+#import "IWHttpTool.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface NewMessageCenterController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
 @property (nonatomic,strong) NSArray *NameArr;
 @property (nonatomic,strong) NSArray *TimedataArr;
 @property (nonatomic,strong) UIView *searchView;
 @property (nonatomic,strong) NSMutableArray *NamedataArr;//存放网络数据
+
+@property (nonatomic, strong)NSMutableArray *chatListArray;//对话列表；
+@property (nonatomic, strong)NSMutableArray *dynamicArray;//从服务器获取的上面两个列表的数据;
+
+
 @property (nonatomic,strong) NSMutableArray *LocDataArr;//本地的搜索记录
 @property (nonatomic,strong) NSMutableArray *searchDataArr;//服务器返回的数据
 @property (nonatomic,strong) UITableView *SearTableView;
@@ -27,13 +38,73 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"IM";
     _TimedataArr = @[@"09:25",@"11:11",@"13:50",@"18:12",@"23:13"];//测试数据
     
-    
+    NSLog(@"chatlist%@", self.chatListArray);
     _tableView.tableFooterView = [[UIView alloc] init];
+    [self loadMessageDataSource];
+    
+    
+    
     //[_tableView registerClass:[ChatListCell class] forCellReuseIdentifier:@"ChatListCell"];
 }
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self refreshDataSource];
+}
+- (void)loadMessageDataSource{
+    NSMutableDictionary * params = nil;
+    [IWHttpTool postWithURL:@"Notice/GetNoticeIndexContent" params:params success:^(id json) {
+        if ([json[@"IsSuccess"]integerValue]) {
+            MessageCenterModel * platformModel =[[MessageCenterModel alloc]init];
+            MessageCenterModel * customDynamic =[[MessageCenterModel alloc]init];
+            platformModel.messageTitle = json[@"LastNoticeTitile"];
+            platformModel.messageCount = json[@"NewNoticeCount"];
+            platformModel.dateStr = json[@"LastNoticeDate"];
+            customDynamic.messageTitle = json[@"LastDynamicTitile"];
+            customDynamic.messageCount = json[@"NewDynamicCount"];
+            customDynamic.dateStr = json[@"LastDynamicDate"];
+            [self.dynamicArray addObject:platformModel];
+            [self.dynamicArray addObject:customDynamic];
+            [self.tableView reloadData];
+        }
+        } failure:^(NSError *eror) {
+    }];
+}
+-(void)refreshDataSource
+{
+    self.chatListArray = [self loadDataSource];
+    [_tableView reloadData];
+}
+-(NSMutableArray *)dynamicArray {
+    if (!_dynamicArray) {
+        self.dynamicArray = [NSMutableArray array];
+    }
+    return _dynamicArray;
+}
+- (NSMutableArray *)loadDataSource
+{
+    NSMutableArray *ret = nil;
+    NSArray *conversations = [[EaseMob sharedInstance].chatManager conversations];
+    NSArray* sorte = [conversations sortedArrayUsingComparator:
+                      ^(EMConversation *obj1, EMConversation* obj2){
+                          EMMessage *message1 = [obj1 latestMessage];
+                          EMMessage *message2 = [obj2 latestMessage];
+                          if(message1.timestamp > message2.timestamp) {
+                              return(NSComparisonResult)NSOrderedAscending;
+                          }else {
+                              return(NSComparisonResult)NSOrderedDescending;
+                          }
+                      }];
+    
+    ret = [[NSMutableArray alloc] initWithArray:sorte];
+    NSLog(@"%@", ret);
+    return ret;
+}
+
 #pragma mark - UITableViewDelegate&DataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     if (tableView.tag == 2011) {
@@ -44,9 +115,9 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (tableView.tag == 2011) {
         if (section == 0) {
-            return 2;
+            return self.dynamicArray.count;
         }
-        return self.NamedataArr.count;
+        return self.chatListArray.count;
     }
 //    return self.searchDataArr.count;
     return 10;
@@ -62,7 +133,7 @@
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
    if (tableView.tag == 2011) {
-        return 60;
+        return 70;
     }
     return 50;
 }
@@ -81,13 +152,18 @@
     if (tableView.tag == 2011) {
         ChatListCell *cell = [[ChatListCell alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, 60)];
         if (indexPath.section == 0) {
+            MessageCenterModel * model = self.dynamicArray[indexPath.row];
             cell.name = self.NameArr[indexPath.row];
-            cell.detailMsg = @"收到消息";
+            cell.unreadCount = [model.messageCount intValue];
+            cell.detailMsg = model.messageTitle;
+            cell.time = model.dateStr;
         }else{
-            cell.name = self.NamedataArr[indexPath.row];
+            EMConversation *conversation = [self.chatListArray objectAtIndex:indexPath.row];
+            cell.name = conversation.chatter;
+            cell.unreadCount = [self subTitleMessageByConversation:conversation];
+            cell.detailMsg = [self subTitleMessageByConversation:conversation];
+            cell.time = [self lastMessageTimeByConversation:conversation];
         }
-        cell.detailMsg = @"收到消息";
-        cell.time = @"12.01";
         return cell;
     }
     NSLog(@"-----%ld",tableView.tag);
@@ -278,19 +354,63 @@
 - (void)searchBarSearchButtonClicked:(UISearchBar *)searchBar {
     NSLog(@"点击搜索了");
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+
+
+// 得到未读消息条数
+- (NSInteger)unreadMessageCountByConversation:(EMConversation *)conversation
+{
+    NSInteger ret = 0;
+    ret = conversation.unreadMessagesCount;
+    
+    return  ret;
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+// 得到最后消息文字或者类型
+-(NSString *)subTitleMessageByConversation:(EMConversation *)conversation
+{
+    NSString *ret = @"";
+    EMMessage *lastMessage = [conversation latestMessage];
+    if (lastMessage) {
+        id<IEMMessageBody> messageBody = lastMessage.messageBodies.lastObject;
+        switch (messageBody.messageBodyType) {
+            case eMessageBodyType_Image:{
+                ret = NSLocalizedString(@"message.image1", @"[image]");
+            } break;
+            case eMessageBodyType_Text:{
+                // 表情映射。
+                NSString *didReceiveText = [ConvertToCommonEmoticonsHelper
+                                            convertToSystemEmoticons:((EMTextMessageBody *)messageBody).text];
+                if ([[RobotManager sharedInstance] isRobotMenuMessage:lastMessage]) {
+                    ret = [[RobotManager sharedInstance] getRobotMenuMessageDigest:lastMessage];
+                } else {
+                    ret = didReceiveText;
+                }
+            } break;
+            case eMessageBodyType_Voice:{
+                ret = NSLocalizedString(@"message.voice1", @"[voice]");
+            } break;
+            case eMessageBodyType_Location: {
+                ret = NSLocalizedString(@"message.location1", @"[location]");
+            } break;
+            case eMessageBodyType_Video: {
+                ret = NSLocalizedString(@"message.video1", @"[video]");
+            } break;
+            default: {
+            } break;
+        }
+    }
+    
+    return ret;
 }
-*/
-
+// 得到最后消息时间
+-(NSString *)lastMessageTimeByConversation:(EMConversation *)conversation
+{
+    NSString *ret = @"";
+    EMMessage *lastMessage = [conversation latestMessage];;
+    if (lastMessage) {
+        ret = [NSDate formattedTimeFromTimeInterval:lastMessage.timestamp];
+    }
+    
+    return ret;
+}
 @end
