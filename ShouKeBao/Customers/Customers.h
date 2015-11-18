@@ -33,5 +33,5 @@
 @property (nonatomic,strong) NSMutableArray *isReadArr;
 @property (nonatomic, assign)int messageCount;
 
-
+@property (nonatomic, assign)NSInteger customerType;
 @end

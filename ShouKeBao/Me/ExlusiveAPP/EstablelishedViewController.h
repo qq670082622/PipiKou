@@ -10,4 +10,6 @@
 
 @interface EstablelishedViewController : SKViewController
 @property (nonatomic, strong)UINavigationController *naVC;
+
+@property (nonatomic, copy)NSString *isExclusiveCustomer;
 @end

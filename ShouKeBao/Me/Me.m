@@ -43,6 +43,7 @@
 #import "MeShareDetailViewController.h"
 #import "InvoiceManageViewController.h"
 #import "ExclusiveViewController.h"
+#import "EstablelishedViewController.h"
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
@@ -134,6 +135,7 @@
             _meheader.personType.text =[[NSUserDefaults standardUserDefaults]objectForKey:UserInfoKeyLYGWPhoneNum];
             _meheader.positionLab.text = [[NSUserDefaults standardUserDefaults]objectForKey:UserInfoKeyLYGWPosition];
             [[NSUserDefaults standardUserDefaults]setObject:muta[@"ConsultantLevel"] forKey:UserInfoKeyLYGWLevel];
+            
             [[NSUserDefaults standardUserDefaults]setObject:muta[@"ConsultantUrl"] forKey:UserInfoKeyLYGWLinkUrl];
             [[NSUserDefaults standardUserDefaults]setObject:muta[@"Position"] forKey:UserInfoKeyLYGWPosition];
             [[NSUserDefaults standardUserDefaults]setObject:muta[@"Mobile"] forKey:UserInfoKeyLYGWPhoneNum];
@@ -418,11 +420,12 @@
                 [cell.contentView addSubview:shouKeBaoL];
                 
                 
-//                if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstFindInvoiceManage"]) {
+                if (![[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstOpenExclusiveVC"]) {
+                    
                     UIImageView * imgView = [[UIImageView alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 90, 12.5, 55, 23)];
                     imgView.image = [UIImage imageNamed:@"yaoqianshu"];
                     [cell.contentView addSubview:imgView];
-//                }
+                }
                 
             }else if (indexPath.row == 4){
                 cell.imageView.image = [UIImage imageNamed:@"Mebill"];
@@ -517,10 +520,27 @@
                 [self.navigationController pushViewController:moneyTreeVC animated:YES];
             
             }else if(indexPath.row == 3){
-                ExclusiveViewController *exclusiveAPPVC = [[ExclusiveViewController alloc]init];
-                exclusiveAPPVC.title = @"专属APP";
-                [self.navigationController pushViewController:exclusiveAPPVC animated:YES];
+            
+                NSString *level = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLevel];
                 
+                //   等级为2000以上 && 不是第一次打开 走数据界面
+                
+                if (/*[level intValue] > 2000 && */[[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstOpenExclusiveVC"]){
+                    
+                    ExclusiveViewController *exclusiveAPPVC = [[ExclusiveViewController alloc]init];
+                    exclusiveAPPVC.title = @"专属APP";
+                    [self.navigationController pushViewController:exclusiveAPPVC animated:YES];
+                    
+                //  ｛(等级为2000以上&&第一次打开 )|| 等级不够 ||未开通专属App｝ －－－》 走专属或非专属介绍界面
+                }else{
+                    EstablelishedViewController *establelishedVC = [[EstablelishedViewController alloc]init];
+                    
+//                    establelishedVC.isExclusiveCustomer = 是否是专属客户
+                    establelishedVC.naVC = self.navigationController;
+                    [self.navigationController pushViewController:establelishedVC animated:YES];
+                }
+                
+                [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstOpenExclusiveVC"];
                 
             }else if(indexPath.row == 4){
                 InvoiceManageViewController * IMVC = [[InvoiceManageViewController alloc]init];

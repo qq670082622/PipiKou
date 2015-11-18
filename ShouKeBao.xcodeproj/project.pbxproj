@@ -610,6 +610,7 @@
 		845514EC1ABFFAFB00D588A7 /* SKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514EB1ABFFAFB00D588A7 /* SKViewController.m */; };
 		845514FB1AC032C000D588A7 /* WriteFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 845514FA1AC032C000D588A7 /* WriteFileManager.m */; };
 		B325F7DE1BE24A6A00124271 /* MeTextFieldSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B325F7DD1BE24A6A00124271 /* MeTextFieldSearchViewController.m */; };
+		B3585A591BFC29960005448F /* noOpenExclusiveAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3585A581BFC29960005448F /* noOpenExclusiveAppView.m */; };
 		B36E572B1B74C0D000471AAC /* ConditionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E57191B74C0D000471AAC /* ConditionModel.m */; };
 		B36E572C1B74C0D000471AAC /* ConditionSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E571B1B74C0D000471AAC /* ConditionSelectViewController.m */; };
 		B36E572D1B74C0D000471AAC /* ConditionSelectViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E571C1B74C0D000471AAC /* ConditionSelectViewController.xib */; };
@@ -1786,6 +1787,8 @@
 		845514FA1AC032C000D588A7 /* WriteFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WriteFileManager.m; sourceTree = "<group>"; };
 		B325F7DC1BE24A6A00124271 /* MeTextFieldSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MeTextFieldSearchViewController.h; path = MeView/MeTextFieldSearchViewController.h; sourceTree = "<group>"; };
 		B325F7DD1BE24A6A00124271 /* MeTextFieldSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MeTextFieldSearchViewController.m; path = MeView/MeTextFieldSearchViewController.m; sourceTree = "<group>"; };
+		B3585A571BFC29960005448F /* noOpenExclusiveAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = noOpenExclusiveAppView.h; sourceTree = "<group>"; };
+		B3585A581BFC29960005448F /* noOpenExclusiveAppView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = noOpenExclusiveAppView.m; sourceTree = "<group>"; };
 		B36E57181B74C0D000471AAC /* ConditionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionModel.h; sourceTree = "<group>"; };
 		B36E57191B74C0D000471AAC /* ConditionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ConditionModel.m; sourceTree = "<group>"; };
 		B36E571A1B74C0D000471AAC /* ConditionSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ConditionSelectViewController.h; sourceTree = "<group>"; };
@@ -4685,6 +4688,8 @@
 				B3CFF6251BFB05D7002065AA /* ExclusiveTableViewCell.xib */,
 				B3CFF62D1BFB49C5002065AA /* ExclusiveShareView.h */,
 				B3CFF62E1BFB49C5002065AA /* ExclusiveShareView.m */,
+				B3585A571BFC29960005448F /* noOpenExclusiveAppView.h */,
+				B3585A581BFC29960005448F /* noOpenExclusiveAppView.m */,
 			);
 			path = ExlusiveAPP;
 			sourceTree = "<group>";
@@ -5123,6 +5128,7 @@
 				796EFE701BF5CCC800799120 /* MLPhotoBrowserSignleViewController.m in Sources */,
 				5A7FF36E1ADD21DB00287B9E /* ChooseDayViewController.m in Sources */,
 				63B8C7021ACE917E00328C8C /* messageModel.m in Sources */,
+				B3585A591BFC29960005448F /* noOpenExclusiveAppView.m in Sources */,
 				5A8DF5C21AEF3AAF00E1A671 /* NSArray+QD.m in Sources */,
 				5A52FC8E1ACEBF220076DAE6 /* HistoryView.m in Sources */,
 				63F1A1B21B14250E00DE9867 /* MJTypeEncoding.m in Sources */,

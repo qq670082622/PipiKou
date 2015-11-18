@@ -10,7 +10,7 @@
 
 @interface ExclusiveShareView : NSObject
 
-
++(void)shareWithContent:(id)publishContent backgroundShareView:(id)backgroundShareView andUrl:(NSString *)url;
 
 
 @end
