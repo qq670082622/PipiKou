@@ -12,10 +12,17 @@
 #import "OpprotunityFreqCell.h"
 #import "IWHttpTool.h"
 #import "MBProgressHUD+MJ.h" 
+#import "MJRefresh.h"
+#import "CustomDynamicModel.h"
+#import "NSString+FKTools.h"
+#define pageSize @"10"
 //
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface ZhiVisitorDynamicController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong)NSMutableArray * customDyamicArray;
+@property (nonatomic, assign)int pageNum;
+@property (nonatomic, assign)BOOL isDone;
+
 @end
 
 @implementation ZhiVisitorDynamicController
@@ -26,7 +33,7 @@
     self.title = @"客户动态";
     self.view.backgroundColor = [UIColor colorWithRed:(247.0/255.0) green:(247.0/255.0) blue:(247.0/255.0) alpha:1];
     [self.view addSubview:self.tableView];
-    [self loadDataSource];
+    [self initPull];
 }
 -(NSMutableArray *)customDyamicArray{
     if (!_customDyamicArray) {
@@ -34,11 +41,23 @@
     }
     return _customDyamicArray;
 }
-- (void)loadDataSource{
+- (void)loadDataSourceFrom:(int)type{
     [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    [IWHttpTool postWithURL:@"Customer/GetCustomerDynamicList" params:nil success:^(id json) {
+    NSDictionary * params = @{@"PageIndex":[NSString stringWithFormat:@"%d", self.pageNum],@"PageSize":pageSize};
+    [IWHttpTool postWithURL:@"Customer/GetCustomerDynamicList" params:params success:^(id json) {
+        [self tableViewEndRefreshing];
         if ([json[@"IsSuccess"]integerValue]) {
             NSLog(@"%@", json);
+            if (self.pageNum*[pageSize integerValue]>[json[@"TotalCount"]integerValue]) {
+                self.isDone = YES;
+            }
+            if (type == 1) {
+                [self.customDyamicArray removeAllObjects];
+            }
+            for (NSDictionary * dic in json[@"AppCustomerDynamicList"]) {
+                CustomDynamicModel *model = [CustomDynamicModel modelWithDic:dic];
+                [self.customDyamicArray addObject:model];
+            }
             [MBProgressHUD hideAllHUDsForView:self.view animated:YES];
             [self.tableView reloadData];
         }
@@ -46,10 +65,38 @@
     }];
 }
 
-
+#pragma mark - 刷新和分页
+- (void)initPull{
+    self.pageNum = 1;
+    [self.tableView addHeaderWithTarget:self action:@selector(headRefish)dateKey:nil];
+    [self.tableView addFooterWithTarget:self action:@selector(foodRefish)];
+    self.tableView.alwaysBounceVertical = YES;
+    self.tableView.headerPullToRefreshText = @"下拉刷新";
+    self.tableView.headerRefreshingText = @"正在刷新中";
+    self.tableView.footerPullToRefreshText = @"上拉刷新";
+    self.tableView.footerRefreshingText = @"正在刷新";
+    [self loadDataSourceFrom:1];
+}
+-(void)headRefish{
+    self.pageNum = 1;
+    self.isDone = NO;
+    [self loadDataSourceFrom:1];
+}
+- (void)foodRefish{
+    self.pageNum++;
+    if (self.isDone) {
+        [self.tableView footerEndRefreshing];
+    }else{
+        [self loadDataSourceFrom:2];
+    }
+}
+- (void)tableViewEndRefreshing{
+    [self.tableView footerEndRefreshing];
+    [self.tableView headerEndRefreshing];
+}
 #pragma mark - UITableViewDelegate&&DataSource
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 3;
+    return self.customDyamicArray.count;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 1;
@@ -57,32 +104,34 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
     return 10;
 }
-
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        return 86;
-    }else if(indexPath.section == 1){
-        return 110;
-    }
-    return 200;
-    
+    CustomDynamicModel * model = self.customDyamicArray[indexPath.section];
+    NSLog(@"DynamicType=%@", model.DynamicType);
+    return [self heightWithDynamicType:model];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section == 0) {
-        NewCustomerCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NewCustomerCell" forIndexPath:indexPath];
+    CustomDynamicModel * model = self.customDyamicArray[indexPath.section];
+    NSString * cellIdentifer = [self cellIdentifierWithDynamicType:model.DynamicType];
+    if ([model.DynamicType intValue] == 1||[model.DynamicType intValue] == 2){
+        NewCustomerCell * cell =[tableView dequeueReusableCellWithIdentifier:cellIdentifer forIndexPath:indexPath];
+        cell.model = model;
         return cell;
-    }else if(indexPath.section == 1){
-        OpportunitykeywordCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OpportunitykeywordCell" forIndexPath:indexPath];
+    }else if([model.DynamicType intValue] == 3){
+        OpportunitykeywordCell * cell =[tableView dequeueReusableCellWithIdentifier:cellIdentifer forIndexPath:indexPath];
+        cell.model = model;
+        return cell;
+    }else{
+        OpprotunityFreqCell * cell =[tableView dequeueReusableCellWithIdentifier:cellIdentifer forIndexPath:indexPath];
+        cell.model = model;
         return cell;
     }
-    OpprotunityFreqCell *cell = [tableView dequeueReusableCellWithIdentifier:@"OpprotunityFreqCell" forIndexPath:indexPath];
-    return cell;
 }
 -(UITableView *)tableView{
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreenSize.width-20, kScreenSize.height) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(10, 0, kScreenSize.width-20, kScreenSize.height-64) style:UITableViewStylePlain];
         _tableView.delegate =self;
         _tableView.dataSource = self;
+        _tableView.showsVerticalScrollIndicator = NO;
         [_tableView registerNib:[UINib nibWithNibName:@"NewCustomerCell" bundle:nil] forCellReuseIdentifier:@"NewCustomerCell"];
         [_tableView registerNib:[UINib nibWithNibName:@"OpportunitykeywordCell" bundle:nil] forCellReuseIdentifier:@"OpportunitykeywordCell"];
         [_tableView registerNib:[UINib nibWithNibName:@"OpprotunityFreqCell" bundle:nil] forCellReuseIdentifier:@"OpprotunityFreqCell"];
@@ -93,19 +142,27 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+//动态类型
+//1直客绑定;2直客登录;-A
+//3直客搜索产品;-B
+//4直客浏览线路达二次;5直客浏览产品;6直客收藏产品;7直客分享产品;8点击在线预订未下单.-C
+- (float)heightWithDynamicType:(CustomDynamicModel *)model{
+    if ([model.DynamicType intValue] == 2){
+        return 60+[model.DynamicContent heigthWithsysFont:15 withWidth:kScreenSize.width - 50];
+    }else if([model.DynamicType intValue] == 1||[model.DynamicType intValue] == 3){
+        return 85+[model.DynamicContent heigthWithsysFont:15 withWidth:kScreenSize.width - 50];
+    }else{
+        return 200.;
+    }
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (NSString *)cellIdentifierWithDynamicType:(NSString *)DynamicType{
+    if ([DynamicType intValue] == 1||[DynamicType intValue] == 2){
+        return @"NewCustomerCell";
+    }else if([DynamicType intValue] == 3){
+        return @"OpportunitykeywordCell";
+    }else{
+        return @"OpprotunityFreqCell";
+    }
 }
-*/
 
 @end
