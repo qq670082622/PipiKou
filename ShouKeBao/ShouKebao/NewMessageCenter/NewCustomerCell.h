@@ -7,12 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
-
+@class CustomDynamicModel;
 @interface NewCustomerCell : UITableViewCell
+@property (strong, nonatomic) IBOutlet UIImageView *TitleImage;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *headImage;
 @property (weak, nonatomic) IBOutlet UILabel *custNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *custNumLabel;
 @property (weak, nonatomic) IBOutlet UILabel *TimeLabel;
-
+@property (nonatomic, strong)CustomDynamicModel * model;
 @end

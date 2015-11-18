@@ -297,7 +297,8 @@
             
             // 重新保存密码 因为如果注销了的话
             [def setObject:self.passwordField.text forKey:UserInfoKeyPassword];
-            
+            [def setObject:@"1" forKey:@"isLogoutYet"];
+
             // 保存用户模型
             [UserInfo userInfoWithDict:json];
             

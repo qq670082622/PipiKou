@@ -132,8 +132,9 @@
     if (buttonIndex == 1) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"MeExitAccount" attributes:dict];
-        
         NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+        [def setObject:@"2" forKey:@"isLogoutYet"];
+
         [def removeObjectForKey:UserInfoKeyPassword];
         AppDelegate *app = [UIApplication sharedApplication].delegate;
         [app setLoginRoot];

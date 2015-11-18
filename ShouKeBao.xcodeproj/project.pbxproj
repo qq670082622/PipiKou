@@ -303,6 +303,7 @@
 		795EA9BE1B7E498200840DFB /* ProductRecommendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795EA9BD1B7E498200840DFB /* ProductRecommendViewController.m */; };
 		795F5AD51BFB34A00043158D /* TerracedetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 795F5AD41BFB34A00043158D /* TerracedetailViewController.m */; };
 		7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */; };
+		79619B7A1BFB5FD60026BAFE /* CustomDynamicModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */; };
 		7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */ = {isa = PBXBuildFile; fileRef = 7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */; };
 		796C4D4D1B60CEF6008EBAFE /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 796C4D4C1B60CEF6008EBAFE /* WebKit.framework */; };
 		796C4D511B60E90C008EBAFE /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = 796C4D501B60E90C008EBAFE /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -1324,6 +1325,8 @@
 		795F5AD41BFB34A00043158D /* TerracedetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerracedetailViewController.m; sourceTree = "<group>"; };
 		7960A5891B39320C00A69E44 /* UncaughtExceptionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UncaughtExceptionHandler.h; sourceTree = "<group>"; };
 		7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UncaughtExceptionHandler.m; sourceTree = "<group>"; };
+		79619B781BFB5FD60026BAFE /* CustomDynamicModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomDynamicModel.h; sourceTree = "<group>"; };
+		79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomDynamicModel.m; sourceTree = "<group>"; };
 		7964F4EF1B437D6500F56EB2 /* BaseClickAttribute.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseClickAttribute.h; sourceTree = "<group>"; };
 		7964F4F01B437D6500F56EB2 /* BaseClickAttribute.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseClickAttribute.m; sourceTree = "<group>"; };
 		796C4D4C1B60CEF6008EBAFE /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
@@ -2350,6 +2353,8 @@
 				527E3B831BEC7F8C00AAA6F6 /* NewMessageCell.xib */,
 				520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */,
 				520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */,
+				79619B781BFB5FD60026BAFE /* CustomDynamicModel.h */,
+				79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */,
 				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
 				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
 				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
@@ -5428,6 +5433,7 @@
 				7982F1581B33C6CB009F878D /* CityPlistTool.m in Sources */,
 				63F1A1B01B14250E00DE9867 /* MJMethod.m in Sources */,
 				5A52FC831ACEBF220076DAE6 /* ButtonList.m in Sources */,
+				79619B7A1BFB5FD60026BAFE /* CustomDynamicModel.m in Sources */,
 				632613211AB1C175003AC2DA /* UIView+MJExtension.m in Sources */,
 				5AED0A121ADB5C5400B0E0E5 /* DayDetailCell.m in Sources */,
 				633263D81AB851590021553B /* AFURLRequestSerialization.m in Sources */,
