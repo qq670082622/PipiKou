@@ -10,6 +10,10 @@
 #import "NSMutableDictionary+QD.h"
 @implementation MeShareDetailModel
 
+//+ (instancetype)initWithDict:(NSDictionary *)dict{
+//    return [[self alloc] initWithDict:dict];
+//}
+
 + (instancetype)shareDetailWithDict:(NSDictionary *)dict{
     return [[self alloc]initWithDictionary:dict];
 }

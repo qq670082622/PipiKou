@@ -78,7 +78,7 @@
 @property (nonatomic,strong) NSArray *orderAppArr;
 
 @property (nonatomic, assign)BOOL popFlag;
-@property (nonatomic, assign)NSInteger customerType;
+
 @property (nonatomic,strong)UILabel *CustomerCounts;
 @property (nonatomic, strong)NSMutableArray *array;
 
