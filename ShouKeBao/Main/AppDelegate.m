@@ -167,6 +167,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     [[NSUserDefaults standardUserDefaults] setValue:crashLogInfo forKey:@"crashLogInfo"];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
 }
+/*
 -(void) creatItem{
     
     UIApplicationShortcutIcon *icon1 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchPro"];
@@ -184,6 +185,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     [UIApplication sharedApplication].shortcutItems = [existArr arrayByAddingObjectsFromArray:addArr];
     [UIApplication sharedApplication].shortcutItems = addArr;
 }
+ */
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //    [[[UIAlertView alloc]initWithTitle:@"a" message:@"\ue40a" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
