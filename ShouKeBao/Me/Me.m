@@ -584,7 +584,7 @@
                     //                                 587767923];
                     //                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
                     
-                    [self checkNewVerSion];
+                    //[self checkNewVerSion];
                     break;
                 }
                 case 4:{
@@ -688,7 +688,7 @@
      */
     self.checkVersionLinkUrl = self.versionInfoDic[@"LinkUrl"];
     self.IOSUpdateType = [NSString stringWithFormat:@"%@", self.versionInfoDic[@"IOSUpdateType"]];
-    NSString * isMust = @"不再询问";
+    NSString * isMust = @"残忍拒绝";
     if ([self.versionInfoDic[@"IsMustUpdate"] integerValue] == 1) {
         isMust = @"退出程序";
     }

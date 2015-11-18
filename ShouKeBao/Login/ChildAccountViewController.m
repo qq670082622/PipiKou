@@ -167,7 +167,7 @@
         NSLog(@"---- ＃＃＃＃＃＃＃＃＃＃＃＃ %@",json);
         
         if ([json[@"IsSuccess"] integerValue] == 1) {
-            
+            [def setObject:@"1" forKey:@"isLogoutYet"];
             // 保存必要的参数
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
             [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
