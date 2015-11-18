@@ -273,7 +273,7 @@
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-    
+    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thirdTouchPushScan:) name:@"3dTouchPushScan" object:nil];//3D Touch通知跳转二维码界面
     
 //    [self.view addSubview:self.tableView];
     
@@ -318,6 +318,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(dealPushBackGround:) name:@"pushWithBackGround" object:nil];//若程序在前台，直接调用，在后台被点击则调用
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(FromiMessage:) name:@"FromiMesseage" object:nil];
     NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
+    [guiDefault setObject:@"1" forKey:@"isLogoutYet"];//3Dtouch的类型
     NSString *SKBGuide = [guiDefault objectForKey:@"SKBGuide"];
     if ([SKBGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
@@ -384,6 +385,18 @@
     }];
 
 }
+//-(void)thirdTouchPushScan:(NSNotification *)notiP{
+//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+//    [def removeObjectForKey:@"ThreeDTouch"];
+//    if (self.isPush == 1) {
+//        self.isPush = 0;
+//        ScanningViewController *scan = [[ScanningViewController alloc] init];
+//        scan.isLogin = YES;
+//        [self.navigationController pushViewController:scan animated:YES];
+//
+//    }
+//}
+
 //设置头部搜索与分站按钮
 -(void)setUpNavBarView
 {
@@ -490,7 +503,7 @@
         NSLog(@"%@", json);
         self.checkVersionLinkUrl = dic[@"LinkUrl"];
         self.IOSUpdateType = [NSString stringWithFormat:@"%@", dic[@"IOSUpdateType"]];
-        NSString * isMust = @"狠心放弃";
+        NSString * isMust = @"残忍拒绝";
         if ([dic[@"IsMustUpdate"] integerValue] == 1) {
             self.isMustUpdate = YES;
             isMust = @"退出程序";
