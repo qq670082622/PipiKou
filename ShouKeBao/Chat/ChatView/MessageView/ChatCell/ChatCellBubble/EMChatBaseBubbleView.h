@@ -1,14 +1,14 @@
 /************************************************************
-  *  * EaseMob CONFIDENTIAL 
-  * __________________ 
-  * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved. 
-  *  
-  * NOTICE: All information contained herein is, and remains 
-  * the property of EaseMob Technologies.
-  * Dissemination of this information or reproduction of this material 
-  * is strictly forbidden unless prior written permission is obtained
-  * from EaseMob Technologies.
-  */
+ *  * EaseMob CONFIDENTIAL
+ * __________________
+ * Copyright (C) 2013-2014 EaseMob Technologies. All rights reserved.
+ *
+ * NOTICE: All information contained herein is, and remains
+ * the property of EaseMob Technologies.
+ * Dissemination of this information or reproduction of this material
+ * is strictly forbidden unless prior written permission is obtained
+ * from EaseMob Technologies.
+ */
 
 #import <UIKit/UIKit.h>
 
@@ -18,8 +18,8 @@
 
 extern NSString *const kRouterEventChatCellBubbleTapEventName;
 #warning 聊天背景图片
-#define BUBBLE_LEFT_IMAGE_NAME @"chat_receiver_bg" // bubbleView 的背景图片
-#define BUBBLE_RIGHT_IMAGE_NAME @"chat_sender_bg"
+#define BUBBLE_LEFT_IMAGE_NAME @"newchat_receiver_bg" // bubbleView 的背景图片
+#define BUBBLE_RIGHT_IMAGE_NAME @"newchat_sender_bg"
 #define BUBBLE_ARROW_WIDTH 5 // bubbleView中，箭头的宽度
 #define BUBBLE_VIEW_PADDING 8 // bubbleView 与 在其中的控件内边距
 
