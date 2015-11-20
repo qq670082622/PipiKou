@@ -34,6 +34,18 @@
 @property (nonatomic, copy)NSString *AdvisorRank; //SKBVipLevel(枚举)
 
 
+//“我”首页判断是否为专属App界面数据
+@property (nonatomic, copy)NSString *QFBLinkUrl;//圈付宝链接地址
+@property (nonatomic, copy)NSString *MoneyTreeUrl;//摇钱树地址
+@property (nonatomic, copy)NSString *ConsultantUrl;//旅游顾问地址
+@property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;//旅游顾问分享信息
+@property (nonatomic, copy)NSString *InvoiceListUrl;//发票列表Url
+@property (nonatomic, copy)NSString *IsOpenConsultantApp;//是否开通专属APP（旅游顾问APP） 1开通 0未开通
+
+
+
+
+
 + (instancetype)initWithDict:(NSDictionary *)dict;
 + (instancetype)shareDetailWithDict:(NSDictionary *)dict;
 - (instancetype)initWithDictionary:(NSDictionary *)dict;

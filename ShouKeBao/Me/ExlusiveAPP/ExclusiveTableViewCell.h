@@ -13,21 +13,6 @@
 
 @property (nonatomic, strong)MeShareDetailModel *model;
 
-@property (weak, nonatomic) IBOutlet UIView *view1;
-@property (weak, nonatomic) IBOutlet UIView *view2;
-@property (weak, nonatomic) IBOutlet UIView *view3;
-@property (weak, nonatomic) IBOutlet UIView *view4;
-@property (weak, nonatomic) IBOutlet UIView *view5;
-@property (weak, nonatomic) IBOutlet UIView *view6;
-@property (weak, nonatomic) IBOutlet UIView *view7;
-@property (weak, nonatomic) IBOutlet UIView *view8;
-@property (weak, nonatomic) IBOutlet UIView *line3;
-@property (weak, nonatomic) IBOutlet UIView *line4;
-@property (weak, nonatomic) IBOutlet UIView *line5;
-
-
-
-
 
 //今日数据
 @property (weak, nonatomic) IBOutlet UIButton *todayDataBtn;
@@ -51,11 +36,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *H_livingCount;
 @property (weak, nonatomic) IBOutlet UILabel *H_placeCount;
 
-
-//line
-
-@property (weak, nonatomic) IBOutlet UIView *line1;
 @property (weak, nonatomic) IBOutlet UIView *line2;
+
+
 
 
 

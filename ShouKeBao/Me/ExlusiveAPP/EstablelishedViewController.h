@@ -12,4 +12,5 @@
 @property (nonatomic, strong)UINavigationController *naVC;
 
 @property (nonatomic, copy)NSString *isExclusiveCustomer;
+@property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;
 @end

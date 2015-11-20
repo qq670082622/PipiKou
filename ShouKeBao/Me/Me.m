@@ -44,6 +44,7 @@
 #import "InvoiceManageViewController.h"
 #import "ExclusiveViewController.h"
 #import "EstablelishedViewController.h"
+#import "MeShareDetailModel.h"
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
@@ -60,6 +61,10 @@
 @property (nonatomic, strong)MeProgressView *progressView;
 @property (nonatomic, strong)NSDictionary * versionInfoDic;
 @property (nonatomic, copy)NSString * IOSUpdateType;
+
+@property (nonatomic, strong)NSMutableArray *dataShareArr;
+@property (nonatomic, copy)NSString *IsOpenConsultantApp;
+@property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;
 @end
 
 @implementation Me
@@ -67,6 +72,8 @@
 #pragma mark - lifecircle
 - (void)viewDidLoad {
     [super viewDidLoad];
+     [self loadIsOpenAppData];
+    
     self.title = @"我";
     self.tableView.rowHeight = 50;
     //self.desArr = @[@[@"我的分享"],@[/*@"专属App",*/@"我的旅行社",@"圈付宝",@"摇钱树",@"发票管理"],@[@"账号安全设置"],@[@"勿扰模式",@"意见反馈",@"关于旅游圈",/*@"评价旅游圈",*/@"检查更新"]];
@@ -220,6 +227,18 @@
     }];
 }
 #pragma mark - getter
+- (NSMutableDictionary *)ConsultanShareInfo{
+    if (!_ConsultanShareInfo) {
+        _ConsultanShareInfo = [NSMutableDictionary dictionary];
+    }
+    return _ConsultanShareInfo;
+}
+- (NSMutableArray *)dataShareArr{
+    if (!_dataShareArr) {
+        _dataShareArr = [NSMutableArray array];
+    }
+    return _dataShareArr;
+}
 - (MeHeader *)meheader
 {
     if (!_meheader) {
@@ -520,26 +539,32 @@
                 [self.navigationController pushViewController:moneyTreeVC animated:YES];
             
             }else if(indexPath.row == 3){
-            
+
                 NSString *level = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWLevel];
                 
-                //   等级为2000以上 && 不是第一次打开 走数据界面
-                
-                if (/*[level intValue] > 2000 && */[[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstOpenExclusiveVC"]){
+#pragma mark---等级为2000以上 && 不是第一次打开 &&已经开通专属App－－》 走数据界面
+
+                if ([level intValue] > 2000 && [[NSUserDefaults standardUserDefaults]boolForKey:@"isFirstOpenExclusiveVC"]&&[self.IsOpenConsultantApp isEqualToString:@"1"]){
                     
                     ExclusiveViewController *exclusiveAPPVC = [[ExclusiveViewController alloc]init];
+                    
                     exclusiveAPPVC.title = @"专属APP";
+                    exclusiveAPPVC.ConsultanShareInfo = self.ConsultanShareInfo;
+                    
+                    NSLog(@"111 ConsultanShareInfo = %@ %@", _ConsultanShareInfo, exclusiveAPPVC.ConsultanShareInfo);
+                    
                     [self.navigationController pushViewController:exclusiveAPPVC animated:YES];
                     
-                //  ｛(等级为2000以上&&第一次打开 )|| 等级不够 ||未开通专属App｝ －－－》 走专属或非专属介绍界面
+#pragma mark-  ｛(等级为2000以上&&第一次打开 )|| 等级不够 ||未开通专属App｝ －－－》 走专属或非专属介绍界面
                 }else{
                     EstablelishedViewController *establelishedVC = [[EstablelishedViewController alloc]init];
                     
-//                    establelishedVC.isExclusiveCustomer = 是否是专属客户
+                    establelishedVC.isExclusiveCustomer = self.IsOpenConsultantApp;
+                    establelishedVC.ConsultanShareInfo = self.ConsultanShareInfo;
                     establelishedVC.naVC = self.navigationController;
+                    
                     [self.navigationController pushViewController:establelishedVC animated:YES];
                 }
-                
                 [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstOpenExclusiveVC"];
                 
             }else if(indexPath.row == 4){
@@ -680,6 +705,22 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     return 0.01f;
+}
+#pragma mark - 加载数据
+- (void)loadIsOpenAppData{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [IWHttpTool WMpostWithURL:@"/Business/GetMeIndex" params:dic success:^(id json) {
+        NSLog(@"------是否专属的json is %@-------",json);
+        
+        [self.ConsultanShareInfo addEntriesFromDictionary:json[@"ConsultanShareInfo"]];
+        self.IsOpenConsultantApp = json[@"IsOpenConsultantApp"];
+
+//        MeShareDetailModel *model = [MeShareDetailModel shareDetailWithDict:json];
+//        [self.dataShareArr addObject:model];
+
+    } failure:^(NSError *error) {
+        NSLog(@"接口请求失败 error is %@------",error);
+    }];
 }
 
 #pragma mark - CheckNewVersion

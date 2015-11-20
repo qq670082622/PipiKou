@@ -9,7 +9,7 @@
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="ExclusiveTableViewCell">
             <rect key="frame" x="0.0" y="0.0" width="320" height="268"/>
-            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
                 <rect key="frame" x="0.0" y="0.0" width="320" height="267"/>
                 <autoresizingMask key="autoresizingMask"/>
@@ -19,21 +19,38 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <inset key="titleEdgeInsets" minX="-25" minY="30" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="25" minY="10" maxX="0.0" maxY="40"/>
-                        <state key="normal" title="今日数据" image="iconfont-iconfont37newtag">
+                        <state key="normal">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="今日数据" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="vsE-hK-MIQ">
+                        <rect key="frame" x="20" y="67" width="60" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="T07-zJ-mvc">
                         <rect key="frame" x="0.0" y="134" width="100" height="134"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <inset key="titleEdgeInsets" minX="-25" minY="30" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="25" minY="10" maxX="0.0" maxY="40"/>
-                        <state key="normal" title="历史数据" image="iconfont-lishijilu">
+                        <state key="normal">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconfont-lishijilu" id="12X-rD-FI9">
+                        <rect key="frame" x="35" y="170" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="历史数据" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="dkS-Ad-wjO">
+                        <rect key="frame" x="20" y="200" width="60" height="40"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                     <view contentMode="scaleToFill" id="VKj-Xy-Bbz" userLabel="View1">
                         <rect key="frame" x="100" y="0.0" width="110" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -76,19 +93,24 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <view contentMode="scaleToFill" id="ICS-in-AyJ" userLabel="line4">
+                        <rect key="frame" x="101" y="70.5" width="220" height="1"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                        <color key="backgroundColor" red="0.81613005049999998" green="0.81613005049999998" blue="0.81613005049999998" alpha="1" colorSpace="calibratedRGB"/>
+                    </view>
                     <view contentMode="scaleToFill" id="40e-Tr-WfE" userLabel="View3">
-                        <rect key="frame" x="210" y="0.0" width="110" height="67"/>
+                        <rect key="frame" x="212" y="0.0" width="108" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11人" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="36P-LO-4Fm">
-                                <rect key="frame" x="0.0" y="10" width="110" height="31"/>
+                                <rect key="frame" x="0.0" y="10" width="108" height="31"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活跃客户" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4zC-GM-Uzk">
-                                <rect key="frame" x="0.0" y="41" width="110" height="21"/>
+                                <rect key="frame" x="0.0" y="41" width="108" height="21"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -98,19 +120,19 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="LsW-yv-gGy" userLabel="View4">
-                        <rect key="frame" x="210" y="67" width="110" height="67"/>
+                        <rect key="frame" x="212" y="71" width="108" height="63"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="KLF-ZN-pBs">
-                                <rect key="frame" x="0.0" y="10" width="110" height="31"/>
+                                <rect key="frame" x="0.0" y="6.5" width="108" height="30.5"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="textColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下单量" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="e4G-7J-fV0">
-                                <rect key="frame" x="0.0" y="42" width="110" height="20"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <rect key="frame" x="0.0" y="38" width="108" height="20"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -119,18 +141,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="YYd-ad-47U" userLabel="View5">
-                        <rect key="frame" x="100" y="134" width="110" height="67"/>
+                        <rect key="frame" x="100" y="134" width="108" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="100" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="laX-g1-aqX">
-                                <rect key="frame" x="0.0" y="10" width="110" height="30"/>
+                                <rect key="frame" x="0.0" y="10" width="108" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.18052753069999999" green="0.48021973579999999" blue="0.71302872470000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已安装" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="UEu-Oo-2e3">
-                                <rect key="frame" x="0.0" y="42" width="110" height="20"/>
+                                <rect key="frame" x="0.0" y="42" width="108" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -140,18 +162,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="jcB-Wh-vXZ" userLabel="View6">
-                        <rect key="frame" x="100" y="201" width="110" height="67"/>
+                        <rect key="frame" x="100" y="201" width="108" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1000" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pK5-jQ-lsR">
-                                <rect key="frame" x="0.0" y="10" width="110" height="30"/>
+                                <rect key="frame" x="0.0" y="10" width="108" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.18052753069999999" green="0.48021973579999999" blue="0.71302872470000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="产品浏览" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ger-Kt-kcN">
-                                <rect key="frame" x="0.0" y="42" width="110" height="20"/>
+                                <rect key="frame" x="0.0" y="42" width="108" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -161,18 +183,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="XhX-Ao-1eT" userLabel="View7">
-                        <rect key="frame" x="210" y="134" width="110" height="67"/>
+                        <rect key="frame" x="212" y="134" width="108" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="333" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="u7c-OE-FZY">
-                                <rect key="frame" x="0.0" y="10" width="110" height="30"/>
+                                <rect key="frame" x="0.0" y="10" width="108" height="29.5"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.18052753069999999" green="0.48021973579999999" blue="0.71302872470000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="活跃客户" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6z0-J6-xnk">
-                                <rect key="frame" x="0.0" y="42" width="110" height="20"/>
+                                <rect key="frame" x="0.0" y="42" width="108" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -182,18 +204,18 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="bgr-mf-yDJ" userLabel="View8">
-                        <rect key="frame" x="210" y="201" width="110" height="67"/>
+                        <rect key="frame" x="212" y="201" width="108" height="67"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="22" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jLh-VV-giP">
-                                <rect key="frame" x="0.0" y="10" width="110" height="30"/>
+                                <rect key="frame" x="0.0" y="10" width="108" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="textColor" red="1" green="0.31913021460000002" blue="0.0955458691" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.18052753069999999" green="0.48021973579999999" blue="0.71302872470000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下单量" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fab-b8-ocH">
-                                <rect key="frame" x="0.0" y="40" width="110" height="20"/>
+                                <rect key="frame" x="0.0" y="40" width="108" height="20"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" heightSizable="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
@@ -203,12 +225,12 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="8Cy-Dp-dQZ" userLabel="line1">
-                        <rect key="frame" x="100" y="0.0" width="0.5" height="268"/>
+                        <rect key="frame" x="100" y="0.0" width="1" height="268"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <view contentMode="scaleToFill" id="Y63-eg-CPx" userLabel="line2">
-                        <rect key="frame" x="210" y="0.0" width="0.5" height="268"/>
+                        <rect key="frame" x="211" y="0.0" width="1" height="268"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -217,16 +239,15 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <view contentMode="scaleToFill" id="ICS-in-AyJ" userLabel="line4">
-                        <rect key="frame" x="100" y="67" width="220" height="0.5"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" red="0.81613005049999998" green="0.81613005049999998" blue="0.81613005049999998" alpha="1" colorSpace="calibratedRGB"/>
-                    </view>
                     <view contentMode="scaleToFill" id="PwF-eA-HbZ" userLabel="line5">
-                        <rect key="frame" x="100" y="201" width="220" height="0.5"/>
+                        <rect key="frame" x="101" y="201" width="220" height="1"/>
                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                         <color key="backgroundColor" red="0.81613005049999998" green="0.81613005049999998" blue="0.81613005049999998" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconfont-iconfont37newtag" id="DSw-pC-nBq">
+                        <rect key="frame" x="35" y="37" width="30" height="30"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                    </imageView>
                 </subviews>
             </tableViewCellContentView>
             <connections>
@@ -237,11 +258,7 @@
                 <outlet property="builtCount" destination="5vy-yf-xtn" id="ENs-Sh-8IK"/>
                 <outlet property="builtLable" destination="Bno-hW-JaV" id="Qs2-7U-oSe"/>
                 <outlet property="historyDataBtn" destination="T07-zJ-mvc" id="zMs-Sr-SwD"/>
-                <outlet property="line1" destination="8Cy-Dp-dQZ" id="kzd-du-1P9"/>
-                <outlet property="line2" destination="Y63-eg-CPx" id="DVC-2g-YrU"/>
-                <outlet property="line3" destination="nhD-IN-Xkm" id="C0y-Wd-DNS"/>
-                <outlet property="line4" destination="ICS-in-AyJ" id="NIo-wY-cXT"/>
-                <outlet property="line5" destination="PwF-eA-HbZ" id="YXw-UT-003"/>
+                <outlet property="line2" destination="Y63-eg-CPx" id="5UC-xd-6OC"/>
                 <outlet property="livingCount" destination="36P-LO-4Fm" id="OmA-pj-zC5"/>
                 <outlet property="livingL" destination="4zC-GM-Uzk" id="i4k-Sz-I1e"/>
                 <outlet property="placeCount" destination="KLF-ZN-pBs" id="x4U-uI-RcV"/>
@@ -249,14 +266,6 @@
                 <outlet property="productCount" destination="D6N-ka-6xz" id="65I-y2-VBH"/>
                 <outlet property="productL" destination="SnH-3F-7oB" id="2xe-0h-T8d"/>
                 <outlet property="todayDataBtn" destination="zt0-Vk-02r" id="hLD-Rr-HUx"/>
-                <outlet property="view1" destination="VKj-Xy-Bbz" id="uyB-PY-aV8"/>
-                <outlet property="view2" destination="Zza-0f-sh6" id="vCB-X0-s6g"/>
-                <outlet property="view3" destination="40e-Tr-WfE" id="Wc3-Bw-ton"/>
-                <outlet property="view4" destination="LsW-yv-gGy" id="LBE-J1-ApP"/>
-                <outlet property="view5" destination="YYd-ad-47U" id="XY4-Mk-qoE"/>
-                <outlet property="view6" destination="jcB-Wh-vXZ" id="FNq-EK-qeP"/>
-                <outlet property="view7" destination="XhX-Ao-1eT" id="YzQ-lP-G1i"/>
-                <outlet property="view8" destination="bgr-mf-yDJ" id="L15-4q-Wb7"/>
             </connections>
             <point key="canvasLocation" x="288" y="201"/>
         </tableViewCell>

@@ -12,6 +12,7 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "MobClick.h"
+#import "ExclusiveViewController.h"
 
 #define kScreenWidth   [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight  [UIScreen mainScreen].bounds.size.height
@@ -29,6 +30,7 @@ static id _Url;
 static id _blackView;
 static id _shareView;
 static bool _flag;
+static id _naVC;
 
 //5 只要注册一个观察者 一定要在类的dealloc方法中 移除掉自己的观察者身份在ARC下一样
 - (void)dealloc
@@ -39,12 +41,13 @@ static bool _flag;
 
 /*只需要在分享按钮事件中 构建好分享内容publishContent传过来就好了*/
 
-+(void)shareWithContent:(id)publishContent backgroundShareView:(id)backgroundShareView andUrl:(NSString *)url{
++(void)shareWithContent:(id)publishContent backgroundShareView:(id)backgroundShareView naVC:(id)naVC andUrl:(NSString *)url{
     
     _publishContent = publishContent;
     _Url = url;
+    _naVC = naVC;
 
-    //  自定义弹出的分享view
+    //  自定义分享view
     UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, kScreenWidth-20, (300-10-15-10)*KHeight /*kScreenHeight/2.0f-60+20*KHeight_Scale*/)];
     shareView.backgroundColor = [UIColor colorWithRed:236/255.0f green:236/255.0f blue:236/255.0f alpha:1];
     shareView.tag = 441;
@@ -71,8 +74,8 @@ static bool _flag;
     contentLabel.font = [UIFont systemFontOfSize:12];
     [shareView addSubview:contentLabel];
     
-    NSArray *btnImages = @[@"iconfont-kongjian", @"iconfont-qq", @"iconfont-weixin", @"iconfont-pengyouquan", @"iconfont-fuzhi", @"iconfont-duanxin"];
-    NSArray *btnTitles = @[@"QQ空间", @"QQ", @"微信好友", @"微信朋友圈", @"复制链接", @"短信"];
+    NSArray *btnImages = @[@"iconfont-qq", @"iconfont-pengyouquan", @"iconfont-weixin",  @"iconfont-duanxin", @"iconfont-fuzhi", @"iconfont-kongjian"];
+    NSArray *btnTitles = @[@"QQ", @"朋友圈",  @"微信好友", @"短信", @"复制链接", @"QQ空间"];
     for (NSInteger i=0; i<6; i++) {
         CGFloat top = 0.0f;
         if (i<3) {
@@ -94,7 +97,8 @@ static bool _flag;
         }else{
             [button setImageEdgeInsets:UIEdgeInsetsMake(0, 20*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
         }
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(65*KHeight, -50*KWidth_Scale, 5*KWidth_Scale, 0)];
+        [button setTitleEdgeInsets:UIEdgeInsetsMake(65*KHeight, -52*KWidth_Scale, 5*KWidth_Scale, 0)];
+        
         button.tag = 331+i;
         [button addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:button];
@@ -102,37 +106,18 @@ static bool _flag;
 }
 
 +(void)shareBtnClick:(UIButton *)btn{
-    _flag = 0;
-//    
-//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//    [center postNotificationName:@"zzm" object:@"key" userInfo:nil];
-    
-    UIWindow *window = [UIApplication sharedApplication].keyWindow;
-    UIView *blackView = [window viewWithTag:440];
-    UIView *shareView = [window viewWithTag:441];
-    
-    //为了弹窗不那么生硬，这里加了个简单的动画
-    shareView.transform = CGAffineTransformMakeScale(1, 1);
-    [UIView animateWithDuration:0.35f animations:^{
-        shareView.transform = CGAffineTransformMakeScale(1/300.0f, 1/270.0f);
-        blackView.alpha = 0;
-    } completion:^(BOOL finished) {
-        [shareView removeFromSuperview];
-        [blackView removeFromSuperview];
-    }];
-    
     int shareType = 0;
     id publishContent = _publishContent;
     switch (btn.tag) {
         case 331:
         {
-            shareType = ShareTypeQQSpace;
+            shareType = ShareTypeQQ;
         }
             break;
             
         case 332:
         {
-            shareType = ShareTypeQQ ;
+            shareType =  ShareTypeWeixiTimeline;
         }
             break;
             
@@ -144,7 +129,7 @@ static bool _flag;
             
         case 334:
         {
-            shareType = ShareTypeWeixiTimeline;
+            shareType = ShareTypeSMS;
         }
             break;
             
@@ -156,7 +141,7 @@ static bool _flag;
             
         case 336:
         {
-            shareType = ShareTypeSMS;
+            shareType = ShareTypeQQSpace;
         }
             break;
             
@@ -171,24 +156,15 @@ static bool _flag;
         
         if (state == SSResponseStateSuccess){
             
-            NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
-            [postDic setObject:@"0" forKey:@"ShareType"];
-            [postDic setObject:_Url  forKey:@"ShareUrl"];
-            [postDic setObject:@"" forKey:@"PageUrl"];
             if (type ==ShareTypeWeixiSession) {
-                [postDic setObject:@"1" forKey:@"ShareWay"];
+
             }else if(type == ShareTypeQQ){
-                [postDic setObject:@"2" forKey:@"ShareWay"];
+
             }else if(type == ShareTypeQQSpace){
-                [postDic setObject:@"3" forKey:@"ShareWay"];
+
             }else if(type == ShareTypeWeixiTimeline){
-                [postDic setObject:@"4" forKey:@"ShareWay"];
+
             }
-            NSLog(@"%@", postDic);
-            [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
-            } failure:^(NSError *error) {
-                
-            }];
             
             NSLog(NSLocalizedString(@"TEXT_ShARE_SUC", @"分享成功"));
             if (type == ShareTypeCopy) {
@@ -200,6 +176,11 @@ static bool _flag;
                 [MBProgressHUD hideHUD];
             });
             
+            
+            ExclusiveViewController *exclusiveVC = [[ExclusiveViewController alloc]init];
+            [_naVC pushViewController:exclusiveVC animated:YES];
+            
+            
         }
         else if (state == SSResponseStateFail)
         {
@@ -210,21 +191,6 @@ static bool _flag;
         }
     }];
 }
-
-//+ (void)cancleBtnClickAction{
-//
-//    NSNotificationCenter *center = [NSNotificationCenter defaultCenter];
-//    [center postNotificationName:@"zzm" object:@"key" userInfo:nil];
-//    [self cancleBtnClick];
-//    
-//}
-//
-//+ (void)cancleBtnClick{
-//    
-//    [_blackView removeFromSuperview];
-//    [_shareView removeFromSuperview];
-//    
-//}
 
 
 
