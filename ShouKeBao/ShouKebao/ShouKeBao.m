@@ -1165,7 +1165,7 @@
 {
     self.guideIndex++;
     
-    NSString *str = [NSString stringWithFormat:@"GuideSKB%d",self.guideIndex+1];
+    NSString *str = [NSString stringWithFormat:@"NewGuideSKB%d",self.guideIndex+1];
     self.guideImageView.image = [UIImage imageNamed:str];
     
     CATransition *an1 = [CATransition animation];
@@ -1174,7 +1174,7 @@
     an1.duration = 0.2;
     [self.guideImageView.layer addAnimation:an1 forKey:nil];
     
-    if (self.guideIndex == 3) {
+    if (self.guideIndex == 2) {
         
         [self.guideView removeFromSuperview];
         

@@ -45,6 +45,11 @@
 #import "ExclusiveViewController.h"
 #import "EstablelishedViewController.h"
 #import "MeShareDetailModel.h"
+#define foureSize ([UIScreen mainScreen].bounds.size.height == 480)
+#define fiveSize ([UIScreen mainScreen].bounds.size.height == 568)
+#define sixSize ([UIScreen mainScreen].bounds.size.height == 667)
+#define sixPSize ([UIScreen mainScreen].bounds.size.height > 668)
+#define kScreenSize [UIScreen mainScreen].bounds.size
 
 @interface Me () <MeHeaderDelegate,MeButtonViewDelegate,UIActionSheetDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate,UIScrollViewDelegate, UIAlertViewDelegate>
 
@@ -65,6 +70,9 @@
 @property (nonatomic, strong)NSMutableArray *dataShareArr;
 @property (nonatomic, copy)NSString *IsOpenConsultantApp;
 @property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;
+@property (nonatomic,strong) UIView *guideView;
+@property (nonatomic,strong) UIImageView *guideImageView;
+
 @end
 
 @implementation Me
@@ -91,6 +99,12 @@
 //    [self.view addSubview:pro];
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
     
+    NSString *SKBMeGuide = [def objectForKey:@"NewMeGuide"];
+//    if ([SKBMeGuide integerValue] != 1) {// 是否第一次打开app
+        //这里需要 等级顾问登记区别
+        [self Guide];
+//    }
+    
     //获取版本信息
     NSDictionary * dic = @{};
     [MeHttpTool inspectionWithParam:dic success:^(id json) {
@@ -100,7 +114,51 @@
         
     }];
 }
+//第一次开机引导
+-(void)Guide
+{
+    self.guideView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _guideView.backgroundColor = [UIColor blackColor];
+    _guideView.alpha = 0.5;
+    self.guideImageView = [[UIImageView alloc] init];
+    [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
+    //if(1){//已开通
+      //  self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide"];//NewMeGuide
 
+    //}else{
+    if (foureSize) {
+        self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
+        self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide4"];//NewMeGuide
+    }else{
+        self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide5no"];//NewMeGuide
+        if (fiveSize) {
+           self.guideImageView.frame =CGRectMake(20,kScreenSize.height/3+20 , kScreenSize.width-40, kScreenSize.height/2);
+        }else if(sixSize){
+            self.guideImageView.frame =CGRectMake(20,kScreenSize.height/4-5 , kScreenSize.width-40, kScreenSize.height/2);
+        }else{
+        self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
+        }
+    }
+    //}
+    
+    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+    [guideDefault setObject:@"1" forKey:@"NewMeGuide"];
+    [guideDefault synchronize];
+    
+    [[[UIApplication sharedApplication].delegate window] addSubview:_guideView];
+    [[[UIApplication sharedApplication].delegate window] addSubview:_guideImageView];
+}
+-(void)click
+{
+    CATransition *an1 = [CATransition animation];
+    an1.type = @"rippleEffect";
+    an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
+    an1.duration = 0.2;
+    [self.guideImageView.layer addAnimation:an1 forKey:nil];
+    [self.guideImageView removeFromSuperview];
+    [self.guideView removeFromSuperview];
+    
+}
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
