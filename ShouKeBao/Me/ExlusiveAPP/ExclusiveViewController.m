@@ -36,7 +36,8 @@
 - (IBAction)touchExclusiveAppButton:(id)sender;
 //分享
 @property (nonatomic, copy)NSString *IsBinding;
-
+@property (nonatomic,strong) UIView *guideView;
+@property (nonatomic,strong) UIImageView *guideImageView;
 
 @end
 
@@ -62,12 +63,43 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *SKBMeGuide = [def objectForKey:@"NewMegwGuide"];
+    if ([SKBMeGuide integerValue] != 1) {// 是否第一次打开app
+        //这里需要 等级顾问登记区别
+        [self Guide];
+    }
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickCustomerLableToComeInCustomer:)];
     [self.customerCount addGestureRecognizer:tap];
     
 }
-
+//第一次开机引导
+-(void)Guide
+{
+    self.guideView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    _guideView.backgroundColor = [UIColor clearColor];
+    self.guideImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
+    [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
+    self.guideImageView.image = [UIImage imageNamed:@"NewMegwGuide"];//NewMeGuide
+    
+    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
+    [guideDefault setObject:@"1" forKey:@"NewMegwGuide"];
+    [guideDefault synchronize];
+    
+    [self.guideView addSubview:_guideImageView];
+    [[[UIApplication sharedApplication].delegate window] addSubview:_guideView];
+}
+-(void)click
+{
+    CATransition *an1 = [CATransition animation];
+    an1.type = @"rippleEffect";
+    an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
+    an1.duration = 0.2;
+    [self.guideImageView.layer addAnimation:an1 forKey:nil];
+    [self.guideView removeFromSuperview];
+    
+}
 - (void)clickCustomerLableToComeInCustomer:(UITapGestureRecognizer *)tap{
     Customers *customerVC = [[Customers alloc]init];
     customerVC.customerType = 2;
@@ -253,7 +285,7 @@
     }
     CGFloat labW = [[UIScreen mainScreen] bounds].size.width;
     UILabel *lab = [[UILabel alloc] initWithFrame:CGRectMake(0, screenH, labW, 30)];
-    lab.text = @"您分享出去的内容对外只显示门市价";
+    lab.text = @"分享您的专属APP";
     lab.textColor = [UIColor blackColor];
     lab.textAlignment = NSTextAlignmentCenter;
     lab.font = [UIFont systemFontOfSize:12];
