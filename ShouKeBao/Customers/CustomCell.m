@@ -51,26 +51,19 @@ static id _naNC;
 
 - (IBAction)informationIM:(id)sender {
     
-    //    if ([self.model.ProgressState integerValue] == 0) {
-    //        UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是您的专属客户,马上向TA发送邀请成为您的专属客户吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
-    //        [alert show];
-    //    }else{
-    //        if (_delegate && [_delegate respondsToSelector:@selector(transformPerformation:)]) {
-    //            [_delegate transformPerformation:sender];
-    //        }
-    //
-    //
-    //    }
-    
-    UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是您的专属客户,马上向TA发送邀请成为您的专属客户吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
-    [alert show];
+        if ([self.model.IsOpenIM integerValue] == 0) {
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是您的专属客户,马上向TA发送邀请成为您的专属客户吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
+            [alert show];
+        }else{
+            if (_delegate && [_delegate respondsToSelector:@selector(transformPerformation:)]) {
+                [_delegate transformPerformation:sender];
+            }
+        }
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 1) {
-        //        点击邀请走的方法
-        NSLog(@",,,.........");
-        
+//        点击邀请走的方法
         //  方式1:不能指定短信内容
         //        NSString *telStr = [NSString stringWithFormat:@"sms://%@", self.telStr];
         //        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:telStr]];
@@ -133,7 +126,6 @@ static id _naNC;
     
     NSMutableArray *arr = [NSMutableArray array];
     for (NSTextCheckingResult *result in results) {
-//        NSLog(@"%@   %@", NSStringFromRange(result.range), [d substringWithRange:result.range]);
         [arr addObject:[model.Mobile substringWithRange:result.range]];
     }
     NSString *tel = [NSString string];
@@ -145,10 +137,16 @@ static id _naNC;
     self.userOders.text = [NSString stringWithFormat:@"订单数：%@",model.OrderCount];
     
     
-//    if ([self.model.ProgressState integerValue] == 1) {
+    if ([self.model.IsOpenIM integerValue] == 0) {
+        [self.information setImage:[UIImage imageNamed:@"orangeMessage"] forState:UIControlStateNormal];
+    }
+
+
+//    if ([self.model.IsOpenIM integerValue] == 1 /*&& 提示有对话消息时*/) {
 //        [self.information setImage:[UIImage imageNamed:@"redMessage"] forState:UIControlStateNormal];
 //    }
     
+
     
 }
 

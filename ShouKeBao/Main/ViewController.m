@@ -9,6 +9,7 @@
 #define HWColor(r, g, b) [UIColor colorWithRed:(r)/255.0 green:(g)/255.0 blue:(b)/255.0 alpha:1.0]
 #import "ViewController.h"
 #import "Customers.h"
+#import "OldCustomerViewController.h"
 #import "FindProduct.h"
 #import "Me.h"
 #import "Orders.h"
@@ -16,6 +17,7 @@
 #import "WMNavigationController.h"
 #import "ResizeImage.h"
 #import "FindProductNew.h"
+
 @interface ViewController ()
 @property (copy ,nonatomic) NSMutableString *skbValue;
 @property (copy ,nonatomic) NSMutableString *fdpValue;
@@ -61,7 +63,10 @@
     
     Customers *cstm = [[Customers alloc] init];
     [self addChildVc:cstm title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
-   
+    
+//    OldCustomerViewController *oldCustomerVC = [[OldCustomerViewController alloc]init];
+//    [self addChildVc:oldCustomerVC title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
+//    
     
     Me *me = [[Me alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildVc:me title:@"我" image:@"wo2" selectedImage:@"wo"];

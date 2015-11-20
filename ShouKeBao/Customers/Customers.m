@@ -107,9 +107,7 @@
     [self searchDisplay];
     
     self.chooseAppArr = [NSMutableArray arrayWithObjects:@"不限", @"新绑定APP客户", @"绑定APP客户", @"其他客户", nil];
-    
-    
-    
+
 //    self.A_Z_arr = [NSMutableArray arrayWithObjects:@"A", @"B", @"C", @"D", @"E", @"F", @"G",@"H", @"I", @"J", @"K", @"L", @"M", @"N", @"O", @"P", @"Q", nil];
     
     self.pageIndex = 1;
@@ -118,8 +116,6 @@
     [self.addNew setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
     [self.importUser setBackgroundColor:[UIColor colorWithRed:13/255.f green:122/255.f blue:255/255.f alpha:1]];
    
-
-    
     [self.timeBtn setSelected:YES];
     [self customerRightBarItem];
     [self setTable];
@@ -142,10 +138,13 @@
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     [self CustomerCounts];
 }
-
+#warning 消息点击时间
 #pragma mark -代理方法
 - (void)transformPerformation:(UIButton *)formation{
+    
+    
     messageCenterViewController *messVC = [[messageCenterViewController alloc]init];
+    NSLog(@"++++++++++===========");
     messVC.delegate = self;
     [self.navigationController pushViewController:messVC animated:YES];
 }
@@ -400,26 +399,14 @@
     if (self.historyArr.count > 6) {
         [self.historyArr removeObjectAtIndex:0];
     }
-    
     [self.noProductWarnLab removeFromSuperview];
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [dic setObject:[NSString stringWithFormat:@"%d", self.pageIndex] forKey:@"PageIndex"];
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
-    
-    //    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    //    NSString *sortType = [accountDefaults stringForKey:@"sortType"];
-    //    if (sortType) {
-    //        [dic setObject:sortType forKey:@"sortType"];
-    //    }else if (!sortType){
-    //        [dic setObject:@"2" forKey:@"sortType"];
-    //}
-    
+    [dic setObject:@7 forKey:@"SortType"];
     [dic setObject:self.searchK forKey:@"SearchKey"];
     [dic setObject:[NSString stringWithFormat:@"%ld", self.customerType]forKey:@"CustomerType"];
     //    [dic setObject:@2 forKey:@"CustomerType"];
-    
-    [dic setObject:@7 forKey:@"SortType"];
-
 
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
@@ -427,6 +414,7 @@
             [self.dataArr removeAllObjects];
             [self.array removeAllObjects];
         }
+        
         
         self.totalNumber = json[@"TotalCount"];
         
@@ -453,21 +441,7 @@
                     CustomModel *model = [CustomModel modalWithDict:dic];
                     [costomerModel.otherCustomArr addObject:model];
                 }
-                //                CustomerSection *list = [self.letterArr lastObject];
-                //                if ([[list letter] isEqualToString:groupType]) {
-                //                    CustomModel *model = [CustomModel modalWithDict:dic];
-                //                    [list.arr addObject:model];
-                //
-                //                }else{
-                //                    CustomerSection *list = [[CustomerSection alloc] init];
-                //                    list.letter = [dic objectForKey:@"GroupbyType"]; //1 2 3
-                //                    CustomModel *model = [CustomModel modalWithDict:dic];
-                //                    [list.arr addObject:model];
-                //                    [self.letterArr addObject:list];
-                //                }
-                //             }
-                
-            }
+                    }
             if (costomerModel.newsBindingCustomArr.count) {
                 [self.dataArr addObject:costomerModel.newsBindingCustomArr];
             }
@@ -488,14 +462,18 @@
             self.imageViewWhenIsNull.hidden = YES ;
             self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.array.count];
         }
+   
+        
         [self.table reloadData];
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
+
     } failure:^(NSError *error) {
         NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
     }];
-    
+  
 }
+
 
 #pragma mark - 加载完事时显示的内容
 - (void)warning{
@@ -551,7 +529,8 @@
 //        CustomModel *model = _dataArr[indexPath.row];
 //        cell.model = model;
 //        self.ID = cell.model.ID;
-
+        
+        cell.delegate = self;
         cell.model = _dataArr[indexPath.section][indexPath.row];
         self.ID = cell.model.ID;
         return cell;
@@ -812,34 +791,6 @@
 #pragma mark - textField delegate method
 - (void)searchLoadData{
     [self loadDataSource];
-//    if (self.historyArr.count > 6) {
-//        [self.historyArr removeObjectAtIndex:0];
-//    }
-//    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-//    [dic setObject:@1 forKey:@"PageIndex"];
-//    [dic setObject:@"100" forKey:@"PageSize"];
-//    
-//    [dic setObject:self.searchK forKey:@"SearchKey"];
-//    
-//    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json) {
-//        NSLog(@"------管客户搜索结果的json is %@-------",json);
-//        [self.dataArr removeAllObjects];
-//        for(NSDictionary *dic in json[@"CustomerList"]){
-//            CustomModel *model = [CustomModel modalWithDict:dic];
-//            [self.dataArr addObject:model];
-//        }
-//        
-//        [self.table reloadData];
-//        if (self.dataArr.count == 0) {
-//        self.CustomerCounts.hidden = YES;
-//            self.imageViewWhenIsNull.hidden = NO;
-//        }else if (self.dataArr.count >0){
-//            self.imageViewWhenIsNull.hidden = YES;
-//            self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.arr.count];
-//        }
-//    } failure:^(NSError *error) {
-//        NSLog(@"-------管客户第一个接口请求失败 error is %@------",error);
-//    }];
 }
 
 #pragma -mark 各种初始化
@@ -909,9 +860,7 @@
         _searchBar.placeholder = searchDefaultPlaceholder;
         _searchBar.barTintColor = [UIColor colorWithRed:232/255.0 green:234/255.0 blue:235/255.0 alpha:1];
         _searchBar.autocapitalizationType = UITextAutocapitalizationTypeSentences;
-        
     }
-    
     return _searchBar;
 }
 - (SKSearckDisplayController *)searchDisplay
@@ -928,167 +877,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-#pragma mark = 老版本部分内容
-//- (IBAction)timeOrderAction:(id)sender {
-//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-//    [MobClick event:@"TimeOrderClick" attributes:dict];
-//
-//    self.timeButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
-//    self.wordButton.textColor = [UIColor blackColor];
-////    if ([self.wordButton.iconImage isEqual:[UIImage imageNamed:@"xiangxiablue"]]) {
-//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxia"];
-////    }else{
-////        self.wordButton.iconImage = [UIImage imageNamed:@"xiangshang"];
-////    }
-//
-//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//
-//    hudView.labelText = @"加载中...";
-//
-//    [hudView show:YES];
-//
-//    [self.wordBtn setSelected:NO];
-//
-//    self.pageIndex = 1;
-//    if (self.timeBtn.selected == NO) {
-//        [self.timeBtn setSelected:YES];
-//         NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//        [accountDefaults setObject:@"2" forKey:@"sortType"];
-//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-//
-//        [accountDefaults synchronize];
-//        [self.dataArr removeAllObjects];
-//        [self loadDataSource];
-//      //  [self.table reloadData];
-//
-//    }else if (self.timeBtn.selected == YES && [self.timeBtn.currentTitle  isEqual: @"时间排序 ↓"]) {
-//        [self.timeBtn setSelected:YES];
-//
-//        [self.timeBtn setTitle:@"时间排序 ↑" forState:UIControlStateNormal];
-//        //向上箭头设置；
-//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
-//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//        [accountDefaults setObject:@"1" forKey:@"sortType"];
-//        [accountDefaults synchronize];
-//        [self.dataArr removeAllObjects];
-//        [self loadDataSource];
-//       // [self.table reloadData];
-//
-//    }else if (self.timeBtn.selected == YES &&[self.timeBtn.currentTitle isEqual:@"时间排序 ↑"]){
-//        [self.timeBtn setSelected:YES];
-//        [self.timeButton setSelected:YES];
-//
-//        [self.timeBtn setTitle:@"时间排序 ↓" forState:UIControlStateNormal];
-//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//        [accountDefaults setObject:@"2" forKey:@"sortType"];
-//        [accountDefaults synchronize];
-//        [self.dataArr removeAllObjects];
-//        [self loadDataSource];
-//      //  [self.table reloadData];
-//
-//    }
-//    [hudView hide:YES];
-//}
-
-
-//- (IBAction)wordOrderAction:(id)sender {
-//
-//    BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
-//    [MobClick event:@"WordOrderClick" attributes:dict];
-//    self.timeButton.textColor = [UIColor blackColor];
-//    self.wordButton.textColor = [UIColor colorWithRed:0 green:99/255.0 blue:1.0 alpha:1.0];
-////    if ([self.timeButton.iconImage isEqual:[UIImage imageNamed:@"xiangshangblue"]]) {
-////        self.timeButton.iconImage = [UIImage imageNamed:@"xiangshang"];
-////    }else{
-//        self.timeButton.iconImage = [UIImage imageNamed:@"xiangxia"];
-////    }
-//    self.pageIndex = 1;
-//    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
-//    hudView.labelText = @"加载中...";
-//    [hudView show:YES];
-//
-//
-//    [self.timeBtn setSelected:NO];
-//   // [self.orderNumBtn setSelected:NO];
-//    if (self.wordBtn.selected == NO) {
-//        [self.wordBtn setSelected:YES];
-//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//        [accountDefaults setObject:@"6" forKey:@"sortType"];
-//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-//
-//        [accountDefaults synchronize];
-//        [self.dataArr removeAllObjects];
-//        [self loadDataSource];
-//        //[self.table reloadData];
-//    }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↓"]){
-//        [self.wordBtn setSelected:YES];
-//
-//        [self.wordBtn setTitle:@"字母排序 ↑" forState:UIControlStateNormal];
-//           self.wordButton.iconImage = [UIImage imageNamed:@"xiangshangblue"];
-//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//        [accountDefaults setObject:@"5" forKey:@"sortType"];
-//        [accountDefaults synchronize];
-//        [self.dataArr removeAllObjects];
-//        [self loadDataSource];
-//       // [self.table reloadData];
-//
-//    }else if (self.wordBtn.selected == YES && [self.wordBtn.currentTitle  isEqual: @"字母排序 ↑"]){
-//        [self.wordBtn setSelected:YES];
-//
-//        [self.wordBtn setTitle:@"字母排序 ↓" forState:UIControlStateNormal];
-//        self.wordButton.iconImage = [UIImage imageNamed:@"xiangxiablue"];
-//        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//        [accountDefaults setObject:@"6" forKey:@"sortType"];
-//        [accountDefaults synchronize];
-//        [self.dataArr removeAllObjects];
-//        [self loadDataSource];
-//        //[self.table reloadData];
-//
-//           }
-//    [hudView hide:YES];
-//
-//}
-
-//- (void)setContentView{
-//    CGFloat mainWid = [[UIScreen mainScreen] bounds].size.width;
-//    UIView *lineOn = [[UIView alloc] initWithFrame:CGRectMake(0, 0, mainWid, 0.5)];
-//    lineOn.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-//    UIView *lineDown = [[UIView alloc] initWithFrame:CGRectMake(0, self.conditionLine.frame.size.height-0.5, mainWid, 0.5)];
-//    lineDown.backgroundColor = [UIColor colorWithRed:177/255.f green:177/255.f blue:177/255.f alpha:1];
-//    [self.conditionLine addSubview:lineDown];
-//    ArrowBtn *leftBtn = [[ArrowBtn alloc] init];
-//    [leftBtn addTarget:self action:@selector(timeOrderAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.conditionLine addSubview:leftBtn];
-//    self.timeButton = leftBtn;
-//
-//    ArrowBtn *rightBtn = [[ArrowBtn alloc] init];
-//    [rightBtn addTarget:self action:@selector(wordOrderAction:) forControlEvents:UIControlEventTouchUpInside];
-//    [self.conditionLine addSubview:rightBtn];
-//    self.wordButton = rightBtn;
-//    CGFloat screenW = [UIScreen mainScreen].bounds.size.width;
-//
-//    self.timeButton.frame = CGRectMake(0, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
-//
-//    CGFloat rightX = CGRectGetMaxX(self.timeButton.frame) + 1;
-//    self.wordButton.frame = CGRectMake(rightX, 0, screenW * 0.5 - 0.5, self.conditionLine.frame.size.height);
-//
-//    self.timeButton.text = @"时间排序";
-//    self.wordButton.text = @"字母排序";
-//    [self.conditionLine addSubview:self.timeButton];
-//    [self.conditionLine addSubview:self.wordButton];
-//}
-
-
-//- (void)setbackGroundImage{
-    //    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    //    [self.timeBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    //    [self.timeBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-    //    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateSelected];
-    //    [self.wordBtn setTitleColor:[UIColor colorWithRed:14/255.f green:123/255.f blue:225/255.f alpha:1] forState:UIControlStateSelected];
-    //    [self.wordBtn setBackgroundImage:[UIImage imageNamed:@"btnWhiteBackGround"] forState:UIControlStateHighlighted];
-    //    self.timeBtn.hidden = YES;
-    //    self.wordBtn.hidden = YES;
-//}
 
 @end

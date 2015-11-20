@@ -662,6 +662,10 @@
 		B3B7A6841BA6A25F0043DF7C /* remondTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A6621BA6A25F0043DF7C /* remondTableViewCell.xib */; };
 		B3B7A6851BA6A25F0043DF7C /* remondViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A6641BA6A25F0043DF7C /* remondViewController.m */; };
 		B3B7A6861BA6A25F0043DF7C /* remondViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */; };
+		B3B810911BFECF4700C27A9C /* OldCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B8108F1BFECF4700C27A9C /* OldCustomerViewController.m */; };
+		B3B810921BFECF4700C27A9C /* OldCustomerViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B810901BFECF4700C27A9C /* OldCustomerViewController.xib */; };
+		B3B810961BFEF9B100C27A9C /* OldcustomerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B810941BFEF9B100C27A9C /* OldcustomerTableViewCell.m */; };
+		B3B810971BFEF9B100C27A9C /* OldcustomerTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3B810951BFEF9B100C27A9C /* OldcustomerTableViewCell.xib */; };
 		B3B82D631B7A0C95009CC320 /* YesterdayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */; };
 		B3BC21631BDF14A70017247D /* ButtonAndImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC21621BDF14A70017247D /* ButtonAndImageView.m */; };
 		B3BC33891BD8B95900C61D83 /* MeShareDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3BC33881BD8B95900C61D83 /* MeShareDetailViewController.m */; };
@@ -1876,6 +1880,12 @@
 		B3B7A6631BA6A25F0043DF7C /* remondViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = remondViewController.h; sourceTree = "<group>"; };
 		B3B7A6641BA6A25F0043DF7C /* remondViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = remondViewController.m; sourceTree = "<group>"; };
 		B3B7A6651BA6A25F0043DF7C /* remondViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = remondViewController.xib; sourceTree = "<group>"; };
+		B3B8108E1BFECF4700C27A9C /* OldCustomerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldCustomerViewController.h; sourceTree = "<group>"; };
+		B3B8108F1BFECF4700C27A9C /* OldCustomerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldCustomerViewController.m; sourceTree = "<group>"; };
+		B3B810901BFECF4700C27A9C /* OldCustomerViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OldCustomerViewController.xib; sourceTree = "<group>"; };
+		B3B810931BFEF9B100C27A9C /* OldcustomerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OldcustomerTableViewCell.h; sourceTree = "<group>"; };
+		B3B810941BFEF9B100C27A9C /* OldcustomerTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OldcustomerTableViewCell.m; sourceTree = "<group>"; };
+		B3B810951BFEF9B100C27A9C /* OldcustomerTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OldcustomerTableViewCell.xib; sourceTree = "<group>"; };
 		B3B82D621B7A0C95009CC320 /* YesterdayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YesterdayViewController.m; sourceTree = "<group>"; };
 		B3BC21611BDF14A70017247D /* ButtonAndImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonAndImageView.h; sourceTree = "<group>"; };
 		B3BC21621BDF14A70017247D /* ButtonAndImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonAndImageView.m; sourceTree = "<group>"; };
@@ -4456,6 +4466,7 @@
 				B3B7A63A1BA6A25F0043DF7C /* CustomCell.xib */,
 				B3B7A63B1BA6A25F0043DF7C /* customerDetail */,
 				B3B7A6481BA6A25F0043DF7C /* customerOrders */,
+				B3B8108D1BFECE7A00C27A9C /* OldCustomer */,
 				B3B7A6501BA6A25F0043DF7C /* Customers.h */,
 				B3B7A6511BA6A25F0043DF7C /* Customers.m */,
 				B3B7A6521BA6A25F0043DF7C /* Customers.xib */,
@@ -4567,6 +4578,20 @@
 				B3B7A65D1BA6A25F0043DF7C /* RemindDetailViewController.xib */,
 			);
 			path = RemindDetail;
+			sourceTree = "<group>";
+		};
+		B3B8108D1BFECE7A00C27A9C /* OldCustomer */ = {
+			isa = PBXGroup;
+			children = (
+				B3B8108E1BFECF4700C27A9C /* OldCustomerViewController.h */,
+				B3B8108F1BFECF4700C27A9C /* OldCustomerViewController.m */,
+				B3B810901BFECF4700C27A9C /* OldCustomerViewController.xib */,
+				B3B810931BFEF9B100C27A9C /* OldcustomerTableViewCell.h */,
+				B3B810941BFEF9B100C27A9C /* OldcustomerTableViewCell.m */,
+				B3B810951BFEF9B100C27A9C /* OldcustomerTableViewCell.xib */,
+			);
+			name = OldCustomer;
+			path = customerOrders/OldCustomer;
 			sourceTree = "<group>";
 		};
 		B3C01DED1BAC10FC005E4BB5 /* Me */ = {
@@ -4904,6 +4929,7 @@
 				5A076C9B1ACD1C0F0077611C /* area.plist in Resources */,
 				B3CFF6271BFB05D7002065AA /* ExclusiveTableViewCell.xib in Resources */,
 				796EFCED1BF5C67D00799120 /* VoiceSearchFeedback016@2x.png in Resources */,
+				B3B810971BFEF9B100C27A9C /* OldcustomerTableViewCell.xib in Resources */,
 				796EFCD41BF5C67D00799120 /* VoiceSearchFeedback004.png in Resources */,
 				5ABA4F631AD7B8EA004AA8F6 /* Localizable.strings in Resources */,
 				632AF23D1AD3E536004916C0 /* SearchFootView.xib in Resources */,
@@ -4928,6 +4954,7 @@
 				796EFD231BF5C67D00799120 /* chatBar_record@2x.png in Resources */,
 				63A81B901B3981AA00D8B37D /* SKBNavBarFor6OrP.xib in Resources */,
 				63B8C6FA1ACE8EB000328C8C /* messageCenterViewController.xib in Resources */,
+				B3B810921BFECF4700C27A9C /* OldCustomerViewController.xib in Resources */,
 				796EFD261BF5C67D00799120 /* chatBar_recordSelected.png in Resources */,
 				796EFD291BF5C67D00799120 /* chatBar_recordSelectedBg@2x.png in Resources */,
 				B3D7B7C51BD76F700080E243 /* PersonIDViewController.xib in Resources */,
@@ -5115,6 +5142,7 @@
 				796EFE6C1BF5CCC800799120 /* MLPhotoBrowserAssets.m in Sources */,
 				B3C01E291BAC10FC005E4BB5 /* FeedBcakViewController.m in Sources */,
 				520279681BF47C3C0049C0B9 /* ChatListCell.m in Sources */,
+				B3B810961BFEF9B100C27A9C /* OldcustomerTableViewCell.m in Sources */,
 				B3C01E261BAC10FC005E4BB5 /* ReBindViewController.m in Sources */,
 				796F36D61B7857DB0089FEE8 /* RightCollectionView.m in Sources */,
 				633263D21AB851590021553B /* AFHTTPRequestOperation.m in Sources */,
@@ -5435,6 +5463,7 @@
 				63A81B8E1B39818400D8B37D /* SKBNavBarFor6OrP.m in Sources */,
 				5A52FC541ACEBF220076DAE6 /* rightModal.m in Sources */,
 				63AE28951B206F8700BDB8C1 /* newModel.m in Sources */,
+				B3B810911BFECF4700C27A9C /* OldCustomerViewController.m in Sources */,
 				7964F4F11B437D6500F56EB2 /* BaseClickAttribute.m in Sources */,
 				5A4965CD1AD4F30E00233E5E /* Business.m in Sources */,
 				5AB725811AD68C5B0044B318 /* Recommend.m in Sources */,

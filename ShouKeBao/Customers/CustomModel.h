@@ -34,7 +34,7 @@
 @property (nonatomic,copy) NSString *GroupbyType;
 //@property (strong, nonatomic)NSNumber *GroupbyType;
 //判断是不是已是专属客户
-@property (nonatomic,copy)NSString *ProgressState;
+@property (nonatomic,copy)NSString *IsOpenIM;
 //@property (nonatomic, strong) NSMutableArray *seriesclub;
 
 //@property (nonatomic,copy) NSString *passPortIdStr;
