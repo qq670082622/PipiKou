@@ -1150,7 +1150,7 @@
     _guideView.backgroundColor = [UIColor clearColor];
     self.guideImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
-    self.guideImageView.image = [UIImage imageNamed:@"GuideSKB1"];
+    self.guideImageView.image = [UIImage imageNamed:@"NewGuideSKB1"];
 
 
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
