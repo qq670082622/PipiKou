@@ -40,6 +40,9 @@
 #import "EaseMob.h"
 #import "IEMChatFile.h"
 #import "UserInfoEditTableVC.h"
+#import "ProductDetailWebView.h"
+#import "ProductListWebView.h"
+
 @interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate>
 {
     UIMenuController *_menuController;
@@ -683,8 +686,27 @@
 #warning 点击头像调用方法
     }else if ([eventName isEqualToString:kRouterEventChatHeadImageTapEventName]){
         [self chatHeaderIconPressed:model];
+    }else if ([eventName isEqualToString:kRouterEventProductEventName]){//产品详情点击
+        [self productDetailClickWithUserInfo:userInfo];
+    }else if ([eventName isEqualToString:kRouterEventProductListEventName]){//更多产品
+        [self productListClickWithUserInfo:userInfo];
     }
 }
+
+//TextCell中产品被点击
+- (void)productDetailClickWithUserInfo:(NSDictionary *)userInfo{
+    ProductDetailWebView * PDWV = [[ProductDetailWebView alloc]init];
+    PDWV.linkUrl = @"http://www.lvyouquan.cn/Product/SearchResult?key=%E4%BA%91%E5%8D%97&source=login";
+    [self.navigationController pushViewController:PDWV animated:YES];
+}
+
+//TextCell更多产品被点击
+- (void)productListClickWithUserInfo:(NSDictionary *)userInfo{
+    ProductListWebView * PLWV = [[ProductListWebView alloc]init];
+    PLWV.linkUrl = @"http://www.lvyouquan.cn";
+    [self.navigationController pushViewController:PLWV animated:YES];
+}
+
 //头像被点击
 - (void)chatHeaderIconPressed:(MessageModel *)model{
     UserInfoEditTableVC * UIETVC = [[UserInfoEditTableVC alloc]init];
