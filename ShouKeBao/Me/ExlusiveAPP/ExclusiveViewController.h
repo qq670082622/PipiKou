@@ -9,5 +9,5 @@
 #import "SKViewController.h"
 
 @interface ExclusiveViewController : SKViewController
-
+@property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;
 @end

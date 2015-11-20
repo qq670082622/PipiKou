@@ -14,7 +14,9 @@
 #import "MBProgressHUD+MJ.h"
 #import "IWHttpTool.h"
 #import "MeShareDetailModel.h"
+#import "textStyle.h"
 #import "Customers.h"
+#import "MoreLvYouGuWenInfoViewController.h"
 
 @interface ExclusiveViewController ()<UITableViewDataSource, UITableViewDelegate>
 //头部
@@ -22,6 +24,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *builtLable;
 @property (weak, nonatomic) IBOutlet UILabel *penpleL;
 
+- (IBAction)clickAdvisorToComeInLvYouGuWen:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *customerCount;
 @property (weak, nonatomic) IBOutlet UIButton *adviserBtn;
@@ -32,8 +35,9 @@
 //专属App
 - (IBAction)touchExclusiveAppButton:(id)sender;
 //分享
-@property (nonatomic, strong)NSMutableDictionary *shareInfo;
 @property (nonatomic, copy)NSString *IsBinding;
+
+
 @end
 
 @implementation ExclusiveViewController
@@ -41,6 +45,10 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
      self.navigationController.navigationBarHidden = NO;
+    
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"xiaotu"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.shadowImage = [[UIImage alloc] init];
+
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -54,23 +62,13 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     
-   
+
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(clickCustomerLableToComeInCustomer:)];
     [self.customerCount addGestureRecognizer:tap];
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }
+
 - (void)clickCustomerLableToComeInCustomer:(UITapGestureRecognizer *)tap{
-    NSLog(@"mmmmmm//////");
     Customers *customerVC = [[Customers alloc]init];
     customerVC.customerType = 2;
     [self.navigationController pushViewController:customerVC animated:YES];
@@ -100,12 +98,8 @@
         [IWHttpTool WMpostWithURL:@"/Customer/GetAppStatisticalInformationData" params:dic success:^(id json) {
             NSLog(@"------专属App的json is %@-------",json);
             self.IsBinding = json[@"IsBinding"];
-            self.customerCount.text = json[@"Installed"];
-            
-            NSString *rank = json[@"AdvisorRank"];
-            
-            [self setHeaderWith:rank];
-            
+            [self setCustomerCount:self.customerCount str:json[@"Installed"]];
+            [self setHeaderWith:json[@"AdvisorRank"]];
                 MeShareDetailModel *model = [MeShareDetailModel shareDetailWithDict:json];
                 [self.dataArray addObject:model];
             NSLog(@"dataArrray = %@", self.dataArray);
@@ -115,12 +109,23 @@
         }];
 }
 
+- (void)setCustomerCount:(UILabel *)customerCount str:(NSString *)string{
+//    _customerCount = customerCount;
+    UILabel *ll = [[UILabel alloc]initWithFrame:CGRectMake(100, 50, self.view.frame.size.width-200, 50)];
+    ll.textAlignment = NSTextAlignmentCenter;
+    ll.textColor = [UIColor whiteColor];
+    ll.font = [UIFont boldSystemFontOfSize:25];
+    [self.HeadImageViewSet addSubview:ll];
+     _customerCount = ll;
+     NSString *str = [NSString stringWithFormat:@"%@人", string];
+    [textStyle textStyleLabel:_customerCount text:str FontNumber:50.0f AndRange:NSMakeRange(0, str.length-1) AndColor:[UIColor whiteColor]];
+}
+
 - (void)setHeaderWith:(NSString *)rank{
     switch ([rank integerValue]) {
         case 1000:
             [self.adviserBtn setImage:[UIImage imageNamed:@"jianxi"] forState:UIControlStateNormal];
-            [self.adviserBtn setTitle:@"见习顾问" forState:UIControlStateNormal];
-            
+            [self.adviserBtn setTitle:@"见习顾问" forState:UIControlStateNormal];    
             break;
         case 2000:
             [self.adviserBtn setImage:[UIImage imageNamed:@"tongpai"] forState:UIControlStateNormal];
@@ -168,18 +173,18 @@
 
 
 -(void)shareAction:(UIButton *)button{
-    
-    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
-                                       defaultContent:self.shareInfo[@"Desc"]
-                                                image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
-                                                title:self.shareInfo[@"Title"]
-                                                  url:self.shareInfo[@"Url"]                                  description:self.shareInfo[@"Desc"]
+
+    NSLog(@"____nnn  self.shareInfo = %@", self.ConsultanShareInfo);
+    id<ISSContent> publishContent = [ShareSDK content:self.ConsultanShareInfo[@"Desc"]
+                                       defaultContent:self.ConsultanShareInfo[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:self.ConsultanShareInfo[@"Pic"]]
+                                                title:self.ConsultanShareInfo[@"Title"]
+                                                  url:self.ConsultanShareInfo[@"Url"]                                  description:self.ConsultanShareInfo[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     
-    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
-    NSLog(@"%@444", self.shareInfo);
-    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
-    NSLog(@"self.shareInfo %@, %@", self.shareInfo[@"Url"], self.shareInfo[@"ShareUrl"]);
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.ConsultanShareInfo[@"Url"]] image:nil];
+    NSLog(@"%@444", self.ConsultanShareInfo);
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.ConsultanShareInfo[@"Url"]]];
     
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -193,16 +198,15 @@
                        authOptions:nil
                       shareOptions:nil
                             result:^(ShareType type, SSResponseState state, id<ISSPlatformShareInfo> statusInfo, id<ICMErrorInfo> error, BOOL end) {
-                                //                                [self.warningLab removeFromSuperview];
+                        
                                 if (state == SSResponseStateSuccess)
                                 {
                                     
                                     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
                                     [postDic setObject:@"0" forKey:@"ShareType"];
-                                    if (self.shareInfo[@"Url"]) {
-                                        [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                    if (self.ConsultanShareInfo[@"Url"]) {
+                                        [postDic setObject:self.ConsultanShareInfo[@"Url"]  forKey:@"ShareUrl"];
                                     }
-//                                    [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
                                     if (type ==ShareTypeWeixiSession) {
                                         
                                     }else if(type == ShareTypeQQ){
@@ -211,17 +215,7 @@
                                         
                                     }else if(type == ShareTypeWeixiTimeline){
                                     }
-                                    //                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
-                                    //                                        NSDictionary * dci = json;
-                                    //                                        NSMutableString * string = [NSMutableString string];
-                                    //                                        for (id str in dci.allValues) {
-                                    //                                            [string appendString:str];
-                                    //                                        }
-                                    //
-                                    //                                    } failure:^(NSError *error) {
-                                    //
-                                    //                                    }];
-                                    //产品详情
+
                                     if (type == ShareTypeCopy) {
                                         [MBProgressHUD showSuccess:@"复制成功"];
                                     }else{
@@ -238,8 +232,6 @@
                                     
                                 }
                             }];
-    
-    NSLog(@"%@",self.shareInfo[@"Url"]);
     [self addAlert];
     
 }
@@ -276,17 +268,18 @@
     //    self.warningLab = lab;
     
 }
-- (NSMutableDictionary *)shareInfo{
-    if (!_shareInfo) {
-        self.shareInfo = [NSMutableDictionary dictionary];
-    }
-    return _shareInfo;
-}
+
 - (NSMutableArray *)dataArray{
     if (!_dataArray) {
         self.dataArray = [NSMutableArray array];
     }
     return _dataArray;
+}
+- (NSMutableDictionary *)ConsultanShareInfo{
+    if (!_ConsultanShareInfo) {
+        _ConsultanShareInfo = [NSMutableDictionary dictionary];
+    }
+    return _ConsultanShareInfo;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -308,8 +301,19 @@
     EstablelishedViewController *estableshedVC = [[EstablelishedViewController alloc]init];
     estableshedVC.title = @"专属APP";
     estableshedVC.isExclusiveCustomer = self.IsBinding;
+    NSLog(@"。。。。 %@", self.ConsultanShareInfo);
+    estableshedVC.ConsultanShareInfo = self.ConsultanShareInfo;
     estableshedVC.naVC = self.navigationController;
     [self.navigationController pushViewController:estableshedVC animated:YES];
     
+}
+-(void)back{
+    [self.navigationController popToRootViewControllerAnimated:YES];
+}
+- (IBAction)clickAdvisorToComeInLvYouGuWen:(id)sender {
+    
+    MoreLvYouGuWenInfoViewController * morelvyouguwen = [[MoreLvYouGuWenInfoViewController alloc]init];
+    morelvyouguwen.webTitle = @"旅游顾问";
+    [self.navigationController pushViewController:morelvyouguwen animated:YES];
 }
 @end

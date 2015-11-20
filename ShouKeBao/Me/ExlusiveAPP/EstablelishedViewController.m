@@ -16,7 +16,6 @@
 #define KHeight_Scale    [UIScreen mainScreen].bounds.size.height/667.0f
 @interface EstablelishedViewController ()
 
-@property (nonatomic, strong)NSMutableDictionary *shareInfo;
 @property (nonatomic, strong)NSMutableArray *dataArr;
 - (IBAction)returnButton:(id)sender;
 - (IBAction)cancleButton:(id)sender;
@@ -39,32 +38,26 @@
     // Do any additional setup after loading the view from its nib.
  
 //    480 330 667  = 330*667/480
-    self.scrollView.contentSize = CGSizeMake(0, self.view.frame.size.height+380*KHeight_Scale);
+    self.scrollView.contentSize = CGSizeMake(0, self.view.frame.size.height+390*KHeight_Scale);
     
+    NSLog(@"self.isExclusiveCustomer = %@", self.isExclusiveCustomer);
     if ([self.isExclusiveCustomer isEqualToString:@"1"]) {
            [self shareView];
     }else{
           [self noOpenAxclusiveApp];
     }
-    
-   
-
-    
-    
-    
-    
 }
 
 //未开通App界面
 - (void)noOpenAxclusiveApp{
     [noOpenExclusiveAppView backgroundShareView:self.backgroundShareView andUrl:nil];
-    
 }
 
 //已开通App界面
 - (void)shareView{
-    
-    NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:self.shareInfo];
+
+     NSLog(@" _____________分享 %@", self.ConsultanShareInfo);
+    NSDictionary *tmp = [StrToDic dicCleanSpaceWithDict:self.ConsultanShareInfo];
 //    ProductModal *model = _dataArr[0];
 //    NSDictionary *temp = [StrToDic dicCleanSpaceWithDict:model.ShareInfo];
     
@@ -76,22 +69,14 @@
                                                  url:tmp[@"Url"]                                             description:tmp[@"Desc"]
                                            mediaType:SSPublishContentMediaTypeNews];
     
-    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
-    NSLog(@"%@444", self.shareInfo);
-    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.ConsultanShareInfo[@"Url"]] image:nil];
+   
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.ConsultanShareInfo[@"Url"]]];
     
-//    [ExclusiveShareView shareWithContent:publishContent andUrl:tmp[@"Url"]];
-    
-    [ExclusiveShareView shareWithContent:publishContent backgroundShareView:self.backgroundShareView andUrl:tmp[@"Url"]];
+    [ExclusiveShareView shareWithContent:publishContent backgroundShareView:self.backgroundShareView naVC:self.naVC andUrl:tmp[@"Url"]];
 }
+     
 
-
-- (NSMutableDictionary *)shareInfo{
-    if (!_shareInfo) {
-        self.shareInfo = [NSMutableDictionary dictionary];
-    }
-    return _shareInfo;
-}
 - (NSMutableArray *)dataArr{
     if (!_dataArr) {
         self.dataArr = [NSMutableArray array];

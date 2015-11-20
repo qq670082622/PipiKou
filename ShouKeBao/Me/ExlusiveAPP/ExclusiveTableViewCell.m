@@ -19,6 +19,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"ExclusiveTableViewCell" owner:nil options:nil] lastObject];
     }
     
+    
     return cell;
 }
 
@@ -48,24 +49,9 @@
 
 - (void)awakeFromNib {
     // Initialization code
-   
-//    [self.contentView addSubview:self.view1];
-//    [self.contentView addSubview:self.view2];
-//    [self.contentView addSubview:self.view3];
-//    [self.contentView addSubview:self.view4];
-//    [self.contentView addSubview:self.view5];
-//    [self.contentView addSubview:self.view6];
-//    [self.contentView addSubview:self.view7];
-//    [self.contentView addSubview:self.view8];
-//    
-//    [self.contentView addSubview:self.line1];
-//    [self.contentView addSubview:self.line2];
-//    [self.contentView addSubview:self.line3];
-//     [self.contentView addSubview:self.line4];
-//     [self.contentView addSubview:self.line5];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated{
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
