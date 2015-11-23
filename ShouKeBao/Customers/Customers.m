@@ -141,10 +141,7 @@
 #warning 消息点击时间
 #pragma mark -代理方法
 - (void)transformPerformation:(UIButton *)formation{
-    
-    
     messageCenterViewController *messVC = [[messageCenterViewController alloc]init];
-    NSLog(@"++++++++++===========");
     messVC.delegate = self;
     [self.navigationController pushViewController:messVC animated:YES];
 }
@@ -393,8 +390,6 @@
 }
 
 
-
-
 -(void)loadDataSource{
     if (self.historyArr.count > 6) {
         [self.historyArr removeObjectAtIndex:0];
@@ -414,16 +409,16 @@
             [self.dataArr removeAllObjects];
             [self.array removeAllObjects];
         }
-        
-        
+        NSMutableArray *arrs = [NSMutableArray array];
         self.totalNumber = json[@"TotalCount"];
         
         // 当再无加载数据时提示没有客户的信息
-        self.arr = json[@"CustomerList"];
+        arrs = json[@"CustomerList"];
         
-        if (self.arr.count == 0) {
+        if (arrs.count == 0) {
         }else{
-            [self.array addObjectsFromArray:self.arr];
+            [self.array addObjectsFromArray:arrs];
+            
             CustomerSection *costomerModel = [[CustomerSection alloc]init];
             for (NSDictionary *dic in json[@"CustomerList"]) {
                 
@@ -459,7 +454,7 @@
         }else if ((self.dataArr.count>0)){
             self.imageViewWhenIsNull.hidden = YES ;
             self.CustomerCounts.hidden = NO;
-            self.imageViewWhenIsNull.hidden = YES ;
+            self.imageViewWhenIsNull.hidden = YES;
             self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.array.count];
         }
    
@@ -473,7 +468,6 @@
     }];
   
 }
-
 
 #pragma mark - 加载完事时显示的内容
 - (void)warning{
@@ -494,7 +488,8 @@
         VC.customVC = self;
         VC.keyWords = self.searchK;
         VC.model = model;
-        [self.navigationController pushViewController:VC animated:YES];
+        
+     [self.navigationController pushViewController:VC animated:YES];
     }else if (self.popTableview == tableView){
 //刷新数据
         self.customerType = indexPath.row;
@@ -526,10 +521,6 @@
 //        CustomCell *cell = [CustomCell cellWithTableView:tableView];
         CustomCell *cell = [CustomCell cellWithTableView:tableView navigationC:self.navigationController];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
-//        CustomModel *model = _dataArr[indexPath.row];
-//        cell.model = model;
-//        self.ID = cell.model.ID;
-        
         cell.delegate = self;
         cell.model = _dataArr[indexPath.section][indexPath.row];
         self.ID = cell.model.ID;

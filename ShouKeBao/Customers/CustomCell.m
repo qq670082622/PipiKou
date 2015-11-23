@@ -52,7 +52,10 @@ static id _naNC;
 - (IBAction)informationIM:(id)sender {
     
         if ([self.model.IsOpenIM integerValue] == 0) {
-            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是您的专属客户,马上向TA发送邀请成为您的专属客户吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
+            
+            [self achieveInvitationInfoData:self.model.ID];
+            
+            UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是你的绑定APP客户,马上邀请TA绑定你的专属APP吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
             [alert show];
         }else{
             if (_delegate && [_delegate respondsToSelector:@selector(transformPerformation:)]) {
@@ -62,6 +65,9 @@ static id _naNC;
     
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    
+    NSLog(@".....self.InvitationInfo = %@", self.InvitationInfo);
+    
     if (buttonIndex == 1) {
 //        点击邀请走的方法
         //  方式1:不能指定短信内容
@@ -71,8 +77,13 @@ static id _naNC;
         //  方式2:指定短信内容
         if([MFMessageComposeViewController canSendText]){// 判断设备能不能发送短信
             MFMessageComposeViewController *MFMessageVC = [[MFMessageComposeViewController alloc] init];
+            
+            
             // 设置短信内容
-            MFMessageVC.body = @"吃饭了吗 好饿呀！！";
+//            MFMessageVC.body = @"hi,我的收客宝升级了，更多优质路线，更多专属服务，戳此进入：http://lvyouquan.com/T.cn,点击下载，更多惊喜等着你哦！";
+            
+            MFMessageVC.body = self.InvitationInfo;
+            
             // 设置收件人列表
             MFMessageVC.recipients = @[self.telStr];
             // 设置代理
@@ -101,7 +112,20 @@ static id _naNC;
     
 }
 
-
+- (void)achieveInvitationInfoData:(NSString *)CustomerID {
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:CustomerID forKey:@"CustomerID"];
+    
+    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomer" params:dic success:^(id json){
+        NSLog(@"---cell---管客户json is %@-------",json);
+        
+    self.InvitationInfo = json[@"Customer"][@"InvitationInfo"];
+    } failure:^(NSError *error) {
+        NSLog(@"接口请求失败 error is %@------",error);
+    }];
+    
+}
 
 + (instancetype)cellWithTableView:(UITableView *)tableView navigationC:(UINavigationController *)naNC{
     
