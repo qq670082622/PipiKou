@@ -122,25 +122,37 @@
     _guideView.alpha = 0.5;
     self.guideImageView = [[UIImageView alloc] init];
     [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
-    //if(1){//已开通
-      //  self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide"];//NewMeGuide
+    if([[[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWIsOpenVIP] isEqualToString:@"0"]){//没有开通旅游顾问
+        if (foureSize) {
+            self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
+            self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide4no"];//NewMeGuide
+        }else{
+            self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide5no"];//NewMeGuide
+            if (fiveSize) {
+                self.guideImageView.frame =CGRectMake(20,kScreenSize.height/3+20 , kScreenSize.width-40, kScreenSize.height/2);
+            }else if(sixSize){
+                self.guideImageView.frame =CGRectMake(20,kScreenSize.height/4-5 , kScreenSize.width-40, kScreenSize.height/2);
+            }else{
+                self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
+            }
+        }
 
-    //}else{
+    }else{
     if (foureSize) {
         self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
         self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide4"];//NewMeGuide
     }else{
-        self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide5no"];//NewMeGuide
+        self.guideImageView.image = [UIImage imageNamed:@"NewMeGuide5"];//NewMeGuide
         if (fiveSize) {
            self.guideImageView.frame =CGRectMake(20,kScreenSize.height/3+20 , kScreenSize.width-40, kScreenSize.height/2);
         }else if(sixSize){
             self.guideImageView.frame =CGRectMake(20,kScreenSize.height/4-5 , kScreenSize.width-40, kScreenSize.height/2);
         }else{
-        self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
+            self.guideImageView.frame =CGRectMake(20,kScreenSize.height/6 , kScreenSize.width-40, kScreenSize.height/2);
         }
     }
-    //}
-    
+    }
+
     NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     [guideDefault setObject:@"1" forKey:@"NewMeGuide"];
     [guideDefault synchronize];

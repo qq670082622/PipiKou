@@ -178,6 +178,9 @@
             [def setObject:ConsultantInfoDic[@"LinkUrl"] forKey:UserInfoKeyLYGWLinkUrl];//链接
             [def setObject:ConsultantInfoDic[@"Position"] forKey:UserInfoKeyLYGWPosition];//职位
             [def setObject:ConsultantInfoDic[@"SkbMobile"] forKey:UserInfoKeyLYGWPhoneNum];//电话
+            NSString *IsLYGWStr = json[@"IsOpenConsultantApp"];
+            NSLog(@"%@",IsLYGWStr);
+            [def setObject:IsLYGWStr forKey:UserInfoKeyLYGWIsOpenVIP];
             [def synchronize];
             
             if (![json[@"LoginAvatar"]isEqual:[NSNull null]]) {
