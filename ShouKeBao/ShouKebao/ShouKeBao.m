@@ -889,7 +889,9 @@
             self.yesterdayVisitors.font = [UIFont systemFontOfSize:11];
         }
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
-        
+        NSString *IsLYGWStr = json[@"IsOpenConsultantApp"];
+        NSLog(@"%@",IsLYGWStr);
+        [[NSUserDefaults standardUserDefaults] setObject:IsLYGWStr forKey:UserInfoKeyLYGWIsOpenVIP];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
         
 //        self.userName.text = muta[@"ShowName"];
@@ -1146,14 +1148,19 @@
 //第一次开机引导
 -(void)Guide
 {
+    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     self.guideView = [[UIView alloc] initWithFrame:[UIScreen mainScreen].bounds];
     _guideView.backgroundColor = [UIColor clearColor];
     self.guideImageView = [[UIImageView alloc] initWithFrame:[UIScreen mainScreen].bounds];
-    [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
+#warning 这里上线前需要优化“根据等级判断显示引导图是一张还是多张”
+    if ([[guideDefault objectForKey:UserInfoKeyLYGWIsOpenVIP] isEqualToString:@"0"]) {
+        [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click1)]];
+    }else{
+        [_guideView addGestureRecognizer:[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(click)]];
+    }
     self.guideImageView.image = [UIImage imageNamed:@"NewGuideSKB1"];
 
 
-    NSUserDefaults *guideDefault = [NSUserDefaults standardUserDefaults];
     [guideDefault setObject:@"1" forKey:@"SKBGuide"];
      [guideDefault synchronize];
     
@@ -1173,17 +1180,14 @@
     an1.subtype = kCATransitionFromRight;//用kcatransition的类别确定cube翻转方向
     an1.duration = 0.2;
     [self.guideImageView.layer addAnimation:an1 forKey:nil];
-    
     if (self.guideIndex == 2) {
-        
         [self.guideView removeFromSuperview];
-        
-       
     }
-
-    
     NSLog(@"被店家－－－－－－－－－－－－－indexi is %d－－",_guideIndex);
-
+}
+-(void)click1
+{
+        [self.guideView removeFromSuperview];
 }
 // 显示提醒
 - (void)showRemind:(NSTimer *)timer
