@@ -183,11 +183,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    UIImage * bgimage = [UIImage imageNamed:@"navbar"];
-    UIEdgeInsets insets = UIEdgeInsetsZero;
-    // 指定为拉伸模式，伸缩后重新赋值
-    bgimage = [bgimage resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];
-    [self.navigationController.navigationBar setBackgroundImage:bgimage forBarMetrics:UIBarMetricsDefault];
+//    UIImage * bgimage = [UIImage imageNamed:@"navbar"];
+//    UIEdgeInsets insets = UIEdgeInsetsZero;
+//    // 指定为拉伸模式，伸缩后重新赋值
+//    bgimage = [bgimage resizableImageWithCapInsets:insets resizingMode:UIImageResizingModeStretch];
+//    [self.navigationController.navigationBar setBackgroundImage:bgimage forBarMetrics:UIBarMetricsDefault];
     [self registerBecomeActive];
     // Do any additional setup after loading the view.
 //    self.view.backgroundColor = RGBACOLOR(248, 248, 248, 1);

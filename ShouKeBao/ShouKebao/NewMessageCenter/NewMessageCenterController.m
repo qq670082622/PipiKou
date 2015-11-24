@@ -17,8 +17,9 @@
 #import "NSDate+Category.h"
 #import "MessageCenterModel.h"
 #import "IWHttpTool.h"
+#import "ChatViewController.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
-@interface NewMessageCenterController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate>
+@interface NewMessageCenterController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate, ChatViewControllerDelegate>
 @property (nonatomic,strong) NSArray *NameArr;
 @property (nonatomic,strong) NSArray *TimedataArr;
 @property (nonatomic,strong) UIView *searchView;
@@ -160,7 +161,7 @@
         }else{
             EMConversation *conversation = [self.chatListArray objectAtIndex:indexPath.row];
             cell.name = conversation.chatter;
-            cell.unreadCount = [self subTitleMessageByConversation:conversation];
+            cell.unreadCount = [self unreadMessageCountByConversation:conversation];
             cell.detailMsg = [self subTitleMessageByConversation:conversation];
             cell.time = [self lastMessageTimeByConversation:conversation];
         }
@@ -191,6 +192,17 @@
                 [self.navigationController pushViewController:zhiVisit animated:YES];
             }
         }else{
+            EMConversation *conversation = [self.chatListArray objectAtIndex:indexPath.row];
+            NSString *title = conversation.chatter;
+            NSString *chatter = conversation.chatter;
+           ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:chatter conversationType:eConversationTypeChat];
+            chatController.delelgate = self;
+            chatController.title = title;
+            if ([[RobotManager sharedInstance] getRobotNickWithUsername:chatter]) {
+                chatController.title = [[RobotManager sharedInstance] getRobotNickWithUsername:chatter];
+            }
+            [self.navigationController pushViewController:chatController animated:YES];
+
             NSLog(@"我要往IM跳了,别拦我");
         }
     }else if(tableView.tag == 2012){

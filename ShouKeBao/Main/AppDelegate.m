@@ -32,6 +32,8 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import "EaseMob.h"
 #import "AppDelegate+EaseMob.h" 
+
+
 //#import "UncaughtExceptionHandler.h"
 ////aaaaa
 @interface AppDelegate ()<WXApiDelegate>
@@ -39,6 +41,7 @@
 @property (nonatomic,assign) BOOL isAutoLogin;
 @property (nonatomic,strong) AVAudioPlayer *player;
 @property (nonatomic, copy)NSString * urlstring;
+@property (nonatomic, strong)ViewController * mainViewController;
 
 @end
 
@@ -611,22 +614,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         NSArray * array = @[@"elseType", @"", @""];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:array];
     }
-//    ShouKeBao * SKB = [[ShouKeBao alloc]init];
-//    [self.window.rootViewController presentViewController:SKB animated:YES  completion:nil];
-
-    // IOS 7 Support Required
-//    [APService handleRemoteNotification:userInfo];
-//    completionHandler(UIBackgroundFetchResultNewData);
 }
-
-//-(void)dealloc
-//{
-//    //如果是非arc 需要＋[super dealloc];
-//    
-//    [[NSNotificationCenter defaultCenter] removeObserver:self ];
-//    
-//}
-
 
 
 #pragma weChat
@@ -711,8 +699,8 @@ void UncaughtExceptionHandler(NSException *exception) {
 // 切换到主界面
 -(void)setTabbarRoot
 {
-    ViewController *vc = [[ViewController alloc] init];
-    self.window.rootViewController = vc;
+    self.mainViewController = [[ViewController alloc] init];
+    self.window.rootViewController = self.mainViewController;
     [self.window makeKeyAndVisible];
 }
 
@@ -770,7 +758,11 @@ void UncaughtExceptionHandler(NSException *exception) {
             if (![json[@"DistributionID"]isEqualToString:(NSString *)[NSNull null]]) {
                 [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
             }
+            
             [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+            [def setObject:json[@"EasemobPwd"] forKey:UserInfoKeyEasemobPassWord];
+            
+            
             if (![json[@"LoginAvatar"] isEqual:(NSString *)[NSNull null]]) {
                 [def setObject:json[@"LoginAvatar"] forKey:UserInfoKeyLoginAvatar];
             }
@@ -801,9 +793,6 @@ void UncaughtExceptionHandler(NSException *exception) {
             [UMessage getTags:^(NSSet *responseTags, NSInteger remain, NSError *error) {
                 NSLog(@"%@", responseTags);
             }];
-//            [UMessage removeAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:kUMessageAliasTypeBaidu response:^(id responseObject, NSError *error) {
-//                
-//            }];
             [UMessage addAlias:[NSString stringWithFormat:@"appuser_%@", [def valueForKey:@"AppUserID"]] type:@"appuser" response:^(id responseObject, NSError *error) {
                 NSLog(@"%@", error);
             }];
@@ -989,6 +978,12 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     return nil;
 }
 
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
+{
+    if (_mainViewController) {
+        [_mainViewController didReceiveLocalNotification:notification];
+    }
+}
 
 
 @end

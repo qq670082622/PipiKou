@@ -14,6 +14,7 @@
 #import "EMError.h"
 #import "EaseMob.h"
 #import "AppDelegate.h"
+#import "UserInfo.h"
 /**
  *  本类中做了EaseMob初始化和推送等操作
  */
@@ -43,7 +44,7 @@
 #endif
 
         [[EaseMob sharedInstance] registerSDKWithAppKey:@"pipikou#ppkskb"
-                                           apnsCertName:apnsCertName
+                                           apnsCertName:@"aps_production"
                                             otherConfig:@{kSDKConfigEnableConsoleLogger:@YES}];
 //    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:@"liuyan" password:@"123456" withCompletion:^(NSString *username, NSString *password, EMError *error) {
 //        NSLog(@"%@", error);
@@ -51,12 +52,15 @@
 //            NSLog(@"注册成功");
 //        }
 //    } onQueue:nil];
+    NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
+    NSString * APPUserId = [def objectForKey:UserInfoKeyAppUserID];
+    NSString * easeMobPassword = [def objectForKey:UserInfoKeyEasemobPassWord];
     
     //登录
-    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"xiaobao2" password:@"123456" completion:^(NSDictionary *loginInfo, EMError *error) {
+    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:APPUserId password:easeMobPassword completion:^(NSDictionary *loginInfo, EMError *error) {
         if (!error && loginInfo) {
             [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
-            NSLog(@"登陆成功");
+            NSLog(@"登陆成功 %@", APPUserId);
         }
     } onQueue:nil];
 

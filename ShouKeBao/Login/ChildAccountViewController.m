@@ -22,6 +22,7 @@
 #import "AppDelegate.h"
 #import "MobClick.h"
 #import "UMessage.h"
+#import "EaseMob.h"
 @interface ChildAccountViewController ()<UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate,CreatePersonControllerDelegate>
 
 @property (nonatomic,strong) NSMutableArray *dataSource;
@@ -172,6 +173,10 @@
             [def setObject:json[@"LoginType"] forKey:UserInfoKeyLoginType];
             [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
 
+            [def setObject:json[@"AppUserID"] forKey:UserInfoKeyAppUserID];
+            [def setObject:json[@"EasemobPwd"] forKey:UserInfoKeyEasemobPassWord];
+
+            
 #warning 保存旅游顾问等级和链接 //旅游顾问
             NSDictionary * ConsultantInfoDic = json[@"ConsultantInfo"];
             [def setObject:ConsultantInfoDic[@"Level"] forKey:UserInfoKeyLYGWLevel];//等级
@@ -202,6 +207,15 @@
             }
             [def synchronize];
 
+            //环信登录
+            [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:json[@"AppUserID"] password:json[@"EasemobPwd"] completion:^(NSDictionary *loginInfo, EMError *error) {
+                if (!error && loginInfo) {
+                    [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
+                    NSLog(@"绑定登陆成功");
+                }
+            } onQueue:nil];
+
+            
             [UMessage removeAllTags:^(id responseObject, NSInteger remain, NSError *error) {
             }];
             NSString *tag = [NSString stringWithFormat:@"substation_%ld",(long)[json[@"SubstationId"] integerValue]];
