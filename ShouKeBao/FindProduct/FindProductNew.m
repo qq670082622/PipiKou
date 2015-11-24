@@ -429,7 +429,7 @@
         NSString *productUrl = model.productUrl;
         detail.produceUrl = productUrl;
         detail.shareInfo = model.ShareInfo;
-        NSLog(@"%@", model.ShareInfo);
+        NSLog(@"%@.... %@", model.ShareInfo, productUrl);
         detail.fromType = FromHotProduct;
         //判断下个页面能否有关闭按钮
         detail.m = 1;
