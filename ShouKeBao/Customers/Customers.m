@@ -33,7 +33,7 @@
 #define searchHistoryPlaceholder @"请输入客户姓名/电话"
 #import "SearchView.h"
 #import "CustomerSection.h"
-
+#import "ChatViewController.h"
 #define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, transformPerformation, notifiSKBToReferesh>
@@ -141,12 +141,14 @@
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     [self CustomerCounts];
 }
-#warning 消息点击时间
+#warning 消息点击事件 
+//
 #pragma mark -代理方法
-- (void)transformPerformation:(UIButton *)formation{
-    messageCenterViewController *messVC = [[messageCenterViewController alloc]init];
-    messVC.delegate = self;
-    [self.navigationController pushViewController:messVC animated:YES];
+- (void)transformPerformation:(CustomModel *)model{
+//    NSLog(@"%@", model.AppSkbUserId);
+    ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:model.AppSkbUserId conversationType:eConversationTypeChat];
+    chatController.title = model.Name;
+    [self.navigationController pushViewController:chatController animated:YES];
 }
 
 - (void)receiveNotification:(NSNotification *)noti{
@@ -192,7 +194,8 @@
     
 }
 - (IBAction)pushMessageVC:(id)sender {
-    [self transformPerformation:sender];
+    NewMessageCenterController *messgeCenter = [[NewMessageCenterController alloc] init];
+    [self.navigationController pushViewController:messgeCenter animated:YES];
 }
 
 - (void)tapGestionToMessVC{

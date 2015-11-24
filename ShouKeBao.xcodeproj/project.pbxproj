@@ -2367,22 +2367,6 @@
 				527E3B811BEC7F8C00AAA6F6 /* NewMessageCell.h */,
 				527E3B821BEC7F8C00AAA6F6 /* NewMessageCell.m */,
 				527E3B831BEC7F8C00AAA6F6 /* NewMessageCell.xib */,
-				520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */,
-				520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */,
-				79619B781BFB5FD60026BAFE /* CustomDynamicModel.h */,
-				79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */,
-				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
-				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
-				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
-				520279541BF43E2B0049C0B9 /* NewCustomerCell.h */,
-				520279551BF43E2B0049C0B9 /* NewCustomerCell.m */,
-				520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */,
-				520279591BF443510049C0B9 /* OpportunitykeywordCell.h */,
-				5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */,
-				5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */,
-				5202795E1BF446090049C0B9 /* OpprotunityFreqCell.h */,
-				5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */,
-				520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */,
 			);
 			path = NewMessageCenter;
 			sourceTree = "<group>";
@@ -4357,6 +4341,22 @@
 		79EDD2AA1BFB3218000FEFD7 /* CustomDynamic */ = {
 			isa = PBXGroup;
 			children = (
+				520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */,
+				520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */,
+				79619B781BFB5FD60026BAFE /* CustomDynamicModel.h */,
+				79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */,
+				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
+				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
+				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
+				520279541BF43E2B0049C0B9 /* NewCustomerCell.h */,
+				520279551BF43E2B0049C0B9 /* NewCustomerCell.m */,
+				520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */,
+				520279591BF443510049C0B9 /* OpportunitykeywordCell.h */,
+				5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */,
+				5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */,
+				5202795E1BF446090049C0B9 /* OpprotunityFreqCell.h */,
+				5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */,
+				520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */,
 			);
 			name = CustomDynamic;
 			sourceTree = "<group>";

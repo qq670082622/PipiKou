@@ -157,7 +157,6 @@
         requireEncryption:(BOOL)requireEncryption
                       ext:(NSDictionary *)ext
 {
-    username = @"tom";
     EMMessage *retureMsg = [[EMMessage alloc] initWithReceiver:username bodies:[NSArray arrayWithObject:body]];
     retureMsg.requireEncryption = requireEncryption;
     retureMsg.messageType = type;
