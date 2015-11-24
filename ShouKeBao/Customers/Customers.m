@@ -60,29 +60,32 @@
 @property (weak,nonatomic) IBOutlet UIImageView *imageViewWhenIsNull;
 @property (weak, nonatomic) IBOutlet UIButton *addNew;
 @property (weak, nonatomic) IBOutlet UIButton *importUser;
-@property(nonatomic,copy) NSString *searchK;
+@property(nonatomic, copy) NSString *searchK;
 @property (strong, nonatomic) IBOutlet UIButton *cardCamer;
 
-@property (nonatomic,strong) NSString *ID;
+@property (nonatomic, strong) NSString *ID;
 //分页
-@property (nonatomic,assign)int pageIndex;// 当前页
-@property (nonatomic,assign) BOOL isRefresh;
-@property (nonatomic,copy) NSString *totalNumber;
+@property (nonatomic, assign)int pageIndex;// 当前页
+@property (nonatomic, assign) BOOL isRefresh;
+@property (nonatomic, copy) NSString *totalNumber;
 @property (nonatomic, strong)NSMutableArray *arr;
-@property(weak,nonatomic) UILabel *noProductWarnLab;
+@property (weak, nonatomic) UILabel *noProductWarnLab;
 //搜索改写
-@property (nonatomic,strong) SKSearchBar *searchBar;
-@property (nonatomic,strong) SKSearckDisplayController *searchDisplay;
-@property (nonatomic,weak) UIView *sep2;
-@property (nonatomic,strong) NSMutableArray *chooseAppArr;
-@property (nonatomic,strong) NSArray *orderAppArr;
+@property (nonatomic, strong) SKSearchBar *searchBar;
+@property (nonatomic, strong) SKSearckDisplayController *searchDisplay;
+@property (nonatomic, weak) UIView *sep2;
+@property (nonatomic, strong) NSMutableArray *chooseAppArr;
+@property (nonatomic, strong) NSArray *orderAppArr;
 
 @property (nonatomic, assign)BOOL popFlag;
+@property (nonatomic, assign)BOOL isDownLoad;
 
-@property (nonatomic,strong)UILabel *CustomerCounts;
+@property (nonatomic, strong)UILabel *CustomerCounts;
 @property (nonatomic, strong)NSMutableArray *array;
-
-
+//@property (nonatomic, strong)CustomerSection *costomerModel;
+@property (nonatomic, strong)NSMutableArray *newsBindingCustomArr;
+@property (nonatomic, strong)NSMutableArray *hadBindingCustomArr;
+@property (nonatomic, strong)NSMutableArray *otherCustomArr;
 
 @end
 
@@ -119,7 +122,7 @@
     [self.timeBtn setSelected:YES];
     [self customerRightBarItem];
     [self setTable];
-    [self CustomerCounts];
+//    [self CustomerCounts];
     [self initPull];
     
     
@@ -292,11 +295,12 @@
     self.table.headerRefreshingText = @"正在刷新中";
     self.table.footerPullToRefreshText = @"上拉刷新";
     self.table.footerRefreshingText = @"正在刷新";
-    
+    self.isDownLoad = NO;
 }
 //下拉刷新
 -(void)headPull
 {
+    self.isDownLoad = NO;
     self.customerType = 0;
     self.searchK = @"";
     self.isRefresh = YES;
@@ -307,6 +311,7 @@
 //  上啦加载
 - (void)foodPull
 {
+    self.isDownLoad = YES;
     [self.noProductWarnLab removeFromSuperview];
     self.isRefresh = NO;
     self.pageIndex++;
@@ -401,64 +406,67 @@
     [dic setObject:@7 forKey:@"SortType"];
     [dic setObject:self.searchK forKey:@"SearchKey"];
     [dic setObject:[NSString stringWithFormat:@"%ld", self.customerType]forKey:@"CustomerType"];
-    //    [dic setObject:@2 forKey:@"CustomerType"];
+    NSLog(@"self.customerType = %ld", self.customerType);
 
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
             [self.array removeAllObjects];
+            [self.newsBindingCustomArr removeAllObjects];
+            [self.hadBindingCustomArr removeAllObjects];
+            [self.otherCustomArr removeAllObjects];
+            
         }
         NSMutableArray *arrs = [NSMutableArray array];
         self.totalNumber = json[@"TotalCount"];
-        
-        // 当再无加载数据时提示没有客户的信息
+    
         arrs = json[@"CustomerList"];
-        
-        if (arrs.count == 0) {
+       
+        if (arrs.count == 0){
         }else{
             [self.array addObjectsFromArray:arrs];
-            
-            CustomerSection *costomerModel = [[CustomerSection alloc]init];
+           
             for (NSDictionary *dic in json[@"CustomerList"]) {
                 
                 NSString *groupType = [NSString stringWithFormat:@"%@",[dic objectForKey:@"GroupbyType"]];
+                 CustomModel *model = [CustomModel modalWithDict:dic];
+                
                 if ([groupType isEqualToString:@"1"]) {
-                    
-                    CustomModel *model = [CustomModel modalWithDict:dic];
-                    [costomerModel.newsBindingCustomArr addObject:model];
+                  
+                    [self.newsBindingCustomArr addObject:model];
                 }else if([groupType isEqualToString:@"2"]){
-                    
-                    CustomModel *model = [CustomModel modalWithDict:dic];
-                    [costomerModel.hadBindingCustomArr addObject:model];
+              
+                    [self.hadBindingCustomArr addObject:model];
                 }else if ([groupType isEqualToString:@"3"]){
-                    
-                    CustomModel *model = [CustomModel modalWithDict:dic];
-                    [costomerModel.otherCustomArr addObject:model];
+                  
+                    [self.otherCustomArr addObject:model];
                 }
-                    }
-            if (costomerModel.newsBindingCustomArr.count) {
-                [self.dataArr addObject:costomerModel.newsBindingCustomArr];
-            }
-            if (costomerModel.hadBindingCustomArr.count) {
-                [self.dataArr addObject:costomerModel.hadBindingCustomArr];
-            }
-            if (costomerModel.otherCustomArr.count) {
-                [self.dataArr addObject:costomerModel.otherCustomArr];
             }
         }
-        NSLog(@".../// arr = %@", self.dataArr);
+        if (self.newsBindingCustomArr.count && !self.isDownLoad) {
+            [self.dataArr addObject:self.newsBindingCustomArr];
+        }
+    
+        if (self.hadBindingCustomArr.count && !self.isDownLoad) {
+            [self.dataArr addObject:self.hadBindingCustomArr];
+        }
+
+        if (self.otherCustomArr.count && !self.isDownLoad) {
+            [self.dataArr addObject:self.otherCustomArr];
+        }
+       
         if (self.dataArr.count==0) {
             self.imageViewWhenIsNull.hidden = NO;
-            
-        }else if ((self.dataArr.count>0)){
+            self.CustomerCounts.hidden = YES;
+        }else if (self.dataArr.count>0){
             self.imageViewWhenIsNull.hidden = YES ;
             self.CustomerCounts.hidden = NO;
             self.imageViewWhenIsNull.hidden = YES;
             self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.array.count];
         }
    
-        
+        NSLog(@"dadta = %@", self.dataArr);
         [self.table reloadData];
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
@@ -518,7 +526,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.table == tableView) {
-//        CustomCell *cell = [CustomCell cellWithTableView:tableView];
         CustomCell *cell = [CustomCell cellWithTableView:tableView navigationC:self.navigationController];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.delegate = self;
@@ -547,24 +554,12 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section{
     if (self.table == tableView) {
         NSString *str;
-//        if (self.customerType == 0) {
-//            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
-//                                 @{@"valve":@"绑定APP客户"},
-//                                 @{@"valve":@"其他客户"}];
-//        }else if (self.customerType == 1) {
-//            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"}];
-//        }else if (self.customerType == 2){
-//            self.orderAppArr = @[@{@"valve":@"绑定APP客户"}];
-//        }else if (self.customerType == 3){
-//            self.orderAppArr = @[@{@"valve":@"其他客户"}];
-//        }
-        NSLog(@"self.customerType = %ld _ %ld", self.customerType, section);
+        
         if (self.customerType == 0 && section < 3) {
-            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
-                                 @{@"valve":@"绑定APP客户"},
-                                 @{@"valve":@"其他客户"}];
+            
+            [self setHeadTitle];
             str = [[self.orderAppArr objectAtIndex:section]objectForKey:@"valve"];
-            NSLog(@"ssssssstr = %@", str);
+            
         }else if(self.customerType == 1){
             str = @"新绑定APP客户";
         }else if(self.customerType == 2){
@@ -575,6 +570,32 @@
         return  str;
     }else{
         return nil;
+    }
+}
+- (void)setHeadTitle{
+    if (self.dataArr.count == 1) {
+        if (_newsBindingCustomArr.count) {
+            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"}];
+        }else if (_hadBindingCustomArr.count){
+            self.orderAppArr = @[@{@"valve":@"绑定APP客户"}];
+        }else{
+            self.orderAppArr = @[@{@"valve":@"其他客户"}];
+        }
+    }else if (self.dataArr.count == 2){
+        if (_newsBindingCustomArr.count &&_hadBindingCustomArr.count) {
+            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
+                                 @{@"valve":@"绑定APP客户"}];
+        }else if (_newsBindingCustomArr.count && _otherCustomArr.count){
+            self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
+                                 @{@"valve":@"其他客户"}];
+        }else{
+            self.orderAppArr = @[@{@"valve":@"绑定APP客户"},
+                                 @{@"valve":@"其他客户"}];
+        }
+    }else if (self.dataArr.count == 3){
+        self.orderAppArr = @[@{@"valve":@"新绑定APP客户"},
+                             @{@"valve":@"绑定APP客户"},
+                             @{@"valve":@"其他客户"}];
     }
 }
 //- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -785,6 +806,31 @@
 }
 
 #pragma -mark 各种初始化
+- (NSMutableArray *)newsBindingCustomArr{
+    if (!_newsBindingCustomArr) {
+        _newsBindingCustomArr = [NSMutableArray array];
+    }
+    return _newsBindingCustomArr;
+}
+- (NSMutableArray *)hadBindingCustomArr{
+    if (!_hadBindingCustomArr) {
+        _hadBindingCustomArr = [NSMutableArray array];
+    }
+    return _hadBindingCustomArr;
+}
+- (NSMutableArray *)otherCustomArr{
+    if (!_otherCustomArr) {
+        _otherCustomArr = [NSMutableArray array];
+    }
+    return _otherCustomArr;
+}
+
+//- (CustomerSection *)costomerModel{
+//    if (!_costomerModel) {
+//        _costomerModel = [[CustomerSection alloc]init];
+//    }
+//    return _costomerModel;
+//}
 - (NSMutableArray *)array{
     if (!_array) {
         _array = [NSMutableArray array];

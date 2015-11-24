@@ -17,7 +17,7 @@
 #import "WMNavigationController.h"
 #import "ResizeImage.h"
 #import "FindProductNew.h"
-
+#define UserInfoKeyLYGWIsOpenVIP @"LVGWIsOpenVIP"//是否开通vip
 @interface ViewController ()
 @property (copy ,nonatomic) NSMutableString *skbValue;
 @property (copy ,nonatomic) NSMutableString *fdpValue;
@@ -61,12 +61,16 @@
    // [[self.childViewControllers objectAtIndex:2] setBadgeValue:_odsValue];
 
     
-    Customers *cstm = [[Customers alloc] init];
-    [self addChildVc:cstm title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
+   
+//    if([[[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLYGWIsOpenVIP] isEqualToString:@"0"]){     //没有开通
+//        
+//        OldCustomerViewController *oldCustomerVC = [[OldCustomerViewController alloc]init];
+//        [self addChildVc:oldCustomerVC title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
+//    }else{
+        Customers *cstm = [[Customers alloc] init];
+        [self addChildVc:cstm title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
+//    }
     
-//    OldCustomerViewController *oldCustomerVC = [[OldCustomerViewController alloc]init];
-//    [self addChildVc:oldCustomerVC title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
-//    
     
     Me *me = [[Me alloc] initWithStyle:UITableViewStyleGrouped];
     [self addChildVc:me title:@"我" image:@"wo2" selectedImage:@"wo"];
