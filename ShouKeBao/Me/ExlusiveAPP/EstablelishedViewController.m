@@ -53,6 +53,13 @@
     [noOpenExclusiveAppView backgroundShareView:self.backgroundShareView andUrl:nil];
 }
 
+//- (void)callPhoneToClientManager{
+//    NSLog(@"未开通／／／／／");
+//}
+
+
+
+
 //已开通App界面
 - (void)shareView{
 

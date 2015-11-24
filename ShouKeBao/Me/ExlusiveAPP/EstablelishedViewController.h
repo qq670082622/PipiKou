@@ -13,4 +13,5 @@
 
 @property (nonatomic, copy)NSString *isExclusiveCustomer;
 @property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;
+@property (nonatomic, copy)NSString *clientManagerTel;
 @end

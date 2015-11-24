@@ -18,12 +18,12 @@
 
 @implementation noOpenExclusiveAppView
 
-static id _Url;
+static id _Tel;
 static id _shareView;
 
 
 +(void)backgroundShareView:(id)backgroundShareView andUrl:(NSString *)url{
-    _Url = url;
+    _Tel = url;
     
     //  自定义弹出的分享view
     UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, kScreenWidth-20, (300-10-15-10)*KHeight /*kScreenHeight/2.0f-60+20*KHeight_Scale*/)];
@@ -70,9 +70,18 @@ static id _shareView;
     contactB.layer.masksToBounds = YES;
     contactB.layer.cornerRadius = 2;
     [contactB setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    
+    [contactB addTarget:self action:@selector(callPhone) forControlEvents:UIControlEventTouchUpInside];
     
 }
+
+
++ (void)callPhone{
+    NSMutableString *str=[[NSMutableString alloc] initWithFormat:@"tel://%@",_Tel];
+    NSLog(@"电话号码是%@",str);
+    [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
+
+}
+
 
 /*
 // Only override drawRect: if you perform custom drawing.
