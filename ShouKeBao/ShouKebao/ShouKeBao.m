@@ -198,7 +198,7 @@
     }
 }
 
-#pragma maek - 轮播
+#pragma mark - 轮播
 - (void)CarouselAnimationAction{
     self.pageNum = 0;
     self.CarouselSC.pagingEnabled = YES;
@@ -207,7 +207,7 @@
     self.CarouselSC.showsVerticalScrollIndicator = NO;
     //    self.CarouselSC.delegate = self;
     self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*4/*4为计算有多少条滚动数据数据*/);
-    for (NSInteger i = 0; i< 4; i++) {
+    for (NSInteger i = 0; i< 5; i++) {
         _hotLableButton = [[HotLaButton alloc]initWithFrame:CGRectMake(0, i*self.CarouselSC.frame.size.height, self.CarouselSC.frame.size.width, self.CarouselSC.frame.size.height)];
         
         
@@ -223,11 +223,11 @@
     [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 - (void)nextNews{
-    if (self.pageNum < 4) {
+    if (self.pageNum < 5) {
         [self.CarouselSC setContentOffset:CGPointMake(0, 50*(++self.pageNum)) animated:YES];
         NSLog(@"dd,,,, %ld", self.pageNum);
         
-    }if (self.pageNum >= 4) {
+    }if (self.pageNum >= 5) {
         
         [self.CarouselSC setContentOffset:CGPointMake(0, self.CarouselSC.contentOffset.y-50 *(self.pageNum))];
         self.pageNum = 0;

@@ -55,7 +55,6 @@
     self.coverView.hidden = YES;
 
     
-    
     if (self.fromType == FromFindProduct || self.fromType == FromHotProduct || self.fromType == FromProductSearch) {
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"FromFindProductAll" attributes:dict];
@@ -66,6 +65,7 @@
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ProductDetailAll" attributes:dict];
     [MobClick event:@"ProductDetailAllJS" attributes:dict counter:3];
+    
     NSString * string = [NSString stringWithFormat:@"%@", [self.eventArray objectAtIndex:self.fromType]];
     [MobClick event:string attributes:dict];
     

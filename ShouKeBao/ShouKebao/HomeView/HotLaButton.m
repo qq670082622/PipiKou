@@ -43,19 +43,12 @@
         self.lable.layer.cornerRadius = 4;
         [self addSubview:self.lable];
         
-        
-        
-        
-        NSLog(@"%f...%f.", CGRectGetMaxX(self.lable.frame), self.lable.frame.size.width);
         self.button = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.lable.frame), 0, frame.size.width-CGRectGetMaxX(self.lable.frame)-gap, frame.size.height)];
         [self.button.titleLabel setFont:[UIFont systemFontOfSize:15]];
         [self.button setTitleEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 20)];
         [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
         [self addSubview:self.button];
-        
-        
-        
-        
+    
     }
     return self;
     
