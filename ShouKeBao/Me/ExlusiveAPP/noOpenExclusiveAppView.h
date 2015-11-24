@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
-
+//@protocol callPhone <NSObject>
+//
+//- (void)callPhoneToClientManager;
+//
+//@end
 @interface noOpenExclusiveAppView : UIView
+//@property (weak, nonatomic)id<callPhone>callDelegate;
+
 +(void)backgroundShareView:(id)backgroundShareView andUrl:(NSString *)url;
+
+
 @end

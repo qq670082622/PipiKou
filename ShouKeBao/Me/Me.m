@@ -70,8 +70,9 @@
 @property (nonatomic, strong)NSMutableArray *dataShareArr;
 @property (nonatomic, copy)NSString *IsOpenConsultantApp;
 @property (nonatomic, strong)NSMutableDictionary *ConsultanShareInfo;
-@property (nonatomic,strong) UIView *guideView;
-@property (nonatomic,strong) UIImageView *guideImageView;
+@property (nonatomic, strong) UIView *guideView;
+@property (nonatomic, strong) UIImageView *guideImageView;
+@property (nonatomic, copy)NSString *clientMagagerTel;
 
 @end
 
@@ -628,7 +629,7 @@
 #pragma mark-  ｛(等级为2000以上&&第一次打开 )|| 等级不够 ||未开通专属App｝ －－－》 走专属或非专属介绍界面
                 }else{
                     EstablelishedViewController *establelishedVC = [[EstablelishedViewController alloc]init];
-                    
+//                    establelishedVC.clientManagerTel = self.clientMagagerTel;
                     establelishedVC.isExclusiveCustomer = self.IsOpenConsultantApp;
                     establelishedVC.ConsultanShareInfo = self.ConsultanShareInfo;
                     establelishedVC.naVC = self.navigationController;
@@ -784,9 +785,7 @@
         
         [self.ConsultanShareInfo addEntriesFromDictionary:json[@"ConsultanShareInfo"]];
         self.IsOpenConsultantApp = json[@"IsOpenConsultantApp"];
-
-//        MeShareDetailModel *model = [MeShareDetailModel shareDetailWithDict:json];
-//        [self.dataShareArr addObject:model];
+//        self.clientMagagerTel = json[@""];
 
     } failure:^(NSError *error) {
         NSLog(@"接口请求失败 error is %@------",error);

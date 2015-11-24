@@ -40,7 +40,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="vnC-e6-7nR">
-                            <rect key="frame" x="260" y="15" width="50" height="30"/>
+                            <rect key="frame" x="259.99999970197678" y="15" width="50" height="30"/>
                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <state key="normal" title="取消">
