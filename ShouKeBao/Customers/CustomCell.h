@@ -12,7 +12,7 @@
 @class CustomModel;
 @protocol transformPerformation <NSObject>
 
-- (void)transformPerformation:(UIButton *)formation;
+- (void)transformPerformation:(CustomModel *)model;
 @end
 
 @interface CustomCell : UITableViewCell<UIAlertViewDelegate, MFMessageComposeViewControllerDelegate>

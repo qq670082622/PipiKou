@@ -31,6 +31,8 @@
 @property (nonatomic, strong)NSArray *PictureList;
 
 
+@property (nonatomic, strong)NSString *AppSkbUserId;
+
 @property (nonatomic,copy) NSString *GroupbyType;
 //@property (strong, nonatomic)NSNumber *GroupbyType;
 //判断是不是已是专属客户

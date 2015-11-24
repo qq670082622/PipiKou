@@ -22,6 +22,8 @@
 		522E80691BD104A800DB48DA /* OrderPromptView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 522E80681BD104A800DB48DA /* OrderPromptView.xib */; };
 		5237D6B61BF18DED00655CF0 /* TimerCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 5237D6B41BF18DEC00655CF0 /* TimerCell.m */; };
 		5237D6B71BF18DED00655CF0 /* TimerCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5237D6B51BF18DED00655CF0 /* TimerCell.xib */; };
+		525B2A6B1C044195003B1F99 /* CommendToNo.m in Sources */ = {isa = PBXBuildFile; fileRef = 525B2A6A1C044195003B1F99 /* CommendToNo.m */; };
+		525B2A6D1C0441AF003B1F99 /* CommendToNo.xib in Resources */ = {isa = PBXBuildFile; fileRef = 525B2A6C1C0441AF003B1F99 /* CommendToNo.xib */; };
 		526D2E901BF5EB5E005667B9 /* libEaseMobClientSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526D2E8C1BF5EB5E005667B9 /* libEaseMobClientSDK.a */; };
 		526D2E911BF5EB5E005667B9 /* libEaseMobClientSDKLite.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 526D2E8D1BF5EB5E005667B9 /* libEaseMobClientSDKLite.a */; };
 		526D2E921BF5EB5E005667B9 /* EaseMob.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 526D2E8F1BF5EB5E005667B9 /* EaseMob.bundle */; };
@@ -767,6 +769,9 @@
 		5237D6B31BF18DEC00655CF0 /* TimerCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimerCell.h; sourceTree = "<group>"; };
 		5237D6B41BF18DEC00655CF0 /* TimerCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimerCell.m; sourceTree = "<group>"; };
 		5237D6B51BF18DED00655CF0 /* TimerCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimerCell.xib; sourceTree = "<group>"; };
+		525B2A691C044195003B1F99 /* CommendToNo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommendToNo.h; sourceTree = "<group>"; };
+		525B2A6A1C044195003B1F99 /* CommendToNo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommendToNo.m; sourceTree = "<group>"; };
+		525B2A6C1C0441AF003B1F99 /* CommendToNo.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CommendToNo.xib; sourceTree = "<group>"; };
 		526D2E291BF5EB5E005667B9 /* EMCallManagerCallDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerCallDelegate.h; sourceTree = "<group>"; };
 		526D2E2A1BF5EB5E005667B9 /* EMCallManagerDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EMCallManagerDelegate.h; sourceTree = "<group>"; };
 		526D2E2B1BF5EB5E005667B9 /* EaseMob+CallService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "EaseMob+CallService.h"; sourceTree = "<group>"; };
@@ -2367,22 +2372,6 @@
 				527E3B811BEC7F8C00AAA6F6 /* NewMessageCell.h */,
 				527E3B821BEC7F8C00AAA6F6 /* NewMessageCell.m */,
 				527E3B831BEC7F8C00AAA6F6 /* NewMessageCell.xib */,
-				520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */,
-				520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */,
-				79619B781BFB5FD60026BAFE /* CustomDynamicModel.h */,
-				79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */,
-				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
-				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
-				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
-				520279541BF43E2B0049C0B9 /* NewCustomerCell.h */,
-				520279551BF43E2B0049C0B9 /* NewCustomerCell.m */,
-				520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */,
-				520279591BF443510049C0B9 /* OpportunitykeywordCell.h */,
-				5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */,
-				5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */,
-				5202795E1BF446090049C0B9 /* OpprotunityFreqCell.h */,
-				5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */,
-				520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */,
 			);
 			path = NewMessageCenter;
 			sourceTree = "<group>";
@@ -2402,6 +2391,9 @@
 				52B858461BC76D4C00B15483 /* CommandTo.h */,
 				52B858471BC76D4C00B15483 /* CommandTo.m */,
 				52B858481BC76D4C00B15483 /* CommandTo.xib */,
+				525B2A691C044195003B1F99 /* CommendToNo.h */,
+				525B2A6A1C044195003B1F99 /* CommendToNo.m */,
+				525B2A6C1C0441AF003B1F99 /* CommendToNo.xib */,
 			);
 			path = CommendToDetail;
 			sourceTree = "<group>";
@@ -4357,6 +4349,22 @@
 		79EDD2AA1BFB3218000FEFD7 /* CustomDynamic */ = {
 			isa = PBXGroup;
 			children = (
+				520D54A71BF2EB9400923F6C /* ZhiVisitorDynamicController.h */,
+				520D54A81BF2EB9400923F6C /* ZhiVisitorDynamicController.m */,
+				79619B781BFB5FD60026BAFE /* CustomDynamicModel.h */,
+				79619B791BFB5FD60026BAFE /* CustomDynamicModel.m */,
+				52CDE7EB1BF3307B0021C9C6 /* zhiVisitorCell.h */,
+				52CDE7EC1BF3307B0021C9C6 /* zhiVisitorCell.m */,
+				52CDE7ED1BF3307B0021C9C6 /* zhiVisitorCell.xib */,
+				520279541BF43E2B0049C0B9 /* NewCustomerCell.h */,
+				520279551BF43E2B0049C0B9 /* NewCustomerCell.m */,
+				520279561BF43E2B0049C0B9 /* NewCustomerCell.xib */,
+				520279591BF443510049C0B9 /* OpportunitykeywordCell.h */,
+				5202795A1BF443510049C0B9 /* OpportunitykeywordCell.m */,
+				5202795B1BF443510049C0B9 /* OpportunitykeywordCell.xib */,
+				5202795E1BF446090049C0B9 /* OpprotunityFreqCell.h */,
+				5202795F1BF446090049C0B9 /* OpprotunityFreqCell.m */,
+				520279601BF446090049C0B9 /* OpprotunityFreqCell.xib */,
 			);
 			name = CustomDynamic;
 			sourceTree = "<group>";
@@ -5051,6 +5059,7 @@
 				636C8B791AC2E1420097CAE9 /* ShareSDKFlatShareViewUI.bundle in Resources */,
 				5A52FC3E1ACEBF220076DAE6 /* leftCell.xib in Resources */,
 				796EFD031BF5C67D00799120 /* chatBar_more_cardSelected@2x.png in Resources */,
+				525B2A6D1C0441AF003B1F99 /* CommendToNo.xib in Resources */,
 				527E3B851BEC7F8C00AAA6F6 /* NewMessageCell.xib in Resources */,
 				796EFCCC1BF5C67D00799120 /* chatFire_audioPlaying3.png in Resources */,
 				796EFCC81BF5C67D00799120 /* chatFire_audioPlaying1.png in Resources */,
@@ -5140,6 +5149,7 @@
 				796EFB2D1BF5C02900799120 /* THProgressView.m in Sources */,
 				796EFDC31BF5CA4E00799120 /* EMSDImageCache.m in Sources */,
 				796EFE6C1BF5CCC800799120 /* MLPhotoBrowserAssets.m in Sources */,
+				525B2A6B1C044195003B1F99 /* CommendToNo.m in Sources */,
 				B3C01E291BAC10FC005E4BB5 /* FeedBcakViewController.m in Sources */,
 				520279681BF47C3C0049C0B9 /* ChatListCell.m in Sources */,
 				B3B810961BFEF9B100C27A9C /* OldcustomerTableViewCell.m in Sources */,

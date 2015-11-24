@@ -58,8 +58,9 @@ static id _naNC;
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是你的绑定APP客户,马上邀请TA绑定你的专属APP吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
             [alert show];
         }else{
+            NSLog(@"%@", self.model.AppSkbUserId);
             if (_delegate && [_delegate respondsToSelector:@selector(transformPerformation:)]) {
-                [_delegate transformPerformation:sender];
+                [_delegate transformPerformation:self.model];
             }
         }
     
