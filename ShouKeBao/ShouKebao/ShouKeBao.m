@@ -73,6 +73,7 @@
 #import "SubscribeCell.h"
 #import "HotLaButton.h"
 #import "CircleHotNewsViewController.h"
+#import "CommendToNo.h"
 
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height

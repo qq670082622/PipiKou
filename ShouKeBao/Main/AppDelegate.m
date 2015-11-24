@@ -31,7 +31,9 @@
 #import "HomeHttpTool.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import "EaseMob.h"
-#import "AppDelegate+EaseMob.h" 
+#import "AppDelegate+EaseMob.h"
+#import "CommendToNo.h"
+#define kScreenSize [UIScreen mainScreen].bounds.size
 //#import "UncaughtExceptionHandler.h"
 ////aaaaa
 @interface AppDelegate ()<WXApiDelegate>
@@ -202,7 +204,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    if (sysVersion >=9.0) {
 //        [self creatItem];
 //    }
-//    
+//
     // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
 
@@ -931,12 +933,37 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
         [HomeHttpTool getAProductDetailWithCommandParam:dic success:^(id json) {
             NSDictionary *dataDic = json[@"ProductDetail"];
             NSLog(@"%@",json);
-            if ([json[@"IsSuccess"] intValue]== 0) {
+            if ([json[@"IsSuccess"] intValue]== 0 || [json[@"ErrorCode"] integerValue]==108) {
                 NSLog(@"请求失败");
+                if ([self.window viewWithTag:101] || [self.window viewWithTag:102]) {
+                    UIView *background = [self.window viewWithTag:101];
+                    UIView *commend = [self.window viewWithTag:102];
+                    [background  removeFromSuperview];
+                    [commend removeFromSuperview];
+                }
+                if (![self.window viewWithTag:117]) {
+                    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenSize.width, kScreenSize.height)];
+                    view.backgroundColor = [UIColor blackColor];
+                    view.alpha = 0.5;
+                    view.tag = 117;
+                    [self.window addSubview:view];
+                }
+                if (![self.window viewWithTag:116]) {
+                    CommendToNo *commendtono = [[[NSBundle mainBundle] loadNibNamed:@"CommendToNo" owner:self options:nil] lastObject];
+                    commendtono.frame = CGRectMake(10, [UIScreen mainScreen].bounds.size.height/4,[UIScreen mainScreen].bounds.size.width-22, 219);
+                    commendtono.tag = 116;
+                    [self.window addSubview:commendtono];
+                }
             }else{
                 NSLog(@"服务器返回有数据");
                 if (![self.window.rootViewController isKindOfClass:[WMNavigationController class]]) {
                     NSInteger exite;
+                    if ([self.window viewWithTag:117] || [self.window viewWithTag:116]) {
+                        UIView *tallView =[self.window viewWithTag:117];
+                        UIView *tallView1=[self.window viewWithTag:116];
+                        [tallView removeFromSuperview];
+                        [tallView1 removeFromSuperview];
+                    }
                     if ([self.window viewWithTag:101]) {
                         NSLog(@"有口令框正在现实,无需创建");
                         exite = 1;
@@ -946,7 +973,16 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
                         [NSString showbackgroundgray];
                     }
                     UINavigationController * nav = (UINavigationController *)((UITabBarController *)self.window.rootViewController).selectedViewController;
-                    [NSString showcommendToDetailbody:dataDic[@"Name"] Di:dataDic[@"PersonAlternateCash"] song:dataDic[@"PersonCashCoupon"] retailsales:[NSString stringWithFormat:@"%@门市",dataDic[@"PersonPrice"]] CommandSamePrice:dataDic[@"PersonPeerPrice"] Picurl:dataDic[@"PicUrl"] NewPageUrl:dataDic[@"LinkUrl"] shareInfo:dataDic[@"ShareInfo"] exist:exite Nav:nav];
+                    [NSString showcommendToDetailbody:dataDic[@"Name"]
+                                                   Di:dataDic[@"PersonAlternateCash"]
+                                                 song:dataDic[@"PersonCashCoupon"]
+                                          retailsales:[NSString stringWithFormat:@"%@门市",dataDic[@"PersonPrice"]]
+                                     CommandSamePrice:dataDic[@"PersonPeerPrice"]
+                                               Picurl:dataDic[@"PicUrl"]
+                                           NewPageUrl:dataDic[@"LinkUrl"]
+                                            shareInfo:dataDic[@"ShareInfo"]
+                                                exist:exite
+                                                  Nav:nav];
                 }
                 
             }

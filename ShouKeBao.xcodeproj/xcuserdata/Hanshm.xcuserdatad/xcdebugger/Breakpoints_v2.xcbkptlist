@@ -74,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShouKeBao/ShouKebao/ShouKeBao.m"
-            timestampString = "469942500.444738"
+            timestampString = "470041449.887658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1155"
-            endingLineNumber = "1155"
+            startingLineNumber = "1156"
+            endingLineNumber = "1156"
             landmarkName = "-Guide"
             landmarkType = "5">
          </BreakpointContent>
@@ -105,13 +105,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShouKeBao/Me/Me.m"
-            timestampString = "469941623.312837"
+            filePath = "ShouKeBao/ShouKebao/ShouKeBao.m"
+            timestampString = "470041449.887658"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "126"
-            endingLineNumber = "126"
-            landmarkName = "-Guide"
+            startingLineNumber = "325"
+            endingLineNumber = "325"
+            landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -121,13 +121,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "ShouKeBao/ShouKebao/ShouKeBao.m"
-            timestampString = "469942216.884403"
+            filePath = "ShouKeBao/Main/AppDelegate.m"
+            timestampString = "470047852.195789"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "324"
-            endingLineNumber = "324"
-            landmarkName = "-viewDidLoad"
+            startingLineNumber = "935"
+            endingLineNumber = "935"
+            landmarkName = "-checkProductOrder"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
