@@ -932,7 +932,6 @@
     } failure:^(NSError *error) {
         NSLog(@"首页公告消息列表失败%@",error);
     }];
-
 }
 
 
