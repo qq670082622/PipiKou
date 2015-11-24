@@ -10,7 +10,14 @@
 
 
 #define UserInfoKeyBusinessID @"BusinessID"
+
+
+//环信账号密码
 #define UserInfoKeyAppUserID @"AppUserID"
+#define UserInfoKeyEasemobPassWord @"EasemobPassWord"
+
+
+
 #define UserInfoKeyPoneNum @"PhoneNum"
 #define UserInfoKeyPassword @"Password"
 #define UserInfoKeyLoginType @"LoginType"

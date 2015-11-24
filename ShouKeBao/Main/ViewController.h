@@ -10,6 +10,7 @@
 
 @interface ViewController : UITabBarController
 
+- (void)didReceiveLocalNotification:(UILocalNotification *)notification;
 
 @end
 
