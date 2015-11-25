@@ -101,10 +101,9 @@
     [[[UIApplication sharedApplication].delegate window]addSubview:self.progressView];
     
     NSString *SKBMeGuide = [def objectForKey:@"NewMeGuide"];
-//    if ([SKBMeGuide integerValue] != 1) {// 是否第一次打开app
-        //这里需要 等级顾问登记区别
+    if ([SKBMeGuide integerValue] != 1) {// 是否第一次打开app
         [self Guide];
-//    }
+    }
     
     //获取版本信息
     NSDictionary * dic = @{};
@@ -195,6 +194,35 @@
 
     [self.navigationController setNavigationBarHidden:YES animated:NO];
     self.navigationController.navigationBar.tintColor = [UIColor whiteColor];
+}
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.isPush = 1;
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    NSString *loginType = [def objectForKey:@"ThreeDTouch"];
+    if ([loginType isEqualToString:@"UITouchText.TodaySignIn"]) {
+
+        MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
+        moneyTreeVC.webTitle = @"摇钱树";
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeMoenyTreeClick" attributes:dict];
+        [def removeObjectForKey:@"ThreeDTouch"];
+        [self.navigationController pushViewController:moneyTreeVC animated:YES];
+    }
+}
+-(void)thirdTouchPushYaoQianShu:(NSNotification *)notiP{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def removeObjectForKey:@"ThreeDTouch"];
+    if (self.isPush == 1) {
+        self.isPush = 0;
+        MoneyTreeViewController * moneyTreeVC = [[MoneyTreeViewController alloc]init];
+        moneyTreeVC.webTitle = @"摇钱树";
+        [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isFirstFindMoneyTree"];
+        BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
+        [MobClick event:@"MeMoenyTreeClick" attributes:dict];
+        [self.navigationController pushViewController:moneyTreeVC animated:YES];
+    }
 }
 - (void)refrashHeader{
     _meheader.nickName.text = [UserInfo shareUser].userName;

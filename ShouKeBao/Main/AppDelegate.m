@@ -90,48 +90,50 @@
 //            
 //            
 //            if ([json[@"IsSuccess"] integerValue] == 1) {
+//                
 //                if([shortcutItem.type isEqualToString:@"UITouchText.Product"]){
+//                    [self setTabbarRoot];
 //                    ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:1];
 //                }else if([shortcutItem.type isEqualToString:@"UITouchText.Order"]){
+//                    [self setTabbarRoot];
 //                    ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:2];
-//                    //                  }else if([shortcutItem.type isEqualToString:@"UITouchText.scan"]){
-//                    //                      ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
-//                    //
-//                    //
-//                    //                      [def setObject:@"UITouchText.scan" forKey:@"ThreeDTouch"];
-//                    //                      ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
-//                    //                      [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
-//                    //                  }else if([shortcutItem.type isEqualToString:@"UITouchText.TodaySignIn"]){
-//                    //                      ViewController *vc = [[ViewController alloc] init];
-//                    //                      self.window.rootViewController = vc;
-//                    //                      [self.window makeKeyAndVisible];
-//                    //
-//                    //                      [def setObject:@"UITouchText.TodaySignIn" forKey:@"ThreeDTouch"];
-//                    //                      ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
-//                    //                      [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
-//                    //
+//                }else if([shortcutItem.type isEqualToString:@"UITouchText.scan"]){
+////                    ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
+//                    self.window.rootViewController = nil;
+//                    [self setTabbarRoot];
+//                    [def setObject:@"UITouchText.scan" forKey:@"ThreeDTouch"];
+//                    ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
+//                }else if([shortcutItem.type isEqualToString:@"UITouchText.TodaySignIn"]){
+//                    self.window.rootViewController = nil;
+//                    [self setTabbarRoot];
+//                    
+//                    [def setObject:@"UITouchText.TodaySignIn" forKey:@"ThreeDTouch"];
+//                    ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
+//                    
 //                }
 //            }else{
 //                if ([self.window.rootViewController isKindOfClass:[ViewController class]]) {
 //                    if([shortcutItem.type isEqualToString:@"UITouchText.Product"]){
+//                       [self setTabbarRoot];
 //                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:1];
 //                    }else if([shortcutItem.type isEqualToString:@"UITouchText.Order"]){
+//                        [self setTabbarRoot];
 //                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:2];
-//                        //                      }else if([shortcutItem.type isEqualToString:@"UITouchText.scan"]){
-//                        //                          ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
-//                        //
-//                        //
-//                        //                          [def setObject:@"UITouchText.scan" forKey:@"ThreeDTouch"];
-//                        //                          ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
-//                        //                          [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
-//                        //                      }else if([shortcutItem.type isEqualToString:@"UITouchText.TodaySignIn"]){
-//                        //                          ViewController *vc = [[ViewController alloc] init];
-//                        //                          self.window.rootViewController = vc;
-//                        //                          [self.window makeKeyAndVisible];
-//                        //
-//                        //                          [def setObject:@"UITouchText.TodaySignIn" forKey:@"ThreeDTouch"];
-//                        //                          ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
-//                        //                          [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
+//                    }else if([shortcutItem.type isEqualToString:@"UITouchText.scan"]){
+////                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
+//                        self.window.rootViewController = nil;
+//                        [self setTabbarRoot];
+//                        [def setObject:@"UITouchText.scan" forKey:@"ThreeDTouch"];
+//                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
+//                        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
+//                    }else if([shortcutItem.type isEqualToString:@"UITouchText.TodaySignIn"]){
+//                        self.window.rootViewController = nil;
+//                        [self setTabbarRoot];
+//                        
+//                        [def setObject:@"UITouchText.TodaySignIn" forKey:@"ThreeDTouch"];
+//                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
+//                        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
 //                    }
 //                    
 //                }
@@ -170,25 +172,25 @@ void UncaughtExceptionHandler(NSException *exception) {
     [[NSUserDefaults standardUserDefaults] setValue:crashLogInfo forKey:@"crashLogInfo"];
     NSLog(@"$$$$$$$$$$$$$$$$$$$exception type : %@ \n crash reason : %@ \n call stack info : %@", name, reason, arr);
 }
-/*
--(void) creatItem{
-    
-    UIApplicationShortcutIcon *icon1 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchPro"];
-    UIApplicationShortcutIcon *icon2 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchOrder"];
-    // UIApplicationShortcutIcon *icon3 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchScan"];
-    //UIApplicationShortcutIcon *icon4 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchSignIn"];
-    
-    UIMutableApplicationShortcutItem *item1 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.Product" localizedTitle:@"找产品" localizedSubtitle:nil icon:icon1 userInfo:nil];
-    UIMutableApplicationShortcutItem *item2 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.Order" localizedTitle:@"理订单" localizedSubtitle:nil icon:icon2 userInfo:nil];
-    // UIMutableApplicationShortcutItem *item3 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.scan" localizedTitle:@"扫一扫" localizedSubtitle:nil icon:icon3 userInfo:nil];
-    //UIMutableApplicationShortcutItem *item4 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.TodaySignIn" localizedTitle:@"每日签到" localizedSubtitle:nil icon:icon4 userInfo:nil];
-    
-    NSArray *addArr = @[item2,item1];
-    NSArray *existArr = [UIApplication sharedApplication].shortcutItems;
-    [UIApplication sharedApplication].shortcutItems = [existArr arrayByAddingObjectsFromArray:addArr];
-    [UIApplication sharedApplication].shortcutItems = addArr;
-}
- */
+
+//-(void) creatItem{
+//    
+//    UIApplicationShortcutIcon *icon1 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchPro"];
+//    UIApplicationShortcutIcon *icon2 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchOrder"];
+//     UIApplicationShortcutIcon *icon3 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchScan"];
+//    UIApplicationShortcutIcon *icon4 = [UIApplicationShortcutIcon iconWithTemplateImageName:@"TouchSignIn"];
+//    
+//    UIMutableApplicationShortcutItem *item1 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.Product" localizedTitle:@"找产品" localizedSubtitle:nil icon:icon1 userInfo:nil];
+//    UIMutableApplicationShortcutItem *item2 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.Order" localizedTitle:@"理订单" localizedSubtitle:nil icon:icon2 userInfo:nil];
+//     UIMutableApplicationShortcutItem *item3 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.scan" localizedTitle:@"扫一扫" localizedSubtitle:nil icon:icon3 userInfo:nil];
+//    UIMutableApplicationShortcutItem *item4 = [[UIMutableApplicationShortcutItem alloc] initWithType:@"UITouchText.TodaySignIn" localizedTitle:@"每日签到" localizedSubtitle:nil icon:icon4 userInfo:nil];
+//    
+//    NSArray *addArr = @[item4,item3,item2,item1];
+//    NSArray *existArr = [UIApplication sharedApplication].shortcutItems;
+//    [UIApplication sharedApplication].shortcutItems = [existArr arrayByAddingObjectsFromArray:addArr];
+//    [UIApplication sharedApplication].shortcutItems = addArr;
+//}
+// 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //    [[[UIAlertView alloc]initWithTitle:@"a" message:@"\ue40a" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
@@ -200,12 +202,12 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    }
 
     
-    //[UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
+//    [UIViewController validatePanPackWithMLTransitionGestureRecognizerType:MLTransitionGestureRecognizerTypePan];
 //    float  sysVersion = [[[UIDevice currentDevice]systemVersion]floatValue];//根据系统版本判断是否创建3D Touch
 //    if (sysVersion >=9.0) {
 //        [self creatItem];
 //    }
-//    
+//
     // 初始化环信SDK，详细内容在AppDelegate+EaseMob.m 文件中
     [self easemobApplication:application didFinishLaunchingWithOptions:launchOptions];
 
@@ -1011,6 +1013,20 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     }
     return nil;
 }
+//- (void)applicationWillEnterForeground:(UIApplication *)application {
+//    // 回到前台
+////    [[[UIAlertView alloc]initWithTitle:@"aa" message:@"aaa" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
+//
+//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeDTouch"] isEqualToString:@"UITouchText.scan"]) {
+//        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
+//
+//    }else if([[[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeDTouch"] isEqualToString:@"UITouchText.TodaySignIn"]){
+//        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
+//    }
+//
+//}
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
