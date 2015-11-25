@@ -140,6 +140,7 @@
 @property(nonatomic, assign)NSInteger pageNum;
 @property (nonatomic, strong) IBOutlet UIButton *buttonText;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic) NSInteger isPush;
 - (IBAction)buttonText:(id)sender;
 @property (nonatomic, strong)HotLaButton *hotLableButton;
 @end
@@ -256,7 +257,19 @@
     [super viewDidDisappear:animated];
     [self.locationManager stopUpdatingLocation];
 }
+-(void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    self.isPush = 1;
+    NSUserDefaults *guiDefault = [NSUserDefaults standardUserDefaults];
+    NSString *isTop = [guiDefault objectForKey:@"ThreeDTouch"];
+    if ([isTop isEqualToString:@"UITouchText.scan"]) {
+        ScanningViewController *scan = [[ScanningViewController alloc] init];
+        scan.isLogin = YES;
+        [guiDefault removeObjectForKey:@"ThreeDTouch"];
+        [self.navigationController pushViewController:scan animated:YES];
+    }
 
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -274,7 +287,7 @@
 
     [WMAnimations WMAnimationMakeBoarderWithLayer:self.searchBtn.layer andBorderColor:[UIColor lightGrayColor] andBorderWidth:0.5 andNeedShadow:NO];
     
-    //    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thirdTouchPushScan:) name:@"3dTouchPushScan" object:nil];//3D Touch通知跳转二维码界面
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(thirdTouchPushScan:) name:@"3dTouchPushScan" object:nil];//3D Touch通知跳转二维码界面
     
 //    [self.view addSubview:self.tableView];
     
@@ -386,17 +399,17 @@
     }];
 
 }
-//-(void)thirdTouchPushScan:(NSNotification *)notiP{
-//    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
-//    [def removeObjectForKey:@"ThreeDTouch"];
-//    if (self.isPush == 1) {
-//        self.isPush = 0;
-//        ScanningViewController *scan = [[ScanningViewController alloc] init];
-//        scan.isLogin = YES;
-//        [self.navigationController pushViewController:scan animated:YES];
-//
-//    }
-//}
+-(void)thirdTouchPushScan:(NSNotification *)notiP{
+    NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [def removeObjectForKey:@"ThreeDTouch"];
+    if (self.isPush == 1) {
+        self.isPush = 0;
+        ScanningViewController *scan = [[ScanningViewController alloc] init];
+        scan.isLogin = YES;
+        [self.navigationController pushViewController:scan animated:YES];
+
+    }
+}
 
 //设置头部搜索与分站按钮
 -(void)setUpNavBarView

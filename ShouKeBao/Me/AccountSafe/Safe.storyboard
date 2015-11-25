@@ -71,19 +71,19 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="passwordMes" translatesAutoresizingMaskIntoConstraints="NO" id="scL-7L-Zge">
-                                                    <rect key="frame" x="15" y="12" width="20" height="32"/>
+                                                    <rect key="frame" x="17" y="15" width="16" height="25"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="32" id="Lba-od-wPC"/>
-                                                        <constraint firstAttribute="width" constant="20" id="lY6-AP-SiB"/>
+                                                        <constraint firstAttribute="height" constant="25" id="Lba-od-wPC"/>
+                                                        <constraint firstAttribute="width" constant="16" id="lY6-AP-SiB"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="aqI-3Z-oIB" secondAttribute="bottom" constant="8" id="1vg-6j-1R6"/>
                                                 <constraint firstAttribute="trailingMargin" secondItem="aqI-3Z-oIB" secondAttribute="trailing" constant="51" id="2s2-J8-vkU"/>
-                                                <constraint firstItem="scL-7L-Zge" firstAttribute="leading" secondItem="tVk-63-6cx" secondAttribute="leadingMargin" constant="7" id="4ll-z1-7gM"/>
-                                                <constraint firstItem="aqI-3Z-oIB" firstAttribute="leading" secondItem="scL-7L-Zge" secondAttribute="trailing" constant="25" id="X4l-zn-8yN"/>
-                                                <constraint firstItem="scL-7L-Zge" firstAttribute="top" secondItem="tVk-63-6cx" secondAttribute="topMargin" constant="4" id="rsx-pL-4XQ"/>
+                                                <constraint firstItem="scL-7L-Zge" firstAttribute="leading" secondItem="tVk-63-6cx" secondAttribute="leadingMargin" constant="9" id="4ll-z1-7gM"/>
+                                                <constraint firstItem="aqI-3Z-oIB" firstAttribute="leading" secondItem="scL-7L-Zge" secondAttribute="trailing" constant="27" id="X4l-zn-8yN"/>
+                                                <constraint firstItem="scL-7L-Zge" firstAttribute="top" secondItem="tVk-63-6cx" secondAttribute="topMargin" constant="7" id="rsx-pL-4XQ"/>
                                                 <constraint firstItem="aqI-3Z-oIB" firstAttribute="top" secondItem="tVk-63-6cx" secondAttribute="topMargin" constant="9" id="vA8-zc-4h6"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -96,7 +96,7 @@
                                         <rect key="frame" x="0.0" y="185" width="320" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="UuS-ex-sYP" id="K2D-sd-mjn">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="54.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="newMess" translatesAutoresizingMaskIntoConstraints="NO" id="bBr-OV-qgW">

@@ -10,5 +10,5 @@
 #import "SKTableViewController.h"
 #import <StoreKit/StoreKit.h>
 @interface Me : SKTableViewController<SKStoreProductViewControllerDelegate>
-
+@property (nonatomic) NSInteger isPush;
 @end
