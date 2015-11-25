@@ -86,7 +86,8 @@
     CGRect frame = self.imageView.frame;
     
 //    [self.imageView sd_setImageWithURL:[NSURL URLWithString:@"图片地址"] placeholderImage:@"aa"];
-    self.imageView.image = [UIImage imageNamed:@"aa"];
+//    self.imageView.image = [UIImage imageNamed:@"aa"];
+    
     self.imageView.frame = CGRectMake(10, 12, 45, 45);
     self.imageView.layer.cornerRadius = 22.5;
     self.imageView.layer.masksToBounds = YES;
