@@ -18,6 +18,7 @@
 #import "MessageCenterModel.h"
 #import "IWHttpTool.h"
 #import "ChatViewController.h"
+#import "UIImageView+WebCache.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface NewMessageCenterController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate, ChatViewControllerDelegate>
 @property (nonatomic,strong) NSArray *NameArr;
@@ -159,8 +160,14 @@
             cell.unreadCount = [model.messageCount intValue];
             cell.detailMsg = model.messageTitle;
             cell.time = model.dateStr;
+            if (indexPath.row == 0) {
+                cell.imageView.image = [UIImage imageNamed:@"iconpingtai"];
+            }else{
+                cell.imageView.image = [UIImage imageNamed:@"iconzdongtai"];
+            }
         }else{
             EMConversation *conversation = [self.chatListArray objectAtIndex:indexPath.row];
+            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"huanxinheader"]];
             cell.name = conversation.chatter;
             cell.unreadCount = [self unreadMessageCountByConversation:conversation];
             cell.detailMsg = [self subTitleMessageByConversation:conversation];
