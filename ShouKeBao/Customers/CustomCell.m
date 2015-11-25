@@ -175,16 +175,14 @@ static id _invitationInfo;
     
     
     if ([self.model.IsOpenIM integerValue] == 0) {
-        [self.information setImage:[UIImage imageNamed:@"orangeMessage"] forState:UIControlStateNormal];
+        [self.information setImage:[UIImage imageNamed:@"grayxiaoxi"] forState:UIControlStateNormal];
     }
     
     
     //    if ([self.model.IsOpenIM integerValue] == 1 /*&& 提示有对话消息时*/) {
     //        [self.information setImage:[UIImage imageNamed:@"redMessage"] forState:UIControlStateNormal];
     //    }
-    
-    
-    
+  
 }
 -(UIView *)redDot{
     if (!_redDot) {

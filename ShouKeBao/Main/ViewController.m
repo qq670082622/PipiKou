@@ -22,6 +22,7 @@
 #import "RobotManager.h"
 #import "EaseMob.h"
 #import "NewMessageCenterController.h"
+#import "APNSHelper.h"
 //两次提示的默认间隔
 static const CGFloat kDefaultPlaySoundInterval = 3.0;
 static NSString *kMessageType = @"MessageType";
@@ -242,6 +243,19 @@ static NSString *kConversationChatter = @"ConversationChatter";
     NSLog(@"%@", _customers);
     if (_customers) {
         [_customers.table reloadData];
+        
+
+        NSDate *sendDate=[NSDate date];
+        NSDateFormatter *dateformatter=[[NSDateFormatter alloc] init];
+        [dateformatter setDateFormat:@"HH:mm"];
+        NSString *locationTimeString=[dateformatter stringFromDate:sendDate];
+          NSLog(@",,,vvvvvv %@", locationTimeString);
+        _customers.timePrompt.text = locationTimeString;
+        
+        
+//        NSDate *date = [NSDate dateWithTimeIntervalSinceNow:0];
+//        NSTimeInterval Date = [date timeIntervalSince1970];
+//        NSString *timeString = [NSString stringWithFormat:@"%f", Date];
     }
     
     BOOL needShowNotification = (message.messageType != eMessageTypeChat) ? [self needShowNotification:message.conversationChatter] : YES;

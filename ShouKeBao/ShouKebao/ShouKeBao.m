@@ -201,18 +201,18 @@
 
 #pragma mark - 轮播
 - (void)CarouselAnimationAction{
-    self.pageNum = 0;
+//    self.pageNum = 0;
     self.CarouselSC.pagingEnabled = YES;
     self.CarouselSC.scrollEnabled = YES;
     self.CarouselSC.showsHorizontalScrollIndicator = NO;
     self.CarouselSC.showsVerticalScrollIndicator = NO;
     //    self.CarouselSC.delegate = self;
-    self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*4/*4为计算有多少条滚动数据数据*/);
+    self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*5/*4为计算有多少条滚动数据数据*/);
     for (NSInteger i = 0; i< 5; i++) {
         _hotLableButton = [[HotLaButton alloc]initWithFrame:CGRectMake(0, i*self.CarouselSC.frame.size.height, self.CarouselSC.frame.size.width, self.CarouselSC.frame.size.height)];
         
         
-        [_hotLableButton.button setTitle: [NSString stringWithFormat:@"热点....ffffdsdoooo %ld",i] forState:UIControlStateNormal];
+        [_hotLableButton.button setTitle: [NSString stringWithFormat:@"热点....ffffdsdoooo %d",i] forState:UIControlStateNormal];
         
         [_hotLableButton.button addTarget:self action:@selector(buttonText:) forControlEvents:UIControlEventTouchUpInside];
         [self.CarouselSC addSubview:_hotLableButton];
@@ -226,7 +226,7 @@
 - (void)nextNews{
     if (self.pageNum < 5) {
         [self.CarouselSC setContentOffset:CGPointMake(0, 50*(++self.pageNum)) animated:YES];
-        NSLog(@"dd,,,, %ld", self.pageNum);
+        NSLog(@"dd,,,, %d", self.pageNum);
         
     }if (self.pageNum >= 5) {
         
@@ -942,7 +942,16 @@
     
 //    视图将要出现时定位
 //    [self locationMethod];
-    // 轮播
+// 轮播
+     NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
+    if ([pageNumber isEqualToString:@""]) {
+        self.pageNum = 0;
+    }else{
+        self.pageNum = [pageNumber integerValue];
+    }
+       NSLog(@"self.pageNum = %d", self.pageNum);
+    
+    
     [self CarouselAnimationAction];
     [self CarouselNews];
     
@@ -993,8 +1002,16 @@
 -(void)viewWillDisappear:(BOOL)animated{
     
     [super viewWillDisappear:animated];
+
+    NSString *numberStr = [NSString stringWithFormat:@"%d", self.pageNum];
+    [[NSUserDefaults standardUserDefaults]setObject:numberStr forKey:@"carouselPageNumber"];
      [self.timer invalidate];
+
+#warning   放Appdelegate里：
+//    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"carouselPageNumber"];
+//     NSLog(@",,,self.pageNum = %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"]);
     
+
     [MobClick endLogPageView:@"ShouKeBao"];
     self.navBarView.userInteractionEnabled = NO;
     //[self.navBarView removeFromSuperview];

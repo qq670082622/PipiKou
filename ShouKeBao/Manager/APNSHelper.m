@@ -17,6 +17,7 @@
     dispatch_once(&oncetonke, ^{
         apnsHelpers = [[APNSHelper alloc]init];
         apnsHelpers.isNeedOpenChat = NO;
+        apnsHelpers.dataStr = @"";
     });
     return apnsHelpers;
 }
