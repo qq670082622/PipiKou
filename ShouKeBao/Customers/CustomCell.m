@@ -11,14 +11,21 @@
 #import "IWHttpTool.h"
 #import "MobClick.h"
 #import "BaseClickAttribute.h"
-
+#import "IChatManagerConversation.h"
+#import "EaseMob.h"
 static id _naNC;
+
+
+@interface CustomCell ()<IChatManagerConversation>
+@property (nonatomic, strong)UIView * redDot;
+
+@end
 
 @implementation CustomCell
 
  
 - (void)awakeFromNib {
-    // Initialization code
+    [self.information addSubview:self.redDot];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -26,7 +33,13 @@ static id _naNC;
 
     // Configure the view for the selected state
 }
+-(void)addDelegate:(id<EMChatManagerDelegate>)delegate delegateQueue:(dispatch_queue_t)queue{
 
+}
+-(void)removeDelegate:(id<EMChatManagerDelegate>)delegate{
+
+
+}
 - (IBAction)callAction:(id)sender {
     
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
@@ -59,12 +72,14 @@ static id _naNC;
             [alert show];
         }else{
             NSLog(@"%@", self.model.AppSkbUserId);
+
             if (_delegate && [_delegate respondsToSelector:@selector(transformPerformation:)]) {
                 [_delegate transformPerformation:self.model];
             }
         }
     
 }
+
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
     NSLog(@".....self.InvitationInfo = %@", self.InvitationInfo);
@@ -141,6 +156,15 @@ static id _naNC;
 
 -(void)setModel:(CustomModel *)model{
     _model = model;
+    //获取消息数， 展示是否有消息未读
+    NSUInteger unreaderMessageCount = [[EaseMob sharedInstance].chatManager unreadMessagesCountForConversation:self.model.AppSkbUserId];
+    if (unreaderMessageCount) {
+        self.redDot.hidden = NO;
+    }else{
+        self.redDot.hidden = YES;
+    }
+    NSLog(@"&&&&&&--%lud", (unsigned long)unreaderMessageCount);
+    
     self.userIcon.image =  [UIImage imageNamed:@"quanquange"];
     self.userName.text = model.Name;
     
@@ -175,5 +199,14 @@ static id _naNC;
     
 }
 
+-(UIView *)redDot{
+    if (!_redDot) {
+        _redDot = [[UIView alloc]initWithFrame:CGRectMake(22, 3, 8, 8)];
+        _redDot.backgroundColor = [UIColor redColor];
+        _redDot.layer.cornerRadius = 4.0;
+        _redDot.layer.masksToBounds = YES;
+    }
+    return _redDot;
+}
 
 @end
