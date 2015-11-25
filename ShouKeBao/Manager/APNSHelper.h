@@ -12,6 +12,7 @@
 
 @property (nonatomic, assign)BOOL hasNewMessage;
 @property (nonatomic, assign)BOOL isNeedOpenChat;
+@property (nonatomic, strong)NSString * dataStr;
 +(APNSHelper *)defaultAPNSHelper;
 
 @end

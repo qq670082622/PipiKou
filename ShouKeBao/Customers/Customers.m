@@ -81,7 +81,8 @@
 @property (nonatomic, assign)BOOL isDownLoad;
 
 @property (nonatomic, strong)UILabel *CustomerCounts;
-@property (nonatomic, strong)NSMutableArray *array;
+@property (nonatomic, strong)NSMutableArray *Array;
+@property (nonatomic, assign)NSInteger peopleN;
 //@property (nonatomic, strong)CustomerSection *costomerModel;
 @property (nonatomic, strong)NSMutableArray *newsBindingCustomArr;
 @property (nonatomic, strong)NSMutableArray *hadBindingCustomArr;
@@ -142,8 +143,9 @@
     self.table.backgroundColor = [UIColor colorWithRed:220/255.0 green:229/255.0 blue:238/255.0 alpha:1];
     [self CustomerCounts];
 }
-#warning 消息点击事件 
-//
+
+
+#warning 消息点击事件
 #pragma mark -代理方法
 - (void)transformPerformation:(CustomModel *)model{
 //    NSLog(@"%@", model.AppSkbUserId);
@@ -188,7 +190,7 @@
 }
 -(void)messagePromptAction{
     self.messagePrompt.text = [NSString stringWithFormat:@"您有%d条未读信息", self.messageCount];
-    self.timePrompt.text = @"11:55";//测试
+//    self.timePrompt.text = @"11:55";//测试
     if (self.messageCount >0) {
         [self.bellButton setImage:[UIImage imageNamed:@"redBell"] forState:UIControlStateNormal];
     }
@@ -258,12 +260,10 @@
 }
 
 #pragma mark - 消息提示
-
 - (void)dealPushBackGround:(NSNotification *)noti{
     NSMutableArray *message = noti.object;
     if([message[0] isEqualToString:@"messageId"]){//新公告
     self.messagePrompt.text = [NSString stringWithFormat:@"您有%d条未读信息", self.messageCount++];
-        
     }
 }
 
@@ -409,8 +409,8 @@
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     [dic setObject:@7 forKey:@"SortType"];
     [dic setObject:self.searchK forKey:@"SearchKey"];
-    [dic setObject:[NSString stringWithFormat:@"%ld", self.customerType]forKey:@"CustomerType"];
-    NSLog(@"self.customerType = %ld", self.customerType);
+    [dic setObject:[NSString stringWithFormat:@"%d", self.customerType]forKey:@"CustomerType"];
+    NSLog(@"self.customerType = %d", self.customerType);
 
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
@@ -420,7 +420,7 @@
         
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
-            [self.array removeAllObjects];
+            [self.Array removeAllObjects];
             [self.newsBindingCustomArr removeAllObjects];
             [self.hadBindingCustomArr removeAllObjects];
             [self.otherCustomArr removeAllObjects];
@@ -433,7 +433,7 @@
        
         if (arrs.count == 0){
         }else{
-            [self.array addObjectsFromArray:arrs];
+            [self.Array addObjectsFromArray:arrs];
            
             for (NSDictionary *dic in json[@"CustomerList"]) {
                 
@@ -471,7 +471,8 @@
             self.imageViewWhenIsNull.hidden = YES ;
             self.CustomerCounts.hidden = NO;
             self.imageViewWhenIsNull.hidden = YES;
-            self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.array.count];
+            self.peopleN = self.Array.count;
+            self.CustomerCounts.text = [NSString stringWithFormat:@"%d位联系人", self.peopleN];
         }
    
         NSLog(@"dadta = %@", self.dataArr);
@@ -674,7 +675,11 @@
         NSLog(@"删除客户信息成功%@",json);
         hudView.labelText = @"删除成功...";
         [hudView hide:YES afterDelay:0.4];
+        
+        self.peopleN = self.peopleN - 1;
+        self.CustomerCounts.text = [NSString stringWithFormat:@"%d位联系人", self.peopleN];
         [self.table reloadData];
+   
     } failure:^(NSError *error) {
         NSLog(@"删除客户请求失败%@",error);
     }];
@@ -840,11 +845,11 @@
 //    }
 //    return _costomerModel;
 //}
-- (NSMutableArray *)array{
-    if (!_array) {
-        _array = [NSMutableArray array];
+- (NSMutableArray *)Array{
+    if (!_Array) {
+        _Array = [NSMutableArray array];
     }
-    return _array;
+    return _Array;
 }
 - (NSMutableArray *)arr{
     if (!_arr) {
