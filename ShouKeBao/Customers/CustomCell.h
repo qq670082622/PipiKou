@@ -30,7 +30,7 @@
 
 - (IBAction)informationIM:(id)sender;
 
-@property (nonatomic, copy)NSString *InvitationInfo;
-+(instancetype)cellWithTableView:(UITableView *)tableView navigationC:(UINavigationController *)naNC;
+//@property (nonatomic, copy)NSString *InvitationInfo;
++(instancetype)cellWithTableView:(UITableView *)tableView InvitationInfo:(NSString *)invitationInfo navigationC:(UINavigationController *)naNC;
 
 @end

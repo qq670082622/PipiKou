@@ -26,7 +26,7 @@ static id _shareView;
     _Tel = url;
     
     //  自定义弹出的分享view
-    UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, kScreenWidth-20, (300-10-15-10)*KHeight /*kScreenHeight/2.0f-60+20*KHeight_Scale*/)];
+    UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, kScreenWidth-20, /*(300-10-15-10)*KHeight*/ /*kScreenHeight/2.0f-60+20*KHeight_Scale*/260)];
     shareView.backgroundColor = [UIColor colorWithRed:236/255.0f green:236/255.0f blue:236/255.0f alpha:1];
     shareView.tag = 441;
     [backgroundShareView addSubview:shareView];
@@ -44,7 +44,7 @@ static id _shareView;
     
     
     
-    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, CGRectGetMaxY(titleLabel.frame), shareView.frame.size.width-40, 50*KHeight)];
+    UILabel *contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(30*KHeight, CGRectGetMaxY(titleLabel.frame), shareView.frame.size.width-40, 50*KHeight)];
     contentLabel.text = @"非常简单，让尽可能多的客人，安装您的专属App";
     contentLabel.numberOfLines = 0;
     contentLabel.textColor = [UIColor grayColor];

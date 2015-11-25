@@ -48,7 +48,7 @@ static id _naVC;
     _naVC = naVC;
 
     //  自定义分享view
-    UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, kScreenWidth-20, (300-10-15-10)*KHeight /*kScreenHeight/2.0f-60+20*KHeight_Scale*/)];
+    UIView *shareView = [[UIView alloc] initWithFrame:CGRectMake(10, 15, kScreenWidth-20, 260/*(300-10-15-10)*KHeight */ /*kScreenHeight/2.0f-60+20*KHeight_Scale*/)];
     shareView.backgroundColor = [UIColor colorWithRed:236/255.0f green:236/255.0f blue:236/255.0f alpha:1];
     shareView.tag = 441;
     [backgroundShareView addSubview:shareView];
@@ -79,13 +79,20 @@ static id _naVC;
     for (NSInteger i=0; i<6; i++) {
         CGFloat top = 0.0f;
         if (i<3) {
-            top = 20*KHeight;
-            
+            if (KHeight > 1 || KHeight == 1) {
+                top = 20*KHeight;
+            }else{
+                top = 30*KHeight;
+            }
         }else{
-            top = 135*KHeight;
+            if (KHeight > 1 || KHeight == 1) {
+                top = 120*KHeight;
+            }else{
+                 top = 150*KHeight;
+            }
         }
         
-        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(35*KWidth_Scale+(i%3)*100*KWidth_Scale, CGRectGetMidY(contentLabel.frame)+top, 100*KWidth_Scale, 100*KHeight)];
+        UIButton *button = [[UIButton alloc] initWithFrame:CGRectMake(30*KWidth_Scale+(i%3)*100*KWidth_Scale, CGRectGetMidY(contentLabel.frame)+top, 100*KWidth_Scale, 100*KWidth_Scale)];
         [button setImage:[UIImage imageNamed:btnImages[i]] forState:UIControlStateNormal];
         [button setTitle:btnTitles[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
@@ -95,10 +102,15 @@ static id _naVC;
         if (i == 1) {
             [button setImageEdgeInsets:UIEdgeInsetsMake(0, 23*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
         }else{
-            [button setImageEdgeInsets:UIEdgeInsetsMake(0, 20*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
+            [button setImageEdgeInsets:UIEdgeInsetsMake(0, 23*KWidth_Scale, 15*KWidth_Scale, 10*KWidth_Scale)];
         }
-        [button setTitleEdgeInsets:UIEdgeInsetsMake(65*KHeight, -52*KWidth_Scale, 5*KWidth_Scale, 0)];
         
+        if (KHeight > 1) {
+             [button setTitleEdgeInsets:UIEdgeInsetsMake(53*KWidth_Scale, -42*KWidth_Scale, 10*KWidth_Scale, 0)];
+        }else{
+             [button setTitleEdgeInsets:UIEdgeInsetsMake(68*KWidth_Scale, -47*KWidth_Scale, 10*KWidth_Scale, 0)];
+        }
+//        [button setTitleEdgeInsets:UIEdgeInsetsMake(<#CGFloat top#>, <#CGFloat left#>, <#CGFloat bottom#>, <#CGFloat right#>)]
         button.tag = 331+i;
         [button addTarget:self action:@selector(shareBtnClick:) forControlEvents:UIControlEventTouchUpInside];
         [shareView addSubview:button];

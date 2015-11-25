@@ -13,7 +13,7 @@
 #import "BaseClickAttribute.h"
 
 static id _naNC;
-
+static id _invitationInfo;
 @implementation CustomCell
 
  
@@ -52,8 +52,7 @@ static id _naNC;
 - (IBAction)informationIM:(id)sender {
     
         if ([self.model.IsOpenIM integerValue] == 0) {
-            
-            [self achieveInvitationInfoData:self.model.ID];
+//            [self achieveInvitationInfoData:self.model.ID];
             
             UIAlertView *alert = [[UIAlertView alloc]initWithTitle:nil message:@"TA还不是你的绑定APP客户,马上邀请TA绑定你的专属APP吧!" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"邀请", nil];
             [alert show];
@@ -67,7 +66,7 @@ static id _naNC;
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     
-    NSLog(@".....self.InvitationInfo = %@", self.InvitationInfo);
+    NSLog(@".....self.InvitationInfo = %@", _invitationInfo);
     
     if (buttonIndex == 1) {
 //        点击邀请走的方法
@@ -79,17 +78,9 @@ static id _naNC;
         if([MFMessageComposeViewController canSendText]){// 判断设备能不能发送短信
             MFMessageComposeViewController *MFMessageVC = [[MFMessageComposeViewController alloc] init];
             
-            
-            // 设置短信内容
-//            MFMessageVC.body = @"hi,我的收客宝升级了，更多优质路线，更多专属服务，戳此进入：http://lvyouquan.com/T.cn,点击下载，更多惊喜等着你哦！";
-            
-            MFMessageVC.body = self.InvitationInfo;
-            
-            // 设置收件人列表
+            MFMessageVC.body = _invitationInfo;
             MFMessageVC.recipients = @[self.telStr];
-            // 设置代理
             MFMessageVC.messageComposeDelegate = self;
-            
             [_naNC presentViewController:MFMessageVC animated:YES completion:nil];
         }else{
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"提示信息" message:@"该设备不支持短信功能" delegate:self cancelButtonTitle:nil otherButtonTitles:@"确定", nil];
@@ -102,7 +93,6 @@ static id _naNC;
 - (void)messageComposeViewController:(MFMessageComposeViewController *)controller didFinishWithResult:(MessageComposeResult)result{
     // 关闭短信界面
     [controller dismissViewControllerAnimated:YES completion:nil];
-    
     if (result == MessageComposeResultCancelled) {
         NSLog(@"取消发送");
     } else if (result == MessageComposeResultSent) {
@@ -120,16 +110,15 @@ static id _naNC;
     
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomer" params:dic success:^(id json){
         NSLog(@"---cell---管客户json is %@-------",json);
-        
-    self.InvitationInfo = json[@"Customer"][@"InvitationInfo"];
+//    self.InvitationInfo = json[@"Customer"][@"InvitationInfo"];
     } failure:^(NSError *error) {
         NSLog(@"接口请求失败 error is %@------",error);
     }];
-    
 }
 
-+ (instancetype)cellWithTableView:(UITableView *)tableView navigationC:(UINavigationController *)naNC{
++(instancetype)cellWithTableView:(UITableView *)tableView InvitationInfo:(NSString *)invitationInfo navigationC:(UINavigationController *)naNC{
     
+    _invitationInfo = invitationInfo;
      _naNC = naNC;
     static NSString *cellID = @"customCell";
     CustomCell *cell = [tableView dequeueReusableCellWithIdentifier:cellID];
