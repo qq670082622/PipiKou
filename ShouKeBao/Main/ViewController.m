@@ -36,7 +36,7 @@ static NSString *kConversationChatter = @"ConversationChatter";
 @property (copy ,nonatomic) NSMutableString *cstmValue;
 @property (copy ,nonatomic) NSMutableString *meValue;
 @property (nonatomic, strong)ShouKeBao * shoukebaoVC;
-
+@property (nonatomic, strong)Customers * customers;
 
 @property (strong, nonatomic) NSDate *lastPlaySoundDate;
 
@@ -85,8 +85,8 @@ static NSString *kConversationChatter = @"ConversationChatter";
 //        OldCustomerViewController *oldCustomerVC = [[OldCustomerViewController alloc]init];
 //        [self addChildVc:oldCustomerVC title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
 //    }else{
-        Customers *cstm = [[Customers alloc] init];
-        [self addChildVc:cstm title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
+        self.customers = [[Customers alloc] init];
+        [self addChildVc:self.customers title:@"管客户" image:@"kehu2" selectedImage:@"kehu"];
 //    }
 
     
@@ -239,6 +239,11 @@ static NSString *kConversationChatter = @"ConversationChatter";
 // 收到消息回调
 -(void)didReceiveMessage:(EMMessage *)message
 {
+    NSLog(@"%@", _customers);
+    if (_customers) {
+        [_customers.table reloadData];
+    }
+    
     BOOL needShowNotification = (message.messageType != eMessageTypeChat) ? [self needShowNotification:message.conversationChatter] : YES;
     if (needShowNotification) {
         //#if !TARGET_IPHONE_SIMULATOR

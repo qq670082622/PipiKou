@@ -598,6 +598,7 @@
 		79B559671BFADD7000C04F92 /* MessageCenterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B559661BFADD7000C04F92 /* MessageCenterModel.m */; };
 		79B5596A1BFB151500C04F92 /* TerraceMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B559691BFB151500C04F92 /* TerraceMessageModel.m */; };
 		79B951491BD0DAAC0027C1F7 /* AttachmentCollectionCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */; };
+		79C35C1A1C048B0200FDF44A /* APNSHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 79C35C191C048B0200FDF44A /* APNSHelper.m */; };
 		79D69BCF1BDDFE13006881DD /* DayDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */; };
 		79D69BD01BDDFE13006881DD /* DayDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */; };
 		79D8D8211B2ACF2900AE4464 /* BeseWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79D8D8201B2ACF2900AE4464 /* BeseWebView.m */; };
@@ -1773,6 +1774,8 @@
 		79B559691BFB151500C04F92 /* TerraceMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TerraceMessageModel.m; sourceTree = "<group>"; };
 		79B951471BD0DAAC0027C1F7 /* AttachmentCollectionCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionCell.h; sourceTree = "<group>"; };
 		79B951481BD0DAAC0027C1F7 /* AttachmentCollectionCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AttachmentCollectionCell.m; sourceTree = "<group>"; };
+		79C35C181C048B0200FDF44A /* APNSHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APNSHelper.h; sourceTree = "<group>"; };
+		79C35C191C048B0200FDF44A /* APNSHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = APNSHelper.m; sourceTree = "<group>"; };
 		79D69BCC1BDDFE13006881DD /* DayDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DayDetailTableViewCell.h; sourceTree = "<group>"; };
 		79D69BCD1BDDFE13006881DD /* DayDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DayDetailTableViewCell.m; sourceTree = "<group>"; };
 		79D69BCE1BDDFE13006881DD /* DayDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DayDetailTableViewCell.xib; sourceTree = "<group>"; };
@@ -4419,6 +4422,8 @@
 				845514FA1AC032C000D588A7 /* WriteFileManager.m */,
 				7960A5891B39320C00A69E44 /* UncaughtExceptionHandler.h */,
 				7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */,
+				79C35C181C048B0200FDF44A /* APNSHelper.h */,
+				79C35C191C048B0200FDF44A /* APNSHelper.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -5539,6 +5544,7 @@
 				5A944D331B00BDAF0004DE89 /* DALabeledCircularProgressView.m in Sources */,
 				63B8C6F41ACE8D9900328C8C /* BBBadgeBarButtonItem.m in Sources */,
 				633263D61AB851590021553B /* AFSecurityPolicy.m in Sources */,
+				79C35C1A1C048B0200FDF44A /* APNSHelper.m in Sources */,
 				796EFB331BF5C1CF00799120 /* Emoji.m in Sources */,
 				796EFC0A1BF5C5DE00799120 /* EMChatTextBubbleView.m in Sources */,
 				5A52FC621ACEBF220076DAE6 /* LoginTool.m in Sources */,

@@ -40,12 +40,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"IM";
+    self.title = @"消息中心";
     _TimedataArr = @[@"09:25",@"11:11",@"13:50",@"18:12",@"23:13"];//测试数据
     
     NSLog(@"chatlist%@", self.chatListArray);
     _tableView.tableFooterView = [[UIView alloc] init];
-    [self loadMessageDataSource];
+    
     
     
     
@@ -68,6 +68,7 @@
             customDynamic.messageTitle = json[@"LastDynamicTitile"];
             customDynamic.messageCount = json[@"NewDynamicCount"];
             customDynamic.dateStr = json[@"LastDynamicDate"];
+            [self.dynamicArray removeAllObjects];
             [self.dynamicArray addObject:platformModel];
             [self.dynamicArray addObject:customDynamic];
             [self.tableView reloadData];
@@ -78,7 +79,7 @@
 -(void)refreshDataSource
 {
     self.chatListArray = [self loadDataSource];
-    [_tableView reloadData];
+    [self loadMessageDataSource];
 }
 -(NSMutableArray *)dynamicArray {
     if (!_dynamicArray) {

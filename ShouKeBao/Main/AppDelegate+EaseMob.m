@@ -44,7 +44,7 @@
 #endif
 
         [[EaseMob sharedInstance] registerSDKWithAppKey:@"pipikou#ppkskb"
-                                           apnsCertName:@"aps_production"
+                                           apnsCertName:@"APNSPPK"
                                             otherConfig:@{kSDKConfigEnableConsoleLogger:@YES}];
 //    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:@"liuyan" password:@"123456" withCompletion:^(NSString *username, NSString *password, EMError *error) {
 //        NSLog(@"%@", error);
