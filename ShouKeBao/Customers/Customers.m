@@ -86,6 +86,7 @@
 @property (nonatomic, strong)NSMutableArray *newsBindingCustomArr;
 @property (nonatomic, strong)NSMutableArray *hadBindingCustomArr;
 @property (nonatomic, strong)NSMutableArray *otherCustomArr;
+@property (nonatomic, copy)NSString *InvitationInfo;
 
 @end
 
@@ -413,6 +414,10 @@
 
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
+        
+        self.InvitationInfo = json[@"InvitationInfo"];
+        NSLog(@"....InvitationInfo = %@", self.InvitationInfo);
+        
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
             [self.array removeAllObjects];
@@ -529,7 +534,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (self.table == tableView) {
-        CustomCell *cell = [CustomCell cellWithTableView:tableView navigationC:self.navigationController];
+//        CustomCell *cell = [CustomCell cellWithTableView:tableView navigationC:self.navigationController];
+        CustomCell *cell = [CustomCell cellWithTableView:tableView InvitationInfo:self.InvitationInfo navigationC:self.navigationController];
         cell.selectionStyle = UITableViewCellSelectionStyleDefault;
         cell.delegate = self;
         cell.model = _dataArr[indexPath.section][indexPath.row];
