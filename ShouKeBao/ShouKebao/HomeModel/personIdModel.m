@@ -41,7 +41,8 @@
         self.RecordType = dict[@"RecordType"];
         // NSString *timeStr = dict[@"createTime"];
    //   NSDate *date = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[timeStr doubleValue]];
-     //   self.createTime =  [date formattedTime];
+     //   self.createTime =  [date formattedTime];    
+        
     }
     return self;
 }

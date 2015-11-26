@@ -33,6 +33,7 @@
 #define UserInfoKeyLYGWPosition @"LYGWPosition" //职位
 #define UserInfoKeyLYGWPhoneNum @"LYGWPhone" //电话
 #define UserInfoKeyLYGWIsOpenVIP @"LVGWIsOpenVIP"//是否开通银牌以上顾问
+#define UserInfoKeyIsShowQuanTouTiao @"IsShowQuanTouTiao"
 #define IsShowInvoiceManage @"IsShowInvoiceManage"
 #import "BaseModel.h"
 @interface UserInfo : BaseModel

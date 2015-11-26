@@ -74,6 +74,8 @@
 #import "HotLaButton.h"
 #import "CircleHotNewsViewController.h"
 #import "CommendToNo.h"
+#import "LocationSeting.h"
+#import "CircleModel.h"
 
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height
@@ -143,6 +145,8 @@
 @property (nonatomic) NSInteger isPush;
 - (IBAction)buttonText:(id)sender;
 @property (nonatomic, strong)HotLaButton *hotLableButton;
+@property (nonatomic, strong)NSMutableArray *circleArr;
+@property (nonatomic, copy)NSString *CircleUrl;
 @end
 
 @implementation ShouKeBao
@@ -202,21 +206,22 @@
 
 #pragma mark - 轮播
 - (void)CarouselAnimationAction{
-//    self.pageNum = 0;
+
     self.CarouselSC.pagingEnabled = YES;
     self.CarouselSC.scrollEnabled = YES;
     self.CarouselSC.showsHorizontalScrollIndicator = NO;
     self.CarouselSC.showsVerticalScrollIndicator = NO;
-    //    self.CarouselSC.delegate = self;
-    self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*5/*4为计算有多少条滚动数据数据*/);
-    for (NSInteger i = 0; i< 5; i++) {
-        _hotLableButton = [[HotLaButton alloc]initWithFrame:CGRectMake(0, i*self.CarouselSC.frame.size.height, self.CarouselSC.frame.size.width, self.CarouselSC.frame.size.height)];
+//        self.CarouselSC.delegate = self;
+    
+    self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*self.circleArr.count);
+    for (NSInteger i = 0; i < self.circleArr.count; i++) {
         
+        self.hotLableButton = [[HotLaButton alloc]initWithFrame:CGRectMake(0, i*self.CarouselSC.frame.size.height, self.CarouselSC.frame.size.width, self.CarouselSC.frame.size.height)];
         
-        [_hotLableButton.button setTitle: [NSString stringWithFormat:@"热点....ffffdsdoooo %d",i] forState:UIControlStateNormal];
+        [self.hotLableButton.button setTitle: [NSString stringWithFormat:@"%@",[self.circleArr[i]ProductThemeName]] forState:UIControlStateNormal];
         
-        [_hotLableButton.button addTarget:self action:@selector(buttonText:) forControlEvents:UIControlEventTouchUpInside];
-        [self.CarouselSC addSubview:_hotLableButton];
+        [self.hotLableButton.button addTarget:self action:@selector(buttonText:) forControlEvents:UIControlEventTouchUpInside];
+        [self.CarouselSC addSubview:self.hotLableButton];
         
     }
 }
@@ -225,11 +230,9 @@
     [[NSRunLoop mainRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
 }
 - (void)nextNews{
-    if (self.pageNum < 5) {
+    if (self.pageNum < self.circleArr.count) {
         [self.CarouselSC setContentOffset:CGPointMake(0, 50*(++self.pageNum)) animated:YES];
-        NSLog(@"dd,,,, %d", self.pageNum);
-        
-    }if (self.pageNum >= 5) {
+    }if (self.pageNum >= self.circleArr.count) {
         
         [self.CarouselSC setContentOffset:CGPointMake(0, self.CarouselSC.contentOffset.y-50 *(self.pageNum))];
         self.pageNum = 0;
@@ -245,6 +248,7 @@
 }
 - (void)ClickCarouselSCAction:(NSInteger)pageNum{
     CircleHotNewsViewController *circleHotVC = [[CircleHotNewsViewController alloc]init];
+    circleHotVC.CircleUrl = self.CircleUrl;
     [self.navigationController pushViewController:circleHotVC animated:YES];
 }
 - (void)CarouselNews{
@@ -273,6 +277,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+     [self loadCarouselNewsData];
+    
+   
 
     [self.view addSubview:self.tableView];
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
@@ -952,29 +960,12 @@
 {
     [super viewWillAppear:animated];
     self.isEmpty = NO;
-    
+
 //    视图将要出现时定位
 //    [self locationMethod];
-// 轮播
-     NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
-    if ([pageNumber isEqualToString:@""]) {
-        self.pageNum = 0;
-    }else{
-        self.pageNum = [pageNumber integerValue];
-    }
-       NSLog(@"self.pageNum = %d", self.pageNum);
     
+   
     
-    [self CarouselAnimationAction];
-    [self CarouselNews];
-    
-    if (!_timer) {
-        self.timer = [[NSTimer alloc]init];
-    }
-
-    [self startTimer];
-
-
     //我界面更改头像和名字之后  首页的同步
     self.userName.text =  [UserInfo shareUser].userName;
     NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
@@ -1016,13 +1007,13 @@
     
     [super viewWillDisappear:animated];
 
-    NSString *numberStr = [NSString stringWithFormat:@"%d", self.pageNum];
-    [[NSUserDefaults standardUserDefaults]setObject:numberStr forKey:@"carouselPageNumber"];
+    NSString *numberStr = [NSString stringWithFormat:@"%ld", self.pageNum];
+    [LocationSeting defaultLocationSeting].carouselPageNumber = numberStr;
+
      [self.timer invalidate];
 
 #warning   放Appdelegate里：
-//    [[NSUserDefaults standardUserDefaults]setObject:@"" forKey:@"carouselPageNumber"];
-//     NSLog(@",,,self.pageNum = %@", [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"]);
+//    [LocationSeting defaultLocationSeting].carouselPageNumber = @"";
     
 
     [MobClick endLogPageView:@"ShouKeBao"];
@@ -1038,7 +1029,12 @@
 
 
 #pragma mark - getter
-
+- (NSMutableArray *)circleArr{
+    if (!_circleArr) {
+        _circleArr = [NSMutableArray array];
+    }
+    return _circleArr;
+}
 -(NSMutableArray *)isReadArr
 {
     if (_isReadArr == nil) {
@@ -1093,6 +1089,26 @@
 }
 
 #pragma mark - loadDataSource
+- (void)loadCarouselNewsData{
+    
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [IWHttpTool WMpostWithURL:@"Home/GetCircleHotSpot" params:dic success:^(id json){
+        
+        NSLog(@"轮播json = %@", json);
+        self.CircleUrl = json[@"CircleUrl"];
+        for (NSDictionary *dic in json[@"CircleHotSporList"]) {
+            CircleModel *model = [[CircleModel alloc]initWithDict:dic];
+            [self.circleArr addObject:model];
+        }
+         [self circleLayout];
+        
+    }failure:^(NSError *error) {
+        NSLog(@"轮播接口请求失败 error is %@------",error);
+    }];
+    
+    
+}
+
 - (void)loadContentDataSource
 {
     NSDictionary *param = @{};// 基本参数即可
@@ -1173,6 +1189,27 @@
         
     }];
 }
+- (void)circleLayout{
+    // 轮播
+    NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
+    if ([pageNumber isEqualToString:@""]) {
+        self.pageNum = 0;
+    }else{
+        self.pageNum = [pageNumber integerValue];
+    }
+    [self CarouselAnimationAction];
+    [self CarouselNews];
+    
+    if (!_timer) {
+        self.timer = [[NSTimer alloc]init];
+    }
+    
+    [self startTimer];
+    
+
+}
+
+
 
 #pragma mark - private
 //第一次开机引导

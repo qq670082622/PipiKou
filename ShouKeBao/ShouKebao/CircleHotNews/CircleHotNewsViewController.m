@@ -9,6 +9,7 @@
 #import "CircleHotNewsViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import "NSString+FKTools.h"
+#import "YYAnimationIndicator.h"
 
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height
@@ -18,37 +19,109 @@
 @property (nonatomic, strong)NSMutableDictionary * shareInfo;
 @property (nonatomic, copy)NSString *urlSuffix;
 @property (nonatomic, copy)NSString *urlSuffix2;
+@property (nonatomic,strong) YYAnimationIndicator *indicator;
+@property (nonatomic, assign)BOOL isBack;
+@property (nonatomic,assign) BOOL isSave;
 //@property ()
 @end
 
 @implementation CircleHotNewsViewController
 
+
+- (void)deadWork{
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    CFShow((__bridge CFTypeRef)(infoDictionary));
+    
+    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix = urlSuffix;
+    
+    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
+    self.urlSuffix2 = urlSuffix2;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"圈热点";
-    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
+//    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
     [self setshareBarItem];
-  
-    
-    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
-    CFShow((__bridge CFTypeRef)(infoDictionary));
+    [self deadWork];
+    [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.CircleUrl]]];
+    [self webView];
+}
 
-    NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
-    self.urlSuffix = urlSuffix;
+
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
-    NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
-    self.urlSuffix2 = urlSuffix2;
+    NSString *rightUrl = request.URL.absoluteString;
+    NSLog(@"rightStr is %@--------",rightUrl);
+    NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
+    NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
+    NSRange range3 = [rightUrl rangeOfString:@"?"];
     
-    
-//     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:_produceUrl]]];
-    
-    
-    
+//    NSRange shareRange = [rightUrl rangeOfString:@"objectc:LYQSKBAPP_OpenShareProduct"];
+    [_indicator startAnimation];
+
+    if (range3.location == NSNotFound && range.location == NSNotFound) {//没有问号，没有问号后缀
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]];
+        
+        NSLog(@"url＝ %@", [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix]]]);
+        return YES;
+        
+    }else if (range3.location != NSNotFound && range2.location == NSNotFound ){//有问号没有后缀
+        [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]];
+        
+        NSLog(@"url2＝ %@", [[NSURLRequest alloc] initWithURL:[NSURL URLWithString:[rightUrl stringByAppendingString:_urlSuffix2]]]);
+        return YES;
+    }else{
+        [_indicator startAnimation];
+    }
+//    if (shareRange.location != NSNotFound) {
+//        [self shareAction:nil];
+//        [_indicator stopAnimationWithLoadText:@"" withType:YES];
+//    }
+    return YES;
     
 }
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error{
+    //判断是否应该显示关闭按钮
+    if (self.m == 0) {
+        
+    }else if(self.m == 1){
+        if ([self.webView canGoBack]) {
+            //self.navigationItem.leftBarButtonItem = nil;
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+     }
+  }
+}
+
+-(void)webViewDidFinishLoad:(UIWebView *)webView{
+    
+    NSLog(@"%@",webView.request.URL.absoluteString);
+    //判断是否显示关闭按钮
+    if (self.m == 0) {
+    }else if(self.m == 1){
+        if ([self.webView canGoBack]) {
+            [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
+        }else{
+            self.navigationItem.leftBarButtonItem = nil;
+            self.navigationItem.leftBarButtonItem = leftItem;
+        }
+    }
+    [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+}
+
+
+
+
+
+
+
 #pragma mark - 初始化
 - (NSMutableDictionary *)shareInfo{
     if (!_shareInfo) {
@@ -63,40 +136,34 @@
         [self.webView scalesPageToFit];
         [self.webView.scrollView setShowsVerticalScrollIndicator:NO];
         [self.webView.scrollView setShowsHorizontalScrollIndicator:NO];
+        [self.view addSubview:self.webView];
     }
     return _webView;
 }
 
 
 
+- (void)setLeftBarItem{
+    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
+    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
+    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
+    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
+    [leftBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
+    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
+    leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
+    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+-(void)back{
+    //下边是未改动返回
+        self.isBack = YES;
+        if ([_webView canGoBack]) {
+    
+            [self.webView goBack];
+       }else  {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+}
 
 
 #pragma mark = 分享
@@ -224,21 +291,7 @@
     UIBarButtonItem *shareBarItem = [[UIBarButtonItem alloc]initWithCustomView:button];
     self.navigationItem.rightBarButtonItem = shareBarItem;
 }
-- (void)back{
-//    self.isBack = YES;
-    if ([_webView canGoBack]) {
-        [self.webView goBack];
-    }else{
-        if ([[self.webView stringByEvaluatingJavaScriptFromString:@"AppIsShowShareWhenBack()"]isEqualToString:@"1"]) {//判断能否弹框
-            [NSString showbackgroundgray];
-//            [NSString showLeaveShareNav:self.navigationController InVC:self];
-            [self.webView stringByEvaluatingJavaScriptFromString:@"AppHadShowShareWhenBack()"];//提示弹框
-        }else {//不能提示
-            [self.webView stringByEvaluatingJavaScriptFromString:@"AppRecordBackNumber()"];
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-    }
-}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
