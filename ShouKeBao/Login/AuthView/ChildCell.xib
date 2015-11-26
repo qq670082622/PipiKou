@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14C2055" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <objects>
@@ -26,22 +26,35 @@
                         <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="已开通专属APP" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="TPi-Pa-rgo">
+                        <rect key="frame" x="197" y="20" width="123" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="123" id="D70-8j-zij"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstAttribute="trailingMargin" secondItem="TPi-Pa-rgo" secondAttribute="trailing" constant="-8" id="8Zm-e1-h07"/>
                     <constraint firstItem="DDg-DL-Hjl" firstAttribute="centerY" secondItem="4oM-jq-8P1" secondAttribute="centerY" id="Ct6-Ch-9qj"/>
                     <constraint firstItem="4oM-jq-8P1" firstAttribute="centerY" secondItem="YTW-jF-eFF" secondAttribute="centerY" id="Nxc-Uo-jeV"/>
                     <constraint firstItem="4oM-jq-8P1" firstAttribute="leading" secondItem="YTW-jF-eFF" secondAttribute="leadingMargin" constant="7" id="Ros-EN-jYn"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="TPi-Pa-rgo" secondAttribute="bottom" constant="10.5" id="SUh-sM-NtE"/>
                     <constraint firstAttribute="trailingMargin" secondItem="DDg-DL-Hjl" secondAttribute="trailing" id="Wxm-yC-V8t"/>
+                    <constraint firstItem="TPi-Pa-rgo" firstAttribute="top" secondItem="YTW-jF-eFF" secondAttribute="topMargin" constant="12" id="X0D-CY-ZVo"/>
                     <constraint firstItem="DDg-DL-Hjl" firstAttribute="leading" secondItem="4oM-jq-8P1" secondAttribute="trailing" constant="8" symbolic="YES" id="YBO-zq-m2m"/>
                     <constraint firstItem="DDg-DL-Hjl" firstAttribute="top" secondItem="YTW-jF-eFF" secondAttribute="topMargin" constant="11" id="izW-eP-mK2"/>
                     <constraint firstItem="4oM-jq-8P1" firstAttribute="top" secondItem="YTW-jF-eFF" secondAttribute="topMargin" constant="-1" id="jO3-gW-Ewo"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
+                <outlet property="VIPIsOpen" destination="TPi-Pa-rgo" id="sbp-Mg-HoY"/>
                 <outlet property="iconView" destination="4oM-jq-8P1" id="c0w-YE-vYu"/>
                 <outlet property="nameLab" destination="DDg-DL-Hjl" id="XgH-nG-Dgh"/>
             </connections>
-            <point key="canvasLocation" x="254" y="31"/>
+            <point key="canvasLocation" x="385" y="164"/>
         </tableViewCell>
     </objects>
 </document>

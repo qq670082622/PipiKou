@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShouKeBao/Login/ChildAccountViewController.m"
-            timestampString = "470026969.214689"
+            timestampString = "470199575.38856"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
+            startingLineNumber = "216"
+            endingLineNumber = "216"
             landmarkName = "-bangdingWith:"
             landmarkType = "5">
          </BreakpointContent>

@@ -18,6 +18,8 @@
 
 @property (nonatomic,copy) NSString *distributionId;
 
+@property (nonatomic, copy)NSString *IsOpenConsultantApp;
+
 + (instancetype)distributionWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

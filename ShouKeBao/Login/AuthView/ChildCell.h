@@ -15,5 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *iconView;
 
 @property (weak, nonatomic) IBOutlet UILabel *nameLab;
+@property (strong, nonatomic) IBOutlet UILabel *VIPIsOpen;
 
 @end

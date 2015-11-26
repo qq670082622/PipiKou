@@ -464,8 +464,7 @@
         [self.navigationController.navigationBar addSubview:_navBarView];
         
     }else{
-        
-               UIView *cover = [[UIView alloc] init];
+        UIView *cover = [[UIView alloc] init];
         CGFloat navBarW = frame.size.width;
         cover.frame = CGRectMake(screenW/2 - navBarW/2,5, frame.size.width-40, 34);
         //   cover.frame =CGRectMake(48, 25, navBarW, 34);

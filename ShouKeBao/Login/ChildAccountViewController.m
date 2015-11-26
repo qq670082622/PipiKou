@@ -75,6 +75,7 @@
             if (![json[@"SkbList"] isKindOfClass:[NSNull class]]) {
                 
                 for (NSDictionary *dic in json[@"SkbList"]) {
+                    NSLog(@"%@", dic);
                     Distribution *dis = [Distribution distributionWithDict:dic];
                     [self.dataSource addObject:dis];
                 }
@@ -141,6 +142,10 @@
         Distribution *dis = self.dataSource[indexPath.row];
         [cell.iconView sd_setImageWithURL:[NSURL URLWithString:dis.icon] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
         cell.nameLab.text = dis.name;
+        NSLog(@"$$$$%@", dis.IsOpenConsultantApp);
+        if (indexPath.row != 0) {
+            cell.VIPIsOpen.hidden = ![dis.IsOpenConsultantApp integerValue];
+        }
         cell.textLabel.textColor = [UIColor blackColor];
     }else{
         cell.imageView.image = [UIImage imageNamed:@"jia"];

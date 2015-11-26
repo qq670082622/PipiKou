@@ -44,7 +44,7 @@
 #endif
 
         [[EaseMob sharedInstance] registerSDKWithAppKey:@"pipikou#ppkskb"
-                                           apnsCertName:@"APNSPPK"
+                                           apnsCertName:@"lvyouquanpush"
                                             otherConfig:@{kSDKConfigEnableConsoleLogger:@YES}];
 //    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:@"liuyan" password:@"123456" withCompletion:^(NSString *username, NSString *password, EMError *error) {
 //        NSLog(@"%@", error);
@@ -178,6 +178,8 @@
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
+    NSString * deviceStr = [NSString stringWithFormat:@"%@", deviceToken];
+    [[[UIAlertView alloc]initWithTitle:@"aaa" message:deviceStr delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
 }
 
 // 注册deviceToken失败，此处失败，与环信SDK无关，一般是您的环境配置或者证书配置有误

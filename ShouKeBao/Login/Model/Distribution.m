@@ -26,6 +26,7 @@
         self.icon = muta[@"SkbLogo"];
         self.name = muta[@"SkbName"];
         self.distributionId = muta[@"DistributionID"];
+        self.IsOpenConsultantApp = muta[@"IsOpenConsultantApp"];
     }
     return self;
 }
