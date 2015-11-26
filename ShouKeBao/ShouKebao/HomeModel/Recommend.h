@@ -21,6 +21,9 @@
 @property (nonatomic, copy)NSString *TitleText;
 @property (nonatomic, copy)NSString *PriceText;
 
+
+
+
 + (instancetype)recommendWithDict:(NSDictionary *)dict;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;

@@ -629,6 +629,7 @@
 		B36E57341B74C0D000471AAC /* ProductList.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E57271B74C0D000471AAC /* ProductList.m */; };
 		B36E57351B74C0D000471AAC /* ProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E57281B74C0D000471AAC /* ProductList.xib */; };
 		B36E57361B74C0D000471AAC /* ProductModal.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E572A1B74C0D000471AAC /* ProductModal.m */; };
+		B37FB1F01C05C3E80064A623 /* LocationSeting.m in Sources */ = {isa = PBXBuildFile; fileRef = B37FB1EF1C05C3E80064A623 /* LocationSeting.m */; };
 		B3A2B6021BF4A518002AB105 /* HotLaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B6011BF4A518002AB105 /* HotLaButton.m */; };
 		B3A2B6091BF4A715002AB105 /* CircleHotNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */; };
 		B3B56BE11B8C47CB002E01B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */; };
@@ -714,6 +715,7 @@
 		B3CFF62C1BFB1E69002065AA /* EstablelishedViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = B3CFF62A1BFB1E69002065AA /* EstablelishedViewController.xib */; };
 		B3CFF62F1BFB49C5002065AA /* ExclusiveShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = B3CFF62E1BFB49C5002065AA /* ExclusiveShareView.m */; };
 		B3D0548A1BF9700100A4E193 /* CustomerSection.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D054891BF9700100A4E193 /* CustomerSection.m */; };
+		B3D141CC1C06DDA800455D63 /* CircleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D141CB1C06DDA800455D63 /* CircleModel.m */; };
 		B3D7B77D1BD76DF10080E243 /* QRPhotoCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */; };
 		B3D7B77E1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B77C1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m */; };
 		B3D7B7C21BD76F700080E243 /* CardTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3D7B7A71BD76F700080E243 /* CardTableViewController.m */; };
@@ -1829,6 +1831,8 @@
 		B36E57281B74C0D000471AAC /* ProductList.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProductList.xib; sourceTree = "<group>"; };
 		B36E57291B74C0D000471AAC /* ProductModal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProductModal.h; sourceTree = "<group>"; };
 		B36E572A1B74C0D000471AAC /* ProductModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModal.m; sourceTree = "<group>"; };
+		B37FB1EE1C05C3E80064A623 /* LocationSeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSeting.h; sourceTree = "<group>"; };
+		B37FB1EF1C05C3E80064A623 /* LocationSeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSeting.m; sourceTree = "<group>"; };
 		B3A2B6001BF4A518002AB105 /* HotLaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotLaButton.h; sourceTree = "<group>"; };
 		B3A2B6011BF4A518002AB105 /* HotLaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotLaButton.m; sourceTree = "<group>"; };
 		B3A2B6071BF4A715002AB105 /* CircleHotNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleHotNewsViewController.h; sourceTree = "<group>"; };
@@ -1977,6 +1981,8 @@
 		B3CFF62E1BFB49C5002065AA /* ExclusiveShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExclusiveShareView.m; sourceTree = "<group>"; };
 		B3D054881BF9700100A4E193 /* CustomerSection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerSection.h; sourceTree = "<group>"; };
 		B3D054891BF9700100A4E193 /* CustomerSection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerSection.m; sourceTree = "<group>"; };
+		B3D141CA1C06DDA800455D63 /* CircleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CircleModel.h; path = ../../Welcome/CircleModel.h; sourceTree = "<group>"; };
+		B3D141CB1C06DDA800455D63 /* CircleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CircleModel.m; path = ../../Welcome/CircleModel.m; sourceTree = "<group>"; };
 		B3D7B7791BD76DF10080E243 /* QRPhotoCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRPhotoCollectionViewCell.h; sourceTree = "<group>"; };
 		B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRPhotoCollectionViewCell.m; sourceTree = "<group>"; };
 		B3D7B77B1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRSaveToCustomerTableViewCell.h; sourceTree = "<group>"; };
@@ -2851,6 +2857,8 @@
 			isa = PBXGroup;
 			children = (
 				5A60FC6C1AE0A8CD00CDAC4B /* Welcome */,
+				B3D141CA1C06DDA800455D63 /* CircleModel.h */,
+				B3D141CB1C06DDA800455D63 /* CircleModel.m */,
 				5ABA4F641AD7C2E7004AA8F6 /* HomeBase.h */,
 				5ABA4F651AD7C2E7004AA8F6 /* HomeBase.m */,
 				5A82161A1AD3843B009388DA /* HomeList.h */,
@@ -4424,6 +4432,8 @@
 				7960A58A1B39320C00A69E44 /* UncaughtExceptionHandler.m */,
 				79C35C181C048B0200FDF44A /* APNSHelper.h */,
 				79C35C191C048B0200FDF44A /* APNSHelper.m */,
+				B37FB1EE1C05C3E80064A623 /* LocationSeting.h */,
+				B37FB1EF1C05C3E80064A623 /* LocationSeting.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -5212,6 +5222,7 @@
 				63AA23221B847639009CD44D /* ShaiXuanViewController.m in Sources */,
 				B3C01E3D1BAC10FC005E4BB5 /* QuanViewController.m in Sources */,
 				796EFDBA1BF5CA4E00799120 /* MWCaptionView.m in Sources */,
+				B37FB1F01C05C3E80064A623 /* LocationSeting.m in Sources */,
 				63F1A1381B1332AD00DE9867 /* RecentlyCell.m in Sources */,
 				52EFF56E1BD9DC300020E540 /* InvoiceDetailController.m in Sources */,
 				5A6996161AF8A5F2002EDD91 /* BackTableViewControllerController.m in Sources */,
@@ -5513,6 +5524,7 @@
 				5A52FC551ACEBF220076DAE6 /* rightModal2.m in Sources */,
 				52B858491BC76D4C00B15483 /* CommandTo.m in Sources */,
 				796EFC111BF5C5DE00799120 /* MessageModel.m in Sources */,
+				B3D141CC1C06DDA800455D63 /* CircleModel.m in Sources */,
 				B3BC338C1BD8BCC600C61D83 /* MeShareDetailTableViewCell.m in Sources */,
 				527E3B891BECAB5B00AAA6F6 /* TerraceMessageController.m in Sources */,
 				797B37971B8C38CF00411DBA /* GTMBase64.m in Sources */,

@@ -191,6 +191,8 @@
             NSString *IsLYGWStr = json[@"IsOpenConsultantApp"];
             NSLog(@"%@",IsLYGWStr);
             [def setObject:IsLYGWStr forKey:UserInfoKeyLYGWIsOpenVIP];
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:UserInfoKeyIsShowQuanTouTiao];
+
             [def synchronize];
             
             if (![json[@"LoginAvatar"]isEqual:[NSNull null]]) {

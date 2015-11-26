@@ -752,7 +752,8 @@ void UncaughtExceptionHandler(NSException *exception) {
             NSString *IsLYGWStr = json[@"IsOpenConsultantApp"];
             NSLog(@"%@",IsLYGWStr);
             [[NSUserDefaults standardUserDefaults] setObject:IsLYGWStr forKey:UserInfoKeyLYGWIsOpenVIP];
-            
+            [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:UserInfoKeyIsShowQuanTouTiao];
+
             if (![json[@"DistributionID"]isEqualToString:(NSString *)[NSNull null]]) {
                 [def setObject:json[@"DistributionID"] forKey:UserInfoKeyDistributionID];
             }

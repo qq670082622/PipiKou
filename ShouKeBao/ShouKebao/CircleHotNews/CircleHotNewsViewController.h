@@ -7,8 +7,9 @@
 //
 
 #import "SKViewController.h"
-//#import "MBProgressHUD.h"
 #import "MBProgressHUD+MJ.h"
 @interface CircleHotNewsViewController : SKViewController
+@property (nonatomic, copy)NSString *CircleUrl;
+@property (nonatomic) NSInteger m;
 
 @end

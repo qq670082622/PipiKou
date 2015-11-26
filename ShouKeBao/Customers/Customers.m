@@ -34,6 +34,7 @@
 #import "SearchView.h"
 #import "CustomerSection.h"
 #import "ChatViewController.h"
+
 #define pageSize 10
 //协议传值4:在使用协议之前,必须要签订协议 由Customer签订
 @interface Customers ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,notifiCustomersToReferesh,AddCustomerToReferesh, DeleteCustomerDelegate, UISearchBarDelegate, UISearchDisplayDelegate, transformPerformation, notifiSKBToReferesh>
@@ -88,6 +89,7 @@
 @property (nonatomic, strong)NSMutableArray *hadBindingCustomArr;
 @property (nonatomic, strong)NSMutableArray *otherCustomArr;
 @property (nonatomic, copy)NSString *InvitationInfo;
+
 
 @end
 
@@ -189,11 +191,17 @@
     }];
 }
 -(void)messagePromptAction{
+    if (self.messageCount == 0) {
+        self.conditionLine.hidden = YES;
+        
+    }else{
+    self.conditionLine.hidden = NO;
     self.messagePrompt.text = [NSString stringWithFormat:@"您有%d条未读信息", self.messageCount];
-//    self.timePrompt.text = @"11:55";//测试
+   self.timePrompt.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"customMessageDateStr"];
     if (self.messageCount >0) {
         [self.bellButton setImage:[UIImage imageNamed:@"redBell"] forState:UIControlStateNormal];
     }
+  }
     
 }
 - (IBAction)pushMessageVC:(id)sender {
@@ -409,8 +417,8 @@
     [dic setObject:[NSString stringWithFormat:@"%d", pageSize] forKey:@"PageSize"];
     [dic setObject:@7 forKey:@"SortType"];
     [dic setObject:self.searchK forKey:@"SearchKey"];
-    [dic setObject:[NSString stringWithFormat:@"%d", self.customerType]forKey:@"CustomerType"];
-    NSLog(@"self.customerType = %d", self.customerType);
+    [dic setObject:[NSString stringWithFormat:@"%ld", self.customerType]forKey:@"CustomerType"];
+    NSLog(@"self.customerType = %ld", self.customerType);
 
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
@@ -472,7 +480,7 @@
             self.CustomerCounts.hidden = NO;
             self.imageViewWhenIsNull.hidden = YES;
             self.peopleN = self.Array.count;
-            self.CustomerCounts.text = [NSString stringWithFormat:@"%d位联系人", self.peopleN];
+            self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.peopleN];
         }
    
         NSLog(@"dadta = %@", self.dataArr);

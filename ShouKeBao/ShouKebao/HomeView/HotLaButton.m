@@ -44,9 +44,13 @@
         [self addSubview:self.lable];
         
         self.button = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMaxX(self.lable.frame), 0, frame.size.width-CGRectGetMaxX(self.lable.frame)-gap, frame.size.height)];
-        [self.button.titleLabel setFont:[UIFont systemFontOfSize:15]];
-        [self.button setTitleEdgeInsets:UIEdgeInsetsMake(0, -15, 0, 20)];
+        [self.button.titleLabel setFont:[UIFont boldSystemFontOfSize:14]];
+        [self.button setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 0)];
         [self.button setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+//        self.button.titleLabel.lineBreakMode = 1;
+        self.button.titleLabel.lineBreakMode = NSLineBreakByTruncatingTail;
+        self.button.titleLabel.textAlignment = NSTextAlignmentLeft;
+        
         [self addSubview:self.button];
     
     }

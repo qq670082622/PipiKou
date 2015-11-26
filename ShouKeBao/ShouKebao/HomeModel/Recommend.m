@@ -20,6 +20,8 @@
     [aCoder encodeObject:self.RecommendIndexProductList forKey:@"RecommendIndexProductList"];
     [aCoder encodeObject:self.StaticPrice forKey:@"StaticPrice"];
 
+//    [aCoder encodeObject:self.CreateDate forKey:@"CreateDate"];
+//    [aCoder encodeObject:self.ProductThemeName forKey:@"ProductThemeName"];
 }
 
 
@@ -35,6 +37,8 @@
         self.StaticPrice = [aDecoder decodeObjectForKey:@"StaticPrice"];
         self.RecommendIndexProductList = [aDecoder decodeObjectForKey:@"RecommendIndexProductList"];
         
+//        self.CreateDate = [aDecoder decodeObjectForKey:@"CreateDate"];
+//        self.ProductThemeName = [aDecoder decodeObjectForKey:@"ProductThemeName"];
     }
     
     return self;
@@ -58,6 +62,8 @@
         self.Price = muta[@"Price"];
         self.RecommendIndexProductList = muta[@"RecommendIndexProductList"];
         self.StaticPrice = muta[@"StaticPrice"];
+//        self.CreateDate = muta[@"CreateDate"];
+//        self.ProductThemeName = muta[@"ProductThemeName"];
     }
     return self;
 }

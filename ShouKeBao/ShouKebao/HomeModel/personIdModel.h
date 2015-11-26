@@ -39,6 +39,8 @@
 
 @property (nonatomic,copy) NSString *ModifyDate;//修改日期
 
+
+
 @property (nonatomic,copy) NSString *RecordId;//纪录ID
 +(instancetype)modelWithDict:(NSDictionary *)dict;
 -(instancetype)initWithDict:(NSDictionary *)dict;

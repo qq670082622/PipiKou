@@ -71,6 +71,7 @@
         self.ShowType = muta[@"ShowType"];
         self.LinkUrl = muta[@"LinkUrl"];
         self.OrderStateDetail = muta[@"OrderStateDetail"];
+        
     }
     return self;
 }
