@@ -409,6 +409,7 @@
 }
 -(void)thirdTouchPushScan:(NSNotification *)notiP{
     NSUserDefaults *def = [NSUserDefaults standardUserDefaults];
+    [[[UIAlertView alloc] initWithTitle:@"哈哈" message:@"hah" delegate:self cancelButtonTitle:@"hah" otherButtonTitles: nil]show];
     [def removeObjectForKey:@"ThreeDTouch"];
     if (self.isPush == 1) {
         self.isPush = 0;
