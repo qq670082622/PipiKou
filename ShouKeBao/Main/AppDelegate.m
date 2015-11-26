@@ -124,6 +124,7 @@
 ////                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
 //                        self.window.rootViewController = nil;
 //                        [self setTabbarRoot];
+//                        
 //                        [def setObject:@"UITouchText.scan" forKey:@"ThreeDTouch"];
 //                        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
 //                        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
@@ -190,7 +191,7 @@ void UncaughtExceptionHandler(NSException *exception) {
 //    [UIApplication sharedApplication].shortcutItems = [existArr arrayByAddingObjectsFromArray:addArr];
 //    [UIApplication sharedApplication].shortcutItems = addArr;
 //}
-// 
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
 //    [[[UIAlertView alloc]initWithTitle:@"a" message:@"\ue40a" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
@@ -1013,20 +1014,20 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     }
     return nil;
 }
-//- (void)applicationWillEnterForeground:(UIApplication *)application {
-//    // 回到前台
-////    [[[UIAlertView alloc]initWithTitle:@"aa" message:@"aaa" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
-//
-//    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeDTouch"] isEqualToString:@"UITouchText.scan"]) {
-//        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
-//
-//    }else if([[[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeDTouch"] isEqualToString:@"UITouchText.TodaySignIn"]){
-//        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
-//    }
-//
-//}
+- (void)applicationWillEnterForeground:(UIApplication *)application {
+    // 回到前台
+//    [[[UIAlertView alloc]initWithTitle:@"aa" message:@"aaa" delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
+
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeDTouch"] isEqualToString:@"UITouchText.scan"]) {
+        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:0];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushScan" object:nil];
+
+    }else if([[[NSUserDefaults standardUserDefaults] objectForKey:@"ThreeDTouch"] isEqualToString:@"UITouchText.TodaySignIn"]){
+        ((ViewController*)self.window.rootViewController).selectedViewController = [((ViewController*)self.window.rootViewController).viewControllers objectAtIndex:4];
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"3dTouchPushYaoQianShu" object:nil];
+    }
+
+}
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
 {
