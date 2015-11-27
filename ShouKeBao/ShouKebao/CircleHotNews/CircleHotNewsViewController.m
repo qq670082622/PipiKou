@@ -10,18 +10,23 @@
 #import <ShareSDK/ShareSDK.h>
 #import "NSString+FKTools.h"
 #import "YYAnimationIndicator.h"
+#import "WMAnimations.h"
+#import "StrToDic.h"
+#import "IWHttpTool.h"
 
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height
 
-@interface CircleHotNewsViewController ()<UIWebViewDelegate>
+@interface CircleHotNewsViewController ()<UIWebViewDelegate, UIAlertViewDelegate>
 @property (nonatomic, strong)UIWebView *webView;
-@property (nonatomic, strong)NSMutableDictionary * shareInfo;
 @property (nonatomic, copy)NSString *urlSuffix;
 @property (nonatomic, copy)NSString *urlSuffix2;
-@property (nonatomic,strong) YYAnimationIndicator *indicator;
+@property (nonatomic, strong)YYAnimationIndicator *indicator;
 @property (nonatomic, assign)BOOL isBack;
-@property (nonatomic,assign) BOOL isSave;
+@property (nonatomic, assign)BOOL isSave;
+@property (nonatomic, strong)NSTimer *timer;
+@property (nonatomic, copy)NSString *telStr;
+@property (nonatomic, strong)NSMutableArray *shareArr;
 //@property ()
 @end
 
@@ -37,6 +42,13 @@
     
     NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"]];
     self.urlSuffix2 = urlSuffix2;
+    
+     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
+    CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
+    CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
+    self.indicator = [[YYAnimationIndicator alloc]initWithFrame:CGRectMake(x, y, 130, 130)];
+    [_indicator setLoadText:@"拼命加载中..."];
+    
 }
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -44,14 +56,38 @@
     
     self.view.backgroundColor = [UIColor whiteColor];
     self.title = @"圈热点";
-//    self.navigationItem.leftBarButtonItems = @[leftItem,turnOffItem];
     [self setshareBarItem];
     [self deadWork];
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.5 target:self selector:@selector(isCallTel) userInfo:nil repeats:YES];
+    self.timer = timer;
+    [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
+    
+    
     [self.webView loadRequest:[[NSURLRequest alloc] initWithURL:[[NSURL alloc]initWithString:self.CircleUrl]]];
     [self webView];
 }
 
+- (void)isCallTel{
+    NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
+    if (string.length != 0) {
+        self.telStr = string;
+        NSLog(@"%@", self.telStr);
+        UIAlertView * alertView = [[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"确定要拨打电话:%@吗?", self.telStr] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
+        [alertView show];
+    }
+}
 
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    if (buttonIndex == 1) {
+        NSString *phoneStr = [NSString stringWithFormat:@"tel://%@",self.telStr];
+        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:phoneStr]];
+    }
+}
+
+
+
+#pragma mark - uiwebView-delegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType{
     
     NSString *rightUrl = request.URL.absoluteString;
@@ -91,7 +127,6 @@
         
     }else if(self.m == 1){
         if ([self.webView canGoBack]) {
-            //self.navigationItem.leftBarButtonItem = nil;
             [self.navigationItem setLeftBarButtonItems:@[leftItem,turnOffItem] animated:NO];
         }else{
             self.navigationItem.leftBarButtonItem = nil;
@@ -114,6 +149,19 @@
         }
     }
     [_indicator stopAnimationWithLoadText:@"加载成功" withType:YES];
+        NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+        [dic setObject:webView.request.URL.absoluteString forKey:@"PageUrl"];
+        [IWHttpTool WMpostWithURL:@"/Common/GetPageType" params:dic success:^(id json) {
+            NSLog(@"-----分享返回数据json is %@------",json);
+            NSString *str =  json[@"ShareInfo"][@"Desc"];
+            if(str.length>1){
+                [self.shareArr addObject:json[@"ShareInfo"]];
+            }
+        } failure:^(NSError *error){
+            
+            NSLog(@"分享请求数据失败，原因：%@",error);
+        }];
+   
 }
 
 
@@ -123,12 +171,13 @@
 
 
 #pragma mark - 初始化
-- (NSMutableDictionary *)shareInfo{
-    if (!_shareInfo) {
-        self.shareInfo = [NSMutableDictionary dictionary];
+- (NSMutableArray *)shareArr{
+    if (!_shareArr) {
+        self.shareArr = [NSMutableArray array];
     }
-    return _shareInfo;
+    return _shareArr;
 }
+
 - (UIWebView *)webView{
     if (!_webView) {
         self.webView = [[UIWebView alloc]initWithFrame:[UIScreen mainScreen].bounds];
@@ -142,20 +191,7 @@
 }
 
 
-
-- (void)setLeftBarItem{
-    UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,55,15)];
-    [leftBtn setImage:[UIImage imageNamed:@"fanhuian"] forState:UIControlStateNormal];
-    leftBtn.imageEdgeInsets = UIEdgeInsetsMake(-1, -10, 0, 50);
-    [leftBtn setTitle:@"返回" forState:UIControlStateNormal];
-    [leftBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateHighlighted];
-    leftBtn.titleEdgeInsets = UIEdgeInsetsMake(0,-40, 0, 0);
-    leftBtn.titleLabel.font = [UIFont systemFontOfSize:15];
-    [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-}
-
 -(void)back{
-    //下边是未改动返回
         self.isBack = YES;
         if ([_webView canGoBack]) {
     
@@ -168,25 +204,22 @@
 
 #pragma mark = 分享
 -(void)shareAction:(UIButton *)btn{
-//    NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
-//    [postDic setObject:@"0" forKey:@"ShareType"];
-//    if (self.shareInfo[@"Url"]) {
-//        [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
-//    }
-//    [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
-//    NSLog(@"%@", postDic);
+
+    NSDictionary *shareDic = [NSDictionary dictionary];
+    shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
+
     //构造分享内容
-    id<ISSContent> publishContent = [ShareSDK content:self.shareInfo[@"Desc"]
-                                       defaultContent:self.shareInfo[@"Desc"]
-                                                image:[ShareSDK imageWithUrl:self.shareInfo[@"Pic"]]
-                                                title:self.shareInfo[@"Title"]
-                                                  url:self.shareInfo[@"Url"]                                  description:self.shareInfo[@"Desc"]
+    id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
+                                       defaultContent:shareDic[@"Desc"]
+                                                image:[ShareSDK imageWithUrl:shareDic[@"Pic"]]
+                                                title:shareDic[@"Title"]
+                                                  url:shareDic[@"Url"]                                  description:shareDic[@"Desc"]
                                             mediaType:SSPublishContentMediaTypeNews];
     
-    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",self.shareInfo[@"Url"]] image:nil];
-    NSLog(@"%@444", self.shareInfo);
-    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", self.shareInfo[@"Url"]]];
-    NSLog(@"self.shareInfo %@, %@", self.shareInfo[@"Url"], self.shareInfo[@"ShareUrl"]);
+    [publishContent addCopyUnitWithContent:[NSString stringWithFormat:@"%@",shareDic[@"Url"]] image:nil];
+    NSLog(@"%@444", shareDic);
+    [publishContent addSMSUnitWithContent:[NSString stringWithFormat:@"%@", shareDic[@"Url"]]];
+
     
     //创建弹出菜单容器
     id<ISSContainer> container = [ShareSDK container];
@@ -206,8 +239,8 @@
                                
                                     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
                                     [postDic setObject:@"0" forKey:@"ShareType"];
-                                    if (self.shareInfo[@"Url"]) {
-                                        [postDic setObject:self.shareInfo[@"Url"]  forKey:@"ShareUrl"];
+                                    if (shareDic[@"Url"]) {
+                                        [postDic setObject:shareDic[@"Url"]  forKey:@"ShareUrl"];
                                     }
                                     [postDic setObject:self.webView.request.URL.absoluteString forKey:@"PageUrl"];
                                     if (type ==ShareTypeWeixiSession) {
@@ -217,18 +250,7 @@
                                     }else if(type == ShareTypeQQSpace){
                                        
                                     }else if(type == ShareTypeWeixiTimeline){
-                                                                           }
-//                                    [IWHttpTool postWithURL:@"Common/SaveShareRecord" params:postDic success:^(id json) {
-//                                        NSDictionary * dci = json;
-//                                        NSMutableString * string = [NSMutableString string];
-//                                        for (id str in dci.allValues) {
-//                                            [string appendString:str];
-//                                        }
-//                                        
-//                                    } failure:^(NSError *error) {
-//                                        
-//                                    }];
-                                    //产品详情
+                                                                           }                                    //产品详情
                                     if (type == ShareTypeCopy) {
                                         [MBProgressHUD showSuccess:@"复制成功"];
                                     }else{
@@ -246,7 +268,7 @@
                                 }
                             }];
     
-    NSLog(@"%@",self.shareInfo[@"Url"]);
+    NSLog(@"%@",shareDic[@"Url"]);
     [self addAlert];
   
 }

@@ -34,4 +34,5 @@
 @property (nonatomic, assign)int messageCount;
 
 @property (nonatomic, assign)NSInteger customerType;
+@property (nonatomic, assign)BOOL isMe;
 @end
