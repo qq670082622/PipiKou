@@ -44,14 +44,14 @@
     //判断开关状态
     NSString *NewsDefine = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewsRemind"];
     NSLog(@"%@", NewsDefine);
-    if ([NewsDefine integerValue] != 1) {//勿扰模式
+    if ([NewsDefine integerValue] == 1) {//勿扰模式
         _switch1.on = NO;
     }else{
         _switch1.on = YES;
     }
     NSString *NewsVoiceDefine = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewsVoiceRemind"];
     NSLog(@"%@", NewsDefine);
-    if ([NewsVoiceDefine integerValue] != 1) {//声音
+    if ([NewsVoiceDefine integerValue] == 1) {//声音
         _switch2.on = NO;
     }else{
         _switch2.on = YES;
@@ -59,7 +59,7 @@
     
     NSString *NewsShakeDefine = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewsShakeRemind"];
     NSLog(@"%@", NewsDefine);
-    if ([NewsShakeDefine integerValue] != 1) {//震动
+    if ([NewsShakeDefine integerValue] == 1) {//震动
         _switch3.on = NO;
     }else{
         _switch3.on = YES;
@@ -94,11 +94,11 @@
     [MobClick event:@"MeDonotDisturbMe" attributes:dict];
     if (sender.on == 0) {
         _switch1.on = NO;
-        [self.NewsRemind setObject:@"0" forKey:@"NewsRemind"];
+        [self.NewsRemind setObject:@"1" forKey:@"NewsRemind"];
     }else{
         _switch1.on = YES;
         
-        [self.NewsRemind setObject:@"1" forKey:@"NewsRemind"];
+        [self.NewsRemind setObject:@"2" forKey:@"NewsRemind"];
     }
     
     NSDictionary *param = @{@"DisturbSwitch":[NSString stringWithFormat:@"%d",sender.on]};
@@ -121,10 +121,10 @@
     NSLog(@"声音%d",sender.isOn);
     if (sender.on) {
         sender.on = YES;
-        [self.NewsRemind setObject:@"1" forKey:@"NewsVoiceRemind"];
+        [self.NewsRemind setObject:@"2" forKey:@"NewsVoiceRemind"];
     }else{
         sender.on = NO;
-        [self.NewsRemind setObject:@"0" forKey:@"NewsVoiceRemind"];
+        [self.NewsRemind setObject:@"1" forKey:@"NewsVoiceRemind"];
     }
     
 }
@@ -133,10 +133,10 @@
     NSLog(@"震动%d",sender.isOn);
     if (sender.on) {
         sender.on = YES;
-        [self.NewsRemind setObject:@"1" forKey:@"NewsShakeRemind"];
+        [self.NewsRemind setObject:@"2" forKey:@"NewsShakeRemind"];
     }else{
         sender.on = NO;
-        [self.NewsRemind setObject:@"0" forKey:@"NewsShakeRemind"];
+        [self.NewsRemind setObject:@"1" forKey:@"NewsShakeRemind"];
     }
     
 }

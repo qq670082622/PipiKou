@@ -42,7 +42,7 @@
 #import "UserInfoEditTableVC.h"
 #import "ProductDetailWebView.h"
 #import "ProductListWebView.h"
-
+#import "IWHttpTool.h"
 @interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate>
 {
     UIMenuController *_menuController;
@@ -78,6 +78,7 @@
 @property (nonatomic) BOOL isPlayingAudio;
 @property (nonatomic) BOOL isKicked;
 @property (nonatomic) BOOL isRobot;
+//@property (nonatomic)
 @end
 
 @implementation ChatViewController
@@ -234,13 +235,25 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCallNotification:) name:@"callOutWithChatter" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleCallNotification:) name:@"callControllerClose" object:nil];
-    
+    [self getCustomIconAndNickNameWithChatter:self.chatter];
     if (_conversationType == eConversationTypeChatRoom)
     {
         [self joinChatroom:_chatter];
     }
 }
 
+//根据chater获取头像和昵称；
+- (void)getCustomIconAndNickNameWithChatter:(NSString *)chatter{
+    NSDictionary *params = @{@"AppSkbUserId":chatter};
+    [IWHttpTool postWithURL:@"Customer/GetAppDistributionSkbUserInfo" params:params success:^(id json) {
+        if ([json[@"IsSuccess"]integerValue] == 1) {
+            
+        }
+    } failure:^(NSError * error) {
+        
+    }];
+
+}
 - (void)handleCallNotification:(NSNotification *)notification
 {
     id object = notification.object;
@@ -542,6 +555,10 @@
         }
         else{
             MessageModel *model = (MessageModel *)obj;
+            
+            model.headImageURL = [NSURL URLWithString:@""];
+            model.nickName = @"";
+            
             NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
             EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {

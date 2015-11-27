@@ -12,7 +12,7 @@
 
 #import "EMChatViewBaseCell.h"
 #import "UIImageView+EMWebCache.h"
-
+#import "UserInfo.h"    
 NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadImageTapEventName";
 
 @interface EMChatViewBaseCell()
@@ -82,7 +82,11 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     _nameLabel.hidden = (messageModel.messageType == eMessageTypeChat);
     
     UIImage *placeholderImage = [UIImage imageNamed:@"chatListCellHead"];
+    if (messageModel.isSender) {
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:UserInfoKeyLoginAvatar] placeholderImage:placeholderImage];
+    }else{
     [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
+    }
 }
 
 #pragma mark - private
