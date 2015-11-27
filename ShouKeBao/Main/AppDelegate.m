@@ -18,6 +18,7 @@
 #import "TravelLoginController.h"
 
 #import <AVFoundation/AVFoundation.h>
+#import <AudioToolbox/AudioToolbox.h>
 #import "MeHttpTool.h"
 #import "MobClick.h"
 #import "UMessage.h"
@@ -49,7 +50,7 @@
 
 - (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-  
+
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;
@@ -551,10 +552,12 @@ void UncaughtExceptionHandler(NSException *exception) {
     //判断提醒震动
     NSString *NewsShakeDefine = [[NSUserDefaults standardUserDefaults] objectForKey:@"NewsShakeRemind"];
     NSLog(@"%@", NewsShakeDefine);
-    if ([NewsShakeDefine integerValue] != 0) {//震动
+    if ([NewsShakeDefine integerValue] != 1) {//震动
         AudioServicesPlaySystemSound(kSystemSoundID_Vibrate);
     }
-    
+    if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"NewsVoiceRemind"] integerValue] != 1) {
+        [self prepAudio];//声音
+    }
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isReceveNoti"];
     NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     NSString * objID = [userInfo valueForKey:@"objectId"];
@@ -805,7 +808,6 @@ void UncaughtExceptionHandler(NSException *exception) {
     }];
 }
 
-
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
@@ -848,7 +850,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
         [application endBackgroundTask:task];
     }];
     
-   // [self prepAudio];
+//    [self prepAudio];
    }
 }
 -(void)changeDef
@@ -868,7 +870,7 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     
     NSError *error;
     
-    NSString *path = [[NSBundle mainBundle] pathForResource:@"music" ofType:@"mp3"];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"mp3"];
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:path])
     {
@@ -889,10 +891,10 @@ __block  UIBackgroundTaskIdentifier task = [application beginBackgroundTaskWithE
     }
     
     [self.player prepareToPlay];
-    
+    [self.player play];
     //就是这行代码啦
     
-    [self.player setNumberOfLoops:1000000];
+    [self.player setNumberOfLoops:1];
     
     return YES;
 }

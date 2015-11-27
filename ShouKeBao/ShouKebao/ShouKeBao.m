@@ -76,6 +76,8 @@
 #import "CommendToNo.h"
 #import "LocationSeting.h"
 #import "CircleModel.h"
+#import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height
@@ -147,6 +149,12 @@
 @property (nonatomic, strong)HotLaButton *hotLableButton;
 @property (nonatomic, strong)NSMutableArray *circleArr;
 @property (nonatomic, copy)NSString *CircleUrl;
+
+
+
+@property (nonatomic,strong) AVAudioPlayer *player;
+
+
 @end
 
 @implementation ShouKeBao
@@ -274,9 +282,44 @@
     }
 
 }
+- (BOOL) prepAudio
+
+{
+    
+    NSError *error;
+    
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"message" ofType:@"mp3"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:path])
+    {
+        return NO;
+        
+    }
+    
+    self.player = [[AVAudioPlayer alloc] initWithContentsOfURL:[NSURL fileURLWithPath:path]error:&error];
+    
+    if (!_player)
+        
+    {
+        
+        NSLog(@"Error: %@", [error localizedDescription]);
+        
+        return NO;
+        
+    }
+    
+    [self.player prepareToPlay];
+    [self.player play];
+    //就是这行代码啦
+    
+    [self.player setNumberOfLoops:1];
+    
+    return YES;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self prepAudio];
 
      [self loadCarouselNewsData];
     

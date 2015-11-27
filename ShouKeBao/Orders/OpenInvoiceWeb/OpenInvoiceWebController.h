@@ -14,7 +14,9 @@
 @property (copy,nonatomic) NSString *produceUrl;
 @property (nonatomic,strong) NSMutableArray *OrderIDArr;
 @property (nonatomic,copy) NSMutableArray *ParameterArr;
+
 @property (nonatomic,copy) NSString *NewParameterStr;
+
 @property (nonatomic,strong) UIViewController *viewCont;
 @property (nonatomic,copy) NSString *NewUrlStr;
 @end
