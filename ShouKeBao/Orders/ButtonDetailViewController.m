@@ -19,6 +19,7 @@
 #import "JSONKit.h"
 #import "NSString+FKTools.h"
 #import "UpDateUserPictureViewController.h"
+#import "ChatViewController.h"
 @interface ButtonDetailViewController()<UIWebViewDelegate, DelegateToOrder, DelegateToOrder2>
 
 @property (nonatomic,strong) BeseWebView *webView;
@@ -191,12 +192,34 @@
     }else if([rightUrl myContainsString:@"objectc:LYQSKBAPP_UpDateUserPhotos"]){
         NSLog(@"aaaaa");
         [self LYQSKBAPP_UpDateUserPhotos:rightUrl];
+    }else if ([rightUrl myContainsString:@"objectc:LYQSKBAPP_OpenCustomIM"]){
+        [self LYQSKBAPP_OpenCustomIM:rightUrl];
     }
 
 //    NSLog(@"----------right url is %@ ----------",rightUrl);
     
     return YES;
 }
+
+//js调用原生，调用IM入口；
+- (void)LYQSKBAPP_OpenCustomIM:(NSString *)urlStr{
+    NSString * pattern = @"OpenCustomIM(.+)";
+    NSRegularExpression * regex = [[NSRegularExpression alloc]initWithPattern:pattern options:0 error:nil];
+    //测试字符串；
+    NSArray * result = [regex matchesInString:urlStr options:0 range:NSMakeRange(0,urlStr.length)];
+    if (result.count) {
+        //获取筛选出来的字符串
+        NSString * resultStr = [urlStr substringWithRange:((NSTextCheckingResult *)result[0]).range];
+        NSMutableString * params = [NSMutableString stringWithString:resultStr];
+        [params stringByReplacingOccurrencesOfString:@"OpenCustomIM(" withString:@""];
+        [params stringByReplacingOccurrencesOfString:@")" withString:@""];
+        ChatViewController * chatVC = [[ChatViewController alloc]initWithChatter:params conversationType:eConversationTypeChat];
+        [self.navigationController pushViewController:chatVC animated:YES];
+    }
+    
+}
+
+
 //js调原生，并且用js传过来的customerIDs 跳转到上传证件附件页面
 -(void)LYQSKBAPP_UpDateUserPhotos:(NSString *)urlStr{
     NSLog(@"%@", urlStr);
