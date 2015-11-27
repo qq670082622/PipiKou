@@ -280,6 +280,8 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.subView.hidden = YES;
+    
+    NSLog(@"... customerType  %ld",self.customerType);
     [self.table reloadData];
     //    NSUserDefaults *customer = [NSUserDefaults standardUserDefaults];
     //    NSString *appIsBack = [customer objectForKey:@"appIsBack"];
@@ -313,7 +315,9 @@
 -(void)headPull
 {
     self.isDownLoad = NO;
-    self.customerType = 0;
+    if (!self.isMe) {
+     self.customerType = 0;
+    }
     self.searchK = @"";
     self.isRefresh = YES;
     self.pageIndex = 1;

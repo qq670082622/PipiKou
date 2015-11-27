@@ -103,6 +103,7 @@
 - (void)clickCustomerLableToComeInCustomer:(UITapGestureRecognizer *)tap{
     Customers *customerVC = [[Customers alloc]init];
     customerVC.customerType = 2;
+    customerVC.isMe = 1;
     [self.navigationController pushViewController:customerVC animated:YES];
     
 }

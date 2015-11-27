@@ -175,7 +175,7 @@
 
 - (void)findIsCall{
     NSString * string = [self.webView stringByEvaluatingJavaScriptFromString:@"getTelForApp()"];
-
+    NSLog(@",,,, str = %@", string);
     if (string.length != 0) {
         self.telString = string;
         NSLog(@"%@", self.telString);

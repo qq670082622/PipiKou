@@ -212,7 +212,6 @@
     self.CarouselSC.showsHorizontalScrollIndicator = NO;
     self.CarouselSC.showsVerticalScrollIndicator = NO;
 //        self.CarouselSC.delegate = self;
-    
     self.CarouselSC.contentSize = CGSizeMake(View_Width-90,50*self.circleArr.count);
     for (NSInteger i = 0; i < self.circleArr.count; i++) {
         
@@ -249,6 +248,7 @@
 - (void)ClickCarouselSCAction:(NSInteger)pageNum{
     CircleHotNewsViewController *circleHotVC = [[CircleHotNewsViewController alloc]init];
     circleHotVC.CircleUrl = self.CircleUrl;
+    circleHotVC.m = 1;
     [self.navigationController pushViewController:circleHotVC animated:YES];
 }
 - (void)CarouselNews{
@@ -278,7 +278,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-     [self loadCarouselNewsData];
+    
     
    
 
@@ -963,8 +963,14 @@
 
 //    视图将要出现时定位
 //    [self locationMethod];
+  
+//    if (/* 如果没有推送数据就隐藏 */) {
+//        self.CarouselView.hidden = YES;
+//    }
     
-   
+     [self loadCarouselNewsData];
+    
+    
     
     //我界面更改头像和名字之后  首页的同步
     self.userName.text =  [UserInfo shareUser].userName;
@@ -1011,11 +1017,7 @@
     [LocationSeting defaultLocationSeting].carouselPageNumber = numberStr;
 
      [self.timer invalidate];
-
-#warning   放Appdelegate里：
-//    [LocationSeting defaultLocationSeting].carouselPageNumber = @"";
-    
-
+ 
     [MobClick endLogPageView:@"ShouKeBao"];
     self.navBarView.userInteractionEnabled = NO;
     //[self.navBarView removeFromSuperview];
@@ -1100,9 +1102,9 @@
             CircleModel *model = [[CircleModel alloc]initWithDict:dic];
             [self.circleArr addObject:model];
         }
-         [self circleLayout];
+            [self circleLayout];
         
-    }failure:^(NSError *error) {
+      }failure:^(NSError *error) {
         NSLog(@"轮播接口请求失败 error is %@------",error);
     }];
     

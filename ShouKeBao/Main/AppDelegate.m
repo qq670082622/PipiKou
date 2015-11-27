@@ -33,6 +33,7 @@
 #import "EaseMob.h"
 #import "AppDelegate+EaseMob.h" 
 #import "CommendToNo.h"
+#import "LocationSeting.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 //#import "UncaughtExceptionHandler.h"
 ////aaaaa
@@ -47,9 +48,10 @@
 
 @implementation AppDelegate
 
-- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions
-{
-  
+- (BOOL)application:(UIApplication *)application willFinishLaunchingWithOptions:(NSDictionary *)launchOptions{
+
+   [LocationSeting defaultLocationSeting].carouselPageNumber = @"";
+    
     application.statusBarStyle = UIStatusBarStyleLightContent;
     
     self.isAutoLogin = NO;

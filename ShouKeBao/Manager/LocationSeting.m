@@ -18,17 +18,32 @@
     return location;
 }
 -(void)setCustomMessageDateStr:(NSString *)customMessageDateStr{
-    [[NSUserDefaults standardUserDefaults]setObject:customMessageDateStr forKey:@"customMessageDateStr"];
-    [[NSUserDefaults standardUserDefaults]synchronize];
+    [self mySetObject:customMessageDateStr forKey:@"customMessageDateStr"];
 }
 -(NSString *)customMessageDateStr{
-    return [[NSUserDefaults standardUserDefaults]objectForKey:@"customMessageDateStr"];
+    return [self myObjectForKey:@"customMessageDateStr"];
 }
 
+
+
 - (void)setCarouselPageNumber:(NSString *)carouselPageNumber{
-    [[NSUserDefaults standardUserDefaults]setObject:carouselPageNumber forKey:@"carouselPageNumber"];
+    [self mySetObject:carouselPageNumber forKey:@"carouselPageNumber"];
 }
 - (NSString *)carouselPageNumber{
-    return [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
+    return [self myObjectForKey:@"carouselPageNumber"];
 }
+
+
+- (void)mySetObject:(id)obj
+             forKey:(NSString *)aKey{
+    if (obj != [NSNull null]) {
+        [[NSUserDefaults standardUserDefaults]setObject:obj forKey:aKey];
+        [[NSUserDefaults standardUserDefaults]synchronize];
+    }
+}
+- (id)myObjectForKey:(NSString *)aKey{
+    return [[NSUserDefaults standardUserDefaults]objectForKey:aKey];
+}
+
+
 @end
