@@ -131,7 +131,7 @@
         }else{
             self.navigationItem.leftBarButtonItem = nil;
             self.navigationItem.leftBarButtonItem = leftItem;
-     }
+    }
   }
 }
 

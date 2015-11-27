@@ -11,6 +11,7 @@
 #import "WMAnimations.h"
 #import "IWHttpTool.h"
 #import "Orders.h"
+#import "OrderModel.h"
 #import "NSString+FKTools.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface OpenInvoiceWebController ()<UIWebViewDelegate>
@@ -28,20 +29,27 @@
     self.title = @"开具发票";
     //拼接参数
     Orders *order = (Orders *)self.viewCont;
-    if (order.invoiceArr != nil) {
-        for (NSInteger i = 0; i<order.invoiceArr.count; i++) {
-        [self.ParameterArr addObject:order.invoiceArr[i]];
+    if (order.InvoicedataArr != nil) {
+        for (NSInteger i = 0; i<order.InvoicedataArr.count; i++) {
+            OrderModel *orderMod = order.InvoicedataArr[i];
+            [self.ParameterArr addObject:orderMod.OrderId];
+           self.NewParameterStr = [self.NewParameterStr stringByAppendingString:orderMod.OrderId];
+            NSLog(@"%@",self.NewParameterStr);
+            if (i < order.InvoicedataArr.count-1) {
+               self.NewParameterStr = [self.NewParameterStr stringByAppendingString:@","];
+            }
         }
     }
+        NSLog(@"%@,%@,%@",order.InvoicedataArr,self.ParameterArr,self.NewParameterStr);
+    
     self.view.backgroundColor = [UIColor whiteColor];
-
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
     NSString  *urlSuffix = [NSString stringWithFormat:@"?isfromapp=1&apptype=1&version=%@&appuid=%@&orderIds=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"],self.NewParameterStr];
     self.urlSuffix = urlSuffix;
 
     NSString  *urlSuffix2 = [NSString stringWithFormat:@"&isfromapp=1&apptype=1&version=%@&appuid=%@&orderIds=%@",[infoDictionary objectForKey:@"CFBundleShortVersionString"],[[NSUserDefaults standardUserDefaults] objectForKey:@"AppUserID"],self.NewParameterStr];
     self.urlSuffix2 = urlSuffix2;
-    
+    NSLog(@"%@----%@",urlSuffix,urlSuffix2);
     [WMAnimations WMNewWebWithScrollView:self.webView.scrollView];
     CGFloat x = ([UIScreen mainScreen].bounds.size.width/2) - 60;
     CGFloat y = ([UIScreen mainScreen].bounds.size.height/2) - 130;
@@ -109,7 +117,7 @@
     return _ParameterArr;
 }
 -(NSString *)NewParameterStr{
-    if (_NewParameterStr == nil) {
+    if (!_NewParameterStr) {
         _NewParameterStr = [[NSString alloc] init];
     }
     return _NewParameterStr;

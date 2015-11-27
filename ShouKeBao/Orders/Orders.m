@@ -298,6 +298,7 @@ typedef void (^ChangeFrameBlock)();
                 }
                 for (NSDictionary *dic in json[@"OrderList"]) {
                     OrderModel *order = [OrderModel orderModelWithDict:dic];
+                    NSLog(@"%@",order.OrderId);
                     [self.InvoicedataArr addObject:order];
                 }
             if (self.tableView.editing == YES) {
