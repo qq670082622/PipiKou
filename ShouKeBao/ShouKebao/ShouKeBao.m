@@ -321,10 +321,6 @@
     [super viewDidLoad];
     [self prepAudio];
 
-    
-    
-   
-
     [self.view addSubview:self.tableView];
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
     [self initPull];
@@ -1004,6 +1000,9 @@
     [super viewWillAppear:animated];
     self.isEmpty = NO;
 
+//    [self.circleArr removeAllObjects];
+    [self loadCarouselNewsData];
+    
 //    视图将要出现时定位
 //    [self locationMethod];
   
@@ -1011,10 +1010,7 @@
 //        self.CarouselView.hidden = YES;
 //    }
     
-     [self loadCarouselNewsData];
-    
-    
-    
+
     //我界面更改头像和名字之后  首页的同步
     self.userName.text =  [UserInfo shareUser].userName;
     NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
@@ -1151,6 +1147,13 @@
         NSLog(@"轮播接口请求失败 error is %@------",error);
     }];
     
+    if (self.circleArr.count == 0) {
+        self.CarouselView.hidden = YES;
+        self.tableView.frame = CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 164);
+    }else{
+        self.CarouselView.hidden = NO;
+        self.tableView.frame = CGRectMake(0, 150, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 214);
+    }
     
 }
 
@@ -1236,7 +1239,9 @@
 }
 - (void)circleLayout{
     // 轮播
-    NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
+   NSString *pageNumber = [[LocationSeting defaultLocationSeting] carouselPageNumber];
+    
+//    NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
     if ([pageNumber isEqualToString:@""]) {
         self.pageNum = 0;
     }else{
