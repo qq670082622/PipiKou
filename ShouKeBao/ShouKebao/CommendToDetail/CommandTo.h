@@ -15,6 +15,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *bodyLabel;
 @property (weak, nonatomic) IBOutlet UILabel *PriceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *retailsalesLabel;
+@property (weak, nonatomic) IBOutlet UIView *DiImageView;
+
+@property (weak, nonatomic) IBOutlet UIView *SongImageView;
+
+@property (weak, nonatomic) IBOutlet UILabel *DiRMBImage;
+@property (weak, nonatomic) IBOutlet UILabel *SongRMBImage;
+@property (weak, nonatomic) IBOutlet UIImageView *shandianImage;
 
 @property (weak, nonatomic) IBOutlet UILabel *DiLabel;
 @property (weak, nonatomic) IBOutlet UILabel *SongLabel;
