@@ -282,6 +282,7 @@
     }
 
 }
+/*
 - (BOOL) prepAudio
 
 {
@@ -316,10 +317,10 @@
     
     return YES;
 }
-
+*/
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self prepAudio];
+//    [self prepAudio];
 
     [self.view addSubview:self.tableView];
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
