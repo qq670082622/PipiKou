@@ -630,7 +630,9 @@
 		B36E57351B74C0D000471AAC /* ProductList.xib in Resources */ = {isa = PBXBuildFile; fileRef = B36E57281B74C0D000471AAC /* ProductList.xib */; };
 		B36E57361B74C0D000471AAC /* ProductModal.m in Sources */ = {isa = PBXBuildFile; fileRef = B36E572A1B74C0D000471AAC /* ProductModal.m */; };
 		B37FB1F01C05C3E80064A623 /* LocationSeting.m in Sources */ = {isa = PBXBuildFile; fileRef = B37FB1EF1C05C3E80064A623 /* LocationSeting.m */; };
-		B3A2B6021BF4A518002AB105 /* HotLaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B6011BF4A518002AB105 /* HotLaButton.m */; };
+		B39A1B351C0C275B000B7267 /* Double12TableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = B39A1B341C0C275B000B7267 /* Double12TableViewCell.m */; };
+		B39A1B381C0C3A7E000B7267 /* DoubleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = B39A1B371C0C3A7E000B7267 /* DoubleModel.m */; };
+		B39A1B3B1C0C46B2000B7267 /* HotLaButton.m in Sources */ = {isa = PBXBuildFile; fileRef = B39A1B3A1C0C46B2000B7267 /* HotLaButton.m */; };
 		B3A2B6091BF4A715002AB105 /* CircleHotNewsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */; };
 		B3B56BE11B8C47CB002E01B6 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */; };
 		B3B7A6661BA6A25F0043DF7C /* addCustomerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = B3B7A62B1BA6A25F0043DF7C /* addCustomerViewController.m */; };
@@ -1833,8 +1835,12 @@
 		B36E572A1B74C0D000471AAC /* ProductModal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProductModal.m; sourceTree = "<group>"; };
 		B37FB1EE1C05C3E80064A623 /* LocationSeting.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationSeting.h; sourceTree = "<group>"; };
 		B37FB1EF1C05C3E80064A623 /* LocationSeting.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationSeting.m; sourceTree = "<group>"; };
-		B3A2B6001BF4A518002AB105 /* HotLaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotLaButton.h; sourceTree = "<group>"; };
-		B3A2B6011BF4A518002AB105 /* HotLaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotLaButton.m; sourceTree = "<group>"; };
+		B39A1B331C0C275B000B7267 /* Double12TableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Double12TableViewCell.h; sourceTree = "<group>"; };
+		B39A1B341C0C275B000B7267 /* Double12TableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Double12TableViewCell.m; sourceTree = "<group>"; };
+		B39A1B361C0C3A7E000B7267 /* DoubleModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DoubleModel.h; sourceTree = "<group>"; };
+		B39A1B371C0C3A7E000B7267 /* DoubleModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DoubleModel.m; sourceTree = "<group>"; };
+		B39A1B391C0C46B2000B7267 /* HotLaButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotLaButton.h; sourceTree = "<group>"; };
+		B39A1B3A1C0C46B2000B7267 /* HotLaButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotLaButton.m; sourceTree = "<group>"; };
 		B3A2B6071BF4A715002AB105 /* CircleHotNewsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CircleHotNewsViewController.h; sourceTree = "<group>"; };
 		B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CircleHotNewsViewController.m; sourceTree = "<group>"; };
 		B3B56BE01B8C47CB002E01B6 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -2478,6 +2484,7 @@
 		5A076E951ACD8B270077611C /* ShouKebao */ = {
 			isa = PBXGroup;
 			children = (
+				B39A1B321C0C25E2000B7267 /* Double12 */,
 				B3A2B6061BF4A6E5002AB105 /* CircleHotNews */,
 				527E3B7B1BEC7EB000AAA6F6 /* NewMessageCenter */,
 				B3D7B7A51BD76F700080E243 /* QRCode */,
@@ -2882,8 +2889,6 @@
 		5A8216131AD36AB9009388DA /* HomeView */ = {
 			isa = PBXGroup;
 			children = (
-				B3A2B6001BF4A518002AB105 /* HotLaButton.h */,
-				B3A2B6011BF4A518002AB105 /* HotLaButton.m */,
 				B3D7B7791BD76DF10080E243 /* QRPhotoCollectionViewCell.h */,
 				B3D7B77A1BD76DF10080E243 /* QRPhotoCollectionViewCell.m */,
 				B3D7B77B1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.h */,
@@ -4470,9 +4475,22 @@
 			path = ProductList;
 			sourceTree = "<group>";
 		};
+		B39A1B321C0C25E2000B7267 /* Double12 */ = {
+			isa = PBXGroup;
+			children = (
+				B39A1B331C0C275B000B7267 /* Double12TableViewCell.h */,
+				B39A1B341C0C275B000B7267 /* Double12TableViewCell.m */,
+				B39A1B361C0C3A7E000B7267 /* DoubleModel.h */,
+				B39A1B371C0C3A7E000B7267 /* DoubleModel.m */,
+			);
+			path = Double12;
+			sourceTree = "<group>";
+		};
 		B3A2B6061BF4A6E5002AB105 /* CircleHotNews */ = {
 			isa = PBXGroup;
 			children = (
+				B39A1B391C0C46B2000B7267 /* HotLaButton.h */,
+				B39A1B3A1C0C46B2000B7267 /* HotLaButton.m */,
 				B3A2B6071BF4A715002AB105 /* CircleHotNewsViewController.h */,
 				B3A2B6081BF4A715002AB105 /* CircleHotNewsViewController.m */,
 			);
@@ -5311,6 +5329,7 @@
 				5A52FC651ACEBF220076DAE6 /* UserInfo.m in Sources */,
 				7960A58B1B39320C00A69E44 /* UncaughtExceptionHandler.m in Sources */,
 				63F1A1B51B14250E00DE9867 /* NSObject+MJMember.m in Sources */,
+				B39A1B3B1C0C46B2000B7267 /* HotLaButton.m in Sources */,
 				79B5596A1BFB151500C04F92 /* TerraceMessageModel.m in Sources */,
 				796EFE751BF5CCC800799120 /* MLPhotoBrowserPhotoView.m in Sources */,
 				B3D7B77E1BD76DF10080E243 /* QRSaveToCustomerTableViewCell.m in Sources */,
@@ -5447,9 +5466,9 @@
 				7975831B1B6734E1008E2908 /* QRCodeCell.m in Sources */,
 				B3D7B7D01BD76F700080E243 /* URLOpenFromQRCodeViewController.m in Sources */,
 				5A52FC3D1ACEBF220076DAE6 /* leftCell.m in Sources */,
-				B3A2B6021BF4A518002AB105 /* HotLaButton.m in Sources */,
 				632613201AB1C175003AC2DA /* UIScrollView+MJRefresh.m in Sources */,
 				796EFDD51BF5CA4E00799120 /* PSTCollectionViewCell.m in Sources */,
+				B39A1B351C0C275B000B7267 /* Double12TableViewCell.m in Sources */,
 				796EFDDA1BF5CA4E00799120 /* PSTCollectionViewLayout.m in Sources */,
 				635944201ADBA9D9004F0035 /* textStyle.m in Sources */,
 				796EFE6E1BF5CCC800799120 /* MLPhotoBrowserPhoto.m in Sources */,
@@ -5472,6 +5491,7 @@
 				796EFDD81BF5CA4E00799120 /* PSTCollectionViewFlowLayout.m in Sources */,
 				5A5B1AD41AFA218000B6E16B /* ChildCell.m in Sources */,
 				632B00011AB92A3A003B15AD /* UIImageView+WebCache.m in Sources */,
+				B39A1B381C0C3A7E000B7267 /* DoubleModel.m in Sources */,
 				B3B7A6771BA6A25F0043DF7C /* CustomerOrdersUIViewController.m in Sources */,
 				632613271AB2AF04003AC2DA /* PGCategoryView.m in Sources */,
 				796EFBFD1BF5C5DE00799120 /* ChatViewController+Category.m in Sources */,

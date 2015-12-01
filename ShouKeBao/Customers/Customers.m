@@ -89,6 +89,7 @@
 @property (nonatomic, strong)NSMutableArray *hadBindingCustomArr;
 @property (nonatomic, strong)NSMutableArray *otherCustomArr;
 @property (nonatomic, copy)NSString *InvitationInfo;
+@property (weak, nonatomic) IBOutlet UIView *tableSuper;
 
 
 @end
@@ -193,9 +194,11 @@
 -(void)messagePromptAction{
     if (self.messageCount == 0) {
         self.conditionLine.hidden = YES;
-        
+        self.tableSuper.frame = CGRectMake(0, 45, self.view.frame.size.width, self.view.frame.size.height-45);
     }else{
     self.conditionLine.hidden = NO;
+    self.tableSuper.frame = CGRectMake(0, 90, self.view.frame.size.width, self.view.frame.size.height-90);
+        
     self.messagePrompt.text = [NSString stringWithFormat:@"您有%d条未读信息", self.messageCount];
    self.timePrompt.text = [[NSUserDefaults standardUserDefaults]objectForKey:@"customMessageDateStr"];
     if (self.messageCount >0) {

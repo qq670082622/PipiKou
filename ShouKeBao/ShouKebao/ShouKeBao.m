@@ -78,7 +78,8 @@
 #import "CircleModel.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
-
+#import "Double12TableViewCell.h"
+#import "DoubleModel.h"
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height
 
@@ -952,7 +953,7 @@
         }
         NSString *head = [[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar];
         NSString *IsLYGWStr = json[@"IsOpenConsultantApp"];
-        NSLog(@"%@",IsLYGWStr);
+        NSLog(@"/// %@  ... %@",IsLYGWStr, head);
         [[NSUserDefaults standardUserDefaults] setObject:IsLYGWStr forKey:UserInfoKeyLYGWIsOpenVIP];
         [self.userIcon sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:[UIImage imageNamed:@"bigIcon"]];
         
@@ -1135,28 +1136,33 @@
     
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
     [IWHttpTool WMpostWithURL:@"Home/GetCircleHotSpot" params:dic success:^(id json){
-        
         NSLog(@"轮播json = %@", json);
         self.CircleUrl = json[@"CircleUrl"];
         for (NSDictionary *dic in json[@"CircleHotSporList"]) {
             CircleModel *model = [[CircleModel alloc]initWithDict:dic];
             [self.circleArr addObject:model];
         }
-            [self circleLayout];
+         NSLog(@"轮播  %@", self.circleArr);
+        [self estimateCircleArrData];
         
       }failure:^(NSError *error) {
         NSLog(@"轮播接口请求失败 error is %@------",error);
     }];
+}
+
+- (void)estimateCircleArrData{
     
     if (self.circleArr.count == 0) {
         self.CarouselView.hidden = YES;
         self.tableView.frame = CGRectMake(0, 100, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 164);
     }else{
+        [self circleLayout];
         self.CarouselView.hidden = NO;
         self.tableView.frame = CGRectMake(0, 150, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - 214);
     }
-    
+
 }
+
 
 - (void)loadContentDataSource
 {
@@ -1209,23 +1215,37 @@
                     [self.dataSource addObject:base];
                 }
                   NSLog(@"orderJson is  %@",json[@"NoticeCenterList"]);
-                for(NSDictionary *dic in json[@"NoticeCenterList"]){
-                    MessageModel2 *message = [MessageModel2 modalWithDict:dic];
-                    HomeBase *base = [[HomeBase alloc] init];
-                    base.time = message.CreatedDate;
-                    base.model = message;
-                    base.idStr = message.ID;
-                    [self.dataSource addObject:base];
-                }
+            for(NSDictionary *dic in json[@"NoticeCenterList"]){
+                NSLog(@"..... %@", dic);
+                MessageModel2 *message = [MessageModel2 modalWithDict:dic];
+                HomeBase *base = [[HomeBase alloc] init];
+                base.time = message.CreatedDate;
+                base.model = message;
+                base.idStr = message.ID;
+                [self.dataSource addObject:base];
+            }
+            
+            //     加载双12专题数据
+            NSLog(@"..... %@", json[@"ThematicActivity"]);
+            NSDictionary *dic = json[@"ThematicActivity"];
+            DoubleModel *doubleModel = [DoubleModel modalWithDict:dic];
+            HomeBase *baseDouble = [[HomeBase alloc]init];
+            baseDouble.time = doubleModel.CreatedDate;
+            baseDouble.model = doubleModel;
+            baseDouble.idStr = doubleModel.LinkUrl;
+            [self.dataSource addObject:baseDouble];
+            
+            
+            
                 // 加载未查看的提醒
                 [self showOldRemind];
                 
                 // 排序
                 [self sortDataSource];
-                
+
                 // 清理数据 看有没有隐藏的 有就不要显示
                 [self cleanDataSource];
-                
+         
 //                dispatch_async(dispatch_get_main_queue(), ^{
                     [self.tableView reloadData];
 //                });
@@ -1241,7 +1261,6 @@
 - (void)circleLayout{
     // 轮播
    NSString *pageNumber = [[LocationSeting defaultLocationSeting] carouselPageNumber];
-    
 //    NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
     if ([pageNumber isEqualToString:@""]) {
         self.pageNum = 0;
@@ -1256,8 +1275,6 @@
     }
     
     [self startTimer];
-    
-
 }
 
 
@@ -1385,6 +1402,25 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
+    
+//将双12专题排在第二（或者第一）
+    HomeBase *double12;
+    int doubleIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+        if ([base.model isKindOfClass:[DoubleModel class]]) {
+            doubleIndex = i;
+        }
+    }
+    if (doubleIndex>1) {
+        double12 = self.dataSource[doubleIndex];
+        if (self.dataSource[doubleIndex]) {
+            [self.dataSource insertObject:double12 atIndex:1];
+        }
+        [self.dataSource removeObjectAtIndex:doubleIndex + 1];
+    }
+
+    
   //将今日推荐排在第二
    
     HomeBase *recom;
@@ -1395,13 +1431,30 @@
             recomIndex = i;
         }
     }
-    if (recomIndex>1) {
+    if (recomIndex>2) {
         recom = self.dataSource[recomIndex];
         if (self.dataSource[recomIndex]) {
-            [self.dataSource insertObject:recom atIndex:1];
+            [self.dataSource insertObject:recom atIndex:2];
         }
         [self.dataSource removeObjectAtIndex:recomIndex + 1];
     }
+    
+//    HomeBase *recom;
+//    int recomIndex = 0;
+//    for (int i = 0 ; i<self.dataSource.count; i++) {
+//        HomeBase *base = self.dataSource[i];
+//        if ([base.model isKindOfClass:[Recommend class]]) {
+//            recomIndex = i;
+//        }
+//    }
+//    if (recomIndex>1) {
+//        recom = self.dataSource[recomIndex];
+//        if (self.dataSource[recomIndex]) {
+//            [self.dataSource insertObject:recom atIndex:1];
+//        }
+//        [self.dataSource removeObjectAtIndex:recomIndex + 1];
+//    }
+   
 }
 
 -(void)pushToStore
@@ -1734,6 +1787,13 @@
         cell.selectionStyle = UITableViewCellSelectionStyleGray;
         return cell;
         
+    }else if([model.model isKindOfClass:[DoubleModel class]]){
+//        双12
+        Double12TableViewCell *cell = [Double12TableViewCell cellWithTableView:tableView];
+        cell.doubleModel = model.model;
+        cell.selectionStyle = UITableViewCellSelectionStyleGray;
+        return cell;
+        
     }else if([model.model isKindOfClass:[Recommend class]]){//精品推荐
 
         
@@ -1854,8 +1914,16 @@
         msgDetail.m = 1;
         [self.navigationController pushViewController:msgDetail animated:YES];
         
-    }
-    else{//客户提醒
+    }else if([model.model isKindOfClass:[DoubleModel class]]){
+        CircleHotNewsViewController *themeDetailVC = [[CircleHotNewsViewController alloc]init];
+        DoubleModel *double12 = model.model;
+        
+        themeDetailVC.CircleUrl = double12.LinkUrl;
+//        NSLog(@"....%@....___ %@", self.dataSource, double12.LinkUrl);
+        
+        [self.navigationController pushViewController:themeDetailVC animated:YES];
+        
+    }else{//客户提醒
         remondModel *r = model.model;
         RemindDetailViewController *remondDetail = [[RemindDetailViewController alloc] init];
         remondDetail.time = r.RemindTime;
@@ -1981,7 +2049,9 @@
         
     }else if([model.model isKindOfClass:[SubscribeCell class]]){
         return 90;
-        
+     
+    }else if([model.model isKindOfClass:[DoubleModel class]]){
+        return 200;
     }else{
         return 110;
     }
