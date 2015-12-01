@@ -544,7 +544,9 @@
     BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
     [MobClick event:@"ClickShareAll" attributes:dict];
     [MobClick event:@"ProductDetailShareClickAll" attributes:dict];
-
+    if (self.fromType == FromQRcode) {
+        [self.webView stringByEvaluatingJavaScriptFromString:@"ppkLYQAPP_ShareSuccess()"];
+    }
     NSLog(@"%@", self.shareInfo);
     
     NSMutableDictionary *postDic = [NSMutableDictionary dictionary];
