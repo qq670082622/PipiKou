@@ -18,6 +18,7 @@
                 <outlet property="popTableview" destination="nwE-al-zEF" id="Qtk-1o-Y6R"/>
                 <outlet property="subView" destination="frt-01-EIa" id="dlI-DF-O1s"/>
                 <outlet property="table" destination="vxd-KI-xbc" id="1rP-KW-2GF"/>
+                <outlet property="tableSuper" destination="Kz6-iZ-cJA" id="XuF-nO-gGo"/>
                 <outlet property="timePrompt" destination="OLI-11-g6C" id="ZQ1-hm-iJT"/>
                 <outlet property="view" destination="iN0-l3-epB" id="yW7-Fa-MhO"/>
             </connections>

@@ -97,12 +97,12 @@
                         </imageView>
                         <view contentMode="scaleToFill" id="Fgq-ok-qyM" userLabel="line">
                             <rect key="frame" x="80" y="10" width="1" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES"/>
+                            <autoresizingMask key="autoresizingMask"/>
                             <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
                         <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" id="qW0-zn-dQH">
                             <rect key="frame" x="90" y="0.0" width="230" height="50"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="He6-WC-Rvr">
                                     <rect key="frame" x="0.0" y="0.0" width="230" height="50"/>
