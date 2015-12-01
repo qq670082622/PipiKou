@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "ShouKeBao/ShouKebao/ShouKeBao.m"
-            timestampString = "470299967.599535"
+            timestampString = "470558213.123374"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "1140"
-            endingLineNumber = "1140"
+            startingLineNumber = "1145"
+            endingLineNumber = "1145"
             landmarkName = "-loadCarouselNewsData"
             landmarkType = "5">
          </BreakpointContent>

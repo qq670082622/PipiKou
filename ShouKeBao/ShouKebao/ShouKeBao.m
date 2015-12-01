@@ -321,8 +321,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self prepAudio];
-
     [self.view addSubview:self.tableView];
+//    UITouch* touch = [[event touchesForView:btn] anyObject];
+//    
+//    CGPoint rootViewLocation = [touch locationInView:[UIApplication sharedApplication]];
     [self performSelector:@selector(checkNewVerSion) withObject:nil afterDelay:1.5];
     [self initPull];
     [self performSelector:@selector(checkProductOrder2) withObject:nil afterDelay:1.5];
