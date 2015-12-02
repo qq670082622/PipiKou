@@ -28,19 +28,17 @@
     // Do any additional setup after loading the view.
     self.title = @"开具发票";
     //拼接参数
-    Orders *order = (Orders *)self.viewCont;
-    if (order.InvoicedataArr != nil) {
-        for (NSInteger i = 0; i<order.InvoicedataArr.count; i++) {
-            OrderModel *orderMod = order.InvoicedataArr[i];
-            [self.ParameterArr addObject:orderMod.OrderId];
-           self.NewParameterStr = [self.NewParameterStr stringByAppendingString:orderMod.OrderId];
+    NSLog(@"%@",self.OrderIDArr);
+    if (self.OrderIDArr != nil) {
+        for (NSInteger i = 0; i<self.OrderIDArr.count; i++) {
+           self.NewParameterStr = [self.NewParameterStr stringByAppendingString:self.OrderIDArr[i]];
             NSLog(@"%@",self.NewParameterStr);
-            if (i < order.InvoicedataArr.count-1) {
+            if (i < self.OrderIDArr.count-1) {
                self.NewParameterStr = [self.NewParameterStr stringByAppendingString:@","];
             }
         }
     }
-        NSLog(@"%@,%@,%@",order.InvoicedataArr,self.ParameterArr,self.NewParameterStr);
+        NSLog(@"%@,%@",self.OrderIDArr,self.NewParameterStr);
     
     self.view.backgroundColor = [UIColor whiteColor];
     NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
@@ -72,7 +70,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stopIndictor:) name:@"stopIndictor" object:nil];
 
     [self.view addSubview:self.webView];
-    [order.invoiceArr removeAllObjects];
+    [self.OrderIDArr removeAllObjects];
 }
 -(BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {

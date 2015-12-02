@@ -949,7 +949,7 @@ typedef void (^ChangeFrameBlock)();
         OrderModel *order = self.InvoicedataArr[indexPath.section];
         [self.invoiceArr addObject:order.OrderId];
         [self.InoicelowView reloadLowView:nil];
-        NSLog(@"=======%ld",self.invoiceArr.count);
+        NSLog(@"=======%ld----%@",self.invoiceArr.count,order.OrderId);
         
     }else if(self.tableView.editing == NO){
         NSLog(@"现在已经退出编辑模式");

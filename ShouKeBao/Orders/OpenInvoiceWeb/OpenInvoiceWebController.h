@@ -9,6 +9,7 @@
 #import "SKViewController.h"
 
 @interface OpenInvoiceWebController : SKViewController
+
 @property (strong, nonatomic) UIWebView *webView;
 @property (copy, nonatomic) NSString * titleName;
 @property (copy,nonatomic) NSString *produceUrl;

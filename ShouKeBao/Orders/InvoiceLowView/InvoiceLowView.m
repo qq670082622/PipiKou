@@ -47,8 +47,12 @@
         
         BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:nil];
         [MobClick event:@"OrdersChoceOrdersTackInvoiceClick" attributes:dict];
+//        self.OpenInvoice.viewCont = self.ViewCont;
+//        Orders *order = (Orders *)self.ord;
+        self.OpenInvoice.OrderIDArr = [self.ord.invoiceArr mutableCopy];
+        NSLog(@"%@",self.ord.invoiceArr);
         
-        self.OpenInvoice.viewCont = self.ViewCont;
+        
         [self.LowNav pushViewController:self.OpenInvoice animated:YES];
         if ([[[UIApplication sharedApplication].delegate window] viewWithTag:110] != nil) {
             [[[[UIApplication sharedApplication].delegate window] viewWithTag:110] removeFromSuperview];
