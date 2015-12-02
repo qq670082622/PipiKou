@@ -19,6 +19,8 @@
 #import "IWHttpTool.h"
 #import "ChatViewController.h"
 #import "UIImageView+WebCache.h"
+#import "LocationSeting.h"
+#import "CustomHeaderAndNickName.h"
 #define kScreenSize [UIScreen mainScreen].bounds.size
 @interface NewMessageCenterController ()<UITableViewDataSource,UITableViewDelegate,UISearchBarDelegate, ChatViewControllerDelegate>
 @property (nonatomic,strong) NSArray *NameArr;
@@ -167,8 +169,15 @@
             }
         }else{
             EMConversation *conversation = [self.chatListArray objectAtIndex:indexPath.row];
-            [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"huanxinheader"]];
-            cell.name = conversation.chatter;
+            NSLog(@"%@", conversation.chatter);
+            if ([[LocationSeting defaultLocationSeting]getCustomInfoWithID:conversation.chatter]) {
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:[[LocationSeting defaultLocationSeting]getCustomInfoWithID:conversation.chatter][@"headerUrl"]] placeholderImage:[UIImage imageNamed:@"huanxinheader"]];
+                cell.name = [[LocationSeting defaultLocationSeting]getCustomInfoWithID:conversation.chatter][@"nickName"];
+            }else{
+                [cell.imageView sd_setImageWithURL:[NSURL URLWithString:@""] placeholderImage:[UIImage imageNamed:@"huanxinheader"]];
+
+                cell.name = @"未命名";
+            }
             cell.unreadCount = [self unreadMessageCountByConversation:conversation];
             cell.detailMsg = [self subTitleMessageByConversation:conversation];
             cell.time = [self lastMessageTimeByConversation:conversation];
@@ -201,7 +210,10 @@
             }
         }else{
             EMConversation *conversation = [self.chatListArray objectAtIndex:indexPath.row];
-            NSString *title = conversation.chatter;
+            NSString *title = @"客户";
+            if ([[LocationSeting defaultLocationSeting]getCustomInfoWithID:conversation.chatter]) {
+                title = [[LocationSeting defaultLocationSeting]getCustomInfoWithID:conversation.chatter][@"nickName"];
+            }
             NSString *chatter = conversation.chatter;
            ChatViewController *chatController = [[ChatViewController alloc] initWithChatter:chatter conversationType:eConversationTypeChat];
             chatController.delelgate = self;

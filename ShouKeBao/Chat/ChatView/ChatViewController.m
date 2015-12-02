@@ -43,6 +43,9 @@
 #import "ProductDetailWebView.h"
 #import "ProductListWebView.h"
 #import "IWHttpTool.h"
+#import "CustomHeaderAndNickName.h"
+#import "LocationSeting.h"
+#import "UserInfo.h"
 @interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate>
 {
     UIMenuController *_menuController;
@@ -247,7 +250,15 @@
     NSDictionary *params = @{@"AppSkbUserId":chatter};
     [IWHttpTool postWithURL:@"Customer/GetAppDistributionSkbUserInfo" params:params success:^(id json) {
         if ([json[@"IsSuccess"]integerValue] == 1) {
-            
+            NSLog(@"%@", json);
+            CustomHeaderAndNickName * model = [[CustomHeaderAndNickName alloc]init];
+            model.headerUrl = json[@"HeadUrl"];
+            model.nickName = json[@"NickName"];
+            NSDictionary * dict = @{@"headerUrl":json[@"HeadUrl"], @"nickName":json[@"NickName"]};
+            [[LocationSeting defaultLocationSeting] setCustomInfo:dict toID:self.chatter];
+            NSLog(@"%@", self.chatter);
+            self.title = model.nickName;
+            [self.tableView reloadData];
         }
     } failure:^(NSError * error) {
         
@@ -555,10 +566,15 @@
         }
         else{
             MessageModel *model = (MessageModel *)obj;
-            
-            model.headImageURL = [NSURL URLWithString:@""];
+            if (model.isSender) {
+                NSString * nickName = [[LocationSeting defaultLocationSeting]getCustomInfoWithID:self.chatter][@"nickName"];
+                NSString * headerUrl = [[LocationSeting defaultLocationSeting]getCustomInfoWithID:self.chatter][@"headerUrl"];
+                model.headImageURL = [NSURL URLWithString:headerUrl];
+                model.nickName = nickName;
+            }else{
+            model.headImageURL = [NSURL URLWithString:UserInfoKeyLoginAvatar];
             model.nickName = @"";
-            
+            }
             NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];
             EMChatViewCell *cell = (EMChatViewCell *)[tableView dequeueReusableCellWithIdentifier:cellIdentifier];
             if (cell == nil) {

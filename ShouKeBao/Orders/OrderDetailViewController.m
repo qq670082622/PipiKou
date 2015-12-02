@@ -274,7 +274,15 @@
         NSMutableString * params = [NSMutableString stringWithString:resultStr];
         [params stringByReplacingOccurrencesOfString:@"OpenCustomIM(" withString:@""];
         [params stringByReplacingOccurrencesOfString:@")" withString:@""];
-        ChatViewController * chatVC = [[ChatViewController alloc]initWithChatter:params conversationType:eConversationTypeChat];
+        NSDictionary * dic = [NSString parseJSONStringToNSDictionary:params];
+        /*
+         {
+         "MsgType": "OrderDetail",
+         "ReceiveId": "接收人Id",
+         "ObjectId": "订单Id"
+         }
+         */
+        ChatViewController * chatVC = [[ChatViewController alloc]initWithChatter:dic[@"ReceiveId"] conversationType:eConversationTypeChat];
         [self.navigationController pushViewController:chatVC animated:YES];
     }
 

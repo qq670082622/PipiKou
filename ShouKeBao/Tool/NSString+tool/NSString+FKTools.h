@@ -23,4 +23,9 @@
 //退出分享
 +(void)showLeaveShareNav:(UINavigationController *)nav InVC:(UIViewController *)controller;
 
+
+
+
++(NSDictionary *)parseJSONStringToNSDictionary:(NSString *)JSONString;
+
 @end

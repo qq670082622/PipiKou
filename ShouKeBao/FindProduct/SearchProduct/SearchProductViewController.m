@@ -257,7 +257,7 @@
         list.isFromSearch = YES;
         self.table.tableFooterView.hidden = NO;
         //self.footView.hidden = NO;
-        list.productListFrom = FromKeyWord;
+        list.productListFrom = FromSearch;
         [self.navigationController pushViewController:list animated:YES];
     }
     
@@ -325,7 +325,7 @@
         self.table.tableFooterView.hidden = NO;
         
         list.isFromSearch = YES;
-        list.productListFrom = self.isun;
+        list.productListFrom = FromSearch;
         [self.navigationController pushViewController:list animated:YES];
     
     }else if (self.inputView.text.length<1 ){

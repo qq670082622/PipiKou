@@ -46,12 +46,6 @@
         [[EaseMob sharedInstance] registerSDKWithAppKey:@"pipikou#ppkskb"
                                            apnsCertName:@"lvyouquanpush"
                                             otherConfig:@{kSDKConfigEnableConsoleLogger:@YES}];
-//    [[EaseMob sharedInstance].chatManager asyncRegisterNewAccount:@"liuyan" password:@"123456" withCompletion:^(NSString *username, NSString *password, EMError *error) {
-//        NSLog(@"%@", error);
-//        if (!error) {
-//            NSLog(@"注册成功");
-//        }
-//    } onQueue:nil];
     NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
     NSString * APPUserId = [def objectForKey:UserInfoKeyAppUserID];
     NSString * easeMobPassword = [def objectForKey:UserInfoKeyEasemobPassWord];
@@ -61,8 +55,17 @@
         if (!error && loginInfo) {
             [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
             NSLog(@"登陆成功 %@", APPUserId);
+            EMPushNotificationOptions *options = [[EaseMob sharedInstance].chatManager pushNotificationOptions];
+            options.displayStyle = ePushNotificationDisplayStyle_messageSummary;
+            options.noDisturbStatus = ePushNotificationNoDisturbStatusClose;
         }
     } onQueue:nil];
+//    [[EaseMob sharedInstance].chatManager asyncLoginWithUsername:@"c4355fdb93704425bad478418788f99b" password:@"c4355fdb" completion:^(NSDictionary *loginInfo, EMError *error) {
+//        if (!error && loginInfo) {
+//            [[EaseMob sharedInstance].chatManager loadDataFromDatabase];
+//            NSLog(@"登陆成功 %@", APPUserId);
+//        }
+//    } onQueue:nil];
 
     
     // 登录成功后，自动去取好友列表
@@ -178,8 +181,8 @@
 // 将得到的deviceToken传给SDK
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken{
     [[EaseMob sharedInstance] application:application didRegisterForRemoteNotificationsWithDeviceToken:deviceToken];
-    NSString * deviceStr = [NSString stringWithFormat:@"%@", deviceToken];
-    [[[UIAlertView alloc]initWithTitle:@"aaa" message:deviceStr delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
+//    NSString * deviceStr = [NSString stringWithFormat:@"%@", deviceToken];
+//    [[[UIAlertView alloc]initWithTitle:@"aaa" message:deviceStr delegate:nil cancelButtonTitle:@"aa" otherButtonTitles:nil, nil]show];
 }
 
 // 注册deviceToken失败，此处失败，与环信SDK无关，一般是您的环境配置或者证书配置有误

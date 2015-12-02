@@ -608,6 +608,7 @@
 		79FB115E1BD7310B00819FB2 /* UpDateUserPictureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB115D1BD7310B00819FB2 /* UpDateUserPictureViewController.m */; };
 		79FB11601BD7324100819FB2 /* Orders.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 79FB115F1BD7324100819FB2 /* Orders.storyboard */; };
 		79FB11631BD73BB400819FB2 /* UpDateUserPictureViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */; };
+		79FB4C681C0D91C2006D58C3 /* CustomHeaderAndNickName.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FB4C671C0D91C2006D58C3 /* CustomHeaderAndNickName.m */; };
 		79FC19731BD8E4C600811E32 /* CustomerIdsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */; };
 		79FE7B351BD09EFD0057B56E /* AttachmentCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 79FE7B341BD09EFD0057B56E /* AttachmentCollectionView.m */; };
 		8448BC611AC2567E00F28E1A /* MGSwipeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 8448BC5E1AC2567E00F28E1A /* MGSwipeButton.m */; };
@@ -1796,6 +1797,8 @@
 		79FB115F1BD7324100819FB2 /* Orders.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Orders.storyboard; sourceTree = "<group>"; };
 		79FB11611BD73BB400819FB2 /* UpDateUserPictureViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UpDateUserPictureViewCell.h; sourceTree = "<group>"; };
 		79FB11621BD73BB400819FB2 /* UpDateUserPictureViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UpDateUserPictureViewCell.m; sourceTree = "<group>"; };
+		79FB4C661C0D91C2006D58C3 /* CustomHeaderAndNickName.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomHeaderAndNickName.h; sourceTree = "<group>"; };
+		79FB4C671C0D91C2006D58C3 /* CustomHeaderAndNickName.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomHeaderAndNickName.m; sourceTree = "<group>"; };
 		79FC19711BD8E4C600811E32 /* CustomerIdsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomerIdsModel.h; sourceTree = "<group>"; };
 		79FC19721BD8E4C600811E32 /* CustomerIdsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomerIdsModel.m; sourceTree = "<group>"; };
 		79FE7B331BD09EFD0057B56E /* AttachmentCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AttachmentCollectionView.h; sourceTree = "<group>"; };
@@ -3616,6 +3619,8 @@
 				796EFBBA1BF5C5DE00799120 /* ChatViewController+Category.m */,
 				796EFBBB1BF5C5DE00799120 /* ChatViewController.h */,
 				796EFBBC1BF5C5DE00799120 /* ChatViewController.m */,
+				79FB4C661C0D91C2006D58C3 /* CustomHeaderAndNickName.h */,
+				79FB4C671C0D91C2006D58C3 /* CustomHeaderAndNickName.m */,
 				796EFBBD1BF5C5DE00799120 /* ConvertToCommonEmoticonsHelper.h */,
 				796EFBBE1BF5C5DE00799120 /* ConvertToCommonEmoticonsHelper.m */,
 				796EFBBF1BF5C5DE00799120 /* LocationViewController.h */,
@@ -5417,6 +5422,7 @@
 				B3C01E331BAC10FC005E4BB5 /* MeHeader.m in Sources */,
 				52CF60C31BDDD9CF00DD97B8 /* MySubscribeController.m in Sources */,
 				845514E91ABFFAD900D588A7 /* SKTableViewController.m in Sources */,
+				79FB4C681C0D91C2006D58C3 /* CustomHeaderAndNickName.m in Sources */,
 				79EE91681B2BCDE2008C8935 /* TimeTool.m in Sources */,
 				796EFDBC1BF5CA4E00799120 /* MWGridViewController.m in Sources */,
 				B3C01E371BAC10FC005E4BB5 /* SwipeView.m in Sources */,

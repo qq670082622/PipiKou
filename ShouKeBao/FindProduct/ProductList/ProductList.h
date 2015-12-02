@@ -10,8 +10,8 @@
 #import "ProduceDetailViewController.h"
 #import "SKViewController.h"
 typedef enum{
-    FromSearch,
-    FromKeyWord
+    FromKeyWord,
+    FromSearch
 }ProductListFrom;
 
 @interface ProductList : SKViewController//<passValue>

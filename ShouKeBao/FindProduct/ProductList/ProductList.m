@@ -841,7 +841,8 @@
     [dic setObject:_pushedSearchK forKey:@"SearchKey"];
     [dic setObject:type forKey:@"ProductSortingType"];
     [dic setObject:[NSString stringWithFormat:@"%d",self.productListFrom+1] forKey:@"SearchSource"];
-    NSLog(@"%@",dic[@"SearchSource"]);
+    NSLog(@"%d", self.productListFrom+1);
+    NSLog(@"SearchSource = %@",dic[@"SearchSource"]);
     [dic addEntriesFromDictionary:self.conditionDic];//增加筛选条件
     
     NSLog(@"%@",dic);

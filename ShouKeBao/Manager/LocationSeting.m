@@ -7,8 +7,16 @@
 //
 
 #import "LocationSeting.h"
+#import "CustomHeaderAndNickName.h"
+
+@interface LocationSeting ()
+@property (nonatomic, strong)NSMutableArray * customLocationInfoArray;
+
+@end
+
 
 @implementation LocationSeting
+
 +(LocationSeting *)defaultLocationSeting{
     static LocationSeting * location = nil;
     static dispatch_once_t oncetonke;
@@ -34,6 +42,18 @@
 }
 
 
+//本地保存直客ID和头像 并实时更新；
+-(void)setCustomLocationInfoArray:(NSMutableArray *)customLocationInfoArray{
+    [self mySetObject:customLocationInfoArray forKey:@"customLocationInfoArray"];
+}
+-(NSMutableArray *)customLocationInfoArray{
+    if ([self myObjectForKey:@"customLocationInfoArray"]) {
+        return [self myObjectForKey:@"customLocationInfoArray"];
+    }else{
+        [LocationSeting defaultLocationSeting].customLocationInfoArray = [NSMutableArray array];
+        return [self myObjectForKey:@"customLocationInfoArray"];
+    }
+}
 - (void)mySetObject:(id)obj
              forKey:(NSString *)aKey{
     if (obj != [NSNull null]) {
@@ -43,6 +63,44 @@
 }
 - (id)myObjectForKey:(NSString *)aKey{
     return [[NSUserDefaults standardUserDefaults]objectForKey:aKey];
+}
+
+
+
+
+//本地化客户头像和昵称存储和取出
+
+- (NSDictionary *)getCustomInfoWithID:(NSString *)ID{
+    NSLog(@"-------%@",[LocationSeting defaultLocationSeting].customLocationInfoArray );
+    for (NSMutableDictionary * dic in [LocationSeting defaultLocationSeting].customLocationInfoArray) {
+        if ([dic.allKeys[0] isEqualToString:ID]) {
+            return [dic objectForKey:ID];
+        }
+    }
+    return nil;
+}
+- (void)setCustomInfo:(NSDictionary*)info
+                 toID:(NSString *)ID{
+    NSMutableDictionary * infoDic = [NSMutableDictionary dictionaryWithObject:info forKey:ID];
+    BOOL isExit = NO;
+    for (NSMutableDictionary * dic in [LocationSeting defaultLocationSeting].customLocationInfoArray) {
+        if ([dic.allKeys[0] isEqualToString:ID]) {
+          NSMutableArray * tempArray =  [LocationSeting defaultLocationSeting].customLocationInfoArray;
+            NSMutableDictionary * tempDic = [dic mutableCopy];
+            [tempArray removeObject:dic];
+            [tempDic setObject:info forKey:ID];
+            isExit = YES;
+            [tempArray addObject:tempDic];
+            [LocationSeting defaultLocationSeting].customLocationInfoArray = tempArray;
+        }
+    }
+    if (!isExit) {
+        NSLog(@"%@--%@",info,infoDic);
+        NSMutableArray * tempArray = [LocationSeting defaultLocationSeting].customLocationInfoArray;
+        [tempArray addObject:infoDic];
+        NSLog(@"%@", tempArray);
+        [LocationSeting defaultLocationSeting].customLocationInfoArray = tempArray;
+    }
 }
 
 
