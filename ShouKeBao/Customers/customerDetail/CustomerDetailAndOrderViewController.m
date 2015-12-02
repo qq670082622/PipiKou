@@ -99,7 +99,7 @@
     if (!_orderVC) {
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _orderVC = [sb instantiateViewControllerWithIdentifier:@"CustomerOrderID"];
-        _orderVC.customerId = self.model.ID;
+        _orderVC.customerId = self.customerID;
         _orderVC.mainNav = self.navigationController;
         
         
@@ -122,7 +122,7 @@
 //            _detailVC.picUrl = self.model.PicUrl;
 //        _detailVC.pictureArray = self.model.PictureList;
 //        NSLog(@"%@", _detailVC.pictureArray);
-            _detailVC.customerId = self.model.ID;
+        _detailVC.customerId = self.customerID;
 //            _detailVC.delegate = self.customVC;
 //            _detailVC.keyWordss = self.keyWords;
     }
@@ -145,7 +145,7 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     
     EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
-    edit.ID = self.model.ID;
+    edit.ID = self.customerID;
     edit.QQStr = self.detailVC.QQ.text;
     edit.wechatStr = self.detailVC.weChat.text;
     edit.noteStr = self.detailVC.note.text;

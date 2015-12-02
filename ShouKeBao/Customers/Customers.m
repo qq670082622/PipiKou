@@ -519,7 +519,8 @@
         CustomerDetailAndOrderViewController * VC = [[CustomerDetailAndOrderViewController  alloc]init];
         VC.customVC = self;
         VC.keyWords = self.searchK;
-        VC.model = model;
+        VC.customerID = model.ID;
+        
         
      [self.navigationController pushViewController:VC animated:YES];
     }else if (self.popTableview == tableView){
