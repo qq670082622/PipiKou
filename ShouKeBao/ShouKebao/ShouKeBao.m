@@ -1405,6 +1405,26 @@
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
     
+    
+    //将今日推荐排在第二
+    
+    HomeBase *recom;
+    int recomIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+        if ([base.model isKindOfClass:[Recommend class]]) {
+            recomIndex = i;
+        }
+    }
+    if (recomIndex>1) {
+        recom = self.dataSource[recomIndex];
+        if (self.dataSource[recomIndex]) {
+            [self.dataSource insertObject:recom atIndex:1];
+        }
+        [self.dataSource removeObjectAtIndex:recomIndex + 1];
+    }
+    
+    
 //将双12专题排在第二（或者第一）
     HomeBase *double12;
     int doubleIndex = 0;
@@ -1417,29 +1437,13 @@
     if (doubleIndex>1) {
         double12 = self.dataSource[doubleIndex];
         if (self.dataSource[doubleIndex]) {
-            [self.dataSource insertObject:double12 atIndex:1];
+            [self.dataSource insertObject:double12 atIndex:0];
         }
         [self.dataSource removeObjectAtIndex:doubleIndex + 1];
     }
 
     
-  //将今日推荐排在第二
-   
-    HomeBase *recom;
-    int recomIndex = 0;
-    for (int i = 0 ; i<self.dataSource.count; i++) {
-        HomeBase *base = self.dataSource[i];
-       if ([base.model isKindOfClass:[Recommend class]]) {
-            recomIndex = i;
-        }
-    }
-    if (recomIndex>2) {
-        recom = self.dataSource[recomIndex];
-        if (self.dataSource[recomIndex]) {
-            [self.dataSource insertObject:recom atIndex:2];
-        }
-        [self.dataSource removeObjectAtIndex:recomIndex + 1];
-    }
+
     
 //    HomeBase *recom;
 //    int recomIndex = 0;
