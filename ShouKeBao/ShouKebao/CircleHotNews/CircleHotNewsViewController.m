@@ -55,7 +55,7 @@
     // Do any additional setup after loading the view.
     
     self.view.backgroundColor = [UIColor whiteColor];
-    self.title = @"圈热点";
+   
     [self setshareBarItem];
     [self deadWork];
     
@@ -95,6 +95,8 @@
     NSRange range = [rightUrl rangeOfString:_urlSuffix];//带？
     NSRange range2 = [rightUrl rangeOfString:_urlSuffix2];//不带?
     NSRange range3 = [rightUrl rangeOfString:@"?"];
+    
+   
     
 //    NSRange shareRange = [rightUrl rangeOfString:@"objectc:LYQSKBAPP_OpenShareProduct"];
     [_indicator startAnimation];
@@ -137,7 +139,19 @@
 
 -(void)webViewDidFinishLoad:(UIWebView *)webView{
     
-    NSLog(@"%@",webView.request.URL.absoluteString);
+    NSLog(@"；；；；；；%@",webView.request.URL.absoluteString);
+    NSString *rightUrl = webView.request.URL.absoluteString;
+    if ([rightUrl containsString:@"/mc/kaifaceshi/theme/"]) {
+        self.title = @"主题详情";
+    }else if ([rightUrl containsString:@"/mc/kaifaceshi/Product/"]){
+        self.title = @"产品详情";
+    }else if ([rightUrl containsString:@"/mc/kaifaceshi/zt/"]){
+        self.title = @"专辑详情";
+    }else if([rightUrl containsString:@"/mc/kaifaceshi/WonderfulActivity/"]){
+        self.title = @"圈热点";
+    }
+    
+    
     //判断是否显示关闭按钮
     if (self.m == 0) {
     }else if(self.m == 1){

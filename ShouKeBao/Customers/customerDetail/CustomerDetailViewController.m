@@ -18,96 +18,43 @@
 #import "AttachmentCollectionView.h"
 #import "CustomerOrderViewController.h"
 #import "IWHttpTool.h"  
+#import "CustomModel.h"
 @interface CustomerDetailViewController ()<UITextFieldDelegate,notifiToRefereshCustomerDetailInfo,UIActionSheetDelegate, UITableViewDelegate, UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *SetRemindBtnOutlet;
+@property (nonatomic, strong)NSMutableArray *dataArr;
 @end
 
 @implementation CustomerDetailViewController
 
+- (NSMutableArray *)dataArr{
+    if (!_dataArr) {
+        _dataArr = [NSMutableArray array];
+    }
+    return _dataArr;
+}
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"客户详情";
     self.tableView.delegate = self;
    // [self.SetRemindBtnOutlet setHighlighted:NO];
     
-    [self setSubViews];
+    [self loadCustomerDetailData];
     if (self.note.text == nil) {
         self.note.text = @"备注信息";
     }
     UIButton *leftBtn = [[UIButton alloc]initWithFrame:CGRectMake(0,0,15,20)];
     [leftBtn setBackgroundImage:[UIImage imageNamed:@"backarrow"] forState:UIControlStateNormal];
-
-    
     [leftBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
     
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:leftBtn];
-    
     self.navigationItem.leftBarButtonItem = leftItem;
-    
-       
     self.SetRemindBtnOutlet.imageEdgeInsets = UIEdgeInsetsMake(0, 32, 0, 0);
-    
-   
-    
-    
 }
 
-
-
--(void)back
-{
-//     [self.initDelegate reloadMethod];
+-(void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
-//-(BOOL)textFieldShouldReturn:(UITextField *)textField
-//{
-//    [self.weChat resignFirstResponder];
-//   [self.QQ resignFirstResponder];
-//    [self.note resignFirstResponder];
-//    [self.tele resignFirstResponder];
-//    return YES;
-//}
-//-(BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text
-//{
-//    if ([text isEqualToString:@"\n"]) {
-//        [self.note resignFirstResponder];
-//        return NO;
-//    }
-//    return YES;
-//    
-//}
-//@property (weak, nonatomic) IBOutlet UILabel *passPortId;
-//@property (weak, nonatomic) IBOutlet UILabel *userMessageID;
-//
-//@property (weak, nonatomic) IBOutlet UILabel *bornDay;
-//
-//@property (weak, nonatomic) IBOutlet UILabel *countryID;
-//@property (weak, nonatomic) IBOutlet UILabel *nationalID;
-//@property (weak, nonatomic) IBOutlet UILabel *pasportStartDay;
-//@property (weak, nonatomic) IBOutlet UILabel *pasportAddress;
-//@property (weak, nonatomic) IBOutlet UILabel *pasportInUseDay;
-//@property (weak, nonatomic) IBOutlet UILabel *livingAddress;
-
--(void)setSubViews{
-        self.QQ.text = self.QQStr;
-    self.weChat.text = self.weChatStr;
-    self.tele.text = self.teleStr;
-    self.note.text = self.noteStr;
-    self.userName.text = self.userNameStr;
-    
-    
-    self.passPortId.text = self.customMoel.PassportNum;
-    self.userMessageID.text = self.customMoel.CardNum;
-    self.bornDay.text = self.customMoel.BirthDay;
-    self.countryID.text = self.customMoel.Country;
-    self.nationalID.text = self.customMoel.Nationality;
-    self.pasportStartDay.text = self.customMoel.ValidStartDate;
-    self.pasportAddress.text  = self.customMoel.ValidAddress;
-    self.pasportInUseDay.text = self.customMoel.ValidEndDate;
-    self.livingAddress.text = self.customMoel.Address;
-}
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     [MobClick beginLogPageView:@"CustomerDetailViewController"];
@@ -119,19 +66,8 @@
     [MobClick endLogPageView:@"CustomerDetailViewController"];
 }
 
-//-(void)sex:(id)sender
-//{
-//    UISegmentedControl *control = (UISegmentedControl *)sender;
-//    if (control.selectedSegmentIndex == 1) {
-//        CustomerOrdersUIViewController *orders = [[CustomerOrdersUIViewController alloc] init];
-//        [self.navigationController pushViewController:orders animated:NO];
-//    }
-//}
-
 #pragma -mark 编辑用户资料后通知更新
-- (void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andCardID:(NSString *)cardID andBirthDate:(NSString *)birthdate andNationablity:(NSString *)nationablity andNation:(NSString *)nation andPassportStart:(NSString *)passPortStart andPassPortAddress:(NSString *)passPortAddress andPassPortEnd:(NSString *)passPortEnd andAddress:(NSString *)address andPassport:(NSString *)passPort andNote:(NSString *)note
-{
-    
+- (void)refreshCustomerInfoWithName:(NSString *)name andQQ:(NSString *)qq andWeChat:(NSString *)weChat andPhone:(NSString *)phone andCardID:(NSString *)cardID andBirthDate:(NSString *)birthdate andNationablity:(NSString *)nationablity andNation:(NSString *)nation andPassportStart:(NSString *)passPortStart andPassPortAddress:(NSString *)passPortAddress andPassPortEnd:(NSString *)passPortEnd andAddress:(NSString *)address andPassport:(NSString *)passPort andNote:(NSString *)note{
     self.QQ.text = qq;
     self.weChat.text = weChat;
     self.tele.text = phone;
@@ -152,45 +88,29 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-
 - (IBAction)remond:(id)sender {
-    
     remondViewController *remond = [[remondViewController alloc] init];
-    remond.ID = self.ID;
-    remond.customModel = self.customMoel;
-    
+    remond.ID = [self.dataArr[0]ID];
+    remond.customModel = self.dataArr[0];
     [self.Nav pushViewController:remond animated:YES];
 }
 
 - (IBAction)deleteCustomer:(id)sender {
-    
     UIActionSheet *sheet = [[UIActionSheet alloc] initWithTitle:@"您确定要删除吗？" delegate:self cancelButtonTitle:@"取消" destructiveButtonTitle:@"确定" otherButtonTitles: nil];
      [sheet showInView:self.view];
-    
-//   搜索删除后执行的方法
-//      [self.delegate deleteCustomerWith:self.tele.text];
- 
-  }
--(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
+}
+-(void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
-
         MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
         hudView.labelText = @"删除中...";
         [hudView show:YES];
        
         NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-        [dic setObject:self.ID forKey:@"CustomerID"];
+        [dic setObject:[self.dataArr[0]ID] forKey:@"CustomerID"];
         [IWHttpTool WMpostWithURL:@"/Customer/DeleteCustomer" params:dic success:^(id json) {
             NSLog(@"删除客户信息成功%@",json);
-            
-//   删除后需要刷新列表的执行的方法
-//   协议传值3:让第二页的代理人(delegate)执行说好的协议方法 
-            [self.delegate deleteCustomerWith:self.keyWordss];
-   
-//            NSLog(@"删除客户信息后%@",dic);
-            
+
+            [self.delegate deleteCustomerWith:nil];
             hudView.labelText = @"删除成功...";
             [hudView hide:YES afterDelay:0.4];
             
@@ -198,7 +118,6 @@
             NSLog(@"删除客户请求失败%@",error);
         }];
         [self.Nav popViewControllerAnimated:YES];
-        
     }
     if (buttonIndex == 1) {
         return;
@@ -214,14 +133,11 @@
 {
     return 10.0f;
 }
-
-
 -(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     if (buttonIndex == 0) {
         NSString * telStr = [NSString stringWithFormat:@"tel://%@", self.tele.text];
         [[UIApplication sharedApplication]openURL:[NSURL URLWithString:telStr]];
     }
-
 }
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section == 0) {
@@ -230,11 +146,9 @@
             {
                 if (self.tele.text.length > 6) {
                     [[[UIAlertView alloc]initWithTitle:@"提示" message:[NSString stringWithFormat:@"是否要拨打电话%@", self.tele.text] delegate:self cancelButtonTitle:@"确定" otherButtonTitles:@"取消", nil]show];
-                    
                 }else{
                     [[[UIAlertView alloc]initWithTitle:@"提示" message:@"电话号码不正确" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil]show];
                 }
-            
             }
                 break;
             case 1:
@@ -272,10 +186,6 @@
 ////                    [ale show];
 ////                }
 //            }
-    
-                
-                
-                
                 break;
 
             default:
@@ -308,20 +218,54 @@
     }else{
         [[[UIAlertView alloc]initWithTitle:@"提示" message:@"电话号码不正确" delegate:nil cancelButtonTitle:@"知道了" otherButtonTitles:nil, nil]show];
     }
-    
-
 }
-
 
 - (IBAction)attachmentAction:(id)sender {
 //    attachmentViewController *AVC = [[attachmentViewController alloc] init];
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     AttachmentCollectionView *AVC = [sb instantiateViewControllerWithIdentifier:@"AttachmentCollectionView"];
-    AVC.picUrl = _picUrl;
-    AVC.pictureList = _pictureArray;
-    AVC.customerId =  _customerId;
-    NSLog(@"%@%@", _customerId, _picUrl);
+    AVC.picUrl = [self.dataArr[0]PicUrl];
+    AVC.pictureList = [self.dataArr[0]PictureList];
+    AVC.customerId = [self.dataArr[0]ID];
+    NSLog(@"%@%@", [self.dataArr[0]ID], [self.dataArr[0]PicUrl]);
     [self.Nav pushViewController:AVC animated:YES];
     
 }
+
+- (void)loadCustomerDetailData{
+    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    [dic setObject:self.customerId forKey:@"CustomerID"];
+    
+    [IWHttpTool WMpostWithURL:@"/Customer/GetCustomer" params:dic success:^(id json){
+        NSLog(@"------管客户详情json is %@",json);
+        
+         NSDictionary *dic = json[@"Customer"];
+        CustomModel *customerDetail = [CustomModel modalWithDict:dic];
+        [self.dataArr addObject:customerDetail];
+        [self setSubViews];
+        NSLog(@".. %@  %@", self.dataArr, [self.dataArr[0]Name]);
+        
+    } failure:^(NSError *error) {
+        NSLog(@"-------管客户详情请求失败 error is %@",error);
+    }];
+}
+
+-(void)setSubViews{
+    self.QQ.text = [self.dataArr[0]QQCode];
+    self.weChat.text =  [self.dataArr[0]WeiXinCode]; /*self.weChatStr;*/
+    self.tele.text = [self.dataArr[0]Mobile];/*self.teleStr;*/
+    self.note.text = [self.dataArr[0]Remark];/*self.noteStr;*/
+    self.userName.text = [self.dataArr[0]Name];/*self.userNameStr;*/
+    
+    self.passPortId.text = [self.dataArr[0]PassportNum];
+    self.userMessageID.text = [self.dataArr[0]CardNum];
+    self.bornDay.text = [self.dataArr[0]BirthDay];
+    self.countryID.text = [self.dataArr[0]Country];
+    self.nationalID.text = [self.dataArr[0]Nationality];
+    self.pasportStartDay.text = [self.dataArr[0]ValidStartDate];
+    self.pasportAddress.text  = [self.dataArr[0]ValidAddress];
+    self.pasportInUseDay.text = [self.dataArr[0]ValidEndDate];
+    self.livingAddress.text = [self.dataArr[0]Address];
+}
+
 @end

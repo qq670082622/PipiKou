@@ -43,8 +43,8 @@
 @property (weak, nonatomic) IBOutlet UITextView *note;
 
 //协议传值（删除时使用的属性）
-@property (nonatomic,copy) NSString *ID;
-@property (nonatomic, copy)NSString * keyWordss;
+//@property (nonatomic,copy) NSString *ID;
+//@property (nonatomic, copy)NSString * keyWordss;
 
 @property (weak, nonatomic) IBOutlet UILabel *tele;
 @property (nonatomic,copy) NSString *weChatStr;
@@ -61,29 +61,26 @@
 @property (weak, nonatomic) IBOutlet UILabel *pasportInUseDay;
 @property (weak, nonatomic) IBOutlet UILabel *livingAddress;
 - (IBAction)attachmentAction:(id)sender;//附件
-@property (nonatomic,copy) NSString *picUrl;
 
-
-@property (nonatomic,strong) NSArray *pictureArray;
-
-
-@property (nonatomic,copy) NSString *QQStr;
-@property (nonatomic,copy) NSString *noteStr;
-@property (nonatomic,copy) NSString *teleStr;
-@property (nonatomic,copy) NSString *userNameStr;
-@property (nonatomic,copy) NSString *passPortIdStr;
-@property (nonatomic,copy) NSString *userMessageIDStr;
-
-@property (nonatomic,copy) NSString *bornDayStr;
-
-@property (nonatomic,copy) NSString *countryIDStr;
-@property (nonatomic,copy) NSString *nationalIDStr;
-@property (nonatomic,copy) NSString *pasportStartDayStr;
-@property (nonatomic,copy) NSString *pasportAddressStr;
-@property (nonatomic,copy) NSString *pasportInUseDayStr;
-@property (nonatomic,copy) NSString *livingAddressStr;
+//@property (nonatomic,copy) NSString *picUrl;
+//@property (nonatomic,strong) NSArray *pictureArray;
+//@property (nonatomic,copy) NSString *QQStr;
+//@property (nonatomic,copy) NSString *noteStr;
+//@property (nonatomic,copy) NSString *teleStr;
+//@property (nonatomic,copy) NSString *userNameStr;
+//@property (nonatomic,copy) NSString *passPortIdStr;
+//@property (nonatomic,copy) NSString *userMessageIDStr;
+//
+//@property (nonatomic,copy) NSString *bornDayStr;
+//
+//@property (nonatomic,copy) NSString *countryIDStr;
+//@property (nonatomic,copy) NSString *nationalIDStr;
+//@property (nonatomic,copy) NSString *pasportStartDayStr;
+//@property (nonatomic,copy) NSString *pasportAddressStr;
+//@property (nonatomic,copy) NSString *pasportInUseDayStr;
+//@property (nonatomic,copy) NSString *livingAddressStr;
 @property (nonatomic,copy) NSString *customerId;
-@property (nonatomic,strong) CustomModel *customMoel;
+//@property (nonatomic,strong) CustomModel *customMoel;
 
 - (IBAction)remond:(id)sender;
 - (IBAction)deleteCustomer:(id)sender;
