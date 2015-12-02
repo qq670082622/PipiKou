@@ -255,8 +255,8 @@
             model.headerUrl = json[@"HeadUrl"];
             model.nickName = json[@"NickName"];
             NSDictionary * dict = @{@"headerUrl":json[@"HeadUrl"], @"nickName":json[@"NickName"]};
+            NSLog(@"%@###", dict);
             [[LocationSeting defaultLocationSeting] setCustomInfo:dict toID:self.chatter];
-            NSLog(@"%@", self.chatter);
             self.title = model.nickName;
             [self.tableView reloadData];
         }
@@ -566,13 +566,14 @@
         }
         else{
             MessageModel *model = (MessageModel *)obj;
-            if (model.isSender) {
+            if (!model.isSender) {
                 NSString * nickName = [[LocationSeting defaultLocationSeting]getCustomInfoWithID:self.chatter][@"nickName"];
                 NSString * headerUrl = [[LocationSeting defaultLocationSeting]getCustomInfoWithID:self.chatter][@"headerUrl"];
+                NSLog(@"%@$$$", headerUrl);
                 model.headImageURL = [NSURL URLWithString:headerUrl];
                 model.nickName = nickName;
             }else{
-            model.headImageURL = [NSURL URLWithString:UserInfoKeyLoginAvatar];
+            model.headImageURL = [NSURL URLWithString:[[NSUserDefaults standardUserDefaults] objectForKey:UserInfoKeyLoginAvatar]];
             model.nickName = @"";
             }
             NSString *cellIdentifier = [EMChatViewCell cellIdentifierForMessageModel:model];

@@ -83,22 +83,23 @@
                  toID:(NSString *)ID{
     NSMutableDictionary * infoDic = [NSMutableDictionary dictionaryWithObject:info forKey:ID];
     BOOL isExit = NO;
+    NSLog(@"customLocationInfoArray = %@",[LocationSeting defaultLocationSeting].customLocationInfoArray);
     for (NSMutableDictionary * dic in [LocationSeting defaultLocationSeting].customLocationInfoArray) {
         if ([dic.allKeys[0] isEqualToString:ID]) {
-          NSMutableArray * tempArray =  [LocationSeting defaultLocationSeting].customLocationInfoArray;
+          NSMutableArray * tempArray =  [[LocationSeting defaultLocationSeting].customLocationInfoArray mutableCopy];
             NSMutableDictionary * tempDic = [dic mutableCopy];
             [tempArray removeObject:dic];
             [tempDic setObject:info forKey:ID];
             isExit = YES;
             [tempArray addObject:tempDic];
             [LocationSeting defaultLocationSeting].customLocationInfoArray = tempArray;
+            NSLog(@"customLocationInfoArray33 = %@",[LocationSeting defaultLocationSeting].customLocationInfoArray);
+
         }
     }
     if (!isExit) {
-        NSLog(@"%@--%@",info,infoDic);
         NSMutableArray * tempArray = [LocationSeting defaultLocationSeting].customLocationInfoArray;
         [tempArray addObject:infoDic];
-        NSLog(@"%@", tempArray);
         [LocationSeting defaultLocationSeting].customLocationInfoArray = tempArray;
     }
 }

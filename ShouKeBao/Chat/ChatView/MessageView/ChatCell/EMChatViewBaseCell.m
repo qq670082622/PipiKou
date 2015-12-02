@@ -82,12 +82,15 @@ NSString *const kRouterEventChatHeadImageTapEventName = @"kRouterEventChatHeadIm
     _nameLabel.hidden = (messageModel.messageType == eMessageTypeChat);
     
     UIImage *placeholderImage = [UIImage imageNamed:@"chatListCellHead"];
-    if (messageModel.isSender) {
-        NSLog(@"%@", UserInfoKeyLoginAvatar);
-    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults]objectForKey:UserInfoKeyLoginAvatar]] placeholderImage:placeholderImage];
-    }else{
+    NSLog(@"%d++++++%@",messageModel.isSender, _messageModel.headImageURL.absoluteString);
     [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
-    }
+
+//    if (messageModel.isSender) {
+//    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:[[NSUserDefaults standardUserDefaults]objectForKey:UserInfoKeyLoginAvatar]] placeholderImage:placeholderImage];
+//    }else{
+//        NSLog(@"%@", _messageModel.headImageURL);
+//    [self.headImageView sd_setImageWithURL:_messageModel.headImageURL placeholderImage:placeholderImage];
+//    }
 }
 
 #pragma mark - private
