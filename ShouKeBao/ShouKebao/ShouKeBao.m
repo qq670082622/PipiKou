@@ -80,6 +80,7 @@
 #import <AVFoundation/AVFoundation.h>
 #import "Double12TableViewCell.h"
 #import "DoubleModel.h"
+#import "ZhiVisitorDynamicController.h"
 #define View_Width self.view.frame.size.width
 #define View_Height self.view.frame.size.height
 
@@ -256,6 +257,7 @@
 }
 - (void)ClickCarouselSCAction:(NSInteger)pageNum{
     CircleHotNewsViewController *circleHotVC = [[CircleHotNewsViewController alloc]init];
+    circleHotVC.title = @"圈热点";
     circleHotVC.CircleUrl = self.CircleUrl;
     circleHotVC.m = 1;
     [self.navigationController pushViewController:circleHotVC animated:YES];
@@ -761,6 +763,10 @@
 //            BaseClickAttribute *dict = [BaseClickAttribute attributeWithDic:dic];
 //            [MobClick event:@"FindProductList" attributes:dict];
             [self.navigationController pushViewController:list animated:YES];
+            
+        }else if ([message[0] isEqualToString:@"CustomerDynamic"]){//直客动态
+            ZhiVisitorDynamicController *zhiVisit = [[ZhiVisitorDynamicController alloc] init];
+            [self.navigationController pushViewController:zhiVisit animated:YES];
         }else{
         
         }
@@ -1405,7 +1411,29 @@
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
     
-//将双12专题排在第二（或者第一）
+
+    //           1  2  3  4  5
+    //           1  4  2  3  4  5
+    
+  //将今日推荐排在第二
+    HomeBase *recom;
+    int recomIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+       if ([base.model isKindOfClass:[Recommend class]]) {
+            recomIndex = i;
+        }
+    }
+ 
+    if (recomIndex>1) {
+        recom = self.dataSource[recomIndex];
+        if (self.dataSource[recomIndex]) {
+            [self.dataSource insertObject:recom atIndex:1];
+        }
+        [self.dataSource removeObjectAtIndex:recomIndex + 1];
+    }
+    
+    //将双12专题排在第二（或者第一）
     HomeBase *double12;
     int doubleIndex = 0;
     for (int i = 0 ; i<self.dataSource.count; i++) {
@@ -1417,29 +1445,11 @@
     if (doubleIndex>1) {
         double12 = self.dataSource[doubleIndex];
         if (self.dataSource[doubleIndex]) {
-            [self.dataSource insertObject:double12 atIndex:1];
+            [self.dataSource insertObject:double12 atIndex:0];
         }
         [self.dataSource removeObjectAtIndex:doubleIndex + 1];
     }
-
     
-  //将今日推荐排在第二
-   
-    HomeBase *recom;
-    int recomIndex = 0;
-    for (int i = 0 ; i<self.dataSource.count; i++) {
-        HomeBase *base = self.dataSource[i];
-       if ([base.model isKindOfClass:[Recommend class]]) {
-            recomIndex = i;
-        }
-    }
-    if (recomIndex>2) {
-        recom = self.dataSource[recomIndex];
-        if (self.dataSource[recomIndex]) {
-            [self.dataSource insertObject:recom atIndex:2];
-        }
-        [self.dataSource removeObjectAtIndex:recomIndex + 1];
-    }
     
 //    HomeBase *recom;
 //    int recomIndex = 0;
@@ -1919,7 +1929,7 @@
     }else if([model.model isKindOfClass:[DoubleModel class]]){
         CircleHotNewsViewController *themeDetailVC = [[CircleHotNewsViewController alloc]init];
         DoubleModel *double12 = model.model;
-        
+        themeDetailVC.title = double12.FirstTitle;
         themeDetailVC.CircleUrl = double12.LinkUrl;
 //        NSLog(@"....%@....___ %@", self.dataSource, double12.LinkUrl);
         

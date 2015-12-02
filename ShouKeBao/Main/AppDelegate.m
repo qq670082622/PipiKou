@@ -560,6 +560,7 @@ void UncaughtExceptionHandler(NSException *exception) {
     if ([[[NSUserDefaults standardUserDefaults] objectForKey:@"NewsVoiceRemind"] integerValue] != 1) {
         [self prepAudio];//声音
     }
+    
     [[NSUserDefaults standardUserDefaults]setBool:YES forKey:@"isReceveNoti"];
     NSString *noticeType = [userInfo valueForKey:@"noticeType"];
     NSString * objID = [userInfo valueForKey:@"objectId"];
@@ -573,8 +574,8 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objID];
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
-    }else if
-    ([noticeType isEqualToString:@"PerfectProduct"]) {
+        
+    }else if([noticeType isEqualToString:@"PerfectProduct"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
         [arr addObject:@"recommond"];
@@ -589,6 +590,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objID];
         [arr addObject:objUri];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+        
     }else if ([noticeType isEqualToString:@"SingleArticle"]) {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
@@ -605,6 +607,7 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objUri];
         [arr addObject:objTitle];
         [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+        
     }else if([noticeType isEqualToString:@"SearchProduct"]){
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSMutableArray *arr = [NSMutableArray array];
@@ -613,6 +616,16 @@ void UncaughtExceptionHandler(NSException *exception) {
         [arr addObject:objUri];
         [arr addObject:objTitle];
         [defaultCenter postNotificationName:@"pushWithBackGroundFindProduct" object:arr];
+// 直客动态
+    }else if([noticeType isEqualToString:@"CustomerDynamic"]){
+        NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
+        NSMutableArray *arr = [NSMutableArray array];
+        [arr addObject:@"CustomerDynamic"];
+        [arr addObject:objID];
+        [arr addObject:objUri];
+        [arr addObject:objTitle];
+        [defaultCenter postNotificationName:@"pushWithBackGround" object:arr];
+        
     }else {
         NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
         NSArray * array = @[@"elseType", @"", @""];

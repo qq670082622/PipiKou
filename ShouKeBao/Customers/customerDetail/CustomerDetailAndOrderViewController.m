@@ -112,20 +112,19 @@
         UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
         _detailVC = [sb instantiateViewControllerWithIdentifier:@"customerDetail"];
         _detailVC.Nav = self.navigationController;
-            _detailVC.QQStr = self.model.QQCode;
-            _detailVC.ID = self.model.ID;
-            _detailVC.weChatStr = self.model.WeiXinCode;
-            _detailVC.teleStr = self.model.Mobile;
-            _detailVC.noteStr = self.model.Remark;
-            _detailVC.userNameStr = self.model.Name;
-            _detailVC.customMoel = self.model;
-            _detailVC.picUrl = self.model.PicUrl;
-        _detailVC.pictureArray = self.model.PictureList;
-        NSLog(@"%@", _detailVC.pictureArray);
+//            _detailVC.QQStr = self.model.QQCode;
+//            _detailVC.ID = self.model.ID;
+//            _detailVC.weChatStr = self.model.WeiXinCode;
+//            _detailVC.teleStr = self.model.Mobile;
+//            _detailVC.noteStr = self.model.Remark;
+//            _detailVC.userNameStr = self.model.Name;
+//            _detailVC.customMoel = self.model;
+//            _detailVC.picUrl = self.model.PicUrl;
+//        _detailVC.pictureArray = self.model.PictureList;
+//        NSLog(@"%@", _detailVC.pictureArray);
             _detailVC.customerId = self.model.ID;
-            //协议传值5:指定第一页为第二页的代理人
-            _detailVC.delegate = self.customVC;
-            _detailVC.keyWordss = self.keyWords;
+//            _detailVC.delegate = self.customVC;
+//            _detailVC.keyWordss = self.keyWords;
     }
     return _detailVC;
 }
@@ -146,7 +145,7 @@
     UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Customer" bundle:nil];
     
     EditCustomerDetailViewController *edit = [sb instantiateViewControllerWithIdentifier:@"EditCustomer"];
-    edit.ID = self.detailVC.ID;
+    edit.ID = self.model.ID;
     edit.QQStr = self.detailVC.QQ.text;
     edit.wechatStr = self.detailVC.weChat.text;
     edit.noteStr = self.detailVC.note.text;
