@@ -324,6 +324,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 //    [self prepAudio];
+    [self loadCarouselNewsData];
     [self.view addSubview:self.tableView];
 //    UITouch* touch = [[event touchesForView:btn] anyObject];
 //    
@@ -1011,7 +1012,7 @@
     self.isEmpty = NO;
 
 //    [self.circleArr removeAllObjects];
-    [self loadCarouselNewsData];
+    
     
 //    视图将要出现时定位
 //    [self locationMethod];
@@ -1065,7 +1066,7 @@
     NSString *numberStr = [NSString stringWithFormat:@"%ld", self.pageNum];
     [LocationSeting defaultLocationSeting].carouselPageNumber = numberStr;
 
-     [self.timer invalidate];
+//     [self.timer invalidate];
  
     [MobClick endLogPageView:@"ShouKeBao"];
     self.navBarView.userInteractionEnabled = NO;
@@ -1080,6 +1081,12 @@
 
 
 #pragma mark - getter
+- (NSTimer *)timer{
+    if (!_timer) {
+      self.timer = [[NSTimer alloc]init];
+    }
+    return _timer;
+}
 - (NSMutableArray *)circleArr{
     if (!_circleArr) {
         _circleArr = [NSMutableArray array];
@@ -1268,20 +1275,19 @@
 }
 - (void)circleLayout{
     // 轮播
-   NSString *pageNumber = [[LocationSeting defaultLocationSeting] carouselPageNumber];
-//    NSString *pageNumber = [[NSUserDefaults standardUserDefaults]objectForKey:@"carouselPageNumber"];
-    if ([pageNumber isEqualToString:@""]) {
-        self.pageNum = 0;
-    }else{
-        self.pageNum = [pageNumber integerValue];
-    }
+//   NSString *pageNumber = [[LocationSeting defaultLocationSeting] carouselPageNumber];
+
+//    if ([pageNumber isEqualToString:@""]) {
+//        self.pageNum = 0;
+//    }else{
+//        self.pageNum = [pageNumber integerValue];
+//    }
     [self CarouselAnimationAction];
     [self CarouselNews];
     
-    if (!_timer) {
-        self.timer = [[NSTimer alloc]init];
-    }
-    
+//    if (!_timer) {
+//        self.timer = [[NSTimer alloc]init];
+//    }
     [self startTimer];
 }
 
@@ -1410,21 +1416,24 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
-    
-
     //           1  2  3  4  5
     //           1  4  2  3  4  5
     
   //将今日推荐排在第二
     HomeBase *recom;
     int recomIndex = 0;
+    HomeBase *double12;
+    int doubleIndex = 0;
+    
     for (int i = 0 ; i<self.dataSource.count; i++) {
         HomeBase *base = self.dataSource[i];
-       if ([base.model isKindOfClass:[Recommend class]]) {
+        if ([base.model isKindOfClass:[Recommend class]]) {
             recomIndex = i;
         }
+        if ([base.model isKindOfClass:[DoubleModel class]]) {
+            doubleIndex = i;
+        }
     }
- 
     if (recomIndex>1) {
         recom = self.dataSource[recomIndex];
         if (self.dataSource[recomIndex]) {
@@ -1432,23 +1441,16 @@
         }
         [self.dataSource removeObjectAtIndex:recomIndex + 1];
     }
-    
-    //将双12专题排在第二（或者第一）
-    HomeBase *double12;
-    int doubleIndex = 0;
-    for (int i = 0 ; i<self.dataSource.count; i++) {
-        HomeBase *base = self.dataSource[i];
-        if ([base.model isKindOfClass:[DoubleModel class]]) {
-            doubleIndex = i;
-        }
-    }
-    if (doubleIndex>1) {
+    NSLog(@",,,, 1 %@", self.dataSource);
+    if (doubleIndex>0) {
         double12 = self.dataSource[doubleIndex];
         if (self.dataSource[doubleIndex]) {
             [self.dataSource insertObject:double12 atIndex:0];
         }
         [self.dataSource removeObjectAtIndex:doubleIndex + 1];
     }
+    NSLog(@",,,, 2 %@", self.dataSource);
+
     
     
 //    HomeBase *recom;

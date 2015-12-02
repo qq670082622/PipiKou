@@ -80,6 +80,7 @@
 //@property (nonatomic,copy) NSString *pasportInUseDayStr;
 //@property (nonatomic,copy) NSString *livingAddressStr;
 @property (nonatomic,copy) NSString *customerId;
+@property (nonatomic,copy) NSString *AppSkbUserID;
 //@property (nonatomic,strong) CustomModel *customMoel;
 
 - (IBAction)remond:(id)sender;

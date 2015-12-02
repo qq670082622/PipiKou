@@ -233,8 +233,15 @@
 }
 
 - (void)loadCustomerDetailData{
+    
+    MBProgressHUD *hudView = [MBProgressHUD showHUDAddedTo:[[UIApplication sharedApplication].delegate window] animated:YES];
+    hudView.labelText = @"加载中...";
+    [hudView show:YES];
+    
     NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+    NSString *appSkbUserID = [NSString stringWithFormat:@"%@", self.AppSkbUserID];
     [dic setObject:self.customerId forKey:@"CustomerID"];
+    [dic setObject:appSkbUserID forKey:@"AppSkbUserID"];
     
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomer" params:dic success:^(id json){
         NSLog(@"------管客户详情json is %@",json);
@@ -245,6 +252,8 @@
         [self setSubViews];
         NSLog(@".. %@  %@", self.dataArr, [self.dataArr[0]Name]);
         
+        hudView.labelText = @"加载成功...";
+        [hudView hide:YES afterDelay:0.4];
     } failure:^(NSError *error) {
         NSLog(@"-------管客户详情请求失败 error is %@",error);
     }];

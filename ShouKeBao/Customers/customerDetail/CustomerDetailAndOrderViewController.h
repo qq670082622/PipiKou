@@ -12,5 +12,6 @@
 @interface CustomerDetailAndOrderViewController : SKViewController
 @property (nonatomic, strong)Customers * customVC;
 @property (nonatomic, copy  )NSString * keyWords;
-@property (nonatomic, strong)CustomModel * model;
+//@property (nonatomic, strong)CustomModel * model;
+@property (nonatomic, copy)NSString *customerID;
 @end
