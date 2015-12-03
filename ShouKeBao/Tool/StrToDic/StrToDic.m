@@ -144,7 +144,6 @@ NSData *data = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWriti
         }
         
           }
-    NSLog(@"newDic is %@",newDic);
     return newDic;
 }
 

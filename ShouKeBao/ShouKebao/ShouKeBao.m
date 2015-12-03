@@ -1187,7 +1187,6 @@
 //        if (self.pushTime) {
 //            [self.pushTime setFireDate:[NSDate distantPast]];
 //        }
-
         if (![json[@"OrderList"] isKindOfClass:[NSNull class]]) {
             
 //            dispatch_queue_t q = dispatch_queue_create("homelist_q", DISPATCH_QUEUE_SERIAL);
@@ -1248,8 +1247,12 @@
             baseDouble.time = doubleModel.CreatedDate;
             baseDouble.model = doubleModel;
             baseDouble.idStr = doubleModel.LinkUrl;
-            [self.dataSource addObject:baseDouble];
-            
+//            if (![dic[@"BannerUrl"]isKindOfClass:[NSNull class]]) {
+//                [self.dataSource addObject:baseDouble];
+//            }
+//            if (![NSString stringIsEmpty:dic[@"AivityId"]]) {
+                [self.dataSource addObject:baseDouble];
+//            }
             
             
                 // 加载未查看的提醒
@@ -1422,16 +1425,10 @@
   //将今日推荐排在第二
     HomeBase *recom;
     int recomIndex = 0;
-    HomeBase *double12;
-    int doubleIndex = 0;
-    
     for (int i = 0 ; i<self.dataSource.count; i++) {
         HomeBase *base = self.dataSource[i];
         if ([base.model isKindOfClass:[Recommend class]]) {
             recomIndex = i;
-        }
-        if ([base.model isKindOfClass:[DoubleModel class]]) {
-            doubleIndex = i;
         }
     }
     if (recomIndex>1) {
@@ -1441,17 +1438,23 @@
         }
         [self.dataSource removeObjectAtIndex:recomIndex + 1];
     }
-    NSLog(@",,,, 1 %@", self.dataSource);
-    if (doubleIndex>0) {
+    
+    HomeBase *double12;
+    int doubleIndex = 0;
+    for (int i = 0 ; i<self.dataSource.count; i++) {
+        HomeBase *base = self.dataSource[i];
+        if ([base.model isKindOfClass:[DoubleModel class]]) {
+            doubleIndex = i;
+        }
+    }
+    if (doubleIndex>1) {
         double12 = self.dataSource[doubleIndex];
         if (self.dataSource[doubleIndex]) {
-            [self.dataSource insertObject:double12 atIndex:0];
+            [self.dataSource insertObject:double12 atIndex:1];
         }
         [self.dataSource removeObjectAtIndex:doubleIndex + 1];
     }
-    NSLog(@",,,, 2 %@", self.dataSource);
 
-    
     
 //    HomeBase *recom;
 //    int recomIndex = 0;
@@ -1468,7 +1471,7 @@
 //        }
 //        [self.dataSource removeObjectAtIndex:recomIndex + 1];
 //    }
-   
+
 }
 
 -(void)pushToStore

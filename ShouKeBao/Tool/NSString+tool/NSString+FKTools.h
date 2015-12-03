@@ -25,7 +25,10 @@
 
 
 
-
+//json字符串转字典；
 +(NSDictionary *)parseJSONStringToNSDictionary:(NSString *)JSONString;
+
+
++ (BOOL)stringIsEmpty:(id)str;
 
 @end

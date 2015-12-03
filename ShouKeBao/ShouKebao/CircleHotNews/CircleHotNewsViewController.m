@@ -218,10 +218,12 @@
 
 #pragma mark = 分享
 -(void)shareAction:(UIButton *)btn{
-
+    
     NSDictionary *shareDic = [NSDictionary dictionary];
     shareDic = [StrToDic dicCleanSpaceWithDict:[self.shareArr lastObject]];
-
+    if (!shareDic.count) {
+        return;
+    }
     //构造分享内容
     id<ISSContent> publishContent = [ShareSDK content:shareDic[@"Desc"]
                                        defaultContent:shareDic[@"Desc"]

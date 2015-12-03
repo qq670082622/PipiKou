@@ -85,5 +85,11 @@
 }
 
 
-
++(BOOL)stringIsEmpty:(id)str{
+    NSLog(@"%@", str);
+    if ([str isKindOfClass:[NSNull class]]||[str isEqualToString:@""]||!str) {
+        return YES;
+    }
+    return NO;
+}
 @end
