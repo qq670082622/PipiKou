@@ -450,6 +450,7 @@
     VC.customVC = self;
     VC.keyWords = self.searchK;
     VC.customerID = model.ID;
+    VC.appUserID = @"";
     NSLog(@"%@",         model);
     [self performSelector:@selector(deselect) withObject:nil afterDelay:0.5f];
     [self.navigationController pushViewController:VC animated:YES];

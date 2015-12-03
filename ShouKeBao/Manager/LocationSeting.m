@@ -98,7 +98,7 @@
         }
     }
     if (!isExit) {
-        NSMutableArray * tempArray = [LocationSeting defaultLocationSeting].customLocationInfoArray;
+        NSMutableArray * tempArray = [[LocationSeting defaultLocationSeting].customLocationInfoArray mutableCopy];
         [tempArray addObject:infoDic];
         [LocationSeting defaultLocationSeting].customLocationInfoArray = tempArray;
     }

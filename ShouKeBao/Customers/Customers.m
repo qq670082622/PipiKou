@@ -520,7 +520,7 @@
         VC.customVC = self;
         VC.keyWords = self.searchK;
         VC.customerID = model.ID;
-        
+        VC.appUserID = @"";
         
      [self.navigationController pushViewController:VC animated:YES];
     }else if (self.popTableview == tableView){
