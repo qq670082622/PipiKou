@@ -46,6 +46,7 @@
 #import "CustomHeaderAndNickName.h"
 #import "LocationSeting.h"
 #import "UserInfo.h"
+#import "CustomerDetailAndOrderViewController.h"
 @interface ChatViewController ()<UITableViewDataSource, UITableViewDelegate, UINavigationControllerDelegate, UIImagePickerControllerDelegate, SRRefreshDelegate, IChatManagerDelegate, DXChatBarMoreViewDelegate, DXMessageToolBarDelegate, LocationViewDelegate, EMCDDeviceManagerDelegate,EMCallManagerDelegate>
 {
     UIMenuController *_menuController;
@@ -743,8 +744,14 @@
 
 //头像被点击
 - (void)chatHeaderIconPressed:(MessageModel *)model{
-    UserInfoEditTableVC * UIETVC = [[UserInfoEditTableVC alloc]init];
-    [self.navigationController pushViewController:UIETVC animated:YES];
+    if (!model.isSender) {
+        CustomerDetailAndOrderViewController * VC = [[CustomerDetailAndOrderViewController  alloc]init];
+        VC.customerID = @"";
+        VC.appUserID = self.chatter;
+        [self.navigationController pushViewController:VC animated:YES];
+    }
+//    UserInfoEditTableVC * UIETVC = [[UserInfoEditTableVC alloc]init];
+//    [self.navigationController pushViewController:UIETVC animated:YES];
 }
 
 

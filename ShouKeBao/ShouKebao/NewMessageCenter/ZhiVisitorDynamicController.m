@@ -15,6 +15,8 @@
 #import "MJRefresh.h"
 #import "CustomDynamicModel.h"
 #import "NSString+FKTools.h"
+#import "ProductModal.h"
+#import "ProduceDetailViewController.h"
 #define pageSize @"10"
 //
 #define kScreenSize [UIScreen mainScreen].bounds.size
@@ -116,7 +118,7 @@
         NewCustomerCell * cell =[tableView dequeueReusableCellWithIdentifier:cellIdentifer forIndexPath:indexPath];
         cell.model = model;
         return cell;
-    }else if([model.DynamicType intValue] == 3){
+    }else if([model.DynamicType intValue] == 3||[model.DynamicType intValue] == 9){
         OpportunitykeywordCell * cell =[tableView dequeueReusableCellWithIdentifier:cellIdentifer forIndexPath:indexPath];
         cell.model = model;
         return cell;
@@ -140,7 +142,21 @@
     return _tableView;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    CustomDynamicModel * model = self.customDyamicArray[indexPath.section];
+    NSLog(@"%@", model.DynamicType);
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([model.DynamicType intValue] == 1||[model.DynamicType intValue] == 2){
+        
+    }else if([model.DynamicType intValue] == 3||[model.DynamicType intValue] == 9){
+    }else{
+        NSString * productUrl = model.ProductdetailModel.LinkUrl;
+        ProduceDetailViewController *detail = [[ProduceDetailViewController alloc] init];
+        NSLog(@"%@", productUrl);
+        detail.produceUrl = productUrl;
+        detail.shareInfo = model.ProductdetailModel.ShareInfo;
+        [self.navigationController pushViewController:detail animated:YES];
+    }
+
 }
 //动态类型
 //1直客绑定;2直客登录;-A
@@ -151,6 +167,8 @@
         return 60+[model.DynamicContent heigthWithsysFont:15 withWidth:kScreenSize.width - 50];
     }else if([model.DynamicType intValue] == 1||[model.DynamicType intValue] == 3){
         return 85+[model.DynamicContent heigthWithsysFont:15 withWidth:kScreenSize.width - 50];
+    }else if([model.DynamicType intValue] == 9){
+        return 100+[model.DynamicContent heigthWithsysFont:15 withWidth:kScreenSize.width - 50];
     }else{
         return 200.;
     }
@@ -158,7 +176,7 @@
 - (NSString *)cellIdentifierWithDynamicType:(NSString *)DynamicType{
     if ([DynamicType intValue] == 1||[DynamicType intValue] == 2){
         return @"NewCustomerCell";
-    }else if([DynamicType intValue] == 3){
+    }else if([DynamicType intValue] == 3||[DynamicType intValue] == 9){
         return @"OpportunitykeywordCell";
     }else{
         return @"OpprotunityFreqCell";

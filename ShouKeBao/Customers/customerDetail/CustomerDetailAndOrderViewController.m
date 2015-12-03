@@ -123,6 +123,9 @@
 //        _detailVC.pictureArray = self.model.PictureList;
 //        NSLog(@"%@", _detailVC.pictureArray);
         _detailVC.customerId = self.customerID;
+        _detailVC.AppSkbUserID = self.appUserID;
+        NSLog(@"%@---%@", _detailVC.customerId, self.appUserID);
+
 //            _detailVC.delegate = self.customVC;
 //            _detailVC.keyWordss = self.keyWords;
     }

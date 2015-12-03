@@ -14,4 +14,6 @@
 @property (nonatomic, copy  )NSString * keyWords;
 //@property (nonatomic, strong)CustomModel * model;
 @property (nonatomic, copy)NSString *customerID;
+@property (nonatomic, copy)NSString *appUserID;
+
 @end

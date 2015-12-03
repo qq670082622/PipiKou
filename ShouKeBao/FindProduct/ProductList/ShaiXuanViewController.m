@@ -432,6 +432,8 @@
 -(void)replacereplace{
     self.Slider.lowerValue = self.Slider.minimumValue;
     self.Slider.upperValue = self.Slider.maximumValue;
+    lowPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger )(self.Slider.minimumValue)];
+    tallPlabel.text = [NSString stringWithFormat:@"¥%ld",(NSInteger )(self.Slider.maximumValue)];
     lowPlabel.frame = CGRectMake(20, 240, 50, 30);
     tallPlabel.frame = CGRectMake(kScreenSize.width-50, 240, 50, 30);
 }
