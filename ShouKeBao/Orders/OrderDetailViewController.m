@@ -271,10 +271,14 @@
     if (result.count) {
         //获取筛选出来的字符串
         NSString * resultStr = [urlStr substringWithRange:((NSTextCheckingResult *)result[0]).range];
-        NSMutableString * params = [NSMutableString stringWithString:resultStr];
-        [params stringByReplacingOccurrencesOfString:@"OpenCustomIM(" withString:@""];
-        [params stringByReplacingOccurrencesOfString:@")" withString:@""];
+        NSString * params = [NSString string];
+        params = [resultStr stringByReplacingOccurrencesOfString:@"OpenCustomIM(" withString:@""];
+        NSArray *strArray = [params componentsSeparatedByString:@")"];
+        //       params = [params stringByReplacingOccurrencesOfString:@")" withString:@""];
+        params = strArray[0];
+        NSLog(@"%@--%@---%@",urlStr,resultStr, params);
         NSDictionary * dic = [NSString parseJSONStringToNSDictionary:params];
+
         /*
          {
          "MsgType": "OrderDetail",
