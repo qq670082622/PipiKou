@@ -122,7 +122,7 @@
 - (void)setDoubleModel:(DoubleModel *)doubleModel{
     _doubleModel = doubleModel;
  
-    self.iconView.image = [UIImage imageNamed:@"double12"];
+    [self.iconView sd_setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@", _doubleModel.IconUrl]]];
     self.titleLab.text = [NSString stringWithFormat:@"%@", _doubleModel.FirstTitle];
     
     NSDate *createDate = [NSDate dateWithTimeIntervalInMilliSecondSince1970:[_doubleModel.CreatedDate doubleValue]];

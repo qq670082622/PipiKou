@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "BaseModel.h"
 @interface DoubleModel : BaseModel
+@property (nonatomic, copy)NSString *IconUrl;//小图标
 @property (nonatomic, copy)NSString *FirstTitle;//一级标题
 @property (nonatomic, copy)NSString *CreatedDate;//发布时间
 @property (nonatomic, copy)NSString *SecondTitle;//二级标题

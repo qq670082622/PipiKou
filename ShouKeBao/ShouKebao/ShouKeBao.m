@@ -1239,27 +1239,26 @@
                 [self.dataSource addObject:base];
             }
             
+            
+            // 加载未查看的提醒
+            [self showOldRemind];
+            // 排序
+            [self sortDataSource];
+            
+
             //     加载双12专题数据
             NSLog(@"..... %@", json[@"ThematicActivity"]);
             NSDictionary *dic = json[@"ThematicActivity"];
-            DoubleModel *doubleModel = [DoubleModel modalWithDict:dic];
-            HomeBase *baseDouble = [[HomeBase alloc]init];
-            baseDouble.time = doubleModel.CreatedDate;
-            baseDouble.model = doubleModel;
-            baseDouble.idStr = doubleModel.LinkUrl;
-//            if (![dic[@"BannerUrl"]isKindOfClass:[NSNull class]]) {
+            
+            if (![NSString stringIsEmpty:dic[@"AivityId"]]) {
+                DoubleModel *doubleModel = [DoubleModel modalWithDict:dic];
+                HomeBase *baseDouble = [[HomeBase alloc]init];
+                baseDouble.time = doubleModel.CreatedDate;
+                baseDouble.model = doubleModel;
+                baseDouble.idStr = doubleModel.LinkUrl;
 //                [self.dataSource addObject:baseDouble];
-//            }
-//            if (![NSString stringIsEmpty:dic[@"AivityId"]]) {
-                [self.dataSource addObject:baseDouble];
-//            }
-            
-            
-                // 加载未查看的提醒
-                [self showOldRemind];
-                
-                // 排序
-                [self sortDataSource];
+                [self.dataSource insertObject:baseDouble atIndex:1];
+            }
 
                 // 清理数据 看有没有隐藏的 有就不要显示
                 [self cleanDataSource];
@@ -1419,10 +1418,8 @@
     // 排序好的数组替换数据源数组
     [self.dataSource removeAllObjects];
     [self.dataSource addObjectsFromArray:tmp];
-    //           1  2  3  4  5
-    //           1  4  2  3  4  5
     
-  //将今日推荐排在第二
+  //先确定今日推荐排到位置
     HomeBase *recom;
     int recomIndex = 0;
     for (int i = 0 ; i<self.dataSource.count; i++) {
@@ -1439,40 +1436,8 @@
         [self.dataSource removeObjectAtIndex:recomIndex + 1];
     }
     
-    HomeBase *double12;
-    int doubleIndex = 0;
-    for (int i = 0 ; i<self.dataSource.count; i++) {
-        HomeBase *base = self.dataSource[i];
-        if ([base.model isKindOfClass:[DoubleModel class]]) {
-            doubleIndex = i;
-        }
-    }
-    if (doubleIndex>1) {
-        double12 = self.dataSource[doubleIndex];
-        if (self.dataSource[doubleIndex]) {
-            [self.dataSource insertObject:double12 atIndex:1];
-        }
-        [self.dataSource removeObjectAtIndex:doubleIndex + 1];
-    }
-
     
-//    HomeBase *recom;
-//    int recomIndex = 0;
-//    for (int i = 0 ; i<self.dataSource.count; i++) {
-//        HomeBase *base = self.dataSource[i];
-//        if ([base.model isKindOfClass:[Recommend class]]) {
-//            recomIndex = i;
-//        }
-//    }
-//    if (recomIndex>1) {
-//        recom = self.dataSource[recomIndex];
-//        if (self.dataSource[recomIndex]) {
-//            [self.dataSource insertObject:recom atIndex:1];
-//        }
-//        [self.dataSource removeObjectAtIndex:recomIndex + 1];
-//    }
-
-}
+  }
 
 -(void)pushToStore
 {
@@ -2128,6 +2093,7 @@
     [self showOldRemind];
     
     [self sortDataSource];
+    
     [self.tableView reloadData];
 }
 

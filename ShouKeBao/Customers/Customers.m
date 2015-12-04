@@ -161,11 +161,12 @@
     [self initPull];
 }
 -(void)toRefereshCustomers{
-    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
+//    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
+    
     [self.table headerBeginRefreshing];
 }
 -(void)referesh{
-    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
+//    [[NSUserDefaults standardUserDefaults]setObject:@"2" forKey:@"sortType"];
     [self.table headerBeginRefreshing];
 }
 -(void)refreshSKBMessgaeCount:(int)count{
@@ -429,10 +430,8 @@
 
     [IWHttpTool WMpostWithURL:@"/Customer/GetCustomerList" params:dic success:^(id json){
         NSLog(@"------管客户json is %@-------",json);
-        
+
         self.InvitationInfo = json[@"InvitationInfo"];
-        NSLog(@"....InvitationInfo = %@", self.InvitationInfo);
-        
         if (self.isRefresh) {
             [self.dataArr removeAllObjects];
             [self.Array removeAllObjects];
@@ -467,6 +466,8 @@
                 }
             }
         }
+          NSLog(@"dadta = %@ %@ %@",self.newsBindingCustomArr, self.hadBindingCustomArr, self.otherCustomArr);
+        
         if (self.newsBindingCustomArr.count && !self.isDownLoad) {
             [self.dataArr addObject:self.newsBindingCustomArr];
         }
@@ -474,11 +475,12 @@
         if (self.hadBindingCustomArr.count && !self.isDownLoad) {
             [self.dataArr addObject:self.hadBindingCustomArr];
         }
-
         if (self.otherCustomArr.count && !self.isDownLoad) {
             [self.dataArr addObject:self.otherCustomArr];
         }
-       
+        
+        NSLog(@"dadta = %@", self.dataArr);
+        
         if (self.dataArr.count==0) {
             self.imageViewWhenIsNull.hidden = NO;
             self.CustomerCounts.hidden = YES;
@@ -490,7 +492,6 @@
             self.CustomerCounts.text = [NSString stringWithFormat:@"%ld位联系人", self.peopleN];
         }
    
-        NSLog(@"dadta = %@", self.dataArr);
         [self.table reloadData];
         [self.table headerEndRefreshing];
         [self.table footerEndRefreshing];
@@ -527,6 +528,8 @@
 //刷新数据
         self.customerType = indexPath.row;
         self.isRefresh = YES;
+        self.isDownLoad = NO;
+        self.pageIndex = 1;
         [self loadDataSource];
         [self closePopTableView];
     }
